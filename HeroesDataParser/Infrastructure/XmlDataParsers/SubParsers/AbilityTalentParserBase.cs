@@ -503,10 +503,7 @@ public class AbilityTalentParserBase : ParserBase
     {
         StormElement? stormElement = HeroesData.GetCompleteStormElement("Effect", id);
         if (stormElement is null)
-        {
-            Logger.LogInformation("Effect element {Id} not found", id);
             return;
-        }
 
         if (stormElement.DataValues.TryGetElementDataAt("SpawnUnit", out StormElementData? spawnUnitData))
         {
