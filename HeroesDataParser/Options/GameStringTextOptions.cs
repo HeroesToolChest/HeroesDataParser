@@ -1,8 +1,8 @@
 ﻿namespace HeroesDataParser.Options;
 
-public class DescriptionTextOptions
+public class GameStringTextOptions
 {
-    public DescriptionType Type { get; set; } = DescriptionType.RawDescription;
+    public GameStringTextType Type { get; set; } = GameStringTextType.RawText;
 
     public bool ReplaceFontStyles { get; set; }
 

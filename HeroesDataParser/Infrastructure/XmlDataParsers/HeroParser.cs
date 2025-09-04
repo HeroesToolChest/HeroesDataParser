@@ -7,8 +7,8 @@ public class HeroParser : CollectionParserBase<Hero>
 
     private readonly string _roleGameStringText;
 
-    public HeroParser(ILogger<HeroParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IUnitParser unitParser, ITalentParser talentParser, ITooltipDescriptionService tooltipDescriptionService)
-        : base(logger, options, heroesXmlLoaderService, tooltipDescriptionService)
+    public HeroParser(ILogger<HeroParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IUnitParser unitParser, ITalentParser talentParser, IGameStringTextService gameStringTextService)
+        : base(logger, options, heroesXmlLoaderService, gameStringTextService)
     {
         _unitParser = unitParser;
         _talentParser = talentParser;
@@ -37,42 +37,42 @@ public class HeroParser : CollectionParserBase<Hero>
         StormElementData elementData = stormElement.DataValues;
 
         if (elementData.TryGetElementDataAt("difficulty", out StormElementData? difficultyData))
-            collectionObject.Difficulty = TooltipDescriptionService.GetTooltipDescriptionFromId(GameStringConstants.DifficultyGameString.Replace(GameStringConstants.IdPlaceHolder, difficultyData.Value.GetString()));
+            collectionObject.Difficulty = TooltipDescriptionService.GetGameStringTextFromId(GameStringConstants.DifficultyGameString.Replace(GameStringConstants.IdPlaceHolder, difficultyData.Value.GetString()));
 
         SetFranchiseProperty(collectionObject, stormElement);
 
         if (elementData.TryGetElementDataAt("title", out StormElementData? titleData))
-            collectionObject.Title = TooltipDescriptionService.GetTooltipDescriptionFromId(titleData.Value.GetString());
+            collectionObject.Title = TooltipDescriptionService.GetGameStringTextFromId(titleData.Value.GetString());
 
         if (elementData.TryGetElementDataAt("melee", out StormElementData? meleeData) && meleeData.Value.TryGetInt32(out int meleeValue) && meleeValue == 1)
             collectionObject.IsMelee = true;
 
         if (elementData.TryGetElementDataAt("AlternateNameSearchText", out StormElementData? alternateNameSearchTextData))
-            collectionObject.SearchText = TooltipDescriptionService.GetTooltipDescriptionFromId(alternateNameSearchTextData.Value.GetString());
+            collectionObject.SearchText = TooltipDescriptionService.GetGameStringTextFromId(alternateNameSearchTextData.Value.GetString());
 
         if (elementData.TryGetElementDataAt("AdditionalSearchText", out StormElementData? additionalSearchTextData))
         {
-            if (collectionObject.SearchText is not null && !string.IsNullOrWhiteSpace(collectionObject.SearchText.RawDescription))
+            if (collectionObject.SearchText is not null && !string.IsNullOrWhiteSpace(collectionObject.SearchText.RawText))
             {
-                string currentSearchText = collectionObject.SearchText.RawDescription;
+                string currentSearchText = collectionObject.SearchText.RawText;
 
                 if (currentSearchText[^1] != ' ')
                     currentSearchText += ' ';
 
                 currentSearchText += TooltipDescriptionService.GetStormGameString(additionalSearchTextData.Value.GetString());
 
-                collectionObject.SearchText = TooltipDescriptionService.GetTooltipDescriptionFromGameString(currentSearchText.TrimEnd());
+                collectionObject.SearchText = TooltipDescriptionService.GetGameStringTextFromGameString(currentSearchText.TrimEnd());
             }
             else
             {
-                collectionObject.SearchText = TooltipDescriptionService.GetTooltipDescriptionFromId(additionalSearchTextData.Value.GetString().TrimEnd());
+                collectionObject.SearchText = TooltipDescriptionService.GetGameStringTextFromId(additionalSearchTextData.Value.GetString().TrimEnd());
             }
         }
 
         SetRoleProperty(collectionObject, stormElement);
 
         if (elementData.TryGetElementDataAt("ExpandedRole", out StormElementData? expandedRoleData))
-            collectionObject.ExpandedRole = TooltipDescriptionService.GetTooltipDescriptionFromId(_roleGameStringText.Replace(GameStringConstants.IdPlaceHolder, expandedRoleData.Value.GetString()));
+            collectionObject.ExpandedRole = TooltipDescriptionService.GetGameStringTextFromId(_roleGameStringText.Replace(GameStringConstants.IdPlaceHolder, expandedRoleData.Value.GetString()));
 
         if (elementData.TryGetElementDataAt("ratings", out StormElementData? ratingsData))
         {
@@ -235,7 +235,7 @@ public class HeroParser : CollectionParserBase<Hero>
     {
         base.SetValidatedProperties(collectionObject);
 
-        collectionObject.Difficulty ??= TooltipDescriptionService.GetTooltipDescriptionFromId(GameStringConstants.DifficultyGameString.Replace(GameStringConstants.IdPlaceHolder, "Easy"));
+        collectionObject.Difficulty ??= TooltipDescriptionService.GetGameStringTextFromId(GameStringConstants.DifficultyGameString.Replace(GameStringConstants.IdPlaceHolder, "Easy"));
     }
 
     private static void SetTalentUpgradeLinkIds(Hero collectionObject)
@@ -384,7 +384,7 @@ public class HeroParser : CollectionParserBase<Hero>
         {
             if (stormElement.DataValues.TryGetElementDataAt(index, out StormElementData? roleData))
             {
-                TooltipDescription? roleTooltipDescription = TooltipDescriptionService.GetTooltipDescriptionFromId(GameStringConstants.HeroRoleGameString.Replace(GameStringConstants.IdPlaceHolder, roleData.Value.GetString()));
+                GameStringText? roleTooltipDescription = TooltipDescriptionService.GetGameStringTextFromId(GameStringConstants.HeroRoleGameString.Replace(GameStringConstants.IdPlaceHolder, roleData.Value.GetString()));
                 if (roleTooltipDescription is not null)
                     collectionObject.Roles.Add(roleTooltipDescription);
             }

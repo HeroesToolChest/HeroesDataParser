@@ -7,8 +7,8 @@ public abstract class CollectionParserBase<T> : DataParser<T>
     // https://web.archive.org/web/20140525185554/http://www.heroesofthestorm.com/en-us/news/13290651/the-heroes-of-the-storm-technical-alpha-is-now-live
     private readonly DateOnly _technicalAlphaReleaseDate = new(2014, 3, 13);
 
-    public CollectionParserBase(ILogger logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
-        : base(logger, options, heroesXmlLoaderService, tooltipDescriptionService)
+    public CollectionParserBase(ILogger logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IGameStringTextService gameStringTextService)
+        : base(logger, options, heroesXmlLoaderService, gameStringTextService)
     {
     }
 
@@ -58,7 +58,7 @@ public abstract class CollectionParserBase<T> : DataParser<T>
         SetNameProperty(collectionObject, stormElement);
 
         if (stormElement.DataValues.TryGetElementDataAt("sortname", out StormElementData? sortNameData))
-            collectionObject.SortName = TooltipDescriptionService.GetTooltipDescriptionFromId(sortNameData.Value.GetString());
+            collectionObject.SortName = TooltipDescriptionService.GetGameStringTextFromId(sortNameData.Value.GetString());
 
         SetHyperlinkIdProperty(collectionObject, stormElement);
 

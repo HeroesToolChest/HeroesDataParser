@@ -8,15 +8,15 @@ public abstract class ParserBase
     private readonly RootOptions _options;
     private readonly HeroesXmlLoader _heroesXmlLoader;
     private readonly HeroesData _heroesData;
-    private readonly ITooltipDescriptionService _tooltipDescriptionService;
+    private readonly IGameStringTextService _gameStringTextService;
 
-    protected ParserBase(ILogger logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
+    protected ParserBase(ILogger logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IGameStringTextService gameStringTextService)
     {
         _logger = logger;
         _options = options.Value;
         _heroesXmlLoader = heroesXmlLoaderService.HeroesXmlLoader;
         _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
-        _tooltipDescriptionService = tooltipDescriptionService;
+        _gameStringTextService = gameStringTextService;
     }
 
     protected ILogger Logger => _logger;
@@ -27,7 +27,7 @@ public abstract class ParserBase
 
     protected HeroesData HeroesData => _heroesData;
 
-    protected ITooltipDescriptionService TooltipDescriptionService => _tooltipDescriptionService;
+    protected IGameStringTextService TooltipDescriptionService => _gameStringTextService;
 
     protected ImageFilePath? GetImageFilePath(StormElementData data)
     {

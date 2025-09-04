@@ -4,35 +4,35 @@
 public class TalentParserTests
 {
     private readonly ILogger<TalentParser> _talentLogger;
-    private readonly ILogger<TooltipDescriptionService> _tooltipLogger;
+    private readonly ILogger<GameStringTextService> _tooltipLogger;
     private readonly IOptions<RootOptions> _options;
     private readonly IAbilityParser _abilityParser = Substitute.For<IAbilityParser>();
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
-    private readonly ITooltipDescriptionService _tooltipDescriptionService;
+    private readonly IGameStringTextService _gameStringTextService;
 
     private readonly HeroesXmlLoader _heroesXmlLoader;
 
     public TalentParserTests()
     {
         _talentLogger = Substitute.For<ILogger<TalentParser>>();
-        _tooltipLogger = Substitute.For<ILogger<TooltipDescriptionService>>();
+        _tooltipLogger = Substitute.For<ILogger<GameStringTextService>>();
         _options = Substitute.For<IOptions<RootOptions>>();
         _abilityParser = Substitute.For<IAbilityParser>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
-        _tooltipDescriptionService = Substitute.For<ITooltipDescriptionService>();
+        _gameStringTextService = Substitute.For<IGameStringTextService>();
 
         _heroesXmlLoader = TestHeroesXmlLoader.GetArrangedHeroesXmlLoader();
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
         _options.Value.Returns(new RootOptions()
         {
-            DescriptionText = new DescriptionTextOptions()
+            GameStringText = new GameStringTextOptions()
             {
-                Type = DescriptionType.RawDescription,
+                Type = GameStringTextType.RawText,
             },
         });
 
         // allow the real instance
-        _tooltipDescriptionService = new TooltipDescriptionService(_tooltipLogger, _options, _heroesXmlLoaderService);
+        _gameStringTextService = new GameStringTextService(_tooltipLogger, _options, _heroesXmlLoaderService);
     }
 
     [TestMethod]
@@ -55,7 +55,7 @@ public class TalentParserTests
 
         hero.HeroUnits.Add(abathurSymbioteUnit.Id, abathurSymbioteUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -68,10 +68,10 @@ public class TalentParserTests
         talent.Icon.Should().Be("storm_ui_icon_abathur_spikeburst.png");
         talent.IconPath!.FilePath.Should().NotBeNullOrWhiteSpace();
         talent.IconPath!.MpqFilePath.Should().BeNull();
-        talent.Name!.RawDescription.Should().Be("Pressurized Glands");
+        talent.Name!.RawText.Should().Be("Pressurized Glands");
         talent.Column.Should().Be(1);
-        talent.ShortText!.RawDescription.Should().Be("Increases Spike Burst range and decreases cooldown");
-        talent.FullText!.RawDescription.Should().Be("Increases the range of Symbiote's Spike Burst by");
+        talent.ShortText!.RawText.Should().Be("Increases Spike Burst range and decreases cooldown");
+        talent.FullText!.RawText.Should().Be("Increases the range of Symbiote's Spike Burst by");
         talent.Charges.Should().BeNull();
         talent.CooldownText.Should().BeNull();
         talent.EnergyText.Should().BeNull();
@@ -99,7 +99,7 @@ public class TalentParserTests
             AbilityType = AbilityType.W,
         });
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -110,10 +110,10 @@ public class TalentParserTests
         talent.TalentElementId.Should().Be("AbathurMasteryEnvenomedNestsToxicNest");
         talent.ButtonElementId.Should().Be("AbathurToxicNestEnvenomedNestTalent");
         talent.Icon.Should().Be("storm_ui_icon_abathur_toxicnest.png");
-        talent.Name!.RawDescription.Should().Be("Envenomed Nest");
+        talent.Name!.RawText.Should().Be("Envenomed Nest");
         talent.Column.Should().Be(2);
-        talent.ShortText!.RawDescription.Should().Be("Toxic Nests deal more damage, reduce Armor");
-        talent.FullText!.RawDescription.Should().Be("Toxic Nests deal");
+        talent.ShortText!.RawText.Should().Be("Toxic Nests deal more damage, reduce Armor");
+        talent.FullText!.RawText.Should().Be("Toxic Nests deal");
         talent.Charges.Should().BeNull();
         talent.CooldownText.Should().BeNull();
         talent.EnergyText.Should().BeNull();
@@ -134,7 +134,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -144,10 +144,10 @@ public class TalentParserTests
         talent.TalentElementId.Should().Be("AbathurCombatStyleSurvivalInstincts");
         talent.ButtonElementId.Should().Be("AbathurLocustStrainSurvivalInstinctsTalent");
         talent.Icon.Should().Be("storm_ui_icon_abathur_spawnlocust.png");
-        talent.Name!.RawDescription.Should().Be("Survival Instincts");
+        talent.Name!.RawText.Should().Be("Survival Instincts");
         talent.Column.Should().Be(4);
-        talent.ShortText!.RawDescription.Should().Be("Increases Locust Health and damage");
-        talent.FullText!.RawDescription.Should().Be("Increases Locust's Health by");
+        talent.ShortText!.RawText.Should().Be("Increases Locust Health and damage");
+        talent.FullText!.RawText.Should().Be("Increases Locust's Health by");
         talent.Charges.Should().BeNull();
         talent.CooldownText.Should().BeNull();
         talent.EnergyText.Should().BeNull();
@@ -176,7 +176,7 @@ public class TalentParserTests
             AbilityType = AbilityType.Heroic,
         });
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -187,7 +187,7 @@ public class TalentParserTests
         talent.ButtonElementId.Should().Be("AbathurUltimateEvolution");
         talent.Column.Should().Be(1);
         talent.Charges.Should().BeNull();
-        talent.CooldownText!.RawDescription.Should().Be("Cooldown: 70 seconds");
+        talent.CooldownText!.RawText.Should().Be("Cooldown: 70 seconds");
         talent.EnergyText.Should().BeNull();
         talent.LifeText.Should().BeNull();
         talent.SummonedUnitIds.Should().BeEmpty();
@@ -208,7 +208,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -231,7 +231,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -240,13 +240,13 @@ public class TalentParserTests
         talent.Should().NotBeNull();
         talent.TalentElementId.Should().Be("GenericTalentCalldownMULE");
         talent.ButtonElementId.Should().Be("GenericCalldownMule");
-        talent.Name!.RawDescription.Should().Be("Calldown: MULE");
+        talent.Name!.RawText.Should().Be("Calldown: MULE");
         talent.Icon.Should().Be("storm_ui_icon_talent_mule.png");
         talent.Column.Should().Be(3);
         talent.Charges.Should().BeNull();
-        talent.CooldownText!.RawDescription.Should().Be("Cooldown: 60 seconds");
-        talent.ShortText!.RawDescription.Should().Be("Activate to heal Structures");
-        talent.FullText!.RawDescription.Should().Be("Activate to calldown a Mule that repairs Structures");
+        talent.CooldownText!.RawText.Should().Be("Cooldown: 60 seconds");
+        talent.ShortText!.RawText.Should().Be("Activate to heal Structures");
+        talent.FullText!.RawText.Should().Be("Activate to calldown a Mule that repairs Structures");
         talent.EnergyText.Should().BeNull();
         talent.LifeText.Should().BeNull();
         talent.SummonedUnitIds.Should().BeEmpty();
@@ -273,7 +273,7 @@ public class TalentParserTests
             AbilityType = AbilityType.Trait,
         });
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -285,7 +285,7 @@ public class TalentParserTests
         talent.Icon.Should().Be("storm_ui_icon_muradin_secondwind.png");
         talent.Column.Should().Be(3);
         talent.Charges.Should().BeNull();
-        talent.CooldownText!.RawDescription.Should().Be("Cooldown: 60 seconds");
+        talent.CooldownText!.RawText.Should().Be("Cooldown: 60 seconds");
         talent.EnergyText.Should().BeNull();
         talent.LifeText.Should().BeNull();
         talent.SummonedUnitIds.Should().BeEmpty();
@@ -312,7 +312,7 @@ public class TalentParserTests
             AbilityType = AbilityType.E,
         });
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -341,7 +341,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -369,7 +369,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -397,7 +397,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -424,7 +424,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -441,7 +441,7 @@ public class TalentParserTests
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level1);
         talent.Charges.Should().BeNull();
-        talent.CooldownText!.RawDescription.Should().Be("Cooldown: 15 seconds");
+        talent.CooldownText!.RawText.Should().Be("Cooldown: 15 seconds");
         talent.TooltipAppendersTalentElementIds.Should().HaveCount(2).And
             .Contain(["GarroshBodyCheckBruteForce", "GarroshArmorUpInnerRage"]);
         talent.UpgradesAbilityType.Should().BeFalse();
@@ -467,7 +467,7 @@ public class TalentParserTests
             },
             new TalentLinkId("GarroshArmorUpBodyCheck", "GarroshArmorUpBodyCheck", AbilityType.Active, TalentTier.Level1));
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -489,7 +489,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -505,7 +505,7 @@ public class TalentParserTests
         talent.Tier.Should().Be(TalentTier.Level7);
         talent.ToggleCooldown.Should().BeNull();
         talent.Charges.Should().BeNull();
-        talent.CooldownText!.RawDescription.Should().Be("Charge Cooldown: 30 seconds");
+        talent.CooldownText!.RawText.Should().Be("Charge Cooldown: 30 seconds");
     }
 
     [TestMethod]
@@ -519,7 +519,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -555,7 +555,7 @@ public class TalentParserTests
             AbilityType = AbilityType.Z,
         });
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -590,7 +590,7 @@ public class TalentParserTests
             ButtonElementId = AbilityTalentParserBase.NoButtonElementId,
             AbilityType = AbilityType.Hidden,
         });
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -625,7 +625,7 @@ public class TalentParserTests
             AbilityType = AbilityType.Active,
         });
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -641,7 +641,7 @@ public class TalentParserTests
         talent.Tier.Should().Be(TalentTier.Level1);
         talent.ToggleCooldown.Should().BeNull();
         talent.Charges.Should().BeNull();
-        talent.CooldownText!.RawDescription.Should().Be("Cooldown: 50 seconds");
+        talent.CooldownText!.RawText.Should().Be("Cooldown: 50 seconds");
         talent.UpgradesAbilityType.Should().BeTrue();
     }
 
@@ -662,7 +662,7 @@ public class TalentParserTests
             AbilityType = AbilityType.Active,
         });
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -684,7 +684,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         Ability ragnarosCatchingFileAbility = new()
         {
@@ -719,7 +719,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         Ability junkratDirtyTricksterAbility = new()
         {
@@ -755,7 +755,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         Ability anubarakScarabHostToggleLegionOfBeetlesOnAbility = new()
         {
@@ -804,7 +804,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         Ability barbarianShotofFuryAbility = new()
         {
@@ -836,7 +836,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -864,7 +864,7 @@ public class TalentParserTests
             AbilityType = AbilityType.Q,
         });
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -886,7 +886,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -907,7 +907,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -929,7 +929,7 @@ public class TalentParserTests
 
         Hero hero = new(heroUnit);
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
@@ -957,7 +957,7 @@ public class TalentParserTests
             AbilityType = AbilityType.E,
         });
 
-        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _tooltipDescriptionService);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);

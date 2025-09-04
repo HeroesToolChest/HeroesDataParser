@@ -2,8 +2,8 @@
 
 public class AbilityParser : AbilityTalentParserBase, IAbilityParser
 {
-    public AbilityParser(ILogger<AbilityParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
-        : base(logger, options, heroesXmlLoaderService, tooltipDescriptionService)
+    public AbilityParser(ILogger<AbilityParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IGameStringTextService gameStringTextService)
+        : base(logger, options, heroesXmlLoaderService, gameStringTextService)
     {
     }
 

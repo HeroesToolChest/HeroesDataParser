@@ -5,8 +5,8 @@ namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 public abstract class DataParser<T> : ParserBase, IDataParser<T>
     where T : ElementObject, IElementObject
 {
-    public DataParser(ILogger logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
-        : base(logger, options, heroesXmlLoaderService, tooltipDescriptionService)
+    public DataParser(ILogger logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IGameStringTextService gameStringTextService)
+        : base(logger, options, heroesXmlLoaderService, gameStringTextService)
     {
     }
 
@@ -49,7 +49,7 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
         if (elementObject is IName nameObject)
         {
             if (stormElement.DataValues.TryGetElementDataAt("name", out StormElementData? nameData))
-                nameObject.Name = TooltipDescriptionService.GetTooltipDescriptionFromId(nameData.Value.GetString());
+                nameObject.Name = TooltipDescriptionService.GetGameStringTextFromId(nameData.Value.GetString());
         }
     }
 
@@ -85,7 +85,7 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
         if (elementObject is IDescription descriptionObject)
         {
             if (stormElement.DataValues.TryGetElementDataAt("description", out StormElementData? descriptionData))
-                descriptionObject.Description = TooltipDescriptionService.GetTooltipDescriptionFromId(descriptionData.Value.GetString());
+                descriptionObject.Description = TooltipDescriptionService.GetGameStringTextFromId(descriptionData.Value.GetString());
         }
     }
 
@@ -94,7 +94,7 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
         if (elementObject is IInfoText infoTextObject)
         {
             if (stormElement.DataValues.TryGetElementDataAt("infotext", out StormElementData? infoTextData))
-                infoTextObject.InfoText = TooltipDescriptionService.GetTooltipDescriptionFromId(infoTextData.Value.GetString());
+                infoTextObject.InfoText = TooltipDescriptionService.GetGameStringTextFromId(infoTextData.Value.GetString());
         }
     }
 }

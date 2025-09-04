@@ -1,4 +1,5 @@
-﻿global using Heroes.Element.JsonConverters;
+﻿global using Heroes.Element.Comparers;
+global using Heroes.Element.JsonConverters;
 global using Heroes.Element.JsonTypeInfoResolvers;
 global using Heroes.Element.Models;
 global using Heroes.Element.Models.AbilityTalents;

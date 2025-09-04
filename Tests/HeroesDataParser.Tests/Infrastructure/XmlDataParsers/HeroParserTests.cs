@@ -4,37 +4,37 @@
 public class HeroParserTests
 {
     private readonly ILogger<HeroParser> _logger;
-    private readonly ILogger<TooltipDescriptionService> _tooltipLogger;
+    private readonly ILogger<GameStringTextService> _tooltipLogger;
     private readonly IOptions<RootOptions> _options;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly IUnitParser _unitParser;
     private readonly ITalentParser _talentParser;
-    private readonly ITooltipDescriptionService _tooltipDescriptionService;
+    private readonly IGameStringTextService _gameStringTextService;
 
     private readonly HeroesXmlLoader _heroesXmlLoader;
 
     public HeroParserTests()
     {
         _logger = Substitute.For<ILogger<HeroParser>>();
-        _tooltipLogger = Substitute.For<ILogger<TooltipDescriptionService>>();
+        _tooltipLogger = Substitute.For<ILogger<GameStringTextService>>();
         _options = Substitute.For<IOptions<RootOptions>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
         _unitParser = Substitute.For<IUnitParser>();
         _talentParser = Substitute.For<ITalentParser>();
-        _tooltipDescriptionService = Substitute.For<ITooltipDescriptionService>();
+        _gameStringTextService = Substitute.For<IGameStringTextService>();
 
         _heroesXmlLoader = TestHeroesXmlLoader.GetArrangedHeroesXmlLoader();
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
         _options.Value.Returns(new RootOptions()
         {
-            DescriptionText = new DescriptionTextOptions()
+            GameStringText = new GameStringTextOptions()
             {
-                Type = DescriptionType.RawDescription,
+                Type = GameStringTextType.RawText,
             },
         });
 
         // allow the real instance
-        _tooltipDescriptionService = new TooltipDescriptionService(_tooltipLogger, _options, _heroesXmlLoaderService);
+        _gameStringTextService = new GameStringTextService(_tooltipLogger, _options, _heroesXmlLoaderService);
     }
 
     [TestMethod]
@@ -44,7 +44,7 @@ public class HeroParserTests
         string heroUnit = "HpTESTHero";
         string unitId = "HeroHpTESTHero";
 
-        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _gameStringTextService);
 
         Hero hero = new(heroUnit)
         {
@@ -64,7 +64,7 @@ public class HeroParserTests
         // arrange
         string heroUnit = "HpTESTHero";
 
-        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _gameStringTextService);
 
         // act
         Hero? hero = heroParser.Parse(heroUnit);
@@ -90,7 +90,7 @@ public class HeroParserTests
             },
         });
 
-        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _gameStringTextService);
 
         Hero hero = new(heroUnit)
         {
@@ -111,7 +111,7 @@ public class HeroParserTests
         // arrange
         string heroUnit = "Abathur";
 
-        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _gameStringTextService);
 
         _unitParser.Parse("AbathurSymbiote").Returns(new Unit("AbathurSymbiote"));
 
@@ -120,7 +120,7 @@ public class HeroParserTests
 
         // assert
         hero.Should().NotBeNull();
-        hero.Name!.RawDescription.Should().Be("Abathur");
+        hero.Name!.RawText.Should().Be("Abathur");
         hero.SortName.Should().BeNull();
         hero.HyperlinkId.Should().Be("Abathur");
         hero.AttributeId.Should().Be("Abat");
@@ -129,15 +129,15 @@ public class HeroParserTests
         hero.ReleaseDate.Should().Be(new DateOnly(2014, 3, 13));
         hero.Category.Should().BeNull();
         hero.Event.Should().BeNull();
-        hero.SearchText!.RawDescription.Should().Be("Abathur Zerg Swarm HotS Heart of the Swarm StarCraft II 2 SC2 Star2 Starcraft2 SC slug Double Soak");
-        hero.Description!.RawDescription.Should().Be("A unique Hero that can manipulate the battle from anywhere on the map.");
+        hero.SearchText!.RawText.Should().Be("Abathur Zerg Swarm HotS Heart of the Swarm StarCraft II 2 SC2 Star2 Starcraft2 SC slug Double Soak");
+        hero.Description!.RawText.Should().Be("A unique Hero that can manipulate the battle from anywhere on the map.");
         hero.UnitId.Should().Be("HeroAbathur");
-        hero.Title!.RawDescription.Should().Be("Evolution Master");
-        hero.Difficulty!.RawDescription.Should().Be("Very Hard");
+        hero.Title!.RawText.Should().Be("Evolution Master");
+        hero.Difficulty!.RawText.Should().Be("Very Hard");
         hero.IsMelee.Should().BeTrue();
         hero.DefaultMountId.Should().BeNull();
-        hero.Roles.Should().ContainSingle().And.Contain(new TooltipDescription("Specialist"));
-        hero.ExpandedRole!.RawDescription.Should().Be("Support");
+        hero.Roles.Should().ContainSingle().And.Contain(new GameStringText("Specialist"));
+        hero.ExpandedRole!.RawText.Should().Be("Support");
         hero.Ratings.Damage.Should().Be(3);
         hero.Ratings.Complexity.Should().Be(9);
         hero.Ratings.Survivability.Should().Be(1);
@@ -161,7 +161,7 @@ public class HeroParserTests
                 fourth => fourth.Should().Be("AbathurBase_VoiceLine04"),
                 fifth => fifth.Should().Be("AbathurBase_VoiceLine05"));
         hero.MountCategoryIds.Should().BeEmpty();
-        hero.InfoText!.RawDescription.Should().Be("Abathur, the Evolution Master of Kerrigan's Swarm, works ceaselessly...");
+        hero.InfoText!.RawText.Should().Be("Abathur, the Evolution Master of Kerrigan's Swarm, works ceaselessly...");
         hero.HeroUnits.Should().ContainSingle();
         hero.HeroPortraits.DraftScreen.Should().Be("storm_ui_glues_draft_portrait_abathur.png");
         hero.HeroPortraits.DraftScreenPath!.FilePath.Should().StartWith("Assets").And.EndWith("storm_ui_glues_draft_portrait_Abathur.dds");
@@ -189,7 +189,7 @@ public class HeroParserTests
         // arrange
         string heroUnit = "Barbarian";
 
-        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _gameStringTextService);
 
         // act
         Hero? hero = heroParser.Parse(heroUnit);
@@ -205,7 +205,7 @@ public class HeroParserTests
         // arrange
         string heroUnit = "Abathur";
 
-        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _gameStringTextService);
 
         // unit part for abathur hero
         _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
@@ -231,7 +231,7 @@ public class HeroParserTests
 
         // assert
         hero.Should().NotBeNull();
-        hero.Description!.RawDescription.Should().Be("A unique Hero that can manipulate the battle from anywhere on the map.");
+        hero.Description!.RawText.Should().Be("A unique Hero that can manipulate the battle from anywhere on the map.");
         hero.HeroPortraits.MiniMapIcon.Should().Be("minimap_icon.png");
         hero.HeroPortraits.MiniMapIconPath!.FilePath.Should().StartWith("Assets").And.EndWith("minimap_icon.dds");
         hero.HeroPortraits.TargetInfoPanel.Should().Be("target_info_panel.png");
@@ -244,7 +244,7 @@ public class HeroParserTests
         // arrange
         string heroUnit = "Abathur";
 
-        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _gameStringTextService);
 
         Ability abathurSymbioteAbility = new()
         {
@@ -330,7 +330,7 @@ public class HeroParserTests
         // arrange
         string heroUnit = "Alarak";
 
-        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _gameStringTextService);
 
         // unit part for alarak hero
         _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
@@ -389,7 +389,7 @@ public class HeroParserTests
         // arrange
         string heroUnit = "Alarak";
 
-        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _gameStringTextService);
 
         Ability sadismAbility = new()
         {
@@ -472,7 +472,7 @@ public class HeroParserTests
         // arrange
         string heroUnit = "Deathwing";
 
-        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _gameStringTextService);
 
         Ability deathwingIncinerateAbility = new()
         {
@@ -535,7 +535,7 @@ public class HeroParserTests
         // arrange
         string heroUnit = "Guldan";
 
-        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _gameStringTextService);
 
         Ability guldanLifeTapAbility = new()
         {
@@ -610,7 +610,7 @@ public class HeroParserTests
         // arrange
         string heroUnit = "MalGanis";
 
-        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _gameStringTextService);
 
         Ability malGanisFelClawsFirstAbility = new()
         {
@@ -665,7 +665,7 @@ public class HeroParserTests
         // arrange
         string heroUnit = "Ragnaros";
 
-        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _gameStringTextService);
 
         Ability ragnarosCatchingFireAbility = new()
         {
@@ -709,7 +709,7 @@ public class HeroParserTests
         // arrange
         string heroUnit = "Garrosh";
 
-        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _tooltipDescriptionService);
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _gameStringTextService);
 
         Ability garroshArmorUpBodyCheckAbility = new()
         {

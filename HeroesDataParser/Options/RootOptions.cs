@@ -14,7 +14,7 @@ public class RootOptions
 
     public bool LocalizedText { get; set; }
 
-    public DescriptionTextOptions DescriptionText { get; set; } = new();
+    public GameStringTextOptions GameStringText { get; set; } = new();
 
     // set/overridden during runtime
     public StormLocale CurrentLocale { get; set; } = StormLocale.ENUS;

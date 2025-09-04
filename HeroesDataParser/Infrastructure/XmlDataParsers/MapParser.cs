@@ -7,8 +7,8 @@ public class MapParser : DataParser<Map>
 {
     private readonly ILogger<MapParser> _logger;
 
-    public MapParser(ILogger<MapParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
-        : base(logger, options, heroesXmlLoaderService, tooltipDescriptionService)
+    public MapParser(ILogger<MapParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IGameStringTextService gameStringTextService)
+        : base(logger, options, heroesXmlLoaderService, gameStringTextService)
     {
         _logger = logger;
     }
@@ -71,7 +71,7 @@ public class MapParser : DataParser<Map>
     private static void SetMapName(Map map, StormMap stormMap)
     {
         if (stormMap.NameByLocale.TryGetValue(StormLocale.ENUS, out string? name))
-            map.Name = new TooltipDescription(name, StormLocale.ENUS);
+            map.Name = new GameStringText(name, StormLocale.ENUS);
     }
 
     private void SetDataFromXmlFiles(StormElement stormElement, Map map, StormMap stormMap)
@@ -225,7 +225,7 @@ public class MapParser : DataParser<Map>
         }
     }
 
-    private TooltipDescription? GetTitleText(XElement mapObjectiveElement)
+    private GameStringText? GetTitleText(XElement mapObjectiveElement)
     {
         XElement? objectiveTitleElement = mapObjectiveElement.Elements("Frame")
             .Where(x => x.Attribute("name")?.Value.Equals("ObjectiveTitle", StringComparison.OrdinalIgnoreCase) is true)
@@ -236,7 +236,7 @@ public class MapParser : DataParser<Map>
         return GetResolvedTextPath(titleValue);
     }
 
-    private TooltipDescription? GetDescriptionText(XElement mapObjectiveElement)
+    private GameStringText? GetDescriptionText(XElement mapObjectiveElement)
     {
         XElement? objectiveDescriptionElement = mapObjectiveElement.Elements("Frame")
             .Where(x => x.Attribute("name")?.Value.Equals("ObjectiveDescription", StringComparison.OrdinalIgnoreCase) is true)
@@ -258,7 +258,7 @@ public class MapParser : DataParser<Map>
         return assetPath;
     }
 
-    private TooltipDescription? GetResolvedTextPath(string? assetPath)
+    private GameStringText? GetResolvedTextPath(string? assetPath)
     {
         if (string.IsNullOrEmpty(assetPath))
             return null;
@@ -267,9 +267,9 @@ public class MapParser : DataParser<Map>
         {
             string? value = HeroesData.GetStormAssetString(assetPath[1..])?.Value;
             if (value is null)
-                return TooltipDescriptionService.GetTooltipDescriptionFromId(assetPath[1..]);
+                return TooltipDescriptionService.GetGameStringTextFromId(assetPath[1..]);
         }
 
-        return new TooltipDescription(assetPath);
+        return new GameStringText(assetPath);
     }
 }

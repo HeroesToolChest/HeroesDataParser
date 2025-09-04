@@ -4,8 +4,8 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
 {
     private readonly IAbilityParser _abilityParser;
 
-    public TalentParser(ILogger<TalentParser> logger, IOptions<RootOptions> options, IAbilityParser abilityParser, IHeroesXmlLoaderService heroesXmlLoaderService, ITooltipDescriptionService tooltipDescriptionService)
-        : base(logger, options, heroesXmlLoaderService, tooltipDescriptionService)
+    public TalentParser(ILogger<TalentParser> logger, IOptions<RootOptions> options, IAbilityParser abilityParser, IHeroesXmlLoaderService heroesXmlLoaderService, IGameStringTextService gameStringTextService)
+        : base(logger, options, heroesXmlLoaderService, gameStringTextService)
     {
         _abilityParser = abilityParser;
     }

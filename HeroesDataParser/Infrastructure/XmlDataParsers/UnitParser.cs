@@ -8,8 +8,8 @@ public class UnitParser : DataParser<Unit>, IUnitParser
 
     private readonly IAbilityParser _abilityParser;
 
-    public UnitParser(ILogger<UnitParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IAbilityParser abilityParser, ITooltipDescriptionService tooltipDescriptionService)
-        : base(logger, options, heroesXmlLoaderService, tooltipDescriptionService)
+    public UnitParser(ILogger<UnitParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IAbilityParser abilityParser, IGameStringTextService gameStringTextService)
+        : base(logger, options, heroesXmlLoaderService, gameStringTextService)
     {
         _abilityParser = abilityParser;
     }
@@ -96,11 +96,11 @@ public class UnitParser : DataParser<Unit>, IUnitParser
         if (actorElement.DataValues.TryGetElementDataAt("VitalNames", out StormElementData? vitalNamesData))
         {
             if (vitalNamesData.TryGetElementDataAt("Life", out StormElementData? lifeData))
-                elementObject.Life.LifeType = TooltipDescriptionService.GetTooltipDescriptionFromId(lifeData.Value.GetString());
+                elementObject.Life.LifeType = TooltipDescriptionService.GetGameStringTextFromId(lifeData.Value.GetString());
             if (vitalNamesData.TryGetElementDataAt("Shields", out StormElementData? shieldsData))
-                elementObject.Shield.ShieldType = TooltipDescriptionService.GetTooltipDescriptionFromId(shieldsData.Value.GetString());
+                elementObject.Shield.ShieldType = TooltipDescriptionService.GetGameStringTextFromId(shieldsData.Value.GetString());
             if (vitalNamesData.TryGetElementDataAt("Energy", out StormElementData? energyData))
-                elementObject.Energy.EnergyType = TooltipDescriptionService.GetTooltipDescriptionFromId(energyData.Value.GetString());
+                elementObject.Energy.EnergyType = TooltipDescriptionService.GetGameStringTextFromId(energyData.Value.GetString());
         }
 
         if (actorElement.DataValues.TryGetElementDataAt("GroupIcon", out StormElementData? groupIconData) && groupIconData.TryGetElementDataAt("Image", out StormElementData? groupImageData))
@@ -235,18 +235,6 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                 elementObject.Gender = genderResult;
             else
                 Logger.LogWarning("Unknown gender {Gender}", genderValue);
-        }
-
-        if (elementData.TryGetElementDataAt("FlagArray", out StormElementData? flagArrayData))
-        {
-            foreach (string flagArray in flagArrayData.GetElementDataIndexes())
-            {
-                int value = flagArrayData.GetElementDataAt(flagArray).Value.GetInt();
-                if (value == 1)
-                    elementObject.FlagArrayItems.Add(flagArray);
-                else if (value == 0)
-                    elementObject.FlagArrayItems.Remove(flagArray);
-            }
         }
     }
 

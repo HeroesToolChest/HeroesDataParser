@@ -4,35 +4,35 @@
 public class UnitParserTests
 {
     private readonly ILogger<UnitParser> _logger;
-    private readonly ILogger<TooltipDescriptionService> _tooltipLogger;
+    private readonly ILogger<GameStringTextService> _tooltipLogger;
     private readonly IOptions<RootOptions> _options;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly IAbilityParser _abilityParser;
-    private readonly ITooltipDescriptionService _tooltipDescriptionService;
+    private readonly IGameStringTextService _gameStringTextService;
 
     private readonly HeroesXmlLoader _heroesXmlLoader;
 
     public UnitParserTests()
     {
         _logger = Substitute.For<ILogger<UnitParser>>();
-        _tooltipLogger = Substitute.For<ILogger<TooltipDescriptionService>>();
+        _tooltipLogger = Substitute.For<ILogger<GameStringTextService>>();
         _options = Substitute.For<IOptions<RootOptions>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
         _abilityParser = Substitute.For<IAbilityParser>();
-        _tooltipDescriptionService = Substitute.For<ITooltipDescriptionService>();
+        _gameStringTextService = Substitute.For<IGameStringTextService>();
 
         _heroesXmlLoader = TestHeroesXmlLoader.GetArrangedHeroesXmlLoader();
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
         _options.Value.Returns(new RootOptions()
         {
-            DescriptionText = new DescriptionTextOptions()
+            GameStringText = new GameStringTextOptions()
             {
-                Type = DescriptionType.RawDescription,
+                Type = GameStringTextType.RawText,
             },
         });
 
         // allow the real instance
-        _tooltipDescriptionService = new TooltipDescriptionService(_tooltipLogger, _options, _heroesXmlLoaderService);
+        _gameStringTextService = new GameStringTextService(_tooltipLogger, _options, _heroesXmlLoaderService);
     }
 
     [TestMethod]
@@ -41,7 +41,7 @@ public class UnitParserTests
         // arrange
         string unitId = "HeroAbathur";
 
-        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _gameStringTextService);
 
         Ability abathurUltimateEvolutionAbility = new()
         {
@@ -75,7 +75,7 @@ public class UnitParserTests
         // assert
         unit.Should().NotBeNull();
         unit.Id.Should().Be("HeroAbathur");
-        unit.Name!.RawDescription.Should().Be("Abathur");
+        unit.Name!.RawText.Should().Be("Abathur");
         unit.Description.Should().BeNull();
         unit.Gender.Should().Be(Gender.Neutral);
         unit.DamageType.Should().BeNull();
@@ -92,7 +92,7 @@ public class UnitParserTests
         unit.Life.LifeMaxScaling.Should().Be(0.04);
         unit.Life.LifeRegenerationRate.Should().Be(1.4257);
         unit.Life.LifeRegenerationRateScaling.Should().Be(0.04);
-        unit.Life.LifeType!.RawDescription.Should().Be("Health");
+        unit.Life.LifeType!.RawText.Should().Be("Health");
         unit.Energy.EnergyMax.Should().Be(0);
         unit.Energy.EnergyRegenerationRate.Should().Be(0);
         unit.Energy.EnergyType.Should().BeNull();
@@ -100,7 +100,7 @@ public class UnitParserTests
         unit.Shield.ShieldMaxScaling.Should().Be(0);
         unit.Shield.ShieldRegenerationRate.Should().Be(0);
         unit.Shield.ShieldRegenerationRateScaling.Should().Be(0);
-        unit.Shield.ShieldType!.RawDescription.Should().Be("Shields");
+        unit.Shield.ShieldType!.RawText.Should().Be("Shields");
         unit.Armor.Should().BeEmpty();
         unit.UnitPortraits.MiniMapIcon.Should().Be("storm_ui_minimapicon_heros_infestor.png");
         unit.UnitPortraits.MiniMapIconPath!.FilePath.Should().StartWith("Assets").And.EndWith("storm_ui_minimapicon_heros_infestor.dds");
@@ -133,7 +133,7 @@ public class UnitParserTests
         // arrange
         string unitId = "HeroFenix";
 
-        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _gameStringTextService);
 
         // act
         Unit? unit = unitParser.Parse(unitId);
@@ -144,7 +144,7 @@ public class UnitParserTests
         unit.Shield.ShieldMax.Should().Be(760);
         unit.Shield.ShieldRegenerationRate.Should().Be(76);
         unit.Shield.ShieldRegenerationDelay.Should().Be(5);
-        unit.Shield.ShieldType!.RawDescription.Should().Be("Shields");
+        unit.Shield.ShieldType!.RawText.Should().Be("Shields");
     }
 
     [TestMethod]
@@ -153,7 +153,7 @@ public class UnitParserTests
         // arrange
         string unitId = "AbathurSymbiote";
 
-        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _gameStringTextService);
 
         // act
         Unit? unit = unitParser.Parse(unitId);
@@ -161,8 +161,8 @@ public class UnitParserTests
         // assert
         unit.Should().NotBeNull();
         unit.Id.Should().Be("AbathurSymbiote");
-        unit.Name!.RawDescription.Should().Be("Symbiote");
-        unit.Description!.RawDescription.Should().Be("Spawn and attach a Symbiote...");
+        unit.Name!.RawText.Should().Be("Symbiote");
+        unit.Description!.RawText.Should().Be("Spawn and attach a Symbiote...");
         unit.Attributes.Should().HaveCount(6);
 
         _abilityParser.Received(10).GetAbility(Arg.Any<StormElementData>());
@@ -175,7 +175,7 @@ public class UnitParserTests
         // arrange
         string unitId = "HeroAbathur";
 
-        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _gameStringTextService);
 
         _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[25]")).Returns(new Ability()
         {
@@ -208,7 +208,7 @@ public class UnitParserTests
         // arrange
         string unitId = "HeroAlarak";
 
-        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _gameStringTextService);
 
         _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[32]")).Returns(new Ability()
         {
@@ -242,7 +242,7 @@ public class UnitParserTests
         // arrange
         string unitId = "HeroAmazon";
 
-        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService)
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _gameStringTextService)
         {
             AllowHiddenAbilities = false,
         };
@@ -263,7 +263,7 @@ public class UnitParserTests
         // arrange
         string unitId = "HeroAmazon";
 
-        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService)
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _gameStringTextService)
         {
             AllowSpecialAbilities = allow,
         };
@@ -313,7 +313,7 @@ public class UnitParserTests
         // arrange
         string unitId = "HeroHpTESTHero";
 
-        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService)
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _gameStringTextService)
         {
             AllowHiddenAbilities = allow,
         };
@@ -341,7 +341,7 @@ public class UnitParserTests
         // arrange
         string unitId = "HeroCho";
 
-        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _gameStringTextService);
 
         // act
         Unit? unit = unitParser.Parse(unitId);
@@ -373,7 +373,7 @@ public class UnitParserTests
         // arrange
         string unitId = "HeroTracer";
 
-        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _gameStringTextService);
 
         // act
         Unit? unit = unitParser.Parse(unitId);
@@ -394,7 +394,7 @@ public class UnitParserTests
         // arrange
         string unitId = "HeroDeathwing";
 
-        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _gameStringTextService);
 
         _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons[0]")).Returns(new Ability()
         {
@@ -420,7 +420,7 @@ public class UnitParserTests
         // arrange
         string unitId = "HeroDeathwing";
 
-        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _gameStringTextService);
 
         Ability deathwingLavaBurstAbility = new()
         {
@@ -466,7 +466,7 @@ public class UnitParserTests
         // arrange
         string unitId = "HeroDVaMech";
 
-        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _gameStringTextService);
 
         Ability dVaMechBunnyHopHeroicOff = new()
         {
@@ -503,7 +503,7 @@ public class UnitParserTests
         // arrange
         string unitId = "HeroFenix";
 
-        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _gameStringTextService);
 
         Ability fenixShieldCapacitorPassiveAbility = new()
         {
@@ -540,7 +540,7 @@ public class UnitParserTests
         // arrange
         string unitId = "HeroNecromancer";
 
-        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _gameStringTextService);
 
         Ability necromancerBoneArmorBehaviorAbility = new()
         {
@@ -587,7 +587,7 @@ public class UnitParserTests
         // arrange
         string unitId = "HeroSamuro";
 
-        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _tooltipDescriptionService);
+        UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _gameStringTextService);
 
         _abilityParser.GetUnitButtonAbility("SamuroSelectSamuroPrime").Returns(new Ability()
         {

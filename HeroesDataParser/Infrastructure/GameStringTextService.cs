@@ -1,21 +1,21 @@
 ﻿namespace HeroesDataParser.Infrastructure;
 
-public class TooltipDescriptionService : ITooltipDescriptionService
+public class GameStringTextService : IGameStringTextService
 {
-    private readonly ILogger<TooltipDescriptionService> _logger;
+    private readonly ILogger<GameStringTextService> _logger;
     private readonly RootOptions _options;
     private readonly HeroesData _heroesData;
 
     private readonly bool _shouldExtractFontValues;
 
-    public TooltipDescriptionService(ILogger<TooltipDescriptionService> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService)
+    public GameStringTextService(ILogger<GameStringTextService> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService)
     {
         _logger = logger;
         _options = options.Value;
         _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
 
-        _shouldExtractFontValues = _options.DescriptionText.ReplaceFontStyles &&
-            _options.DescriptionText is { Type: DescriptionType.RawDescription or DescriptionType.ColoredText or DescriptionType.ColoredTextWithScaling };
+        _shouldExtractFontValues = _options.GameStringText.ReplaceFontStyles &&
+            _options.GameStringText is { Type: GameStringTextType.RawText or GameStringTextType.ColoredText or GameStringTextType.ColoredTextWithScaling };
     }
 
     public Dictionary<string, string> ValByStyleConstantName { get; } = [];
@@ -24,15 +24,15 @@ public class TooltipDescriptionService : ITooltipDescriptionService
 
     public bool ShouldExtractFontValues => _shouldExtractFontValues;
 
-    public TooltipDescription GetTooltipDescription(string text)
+    public GameStringText GetGameStringText(string text)
     {
-        TooltipDescription tooltipDescription = new(text, gameStringLocale: _options.CurrentLocale, extractFontValues: ShouldExtractFontValues);
+        GameStringText tooltipDescription = new(text, gameStringLocale: _options.CurrentLocale, extractFontValues: ShouldExtractFontValues);
         ExtractFontValues(tooltipDescription);
 
         return tooltipDescription;
     }
 
-    public TooltipDescription? GetTooltipDescriptionFromId(string id)
+    public GameStringText? GetGameStringTextFromId(string id)
     {
         StormGameString? stormGameString = _heroesData.GetStormGameString(id);
 
@@ -41,7 +41,7 @@ public class TooltipDescriptionService : ITooltipDescriptionService
 
         try
         {
-            return ParseTooltipDescription(stormGameString);
+            return ParseGameStringText(stormGameString);
         }
         catch (Exception ex)
         {
@@ -50,11 +50,11 @@ public class TooltipDescriptionService : ITooltipDescriptionService
         }
     }
 
-    public TooltipDescription? GetTooltipDescriptionFromGameString(StormGameString stormGameString)
+    public GameStringText? GetGameStringTextFromStormGameString(StormGameString stormGameString)
     {
         try
         {
-            return ParseTooltipDescription(stormGameString);
+            return ParseGameStringText(stormGameString);
         }
         catch (Exception ex)
         {
@@ -63,11 +63,11 @@ public class TooltipDescriptionService : ITooltipDescriptionService
         }
     }
 
-    public TooltipDescription? GetTooltipDescriptionFromGameString(string gameString)
+    public GameStringText? GetGameStringTextFromGameString(string gameString)
     {
         try
         {
-            return ParseTooltipDescription(gameString);
+            return ParseGameStringText(gameString);
         }
         catch (Exception ex)
         {
@@ -86,24 +86,24 @@ public class TooltipDescriptionService : ITooltipDescriptionService
             return stormGameString.Value;
     }
 
-    private TooltipDescription ParseTooltipDescription(StormGameString stormGameString)
+    private GameStringText ParseGameStringText(StormGameString stormGameString)
     {
-        TooltipDescription tooltipDescription = _heroesData.ParseGameString(stormGameString, gameStringLocale: _options.CurrentLocale, extractFontValues: ShouldExtractFontValues);
+        GameStringText tooltipDescription = _heroesData.ParseGameString(stormGameString, gameStringLocale: _options.CurrentLocale, extractFontValues: ShouldExtractFontValues);
         ExtractFontValues(tooltipDescription);
 
         return tooltipDescription;
     }
 
-    private TooltipDescription ParseTooltipDescription(string gamestring)
+    private GameStringText ParseGameStringText(string gamestring)
     {
-        TooltipDescription tooltipDescription = _heroesData.ParseGameString(gamestring, gameStringLocale: _options.CurrentLocale, extractFontValues: ShouldExtractFontValues);
+        GameStringText tooltipDescription = _heroesData.ParseGameString(gamestring, gameStringLocale: _options.CurrentLocale, extractFontValues: ShouldExtractFontValues);
         ExtractFontValues(tooltipDescription);
 
         return tooltipDescription;
     }
 
     // extract the font values out and save them so we don't have to perform the "lookup" from heroesdata every time
-    private void ExtractFontValues(TooltipDescription tooltipDescription)
+    private void ExtractFontValues(GameStringText tooltipDescription)
     {
         if (tooltipDescription.IsFontValuesExtracted)
         {
@@ -113,7 +113,7 @@ public class TooltipDescriptionService : ITooltipDescriptionService
             {
                 if (ValByStyleConstantName.TryGetValue(item, out string? existingValue))
                 {
-                    tooltipDescription.AddFontValueReplacement(item, existingValue, FontTagType.Constant, _options.DescriptionText.PreserveFont.PreserveFontStyleConstantVars);
+                    tooltipDescription.AddFontValueReplacement(item, existingValue, FontTagType.Constant, _options.GameStringText.PreserveFont.PreserveFontStyleConstantVars);
                     continue;
                 }
 
@@ -123,7 +123,7 @@ public class TooltipDescriptionService : ITooltipDescriptionService
 
                 ValByStyleConstantName[item] = styleConstantElement.Val;
 
-                tooltipDescription.AddFontValueReplacement(item, styleConstantElement.Val, FontTagType.Constant, _options.DescriptionText.PreserveFont.PreserveFontStyleConstantVars);
+                tooltipDescription.AddFontValueReplacement(item, styleConstantElement.Val, FontTagType.Constant, _options.GameStringText.PreserveFont.PreserveFontStyleConstantVars);
             }
 
             List<string> fontStyleValues = [.. tooltipDescription.FontStyleValues];
@@ -132,7 +132,7 @@ public class TooltipDescriptionService : ITooltipDescriptionService
             {
                 if (ValByStyleName.TryGetValue(item, out string? existingValue))
                 {
-                    tooltipDescription.AddFontValueReplacement(item, existingValue, FontTagType.Style, _options.DescriptionText.PreserveFont.PreserveFontStyleVars);
+                    tooltipDescription.AddFontValueReplacement(item, existingValue, FontTagType.Style, _options.GameStringText.PreserveFont.PreserveFontStyleVars);
                     continue;
                 }
 
@@ -150,7 +150,7 @@ public class TooltipDescriptionService : ITooltipDescriptionService
                 else
                     ValByStyleName[item] = styleConstantElement.Val;
 
-                tooltipDescription.AddFontValueReplacement(item, ValByStyleName[item], FontTagType.Style, _options.DescriptionText.PreserveFont.PreserveFontStyleVars);
+                tooltipDescription.AddFontValueReplacement(item, ValByStyleName[item], FontTagType.Style, _options.GameStringText.PreserveFont.PreserveFontStyleVars);
             }
         }
     }

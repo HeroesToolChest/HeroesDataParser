@@ -1,4 +1,5 @@
-﻿using HeroesDataParser.JsonConverters;
+﻿using Heroes.Element.Models.Meta;
+using HeroesDataParser.JsonConverters;
 
 namespace HeroesDataParser.Infrastructure;
 
@@ -10,18 +11,18 @@ public class JsonFileWriterService : IJsonFileWriterService
     private readonly RootOptions _options;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly HeroesData _heroesData;
-    private readonly ITooltipDescriptionService _tooltipDescriptionService;
+    private readonly IGameStringTextService _gameStringTextService;
 
     public JsonFileWriterService(
         ILogger<JsonFileWriterService> logger,
         IOptions<RootOptions> options,
         IHeroesXmlLoaderService heroesXmlLoaderService,
-        ITooltipDescriptionService tooltipDescriptionService)
+        IGameStringTextService gameStringTextService)
     {
         _logger = logger;
         _options = options.Value;
         _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
-        _tooltipDescriptionService = tooltipDescriptionService;
+        _gameStringTextService = gameStringTextService;
 
         _jsonSerializerOptions = new JsonSerializerOptions()
         {
@@ -36,7 +37,7 @@ public class JsonFileWriterService : IJsonFileWriterService
                 new LinkIdConverter(),
                 new AbilityLinkIdConverter(),
                 new TalentLinkIdConverter(),
-                new TooltipDescriptionWriteConverter(_options.DescriptionText),
+                new GameStringTextWriteConverter(_options.GameStringText),
             },
             TypeInfoResolver = new HeroesElementResolver()
             {
@@ -117,13 +118,33 @@ public class JsonFileWriterService : IJsonFileWriterService
 
         Directory.CreateDirectory(fullOutputDirectory);
 
-        string fileName = $"{typeof(TElement).Name}data_{_heroesData.Build ?? 0}_{_options.CurrentLocale}.json".ToLowerInvariant();
+        string dataName = $"{typeof(TElement).Name}data".ToLowerInvariant();
+        string fileName = $"{dataName}_{_heroesData.Build ?? 0}_{_options.CurrentLocale}.json".ToLowerInvariant();
         string filePath = Path.Join(fullOutputDirectory, fileName);
 
         _logger.LogInformation("Writing to {FilePath}", filePath);
 
+        RootElement<TElement> rootElement = new()
+        {
+            Meta =
+            {
+                DataType = dataName,
+                IsLocalizedText = _options.LocalizedText,
+                // TODO Version
+                DescriptionText = _options.LocalizedText ? null : new()
+                {
+                    Locale = _options.CurrentLocale,
+                    GameStringTextType = _options.GameStringText.Type,
+                    ReplaceFontStyles = _options.GameStringText.ReplaceFontStyles,
+                    PreserveFontStyleConstantVars = _options.GameStringText.PreserveFont.PreserveFontStyleConstantVars,
+                    PreserveFontStyleVars = _options.GameStringText.PreserveFont.PreserveFontStyleVars,
+                },
+            },
+            Items = new SortedDictionary<string, TElement>(elementsById, StringComparer.Ordinal),
+        };
+
         await using FileStream fileStream = File.Create(filePath);
-        await JsonSerializer.SerializeAsync(fileStream, elementsById, _jsonSerializerOptions);
+        await JsonSerializer.SerializeAsync(fileStream, rootElement, _jsonSerializerOptions);
 
         AnsiConsole.Write("Created json file ");
         AnsiConsole.Write(new TextPath(Path.Join(innerDirectory, fileName))
