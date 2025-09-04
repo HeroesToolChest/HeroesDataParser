@@ -96,11 +96,15 @@
           "NovaHoloClone",
           "RexxarMisha",
           "MedicMedivacDropship",
-          "FirebatBunkerDropBunkerUnit"
+          "FirebatBunkerDropBunkerUnit",
+          "BaleogsGravestone",
+          "EriksGravestone",
+          "LostVikingsGravestone",
+          "OlafsGravestone"
         ],
         "Regex": [
-          // viking gravestones
-          ".*Parent$Gravestone"
+          // starts with hero but excludes with test in name
+          "^Hero(?!.*test)"
         ]
       }
     },
