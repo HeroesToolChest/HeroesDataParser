@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Heroes.Element\Heroes.Element\Heroes.Element.csproj" />
     <ProjectReference Include="..\..\HeroesDataParser\HeroesDataParser.csproj" />
   </ItemGroup>
 
