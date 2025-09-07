@@ -469,6 +469,10 @@ namespace HeroesData.Parser.GameStrings
             {
                 value = _gameData.GetValueFromAttribute(value);
             }
+            else if (value.StartsWith("-$", StringComparison.InvariantCulture))
+            {
+                value = "-" + _gameData.GetValueFromAttribute(value[1..]);
+            }
 
             if (scalingParts.Count == 3)
                 scaling = GetScalingInfo(scalingParts[0], scalingParts[1], scalingParts[2]);

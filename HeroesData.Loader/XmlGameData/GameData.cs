@@ -592,6 +592,9 @@ namespace HeroesData.Loader.XmlGameData
                         string firstValue = string.Empty;
 
                         bool isNegated = false;
+                        bool isMax = false;
+                        bool isMin = false;
+
                         if (attributeValue.StartsWith("negate", StringComparison.OrdinalIgnoreCase))
                         {
                             isNegated = true;
@@ -600,6 +603,24 @@ namespace HeroesData.Loader.XmlGameData
                                 return $"-{GetValueFromAttribute(valueToBeNegated)}";
 
                             ProcessAttributeValue(valueToBeNegated, characterStack, sb, ref secondValue, ref firstValue);
+                        }
+                        else if (attributeValue.StartsWith("max", StringComparison.OrdinalIgnoreCase))
+                        {
+                            isMax = true;
+                            string maxValue = attributeValue[4..^1];   // removed max( and )
+                            if (maxValue.StartsWith('$'))
+                                return GetValueFromAttribute(maxValue);
+
+                            ProcessAttributeValue(maxValue, characterStack, sb, ref secondValue, ref firstValue);
+                        }
+                        else if (attributeValue.StartsWith("min", StringComparison.OrdinalIgnoreCase))
+                        {
+                            isMin = true;
+                            string minValue = attributeValue[4..^1];   // removed max( and )
+                            if (minValue.StartsWith('$'))
+                                return GetValueFromAttribute(minValue);
+
+                            ProcessAttributeValue(minValue, characterStack, sb, ref secondValue, ref firstValue);
                         }
                         else
                         {
@@ -613,7 +634,21 @@ namespace HeroesData.Loader.XmlGameData
                         }
 
                         if (isNegated)
+                        {
                             return $"-{sb}";
+                        }
+                        else if (isMax)
+                        {
+                            string twoParam = sb.ToString();
+                            string[] twoParams = twoParam.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                            return Math.Max(double.Parse(twoParams[0]), double.Parse(twoParams[1])).ToString();
+                        }
+                        else if (isMin)
+                        {
+                            string twoParam = sb.ToString();
+                            string[] twoParams = twoParam.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                            return Math.Min(double.Parse(twoParams[0]), double.Parse(twoParams[1])).ToString();
+                        }
 
                         return sb.ToString();
                     }
