@@ -289,6 +289,9 @@ dotnet_diagnostic.SA1518.severity = none
 # SA1600: Elements should be documented
 dotnet_diagnostic.SA1600.severity = none
 
+# SA1601: Partial elements should be documented
+dotnet_diagnostic.SA1601.severity = none
+
 # SA1602: Enumeration items should be documented
 dotnet_diagnostic.SA1602.severity = none
 
@@ -297,4 +300,6 @@ dotnet_diagnostic.SA1633.severity = none
 
 # SX1309: Field names should begin with underscore
 dotnet_diagnostic.SX1309.severity = warning
+
+
 
