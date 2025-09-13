@@ -1,5 +1,4 @@
-﻿global using Heroes.Element.Comparers;
-global using Heroes.Element.JsonConverters;
+﻿global using Heroes.Element.JsonConverters;
 global using Heroes.Element.JsonTypeInfoResolvers;
 global using Heroes.Element.Models;
 global using Heroes.Element.Models.AbilityTalents;
@@ -10,6 +9,7 @@ global using Heroes.XmlData;
 global using Heroes.XmlData.StormData;
 global using HeroesDataParser;
 global using HeroesDataParser.Core;
+global using HeroesDataParser.Core.Models;
 global using HeroesDataParser.Core.Models.ConfigParsing;
 global using HeroesDataParser.Extensions;
 global using HeroesDataParser.Infrastructure;
@@ -29,3 +29,4 @@ global using System.Globalization;
 global using System.Text.Encodings.Web;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
+

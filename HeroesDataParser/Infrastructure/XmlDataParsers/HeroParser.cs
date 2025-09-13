@@ -30,6 +30,8 @@ public class HeroParser : CollectionParserBase<Hero>
         SetHeroUnits(collectionObject, stormElement);
 
         base.SetProperties(collectionObject, stormElement);
+
+        SetSummonedUnitIds(collectionObject);
     }
 
     protected override void SetAdditionalProperties(Hero collectionObject, StormElement stormElement)
@@ -264,6 +266,16 @@ public class HeroParser : CollectionParserBase<Hero>
         {
             collectionObject.AddAbilityByTooltipTalentElementId(talentElementId, ability);
         }
+    }
+
+    private static void SetSummonedUnitIds(Hero collectionObject)
+    {
+        collectionObject.SummonedUnitIds = new SortedSet<string>(
+            collectionObject.SummonedUnitIds
+                .Concat(collectionObject.Talents
+                    .SelectMany(x => x.Value
+                        .SelectMany(y => y.SummonedUnitIds))),
+            StringComparer.Ordinal);
     }
 
     private void SetUnitData(Hero collectionObject)

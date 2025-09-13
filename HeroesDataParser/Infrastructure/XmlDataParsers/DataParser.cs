@@ -42,6 +42,11 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
         }
     }
 
+    /// <summary>
+    /// Sets the properties of the <paramref name="elementObject"/> from the <paramref name="stormElement"/>.
+    /// </summary>
+    /// <param name="elementObject">The type of the element.</param>
+    /// <param name="stormElement">The source of data.</param>
     protected abstract void SetProperties(T elementObject, StormElement stormElement);
 
     protected void SetNameProperty(T elementObject, StormElement stormElement)

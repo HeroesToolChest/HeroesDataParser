@@ -49,14 +49,8 @@ public class UnitParser : DataParser<Unit>, IUnitParser
         SetBehaviors(elementObject, stormElement, out List<StormElement> behaviorAbilityStormElements);
 
         SetAbilityData(elementObject, stormElement, unitButtonAbilities, behaviorAbilityStormElements);
-    }
 
-    private static void AddAbilityByTooltipTalentElementIds(Unit elementObject, Ability ability)
-    {
-        foreach (string talentElementId in ability.TooltipAppendersTalentElementIds)
-        {
-            elementObject.AddAbilityByTooltipTalentElementId(talentElementId, ability);
-        }
+        SetSummonedUnitIds(elementObject);
     }
 
     private static void ProcessAbility(Unit elementObject, Ability ability, List<Ability> abilitiesWithParentIds)
@@ -69,6 +63,27 @@ public class UnitParser : DataParser<Unit>, IUnitParser
             elementObject.AddLayoutAbility(ability);
 
         AddAbilityByTooltipTalentElementIds(elementObject, ability);
+    }
+
+    private static void AddAbilityByTooltipTalentElementIds(Unit elementObject, Ability ability)
+    {
+        foreach (string talentElementId in ability.TooltipAppendersTalentElementIds)
+        {
+            elementObject.AddAbilityByTooltipTalentElementId(talentElementId, ability);
+        }
+    }
+
+    private static void SetSummonedUnitIds(Unit elementObject)
+    {
+        elementObject.SummonedUnitIds = new SortedSet<string>(
+            elementObject.Abilities
+                .SelectMany(x => x.Value)
+                    .SelectMany(x => x.SummonedUnitIds)
+                .Concat(elementObject.SubAbilities
+                    .SelectMany(x => x.Value)
+                        .SelectMany(y => y.Value)
+                            .SelectMany(x => x.SummonedUnitIds)),
+            StringComparer.Ordinal);
     }
 
     private void SetActorData(Unit elementObject, out List<Ability> unitButtonAbilities)

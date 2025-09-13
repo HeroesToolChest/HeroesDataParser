@@ -108,7 +108,7 @@ public class UnitParserTests
         unit.UnitPortraits.TargetInfoPanelPath!.FilePath.Should().StartWith("Assets").And.EndWith("storm_ui_ingame_partyframe_Abathur.dds");
         unit.SummonedUnitIds.Should().BeEmpty();
         unit.Weapons.Should().ContainSingle();
-        unit.TooltipTalentElementIdCount.Should().Be(3);
+        unit.AbilitiesByTooltipTalentElementId.Count.Should().Be(3);
         AssertionExtensions.Should(unit.GetTooltipAbilityLinkIdsByTalentElementId("AbathurVolatileMutation")).ContainSingle().And
             .Contain(new AbilityLinkId("AbathurUltimateEvolution", "AbathurUltimateEvolution", AbilityType.Heroic));
 
