@@ -1,6 +1,4 @@
-﻿using System.IO.Abstractions;
-
-namespace HeroesDataParser.Infrastructure.ImageWriters;
+﻿namespace HeroesDataParser.Infrastructure.ImageWriters;
 
 internal static class AbilityTalentImages
 {

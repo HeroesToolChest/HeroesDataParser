@@ -1,4 +1,6 @@
-﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers.Tests;
+﻿using Heroes.Element.Models.Types;
+
+namespace HeroesDataParser.Infrastructure.XmlDataParsers.Tests;
 
 [TestClass]
 public class HeroParserTests

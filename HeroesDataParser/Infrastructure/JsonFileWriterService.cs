@@ -1,7 +1,4 @@
-﻿using Heroes.Element.Models.Meta;
-using HeroesDataParser.JsonConverters;
-
-namespace HeroesDataParser.Infrastructure;
+﻿namespace HeroesDataParser.Infrastructure;
 
 public class JsonFileWriterService : IJsonFileWriterService
 {
@@ -37,7 +34,7 @@ public class JsonFileWriterService : IJsonFileWriterService
                 new LinkIdConverter(),
                 new AbilityLinkIdConverter(),
                 new TalentLinkIdConverter(),
-                new GameStringTextWriteConverter(_options.GameStringText),
+                new GameStringTextConverter(gameStringTextType: _options.GameStringText.Type),
             },
             TypeInfoResolver = new HeroesElementResolver()
             {
@@ -146,7 +143,7 @@ public class JsonFileWriterService : IJsonFileWriterService
         await using FileStream fileStream = File.Create(filePath);
         await JsonSerializer.SerializeAsync(fileStream, rootElement, _jsonSerializerOptions);
 
-        AnsiConsole.Write("Created json file ");
+        AnsiConsole.Write("Created file ");
         AnsiConsole.Write(new TextPath(Path.Join(innerDirectory, fileName))
             .SeparatorColor(Color.SpringGreen1)
             .StemColor(Color.SteelBlue1_1)

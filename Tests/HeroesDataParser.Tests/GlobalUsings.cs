@@ -1,7 +1,7 @@
 ﻿global using AwesomeAssertions;
 global using Heroes.Element.Models;
 global using Heroes.Element.Models.AbilityTalents;
-global using Heroes.Element.Types;
+global using Heroes.Element.Models.Types;
 global using Heroes.LocaleText;
 global using Heroes.XmlData;
 global using Heroes.XmlData.StormData;

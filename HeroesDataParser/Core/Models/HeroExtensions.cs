@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace HeroesDataParser.Core.Models;
+﻿namespace HeroesDataParser.Core.Models;
 
 public static class HeroExtensions
 {

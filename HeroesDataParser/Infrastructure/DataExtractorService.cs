@@ -69,6 +69,12 @@ public class DataExtractorService : IDataExtractorService
         _stopwatch.Stop();
         _logger.LogInformation("Data extractor complete for data object type {DataObjectType}", parser.DataObjectType);
 
+        if (totalCount < 1)
+        {
+            AnsiConsole.MarkupLine("[yellow]No items found to parse[/]");
+            return parsedItems;
+        }
+
         string message = $"{parsedItems.Count,6} / {totalCount} successfully parsed in {_stopwatch.Elapsed.TotalSeconds:0.###} seconds";
         if (parsedItems.Count == totalCount)
             AnsiConsole.MarkupLine(message);
