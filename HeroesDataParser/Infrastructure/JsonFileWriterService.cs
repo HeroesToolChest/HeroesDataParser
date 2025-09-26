@@ -72,7 +72,7 @@ public class JsonFileWriterService : IJsonFileWriterService
         Span<char> buffer = stackalloc char[mapDirectory.Length];
         int length = SanitizeMapDirectory(buffer, mapDirectory);
 
-        await WriteTo(elementsById, Path.Join(_jsonFileDirectory, "maps", buffer[..length]));
+        await WriteTo(elementsById, Path.Join(_jsonFileDirectory, "maps", buffer[..length]), mapDirectory);
     }
 
     private static int SanitizeMapDirectory(Span<char> buffer, string mapDirectory)
@@ -104,7 +104,7 @@ public class JsonFileWriterService : IJsonFileWriterService
         }
     }
 
-    private async Task WriteTo<TElement>(Dictionary<string, TElement> elementsById, string innerDirectory)
+    private async Task WriteTo<TElement>(Dictionary<string, TElement> elementsById, string innerDirectory, string? mapName = null)
         where TElement : IElementObject
     {
         //if (_options.LocalizedText)
@@ -126,6 +126,7 @@ public class JsonFileWriterService : IJsonFileWriterService
             Meta =
             {
                 DataType = dataName,
+                MapName = mapName,
                 IsLocalizedText = _options.LocalizedText,
                 // TODO Version
                 DescriptionText = _options.LocalizedText ? null : new()

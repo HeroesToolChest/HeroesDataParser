@@ -1,6 +1,6 @@
 ﻿namespace HeroesDataParser.Core;
 
-public interface IDataParser<T>
+public interface IDataParser<out T>
     where T : IElementObject
 {
     /// <summary>

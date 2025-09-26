@@ -7,13 +7,9 @@ public class MapProcessorService : IMapProcessorService
     private readonly ILogger<MapProcessorService> _logger;
     private readonly IProcessorService _processorService;
     private readonly IDataParser<Map> _mapDataParser;
-    //private readonly IMapDataParserService _mapDataParserService;
-
     private readonly IMapDataExtractorService _mapDataExtractorService;
     private readonly IJsonFileWriterService _jsonFileWriterService;
     private readonly IImageWriter<Map> _imageWriter;
-
-    private StormLocale _stormLocale;
 
     public MapProcessorService(
         ILogger<MapProcessorService> logger,
@@ -29,7 +25,6 @@ public class MapProcessorService : IMapProcessorService
         _mapDataExtractorService = mapDataExtractorService;
         _jsonFileWriterService = jsonFileWriterService;
         _imageWriter = imageWriter;
-        // _mapDataParserService = mapDataParserService;
     }
 
     public async Task Start()
@@ -52,9 +47,11 @@ public class MapProcessorService : IMapProcessorService
         {
             _logger.LogInformation("Start action processor for {MapObject} using parser {Parser}", typeOfMapName, typeOfParserName);
 
-            //await _mapDataParserService.ParseAndWriteData(_mapDataParser, _stormLocale);
+            // parses through all the maps for the data type
+            Dictionary<string, Map> mapItemsToSerialize = await _mapDataExtractorService.Extract(_mapDataParser, _processorService.StartForMap);
 
-            var mapItemsToSerialize = await _mapDataExtractorService.Extract(_mapDataParser, _processorService.StartForMap);
+            // then write out the map data
+            // done last, because of the loading of map xml mods, we only want to go through the map mods once
             await _jsonFileWriterService.Write(mapItemsToSerialize);
 
             if (_processorService.ExtractImageOptions.HasFlag(_imageWriter.ExtractImageOption))

@@ -24,6 +24,7 @@ public class DataExtractorService : IDataExtractorService
         where TParser : IDataParser<TElement>
     {
         _stopwatch.Restart();
+
         _logger.LogInformation("Starting data extractor for data object type {DataObjectType}", parser.DataObjectType);
         AnsiConsole.MarkupLineInterpolated($"Parsing '{typeof(TElement).Name}' data...");
 
@@ -72,6 +73,8 @@ public class DataExtractorService : IDataExtractorService
         if (totalCount < 1)
         {
             AnsiConsole.MarkupLine("[yellow]No items found to parse[/]");
+            AnsiConsole.WriteLine();
+
             return parsedItems;
         }
 

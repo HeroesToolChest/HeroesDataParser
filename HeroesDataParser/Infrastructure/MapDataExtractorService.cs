@@ -1,4 +1,5 @@
 ﻿using Serilog.Context;
+using System.Diagnostics;
 
 namespace HeroesDataParser.Infrastructure;
 
@@ -6,6 +7,7 @@ public class MapDataExtractorService : IMapDataExtractorService
 {
     private readonly ILogger<MapDataExtractorService> _logger;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
+    private readonly Stopwatch _stopwatch = new();
 
     public MapDataExtractorService(ILogger<MapDataExtractorService> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
     {
@@ -15,20 +17,48 @@ public class MapDataExtractorService : IMapDataExtractorService
 
     public async Task<Dictionary<string, Map>> Extract(IDataParser<Map> parser, Func<Map, Task> elementParsersForMap)
     {
+        _stopwatch.Restart();
+
+        int currentXmlCount = _heroesXmlLoaderService.HeroesXmlLoader.GetCountOfXmlDataFiles();
+        int currentFontStyleCount = _heroesXmlLoaderService.HeroesXmlLoader.GetCountOfFontStyleFiles();
+        int currentGameStringCount = _heroesXmlLoaderService.HeroesXmlLoader.GetCountOfGameStringsFiles();
+
         _logger.LogInformation("Starting data extractor for data object type {DataObjectType}", parser.DataObjectType);
 
         Dictionary<string, Map> parsedMaps = [];
 
-        IEnumerable<string> mapTitles = _heroesXmlLoaderService.HeroesXmlLoader.GetMapTitles().OrderBy(x => x);
+        IEnumerable<string> mapTitles = _heroesXmlLoaderService.HeroesXmlLoader.GetMapTitles()
+            .OrderBy(x => x);
 
         _logger.LogTrace("Map ids: {@MapIds}", mapTitles);
 
+        int totalCount = 0;
+
         foreach (string mapTitle in mapTitles)
         {
+            totalCount++;
+
             using (LogContext.PushProperty("MapId", mapTitle))
             {
+                AnsiConsole.MarkupLineInterpolated($"Loading {mapTitle} mod...");
+
                 _heroesXmlLoaderService.HeroesXmlLoader.LoadMapMod(mapTitle);
-                Map? map = parser.Parse(mapTitle);
+
+                AnsiConsole.MarkupLineInterpolated($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfXmlDataFiles() - currentXmlCount,6} additional xml files loaded");
+                AnsiConsole.MarkupLineInterpolated($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfFontStyleFiles() - currentFontStyleCount,6} additional storm style files loaded");
+                AnsiConsole.MarkupLineInterpolated($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfGameStringsFiles() - currentGameStringCount,6} additional gamestring files loaded");
+
+                Map? map = null;
+
+                try
+                {
+                    map = parser.Parse(mapTitle);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error parsing map title {MapTitle}", mapTitle);
+                    continue;
+                }
 
                 if (map is not null)
                 {
@@ -36,20 +66,41 @@ public class MapDataExtractorService : IMapDataExtractorService
 
                     _logger.LogInformation("Running element processors for {MapId}", mapTitle);
 
+                    AnsiConsole.MarkupLineInterpolated($"Parsing data type(s) for map [darkseagreen2_1]{mapTitle}[/]...");
+                    AnsiConsole.WriteLine();
+
                     await elementParsersForMap.Invoke(map);
 
                     _logger.LogInformation("Completed element processors for {MapId}", mapTitle);
                 }
                 else
                 {
-                    _logger.LogWarning("Unable to parse map id {id}", mapTitle);
+                    totalCount--;
+                    _logger.LogTrace("Return is null, map title {MapTitle} not adding", mapTitle);
                 }
             }
         }
 
         _heroesXmlLoaderService.HeroesXmlLoader.UnloadMapMod();
 
-        _logger.LogInformation("Data extractor complete for data object type {DataObjectType}", parser.DataObjectType);
+        _stopwatch.Stop();
+        _logger.LogInformation("Map data extractor complete for data object type {DataObjectType}", parser.DataObjectType);
+
+        AnsiConsole.MarkupLine("Finished parsing map data");
+
+        if (totalCount < 1)
+        {
+            AnsiConsole.MarkupLine("[yellow]No map items found to parse[/]");
+            AnsiConsole.WriteLine();
+
+            return parsedMaps;
+        }
+
+        string message = $"{parsedMaps.Count,6} / {totalCount} map items and data types successfully parsed in {_stopwatch.Elapsed.TotalSeconds:0.###} total seconds";
+        if (parsedMaps.Count == totalCount)
+            AnsiConsole.MarkupLine(message);
+        else
+            AnsiConsole.MarkupLineInterpolated($"[yellow]{message}[/]");
 
         return parsedMaps;
     }

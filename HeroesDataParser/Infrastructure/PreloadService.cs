@@ -21,6 +21,7 @@ public class PreloadService : IPreloadService
     public void Preload()
     {
         SelectedLocalizations();
+        SelectedDataOptions();
 
         AnsiConsole.MarkupLine("Loading configuration files...");
 
@@ -56,6 +57,28 @@ public class PreloadService : IPreloadService
         }
 
         AnsiConsole.WriteLine();
+    }
+
+    private void SelectedDataOptions()
+    {
+        _logger.LogInformation("Selected data types: {DataOptions}", string.Join(',', _options.Extractors.Keys));
+
+        AnsiConsole.Markup($"[aqua]Data Type(s):[/]");
+
+        foreach (KeyValuePair<string, ExtractorOptions> dataOption in _options.Extractors)
+        {
+            if (dataOption.Value.IsEnabled)
+            {
+                AnsiConsole.Markup($" [aqua]{dataOption.Key.ToLowerInvariant()}[/]");
+
+                if (dataOption.Value.Images)
+                {
+                    AnsiConsole.Markup("[palegreen1]+[/]");
+                }
+            }
+        }
+
+        AnsiConsole.WriteLine();
         AnsiConsole.WriteLine();
     }
 
@@ -72,7 +95,6 @@ public class PreloadService : IPreloadService
         IReadOnlyList<string> files = _customConfigurationService.SelectedCustomDataFilePaths;
 
         Tree root = new($"Loaded {files.Count} custom configuration files");
-        //AnsiConsole.MarkupLine();
 
         foreach (string relativeFilePath in files)
         {
@@ -82,7 +104,6 @@ public class PreloadService : IPreloadService
                 root.AddNode($"{Path.GetFileName(relativeFilePath)} (.{Path.DirectorySeparatorChar}{subDirectory})");
             else
                 root.AddNode(Path.GetFileName(relativeFilePath));
-            //AnsiConsole.MarkupLine($"- {Path.GetFileName(relativeFilePath)}");
         }
 
         AnsiConsole.Write(root);

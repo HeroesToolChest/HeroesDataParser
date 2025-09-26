@@ -7,7 +7,6 @@ public class ProcessorService : IProcessorService
     private readonly ILogger<ProcessorService> _logger;
     private readonly RootOptions _options;
     private readonly IServiceProvider _serviceProvider;
-    //private readonly IDataParserService _dataParserService;
     private readonly IDataExtractorService _dataExtractorService;
     private readonly IJsonFileWriterService _jsonFileWriterService;
 
@@ -48,11 +47,6 @@ public class ProcessorService : IProcessorService
         await RunElementProcessors(_processElementByExtractDataOption, map);
     }
 
-    public void Test<TElement>(Dictionary<string, TElement> items)
-        where TElement : IElementObject
-    {
-
-    }
     //public async Task RunElementProcessors()
     //{
     //    _logger.LogTrace("Available element processors {@ActionProcessors}", _processElementByExtractDataOption.Keys);
