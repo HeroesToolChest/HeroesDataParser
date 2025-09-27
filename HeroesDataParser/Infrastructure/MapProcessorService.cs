@@ -47,7 +47,7 @@ public class MapProcessorService : IMapProcessorService
         {
             _logger.LogInformation("Start action processor for {MapObject} using parser {Parser}", typeOfMapName, typeOfParserName);
 
-            // parses through all the maps for the data type
+            // parses through all the maps for the data type(s)
             Dictionary<string, Map> mapItemsToSerialize = await _mapDataExtractorService.Extract(_mapDataParser, _processorService.StartForMap);
 
             // then write out the map data

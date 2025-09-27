@@ -15,8 +15,10 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ICustomConfigurationService, CustomConfigurationService>();
         services.AddSingleton<IPreloadService, PreloadService>();
 
-        services.AddSingleton<IHeroesXmlLoaderService, HeroesXmlLoaderService>();
+        services.AddSingleton<ISerializedElementsService, SerializedElementsService>();
+        services.AddSingleton<IJsonSerializerOptionService, JsonSerializerOptionService>();
 
+        services.AddSingleton<IHeroesXmlLoaderService, HeroesXmlLoaderService>();
         services.AddSingleton<IGameStringTextService, GameStringTextService>();
 
         services.AddDataParsers();

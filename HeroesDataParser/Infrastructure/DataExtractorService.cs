@@ -11,7 +11,11 @@ public class DataExtractorService : IDataExtractorService
     private readonly IParsingConfigurationService _parsingConfigurationService;
     private readonly Stopwatch _stopwatch = new();
 
-    public DataExtractorService(ILogger<DataExtractorService> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IParsingConfigurationService parsingConfigurationService)
+    public DataExtractorService(
+        ILogger<DataExtractorService> logger,
+        IOptions<RootOptions> options,
+        IHeroesXmlLoaderService heroesXmlLoaderService,
+        IParsingConfigurationService parsingConfigurationService)
     {
         _logger = logger;
         _options = options.Value;
@@ -19,19 +23,18 @@ public class DataExtractorService : IDataExtractorService
         _parsingConfigurationService = parsingConfigurationService;
     }
 
-    public Dictionary<string, TElement> Extract<TElement, TParser>(TParser parser, Map? map = null)
+    public Dictionary<string, TElement> Extract<TElement, TParser>(TParser parser)
         where TElement : IElementObject
         where TParser : IDataParser<TElement>
     {
         _stopwatch.Restart();
 
         _logger.LogInformation("Starting data extractor for data object type {DataObjectType}", parser.DataObjectType);
-        AnsiConsole.MarkupLineInterpolated($"Parsing '{typeof(TElement).Name}' data...");
+        AnsiConsole.WriteLine($"Parsing '{typeof(TElement).Name}' data...");
 
         Dictionary<string, TElement> parsedItems = [];
 
-        IEnumerable<string> itemIds = _heroesXmlLoaderService.HeroesXmlLoader.HeroesData
-            .GetStormElementIds(parser.DataObjectType, map is null ? StormCacheType.All : StormCacheType.Map);
+        IEnumerable<string> itemIds = _heroesXmlLoaderService.HeroesXmlLoader.HeroesData.GetStormElementIds(parser.DataObjectType, StormCacheType.All);
 
         itemIds = _parsingConfigurationService.FilterAllowedItems(parser.DataObjectType, itemIds)
             .OrderBy(x => x);

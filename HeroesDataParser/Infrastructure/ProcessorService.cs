@@ -83,7 +83,7 @@ public class ProcessorService : IProcessorService
 
     private async Task RunElementProcessors(Dictionary<ExtractDataOptions, Func<Map?, Task>> processors, Map? map = null)
     {
-        foreach (var processor in processors)
+        foreach (KeyValuePair<ExtractDataOptions, Func<Map?, Task>> processor in processors)
         {
             if (_extractDataOptions.HasFlag(processor.Key))
             {
@@ -190,7 +190,7 @@ public class ProcessorService : IProcessorService
             _logger.LogInformation("Start action processor for {HeroesCollectionObject} using parser {Parser}", typeOfElementObjectName, typeOfParserName);
 
             var dataParser = _serviceProvider.GetRequiredService<IDataParser<TElementObject>>();
-            var itemsToSerialize = _dataExtractorService.Extract<TElementObject, TParser>((TParser)dataParser, map);
+            var itemsToSerialize = _dataExtractorService.Extract<TElementObject, TParser>((TParser)dataParser);
 
             await WriteToJson(itemsToSerialize, map);
             await WriteImages(itemsToSerialize);

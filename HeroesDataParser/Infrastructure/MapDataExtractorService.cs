@@ -40,13 +40,13 @@ public class MapDataExtractorService : IMapDataExtractorService
 
             using (LogContext.PushProperty("MapId", mapTitle))
             {
-                AnsiConsole.MarkupLineInterpolated($"Loading {mapTitle} mod...");
+                AnsiConsole.MarkupLineInterpolated($"[darkseagreen2_1]Loading '{mapTitle}' mod[/]...");
 
                 _heroesXmlLoaderService.HeroesXmlLoader.LoadMapMod(mapTitle);
 
-                AnsiConsole.MarkupLineInterpolated($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfXmlDataFiles() - currentXmlCount,6} additional xml files loaded");
-                AnsiConsole.MarkupLineInterpolated($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfFontStyleFiles() - currentFontStyleCount,6} additional storm style files loaded");
-                AnsiConsole.MarkupLineInterpolated($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfGameStringsFiles() - currentGameStringCount,6} additional gamestring files loaded");
+                AnsiConsole.MarkupLineInterpolated($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfXmlDataFiles() - currentXmlCount,6} xml files loaded");
+                AnsiConsole.MarkupLineInterpolated($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfFontStyleFiles() - currentFontStyleCount,6} storm style files loaded");
+                AnsiConsole.MarkupLineInterpolated($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfGameStringsFiles() - currentGameStringCount,6} gamestring files loaded");
 
                 Map? map = null;
 
@@ -66,7 +66,7 @@ public class MapDataExtractorService : IMapDataExtractorService
 
                     _logger.LogInformation("Running element processors for {MapId}", mapTitle);
 
-                    AnsiConsole.MarkupLineInterpolated($"Parsing data type(s) for map [darkseagreen2_1]{mapTitle}[/]...");
+                    AnsiConsole.WriteLine($"Parsing data type(s) for map '{mapTitle}'...");
                     AnsiConsole.WriteLine();
 
                     await elementParsersForMap.Invoke(map);
