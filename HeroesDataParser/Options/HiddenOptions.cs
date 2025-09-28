@@ -6,5 +6,7 @@ public class HiddenOptions
 
     public bool AllowHeroSpecialAbilities { get; set; }
 
-    public HeroImages HeroImages { get; set; } = new();
+    public HeroImagesOptions HeroImages { get; set; } = new();
+
+    public MapImagesOptions MapImages { get; set; } = new();
 }

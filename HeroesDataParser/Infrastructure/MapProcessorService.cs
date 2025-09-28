@@ -56,7 +56,7 @@ public class MapProcessorService : IMapProcessorService
 
             if (_processorService.ExtractImageOptions.HasFlag(_imageWriter.ExtractImageOption))
             {
-                await _imageWriter.WriteImages(mapItemsToSerialize);
+                _imageWriter.SaveImages(mapItemsToSerialize);
             }
 
             _logger.LogInformation("Action processor complete for {MapObject} using parser {Parser}", typeOfMapName, typeOfParserName);

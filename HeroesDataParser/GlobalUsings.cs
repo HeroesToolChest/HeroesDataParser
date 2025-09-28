@@ -14,7 +14,7 @@ global using HeroesDataParser.Core.Models.ConfigParsing;
 global using HeroesDataParser.Extensions;
 global using HeroesDataParser.Infrastructure;
 global using HeroesDataParser.Infrastructure.Configurations;
-global using HeroesDataParser.Infrastructure.ImageWriters;
+global using HeroesDataParser.Infrastructure.ImageParsers;
 global using HeroesDataParser.Infrastructure.XmlDataParsers;
 global using HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
 global using HeroesDataParser.Options;

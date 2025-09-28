@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using HeroesDataParser.Infrastructure.ImageParsers;
+using Serilog;
 
 namespace HeroesDataParser.Extensions;
 
@@ -64,13 +65,15 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddImageWriters(this IServiceCollection services)
     {
         // add all image writers
-        services.AddTransient<IImageWriter<Announcer>, AnnouncerImageWriter>();
-        services.AddTransient<IImageWriter<Bundle>, BundleImageWriter>();
-        services.AddTransient<IImageWriter<Map>, MapImageWriter>();
-        services.AddTransient<IImageWriter<Hero>, HeroTalentImageWriter>();
-        services.AddTransient<IImageWriter<Hero>, HeroAbilityImageWriter>();
-        services.AddTransient<IImageWriter<Hero>, HeroAbilityTalentImageWriter>();
-        services.AddTransient<IImageWriter<Hero>, HeroPortraitImageWriter>();
+        services.AddSingleton<IImageWriter<Announcer>, AnnouncerImageParser>();
+        services.AddSingleton<IImageWriter<Bundle>, BundleImageParser>();
+        services.AddSingleton<IImageWriter<Map>, ReplayPreviewImageParser>();
+        services.AddSingleton<IImageWriter<Map>, LoadingScreenImageParser>();
+        services.AddSingleton<IImageWriter<Map>, MapObjectiveIconImageParser>();
+        services.AddSingleton<IImageWriter<Hero>, HeroTalentImageParser>();
+        services.AddSingleton<IImageWriter<Hero>, HeroAbilityImageParser>();
+        services.AddSingleton<IImageWriter<Hero>, HeroAbilityTalentImageParser>();
+        services.AddSingleton<IImageWriter<Hero>, HeroPortraitImageParser>();
 
         return services;
     }

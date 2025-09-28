@@ -19,7 +19,6 @@ public class ProcessorService : IProcessorService
         _logger = logger;
         _options = options.Value;
         _serviceProvider = serviceProvider;
-        //_dataParserService = dataParserService;
         _dataExtractorService = dataExtractorService;
         _jsonFileWriterService = jsonFileWriterService;
 
@@ -96,87 +95,6 @@ public class ProcessorService : IProcessorService
         }
     }
 
-
-    //public void Test(Dictionary<string, TElement> elementById)
-    //    where TElement : IElementObject
-    //{
-    //    var writerService = _serviceProvider.GetRequiredService<IJsonFileWriterService<TElement>>();
-
-    //    //await writerService.Write(itemsToSerialize, _stormLocale);
-    //}
-
-    //private async Task ProcessDataOptions(ExtractDataOptions selectDataExtractOptions)
-    //{
-    //    _logger.LogTrace("Available action processors {@ActionProcessors}", _processActionByExtractDataOption.Keys);
-
-    //    foreach (ExtractDataOptions option in _processActionByExtractDataOption.Keys)
-    //    {
-    //        if (selectDataExtractOptions.HasFlag(option))
-    //        {
-    //            if (_processActionByExtractDataOption.TryGetValue(option, out Func<Task>? processAction))
-    //                await processAction();
-    //            else
-    //                _logger.LogWarning("No extract data option found for the action processor {ActionProcessor}, is it missing and needs to be added?", option);
-    //        }
-    //    }
-    //}
-
-    //private async Task ProcessMapOption(ExtractDataOptions selectDataExtractOptions)
-    //{
-    //    if (!selectDataExtractOptions.HasFlag(ExtractDataOptions.Map))
-    //    {
-    //        _logger.LogTrace("Map option was not selected, no processing map data");
-    //        return;
-    //    }
-
-
-    //}
-
-    //private Dictionary<string, IElementObject> ProcessHeroesCollectionObject<THeroesCollectionObject, TParser>()
-    //    where THeroesCollectionObject : IHeroesCollectionObject, IElementObject
-    //    where TParser : IDataParser<THeroesCollectionObject>
-    //{
-    //    _logger.LogTrace("Start action processor for {HeroesCollectionObject} using parser {Parser}", typeof(THeroesCollectionObject).Name, typeof(TParser).Name);
-
-    //    var dataParser = _serviceProvider.GetRequiredService<IDataParser<THeroesCollectionObject>>();
-    //    var dataExtractorService = _serviceProvider.GetRequiredService<IDataExtractorService<THeroesCollectionObject, TParser>>();
-
-    //    var extractedItems = dataExtractorService.Extract((TParser)dataParser);
-
-    //    _logger.LogTrace("Action processor complete for {HeroesCollectionObject} using parser {Parser}", typeof(THeroesCollectionObject).Name, typeof(TParser).Name);
-
-    //    return extractedItems;
-    //}
-
-    //private async Task ProcessHeroesCollectionObject<THeroesCollectionObject, TParser>(Map? map = null)
-    //    where THeroesCollectionObject : IHeroesCollectionObject, IElementObject
-    //    where TParser : IDataParser<THeroesCollectionObject>
-    //{
-    //    using (LogContext.PushProperty("ElementType", typeof(THeroesCollectionObject).Name))
-    //    using (LogContext.PushProperty("Parser", typeof(TParser).Name))
-    //    {
-    //        _logger.LogInformation("Start action processor for {HeroesCollectionObject} using parser {Parser}", typeof(THeroesCollectionObject).Name, typeof(TParser).Name);
-
-    //        var dataParser = _serviceProvider.GetRequiredService<IDataParser<THeroesCollectionObject>>();
-
-    //        var itemsToSerialize = _dataExtractorService.Extract<THeroesCollectionObject, TParser>((TParser)dataParser, map);
-
-    //        if (map is null)
-    //            await _jsonFileWriterService.Write(itemsToSerialize, _stormLocale);
-    //        else
-    //            await _jsonFileWriterService.WriteToMaps(map.Id, itemsToSerialize, _stormLocale);
-
-    //        IImageWriter<THeroesCollectionObject>? imageWriter = _serviceProvider.GetService<IImageWriter<THeroesCollectionObject>>();
-
-    //        if (imageWriter is not null && _extractImageOptions.HasFlag(imageWriter.ExtractImageOption))
-    //        {
-    //            await imageWriter.WriteImages(itemsToSerialize);
-    //        }
-    //    }
-
-    //    _logger.LogInformation("Action processor complete for {HeroesCollectionObject} using parser {Parser}", typeof(THeroesCollectionObject).Name, typeof(TParser).Name);
-    //}
-
     private async Task ProcessElementObject<TElementObject, TParser>(Map? map = null)
         where TElementObject : IElementObject
         where TParser : IDataParser<TElementObject>
@@ -193,7 +111,7 @@ public class ProcessorService : IProcessorService
             var itemsToSerialize = _dataExtractorService.Extract<TElementObject, TParser>((TParser)dataParser);
 
             await WriteToJson(itemsToSerialize, map);
-            await WriteImages(itemsToSerialize);
+            SaveImages(itemsToSerialize);
 
             _logger.LogInformation("Action processor complete for {HeroesCollectionObject} using parser {Parser}", typeOfElementObjectName, typeOfParserName);
         }
@@ -208,7 +126,8 @@ public class ProcessorService : IProcessorService
             await _jsonFileWriterService.WriteToMaps(map.Id, itemsToSerialize);
     }
 
-    private async Task WriteImages<TElementObject>(Dictionary<string, TElementObject> itemsToSerialize)
+    // parses and save the images for after data extraction/serialization
+    private void SaveImages<TElementObject>(Dictionary<string, TElementObject> itemsToSerialize)
         where TElementObject : IElementObject
     {
         IEnumerable<IImageWriter<TElementObject>> imageWriters = _serviceProvider.GetServices<IImageWriter<TElementObject>>();
@@ -223,60 +142,10 @@ public class ProcessorService : IProcessorService
         {
             if (_extractImageOptions.HasFlag(imageWriter.ExtractImageOption))
             {
-                await imageWriter.WriteImages(itemsToSerialize);
+                imageWriter.SaveImages(itemsToSerialize);
             }
         }
     }
-
-    //private async Task ProcessMapObject()
-    //{
-    //    _logger.LogInformation("Start action processor for {MapObject} using parser {Parser}", typeof(Map).Name, typeof(MapParser).Name);
-
-    //    //var dataParser = _serviceProvider.GetRequiredService<IDataParser<Map>>();
-
-    //    //await _mapDataParserService.ParseAndWriteData(dataParser, _stormLocale);
-
-    //    _logger.LogInformation("Action processor complete for {MapObject} using parser {Parser}", typeof(Map).Name, typeof(MapParser).Name);
-    //}
-
-
-
-
-
-
-    //private async Task ProcessHeroesCollectionObject<THeroesCollectionObject, TParser>()
-    //    where THeroesCollectionObject : IHeroesCollectionObject, IElementObject
-    //    where TParser : IDataParser<THeroesCollectionObject>
-    //{
-    //    _logger.LogInformation("Start action processor for {HeroesCollectionObject} using parser {Parser}", typeof(THeroesCollectionObject).Name, typeof(TParser).Name);
-
-    //    var dataParser = _serviceProvider.GetRequiredService<IDataParser<THeroesCollectionObject>>();
-    //    var dataExtractorService = _serviceProvider.GetRequiredService<IDataExtractorService<THeroesCollectionObject, TParser>>();
-
-    //    var itemsToSerialize = dataExtractorService.Extract((TParser)dataParser);
-
-    //    var writerService = _serviceProvider.GetRequiredService<IJsonFileWriterService<THeroesCollectionObject>>();
-
-    //    await writerService.Write(itemsToSerialize, _stormLocale);
-
-    //    _logger.LogInformation("Action processor complete for {HeroesCollectionObject} using parser {Parser}", typeof(THeroesCollectionObject).Name, typeof(TParser).Name);
-    //}
-
-    //private async Task ProcessMapObject()
-    //{
-    //    _logger.LogInformation("Start action processor for {MapObject} using parser {Parser}", typeof(Map).Name, typeof(MapParser).Name);
-
-    //    var dataParser = _serviceProvider.GetRequiredService<IDataParser<Map>>();
-    //    var dataExtractorService = _serviceProvider.GetRequiredService<IDataExtractorService<Map, IDataParser<Map>>>();
-
-    //    var itemsToSerialize = dataExtractorService.Extract(dataParser);
-
-    //    var writerService = _serviceProvider.GetRequiredService<IJsonFileWriterService<Map>>();
-
-    //    await writerService.Write(itemsToSerialize, _stormLocale);
-
-    //    _logger.LogInformation("Action processor complete for {MapObject} using parser {Parser}", typeof(Map).Name, typeof(MapParser).Name);
-    //}
 
     private ExtractDataOptions GetExtractDataOptions()
     {
@@ -315,6 +184,18 @@ public class ProcessorService : IProcessorService
                     selectImageExtractOptions |= ExtractImageOptions.HeroData;
                 if (_options.Hidden.HeroImages.HeroDataSplit)
                     selectImageExtractOptions |= ExtractImageOptions.HeroDataSplit;
+
+                continue;
+            }
+
+            if (extractDataOption.Key.Equals("map", StringComparison.OrdinalIgnoreCase))
+            {
+                if (_options.Hidden.MapImages.ReplayPreviews)
+                    selectImageExtractOptions |= ExtractImageOptions.ReplayPreview;
+                if (_options.Hidden.MapImages.LoadingScreens)
+                    selectImageExtractOptions |= ExtractImageOptions.LoadingScreen;
+                if (_options.Hidden.MapImages.MapObjectiveIcons)
+                    selectImageExtractOptions |= ExtractImageOptions.MapObjectives;
 
                 continue;
             }

@@ -1,17 +1,15 @@
-﻿namespace HeroesDataParser.Infrastructure.ImageWriters;
+﻿namespace HeroesDataParser.Infrastructure.ImageParsers;
 
-public class HeroPortraitImageWriter : ImageWriterBase<Hero>
+public class HeroPortraitImageParser : ImageParserBase<Hero>
 {
-    private const string _heroPortraitsDirectory = "heroportraits";
-
-    private readonly Dictionary<string, ImageRelativePath> _heroPortraitsRelativePathsByFileName = new(StringComparer.OrdinalIgnoreCase);
-
-    public HeroPortraitImageWriter(ILogger<HeroPortraitImageWriter> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService)
+    public HeroPortraitImageParser(ILogger<HeroPortraitImageParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService)
         : base(logger, options, heroesXmlLoaderService)
     {
     }
 
     public override ExtractImageOptions ExtractImageOption => ExtractImageOptions.HeroPortrait;
+
+    protected override string SubDirectory => "heroportraits";
 
     protected override void SetImages(Hero element)
     {
@@ -30,16 +28,11 @@ public class HeroPortraitImageWriter : ImageWriterBase<Hero>
         }
     }
 
-    protected override async Task SaveImages()
-    {
-        await SaveImagesFiles(_heroPortraitsRelativePathsByFileName, _heroPortraitsDirectory);
-    }
-
     private void TryAddPortrait(string? fileName, RelativeFilePath? relativePath, Hero element)
     {
         if (string.IsNullOrWhiteSpace(fileName) || string.IsNullOrWhiteSpace(relativePath?.FilePath))
             return;
 
-        _heroPortraitsRelativePathsByFileName.TryAdd(fileName, new ImageRelativePath(element, relativePath));
+        AddImagePath(fileName, new ImageRelativePath(element, relativePath));
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace HeroesDataParser.Options;
 
-public class HeroImages
+public class HeroImagesOptions
 {
     public bool HeroPortraits { get; set; }
 

@@ -1,11 +1,12 @@
-﻿using HeroesDataParser.Tests.Infrastructure.ImageWriters;
+﻿using HeroesDataParser.Infrastructure.ImageParsers;
+using HeroesDataParser.Tests.Infrastructure.ImageWriters;
 
 namespace HeroesDataParser.Infrastructure.ImageWriters.Tests;
 
 [TestClass]
 public class HeroAbilityImageWriterTests : ImageWriterBase
 {
-    private readonly ILogger<HeroAbilityImageWriter> _logger;
+    private readonly ILogger<HeroAbilityImageParser> _logger;
     private readonly IOptions<RootOptions> _options;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
@@ -13,7 +14,7 @@ public class HeroAbilityImageWriterTests : ImageWriterBase
 
     public HeroAbilityImageWriterTests()
     {
-        _logger = Substitute.For<ILogger<HeroAbilityImageWriter>>();
+        _logger = Substitute.For<ILogger<HeroAbilityImageParser>>();
         _options = Substitute.For<IOptions<RootOptions>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
 
@@ -31,7 +32,7 @@ public class HeroAbilityImageWriterTests : ImageWriterBase
             OutputDirectory = Path.Join(OutputBaseDirectory, testDirectory),
         });
 
-        HeroAbilityImageWriter heroAbilityImageWriter = new(_logger, _options, _heroesXmlLoaderService);
+        HeroAbilityImageParser heroAbilityImageWriter = new(_logger, _options, _heroesXmlLoaderService);
 
         Dictionary<string, Hero> elementsById = [];
 
@@ -50,7 +51,7 @@ public class HeroAbilityImageWriterTests : ImageWriterBase
         elementsById.Add("hero1", hero);
 
         // act
-        await heroAbilityImageWriter.WriteImages(elementsById);
+        await heroAbilityImageWriter.SaveImages(elementsById);
 
         // assert
         File.Exists(Path.Join(OutputBaseDirectory, testDirectory, OutputImageDirectory, "abilities", "ability1.png")).Should().BeTrue();
