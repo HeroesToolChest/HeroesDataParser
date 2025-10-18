@@ -20,7 +20,7 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
 
     public HeroesXmlLoader HeroesXmlLoader { get; private set; } = null!;
 
-    public async Task Load()
+    public void Load()
     {
         _logger.LogInformation("Loading heroes data...");
 
@@ -35,7 +35,7 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
         if (_options.StorageLoad.Type == StorageType.Mods)
             RunLoader();
         else
-            await LoadFromCASC();
+            LoadFromCASC();
 
         AnsiConsole.MarkupLineInterpolated($"Load time: {_stopwatch.Elapsed.TotalSeconds:0.####} seconds");
         AnsiConsole.WriteLine();
@@ -43,15 +43,15 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
         if (HeroesXmlLoader is null)
             throw new InvalidOperationException("Failed to load from casc or file.");
 
-        await AnsiConsole.Status()
+        AnsiConsole.Status()
             .Spinner(Spinner.Known.Star)
             .SpinnerStyle(Style.Parse("yellow bold"))
-            .StartAsync("[yellow bold]Initializing[/]", async ctx =>
+            .Start("[yellow bold]Initializing[/]", ctx =>
             {
                 _logger.LogInformation("Loading data from stormmods...");
 
                 if (_options.StorageLoad.Type == StorageType.Online)
-                    AnsiConsole.MarkupLine("Loading data from stormmods (this might take a while, still downloading files)...");
+                    AnsiConsole.MarkupLine("Loading data from stormmods (this might take a while)...");
                 else
                     AnsiConsole.MarkupLine("Loading data from stormmods...");
 
@@ -63,7 +63,6 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
                 LoadCustomStormMod();
 
                 _stopwatch.Stop();
-                await Task.CompletedTask;
             });
 
         _logger.LogInformation("Heroes data loaded");
@@ -74,16 +73,16 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
         AnsiConsole.WriteLine();
     }
 
-    private async Task LoadFromCASC()
+    private void LoadFromCASC()
     {
-        await AnsiConsole.Progress()
+        AnsiConsole.Progress()
             .Columns(
             [
                 new TaskDescriptionColumn(),
                 new ProgressBarColumn(),
                 new PercentageColumn(),
             ])
-            .StartAsync(async ctx =>
+            .Start(ctx =>
             {
                 ProgressTask cdnIndexesTask = ctx.AddTask("Loading CDN Indexes");
 
@@ -102,60 +101,53 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
                 rootTask.IsIndeterminate = true;
                 listFileTask.IsIndeterminate = true;
 
-                using BackgroundWorkerEx backgroundWorkerEx = new();
+                Progress<ProgressInfo> progress = new(p =>
+                {
+                    switch (p.Stage)
+                    {
+                        case ProgressStage.CDNIndexes:
+                            cdnIndexesTask.Value = p.Percentage;
+                            break;
+                        case ProgressStage.LocalIndexes:
+                            if (localIndexesTask is not null)
+                                localIndexesTask.Value = p.Percentage;
+                            break;
+                        case ProgressStage.Encoding:
+                            encodingTask.Value = p.Percentage;
+                            break;
+                        case ProgressStage.Root:
+                            rootTask.Value = p.Percentage;
+                            break;
+                        case ProgressStage.ListFile:
+                            listFileTask.Value = p.Percentage;
+                            break;
+                        default:
+                            break;
+                    }
+                });
 
-                string currentTask = string.Empty;
-                backgroundWorkerEx.DoWork += (_, e) =>
-                {
-                    RunLoader(backgroundWorkerEx);
-                };
-                backgroundWorkerEx.ProgressChanged += (_, e) =>
-                {
-                    if (cdnIndexesTask.Value < 100)
-                    {
-                        cdnIndexesTask.Value = 100;
-                    }
-                    else if (_options.StorageLoad.Type != StorageType.Online && localIndexesTask?.Value < 100)
-                    {
-                        localIndexesTask.IsIndeterminate = false;
-                        localIndexesTask.Value = e.ProgressPercentage;
-                    }
-                    else if (encodingTask.Value < 100)
-                    {
-                        encodingTask.IsIndeterminate = false;
-                        encodingTask.Value = e.ProgressPercentage;
-                    }
-                    else if (rootTask.Value < 100)
-                    {
-                        rootTask.IsIndeterminate = false;
-                        rootTask.Value = e.ProgressPercentage;
-                    }
-                    else if (listFileTask.Value < 100)
-                    {
-                        listFileTask.IsIndeterminate = false;
-                        listFileTask.Value = e.ProgressPercentage;
-                    }
-                };
-                backgroundWorkerEx.RunWorkerAsync();
-
-                while (!ctx.IsFinished || backgroundWorkerEx.IsBusy)
-                {
-                    await Task.Delay(100);
-                }
+                RunLoader(new ProgressReporter(progress));
             });
     }
 
-    private void RunLoader(BackgroundWorkerEx? backgroundWorkerEx = null)
+    private void RunLoader(IProgressReporter? progresReporter = null)
     {
         if (_options.StorageLoad.Type == StorageType.Game)
         {
             _logger.LogInformation("Loading heroes data by game storage");
 
             AnsiConsole.MarkupLine("[aqua]Found 'Heroes of the Storm' directory[/]");
-            AnsiConsole.MarkupLine("[gold1 bold]Loading from local CASC storage[/]... please wait");
+            AnsiConsole.MarkupLine("[gold1 bold]Loading from local CASC storage[/]...");
 
             _stopwatch.Start();
-            HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(_options.StorageLoad.Path!, new CASCLoggerOptions(), backgroundWorkerEx);
+
+            CASCConfig cascConfig = HeroesXmlLoader.GetCASCConfig(_options.StorageLoad.Path!, new CASCLoggerOptions());
+
+            _logger.LogInformation("Version {Version} from local CASC storage", cascConfig.VersionName);
+            AnsiConsole.MarkupLineInterpolated($"[aqua]Version: [bold]{cascConfig.VersionName}[/][/]");
+
+            HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, progresReporter);
+
             _stopwatch.Stop();
         }
         else if (_options.StorageLoad.Type == StorageType.Mods)
@@ -163,20 +155,25 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
             _logger.LogInformation("Loading heroes data by extracted mods directory");
 
             AnsiConsole.MarkupLine("[aqua]Found 'mods' directory[/]");
-            AnsiConsole.MarkupLine("Loading from extracted 'mods' directory... please wait");
+            AnsiConsole.MarkupLine("[gold1 bold]Loading from extracted 'mods' directory[/]...");
 
             _stopwatch.Start();
-            HeroesXmlLoader = HeroesXmlLoader.LoadWithFile(_options.StorageLoad.Path!, backgroundWorkerEx);
+
+            HeroesXmlLoader = HeroesXmlLoader.LoadWithFile(_options.StorageLoad.Path!, progresReporter);
+
+            _logger.LogInformation("Version {Version} from local extracted mods storage", HeroesXmlLoader.HeroesVersion ?? "UNKNOWN");
+            AnsiConsole.MarkupLineInterpolated($"[aqua]Version: [bold]{HeroesXmlLoader.HeroesVersion ?? "UNKNOWN"}[/][/]");
+
             _stopwatch.Stop();
         }
         else if (_options.StorageLoad.Type == StorageType.Online)
         {
-            _logger.LogInformation("Loading heroes data by online storage");
+            _logger.LogInformation("Downloading heroes data by online storage");
 
-            AnsiConsole.MarkupLine("Loading from online CASC storage... please wait");
+            AnsiConsole.MarkupLine("[gold1 bold]Downloading from online CASC storage[/]");
 
             _stopwatch.Start();
-            HeroesXmlLoader = HeroesXmlLoader.LoadWithOnlineCASC(new CASCLoggerOptions(), backgroundWorkerEx);
+            LoadFromOnlineCASC(progresReporter);
             _stopwatch.Stop();
         }
         else
@@ -184,12 +181,22 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
             _logger.LogWarning("Unknown storage load type, defaulting to online storage");
 
             AnsiConsole.MarkupLine("[yellow]Unknown storage load type, defaulting to online storage.");
-            AnsiConsole.MarkupLine("Loading from online CASC storage... please wait");
+            AnsiConsole.MarkupLine("[gold1 bold]Downloading from online CASC storage[/]");
 
             _stopwatch.Start();
-            HeroesXmlLoader = HeroesXmlLoader.LoadWithOnlineCASC(new CASCLoggerOptions(), backgroundWorkerEx);
+            LoadFromOnlineCASC(progresReporter);
             _stopwatch.Stop();
         }
+    }
+
+    private void LoadFromOnlineCASC(IProgressReporter? progresReporter)
+    {
+        CASCConfig cascConfig = HeroesXmlLoader.GetOnlineCASCConfig(false, new CASCLoggerOptions());
+
+        _logger.LogInformation("Downloading version {Version} from online storage", cascConfig.VersionName);
+        AnsiConsole.MarkupLineInterpolated($"[aqua]Version: [bold]{cascConfig.VersionName}[/][/]");
+
+        HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, progresReporter);
     }
 
     private bool VerifyPath()

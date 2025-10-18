@@ -4,5 +4,5 @@ public interface IHeroesXmlLoaderService
 {
     HeroesXmlLoader HeroesXmlLoader { get; }
 
-    Task Load();
+    void Load();
 }
