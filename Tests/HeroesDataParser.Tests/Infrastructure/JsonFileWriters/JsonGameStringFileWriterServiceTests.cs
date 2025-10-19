@@ -1,0 +1,187 @@
+﻿namespace HeroesDataParser.Infrastructure.JsonFileWriters.Tests;
+
+[TestClass]
+public class JsonGameStringFileWriterServiceTests
+{
+    private readonly ILogger<JsonGameStringFileWriterService> _logger;
+    private readonly IOptions<RootOptions> _options;
+
+    public JsonGameStringFileWriterServiceTests()
+    {
+        _logger = Substitute.For<ILogger<JsonGameStringFileWriterService>>();
+        _options = Substitute.For<IOptions<RootOptions>>();
+    }
+
+    [TestMethod]
+    public async Task Write_HasGameStringElements_CreatesJsonFile()
+    {
+        // arrange
+        RootOptions rootOptions = new()
+        {
+            OutputDirectory = Path.Combine("tests", nameof(Write_HasGameStringElements_CreatesJsonFile)),
+            CurrentLocale = StormLocale.ENUS,
+            GameStringText = new GameStringTextOptions
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontStyles = false,
+                PreserveFont = new PreserveFontOptions
+                {
+                    PreserveFontStyleConstantVars = false,
+                    PreserveFontStyleVars = false,
+                },
+            },
+            HeroesVersion = new HeroesVersionOptions
+            {
+                Major = 2,
+                Minor = 23,
+                Revision = 2345,
+                Build = 34566,
+                IsPtr = false,
+            },
+            AppVersion = "5.0.0",
+        };
+
+        List<string> dataTypes =
+        [
+            "AbilTalent",
+            "Hero",
+        ];
+
+        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "gamestrings", $"gamestrings_{rootOptions.BuildNumber}_enus.json");
+
+        JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), Substitute.For<ISavedGameStringsService>());
+
+        _options.Value.Returns(rootOptions);
+
+        GameStringElementName gameStringElements = new()
+        {
+            {
+                "abiltalent", new GameStringPropertyName()
+                {
+                    {
+                        "cooldownText", new GameStringPropertyId()
+                        {
+                            { ":PASSIVE:|ArtanisTwinBladesPrimed|W", new GameStringText("Cooldown: 4 seconds") },
+                            { "AbathurAssumingDirectControlCancel|AbathurSymbioteCancel|Heroic", new GameStringText("Cooldown: 1.5 seconds") },
+                        }
+                    },
+                    {
+                        "energyText", new GameStringPropertyId()
+                        {
+                            { "AlarakDiscordStrike|AlarakDiscordStrike|Q", new GameStringText("<s val=\"StandardTooltipDetails\">Mana: 55</s>") },
+                            { "AlarakTelekinesis|AlarakTelekinesis|W", new GameStringText("<s val=\"StandardTooltipDetails\">Mana: 30</s>") },
+                        }
+                    },
+                }
+            },
+            {
+                "Hero", new GameStringPropertyName()
+                {
+                    {
+                        "difficulty", new GameStringPropertyId()
+                        {
+                            { "Abathur", new GameStringText("Very Hard") },
+                        }
+                    },
+                }
+            },
+        };
+
+        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, jsonSerializerOptionService);
+
+        // act
+        await jsonGameStringFileWriterService.Write(gameStringElements, dataTypes);
+
+        // assert
+        File.Exists(expectedFilePath).Should().BeTrue();
+        File.ReadAllText(expectedFilePath).Should().Be(
+        """
+        {
+          "meta": {
+            "heroesVersion": "2.23.2345.34566",
+            "hdpVersion": "5.0.0",
+            "dataTypes": [
+              "AbilTalent",
+              "Hero"
+            ],
+            "descriptionText": {
+              "locale": "ENUS",
+              "gameStringTextType": "RawText",
+              "replaceFontStyles": false,
+              "preserveFontStyleConstantVars": false,
+              "preserveFontStyleVars": false
+            }
+          },
+          "gamestrings": {
+            "abiltalent": {
+              "cooldownText": {
+                ":PASSIVE:|ArtanisTwinBladesPrimed|W": "Cooldown: 4 seconds",
+                "AbathurAssumingDirectControlCancel|AbathurSymbioteCancel|Heroic": "Cooldown: 1.5 seconds"
+              },
+              "energyText": {
+                "AlarakDiscordStrike|AlarakDiscordStrike|Q": "<s val=\"StandardTooltipDetails\">Mana: 55</s>",
+                "AlarakTelekinesis|AlarakTelekinesis|W": "<s val=\"StandardTooltipDetails\">Mana: 30</s>"
+              }
+            },
+            "Hero": {
+              "difficulty": {
+                "Abathur": "Very Hard"
+              }
+            }
+          }
+        }
+        """);
+    }
+
+    [TestMethod]
+    public async Task Write_NoBuildNumber_CreatesJsonFile()
+    {
+        // arrange
+        RootOptions rootOptions = new()
+        {
+            OutputDirectory = Path.Combine("tests", nameof(Write_HasGameStringElements_CreatesJsonFile)),
+            CurrentLocale = StormLocale.DEDE,
+            HeroesVersion = new HeroesVersionOptions
+            {
+                Major = 2,
+                Minor = 23,
+                Revision = 2345,
+                Build = -1,
+                IsPtr = false,
+            },
+            AppVersion = "4.10.5",
+        };
+
+        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "gamestrings", "gamestrings_0_dede.json");
+
+        JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), Substitute.For<ISavedGameStringsService>());
+
+        _options.Value.Returns(rootOptions);
+
+        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, jsonSerializerOptionService);
+
+        // act
+        await jsonGameStringFileWriterService.Write([], []);
+
+        // assert
+        File.Exists(expectedFilePath).Should().BeTrue();
+        File.ReadAllText(expectedFilePath).Should().Be(
+        """
+        {
+          "meta": {
+            "heroesVersion": "2.23.2345.-1",
+            "hdpVersion": "4.10.5",
+            "dataTypes": [],
+            "descriptionText": {
+              "locale": "DEDE",
+              "gameStringTextType": "RawText",
+              "replaceFontStyles": false,
+              "preserveFontStyleConstantVars": false,
+              "preserveFontStyleVars": false
+            }
+          },
+          "gamestrings": {}
+        }
+        """);
+    }
+}

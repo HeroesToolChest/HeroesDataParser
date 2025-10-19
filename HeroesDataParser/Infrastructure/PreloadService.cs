@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace HeroesDataParser.Infrastructure;
+﻿namespace HeroesDataParser.Infrastructure;
 
 public class PreloadService : IPreloadService
 {
@@ -20,6 +18,7 @@ public class PreloadService : IPreloadService
 
     public void Preload()
     {
+        HeroesVersionCheck();
         SelectedLocalizations();
         SelectedDataOptions();
 
@@ -43,6 +42,15 @@ public class PreloadService : IPreloadService
             return null;
 
         return directoryPath[paths[3]].ToString();
+    }
+
+    private void HeroesVersionCheck()
+    {
+        if (!_options.HeroesVersion.IsOverridden)
+            return;
+
+        _logger.LogWarning("Heroes version {Version} was manually set and will override version from loaded data", _options.HeroesVersion.GetHeroesDataVersionString());
+        AnsiConsole.MarkupLineInterpolated($"[yellow]Version [bold]{_options.HeroesVersion.GetHeroesDataVersionString()}[/] was manually set and will override version from loaded data.[/]");
     }
 
     private void SelectedLocalizations()
@@ -73,7 +81,7 @@ public class PreloadService : IPreloadService
 
                 if (dataOption.Value.Images)
                 {
-                    AnsiConsole.Markup("[palegreen1]+[/]");
+                    AnsiConsole.Markup("[bold palegreen1]+[/]");
                 }
             }
         }

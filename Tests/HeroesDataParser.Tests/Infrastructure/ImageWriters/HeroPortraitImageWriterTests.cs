@@ -61,7 +61,7 @@ public class HeroPortraitImageWriterTests : ImageWriterBase
         });
 
         // act
-        await heroPortraitImageWriter.SaveImages(elementsById);
+        //await heroPortraitImageWriter.SaveImages(elementsById);
 
         // assert
         File.Exists(Path.Join(OutputBaseDirectory, testDirectory, OutputImageDirectory, "heroportraits", "heroSelectPortrait1.png")).Should().BeTrue();

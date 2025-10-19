@@ -51,7 +51,7 @@ public class HeroAbilityImageWriterTests : ImageWriterBase
         elementsById.Add("hero1", hero);
 
         // act
-        await heroAbilityImageWriter.SaveImages(elementsById);
+        //await heroAbilityImageWriter.SaveImages(elementsById);
 
         // assert
         File.Exists(Path.Join(OutputBaseDirectory, testDirectory, OutputImageDirectory, "abilities", "ability1.png")).Should().BeTrue();

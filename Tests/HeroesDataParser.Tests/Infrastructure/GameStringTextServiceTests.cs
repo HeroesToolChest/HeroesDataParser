@@ -20,7 +20,7 @@ public class GameStringTextServiceTests
     }
 
     [TestMethod]
-    public void GetTooltipDescription_GetFromTextAndNoFontStyleExtraction_GetsTooltipDescription()
+    public void GetGameStringText_GetFromTextAndNoFontStyleExtraction_GetsTooltipDescription()
     {
         // arrange
         _options.Value.Returns(new RootOptions()
@@ -42,7 +42,7 @@ public class GameStringTextServiceTests
     }
 
     [TestMethod]
-    public void GetTooltipDescription_WithFontStyleExtractionNoStormStylesFound_GetsTooltipDescriptionWithNoReplacements()
+    public void GetGameStringText_WithFontStyleExtractionNoStormStylesFound_GetsTooltipDescriptionWithNoReplacements()
     {
         // arrange
         _options.Value.Returns(new RootOptions()
@@ -67,7 +67,7 @@ public class GameStringTextServiceTests
     }
 
     [TestMethod]
-    public void GetTooltipDescription_WithFontStyleExtraction_GetsTooltipDescriptionWithReplacements()
+    public void GetGameStringText_WithFontStyleExtraction_GetsTooltipDescriptionWithReplacements()
     {
         // arrange
         _options.Value.Returns(new RootOptions()
@@ -92,7 +92,7 @@ public class GameStringTextServiceTests
     }
 
     [TestMethod]
-    public void GetTooltipDescription_WithFontStyleExtractionWithPreserve_GetsTooltipDescriptionWithReplacements()
+    public void GetGameStringText_WithFontStyleExtractionWithPreserve_GetsTooltipDescriptionWithReplacements()
     {
         // arrange
         _options.Value.Returns(new RootOptions()
@@ -122,7 +122,7 @@ public class GameStringTextServiceTests
     }
 
     [TestMethod]
-    public void GetTooltipDescription_WithFontStyleExtractionMissingAttributes_GetsTooltipDescriptionWithReplacements()
+    public void GetGameStringText_WithFontStyleExtractionMissingAttributes_GetsTooltipDescriptionWithReplacements()
     {
         // arrange
         _options.Value.Returns(new RootOptions()
@@ -147,7 +147,7 @@ public class GameStringTextServiceTests
     }
 
     [TestMethod]
-    public void GetTooltipDescription_CurrentLocale_AppliesLocale()
+    public void GetGameStringText_CurrentLocale_AppliesLocale()
     {
         // arrange
         _options.Value.Returns(new RootOptions()
@@ -170,7 +170,7 @@ public class GameStringTextServiceTests
     }
 
     [TestMethod]
-    public void GetTooltipDescriptionFromId_NoIdFound_ReturnsNull()
+    public void GetGameStringTextFromId_NoIdFound_ReturnsNull()
     {
         // arrange
         _options.Value.Returns(new RootOptions()
@@ -192,7 +192,7 @@ public class GameStringTextServiceTests
     }
 
     [TestMethod]
-    public void GetTooltipDescriptionFromId_IdFound_ReturnsTooltipDescription()
+    public void GetGameStringTextFromId_IdFound_ReturnsTooltipDescription()
     {
         // arrange
         _options.Value.Returns(new RootOptions()
@@ -218,7 +218,7 @@ public class GameStringTextServiceTests
     }
 
     [TestMethod]
-    public void GetTooltipDescriptionFromId_CurrentLocale_AppliesLocale()
+    public void GetGameStringTextFromId_CurrentLocale_AppliesLocale()
     {
         // arrange
         _options.Value.Returns(new RootOptions()
@@ -242,7 +242,7 @@ public class GameStringTextServiceTests
     }
 
     [TestMethod]
-    public void GetTooltipDescriptionFromGameString_ParsesStormGameString_ReturnsTooltipDescription()
+    public void GetGameStringTextFromStormGameString_ParsesStormGameString_ReturnsTooltipDescription()
     {
         // arrange
         _options.Value.Returns(new RootOptions()
@@ -271,7 +271,7 @@ public class GameStringTextServiceTests
     }
 
     [TestMethod]
-    public void GetTooltipDescriptionFromGameString_ParsesStormGameStringWithCurrentLocal_AppliesCurrentLocale()
+    public void GetGameStringTextFromStormGameString_ParsesStormGameStringWithCurrentLocal_AppliesCurrentLocale()
     {
         // arrange
         _options.Value.Returns(new RootOptions()
@@ -297,7 +297,7 @@ public class GameStringTextServiceTests
     }
 
     [TestMethod]
-    public void GetTooltipDescriptionFromGameString_ParsesTextGameStringWithCurrentLocal_AppliesCurrentLocale()
+    public void GetGameStringTextFromGameString_ParsesTextGameStringWithCurrentLocal_AppliesCurrentLocale()
     {
         // arrange
         _options.Value.Returns(new RootOptions()

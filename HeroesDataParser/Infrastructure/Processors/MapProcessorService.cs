@@ -1,6 +1,6 @@
 ﻿using Serilog.Context;
 
-namespace HeroesDataParser.Infrastructure;
+namespace HeroesDataParser.Infrastructure.Processors;
 
 public class MapProcessorService : IMapProcessorService
 {
@@ -8,7 +8,7 @@ public class MapProcessorService : IMapProcessorService
     private readonly IProcessorService _processorService;
     private readonly IDataParser<Map> _mapDataParser;
     private readonly IMapDataExtractorService _mapDataExtractorService;
-    private readonly IJsonFileWriterService _jsonFileWriterService;
+    private readonly IJsonDataFileWriterService _jsonDataFileWriterService;
     private readonly IImageWriter<Map> _imageWriter;
 
     public MapProcessorService(
@@ -16,14 +16,14 @@ public class MapProcessorService : IMapProcessorService
         IProcessorService processorService,
         IDataParser<Map> mapDataParser,
         IMapDataExtractorService mapDataExtractorService,
-        IJsonFileWriterService jsonFileWriterService,
+        IJsonDataFileWriterService jsonFileWriterService,
         IImageWriter<Map> imageWriter)
     {
         _logger = logger;
         _processorService = processorService;
         _mapDataParser = mapDataParser;
         _mapDataExtractorService = mapDataExtractorService;
-        _jsonFileWriterService = jsonFileWriterService;
+        _jsonDataFileWriterService = jsonFileWriterService;
         _imageWriter = imageWriter;
     }
 
@@ -52,7 +52,7 @@ public class MapProcessorService : IMapProcessorService
 
             // then write out the map data
             // done last, because of the loading of map xml mods, we only want to go through the map mods once
-            await _jsonFileWriterService.Write(mapItemsToSerialize);
+            await _jsonDataFileWriterService.Write(mapItemsToSerialize);
 
             if (_processorService.ExtractImageOptions.HasFlag(_imageWriter.ExtractImageOption))
             {

@@ -2,5 +2,7 @@
 
 public interface IJsonSerializerOptionService
 {
-    JsonSerializerOptions HeroesJsonSerializerOptions { get; }
+    JsonSerializerOptions JsonSerializerDataOptions { get; }
+
+    JsonSerializerOptions JsonSerializerGameStringOptions { get; }
 }

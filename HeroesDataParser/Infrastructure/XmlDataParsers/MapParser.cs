@@ -1,5 +1,4 @@
 ﻿using Serilog.Context;
-using System.Xml.Linq;
 
 namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
@@ -267,7 +266,7 @@ public class MapParser : DataParser<Map>
         {
             string? value = HeroesData.GetStormAssetString(assetPath[1..])?.Value;
             if (value is null)
-                return TooltipDescriptionService.GetGameStringTextFromId(assetPath[1..]);
+                return GameStringTextService.GetGameStringTextFromId(assetPath[1..]);
         }
 
         return new GameStringText(assetPath);

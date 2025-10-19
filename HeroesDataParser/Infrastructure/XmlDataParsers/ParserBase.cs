@@ -27,7 +27,7 @@ public abstract class ParserBase
 
     protected HeroesData HeroesData => _heroesData;
 
-    protected IGameStringTextService TooltipDescriptionService => _gameStringTextService;
+    protected IGameStringTextService GameStringTextService => _gameStringTextService;
 
     protected ImageFilePath? GetImageFilePath(StormElementData data)
     {

@@ -50,7 +50,7 @@ public class GameStringTextService : IGameStringTextService
         }
     }
 
-    public GameStringText? GetGameStringTextFromStormGameString(StormGameString stormGameString)
+    public GameStringText GetGameStringTextFromStormGameString(StormGameString stormGameString)
     {
         try
         {
@@ -63,7 +63,7 @@ public class GameStringTextService : IGameStringTextService
         }
     }
 
-    public GameStringText? GetGameStringTextFromGameString(string gameString)
+    public GameStringText GetGameStringTextFromGameString(string gameString)
     {
         try
         {

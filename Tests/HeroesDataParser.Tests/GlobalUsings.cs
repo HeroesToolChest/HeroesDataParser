@@ -1,4 +1,5 @@
 ﻿global using AwesomeAssertions;
+global using Heroes.Element.JsonTypeInfoResolvers.GameStringModifier;
 global using Heroes.Element.Models;
 global using Heroes.Element.Models.AbilityTalents;
 global using Heroes.Element.Models.Types;

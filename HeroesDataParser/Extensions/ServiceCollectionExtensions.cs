@@ -1,5 +1,4 @@
-﻿using HeroesDataParser.Infrastructure.ImageParsers;
-using Serilog;
+﻿using Serilog;
 
 namespace HeroesDataParser.Extensions;
 
@@ -25,9 +24,11 @@ public static class ServiceCollectionExtensions
         services.AddDataParsers();
         services.AddImageWriters();
 
+        services.AddSingleton<ISavedGameStringsService, SavedGameStringsService>();
         services.AddSingleton<IMainService, MainService>();
         services.AddSingleton<IProcessorService, ProcessorService>();
         services.AddSingleton<IMapProcessorService, MapProcessorService>();
+        services.AddSingleton<IGameStringFileProcessorService, GameStringFileProcessorService>();
 
         //services.AddSingleton<IDataParserService, DataParserService>();
         //services.AddSingleton<IMapDataParserService, MapDataParserService>();
@@ -35,7 +36,8 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDataExtractorService, DataExtractorService>();
         services.AddSingleton<IMapDataExtractorService, MapDataExtractorService>();
 
-        services.AddSingleton<IJsonFileWriterService, JsonFileWriterService>();
+        services.AddSingleton<IJsonDataFileWriterService, JsonDataFileWriterService>();
+        services.AddSingleton<IJsonGameStringFileWriterService, JsonGameStringFileWriterService>();
 
         return services;
     }

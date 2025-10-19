@@ -1,6 +1,4 @@
-﻿using Heroes.Element.Models.Types;
-
-namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers.Tests;
+﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers.Tests;
 
 [TestClass]
 public class TalentParserTests

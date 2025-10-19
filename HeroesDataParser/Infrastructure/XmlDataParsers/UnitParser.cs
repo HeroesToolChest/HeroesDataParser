@@ -111,11 +111,11 @@ public class UnitParser : DataParser<Unit>, IUnitParser
         if (actorElement.DataValues.TryGetElementDataAt("VitalNames", out StormElementData? vitalNamesData))
         {
             if (vitalNamesData.TryGetElementDataAt("Life", out StormElementData? lifeData))
-                elementObject.Life.LifeType = TooltipDescriptionService.GetGameStringTextFromId(lifeData.Value.GetString());
+                elementObject.Life.LifeType = GameStringTextService.GetGameStringTextFromId(lifeData.Value.GetString());
             if (vitalNamesData.TryGetElementDataAt("Shields", out StormElementData? shieldsData))
-                elementObject.Shield.ShieldType = TooltipDescriptionService.GetGameStringTextFromId(shieldsData.Value.GetString());
+                elementObject.Shield.ShieldType = GameStringTextService.GetGameStringTextFromId(shieldsData.Value.GetString());
             if (vitalNamesData.TryGetElementDataAt("Energy", out StormElementData? energyData))
-                elementObject.Energy.EnergyType = TooltipDescriptionService.GetGameStringTextFromId(energyData.Value.GetString());
+                elementObject.Energy.EnergyType = GameStringTextService.GetGameStringTextFromId(energyData.Value.GetString());
         }
 
         if (actorElement.DataValues.TryGetElementDataAt("GroupIcon", out StormElementData? groupIconData) && groupIconData.TryGetElementDataAt("Image", out StormElementData? groupImageData))

@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace HeroesDataParser.Infrastructure;
+﻿namespace HeroesDataParser.Infrastructure;
 
 public class MainService : IMainService
 {
@@ -11,13 +9,16 @@ public class MainService : IMainService
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly Stopwatch _stopwatch = new();
 
-    public MainService(ILogger<MainService> logger, IOptions<RootOptions> options, IProcessorService processorService, IMapProcessorService mapProcessorService, IHeroesXmlLoaderService heroesXmlLoaderService)
+    private readonly IGameStringFileProcessorService _gameStringFileProcessorService;
+
+    public MainService(ILogger<MainService> logger, IOptions<RootOptions> options, IProcessorService processorService, IMapProcessorService mapProcessorService, IHeroesXmlLoaderService heroesXmlLoaderService, IGameStringFileProcessorService gameStringFileProcessorService)
     {
         _logger = logger;
         _options = options.Value;
         _processorService = processorService;
         _mapProcessorService = mapProcessorService;
         _heroesXmlLoaderService = heroesXmlLoaderService;
+        _gameStringFileProcessorService = gameStringFileProcessorService;
     }
 
     public async Task Start()
@@ -37,6 +38,9 @@ public class MainService : IMainService
 
             _logger.LogInformation("Starting map processor service for {Locale}", locale);
             await _mapProcessorService.Start();
+
+            // for gamestring extraction to a separate file
+            await _gameStringFileProcessorService.Start();
 
             count++;
         }

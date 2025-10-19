@@ -25,7 +25,10 @@ public class ParsingConfigurationServiceTests
 
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = 1,
+            HeroesVersion =
+            {
+                Build = 1,
+            },
         });
 
         var fileInfo = CreateFileInfo("parsing.json");
@@ -66,7 +69,10 @@ public class ParsingConfigurationServiceTests
 
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = 1,
+            HeroesVersion =
+            {
+                Build = 1,
+            },
         });
 
         var fileInfo = CreateFileInfo("parsing.json");
@@ -106,7 +112,10 @@ public class ParsingConfigurationServiceTests
 
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = 1,
+            HeroesVersion =
+            {
+                Build = 1,
+            },
         });
 
         var fileInfo = CreateFileInfo("parsing.json");
@@ -135,7 +144,10 @@ public class ParsingConfigurationServiceTests
         // arrange
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = 500,
+            HeroesVersion =
+            {
+                Build = 500,
+            },
         });
 
         IDirectoryContents directoryContents = Substitute.For<IDirectoryContents>();
@@ -171,7 +183,10 @@ public class ParsingConfigurationServiceTests
         // arrange
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = 99999,
+            HeroesVersion =
+            {
+                Build = 99999,
+            },
         });
 
         IDirectoryContents directoryContents = Substitute.For<IDirectoryContents>();
@@ -207,7 +222,10 @@ public class ParsingConfigurationServiceTests
         // arrange
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = 33332,
+            HeroesVersion =
+            {
+                Build = 33332,
+            },
         });
 
         IDirectoryContents directoryContents = Substitute.For<IDirectoryContents>();
@@ -243,7 +261,10 @@ public class ParsingConfigurationServiceTests
         // arrange
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = 22222,
+            HeroesVersion =
+            {
+                Build = 22222,
+            },
         });
 
         IDirectoryContents directoryContents = Substitute.For<IDirectoryContents>();
@@ -279,7 +300,10 @@ public class ParsingConfigurationServiceTests
         // arrange
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = 22222,
+            HeroesVersion =
+            {
+                Build = 22222,
+            },
         });
 
         IDirectoryContents directoryContents = Substitute.For<IDirectoryContents>();
@@ -307,7 +331,10 @@ public class ParsingConfigurationServiceTests
         // arrange
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = null,
+            HeroesVersion =
+            {
+                Build = -1,
+            },
         });
 
         IDirectoryContents directoryContents = Substitute.For<IDirectoryContents>();
@@ -343,7 +370,10 @@ public class ParsingConfigurationServiceTests
         // arrange
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = null,
+            HeroesVersion =
+            {
+                Build = -1,
+            },
         });
 
         IDirectoryContents directoryContents = Substitute.For<IDirectoryContents>();

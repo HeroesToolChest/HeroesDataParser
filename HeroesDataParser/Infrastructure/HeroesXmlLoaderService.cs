@@ -1,6 +1,4 @@
 ﻿using CASCLib;
-using System.Diagnostics;
-using System.Xml.Linq;
 
 namespace HeroesDataParser.Infrastructure;
 
@@ -32,6 +30,19 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
             return;
         }
 
+        ExecuteLoader();
+        ExecuteDataLoading();
+
+        AnsiConsole.MarkupLineInterpolated($"{HeroesXmlLoader.GetCountOfXmlDataFiles(),6} xml files loaded");
+        AnsiConsole.MarkupLineInterpolated($"{HeroesXmlLoader.GetCountOfFontStyleFiles(),6} storm style files loaded");
+        AnsiConsole.MarkupLineInterpolated($"[green bold]Loading completed in {_stopwatch.Elapsed.TotalSeconds:0.####} seconds[/]");
+        AnsiConsole.WriteLine();
+
+        SetHeroesVersion();
+    }
+
+    private void ExecuteLoader()
+    {
         if (_options.StorageLoad.Type == StorageType.Mods)
             RunLoader();
         else
@@ -42,7 +53,10 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
 
         if (HeroesXmlLoader is null)
             throw new InvalidOperationException("Failed to load from casc or file.");
+    }
 
+    private void ExecuteDataLoading()
+    {
         AnsiConsole.Status()
             .Spinner(Spinner.Known.Star)
             .SpinnerStyle(Style.Parse("yellow bold"))
@@ -66,11 +80,29 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
             });
 
         _logger.LogInformation("Heroes data loaded");
+    }
 
-        AnsiConsole.MarkupLineInterpolated($"{HeroesXmlLoader.GetCountOfXmlDataFiles(),6} xml files loaded");
-        AnsiConsole.MarkupLineInterpolated($"{HeroesXmlLoader.GetCountOfFontStyleFiles(),6} storm style files loaded");
-        AnsiConsole.MarkupLineInterpolated($"[green bold]Loading completed in {_stopwatch.Elapsed.TotalSeconds:0.####} seconds[/]");
-        AnsiConsole.WriteLine();
+    private void SetHeroesVersion()
+    {
+        if (!HeroesDataVersion.TryParse(HeroesXmlLoader.HeroesVersion, out HeroesDataVersion? parsedVersion))
+        {
+            _logger.LogWarning("Failed to parse heroes version: {Version}", HeroesXmlLoader.HeroesVersion);
+            return;
+        }
+
+        if (_options.HeroesVersion.IsOverridden)
+        {
+            _logger.LogInformation("Heroes version {Version} was manually set, skipping setting version {LoadedVersion} from loaded data", _options.HeroesVersion.GetHeroesDataVersionString(), parsedVersion.ToString());
+            AnsiConsole.MarkupLineInterpolated($"[yellow]Warning: Version [bold]{_options.HeroesVersion.GetHeroesDataVersionString()}[/] was manually set and is overriding version [bold]{parsedVersion}[/] from loaded data.[/]");
+            AnsiConsole.WriteLine();
+            return;
+        }
+
+        _options.HeroesVersion.Major = parsedVersion.Major;
+        _options.HeroesVersion.Minor = parsedVersion.Minor;
+        _options.HeroesVersion.Revision = parsedVersion.Revision;
+        _options.HeroesVersion.Build = parsedVersion.Build;
+        _options.HeroesVersion.IsPtr = parsedVersion.IsPtr;
     }
 
     private void LoadFromCASC()
@@ -106,19 +138,27 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
                     switch (p.Stage)
                     {
                         case ProgressStage.CDNIndexes:
+                            cdnIndexesTask.IsIndeterminate = false;
                             cdnIndexesTask.Value = p.Percentage;
                             break;
                         case ProgressStage.LocalIndexes:
                             if (localIndexesTask is not null)
+                            {
+                                localIndexesTask.IsIndeterminate = false;
                                 localIndexesTask.Value = p.Percentage;
+                            }
+
                             break;
                         case ProgressStage.Encoding:
+                            encodingTask.IsIndeterminate = false;
                             encodingTask.Value = p.Percentage;
                             break;
                         case ProgressStage.Root:
+                            rootTask.IsIndeterminate = false;
                             rootTask.Value = p.Percentage;
                             break;
                         case ProgressStage.ListFile:
+                            listFileTask.IsIndeterminate = false;
                             listFileTask.Value = p.Percentage;
                             break;
                         default:

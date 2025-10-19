@@ -1,4 +1,4 @@
-﻿namespace HeroesDataParser;
+﻿namespace HeroesDataParser.Options;
 
 [Flags]
 public enum ExtractDataOptions

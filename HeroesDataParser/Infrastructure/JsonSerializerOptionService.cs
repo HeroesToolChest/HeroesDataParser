@@ -3,13 +3,27 @@
 public class JsonSerializerOptionService : IJsonSerializerOptionService
 {
     private readonly RootOptions _options;
-    private readonly JsonSerializerOptions _jsonSerializerOptions;
+    private readonly ISavedGameStringsService _savedGameStringsService;
 
-    public JsonSerializerOptionService(IOptions<RootOptions> options)
+    private readonly JsonSerializerOptions _jsonSerializerDataOptions;
+    private readonly JsonSerializerOptions _jsonSerializerGameStringOptions;
+
+    public JsonSerializerOptionService(IOptions<RootOptions> options, ISavedGameStringsService savedGameStringsService)
     {
         _options = options.Value;
+        _savedGameStringsService = savedGameStringsService;
 
-        _jsonSerializerOptions = new JsonSerializerOptions()
+        _jsonSerializerDataOptions = SetJsonSerializerDataOptions();
+        _jsonSerializerGameStringOptions = SetJsonSerializerGameStringOptions();
+    }
+
+    public JsonSerializerOptions JsonSerializerDataOptions => _jsonSerializerDataOptions;
+
+    public JsonSerializerOptions JsonSerializerGameStringOptions => _jsonSerializerGameStringOptions;
+
+    private JsonSerializerOptions SetJsonSerializerDataOptions()
+    {
+        return new JsonSerializerOptions()
         {
             WriteIndented = true,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -28,7 +42,7 @@ public class JsonSerializerOptionService : IJsonSerializerOptionService
             {
                 Modifiers =
                 {
-                    JsonTypeInfoModifiers.SerialiazationModifiers,
+                    typeInfo => JsonTypeInfoModifiers.SerialiazationModifiers(typeInfo, _options.LocalizedText, _savedGameStringsService.GameStringElements),
                 },
             },
             //TypeInfoResolver = new DefaultJsonTypeInfoResolver
@@ -41,5 +55,19 @@ public class JsonSerializerOptionService : IJsonSerializerOptionService
         };
     }
 
-    public JsonSerializerOptions HeroesJsonSerializerOptions => _jsonSerializerOptions;
+    private JsonSerializerOptions SetJsonSerializerGameStringOptions()
+    {
+        return new JsonSerializerOptions()
+        {
+            WriteIndented = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            Converters =
+            {
+                new JsonStringEnumConverter(),
+                new GameStringTextConverter(gameStringTextType: _options.GameStringText.Type),
+            },
+        };
+    }
 }

@@ -1,27 +1,22 @@
-﻿using System.Text.Json.Nodes;
+﻿namespace HeroesDataParser.Infrastructure.JsonFileWriters;
 
-namespace HeroesDataParser.Infrastructure;
-
-public class JsonFileWriterService : IJsonFileWriterService
+public class JsonDataFileWriterService : IJsonDataFileWriterService
 {
     private const string _jsonFileDirectory = "data";
 
-    private readonly ILogger<JsonFileWriterService> _logger;
+    private readonly ILogger<JsonDataFileWriterService> _logger;
     private readonly RootOptions _options;
-    private readonly HeroesData _heroesData;
     private readonly ISerializedElementsService _serializedElementsService;
     private readonly IJsonSerializerOptionService _jsonSerializerOptionService;
 
-    public JsonFileWriterService(
-        ILogger<JsonFileWriterService> logger,
+    public JsonDataFileWriterService(
+        ILogger<JsonDataFileWriterService> logger,
         IOptions<RootOptions> options,
-        IHeroesXmlLoaderService heroesXmlLoaderService,
         ISerializedElementsService serializedElementsService,
         IJsonSerializerOptionService jsonSerializerOptionService)
     {
         _logger = logger;
         _options = options.Value;
-        _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
         _serializedElementsService = serializedElementsService;
         _jsonSerializerOptionService = jsonSerializerOptionService;
     }
@@ -90,26 +85,26 @@ public class JsonFileWriterService : IJsonFileWriterService
     private async Task WriteTo<TElement>(Dictionary<string, TElement> elementsById, string innerDirectory, string? mapName = null)
         where TElement : IElementObject
     {
-        string fullOutputDirectory = Path.Join(_options.OutputDirectory, innerDirectory);
+        string fullOutputDirectory = Path.Combine(_options.OutputDirectory, innerDirectory);
 
         Directory.CreateDirectory(fullOutputDirectory);
 
         string dataName = $"{typeof(TElement).Name}data".ToLowerInvariant();
-        string fileName = $"{dataName}_{_heroesData.Build ?? 0}_{_options.CurrentLocale}.json{(!string.IsNullOrWhiteSpace(mapName) ? ".diff" : string.Empty)}".ToLowerInvariant();
-        string filePath = Path.Join(fullOutputDirectory, fileName);
+        string fileName = $"{dataName}_{_options.BuildNumber ?? 0}_{_options.CurrentLocale}.json{(!string.IsNullOrWhiteSpace(mapName) ? ".diff" : string.Empty)}".ToLowerInvariant();
+        string filePath = Path.Combine(fullOutputDirectory, fileName);
 
         _logger.LogInformation("Writing to {FilePath}", filePath);
 
-        RootElement<TElement> rootElement = new()
+        RootDataElement<TElement> rootDataElement = new()
         {
-            Meta =
+            Meta = new()
             {
                 DataType = dataName,
                 MapName = mapName,
-                IsLocalizedText = _options.LocalizedText,
-                // TODO Version
-                HdpVersion = AppVersion.GetAppVersion(),
-                DescriptionText = _options.LocalizedText ? null : new()
+                LocalizedText = _options.LocalizedText,
+                HeroesVersion = _options.HeroesVersion.GetHeroesDataVersionString(),
+                HdpVersion = _options.AppVersion,
+                DescriptionText = _options.LocalizedText == LocalizedTextOption.None ? null : new()
                 {
                     Locale = _options.CurrentLocale,
                     GameStringTextType = _options.GameStringText.Type,
@@ -122,7 +117,7 @@ public class JsonFileWriterService : IJsonFileWriterService
             Items = new SortedDictionary<string, TElement>(elementsById, StringComparer.Ordinal),
         };
 
-        byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(rootElement, _jsonSerializerOptionService.HeroesJsonSerializerOptions);
+        byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(rootDataElement, _jsonSerializerOptionService.JsonSerializerDataOptions);
 
         if (string.IsNullOrWhiteSpace(mapName))
             await WriteBaseJsonFile(innerDirectory, dataName, fileName, filePath, bytes);
@@ -161,7 +156,7 @@ public class JsonFileWriterService : IJsonFileWriterService
         AnsiConsole.WriteLine($"{totalItems,6} changed items");
 
         using FileStream fileStream = File.Create(filePath);
-        JsonSerializer.Serialize(fileStream, jsonDiff, _jsonSerializerOptionService.HeroesJsonSerializerOptions);
+        JsonSerializer.Serialize(fileStream, jsonDiff, _jsonSerializerOptionService.JsonSerializerDataOptions);
 
         AnsiConsole.Write("Created diff file ");
         DisplayCreatedFilePath(innerDirectory, fileName);

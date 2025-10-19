@@ -22,7 +22,10 @@ public class CustomConfigurationServiceTests
         // arrange
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = 5800,
+            HeroesVersion =
+            {
+                Build = 5800,
+            },
             Extractors =
             {
                 { "hero", new ExtractorOptions() },
@@ -88,7 +91,10 @@ public class CustomConfigurationServiceTests
         // arrange
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = 1,
+            HeroesVersion =
+            {
+                Build = 1,
+            },
             Extractors =
             {
                 { "hero", new ExtractorOptions() },
@@ -135,7 +141,10 @@ public class CustomConfigurationServiceTests
         // arrange
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = 99999,
+            HeroesVersion =
+            {
+                Build = 99999,
+            },
             Extractors =
             {
                 { "hero", new ExtractorOptions() },
@@ -201,7 +210,10 @@ public class CustomConfigurationServiceTests
         // arrange
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = 2999,
+            HeroesVersion =
+            {
+                Build = 2999,
+            },
             Extractors =
             {
                 { "hero", new ExtractorOptions() },
@@ -249,7 +261,10 @@ public class CustomConfigurationServiceTests
         // arrange
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = 2000,
+            HeroesVersion =
+            {
+                Build = 2000,
+            },
             Extractors =
             {
                 { "hero", new ExtractorOptions() },
@@ -297,7 +312,10 @@ public class CustomConfigurationServiceTests
         // arrange
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = null,
+            HeroesVersion =
+            {
+                Build = -1,
+            },
             Extractors =
             {
                 { "hero", new ExtractorOptions() },
@@ -348,7 +366,10 @@ public class CustomConfigurationServiceTests
         // arrange
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = null,
+            HeroesVersion =
+            {
+                Build = -1,
+            },
             Extractors =
             {
                 { "hero", new ExtractorOptions() },
@@ -387,7 +408,10 @@ public class CustomConfigurationServiceTests
         // arrange
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = null,
+            HeroesVersion =
+            {
+                Build = -1,
+            },
             Extractors = { },
         });
 
@@ -430,7 +454,10 @@ public class CustomConfigurationServiceTests
         // arrange
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = 1,
+            HeroesVersion =
+            {
+                Build = 1,
+            },
             Extractors =
             {
                 { "hero", new ExtractorOptions() },
@@ -478,7 +505,10 @@ public class CustomConfigurationServiceTests
         // arrange
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = 5800,
+            HeroesVersion =
+            {
+                Build = 5800,
+            },
             Extractors =
             {
                 { "hero", new ExtractorOptions() },
@@ -584,7 +614,10 @@ public class CustomConfigurationServiceTests
         // arrange
         _options.Value.Returns(new RootOptions()
         {
-            BuildNumber = 5800,
+            HeroesVersion =
+            {
+                Build = 5800,
+            },
             Extractors =
             {
                 { "hero", new ExtractorOptions() },

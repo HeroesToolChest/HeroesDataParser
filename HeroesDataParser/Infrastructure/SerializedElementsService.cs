@@ -1,5 +1,4 @@
 ﻿using System.Text.Json.JsonDiffPatch;
-using System.Text.Json.Nodes;
 
 namespace HeroesDataParser.Infrastructure;
 
@@ -14,6 +13,7 @@ public class SerializedElementsService : ISerializedElementsService
         _logger = logger;
     }
 
+    // dataType is for orignial, bytes is the new data to compare against
     public JsonNode? GetJsonNodeDiff(string dataType, byte[] bytes)
     {
         if (!_serializedElementsByDataType.TryGetValue(dataType, out byte[]? baseBytes))
@@ -31,5 +31,10 @@ public class SerializedElementsService : ISerializedElementsService
     public void AddSerializedElements(string dataType, byte[] bytes)
     {
         _serializedElementsByDataType[dataType] = bytes;
+    }
+
+    public IEnumerable<string> GetDataTypes()
+    {
+        return _serializedElementsByDataType.Keys;
     }
 }

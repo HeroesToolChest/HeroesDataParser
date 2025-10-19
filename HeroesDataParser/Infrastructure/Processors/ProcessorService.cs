@@ -1,6 +1,6 @@
 ﻿using Serilog.Context;
 
-namespace HeroesDataParser.Infrastructure;
+namespace HeroesDataParser.Infrastructure.Processors;
 
 public class ProcessorService : IProcessorService
 {
@@ -8,13 +8,13 @@ public class ProcessorService : IProcessorService
     private readonly RootOptions _options;
     private readonly IServiceProvider _serviceProvider;
     private readonly IDataExtractorService _dataExtractorService;
-    private readonly IJsonFileWriterService _jsonFileWriterService;
+    private readonly IJsonDataFileWriterService _jsonFileWriterService;
 
     private readonly ExtractDataOptions _extractDataOptions;
     private readonly ExtractImageOptions _extractImageOptions;
     private readonly Dictionary<ExtractDataOptions, Func<Map?, Task>> _processElementByExtractDataOption;
 
-    public ProcessorService(ILogger<ProcessorService> logger, IOptions<RootOptions> options, IServiceProvider serviceProvider, IDataExtractorService dataExtractorService, IJsonFileWriterService jsonFileWriterService)
+    public ProcessorService(ILogger<ProcessorService> logger, IOptions<RootOptions> options, IServiceProvider serviceProvider, IDataExtractorService dataExtractorService, IJsonDataFileWriterService jsonFileWriterService)
     {
         _logger = logger;
         _options = options.Value;

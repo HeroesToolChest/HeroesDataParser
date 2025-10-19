@@ -54,7 +54,7 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
         if (elementObject is IName nameObject)
         {
             if (stormElement.DataValues.TryGetElementDataAt("name", out StormElementData? nameData))
-                nameObject.Name = TooltipDescriptionService.GetGameStringTextFromId(nameData.Value.GetString());
+                nameObject.Name = GameStringTextService.GetGameStringTextFromId(nameData.Value.GetString());
         }
     }
 
@@ -90,7 +90,7 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
         if (elementObject is IDescription descriptionObject)
         {
             if (stormElement.DataValues.TryGetElementDataAt("description", out StormElementData? descriptionData))
-                descriptionObject.Description = TooltipDescriptionService.GetGameStringTextFromId(descriptionData.Value.GetString());
+                descriptionObject.Description = GameStringTextService.GetGameStringTextFromId(descriptionData.Value.GetString());
         }
     }
 
@@ -99,7 +99,7 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
         if (elementObject is IInfoText infoTextObject)
         {
             if (stormElement.DataValues.TryGetElementDataAt("infotext", out StormElementData? infoTextData))
-                infoTextObject.InfoText = TooltipDescriptionService.GetGameStringTextFromId(infoTextData.Value.GetString());
+                infoTextObject.InfoText = GameStringTextService.GetGameStringTextFromId(infoTextData.Value.GetString());
         }
     }
 }
