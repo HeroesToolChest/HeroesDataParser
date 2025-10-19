@@ -26,6 +26,10 @@ New stuff:
 CollectionCategoryData.xml
 HeroRoleData.xml ?
 
+Other:
+- For gamestrings LocalizedText, heroes will no longer use `unit`
+- New LocalizedText options: `None`, `Extract`, `Copy`, no longer command change to option
+
 -------
 v5 changes heroes
 - Added Taunt and Dance ability
@@ -90,4 +94,3 @@ v5 changes heroes
 - Fixed Li-Mings `WizardArchonPurePower|WizardArchonPurePowerHotbar|Active` ability, should have two subabilities `WizardArchonPurePowerDisintegrate|WizardArchonPurePowerDisintegrate|Heroic` and `WizardArchonPurePower|WizardArchonPurePowerHotbarCancel|Active`
 - Fixed Yrel's `YrelAvengingWrathChannel|YrelAvengingWrath|E` and `YrelAvengingWrath|YrelAvengingWrath|E` being swapped
 - Added Yrel's `YrelVindicationCast|YrelVindication|Q` as a subability to `YrelDivinePurpose|YrelDivinePurpose|Trait`
-
