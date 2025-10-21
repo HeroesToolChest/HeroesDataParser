@@ -2,5 +2,5 @@
 
 public interface IPreloadService
 {
-    void Preload();
+    PreloadData Preload();
 }

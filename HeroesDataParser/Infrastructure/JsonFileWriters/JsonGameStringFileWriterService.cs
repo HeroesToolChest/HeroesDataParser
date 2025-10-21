@@ -32,7 +32,7 @@ public class JsonGameStringFileWriterService : IJsonGameStringFileWriterService
             Meta = new()
             {
                 DataTypes = [.. dataTypes],
-                HeroesVersion = _options.HeroesVersion.GetHeroesDataVersionString(),
+                HeroesVersion = _options.HeroesVersion.GetAsHeroesDataVersion(),
                 HdpVersion = _options.AppVersion,
                 DescriptionText = new()
                 {

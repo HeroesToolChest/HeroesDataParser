@@ -14,5 +14,5 @@ public class HeroesVersionOptions
 
     public bool IsOverridden => Major > -1 || Minor > -1 || Revision > -1 || Build > -1;
 
-    public string GetHeroesDataVersionString() => new HeroesDataVersion(Major, Minor, Revision, Build, IsPtr).ToString();
+    public string GetAsHeroesDataVersion() => new HeroesDataVersion(Major, Minor, Revision, Build, IsPtr).ToString();
 }

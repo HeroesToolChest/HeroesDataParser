@@ -9,6 +9,7 @@ global using Heroes.Element.Models.ObjectProperties;
 global using Heroes.Element.Models.Types;
 global using Heroes.LocaleText;
 global using Heroes.XmlData;
+global using Heroes.XmlData.Source;
 global using Heroes.XmlData.StormData;
 global using HeroesDataParser;
 global using HeroesDataParser.Core;

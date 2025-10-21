@@ -102,7 +102,7 @@ public class JsonDataFileWriterService : IJsonDataFileWriterService
                 DataType = dataName,
                 MapName = mapName,
                 LocalizedText = _options.LocalizedText,
-                HeroesVersion = _options.HeroesVersion.GetHeroesDataVersionString(),
+                HeroesVersion = _options.HeroesVersion.GetAsHeroesDataVersion(),
                 HdpVersion = _options.AppVersion,
                 DescriptionText = _options.LocalizedText == LocalizedTextOption.None ? null : new()
                 {

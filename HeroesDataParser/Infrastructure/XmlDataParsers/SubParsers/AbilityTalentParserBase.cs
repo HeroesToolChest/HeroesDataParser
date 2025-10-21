@@ -228,7 +228,6 @@ public class AbilityTalentParserBase : ParserBase
 
         if (abilityDataValues.TryGetElementDataAt("Flags", out StormElementData? flagsData))
         {
-            // TODO: flags
         }
 
         // must be done last

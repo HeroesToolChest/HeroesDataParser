@@ -18,9 +18,17 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
 
     public HeroesXmlLoader HeroesXmlLoader { get; private set; } = null!;
 
-    public void Load()
+    public void Load(PreloadData preloadData)
     {
         _logger.LogInformation("Loading heroes data...");
+
+        if (!preloadData.HasCascConfig && !preloadData.HasModsInfoFile)
+        {
+            _logger.LogCritical("No valid preload data found to load from.");
+            AnsiConsole.Markup("[red]Error: No valid preload data found to load from.[/]");
+            Environment.Exit(1);
+            return;
+        }
 
         // TODO: not going to be needed in this service (move to cli validation)
         if (VerifyPath() is false)
@@ -30,23 +38,21 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
             return;
         }
 
-        ExecuteLoader();
+        ExecuteLoader(preloadData);
         ExecuteDataLoading();
 
         AnsiConsole.MarkupLineInterpolated($"{HeroesXmlLoader.GetCountOfXmlDataFiles(),6} xml files loaded");
         AnsiConsole.MarkupLineInterpolated($"{HeroesXmlLoader.GetCountOfFontStyleFiles(),6} storm style files loaded");
         AnsiConsole.MarkupLineInterpolated($"[green bold]Loading completed in {_stopwatch.Elapsed.TotalSeconds:0.####} seconds[/]");
         AnsiConsole.WriteLine();
-
-        SetHeroesVersion();
     }
 
-    private void ExecuteLoader()
+    private void ExecuteLoader(PreloadData preloadData)
     {
         if (_options.StorageLoad.Type == StorageType.Mods)
-            RunLoader();
+            RunLoader(preloadData);
         else
-            LoadFromCASC();
+            LoadFromCASC(preloadData);
 
         AnsiConsole.MarkupLineInterpolated($"Load time: {_stopwatch.Elapsed.TotalSeconds:0.####} seconds");
         AnsiConsole.WriteLine();
@@ -73,7 +79,6 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
 
                 HeroesXmlLoader.LoadStormMods();
 
-                AnsiConsole.MarkupLine("Loading data from custommods...");
                 LoadCustomStormMod();
 
                 _stopwatch.Stop();
@@ -82,30 +87,7 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
         _logger.LogInformation("Heroes data loaded");
     }
 
-    private void SetHeroesVersion()
-    {
-        if (!HeroesDataVersion.TryParse(HeroesXmlLoader.HeroesVersion, out HeroesDataVersion? parsedVersion))
-        {
-            _logger.LogWarning("Failed to parse heroes version: {Version}", HeroesXmlLoader.HeroesVersion);
-            return;
-        }
-
-        if (_options.HeroesVersion.IsOverridden)
-        {
-            _logger.LogInformation("Heroes version {Version} was manually set, skipping setting version {LoadedVersion} from loaded data", _options.HeroesVersion.GetHeroesDataVersionString(), parsedVersion.ToString());
-            AnsiConsole.MarkupLineInterpolated($"[yellow]Warning: Version [bold]{_options.HeroesVersion.GetHeroesDataVersionString()}[/] was manually set and is overriding version [bold]{parsedVersion}[/] from loaded data.[/]");
-            AnsiConsole.WriteLine();
-            return;
-        }
-
-        _options.HeroesVersion.Major = parsedVersion.Major;
-        _options.HeroesVersion.Minor = parsedVersion.Minor;
-        _options.HeroesVersion.Revision = parsedVersion.Revision;
-        _options.HeroesVersion.Build = parsedVersion.Build;
-        _options.HeroesVersion.IsPtr = parsedVersion.IsPtr;
-    }
-
-    private void LoadFromCASC()
+    private void LoadFromCASC(PreloadData preloadData)
     {
         AnsiConsole.Progress()
             .Columns(
@@ -166,77 +148,49 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
                     }
                 });
 
-                RunLoader(new ProgressReporter(progress));
+                RunLoader(preloadData, new ProgressReporter(progress));
             });
     }
 
-    private void RunLoader(IProgressReporter? progresReporter = null)
+    private void RunLoader(PreloadData preloadData, IProgressReporter? progressReporter = null)
     {
-        if (_options.StorageLoad.Type == StorageType.Game)
-        {
-            _logger.LogInformation("Loading heroes data by game storage");
-
-            AnsiConsole.MarkupLine("[aqua]Found 'Heroes of the Storm' directory[/]");
-            AnsiConsole.MarkupLine("[gold1 bold]Loading from local CASC storage[/]...");
-
-            _stopwatch.Start();
-
-            CASCConfig cascConfig = HeroesXmlLoader.GetCASCConfig(_options.StorageLoad.Path!, new CASCLoggerOptions());
-
-            _logger.LogInformation("Version {Version} from local CASC storage", cascConfig.VersionName);
-            AnsiConsole.MarkupLineInterpolated($"[aqua]Version: [bold]{cascConfig.VersionName}[/][/]");
-
-            HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, progresReporter);
-
-            _stopwatch.Stop();
-        }
-        else if (_options.StorageLoad.Type == StorageType.Mods)
-        {
-            _logger.LogInformation("Loading heroes data by extracted mods directory");
-
-            AnsiConsole.MarkupLine("[aqua]Found 'mods' directory[/]");
-            AnsiConsole.MarkupLine("[gold1 bold]Loading from extracted 'mods' directory[/]...");
-
-            _stopwatch.Start();
-
-            HeroesXmlLoader = HeroesXmlLoader.LoadWithFile(_options.StorageLoad.Path!, progresReporter);
-
-            _logger.LogInformation("Version {Version} from local extracted mods storage", HeroesXmlLoader.HeroesVersion ?? "UNKNOWN");
-            AnsiConsole.MarkupLineInterpolated($"[aqua]Version: [bold]{HeroesXmlLoader.HeroesVersion ?? "UNKNOWN"}[/][/]");
-
-            _stopwatch.Stop();
-        }
-        else if (_options.StorageLoad.Type == StorageType.Online)
-        {
-            _logger.LogInformation("Downloading heroes data by online storage");
-
-            AnsiConsole.MarkupLine("[gold1 bold]Downloading from online CASC storage[/]");
-
-            _stopwatch.Start();
-            LoadFromOnlineCASC(progresReporter);
-            _stopwatch.Stop();
-        }
-        else
-        {
-            _logger.LogWarning("Unknown storage load type, defaulting to online storage");
-
-            AnsiConsole.MarkupLine("[yellow]Unknown storage load type, defaulting to online storage.");
-            AnsiConsole.MarkupLine("[gold1 bold]Downloading from online CASC storage[/]");
-
-            _stopwatch.Start();
-            LoadFromOnlineCASC(progresReporter);
-            _stopwatch.Stop();
-        }
+        if (_options.StorageLoad.Type == StorageType.Game && preloadData.HasCascConfig)
+            RunGameLoader(preloadData.CascConfig, progressReporter);
+        else if (_options.StorageLoad.Type == StorageType.Mods && preloadData.HasModsInfoFile)
+            RunModsLoader(preloadData.ModsInfoFile, progressReporter);
+        else if (preloadData.HasCascConfig)
+            RunOnlineLoader(preloadData.CascConfig, progressReporter);
     }
 
-    private void LoadFromOnlineCASC(IProgressReporter? progresReporter)
+    private void RunGameLoader(CASCConfig cascConfig, IProgressReporter? progressReporter)
     {
-        CASCConfig cascConfig = HeroesXmlLoader.GetOnlineCASCConfig(false, new CASCLoggerOptions());
+        _logger.LogInformation("Loading heroes data by game storage");
+        AnsiConsole.MarkupLine("[gold1 bold]Loading from local CASC storage[/]...");
 
-        _logger.LogInformation("Downloading version {Version} from online storage", cascConfig.VersionName);
-        AnsiConsole.MarkupLineInterpolated($"[aqua]Version: [bold]{cascConfig.VersionName}[/][/]");
+        _stopwatch.Start();
+        HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, progressReporter);
+        _stopwatch.Stop();
+    }
 
-        HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, progresReporter);
+    private void RunModsLoader(ModsInfoFile modsInfoFile, IProgressReporter? progressReporter)
+    {
+        _logger.LogInformation("Loading heroes data by extracted mods directory");
+        AnsiConsole.MarkupLine("[gold1 bold]Loading from extracted 'mods' directory[/]...");
+
+        _stopwatch.Start();
+        HeroesXmlLoader = HeroesXmlLoader.LoadWithFile(_options.StorageLoad.Path!, modsInfoFile, progressReporter);
+        _stopwatch.Stop();
+    }
+
+    private void RunOnlineLoader(CASCConfig cascConfig, IProgressReporter? progressReporter)
+    {
+        _logger.LogInformation("Downloading heroes data by online storage");
+
+        AnsiConsole.MarkupLine("[gold1 bold]Downloading from online CASC storage[/]");
+
+        _stopwatch.Start();
+        HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, progressReporter);
+        _stopwatch.Stop();
     }
 
     private bool VerifyPath()
@@ -272,6 +226,8 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
             _logger.LogInformation("No custom configuration files found");
             return;
         }
+
+        AnsiConsole.MarkupLine("Loading data from custommods...");
 
         ManualModLoader manualModLoader = new("hdp");
 

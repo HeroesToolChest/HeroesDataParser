@@ -1,4 +1,6 @@
-﻿namespace HeroesDataParser.Infrastructure;
+﻿using CASCLib;
+
+namespace HeroesDataParser.Infrastructure;
 
 public class PreloadService : IPreloadService
 {
@@ -16,9 +18,11 @@ public class PreloadService : IPreloadService
         _customConfigurationService = customConfigurationService;
     }
 
-    public void Preload()
+    public PreloadData Preload()
     {
-        HeroesVersionCheck();
+        PreloadData preloadData = new();
+
+        HeroesVersionCheck(preloadData);
         SelectedLocalizations();
         SelectedDataOptions();
 
@@ -31,6 +35,8 @@ public class PreloadService : IPreloadService
 
         AnsiConsole.MarkupLine($"Finished in {_stopwatch.Elapsed.TotalSeconds:0.###} seconds");
         AnsiConsole.WriteLine();
+
+        return preloadData;
     }
 
     private static string? GetExtractorSubPath(ReadOnlySpan<char> directoryPath)
@@ -44,13 +50,115 @@ public class PreloadService : IPreloadService
         return directoryPath[paths[3]].ToString();
     }
 
-    private void HeroesVersionCheck()
+    private static HeroesDataVersion? GetVersionFromCascConfig(CASCConfig cascConfig)
     {
-        if (!_options.HeroesVersion.IsOverridden)
-            return;
+        string version;
 
-        _logger.LogWarning("Heroes version {Version} was manually set and will override version from loaded data", _options.HeroesVersion.GetHeroesDataVersionString());
-        AnsiConsole.MarkupLineInterpolated($"[yellow]Version [bold]{_options.HeroesVersion.GetHeroesDataVersionString()}[/] was manually set and will override version from loaded data.[/]");
+        if (cascConfig.Product.Equals(HeroesXmlLoader.ProductPtrName, StringComparison.OrdinalIgnoreCase))
+            version = $"{cascConfig.VersionName}_ptr";
+        else
+            version = cascConfig.VersionName;
+
+        if (!HeroesDataVersion.TryParse(version, out HeroesDataVersion? parsedVersion))
+            return null;
+
+        return parsedVersion;
+    }
+
+    private void HeroesVersionCheck(PreloadData preloadData)
+    {
+        _logger.LogInformation("Load storage type {StorageType}", _options.StorageLoad.Type);
+
+        HeroesDataVersion? heroesDataVersion = GetHeroesDataVersion(preloadData);
+
+        if (heroesDataVersion is null)
+        {
+            _logger.LogWarning("Could not determine Heroes of the Storm data version from the selected storage");
+            AnsiConsole.MarkupLineInterpolated($"[yellow]Version: UNKNOWN (default to [bold]{_options.HeroesVersion.GetAsHeroesDataVersion()}[/][/]");
+            return;
+        }
+
+        if (_options.HeroesVersion.IsOverridden)
+        {
+            _logger.LogWarning("Game storage data version {LoadedVersion} is being overridden by user set version {SetVersion}", heroesDataVersion.ToString(), _options.HeroesVersion.GetAsHeroesDataVersion());
+            AnsiConsole.MarkupLineInterpolated($"[yellow]Version: [bold]{_options.HeroesVersion.GetAsHeroesDataVersion()}[/] (overriding storage version [bold]{heroesDataVersion})[/][/]");
+            return;
+        }
+
+        _options.HeroesVersion.Major = heroesDataVersion.Major;
+        _options.HeroesVersion.Minor = heroesDataVersion.Minor;
+        _options.HeroesVersion.Revision = heroesDataVersion.Revision;
+        _options.HeroesVersion.Build = heroesDataVersion.Build;
+        _options.HeroesVersion.IsPtr = heroesDataVersion.IsPtr;
+
+        AnsiConsole.MarkupLineInterpolated($"[aqua]Version: [bold]{_options.HeroesVersion.GetAsHeroesDataVersion()}[/][/]");
+    }
+
+    private HeroesDataVersion? GetHeroesDataVersion(PreloadData preloadData)
+    {
+        HeroesDataVersion? heroesDataVersion;
+        if (_options.StorageLoad.Type == StorageType.Game)
+        {
+            AnsiConsole.MarkupLine("[aqua]Storage: 'Heroes of the Storm' directory[/]");
+
+            heroesDataVersion = GetGameVersion(preloadData);
+        }
+        else if (_options.StorageLoad.Type == StorageType.Mods)
+        {
+            AnsiConsole.MarkupLine("[aqua]Storage: 'mods' directory[/]");
+
+            heroesDataVersion = GetModsVersion(preloadData);
+        }
+        else if (_options.StorageLoad.Type == StorageType.Online)
+        {
+            AnsiConsole.MarkupLine("[aqua]Storage: Online[/]");
+
+            heroesDataVersion = GetOnlineVersion(preloadData);
+        }
+        else
+        {
+            AnsiConsole.MarkupLine("[aqua]Storage: Unknown, default to Online[/]");
+
+            heroesDataVersion = GetOnlineVersion(preloadData);
+        }
+
+        return heroesDataVersion;
+    }
+
+    private HeroesDataVersion? GetGameVersion(PreloadData preloadData)
+    {
+        preloadData.CascConfig = HeroesXmlLoader.GetCASCConfig(_options.StorageLoad.Path!, new CASCLoggerOptions());
+
+        return GetVersionFromCascConfig(preloadData.CascConfig);
+    }
+
+    private HeroesDataVersion? GetModsVersion(PreloadData preloadData)
+    {
+        ModsInfoFile? modsInfoFile = HeroesXmlLoader.GetModsInfoFile(_options.StorageLoad.Path!);
+        preloadData.ModsInfoFile = modsInfoFile;
+
+        if (modsInfoFile is null || string.IsNullOrWhiteSpace(modsInfoFile.Version))
+            return null;
+
+        string version;
+
+        if (modsInfoFile.IsPtr)
+            version = $"{modsInfoFile.Version}_ptr";
+        else
+            version = modsInfoFile.Version;
+
+        if (!HeroesDataVersion.TryParse(version, out HeroesDataVersion? parsedVersion))
+            return null;
+
+        return parsedVersion;
+    }
+
+    private HeroesDataVersion? GetOnlineVersion(PreloadData preloadData)
+    {
+        // TODO: allow selecting PTR or Live
+        preloadData.CascConfig = HeroesXmlLoader.GetOnlineCASCConfig(false, new CASCLoggerOptions());
+
+        return GetVersionFromCascConfig(preloadData.CascConfig);
     }
 
     private void SelectedLocalizations()
