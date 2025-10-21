@@ -54,7 +54,7 @@ public class PreloadService : IPreloadService
     {
         string version;
 
-        if (cascConfig.Product.Equals(HeroesXmlLoader.ProductPtrName, StringComparison.OrdinalIgnoreCase))
+        if (cascConfig.BuildUID.Equals(HeroesXmlLoader.ProductPtrName, StringComparison.OrdinalIgnoreCase))
             version = $"{cascConfig.VersionName}_ptr";
         else
             version = cascConfig.VersionName;
@@ -65,6 +65,7 @@ public class PreloadService : IPreloadService
         return parsedVersion;
     }
 
+    // check the version from the selected storage vs. the user set version
     private void HeroesVersionCheck(PreloadData preloadData)
     {
         _logger.LogInformation("Load storage type {StorageType}", _options.StorageLoad.Type);
@@ -155,8 +156,7 @@ public class PreloadService : IPreloadService
 
     private HeroesDataVersion? GetOnlineVersion(PreloadData preloadData)
     {
-        // TODO: allow selecting PTR or Live
-        preloadData.CascConfig = HeroesXmlLoader.GetOnlineCASCConfig(false, new CASCLoggerOptions());
+        preloadData.CascConfig = HeroesXmlLoader.GetOnlineCASCConfig(_options.StorageLoad.Ptr, new CASCLoggerOptions());
 
         return GetVersionFromCascConfig(preloadData.CascConfig);
     }
