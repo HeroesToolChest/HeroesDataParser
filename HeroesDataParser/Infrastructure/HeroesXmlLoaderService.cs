@@ -168,7 +168,7 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
         AnsiConsole.MarkupLine("[gold1 bold]Loading from local CASC storage[/]...");
 
         _stopwatch.Start();
-        HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, progressReporter);
+        HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, progressReporter: progressReporter);
         _stopwatch.Stop();
     }
 
@@ -189,7 +189,7 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
         AnsiConsole.MarkupLine("[gold1 bold]Downloading from online CASC storage[/]");
 
         _stopwatch.Start();
-        HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, progressReporter);
+        HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, progressReporter: progressReporter);
         _stopwatch.Stop();
     }
 

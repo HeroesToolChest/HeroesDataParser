@@ -6,14 +6,16 @@ public class PreloadService : IPreloadService
 {
     private readonly ILogger<PreloadService> _logger;
     private readonly RootOptions _options;
+    private readonly IHttpClientFactory _httpClientFactory;
     private readonly IParsingConfigurationService _parsingConfigurationService;
     private readonly ICustomConfigurationService _customConfigurationService;
     private readonly Stopwatch _stopwatch = new();
 
-    public PreloadService(ILogger<PreloadService> logger, IOptions<RootOptions> options, IParsingConfigurationService parsingConfigurationService, ICustomConfigurationService customConfigurationService)
+    public PreloadService(ILogger<PreloadService> logger, IOptions<RootOptions> options, IHttpClientFactory httpClientFactory, IParsingConfigurationService parsingConfigurationService, ICustomConfigurationService customConfigurationService)
     {
         _logger = logger;
         _options = options.Value;
+        _httpClientFactory = httpClientFactory;
         _parsingConfigurationService = parsingConfigurationService;
         _customConfigurationService = customConfigurationService;
     }
@@ -65,7 +67,7 @@ public class PreloadService : IPreloadService
         return parsedVersion;
     }
 
-    // check the version from the selected storage vs. the user set version
+    // check the version from the selected storage versus the user set version (if any)
     private void HeroesVersionCheck(PreloadData preloadData)
     {
         _logger.LogInformation("Load storage type {StorageType}", _options.StorageLoad.Type);
@@ -120,6 +122,7 @@ public class PreloadService : IPreloadService
         {
             AnsiConsole.MarkupLine("[aqua]Storage: Unknown, default to Online[/]");
 
+            _options.StorageLoad.Type = StorageType.Online;
             heroesDataVersion = GetOnlineVersion(preloadData);
         }
 
@@ -156,7 +159,7 @@ public class PreloadService : IPreloadService
 
     private HeroesDataVersion? GetOnlineVersion(PreloadData preloadData)
     {
-        preloadData.CascConfig = HeroesXmlLoader.GetOnlineCASCConfig(_options.StorageLoad.Ptr, new CASCLoggerOptions());
+        preloadData.CascConfig = HeroesXmlLoader.GetOnlineCASCConfig(_options.StorageLoad.Ptr, _httpClientFactory.CreateClient("Blizzard"), new CASCLoggerOptions());
 
         return GetVersionFromCascConfig(preloadData.CascConfig);
     }

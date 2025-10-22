@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using System.Net.Http.Headers;
 
 namespace HeroesDataParser.Extensions;
 
@@ -7,6 +8,11 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddHDPServices(this IServiceCollection services, HostApplicationBuilder builder)
     {
         services.AddSerilog();
+        services.AddHttpClient("Blizzard", httpClient =>
+        {
+            httpClient.Timeout = TimeSpan.FromSeconds(15);
+            httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("HeroesDataParser", AppVersion.GetAppVersion()));
+        });
 
         services.Configure<RootOptions>(builder.Configuration.GetSection(nameof(RootOptions)));
         services.AddSingleton(builder.Environment.ContentRootFileProvider);

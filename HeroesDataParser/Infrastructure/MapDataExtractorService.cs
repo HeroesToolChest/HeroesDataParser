@@ -5,12 +5,14 @@ namespace HeroesDataParser.Infrastructure;
 public class MapDataExtractorService : IMapDataExtractorService
 {
     private readonly ILogger<MapDataExtractorService> _logger;
+    private readonly RootOptions _options;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly Stopwatch _stopwatch = new();
 
-    public MapDataExtractorService(ILogger<MapDataExtractorService> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+    public MapDataExtractorService(ILogger<MapDataExtractorService> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService)
     {
         _logger = logger;
+        _options = options.Value;
         _heroesXmlLoaderService = heroesXmlLoaderService;
     }
 
@@ -39,7 +41,7 @@ public class MapDataExtractorService : IMapDataExtractorService
 
             using (LogContext.PushProperty("MapId", mapTitle))
             {
-                AnsiConsole.MarkupLineInterpolated($"[darkseagreen2_1]Loading '{mapTitle}' mod[/]...");
+                AnsiConsole.MarkupLineInterpolated($"[darkseagreen2_1]{(_options.StorageLoad.Type == StorageType.Online ? "Downloading" : "Loading")} '{mapTitle}' mod[/]...");
 
                 _heroesXmlLoaderService.HeroesXmlLoader.LoadMapMod(mapTitle);
 
