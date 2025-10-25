@@ -1,19 +1,50 @@
-﻿using Serilog;
+﻿using Polly;
+using Serilog;
+using Serilog.Configuration;
+using System.Net;
 using System.Net.Http.Headers;
 
 namespace HeroesDataParser.Extensions;
 
 public static class ServiceCollectionExtensions
 {
+    public static IServiceCollection AddCoreServices(this IServiceCollection services, HostApplicationBuilder builder)
+    {
+        services.AddSerilog((services, lc) => lc
+                .ReadFrom.Configuration(builder.Configuration)
+                .ReadFrom.Services(services)
+                .Enrich.FromLogContext()
+            .WriteTo.Async(LoggerConfigure(), bufferSize: 500, blockWhenFull: true));
+
+        services.AddRedaction();
+        services
+            .AddHttpClient("Blizzard", httpClient =>
+            {
+                httpClient.Timeout = TimeSpan.FromSeconds(15);
+                httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("HeroesDataParser", AppVersion.GetAppVersion()));
+            })
+            .AddResilienceHandler("hdp-pipeline", builder =>
+            {
+                builder
+                    .AddRetry(new Polly.Retry.RetryStrategyOptions<HttpResponseMessage>()
+                    {
+                        ShouldHandle = args => HandleTransientHttpError(args.Outcome),
+                        MaxRetryAttempts = 2,
+                        BackoffType = DelayBackoffType.Exponential,
+                        Delay = TimeSpan.FromSeconds(2),
+                    });
+            });
+
+        return services;
+    }
+
+    public static Action<LoggerSinkConfiguration> LoggerConfigure()
+    {
+        return x => x.File(new CompactJsonFormatter(), Path.Join(SerilogLogging.LogDirectory, $"{SerilogLogging.LogPrefix}{SerilogLogging.StartDateTime:yyyyMMdd_HHmmss}.txt"), retainedFileCountLimit: SerilogLogging.RetainedFileCountLimit, fileSizeLimitBytes: 1024 * 1024 * 64);
+    }
+
     public static IServiceCollection AddHDPServices(this IServiceCollection services, HostApplicationBuilder builder)
     {
-        services.AddSerilog();
-        services.AddHttpClient("Blizzard", httpClient =>
-        {
-            httpClient.Timeout = TimeSpan.FromSeconds(15);
-            httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("HeroesDataParser", AppVersion.GetAppVersion()));
-        });
-
         services.Configure<RootOptions>(builder.Configuration.GetSection(nameof(RootOptions)));
         services.AddSingleton(builder.Environment.ContentRootFileProvider);
 
@@ -48,7 +79,7 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddDataParsers(this IServiceCollection services)
+    private static IServiceCollection AddDataParsers(this IServiceCollection services)
     {
         // add all data parsers
         services.AddSingleton<IAbilityParser, AbilityParser>();
@@ -70,7 +101,7 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddImageWriters(this IServiceCollection services)
+    private static IServiceCollection AddImageWriters(this IServiceCollection services)
     {
         // add all image writers
         services.AddSingleton<IImageWriter<Announcer>, AnnouncerImageParser>();
@@ -85,4 +116,12 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
+
+    private static ValueTask<bool> HandleTransientHttpError(Outcome<HttpResponseMessage> outcome) => outcome switch
+    {
+        { Exception: HttpRequestException } => PredicateResult.True(),
+        { Result.StatusCode: HttpStatusCode.RequestTimeout } => PredicateResult.True(),
+        { Result.StatusCode: >= HttpStatusCode.InternalServerError } => PredicateResult.False(),
+        _ => PredicateResult.False(),
+    };
 }

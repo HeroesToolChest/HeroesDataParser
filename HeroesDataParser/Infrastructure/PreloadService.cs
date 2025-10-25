@@ -159,7 +159,7 @@ public class PreloadService : IPreloadService
 
     private HeroesDataVersion? GetOnlineVersion(PreloadData preloadData)
     {
-        preloadData.CascConfig = HeroesXmlLoader.GetOnlineCASCConfig(_options.StorageLoad.Ptr, _httpClientFactory.CreateClient("Blizzard"), new CASCLoggerOptions());
+        preloadData.CascConfig = HeroesXmlLoader.GetOnlineCASCConfig(_httpClientFactory.CreateClient("Blizzard"), _options.StorageLoad.Ptr, new CASCLoggerOptions());
 
         return GetVersionFromCascConfig(preloadData.CascConfig);
     }

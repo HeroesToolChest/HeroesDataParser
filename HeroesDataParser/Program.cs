@@ -1,11 +1,13 @@
-﻿using Serilog;
+﻿using Microsoft.AspNetCore.Builder;
+using Serilog;
 
 // TODO: CLI
 
 SetAppCulture();
 
+AnsiConsole.Record();
 AnsiConsole.MarkupLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-AnsiConsole.MarkupLine($"[bold]Heroes Data Parser[/] ({AppVersion.GetAppVersion()})");
+AnsiConsole.MarkupLine($"[bold]Heroes Data Parser v{AppVersion.GetAppVersion()}[/]");
 AnsiConsole.MarkupLine("  --[link]https://github.com/HeroesToolChest/HeroesDataParser[/]");
 AnsiConsole.MarkupLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 AnsiConsole.WriteLine();
@@ -14,9 +16,8 @@ HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
-    .MinimumLevel.Verbose()
-    .WriteTo.Async(x => x.File(new CompactJsonFormatter(), Path.Join(SerilogLogging.LogDirectory, $"{SerilogLogging.LogPrefix}{DateTime.Now:yyyyMMdd_HHmmss}.txt"), retainedFileCountLimit: SerilogLogging.RetainedFileCountLimit, fileSizeLimitBytes: 1024 * 1024 * 64), bufferSize: 500, blockWhenFull: true)
-    .CreateLogger();
+    .WriteTo.Async(ServiceCollectionExtensions.LoggerConfigure(), bufferSize: 500, blockWhenFull: true)
+    .CreateBootstrapLogger();
 
 try
 {
@@ -25,29 +26,39 @@ try
     // TODO: from cli
     //int? theCliBuildNumber = null;
 
-    builder.Configuration
-        .AddInMemoryCollection(new Dictionary<string, string?>
-        {
-            // TODO: from cli options, set here
-            //["RootOptions:OutputDirectory"] = "mypath",
-            //["RootOptions:BuildNumber"] = theCliBuildNumber?.ToString(),
-        });
+    //builder.Configuration
+    //    .AddInMemoryCollection(new Dictionary<string, string?>
+    //    {
+    //        // TODO: from cli options, set here
+    //        //["RootOptions:OutputDirectory"] = "mypath",
+    //        //["RootOptions:BuildNumber"] = theCliBuildNumber?.ToString(),
+    //    });
 
+    builder.Services.AddCoreServices(builder);
     builder.Services.AddHDPServices(builder);
+
+    builder.Services.PostConfigureAll<RootOptions>(options =>
+    {
+        options.CurrentLocale = StormLocale.ENUS;
+        options.AppVersion = AppVersion.GetAppVersion();
+
+        if (!options.GameStringText.ReplaceFontStyles)
+        {
+            options.GameStringText.PreserveFont.PreserveFontStyleConstantVars = false;
+            options.GameStringText.PreserveFont.PreserveFontStyleVars = false;
+        }
+    });
 
     using IHost host = builder.Build();
 
-    var preload = host.Services.GetRequiredService<IPreloadService>();
-    preload.Preload();
+    IPreloadService preload = host.Services.GetRequiredService<IPreloadService>();
+    PreloadData preloadData = preload.Preload();
 
-    var loading = host.Services.GetRequiredService<IHeroesXmlLoaderService>();
-    await loading.Load();
+    IHeroesXmlLoaderService loading = host.Services.GetRequiredService<IHeroesXmlLoaderService>();
+    loading.Load(preloadData);
 
-    var a = host.Services.GetRequiredService<IProcessorService>();
-    await a.Start(StormLocale.ENUS);
-
-    var b = host.Services.GetRequiredService<IMapProcessorService>();
-    await b.Start(StormLocale.ENUS);
+    IMainService main = host.Services.GetRequiredService<IMainService>();
+    await main.Start();
 }
 catch (Exception ex)
 {
@@ -59,6 +70,10 @@ catch (Exception ex)
 finally
 {
     Log.Information("HPD done");
+    Log.Information("--Console output start--");
+    Log.Information(AnsiConsole.ExportText());
+    Log.Information("--Console output end--");
+
     RunLogRententionPolicy();
 
     await Log.CloseAndFlushAsync();
