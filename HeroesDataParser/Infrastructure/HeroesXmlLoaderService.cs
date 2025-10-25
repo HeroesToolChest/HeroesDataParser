@@ -18,7 +18,7 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
 
     public HeroesXmlLoader HeroesXmlLoader { get; private set; } = null!;
 
-    public void Load(PreloadData preloadData)
+    public async Task Load(PreloadData preloadData)
     {
         _logger.LogInformation("Loading heroes data...");
 
@@ -38,8 +38,8 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
             return;
         }
 
-        ExecuteLoader(preloadData);
-        ExecuteDataLoading();
+        await ExecuteLoader(preloadData);
+        await ExecuteDataLoading();
 
         AnsiConsole.MarkupLineInterpolated($"{HeroesXmlLoader.GetCountOfXmlDataFiles(),6} xml files loaded");
         AnsiConsole.MarkupLineInterpolated($"{HeroesXmlLoader.GetCountOfFontStyleFiles(),6} storm style files loaded");
@@ -47,12 +47,12 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
         AnsiConsole.WriteLine();
     }
 
-    private void ExecuteLoader(PreloadData preloadData)
+    private async Task ExecuteLoader(PreloadData preloadData)
     {
         if (_options.StorageLoad.Type == StorageType.Mods)
-            RunLoader(preloadData);
+            await RunLoader(preloadData);
         else
-            LoadFromCASC(preloadData);
+            await LoadFromCASC(preloadData);
 
         AnsiConsole.MarkupLineInterpolated($"Load time: {_stopwatch.Elapsed.TotalSeconds:0.####} seconds");
         AnsiConsole.WriteLine();
@@ -61,12 +61,12 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
             throw new InvalidOperationException("Failed to load from casc or file.");
     }
 
-    private void ExecuteDataLoading()
+    private async Task ExecuteDataLoading()
     {
-        AnsiConsole.Status()
+        await AnsiConsole.Status()
             .Spinner(Spinner.Known.Star)
             .SpinnerStyle(Style.Parse("yellow bold"))
-            .Start("[yellow bold]Initializing[/]", ctx =>
+            .StartAsync("[yellow bold]Initializing[/]", async ctx =>
             {
                 _logger.LogInformation("Loading data from stormmods...");
 
@@ -77,7 +77,10 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
 
                 _stopwatch.Restart();
 
-                HeroesXmlLoader.LoadStormMods();
+                await Task.Run(() =>
+                {
+                    HeroesXmlLoader.LoadStormMods();
+                });
 
                 LoadCustomStormMod();
 
@@ -87,16 +90,16 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
         _logger.LogInformation("Heroes data loaded");
     }
 
-    private void LoadFromCASC(PreloadData preloadData)
+    private async Task LoadFromCASC(PreloadData preloadData)
     {
-        AnsiConsole.Progress()
+        await AnsiConsole.Progress()
             .Columns(
             [
                 new TaskDescriptionColumn(),
                 new ProgressBarColumn(),
                 new PercentageColumn(),
             ])
-            .Start(ctx =>
+            .StartAsync(async ctx =>
             {
                 ProgressTask cdnIndexesTask = ctx.AddTask("Loading CDN Indexes");
 
@@ -148,48 +151,63 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
                     }
                 });
 
-                RunLoader(preloadData, new ProgressReporter(progress));
+                await RunLoader(preloadData, new ProgressReporter(progress));
             });
     }
 
-    private void RunLoader(PreloadData preloadData, IProgressReporter? progressReporter = null)
+    private async Task RunLoader(PreloadData preloadData, IProgressReporter? progressReporter = null)
     {
         if (_options.StorageLoad.Type == StorageType.Game && preloadData.HasCascConfig)
-            RunGameLoader(preloadData.CascConfig, progressReporter);
+            await RunGameLoader(preloadData.CascConfig, progressReporter);
         else if (_options.StorageLoad.Type == StorageType.Mods && preloadData.HasModsInfoFile)
-            RunModsLoader(preloadData.ModsInfoFile, progressReporter);
+            await RunModsLoader(preloadData.ModsInfoFile, progressReporter);
         else if (preloadData.HasCascConfig)
-            RunOnlineLoader(preloadData.CascConfig, progressReporter);
+            await RunOnlineLoader(preloadData.CascConfig, progressReporter);
     }
 
-    private void RunGameLoader(CASCConfig cascConfig, IProgressReporter? progressReporter)
+    private async Task RunGameLoader(CASCConfig cascConfig, IProgressReporter? progressReporter)
     {
         _logger.LogInformation("Loading heroes data by game storage");
         AnsiConsole.MarkupLine("[gold1 bold]Loading from local CASC storage[/]...");
 
         _stopwatch.Start();
-        HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, progressReporter: progressReporter);
+
+        await Task.Run(() =>
+        {
+            HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, progressReporter: progressReporter);
+        });
+
         _stopwatch.Stop();
     }
 
-    private void RunModsLoader(ModsInfoFile modsInfoFile, IProgressReporter? progressReporter)
+    private async Task RunModsLoader(ModsInfoFile modsInfoFile, IProgressReporter? progressReporter)
     {
         _logger.LogInformation("Loading heroes data by extracted mods directory");
         AnsiConsole.MarkupLine("[gold1 bold]Loading from extracted 'mods' directory[/]...");
 
         _stopwatch.Start();
-        HeroesXmlLoader = HeroesXmlLoader.LoadWithFile(_options.StorageLoad.Path!, modsInfoFile, progressReporter);
+
+        await Task.Run(() =>
+        {
+            HeroesXmlLoader = HeroesXmlLoader.LoadWithFile(_options.StorageLoad.Path!, modsInfoFile, progressReporter);
+        });
+
         _stopwatch.Stop();
     }
 
-    private void RunOnlineLoader(CASCConfig cascConfig, IProgressReporter? progressReporter)
+    private async Task RunOnlineLoader(CASCConfig cascConfig, IProgressReporter? progressReporter)
     {
         _logger.LogInformation("Downloading heroes data by online storage");
 
         AnsiConsole.MarkupLine("[gold1 bold]Downloading from online CASC storage[/]");
 
         _stopwatch.Start();
-        HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, progressReporter: progressReporter);
+
+        await Task.Run(() =>
+        {
+            HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, progressReporter: progressReporter);
+        });
+
         _stopwatch.Stop();
     }
 

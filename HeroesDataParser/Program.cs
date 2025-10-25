@@ -55,7 +55,7 @@ try
     PreloadData preloadData = preload.Preload();
 
     IHeroesXmlLoaderService loading = host.Services.GetRequiredService<IHeroesXmlLoaderService>();
-    loading.Load(preloadData);
+    await loading.Load(preloadData);
 
     IMainService main = host.Services.GetRequiredService<IMainService>();
     await main.Start();
