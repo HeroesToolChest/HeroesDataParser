@@ -6,19 +6,28 @@ public class MainService : IMainService
     private readonly RootOptions _options;
     private readonly IProcessorService _processorService;
     private readonly IMapProcessorService _mapProcessorService;
+    private readonly IGameStringFileProcessorService _gameStringFileProcessorService;
+    private readonly IImageWriterService _imageWriterService;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
+
     private readonly Stopwatch _stopwatch = new();
 
-    private readonly IGameStringFileProcessorService _gameStringFileProcessorService;
-
-    public MainService(ILogger<MainService> logger, IOptions<RootOptions> options, IProcessorService processorService, IMapProcessorService mapProcessorService, IHeroesXmlLoaderService heroesXmlLoaderService, IGameStringFileProcessorService gameStringFileProcessorService)
+    public MainService(
+        ILogger<MainService> logger,
+        IOptions<RootOptions> options,
+        IProcessorService processorService,
+        IMapProcessorService mapProcessorService,
+        IGameStringFileProcessorService gameStringFileProcessorService,
+        IImageWriterService imageWriterService,
+        IHeroesXmlLoaderService heroesXmlLoaderService)
     {
         _logger = logger;
         _options = options.Value;
         _processorService = processorService;
         _mapProcessorService = mapProcessorService;
-        _heroesXmlLoaderService = heroesXmlLoaderService;
         _gameStringFileProcessorService = gameStringFileProcessorService;
+        _imageWriterService = imageWriterService;
+        _heroesXmlLoaderService = heroesXmlLoaderService;
     }
 
     public async Task Start()
@@ -44,6 +53,9 @@ public class MainService : IMainService
 
             count++;
         }
+
+        // write out all images
+        await _imageWriterService.Write();
     }
 
     private void LoadGameStrings(StormLocale locale)

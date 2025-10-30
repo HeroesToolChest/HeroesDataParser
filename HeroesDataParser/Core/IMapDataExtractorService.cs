@@ -2,5 +2,5 @@
 
 public interface IMapDataExtractorService
 {
-    Task<Dictionary<string, Map>> Extract(IDataParser<Map> parser, Func<Map, Task> elementParsersForMap);
+    Task<Dictionary<string, Map>> Extract(Func<Map, Task> elementParsersForMap);
 }

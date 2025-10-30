@@ -25,7 +25,7 @@ public class JsonGameStringFileWriterService : IJsonGameStringFileWriterService
         string filePath = Path.Combine(fullOutputDirectory, fileName);
 
         _logger.LogInformation("Writing to {FilePath}", filePath);
-        AnsiConsole.WriteLine("Creating gamestring file...");
+        AnsiConsole.MarkupLineInterpolated($"[lightskyblue1]Creating {_options.CurrentLocale} gamestring file[/]...");
 
         RootGameStrings rootGameStrings = new()
         {
@@ -48,10 +48,7 @@ public class JsonGameStringFileWriterService : IJsonGameStringFileWriterService
         await Write(rootGameStrings.Meta, gameStringElements, filePath);
 
         AnsiConsole.Write("Created file ");
-        AnsiConsole.Write(new TextPath(Path.Join(_jsonFileDirectory, fileName))
-            .SeparatorColor(Color.SpringGreen1)
-            .StemColor(Color.SteelBlue1_1)
-            .LeafColor(Color.Orange1));
+        AnsiConsoleHelpers.WriteFilePath(Path.Join(_jsonFileDirectory, fileName));
         AnsiConsole.WriteLine();
         AnsiConsole.WriteLine();
     }

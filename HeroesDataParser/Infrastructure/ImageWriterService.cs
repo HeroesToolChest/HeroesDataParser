@@ -1,17 +1,130 @@
-﻿
+﻿using SixLabors.ImageSharp;
+
 namespace HeroesDataParser.Infrastructure;
 
-public class ImageWriterService
+public class ImageWriterService : IImageWriterService
 {
-    private readonly ILogger<ImageWriterService> _logger;
+    private const string _imageDirectory = "images";
 
-    public ImageWriterService(ILogger<ImageWriterService> logger)
+    private readonly ILogger<ImageWriterService> _logger;
+    private readonly RootOptions _options;
+    private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
+
+    private readonly HashSet<ImageWriterPath> _outputImagePaths = [];
+
+    public ImageWriterService(ILogger<ImageWriterService> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService)
     {
         _logger = logger;
+        _options = options.Value;
+        _heroesXmlLoaderService = heroesXmlLoaderService;
     }
 
-    public void Write()
+    public void Save(HashSet<ImageWriterPath> imagePaths)
     {
+        _outputImagePaths.UnionWith(imagePaths);
+    }
 
+    public async Task Write()
+    {
+        if (_outputImagePaths.Count < 1)
+        {
+            _logger.LogInformation("No images to write");
+            return;
+        }
+
+        if (!_options.Extractors.Any(x => x.Value.IsEnabled && x.Value.Images))
+        {
+            _logger.LogInformation("No image extractors are enabled, skipping writing images");
+            return;
+        }
+
+        AnsiConsole.MarkupLine($"[lightskyblue1]Saving images[/]...");
+
+        var imagePathsBySubDirectoryGroups = _outputImagePaths.GroupBy(x => x.SubDirectoryPath);
+
+        await AnsiConsole.Progress()
+            .Columns(
+            [
+                new TaskDescriptionPathsColumn(),
+                new ProgressBarColumn(),
+                new ItemsProgressColumn(),
+            ])
+            .StartAsync(async ctx =>
+            {
+                List<(ProgressTask ProgressTask, IGrouping<string, ImageWriterPath> ImagePathsBySubDirectory)> progressTasks = [];
+
+                foreach (IGrouping<string, ImageWriterPath> imagePathsBySubDirectoryGroup in imagePathsBySubDirectoryGroups)
+                {
+                    if (!imagePathsBySubDirectoryGroup.TryGetNonEnumeratedCount(out int imagesCount))
+                        imagesCount = imagePathsBySubDirectoryGroup.Count();
+
+                    // Create a progress task for each sub-directory
+                    progressTasks.Add((ctx.AddTask(Path.Join(_imageDirectory, imagePathsBySubDirectoryGroup.Key), maxValue: imagesCount), imagePathsBySubDirectoryGroup));
+                }
+
+                await RunImageWriter(progressTasks);
+            });
+    }
+
+    private async Task RunImageWriter(List<(ProgressTask ProgressTask, IGrouping<string, ImageWriterPath> ImagePathsBySubDirectory)> progressTasks)
+    {
+        using var cts = new CancellationTokenSource();
+
+        ParallelOptions parallelOptions = new()
+        {
+            CancellationToken = cts.Token,
+            MaxDegreeOfParallelism = _options.Threads,
+        };
+
+        await Parallel.ForEachAsync(progressTasks, parallelOptions, async (progressTask, cts) =>
+        {
+            progressTask.ProgressTask.StartTask();
+
+            string directoryPath = Path.Combine(_options.OutputDirectory, _imageDirectory, progressTask.ImagePathsBySubDirectory.Key);
+            Directory.CreateDirectory(directoryPath);
+
+            foreach (ImageWriterPath? imageParserPath in progressTask.ImagePathsBySubDirectory)
+            {
+                try
+                {
+                    await WriteStaticImageFile(imageParserPath.FileName, directoryPath, imageParserPath);
+                    progressTask.ProgressTask.Increment(1);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error writing image file {FileName} to directory {SubDirectory}", imageParserPath.FileName, directoryPath);
+                }
+            }
+
+            progressTask.ProgressTask.StopTask();
+        });
+    }
+
+    private Task WriteStaticImageFile(string fileName, string directoryPath, ImageWriterPath imageRelativeFilePath)
+    {
+        if (!_heroesXmlLoaderService.HeroesXmlLoader.FileExists(imageRelativeFilePath.RelativeFilePath, imageRelativeFilePath.RelativeMpqFilePath))
+        {
+            _logger.LogWarning("Unable to write {FileName} because {@ImageWriterPath} does not exist", fileName, imageRelativeFilePath);
+            return Task.CompletedTask;
+        }
+
+        string filePath = Path.Combine(directoryPath, fileName);
+
+        using Stream stream = _heroesXmlLoaderService.HeroesXmlLoader.GetFile(imageRelativeFilePath.RelativeFilePath, imageRelativeFilePath.RelativeMpqFilePath);
+
+        _logger.LogTrace("Writing image file {@RelativeFilePath} to {OutputFilePath}", imageRelativeFilePath, filePath);
+
+        if (imageRelativeFilePath.RelativeFilePath.EndsWith(".dds", StringComparison.OrdinalIgnoreCase))
+        {
+            using DDSImage ddsImage = new(stream);
+
+            return ddsImage.Save(filePath);
+        }
+        else
+        {
+            using Image image = Image.Load(stream);
+
+            return image.SaveAsync(filePath);
+        }
     }
 }

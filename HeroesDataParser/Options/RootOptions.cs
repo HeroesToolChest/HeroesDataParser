@@ -10,13 +10,15 @@ public class RootOptions
 
     public string OutputDirectory { get; set; } = ".";
 
-    public Dictionary<string, ExtractorOptions> Extractors { get; } = new(StringComparer.OrdinalIgnoreCase);
+    public Dictionary<string, ExtractorOptions> Extractors { get; set; } = new(StringComparer.OrdinalIgnoreCase);
 
     public HashSet<StormLocale> Localizations { get; set; } = [];
 
     public LocalizedTextOption LocalizedText { get; set; } = LocalizedTextOption.None;
 
     public GameStringTextOptions GameStringText { get; set; } = new();
+
+    public int Threads { get; set; }
 
     // set/overridden during runtime
     public StormLocale CurrentLocale { get; set; } = StormLocale.ENUS;

@@ -9,18 +9,26 @@ public class ProcessorService : IProcessorService
     private readonly IServiceProvider _serviceProvider;
     private readonly IDataExtractorService _dataExtractorService;
     private readonly IJsonDataFileWriterService _jsonFileWriterService;
+    private readonly IImageWriterService _imageWriterService;
 
     private readonly ExtractDataOptions _extractDataOptions;
     private readonly ExtractImageOptions _extractImageOptions;
     private readonly Dictionary<ExtractDataOptions, Func<Map?, Task>> _processElementByExtractDataOption;
 
-    public ProcessorService(ILogger<ProcessorService> logger, IOptions<RootOptions> options, IServiceProvider serviceProvider, IDataExtractorService dataExtractorService, IJsonDataFileWriterService jsonFileWriterService)
+    public ProcessorService(
+        ILogger<ProcessorService> logger,
+        IOptions<RootOptions> options,
+        IServiceProvider serviceProvider,
+        IDataExtractorService dataExtractorService,
+        IJsonDataFileWriterService jsonFileWriterService,
+        IImageWriterService imageWriterService)
     {
         _logger = logger;
         _options = options.Value;
         _serviceProvider = serviceProvider;
         _dataExtractorService = dataExtractorService;
         _jsonFileWriterService = jsonFileWriterService;
+        _imageWriterService = imageWriterService;
 
         _extractDataOptions = GetExtractDataOptions();
         _extractImageOptions = GetExtractImageOptions();
@@ -130,19 +138,19 @@ public class ProcessorService : IProcessorService
     private void SaveImages<TElementObject>(Dictionary<string, TElementObject> itemsToSerialize)
         where TElementObject : IElementObject
     {
-        IEnumerable<IImageWriter<TElementObject>> imageWriters = _serviceProvider.GetServices<IImageWriter<TElementObject>>();
+        IEnumerable<IImageParser<TElementObject>> imageParsers = _serviceProvider.GetServices<IImageParser<TElementObject>>();
 
-        if (!imageWriters.Any())
+        if (!imageParsers.Any())
         {
             _logger.LogInformation("No image writers found for {ElementType}", typeof(TElementObject).Name);
             return;
         }
 
-        foreach (IImageWriter<TElementObject> imageWriter in imageWriters)
+        foreach (IImageParser<TElementObject> imageParser in imageParsers)
         {
-            if (_extractImageOptions.HasFlag(imageWriter.ExtractImageOption))
+            if (_extractImageOptions.HasFlag(imageParser.ExtractImageOption))
             {
-                imageWriter.SaveImages(itemsToSerialize);
+                _imageWriterService.Save(imageParser.GetImages(itemsToSerialize));
             }
         }
     }

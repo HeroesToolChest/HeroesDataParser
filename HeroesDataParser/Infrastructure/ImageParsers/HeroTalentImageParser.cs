@@ -1,9 +1,9 @@
 ﻿namespace HeroesDataParser.Infrastructure.ImageParsers;
 
-public class HeroTalentImageParser : ImageParserBase<Hero>
+public class HeroTalentImageParser : HeroAbilityTalentImageParser
 {
-    public HeroTalentImageParser(ILogger<HeroTalentImageParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService)
-        : base(logger, options, heroesXmlLoaderService)
+    public HeroTalentImageParser(ILogger<HeroTalentImageParser> logger)
+        : base(logger)
     {
     }
 
@@ -11,8 +11,8 @@ public class HeroTalentImageParser : ImageParserBase<Hero>
 
     protected override string SubDirectory => "talents";
 
-    protected override void SetImages(Hero element)
+    protected override void SetImages(Hero element, HashSet<ImageWriterPath> imagePaths)
     {
-        AbilityTalentImages.SetTalentImages(element, AddImagePath);
+        SetTalentImages(element, imagePaths);
     }
 }

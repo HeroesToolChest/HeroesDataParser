@@ -2,8 +2,8 @@
 
 public class ReplayPreviewImageParser : ImageParserBase<Map>
 {
-    public ReplayPreviewImageParser(ILogger<ReplayPreviewImageParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService)
-        : base(logger, options, heroesXmlLoaderService)
+    public ReplayPreviewImageParser(ILogger<ReplayPreviewImageParser> logger)
+        : base(logger)
     {
     }
 
@@ -11,9 +11,9 @@ public class ReplayPreviewImageParser : ImageParserBase<Map>
 
     protected override string SubDirectory => "replaypreviews";
 
-    protected override void SetImages(Map element)
+    protected override void SetImages(Map element, HashSet<ImageWriterPath> imagePaths)
     {
         if (!string.IsNullOrWhiteSpace(element.ReplayPreviewImage) && !string.IsNullOrWhiteSpace(element.ReplayPreviewImagePath?.FilePath))
-            AddImagePath(element.ReplayPreviewImage, new ImageRelativePath(element, element.ReplayPreviewImagePath));
+            TryAddToFiles(imagePaths, element.ReplayPreviewImage, element.ReplayPreviewImagePath, element);
     }
 }

@@ -67,14 +67,13 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IMapProcessorService, MapProcessorService>();
         services.AddSingleton<IGameStringFileProcessorService, GameStringFileProcessorService>();
 
-        //services.AddSingleton<IDataParserService, DataParserService>();
-        //services.AddSingleton<IMapDataParserService, MapDataParserService>();
-
         services.AddSingleton<IDataExtractorService, DataExtractorService>();
         services.AddSingleton<IMapDataExtractorService, MapDataExtractorService>();
 
         services.AddSingleton<IJsonDataFileWriterService, JsonDataFileWriterService>();
         services.AddSingleton<IJsonGameStringFileWriterService, JsonGameStringFileWriterService>();
+
+        services.AddSingleton<IImageWriterService, ImageWriterService>();
 
         return services;
     }
@@ -104,15 +103,15 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddImageWriters(this IServiceCollection services)
     {
         // add all image writers
-        services.AddSingleton<IImageWriter<Announcer>, AnnouncerImageParser>();
-        services.AddSingleton<IImageWriter<Bundle>, BundleImageParser>();
-        services.AddSingleton<IImageWriter<Map>, ReplayPreviewImageParser>();
-        services.AddSingleton<IImageWriter<Map>, LoadingScreenImageParser>();
-        services.AddSingleton<IImageWriter<Map>, MapObjectiveIconImageParser>();
-        services.AddSingleton<IImageWriter<Hero>, HeroTalentImageParser>();
-        services.AddSingleton<IImageWriter<Hero>, HeroAbilityImageParser>();
-        services.AddSingleton<IImageWriter<Hero>, HeroAbilityTalentImageParser>();
-        services.AddSingleton<IImageWriter<Hero>, HeroPortraitImageParser>();
+        services.AddSingleton<IImageParser<Announcer>, AnnouncerImageParser>();
+        services.AddSingleton<IImageParser<Bundle>, BundleImageParser>();
+        services.AddSingleton<IImageParser<Map>, ReplayPreviewImageParser>();
+        services.AddSingleton<IImageParser<Map>, LoadingScreenImageParser>();
+        services.AddSingleton<IImageParser<Map>, MapObjectiveIconImageParser>();
+        services.AddSingleton<IImageParser<Hero>, HeroTalentImageParser>();
+        services.AddSingleton<IImageParser<Hero>, HeroAbilityImageParser>();
+        services.AddSingleton<IImageParser<Hero>, HeroAbilityTalentImageParser>();
+        services.AddSingleton<IImageParser<Hero>, HeroPortraitImageParser>();
 
         return services;
     }

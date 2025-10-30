@@ -1,9 +1,9 @@
 ﻿namespace HeroesDataParser.Core;
 
-public interface IImageWriter<T>
+public interface IImageParser<T>
     where T : IElementObject
 {
     ExtractImageOptions ExtractImageOption { get; }
 
-    void SaveImages(Dictionary<string, T> elementsById);
+    HashSet<ImageWriterPath> GetImages(Dictionary<string, T> elementsById);
 }

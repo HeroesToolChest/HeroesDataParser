@@ -60,10 +60,7 @@ public class JsonDataFileWriterService : IJsonDataFileWriterService
 
     private static void DisplayCreatedFilePath(string innerDirectory, string fileName)
     {
-        AnsiConsole.Write(new TextPath(Path.Join(innerDirectory, fileName))
-            .SeparatorColor(Color.SpringGreen1)
-            .StemColor(Color.SteelBlue1_1)
-            .LeafColor(Color.Orange1));
+        AnsiConsoleHelpers.WriteFilePath(Path.Join(innerDirectory, fileName));
         AnsiConsole.WriteLine();
         AnsiConsole.WriteLine();
     }

@@ -1,4 +1,4 @@
-﻿namespace HeroesDataParser.Core;
+﻿namespace HeroesDataParser.Core.Models;
 
 public class ImageFilePath
 {

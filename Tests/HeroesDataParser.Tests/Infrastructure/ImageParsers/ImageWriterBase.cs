@@ -1,4 +1,4 @@
-﻿namespace HeroesDataParser.Tests.Infrastructure.ImageWriters;
+﻿namespace HeroesDataParser.Infrastructure.ImageParsers.Tests;
 
 public class ImageWriterBase
 {

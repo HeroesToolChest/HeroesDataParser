@@ -2,8 +2,8 @@
 
 public class BundleImageParser : ImageParserBase<Bundle>
 {
-    public BundleImageParser(ILogger<BundleImageParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService)
-        : base(logger, options, heroesXmlLoaderService)
+    public BundleImageParser(ILogger<BundleImageParser> logger)
+        : base(logger)
     {
     }
 
@@ -11,9 +11,9 @@ public class BundleImageParser : ImageParserBase<Bundle>
 
     protected override string SubDirectory => "bundles";
 
-    protected override void SetImages(Bundle element)
+    protected override void SetImages(Bundle element, HashSet<ImageWriterPath> imagePaths)
     {
         if (!string.IsNullOrWhiteSpace(element.Image) && !string.IsNullOrWhiteSpace(element.ImagePath?.FilePath))
-            AddImagePath(element.Image, new ImageRelativePath(element, element.ImagePath));
+            TryAddToFiles(imagePaths, element.Image, element.ImagePath, element);
     }
 }

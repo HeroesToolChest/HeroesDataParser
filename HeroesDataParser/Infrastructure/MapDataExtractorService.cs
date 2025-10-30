@@ -7,16 +7,18 @@ public class MapDataExtractorService : IMapDataExtractorService
     private readonly ILogger<MapDataExtractorService> _logger;
     private readonly RootOptions _options;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
+    private readonly IDataParser<Map> _mapDataParser;
     private readonly Stopwatch _stopwatch = new();
 
-    public MapDataExtractorService(ILogger<MapDataExtractorService> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService)
+    public MapDataExtractorService(ILogger<MapDataExtractorService> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IDataParser<Map> mapDataParser)
     {
         _logger = logger;
         _options = options.Value;
         _heroesXmlLoaderService = heroesXmlLoaderService;
+        _mapDataParser = mapDataParser;
     }
 
-    public async Task<Dictionary<string, Map>> Extract(IDataParser<Map> parser, Func<Map, Task> elementParsersForMap)
+    public async Task<Dictionary<string, Map>> Extract(Func<Map, Task> elementParsersForMap)
     {
         _stopwatch.Restart();
 
@@ -24,7 +26,7 @@ public class MapDataExtractorService : IMapDataExtractorService
         int currentFontStyleCount = _heroesXmlLoaderService.HeroesXmlLoader.GetCountOfFontStyleFiles();
         int currentGameStringCount = _heroesXmlLoaderService.HeroesXmlLoader.GetCountOfGameStringsFiles();
 
-        _logger.LogInformation("Starting data extractor for data object type {DataObjectType}", parser.DataObjectType);
+        _logger.LogInformation("Starting data extractor for data object type {DataObjectType}", _mapDataParser.DataObjectType);
 
         Dictionary<string, Map> parsedMaps = [];
 
@@ -53,7 +55,7 @@ public class MapDataExtractorService : IMapDataExtractorService
 
                 try
                 {
-                    map = parser.Parse(mapTitle);
+                    map = _mapDataParser.Parse(mapTitle);
                 }
                 catch (Exception ex)
                 {
@@ -85,9 +87,9 @@ public class MapDataExtractorService : IMapDataExtractorService
         _heroesXmlLoaderService.HeroesXmlLoader.UnloadMapMod();
 
         _stopwatch.Stop();
-        _logger.LogInformation("Map data extractor complete for data object type {DataObjectType}", parser.DataObjectType);
+        _logger.LogInformation("Map data extractor complete for data object type {DataObjectType}", _mapDataParser.DataObjectType);
 
-        AnsiConsole.MarkupLine("Finished parsing map data");
+        AnsiConsole.MarkupLine("[lightskyblue1]Finished parsing map data[/]");
 
         if (totalCount < 1)
         {
