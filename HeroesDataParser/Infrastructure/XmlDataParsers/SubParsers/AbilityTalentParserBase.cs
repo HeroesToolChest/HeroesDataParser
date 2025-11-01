@@ -537,10 +537,7 @@ public class AbilityTalentParserBase : ParserBase
         StormElement? validatorElement = HeroesData.GetCompleteStormElement("Validator", validatorId);
 
         if (validatorElement is null)
-        {
-            Logger.LogWarning("Validator element {ValidatorValue} not found for button {ButtonId}", validatorId, abilityTalent.ButtonElementId);
             return;
-        }
 
         if (validatorElement.DataValues.TryGetElementDataAt("Value", out StormElementData? valueData))
         {

@@ -34,25 +34,20 @@ public abstract class ParserBase
         string tileTexturePath = data.Value.GetString();
 
         StormFile? stormAssetFile = _heroesData.GetStormAssetFile(tileTexturePath);
-        if (stormAssetFile is not null)
-        {
-            Span<char> pathSpan = stackalloc char[stormAssetFile.StormPath.Path.Length];
-
-            int size = Path.GetFileName(stormAssetFile.StormPath.Path.AsSpan()).ToLowerInvariant(pathSpan);
-
-            string image = Path.ChangeExtension(pathSpan[..size].ToString(), ImageFileExtension);
-            RelativeFilePath imagePath = new()
-            {
-                FilePath = stormAssetFile.StormPath.Path,
-            };
-
-            return new ImageFilePath(image, imagePath);
-        }
-        else
-        {
-            Logger.LogWarning("Could not find storm asset {TileTexturePath}", tileTexturePath);
+        if (stormAssetFile is null)
             return null;
-        }
+
+        Span<char> pathSpan = stackalloc char[stormAssetFile.StormPath.Path.Length];
+
+        int size = Path.GetFileName(stormAssetFile.StormPath.Path.AsSpan()).ToLowerInvariant(pathSpan);
+
+        string image = Path.ChangeExtension(pathSpan[..size].ToString(), ImageFileExtension);
+        RelativeFilePath imagePath = new()
+        {
+            FilePath = stormAssetFile.StormPath.Path,
+        };
+
+        return new ImageFilePath(image, imagePath);
     }
 
     protected double GetScaleValue(string elementType, string id, string? elementName)

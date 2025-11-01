@@ -340,10 +340,7 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                     StormElement? weaponStormElement = HeroesData.GetCompleteStormElement("Weapon", linkId);
 
                     if (weaponStormElement is null)
-                    {
-                        Logger.LogWarning("Weapon element does not exist for id {LinkId}", linkId);
                         continue;
-                    }
 
                     UnitWeapon unitWeapon = new()
                     {
