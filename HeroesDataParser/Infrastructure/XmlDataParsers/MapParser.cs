@@ -106,6 +106,9 @@ public class MapParser : DataParser<Map>
 
     private void SetPreviewImage(Map map, StormMap stormMap)
     {
+        if (string.IsNullOrWhiteSpace(stormMap.ReplayPreviewImagePath))
+            return;
+
         if (stormMap.ReplayPreviewImagePath.StartsWith("assets", StringComparison.OrdinalIgnoreCase))
         {
             StormFile? stormAssetFile = HeroesData.GetStormAssetFile(stormMap.ReplayPreviewImagePath);
@@ -117,17 +120,37 @@ public class MapParser : DataParser<Map>
                     FilePath = stormAssetFile.StormPath.Path,
                 };
             }
+
+            return;
         }
-        else if (!string.IsNullOrWhiteSpace(stormMap.ReplayPreviewImagePath))
+
+        // mpq file
+        if (!HeroesXmlLoader.FileExists(stormMap.ReplayPreviewImagePath, stormMap.S2MAFilePath))
         {
-            // mpq file
-            map.ReplayPreviewImage = GetImagePathWithAppender(stormMap.ReplayPreviewImagePath, map.Id);
+            string baseAssetPath = Path.Join("base.stormassets", Path.GetFileName(stormMap.ReplayPreviewImagePath));
+
+            if (!HeroesXmlLoader.FileExists(baseAssetPath, stormMap.S2MAFilePath))
+            {
+                _logger.LogWarning("Could not find replay preview image {ReplayPreviewImagePath} in mpq {S2MAFilePath} or base.stormassets", stormMap.ReplayPreviewImagePath, stormMap.S2MAFilePath);
+                return;
+            }
+
+            map.ReplayPreviewImage = GetImagePathWithAppender(baseAssetPath, map.Id);
             map.ReplayPreviewImagePath = new RelativeFilePath()
             {
-                FilePath = stormMap.ReplayPreviewImagePath,
+                FilePath = baseAssetPath,
                 MpqFilePath = stormMap.S2MAFilePath,
             };
+
+            return;
         }
+
+        map.ReplayPreviewImage = GetImagePathWithAppender(stormMap.ReplayPreviewImagePath, map.Id);
+        map.ReplayPreviewImagePath = new RelativeFilePath()
+        {
+            FilePath = stormMap.ReplayPreviewImagePath,
+            MpqFilePath = stormMap.S2MAFilePath,
+        };
     }
 
     private void SetMapObjectives(Map map, StormMap stormMap)
