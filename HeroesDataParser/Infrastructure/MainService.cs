@@ -38,7 +38,10 @@ public class MainService : IMainService
         {
             _options.CurrentLocale = locale;
             _logger.LogInformation("Localization: {Locale}", locale);
-            AnsiConsole.MarkupLineInterpolated($"[[[greenyellow]locale: {locale}[/] ... [paleturquoise1]{count} of {_options.Localizations.Count}[/]]]");
+            AnsiConsole.Write(new Rule($"[[ [greenyellow]Locale: {locale}[/] ... [paleturquoise1]{count} of {_options.Localizations.Count}[/] ]]")
+            {
+                Justification = Justify.Left,
+            });
 
             LoadGameStrings(locale);
 
