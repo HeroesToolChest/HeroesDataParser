@@ -38,12 +38,12 @@ public class JsonDataFileWriterService : IJsonDataFileWriterService
             return;
 
         Span<char> buffer = stackalloc char[mapDirectory.Length];
-        int length = SanitizeMapDirectory(buffer, mapDirectory);
+        int length = NormalizeMapDirectoryName(buffer, mapDirectory);
 
         await WriteTo(elementsById, Path.Join(_jsonFileDirectory, "maps", buffer[..length]), mapDirectory);
     }
 
-    private static int SanitizeMapDirectory(Span<char> buffer, string mapDirectory)
+    private static int NormalizeMapDirectoryName(Span<char> buffer, string mapDirectory)
     {
         int index = 0;
 
@@ -61,7 +61,6 @@ public class JsonDataFileWriterService : IJsonDataFileWriterService
     private static void DisplayCreatedFilePath(string innerDirectory, string fileName)
     {
         AnsiConsoleHelpers.WriteFilePath(Path.Join(innerDirectory, fileName));
-        AnsiConsole.WriteLine();
         AnsiConsole.WriteLine();
     }
 
@@ -82,15 +81,7 @@ public class JsonDataFileWriterService : IJsonDataFileWriterService
     private async Task WriteTo<TElement>(Dictionary<string, TElement> elementsById, string innerDirectory, string? mapName = null)
         where TElement : IElementObject
     {
-        string fullOutputDirectory = Path.Combine(_options.OutputDirectory, innerDirectory);
-
-        Directory.CreateDirectory(fullOutputDirectory);
-
         string dataName = $"{typeof(TElement).Name}data".ToLowerInvariant();
-        string fileName = $"{dataName}_{_options.BuildNumber ?? 0}_{_options.CurrentLocale}.json{(!string.IsNullOrWhiteSpace(mapName) ? ".diff" : string.Empty)}".ToLowerInvariant();
-        string filePath = Path.Combine(fullOutputDirectory, fileName);
-
-        _logger.LogInformation("Writing to {FilePath}", filePath);
 
         RootDataElement<TElement> rootDataElement = new()
         {
@@ -117,15 +108,21 @@ public class JsonDataFileWriterService : IJsonDataFileWriterService
         byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(rootDataElement, _jsonSerializerOptionService.JsonSerializerDataOptions);
 
         if (string.IsNullOrWhiteSpace(mapName))
-            await WriteBaseJsonFile(innerDirectory, dataName, fileName, filePath, bytes);
+            await WriteBaseJsonFile(innerDirectory, dataName, bytes);
         else
-            WriteSubMapJsonFile(innerDirectory, mapName, dataName, fileName, filePath, bytes);
+            await WriteSubMapJsonFile(innerDirectory, mapName, dataName, bytes);
+
+        AnsiConsole.WriteLine();
     }
 
-    private async Task WriteBaseJsonFile(string innerDirectory, string dataName, string fileName, string filePath, byte[] bytes)
+    private async Task WriteBaseJsonFile(string innerDirectory, string dataName, byte[] bytes)
     {
-        await using FileStream fileStream = File.Create(filePath);
+        string fileName = GetFileName(dataName);
+        string filePath = GetFilePath(innerDirectory, fileName);
 
+        _logger.LogInformation("Writing to {FilePath}", filePath);
+
+        await using FileStream fileStream = File.Create(filePath);
         await fileStream.WriteAsync(bytes);
 
         _serializedElementsService.AddSerializedElements(dataName, bytes);
@@ -134,28 +131,77 @@ public class JsonDataFileWriterService : IJsonDataFileWriterService
         DisplayCreatedFilePath(innerDirectory, fileName);
     }
 
-    private void WriteSubMapJsonFile(string innerDirectory, string mapName, string dataName, string fileName, string filePath, byte[] bytes)
+    private async Task WriteSubMapJsonFile(string innerDirectory, string mapName, string dataName, byte[] bytes)
     {
-        JsonNode? jsonDiff = _serializedElementsService.GetJsonNodeDiff(dataName, bytes);
-        JsonNode? metaNode = jsonDiff?["items"];
-
-        if (metaNode is null)
+        if (_options.MapWriterJsonOutputType.HasFlag(MapWriterJsonOutputType.Normal))
         {
-            AnsiConsole.MarkupLineInterpolated($"[yellow]No changed items[/]");
-            AnsiConsole.WriteLine();
+            string fileName = GetFileName(dataName);
+            string filePath = GetFilePath(innerDirectory, fileName);
 
-            return;
+            _logger.LogInformation("Writing normal json file {FilePath} for map {MapName}", filePath, mapName);
+
+            await using FileStream fileStream = File.Create(filePath);
+            await fileStream.WriteAsync(bytes);
+
+            AnsiConsole.Write("Created file ");
+            DisplayCreatedFilePath(innerDirectory, fileName);
         }
 
-        int totalItems = metaNode.AsObject().Count;
+        if (_options.MapWriterJsonOutputType.HasFlag(MapWriterJsonOutputType.Diff))
+        {
+            string fileName = $"{GetFileName(dataName)}.diff";
+            string filePath = GetFilePath(innerDirectory, fileName);
 
-        _logger.LogInformation("Found {TotalItems} changed items of {DataType} for map {MapName}", dataName, totalItems, mapName);
-        AnsiConsole.WriteLine($"{totalItems,6} changed items");
+            _logger.LogInformation("Writing diff json file {FilePath} for map {MapName}", filePath, mapName);
 
-        using FileStream fileStream = File.Create(filePath);
-        JsonSerializer.Serialize(fileStream, jsonDiff, _jsonSerializerOptionService.JsonSerializerDataOptions);
+            await WriteDiffJsonFile(innerDirectory, mapName, dataName, fileName, filePath, bytes);
+        }
+        else
+        {
+            // if none, do nothing
+            _logger.LogInformation("No normal/diff json file writing for map {MapName}", mapName);
+        }
+    }
+
+    private async Task WriteDiffJsonFile(string innerDirectory, string mapName, string dataName, string fileName, string filePath, byte[] bytes)
+    {
+        JsonNode? jsonDiff = _serializedElementsService.GetJsonNodeDiff(dataName, bytes);
+        JsonNode? metaNode = jsonDiff?["items"]; // null means that the items are the same
+
+        int totalItemsChanged = metaNode?.AsObject()?.Count ?? 0;
+
+        _logger.LogInformation("Found {TotalItems} changed items of {DataType} for map {MapName}", dataName, totalItemsChanged, mapName);
+
+        if (totalItemsChanged < 1)
+            AnsiConsole.MarkupLineInterpolated($"[yellow]{totalItemsChanged,6} changed items[/]");
+        else
+            AnsiConsole.WriteLine($"{totalItemsChanged,6} changed items");
+
+        await using FileStream fileStream = File.Create(filePath);
+        await JsonSerializer.SerializeAsync(fileStream, jsonDiff, _jsonSerializerOptionService.JsonSerializerDataOptions);
 
         AnsiConsole.Write("Created diff file ");
         DisplayCreatedFilePath(innerDirectory, fileName);
+    }
+
+    private string GetFileName(string dataName)
+    {
+        return $"{dataName}_{_options.BuildNumber ?? 0}_{_options.CurrentLocale}.json".ToLowerInvariant();
+    }
+
+    private string GetFilePath(string innerDirectory, string fileName)
+    {
+        string directory = Path.Combine(_options.OutputDirectory, innerDirectory);
+        Directory.CreateDirectory(directory);
+
+        return Path.Combine(directory, fileName);
+    }
+
+    private string GetDiffExtension(string? mapName)
+    {
+        if (!string.IsNullOrWhiteSpace(mapName) && _options.MapWriterJsonOutputType.HasFlag(MapWriterJsonOutputType.Diff))
+            return ".diff";
+
+        return string.Empty;
     }
 }

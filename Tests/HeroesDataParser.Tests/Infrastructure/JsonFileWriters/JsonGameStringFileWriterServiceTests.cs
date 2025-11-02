@@ -5,11 +5,13 @@ public class JsonGameStringFileWriterServiceTests
 {
     private readonly ILogger<JsonGameStringFileWriterService> _logger;
     private readonly IOptions<RootOptions> _options;
+    private readonly ISavedGameStringsService _savedGameStringsService;
 
     public JsonGameStringFileWriterServiceTests()
     {
         _logger = Substitute.For<ILogger<JsonGameStringFileWriterService>>();
         _options = Substitute.For<IOptions<RootOptions>>();
+        _savedGameStringsService = Substitute.For<ISavedGameStringsService>();
     }
 
     [TestMethod]
@@ -49,7 +51,7 @@ public class JsonGameStringFileWriterServiceTests
 
         string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "gamestrings", $"gamestrings_{rootOptions.BuildNumber}_enus.json");
 
-        JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), Substitute.For<ISavedGameStringsService>());
+        JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _savedGameStringsService);
 
         _options.Value.Returns(rootOptions);
 
@@ -154,7 +156,7 @@ public class JsonGameStringFileWriterServiceTests
 
         string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "gamestrings", "gamestrings_0_dede.json");
 
-        JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), Substitute.For<ISavedGameStringsService>());
+        JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _savedGameStringsService);
 
         _options.Value.Returns(rootOptions);
 

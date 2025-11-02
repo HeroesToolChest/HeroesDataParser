@@ -13,7 +13,7 @@ public class SerializedElementsService : ISerializedElementsService
         _logger = logger;
     }
 
-    // dataType is for orignial, bytes is the new data to compare against
+    // dataType is for original, bytes is the new data to compare against
     public JsonNode? GetJsonNodeDiff(string dataType, byte[] bytes)
     {
         if (!_serializedElementsByDataType.TryGetValue(dataType, out byte[]? baseBytes))

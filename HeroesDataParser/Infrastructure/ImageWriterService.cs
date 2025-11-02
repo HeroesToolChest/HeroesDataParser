@@ -55,11 +55,8 @@ public class ImageWriterService : IImageWriterService
 
                 foreach (IGrouping<string, ImageWriterPath> imagePathsBySubDirectoryGroup in imagePathsBySubDirectoryGroups)
                 {
-                    if (!imagePathsBySubDirectoryGroup.TryGetNonEnumeratedCount(out int imagesCount))
-                        imagesCount = imagePathsBySubDirectoryGroup.Count();
-
                     // Create a progress task for each sub-directory
-                    progressTasks.Add((ctx.AddTask(Path.Join(_imageDirectory, imagePathsBySubDirectoryGroup.Key), maxValue: imagesCount), imagePathsBySubDirectoryGroup));
+                    progressTasks.Add((ctx.AddTask(Path.Join(_imageDirectory, imagePathsBySubDirectoryGroup.Key), maxValue: imagePathsBySubDirectoryGroup.Count()), imagePathsBySubDirectoryGroup));
                 }
 
                 await RunImageWriter(progressTasks);
@@ -105,7 +102,7 @@ public class ImageWriterService : IImageWriterService
         if (!_heroesXmlLoaderService.HeroesXmlLoader.FileExists(imageRelativeFilePath.RelativeFilePath, imageRelativeFilePath.RelativeMpqFilePath))
         {
             _logger.LogWarning("Unable to write {FileName} because {@ImageWriterPath} does not exist", fileName, imageRelativeFilePath);
-            return Task.CompletedTask;
+            throw new FileNotFoundException("Image file not found.", imageRelativeFilePath.RelativeFilePath);
         }
 
         string filePath = Path.Combine(directoryPath, fileName);

@@ -18,6 +18,8 @@ public class RootOptions
 
     public GameStringTextOptions GameStringText { get; set; } = new();
 
+    public MapWriterJsonOutputType MapWriterJsonOutputType { get; set; } = MapWriterJsonOutputType.None;
+
     public int Threads { get; set; }
 
     // set/overridden during runtime
