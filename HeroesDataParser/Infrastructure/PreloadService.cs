@@ -27,7 +27,9 @@ public class PreloadService : IPreloadService
         HeroesVersionCheck(preloadData);
         SelectedLocalizations();
         SelectedDataOptions();
+        OutputDirectory();
 
+        AnsiConsole.WriteLine();
         AnsiConsole.MarkupLine("Loading configuration files...");
 
         _stopwatch.Start();
@@ -198,7 +200,14 @@ public class PreloadService : IPreloadService
         }
 
         AnsiConsole.WriteLine();
-        AnsiConsole.WriteLine();
+    }
+
+    private void OutputDirectory()
+    {
+        string fullOutputDirectory = Path.GetFullPath(_options.OutputDirectory);
+
+        _logger.LogInformation("Output directory: {OutputDirectory}", fullOutputDirectory);
+        AnsiConsole.MarkupLineInterpolated($"[aqua]Output Directory: {fullOutputDirectory}[/]");
     }
 
     private void LoadParsingConfiguration()
