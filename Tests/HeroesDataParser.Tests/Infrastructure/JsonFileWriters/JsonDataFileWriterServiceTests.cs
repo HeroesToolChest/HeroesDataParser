@@ -85,18 +85,13 @@ public class JsonDataFileWriterServiceTests
           },
           "items": {
             "hero1": {
-              "name": null,
-              "sortName": null,
               "unitId": "hero1",
-              "title": null,
-              "difficulty": null,
               "isMelee": false,
               "gender": "Male",
               "radius": 0,
               "innerRadius": 0,
               "sight": 0,
               "speed": 0,
-              "expandedRole": null,
               "ratings": {
                 "complexity": 1,
                 "damage": 1,
@@ -111,24 +106,16 @@ public class JsonDataFileWriterServiceTests
                 "target": "",
                 "draftScreen": "",
                 "partyFrames": []
-              },
-              "searchText": null,
-              "description": null,
-              "infoText": null
+              }
             },
             "hero2": {
-              "name": null,
-              "sortName": null,
               "unitId": "hero2",
-              "title": null,
-              "difficulty": null,
               "isMelee": false,
               "gender": "Male",
               "radius": 0,
               "innerRadius": 0,
               "sight": 0,
               "speed": 0,
-              "expandedRole": null,
               "ratings": {
                 "complexity": 1,
                 "damage": 1,
@@ -143,10 +130,7 @@ public class JsonDataFileWriterServiceTests
                 "target": "",
                 "draftScreen": "",
                 "partyFrames": []
-              },
-              "searchText": null,
-              "description": null,
-              "infoText": null
+              }
             }
           }
         }
@@ -422,18 +406,13 @@ public class JsonDataFileWriterServiceTests
           },
           "items": {
             "hero1": {
-              "name": null,
-              "sortName": null,
               "unitId": "hero1",
-              "title": null,
-              "difficulty": null,
               "isMelee": false,
               "gender": "Male",
               "radius": 0,
               "innerRadius": 0,
               "sight": 0,
               "speed": 0,
-              "expandedRole": null,
               "ratings": {
                 "complexity": 1,
                 "damage": 1,
@@ -449,9 +428,7 @@ public class JsonDataFileWriterServiceTests
                 "draftScreen": "",
                 "partyFrames": []
               },
-              "searchText": null,
-              "description": "Hero description",
-              "infoText": null
+              "description": "Hero description"
             }
           }
         }
@@ -621,18 +598,13 @@ public class JsonDataFileWriterServiceTests
           },
           "items": {
             "hero1": {
-              "name": null,
-              "sortName": null,
               "unitId": "hero1",
-              "title": null,
-              "difficulty": null,
               "isMelee": false,
               "gender": "Male",
               "radius": 0,
               "innerRadius": 0,
               "sight": 0,
               "speed": 0,
-              "expandedRole": null,
               "ratings": {
                 "complexity": 1,
                 "damage": 1,
@@ -648,9 +620,7 @@ public class JsonDataFileWriterServiceTests
                 "draftScreen": "",
                 "partyFrames": []
               },
-              "searchText": null,
-              "description": "Hero description",
-              "infoText": null
+              "description": "Hero description"
             }
           }
         }
@@ -681,18 +651,13 @@ public class JsonDataFileWriterServiceTests
           },
           "items": {
             "hero1": {
-              "name": null,
-              "sortName": null,
               "unitId": "hero1",
-              "title": null,
-              "difficulty": null,
               "isMelee": false,
               "gender": "Male",
               "radius": 0,
               "innerRadius": 0,
               "sight": 0,
               "speed": 0,
-              "expandedRole": null,
               "ratings": {
                 "complexity": 1,
                 "damage": 1,
@@ -707,10 +672,7 @@ public class JsonDataFileWriterServiceTests
                 "target": "",
                 "draftScreen": "",
                 "partyFrames": []
-              },
-              "searchText": null,
-              "description": null,
-              "infoText": null
+              }
             }
           }
         }
