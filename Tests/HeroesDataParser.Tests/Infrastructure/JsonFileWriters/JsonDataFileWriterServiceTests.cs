@@ -25,6 +25,7 @@ public class JsonDataFileWriterServiceTests
         RootOptions rootOptions = new()
         {
             OutputDirectory = Path.Combine("tests", nameof(Write_HasItems_CreatesJsonFile)),
+            LocalizedText = LocalizedTextOption.None,
             CurrentLocale = StormLocale.ENUS,
             GameStringText = new GameStringTextOptions
             {
@@ -73,6 +74,13 @@ public class JsonDataFileWriterServiceTests
             "hdpVersion": "5.0.0",
             "dataType": "herodata",
             "localizedText": "None",
+            "descriptionText": {
+              "locale": "ENUS",
+              "gameStringTextType": "RawText",
+              "replaceFontStyles": false,
+              "preserveFontStyleConstantVars": false,
+              "preserveFontStyleVars": false
+            },
             "totalItems": 2
           },
           "items": {
@@ -344,6 +352,311 @@ public class JsonDataFileWriterServiceTests
             File.Exists(expectedDiffFilePath).Should().BeFalse();
     }
 
+    [TestMethod]
+    public async Task Write_LocalizedTextNone_CreatesWithGamestrings()
+    {
+        // arrange
+        RootOptions rootOptions = new()
+        {
+            OutputDirectory = Path.Combine("tests", nameof(Write_LocalizedTextNone_CreatesWithGamestrings)),
+            LocalizedText = LocalizedTextOption.None,
+            CurrentLocale = StormLocale.DEDE,
+            GameStringText = new GameStringTextOptions
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontStyles = false,
+                PreserveFont = new PreserveFontOptions
+                {
+                    PreserveFontStyleConstantVars = false,
+                    PreserveFontStyleVars = false,
+                },
+            },
+            HeroesVersion = new HeroesVersionOptions
+            {
+                Major = 2,
+                Minor = 23,
+                Revision = 2345,
+                Build = 34566,
+                IsPtr = true,
+            },
+            AppVersion = "5.0.0",
+        };
+
+        _options.Value.Returns(rootOptions);
+
+        JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _savedGameStringsService);
+
+        JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService);
+
+        Dictionary<string, Hero> heroesByElementId = [];
+        heroesByElementId.Add("hero1", new Hero("hero1")
+        {
+            UnitId = "hero1",
+            Description = new GameStringText("Hero description"),
+        });
+
+        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "data", $"herodata_{rootOptions.BuildNumber}_dede.json");
+
+        // act
+        await service.Write(heroesByElementId);
+
+        // assert
+        _serializedElementsService.ReceivedWithAnyArgs(1).AddSerializedElements(default!, default!);
+        File.Exists(expectedFilePath).Should().BeTrue();
+        File.ReadAllText(expectedFilePath).Should().Be(
+        """
+        {
+          "meta": {
+            "heroesVersion": "2.23.2345.34566_ptr",
+            "hdpVersion": "5.0.0",
+            "dataType": "herodata",
+            "localizedText": "None",
+            "descriptionText": {
+              "locale": "DEDE",
+              "gameStringTextType": "RawText",
+              "replaceFontStyles": false,
+              "preserveFontStyleConstantVars": false,
+              "preserveFontStyleVars": false
+            },
+            "totalItems": 1
+          },
+          "items": {
+            "hero1": {
+              "name": null,
+              "sortName": null,
+              "unitId": "hero1",
+              "title": null,
+              "difficulty": null,
+              "isMelee": false,
+              "gender": "Male",
+              "radius": 0,
+              "innerRadius": 0,
+              "sight": 0,
+              "speed": 0,
+              "expandedRole": null,
+              "ratings": {
+                "complexity": 1,
+                "damage": 1,
+                "survivability": 1,
+                "utility": 1
+              },
+              "portraits": {
+                "heroSelect": "",
+                "leaderboard": "",
+                "loading": "",
+                "partyPanel": "",
+                "target": "",
+                "draftScreen": "",
+                "partyFrames": []
+              },
+              "searchText": null,
+              "description": "Hero description",
+              "infoText": null
+            }
+          }
+        }
+        """);
+    }
+
+    [TestMethod]
+    public async Task Write_LocalizedTextExtract_CreatesWithoutGamestrings()
+    {
+        // arrange
+        RootOptions rootOptions = new()
+        {
+            OutputDirectory = Path.Combine("tests", nameof(Write_LocalizedTextExtract_CreatesWithoutGamestrings)),
+            LocalizedText = LocalizedTextOption.Extract,
+            CurrentLocale = StormLocale.DEDE,
+            GameStringText = new GameStringTextOptions
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontStyles = false,
+                PreserveFont = new PreserveFontOptions
+                {
+                    PreserveFontStyleConstantVars = false,
+                    PreserveFontStyleVars = false,
+                },
+            },
+            HeroesVersion = new HeroesVersionOptions
+            {
+                Major = 2,
+                Minor = 23,
+                Revision = 2345,
+                Build = 34566,
+                IsPtr = true,
+            },
+            AppVersion = "5.0.0",
+        };
+
+        _options.Value.Returns(rootOptions);
+        _savedGameStringsService.GameStringElements.Returns([]);
+
+        JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _savedGameStringsService);
+
+        JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService);
+
+        Dictionary<string, Hero> heroesByElementId = [];
+        heroesByElementId.Add("hero1", new Hero("hero1")
+        {
+            UnitId = "hero1",
+            Description = new GameStringText("Hero description"),
+        });
+
+        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "data", $"herodata_{rootOptions.BuildNumber}_dede.json");
+
+        // act
+        await service.Write(heroesByElementId);
+
+        // assert
+        _serializedElementsService.ReceivedWithAnyArgs(1).AddSerializedElements(default!, default!);
+        File.Exists(expectedFilePath).Should().BeTrue();
+        File.ReadAllText(expectedFilePath).Should().Be(
+        """
+        {
+          "meta": {
+            "heroesVersion": "2.23.2345.34566_ptr",
+            "hdpVersion": "5.0.0",
+            "dataType": "herodata",
+            "localizedText": "Extract",
+            "totalItems": 1
+          },
+          "items": {
+            "hero1": {
+              "unitId": "hero1",
+              "isMelee": false,
+              "gender": "Male",
+              "radius": 0,
+              "innerRadius": 0,
+              "sight": 0,
+              "speed": 0,
+              "ratings": {
+                "complexity": 1,
+                "damage": 1,
+                "survivability": 1,
+                "utility": 1
+              },
+              "portraits": {
+                "heroSelect": "",
+                "leaderboard": "",
+                "loading": "",
+                "partyPanel": "",
+                "target": "",
+                "draftScreen": "",
+                "partyFrames": []
+              }
+            }
+          }
+        }
+        """);
+    }
+
+    [TestMethod]
+    public async Task Write_LocalizedTextCopy_CreatesWithGamestrings()
+    {
+        // arrange
+        RootOptions rootOptions = new()
+        {
+            OutputDirectory = Path.Combine("tests", nameof(Write_LocalizedTextCopy_CreatesWithGamestrings)),
+            LocalizedText = LocalizedTextOption.Copy,
+            CurrentLocale = StormLocale.DEDE,
+            GameStringText = new GameStringTextOptions
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontStyles = false,
+                PreserveFont = new PreserveFontOptions
+                {
+                    PreserveFontStyleConstantVars = false,
+                    PreserveFontStyleVars = false,
+                },
+            },
+            HeroesVersion = new HeroesVersionOptions
+            {
+                Major = 2,
+                Minor = 23,
+                Revision = 2345,
+                Build = 34566,
+                IsPtr = true,
+            },
+            AppVersion = "5.0.0",
+        };
+
+        _options.Value.Returns(rootOptions);
+        _savedGameStringsService.GameStringElements.Returns([]);
+
+        JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _savedGameStringsService);
+
+        JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService);
+
+        Dictionary<string, Hero> heroesByElementId = [];
+        heroesByElementId.Add("hero1", new Hero("hero1")
+        {
+            UnitId = "hero1",
+            Description = new GameStringText("Hero description"),
+        });
+
+        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "data", $"herodata_{rootOptions.BuildNumber}_dede.json");
+
+        // act
+        await service.Write(heroesByElementId);
+
+        // assert
+        _serializedElementsService.ReceivedWithAnyArgs(1).AddSerializedElements(default!, default!);
+        File.Exists(expectedFilePath).Should().BeTrue();
+        File.ReadAllText(expectedFilePath).Should().Be(
+        """
+        {
+          "meta": {
+            "heroesVersion": "2.23.2345.34566_ptr",
+            "hdpVersion": "5.0.0",
+            "dataType": "herodata",
+            "localizedText": "Copy",
+            "descriptionText": {
+              "locale": "DEDE",
+              "gameStringTextType": "RawText",
+              "replaceFontStyles": false,
+              "preserveFontStyleConstantVars": false,
+              "preserveFontStyleVars": false
+            },
+            "totalItems": 1
+          },
+          "items": {
+            "hero1": {
+              "name": null,
+              "sortName": null,
+              "unitId": "hero1",
+              "title": null,
+              "difficulty": null,
+              "isMelee": false,
+              "gender": "Male",
+              "radius": 0,
+              "innerRadius": 0,
+              "sight": 0,
+              "speed": 0,
+              "expandedRole": null,
+              "ratings": {
+                "complexity": 1,
+                "damage": 1,
+                "survivability": 1,
+                "utility": 1
+              },
+              "portraits": {
+                "heroSelect": "",
+                "leaderboard": "",
+                "loading": "",
+                "partyPanel": "",
+                "target": "",
+                "draftScreen": "",
+                "partyFrames": []
+              },
+              "searchText": null,
+              "description": "Hero description",
+              "infoText": null
+            }
+          }
+        }
+        """);
+    }
+
     private static void AssertMapNormal(string expectedNormalFilePath, string expectedDiffFilePath)
     {
         File.Exists(expectedNormalFilePath).Should().BeTrue();
@@ -357,6 +670,13 @@ public class JsonDataFileWriterServiceTests
             "dataType": "herodata",
             "mapName": "map name!_yes?",
             "localizedText": "None",
+            "descriptionText": {
+              "locale": "ENUS",
+              "gameStringTextType": "RawText",
+              "replaceFontStyles": false,
+              "preserveFontStyleConstantVars": false,
+              "preserveFontStyleVars": false
+            },
             "totalItems": 1
           },
           "items": {
