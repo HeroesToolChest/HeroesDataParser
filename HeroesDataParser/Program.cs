@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Serilog;
+﻿using Serilog;
 
 // TODO: CLI
 
@@ -70,9 +69,6 @@ catch (Exception ex)
 finally
 {
     Log.Information("HPD done");
-    Log.Information("--Console output start--");
-    Log.Information(AnsiConsole.ExportText());
-    Log.Information("--Console output end--");
 
     RunLogRententionPolicy();
 
