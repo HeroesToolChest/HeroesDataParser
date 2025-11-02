@@ -42,7 +42,7 @@ public class JsonSerializerOptionService : IJsonSerializerOptionService
             {
                 Modifiers =
                 {
-                    typeInfo => JsonTypeInfoModifiers.SerialiazationModifiers(typeInfo, _options.LocalizedText, _savedGameStringsService.GameStringElements),
+                    typeInfo => JsonTypeInfoModifiers.SerializationModifiers(typeInfo, _options.LocalizedText, _savedGameStringsService.GameStringElements),
                 },
             },
             //TypeInfoResolver = new DefaultJsonTypeInfoResolver
