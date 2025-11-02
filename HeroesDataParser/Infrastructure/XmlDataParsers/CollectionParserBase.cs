@@ -14,38 +14,6 @@ public abstract class CollectionParserBase<T> : DataParser<T>
 
     public abstract override string DataObjectType { get; }
 
-    //public override T? Parse(string id)
-    //{
-    //    _logger.LogTrace("Parsing id {Id}", id);
-
-    //    StormElement? stormElement = _heroesData.GetCompleteStormElement(DataObjectType, id);
-
-    //    if (stormElement is null)
-    //    {
-    //        _logger.LogWarning("Could not find data for id {Id}", id);
-    //        return null;
-    //    }
-
-    //    T? collectionObject = (T?)Activator.CreateInstance(typeof(T), id);
-
-    //    if (collectionObject is null)
-    //    {
-    //        _logger.LogError("Failed to create instance of type {Type} for id {Id}", typeof(T), id);
-    //        return null;
-    //    }
-
-    //    using (LogContext.PushProperty("XmlPaths", stormElement.OriginalXElements.Select(x => x.StormPath)))
-    //    {
-    //        SetCommonProperties(collectionObject, stormElement);
-    //        SetAdditionalProperties(collectionObject, stormElement);
-    //        SetValidatedProperties(collectionObject);
-
-    //        _logger.LogTrace("Parsing id {Id} complete", id);
-
-    //        return collectionObject;
-    //    }
-    //}
-
     protected override void SetProperties(T collectionObject, StormElement stormElement)
     {
         SetCommonProperties(collectionObject, stormElement);

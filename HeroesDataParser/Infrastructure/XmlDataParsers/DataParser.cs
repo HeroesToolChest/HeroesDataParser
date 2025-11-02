@@ -14,6 +14,12 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
 
     public virtual T? Parse(string id)
     {
+        if (string.IsNullOrEmpty(id))
+        {
+            Logger.LogTrace("Id is null or empty");
+            return null;
+        }
+
         Logger.LogTrace("Parsing id {Id}", id);
 
         StormElement? stormElement = HeroesData.GetCompleteStormElement(DataObjectType, id);

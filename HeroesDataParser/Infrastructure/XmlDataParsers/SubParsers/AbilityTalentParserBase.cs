@@ -516,10 +516,7 @@ public class AbilityTalentParserBase : ParserBase
     {
         StormElement? unitStormElement = HeroesData.GetCompleteStormElement("Unit", unitId);
         if (unitStormElement is null)
-        {
-            Logger.LogInformation("Unit element {UnitId} not found", unitId);
             return;
-        }
 
         if (unitStormElement.DataValues.TryGetElementDataAt("Attributes", out StormElementData? attributesData))
         {

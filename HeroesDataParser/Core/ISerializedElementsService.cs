@@ -6,5 +6,7 @@ public interface ISerializedElementsService
 
     void AddSerializedElements(string dataType, byte[] bytes);
 
+    void ClearSerializedElements();
+
     IEnumerable<string> GetDataTypes();
 }

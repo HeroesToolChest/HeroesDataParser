@@ -8,6 +8,7 @@ public class MainService : IMainService
     private readonly IMapProcessorService _mapProcessorService;
     private readonly IGameStringFileProcessorService _gameStringFileProcessorService;
     private readonly IImageWriterService _imageWriterService;
+    private readonly ISerializedElementsService _serializedElementsService;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
     private readonly Stopwatch _stopwatch = new();
@@ -19,6 +20,7 @@ public class MainService : IMainService
         IMapProcessorService mapProcessorService,
         IGameStringFileProcessorService gameStringFileProcessorService,
         IImageWriterService imageWriterService,
+        ISerializedElementsService serializedElementsService,
         IHeroesXmlLoaderService heroesXmlLoaderService)
     {
         _logger = logger;
@@ -27,6 +29,7 @@ public class MainService : IMainService
         _mapProcessorService = mapProcessorService;
         _gameStringFileProcessorService = gameStringFileProcessorService;
         _imageWriterService = imageWriterService;
+        _serializedElementsService = serializedElementsService;
         _heroesXmlLoaderService = heroesXmlLoaderService;
     }
 
@@ -36,6 +39,8 @@ public class MainService : IMainService
 
         foreach (StormLocale locale in _options.Localizations)
         {
+            _serializedElementsService.ClearSerializedElements();
+
             _options.CurrentLocale = locale;
             _logger.LogInformation("Localization: {Locale}", locale);
             AnsiConsole.Write(new Rule($"[[ [greenyellow]Locale: {locale}[/] ... [paleturquoise1]{count} of {_options.Localizations.Count}[/] ]]")

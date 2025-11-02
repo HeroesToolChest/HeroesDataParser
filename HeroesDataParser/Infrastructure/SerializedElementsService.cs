@@ -33,6 +33,11 @@ public class SerializedElementsService : ISerializedElementsService
         _serializedElementsByDataType[dataType] = bytes;
     }
 
+    public void ClearSerializedElements()
+    {
+        _serializedElementsByDataType.Clear();
+    }
+
     public IEnumerable<string> GetDataTypes()
     {
         return _serializedElementsByDataType.Keys;

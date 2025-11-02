@@ -22,6 +22,12 @@ public class UnitParser : DataParser<Unit>, IUnitParser
 
     public void Parse(Unit unit)
     {
+        if (string.IsNullOrEmpty(unit.Id))
+        {
+            Logger.LogTrace("Id is null or empty");
+            return;
+        }
+
         Logger.LogTrace("Parsing unit for existing id {Id}", unit.Id);
 
         StormElement? stormElement = HeroesData.GetCompleteStormElement(DataObjectType, unit.Id);
@@ -367,11 +373,7 @@ public class UnitParser : DataParser<Unit>, IUnitParser
                         string displayEffectId = displayEffectData.Value.GetString();
                         StormElement? effectStormElement = HeroesData.GetCompleteStormElement("Effect", displayEffectId);
 
-                        if (effectStormElement is null)
-                        {
-                            Logger.LogWarning("Effect element does not exist for id {DisplayEffectId}", displayEffectId);
-                        }
-                        else
+                        if (effectStormElement is not null)
                         {
                             if (effectStormElement.DataValues.TryGetElementDataAt("Amount", out StormElementData? amountData))
                             {
