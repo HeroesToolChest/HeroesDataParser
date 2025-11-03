@@ -6,10 +6,3 @@ public interface IDataExtractorService
         where TElement : IElementObject
         where TParser : IDataParser<TElement>;
 }
-
-//public interface IDataExtractorService<TElement, TParser>
-//    where TElement : IElementObject
-//    where TParser : IDataParser<TElement>
-//{
-//    Dictionary<string, TElement> Extract(TParser parser, bool isForMap = false);
-//}

@@ -54,40 +54,6 @@ public class ProcessorService : IProcessorService
         await RunElementProcessors(_processElementByExtractDataOption, map);
     }
 
-    //public async Task RunElementProcessors()
-    //{
-    //    _logger.LogTrace("Available element processors {@ActionProcessors}", _processElementByExtractDataOption.Keys);
-
-    //    foreach (var processor in _processElementByExtractDataOption)
-    //    {
-    //        if (_extractDataOptions.HasFlag(processor.Key))
-    //        {
-    //            await processor.Value();
-    //        }
-    //        else
-    //        {
-    //            _logger.LogTrace("Element processor {Processor} was not run, was not selected in options", processor.Key);
-    //        }
-    //    }
-    //}
-
-    //public async Task RunElementProcessorsForMap(Map map)
-    //{
-    //    _logger.LogTrace("Available element processors {@ActionProcessors}", _processElementByExtractDataOptionForMap.Keys);
-
-    //    foreach (var processor in _processElementByExtractDataOptionForMap)
-    //    {
-    //        if (_extractDataOptions.HasFlag(processor.Key))
-    //        {
-    //            await processor.Value();
-    //        }
-    //        else
-    //        {
-    //            _logger.LogTrace("Element processor {Processor} was not run, was not selected in options", processor.Key);
-    //        }
-    //    }
-    //}
-
     private async Task RunElementProcessors(Dictionary<ExtractDataOptions, Func<Map?, Task>> processors, Map? map = null)
     {
         foreach (KeyValuePair<ExtractDataOptions, Func<Map?, Task>> processor in processors)
@@ -219,13 +185,6 @@ public class ProcessorService : IProcessorService
         return selectImageExtractOptions;
     }
 
-    //private Dictionary<ExtractDataOptions, Func<Dictionary<string, IElementObject>>> GetElementProcessors() => new()
-    //{
-    //    { ExtractDataOptions.Announcer, ProcessHeroesCollectionObject<Announcer, AnnouncerParser> },
-    //    { ExtractDataOptions.Banner, ProcessHeroesCollectionObject<Banner, BannerParser> },
-    //    //{ ExtractDataOptions.Map, ProcessMapObject },
-    //};
-
     private Dictionary<ExtractDataOptions, Func<Map?, Task>> GetElementProcessors() => new()
     {
         { ExtractDataOptions.Announcer, ProcessElementObject<Announcer, AnnouncerParser> },
@@ -236,6 +195,4 @@ public class ProcessorService : IProcessorService
         { ExtractDataOptions.LootChest, ProcessElementObject<LootChest, LootChestParser> },
         { ExtractDataOptions.Unit, ProcessElementObject<Unit, UnitParser> },
     };
-
-    // private Dictionary<ExtractImageOptions, >
 }

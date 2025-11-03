@@ -1,4 +1,6 @@
-﻿namespace HeroesDataParser.Infrastructure;
+﻿using System.Text.Json.Serialization.Metadata;
+
+namespace HeroesDataParser.Infrastructure;
 
 public class JsonSerializerOptionService : IJsonSerializerOptionService
 {
@@ -38,20 +40,13 @@ public class JsonSerializerOptionService : IJsonSerializerOptionService
                 new TalentLinkIdConverter(),
                 new GameStringTextConverter(gameStringTextType: _options.GameStringText.Type),
             },
-            TypeInfoResolver = new HeroesElementResolver()
+            TypeInfoResolver = new DefaultJsonTypeInfoResolver()
             {
                 Modifiers =
                 {
                     typeInfo => JsonTypeInfoModifiers.SerializationModifiers(typeInfo, _options.LocalizedText, _savedGameStringsService.GameStringElements),
                 },
             },
-            //TypeInfoResolver = new DefaultJsonTypeInfoResolver
-            //{
-            //    Modifiers =
-            //    {
-            //        JsonTypeInfoModifiers.SerialiazationModifiers,
-            //    },
-            //},
         };
     }
 
