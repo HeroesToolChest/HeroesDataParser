@@ -8,14 +8,16 @@ public class MapDataExtractorService : IMapDataExtractorService
     private readonly RootOptions _options;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly IDataParser<Map> _mapDataParser;
+    private readonly IResultSummaryService _resultSummaryService;
     private readonly Stopwatch _stopwatch = new();
 
-    public MapDataExtractorService(ILogger<MapDataExtractorService> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IDataParser<Map> mapDataParser)
+    public MapDataExtractorService(ILogger<MapDataExtractorService> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IDataParser<Map> mapDataParser, IResultSummaryService resultSummaryService)
     {
         _logger = logger;
         _options = options.Value;
         _heroesXmlLoaderService = heroesXmlLoaderService;
         _mapDataParser = mapDataParser;
+        _resultSummaryService = resultSummaryService;
     }
 
     public async Task<Dictionary<string, Map>> Extract(Func<Map, Task> elementParsersForMap)
@@ -33,7 +35,7 @@ public class MapDataExtractorService : IMapDataExtractorService
         IEnumerable<string> mapTitles = _heroesXmlLoaderService.HeroesXmlLoader.GetMapTitles()
             .OrderBy(x => x);
 
-        _logger.LogTrace("Map ids: {@MapIds}", mapTitles);
+        _logger.LogDebug("Map ids: {@MapIds}", mapTitles);
 
         int totalCount = 0;
 
@@ -98,6 +100,8 @@ public class MapDataExtractorService : IMapDataExtractorService
 
             return parsedMaps;
         }
+
+        _resultSummaryService.AddSummaryDataItem("MapData", parsedMaps.Count, totalCount, stormLocale: _options.CurrentLocale);
 
         string message = $"{parsedMaps.Count,6} / {totalCount} map items and data types successfully parsed in {_stopwatch.Elapsed.TotalSeconds:0.###} total seconds";
         if (parsedMaps.Count == totalCount)

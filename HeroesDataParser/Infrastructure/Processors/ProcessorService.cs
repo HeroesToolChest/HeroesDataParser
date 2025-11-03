@@ -42,14 +42,14 @@ public class ProcessorService : IProcessorService
 
     public async Task Start()
     {
-        _logger.LogTrace("Available element processors {@ActionProcessors}", _processElementByExtractDataOption.Keys);
+        _logger.LogDebug("Available element processors {@ActionProcessors}", _processElementByExtractDataOption.Keys);
 
         await RunElementProcessors(_processElementByExtractDataOption);
     }
 
     public async Task StartForMap(Map map)
     {
-        _logger.LogTrace("Available element processors {@ActionProcessors} for Map {MapId}", _processElementByExtractDataOption.Keys, map.Id);
+        _logger.LogDebug("Available element processors {@ActionProcessors} for Map {MapId}", _processElementByExtractDataOption.Keys, map.Id);
 
         await RunElementProcessors(_processElementByExtractDataOption, map);
     }
@@ -116,7 +116,7 @@ public class ProcessorService : IProcessorService
             _logger.LogInformation("Start action processor for {HeroesCollectionObject} using parser {Parser}", typeOfElementObjectName, typeOfParserName);
 
             var dataParser = _serviceProvider.GetRequiredService<IDataParser<TElementObject>>();
-            var itemsToSerialize = _dataExtractorService.Extract<TElementObject, TParser>((TParser)dataParser);
+            var itemsToSerialize = _dataExtractorService.Extract<TElementObject, TParser>((TParser)dataParser, map);
 
             await WriteToJson(itemsToSerialize, map);
             SaveImages(itemsToSerialize);
@@ -167,7 +167,7 @@ public class ProcessorService : IProcessorService
             selectDataExtractOptions |= result;
         }
 
-        _logger.LogTrace("Selected data extractors: {@DataOptions}", selectDataExtractOptions);
+        _logger.LogDebug("Selected data extractors: {@DataOptions}", selectDataExtractOptions);
 
         return selectDataExtractOptions;
     }
@@ -214,7 +214,7 @@ public class ProcessorService : IProcessorService
             selectImageExtractOptions |= result;
         }
 
-        _logger.LogTrace("Selected image extractors: {@ImageOptions}", selectImageExtractOptions);
+        _logger.LogDebug("Selected image extractors: {@ImageOptions}", selectImageExtractOptions);
 
         return selectImageExtractOptions;
     }

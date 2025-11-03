@@ -47,7 +47,7 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
         // load the extractor name directories
         LoadExtractorConfigurations(directoryContents);
 
-        _logger.LogTrace("Custom configuration files loaded: {@Files}", _customElementByExtractorName);
+        _logger.LogDebug("Custom configuration files loaded: {@Files}", _customElementByExtractorName);
     }
 
     protected override void ProcessFiles()

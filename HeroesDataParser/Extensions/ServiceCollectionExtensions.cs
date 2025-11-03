@@ -62,6 +62,7 @@ public static class ServiceCollectionExtensions
         services.AddImageWriters();
 
         services.AddSingleton<ISavedGameStringsService, SavedGameStringsService>();
+        services.AddSingleton<IResultSummaryService, ResultSummaryService>();
         services.AddSingleton<IMainService, MainService>();
         services.AddSingleton<IProcessorService, ProcessorService>();
         services.AddSingleton<IMapProcessorService, MapProcessorService>();

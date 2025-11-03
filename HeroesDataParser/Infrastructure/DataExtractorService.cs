@@ -8,21 +8,24 @@ public class DataExtractorService : IDataExtractorService
     private readonly RootOptions _options;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly IParsingConfigurationService _parsingConfigurationService;
+    private readonly IResultSummaryService _resultSummaryService;
     private readonly Stopwatch _stopwatch = new();
 
     public DataExtractorService(
         ILogger<DataExtractorService> logger,
         IOptions<RootOptions> options,
         IHeroesXmlLoaderService heroesXmlLoaderService,
-        IParsingConfigurationService parsingConfigurationService)
+        IParsingConfigurationService parsingConfigurationService,
+        IResultSummaryService resultSummaryService)
     {
         _logger = logger;
         _options = options.Value;
         _heroesXmlLoaderService = heroesXmlLoaderService;
         _parsingConfigurationService = parsingConfigurationService;
+        _resultSummaryService = resultSummaryService;
     }
 
-    public Dictionary<string, TElement> Extract<TElement, TParser>(TParser parser)
+    public Dictionary<string, TElement> Extract<TElement, TParser>(TParser parser, Map? map = null)
         where TElement : IElementObject
         where TParser : IDataParser<TElement>
     {
@@ -38,7 +41,7 @@ public class DataExtractorService : IDataExtractorService
         itemIds = _parsingConfigurationService.FilterAllowedItems(parser.DataObjectType, itemIds)
             .OrderBy(x => x);
 
-        _logger.LogTrace("Element ids: {@ItemIds}", itemIds);
+        _logger.LogDebug("Element ids: {@ItemIds}", itemIds);
 
         int totalCount = 0;
 
@@ -79,6 +82,8 @@ public class DataExtractorService : IDataExtractorService
 
             return parsedItems;
         }
+
+        _resultSummaryService.AddSummaryDataItem(parser.DataObjectType, parsedItems.Count, totalCount, _options.CurrentLocale, map?.Name?.PlainText);
 
         string message = $"{parsedItems.Count,6} / {totalCount} successfully parsed in {_stopwatch.Elapsed.TotalSeconds:0.###} seconds";
         if (parsedItems.Count == totalCount)

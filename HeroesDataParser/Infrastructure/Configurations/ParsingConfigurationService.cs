@@ -102,7 +102,7 @@ public class ParsingConfigurationService : ConfigurationServiceBase, IParsingCon
                 _relativeFilePathsByBuild.Add(0, Path.Join(_parsingConfigurationDirectory, _parsingConfigFileName));
         }
 
-        _logger.LogTrace("Parsing configuration files loaded: {@Files}", _relativeFilePathsByBuild);
+        _logger.LogDebug("Parsing configuration files loaded: {@Files}", _relativeFilePathsByBuild);
     }
 
     protected override void ProcessFiles()
@@ -163,6 +163,6 @@ public class ParsingConfigurationService : ConfigurationServiceBase, IParsingCon
         }
 
         _logger.LogInformation("Number of parsing configuration loaded: {Count}", _parsingDataObjectTypeByDOT.Count);
-        _logger.LogTrace("Parsing configuration loaded: {@ParsingDataObjectTypeByDOT}", _parsingDataObjectTypeByDOT);
+        _logger.LogDebug("Parsing configuration loaded: {@ParsingDataObjectTypeByDOT}", _parsingDataObjectTypeByDOT);
     }
 }

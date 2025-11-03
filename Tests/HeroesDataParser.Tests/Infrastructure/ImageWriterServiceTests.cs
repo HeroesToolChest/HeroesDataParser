@@ -6,7 +6,7 @@ public class ImageWriterServiceTests
     private readonly ILogger<ImageWriterService> _logger;
     private readonly IOptions<RootOptions> _options;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
-
+    private readonly IResultSummaryService _resultSummaryService;
     private readonly HeroesXmlLoader _heroesXmlLoader;
 
     public ImageWriterServiceTests()
@@ -14,6 +14,7 @@ public class ImageWriterServiceTests
         _logger = Substitute.For<ILogger<ImageWriterService>>();
         _options = Substitute.For<IOptions<RootOptions>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
+        _resultSummaryService = Substitute.For<IResultSummaryService>();
 
         _heroesXmlLoader = HeroesXmlLoader.LoadWithEmpty("TestImages");
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
@@ -40,7 +41,7 @@ public class ImageWriterServiceTests
             Threads = 1,
         });
 
-        ImageWriterService imageWriterService = new(_logger, _options, _heroesXmlLoaderService);
+        ImageWriterService imageWriterService = new(_logger, _options, _heroesXmlLoaderService, _resultSummaryService);
         imageWriterService.Save(new HashSet<ImageWriterPath>()
         {
             {
@@ -102,7 +103,11 @@ public class ImageWriterServiceTests
         File.Exists(Path.Combine(_options.Value.OutputDirectory, "images", "heroes", "heroImage1.png")).Should().BeTrue();
         File.Exists(Path.Combine(_options.Value.OutputDirectory, "images", "maps", "mapImage1.png")).Should().BeTrue();
         File.Exists(Path.Combine(_options.Value.OutputDirectory, "images", "maps", "mapImage2.png")).Should().BeTrue();
-        File.Exists(Path.Combine(_options.Value.OutputDirectory, "images", "items", "myItem.png")).Should().BeTrue();
         File.Exists(Path.Combine(_options.Value.OutputDirectory, "images", "maps", "mapImage3.png")).Should().BeFalse();
+        File.Exists(Path.Combine(_options.Value.OutputDirectory, "images", "items", "myItem.png")).Should().BeTrue();
+
+        _resultSummaryService.Received(1).AddSummaryImageItem("heroes", 1, 1);
+        _resultSummaryService.Received(1).AddSummaryImageItem("maps", 2, 3);
+        _resultSummaryService.Received(1).AddSummaryImageItem("items", 1, 1);
     }
 }

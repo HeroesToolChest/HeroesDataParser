@@ -58,6 +58,9 @@ try
 
     IMainService main = host.Services.GetRequiredService<IMainService>();
     await main.Start();
+
+    IResultSummaryService resultSummary = host.Services.GetRequiredService<IResultSummaryService>();
+    resultSummary.PrintSummary();
 }
 catch (Exception ex)
 {

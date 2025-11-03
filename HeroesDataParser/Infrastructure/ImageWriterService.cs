@@ -9,14 +9,16 @@ public class ImageWriterService : IImageWriterService
     private readonly ILogger<ImageWriterService> _logger;
     private readonly RootOptions _options;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
+    private readonly IResultSummaryService _resultSummaryService;
 
     private readonly HashSet<ImageWriterPath> _outputImagePaths = [];
 
-    public ImageWriterService(ILogger<ImageWriterService> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService)
+    public ImageWriterService(ILogger<ImageWriterService> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IResultSummaryService resultSummaryService)
     {
         _logger = logger;
         _options = options.Value;
         _heroesXmlLoaderService = heroesXmlLoaderService;
+        _resultSummaryService = resultSummaryService;
     }
 
     public void Save(HashSet<ImageWriterPath> imagePaths)
@@ -41,6 +43,7 @@ public class ImageWriterService : IImageWriterService
         AnsiConsole.MarkupLine($"[lightskyblue1]Saving images[/]...");
 
         var imagePathsBySubDirectoryGroups = _outputImagePaths.GroupBy(x => x.SubDirectoryPath);
+        List<(ProgressTask ProgressTask, IGrouping<string, ImageWriterPath> ImagePathsBySubDirectory)> progressTasks = [];
 
         await AnsiConsole.Progress()
             .Columns(
@@ -51,8 +54,6 @@ public class ImageWriterService : IImageWriterService
             ])
             .StartAsync(async ctx =>
             {
-                List<(ProgressTask ProgressTask, IGrouping<string, ImageWriterPath> ImagePathsBySubDirectory)> progressTasks = [];
-
                 foreach (IGrouping<string, ImageWriterPath> imagePathsBySubDirectoryGroup in imagePathsBySubDirectoryGroups)
                 {
                     // Create a progress task for each sub-directory
@@ -61,6 +62,12 @@ public class ImageWriterService : IImageWriterService
 
                 await RunImageWriter(progressTasks);
             });
+
+        // result
+        foreach (var progressTask in progressTasks)
+        {
+            _resultSummaryService.AddSummaryImageItem(progressTask.ImagePathsBySubDirectory.Key, (int)progressTask.ProgressTask.Value, (int)progressTask.ProgressTask.MaxValue);
+        }
     }
 
     private async Task RunImageWriter(List<(ProgressTask ProgressTask, IGrouping<string, ImageWriterPath> ImagePathsBySubDirectory)> progressTasks)
@@ -80,7 +87,7 @@ public class ImageWriterService : IImageWriterService
             string directoryPath = Path.Combine(_options.OutputDirectory, _imageDirectory, progressTask.ImagePathsBySubDirectory.Key);
             Directory.CreateDirectory(directoryPath);
 
-            foreach (ImageWriterPath? imageParserPath in progressTask.ImagePathsBySubDirectory)
+            foreach (ImageWriterPath imageParserPath in progressTask.ImagePathsBySubDirectory)
             {
                 try
                 {
