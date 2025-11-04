@@ -881,11 +881,6 @@
         <ParentLink value="SylvanasHauntingWaveWindrunnerTalent|SylvanasHauntingWaveFree|E" />
       </Override>
     </Ability>
-	<Ability id="SylvanasBlackArrowsPassive" abilityType="Trait" passive="true">
-	  <Override>
-        <ParentLink value="SylvanasBlackArrowsActive|SylvanasBlackArrows|Trait" />
-	  </Override>
-	</Ability>	 
   </CHero>
   <CHero id="Tassadar">
     <Ability id="TassadarResonanceBeamArcDischargeDummy,TassadarResonanceBeam" abilityType="Trait">
