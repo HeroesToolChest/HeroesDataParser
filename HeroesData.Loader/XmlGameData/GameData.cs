@@ -1047,7 +1047,7 @@ namespace HeroesData.Loader.XmlGameData
 
                         if (popChar == '+' || popChar == '-' || popChar == '*' || popChar == '/')
                         {
-                            string calcValue = HeroesMathEval.CalculatePathEquation($"{firstValue}{popChar}{secondValue}").ToString();
+                            string calcValue = HeroesMathEval.CalculatePathEquation($"({firstValue}){popChar}({secondValue})").ToString();
                             foreach (char calcValueCharacter in calcValue)
                                 characterStack.Push(calcValueCharacter);
 
