@@ -68,6 +68,8 @@ public class ImageWriterService : IImageWriterService
         {
             _resultSummaryService.AddSummaryImageItem(progressTask.ImagePathsBySubDirectory.Key, (int)progressTask.ProgressTask.Value, (int)progressTask.ProgressTask.MaxValue);
         }
+
+        _outputImagePaths.Clear();
     }
 
     private async Task RunImageWriter(List<(ProgressTask ProgressTask, IGrouping<string, ImageWriterPath> ImagePathsBySubDirectory)> progressTasks)

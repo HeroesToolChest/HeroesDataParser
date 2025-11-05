@@ -2,9 +2,9 @@
 
 public interface IJsonDataFileWriterService
 {
-    Task Write<TElement>(Dictionary<string, TElement> elementsById)
+    Task Write<TElement>(SortedDictionary<string, TElement> elementsById)
         where TElement : IElementObject;
 
-    Task WriteToMaps<TElement>(string mapDirectory, Dictionary<string, TElement> elementsById)
+    Task WriteToMaps<TElement>(string mapDirectory, SortedDictionary<string, TElement> elementsById)
         where TElement : IElementObject;
 }

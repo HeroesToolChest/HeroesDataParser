@@ -54,7 +54,7 @@ public class JsonDataFileWriterServiceTests
 
         JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService);
 
-        Dictionary<string, Hero> heroesByElementId = [];
+        SortedDictionary<string, Hero> heroesByElementId = [];
         heroesByElementId.Add("hero1", new Hero("hero1") { UnitId = "hero1" });
         heroesByElementId.Add("hero2", new Hero("hero2") { UnitId = "hero2" });
 
@@ -152,7 +152,7 @@ public class JsonDataFileWriterServiceTests
 
         _options.Value.Returns(rootOptions);
 
-        Dictionary<string, Hero> heroesByElementId = [];
+        SortedDictionary<string, Hero> heroesByElementId = [];
 
         string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "data", $"herodata_{rootOptions.BuildNumber}_enus.json");
 
@@ -208,7 +208,7 @@ public class JsonDataFileWriterServiceTests
         """)!;
         _serializedElementsService.GetJsonNodeDiff(default!, default!).ReturnsForAnyArgs(jsonDiff);
 
-        Dictionary<string, Hero> heroesByElementId = [];
+        SortedDictionary<string, Hero> heroesByElementId = [];
         heroesByElementId.Add("hero1", new Hero("hero1") { UnitId = "hero1" });
 
         string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "data", "maps", "map_nameyes", $"herodata_{rootOptions.BuildNumber}_enus.json.diff");
@@ -310,7 +310,7 @@ public class JsonDataFileWriterServiceTests
         """)!;
         _serializedElementsService.GetJsonNodeDiff(default!, default!).ReturnsForAnyArgs(jsonDiff);
 
-        Dictionary<string, Hero> heroesByElementId = [];
+        SortedDictionary<string, Hero> heroesByElementId = [];
         heroesByElementId.Add("hero1", new Hero("hero1") { UnitId = "hero1" });
 
         string expectedNormalFilePath = Path.Combine(rootOptions.OutputDirectory, "data", "maps", "map_nameyes", $"herodata_{rootOptions.BuildNumber}_enus.json");
@@ -372,7 +372,7 @@ public class JsonDataFileWriterServiceTests
 
         JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService);
 
-        Dictionary<string, Hero> heroesByElementId = [];
+        SortedDictionary<string, Hero> heroesByElementId = [];
         heroesByElementId.Add("hero1", new Hero("hero1")
         {
             UnitId = "hero1",
@@ -472,7 +472,7 @@ public class JsonDataFileWriterServiceTests
 
         JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService);
 
-        Dictionary<string, Hero> heroesByElementId = [];
+        SortedDictionary<string, Hero> heroesByElementId = [];
         heroesByElementId.Add("hero1", new Hero("hero1")
         {
             UnitId = "hero1",
@@ -564,7 +564,7 @@ public class JsonDataFileWriterServiceTests
 
         JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService);
 
-        Dictionary<string, Hero> heroesByElementId = [];
+        SortedDictionary<string, Hero> heroesByElementId = [];
         heroesByElementId.Add("hero1", new Hero("hero1")
         {
             UnitId = "hero1",

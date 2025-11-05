@@ -16,7 +16,7 @@ public class HeroTalentImageParserTests : ImageWriterBase
         // arrange
         HeroTalentImageParser heroTalentImageParser = new(_logger);
 
-        Dictionary<string, Hero> elementsById = [];
+        SortedDictionary<string, Hero> elementsById = [];
 
         Hero hero = new("id1");
         hero.AddTalent(new Talent()

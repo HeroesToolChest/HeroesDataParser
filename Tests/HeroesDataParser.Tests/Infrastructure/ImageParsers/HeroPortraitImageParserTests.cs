@@ -16,7 +16,7 @@ public class HeroPortraitImageParserTests : ImageWriterBase
         // arrange
         HeroPortraitImageParser heroPortraitImageWriter = new(_logger);
 
-        Dictionary<string, Hero> elementsById = [];
+        SortedDictionary<string, Hero> elementsById = [];
         elementsById.Add("hero1", new Hero("id1")
         {
             HeroPortraits = new HeroPortrait()

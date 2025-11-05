@@ -1,6 +1,6 @@
 ﻿using Serilog.Context;
 
-namespace HeroesDataParser.Infrastructure;
+namespace HeroesDataParser.Infrastructure.Extractors;
 
 public class DataExtractorService : IDataExtractorService
 {
@@ -25,7 +25,7 @@ public class DataExtractorService : IDataExtractorService
         _resultSummaryService = resultSummaryService;
     }
 
-    public Dictionary<string, TElement> Extract<TElement, TParser>(TParser parser, Map? map = null)
+    public SortedDictionary<string, TElement> Extract<TElement, TParser>(TParser parser, Map? map = null)
         where TElement : IElementObject
         where TParser : IDataParser<TElement>
     {
@@ -34,7 +34,7 @@ public class DataExtractorService : IDataExtractorService
         _logger.LogInformation("Starting data extractor for data object type {DataObjectType}", parser.DataObjectType);
         AnsiConsole.WriteLine($"Parsing '{typeof(TElement).Name}' data...");
 
-        Dictionary<string, TElement> parsedItems = [];
+        SortedDictionary<string, TElement> parsedItems = new(StringComparer.Ordinal);
 
         IEnumerable<string> itemIds = _heroesXmlLoaderService.HeroesXmlLoader.HeroesData.GetStormElementIds(parser.DataObjectType, StormCacheType.All);
 

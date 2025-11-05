@@ -8,7 +8,7 @@ public class ProcessorService : IProcessorService
     private readonly RootOptions _options;
     private readonly IServiceProvider _serviceProvider;
     private readonly IDataExtractorService _dataExtractorService;
-    private readonly IJsonDataFileWriterService _jsonFileWriterService;
+    private readonly IJsonDataFileWriterService _jsonDataFileWriterService;
     private readonly IImageWriterService _imageWriterService;
 
     private readonly ExtractDataOptions _extractDataOptions;
@@ -27,7 +27,7 @@ public class ProcessorService : IProcessorService
         _options = options.Value;
         _serviceProvider = serviceProvider;
         _dataExtractorService = dataExtractorService;
-        _jsonFileWriterService = jsonFileWriterService;
+        _jsonDataFileWriterService = jsonFileWriterService;
         _imageWriterService = imageWriterService;
 
         _extractDataOptions = GetExtractDataOptions();
@@ -82,7 +82,7 @@ public class ProcessorService : IProcessorService
             _logger.LogInformation("Start action processor for {HeroesCollectionObject} using parser {Parser}", typeOfElementObjectName, typeOfParserName);
 
             var dataParser = _serviceProvider.GetRequiredService<IDataParser<TElementObject>>();
-            var itemsToSerialize = _dataExtractorService.Extract<TElementObject, TParser>((TParser)dataParser, map);
+            SortedDictionary<string, TElementObject> itemsToSerialize = _dataExtractorService.Extract<TElementObject, TParser>((TParser)dataParser, map);
 
             await WriteToJson(itemsToSerialize, map);
             SaveImages(itemsToSerialize);
@@ -91,17 +91,17 @@ public class ProcessorService : IProcessorService
         }
     }
 
-    private async Task WriteToJson<TElementObject>(Dictionary<string, TElementObject> itemsToSerialize, Map? map)
+    private async Task WriteToJson<TElementObject>(SortedDictionary<string, TElementObject> itemsToSerialize, Map? map)
         where TElementObject : IElementObject
     {
         if (map is null)
-            await _jsonFileWriterService.Write(itemsToSerialize);
+            await _jsonDataFileWriterService.Write(itemsToSerialize);
         else
-            await _jsonFileWriterService.WriteToMaps(map.Id, itemsToSerialize);
+            await _jsonDataFileWriterService.WriteToMaps(map.Id, itemsToSerialize);
     }
 
     // parses and save the images for after data extraction/serialization
-    private void SaveImages<TElementObject>(Dictionary<string, TElementObject> itemsToSerialize)
+    private void SaveImages<TElementObject>(SortedDictionary<string, TElementObject> itemsToSerialize)
         where TElementObject : IElementObject
     {
         IEnumerable<IImageParser<TElementObject>> imageParsers = _serviceProvider.GetServices<IImageParser<TElementObject>>();

@@ -14,7 +14,7 @@ public abstract class ImageParserBase<TElement> : IImageParser<TElement>
 
     protected abstract string SubDirectory { get; }
 
-    public HashSet<ImageWriterPath> GetImages(Dictionary<string, TElement> elementsById)
+    public HashSet<ImageWriterPath> GetImages(SortedDictionary<string, TElement> elementsById)
     {
         _logger.LogTrace("Saving images");
 

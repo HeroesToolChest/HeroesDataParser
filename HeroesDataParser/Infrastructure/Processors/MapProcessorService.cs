@@ -48,7 +48,7 @@ public class MapProcessorService : IMapProcessorService
             _logger.LogInformation("Start action processor for {MapObject} using parser {Parser}", typeOfMapName, typeOfParserName);
 
             // parses through all the maps for the data type(s)
-            Dictionary<string, Map> mapItemsToSerialize = await _mapDataExtractorService.Extract(_processorService.StartForMap);
+            SortedDictionary<string, Map> mapItemsToSerialize = await _mapDataExtractorService.Extract(_processorService.StartForMap);
 
             // then write out the map data
             // done last, because of the loading of map xml mods, we only want to go through the map mods once

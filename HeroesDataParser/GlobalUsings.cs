@@ -18,6 +18,7 @@ global using HeroesDataParser.Core.Models.ConfigParsing;
 global using HeroesDataParser.Extensions;
 global using HeroesDataParser.Infrastructure;
 global using HeroesDataParser.Infrastructure.Configurations;
+global using HeroesDataParser.Infrastructure.Extractors;
 global using HeroesDataParser.Infrastructure.ImageParsers;
 global using HeroesDataParser.Infrastructure.JsonFileWriters;
 global using HeroesDataParser.Infrastructure.Processors;

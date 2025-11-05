@@ -1,6 +1,6 @@
 ﻿using Serilog.Context;
 
-namespace HeroesDataParser.Infrastructure;
+namespace HeroesDataParser.Infrastructure.Extractors;
 
 public class MapDataExtractorService : IMapDataExtractorService
 {
@@ -20,7 +20,7 @@ public class MapDataExtractorService : IMapDataExtractorService
         _resultSummaryService = resultSummaryService;
     }
 
-    public async Task<Dictionary<string, Map>> Extract(Func<Map, Task> elementParsersForMap)
+    public async Task<SortedDictionary<string, Map>> Extract(Func<Map, Task> elementParsersForMap)
     {
         _stopwatch.Restart();
 
@@ -30,7 +30,7 @@ public class MapDataExtractorService : IMapDataExtractorService
 
         _logger.LogInformation("Starting data extractor for data object type {DataObjectType}", _mapDataParser.DataObjectType);
 
-        Dictionary<string, Map> parsedMaps = [];
+        SortedDictionary<string, Map> parsedMaps = new(StringComparer.Ordinal);
 
         IEnumerable<string> mapTitles = _heroesXmlLoaderService.HeroesXmlLoader.GetMapTitles()
             .OrderBy(x => x);

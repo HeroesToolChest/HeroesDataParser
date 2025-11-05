@@ -21,7 +21,7 @@ public class JsonDataFileWriterService : IJsonDataFileWriterService
         _jsonSerializerOptionService = jsonSerializerOptionService;
     }
 
-    public async Task Write<TElement>(Dictionary<string, TElement> elementsById)
+    public async Task Write<TElement>(SortedDictionary<string, TElement> elementsById)
         where TElement : IElementObject
     {
         if (!IsSerializationRequired(elementsById.Count))
@@ -31,7 +31,7 @@ public class JsonDataFileWriterService : IJsonDataFileWriterService
     }
 
     // write to the maps sub directory
-    public async Task WriteToMaps<TElement>(string mapDirectory, Dictionary<string, TElement> elementsById)
+    public async Task WriteToMaps<TElement>(string mapDirectory, SortedDictionary<string, TElement> elementsById)
         where TElement : IElementObject
     {
         if (!IsSerializationRequired(elementsById.Count))
@@ -78,7 +78,7 @@ public class JsonDataFileWriterService : IJsonDataFileWriterService
         }
     }
 
-    private async Task WriteTo<TElement>(Dictionary<string, TElement> elementsById, string innerDirectory, string? mapName = null)
+    private async Task WriteTo<TElement>(SortedDictionary<string, TElement> elementsById, string innerDirectory, string? mapName = null)
         where TElement : IElementObject
     {
         string dataName = $"{typeof(TElement).Name}data".ToLowerInvariant();
@@ -102,7 +102,7 @@ public class JsonDataFileWriterService : IJsonDataFileWriterService
                 },
                 TotalItems = elementsById.Count,
             },
-            Items = new SortedDictionary<string, TElement>(elementsById, StringComparer.Ordinal),
+            Items = elementsById,
         };
 
         byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(rootDataElement, _jsonSerializerOptionService.JsonSerializerDataOptions);

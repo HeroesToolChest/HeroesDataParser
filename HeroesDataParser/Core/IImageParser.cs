@@ -5,5 +5,5 @@ public interface IImageParser<T>
 {
     ExtractImageOptions ExtractImageOption { get; }
 
-    HashSet<ImageWriterPath> GetImages(Dictionary<string, T> elementsById);
+    HashSet<ImageWriterPath> GetImages(SortedDictionary<string, T> elementsById);
 }
