@@ -500,6 +500,7 @@ namespace HeroesData.Parser.GameStrings
                 throw new InvalidOperationException();
 
             XElement? currentElement = null;
+            XAttribute? tmpAttribute = null;
             parent = null;
 
             IEnumerable<string> xmlElementNames = _configuration.GamestringXmlElements(parts[0]);
@@ -584,6 +585,7 @@ namespace HeroesData.Parser.GameStrings
                     }
                     else
                     {
+                        tmpAttribute = currentElement.Attribute("value") ?? currentElement.Attribute("Value");
                         currentElement = currentElement.Elements(parts[i]).FirstOrDefault();
                     }
 
@@ -603,15 +605,13 @@ namespace HeroesData.Parser.GameStrings
 
                 if (currentElement != null)
                 {
-                    XAttribute? attribute = currentElement.Attribute("value");
-                    if (attribute == null)
-                    {
-                        attribute = currentElement.Attribute("Value");
-                    }
-                    else
-                    {
+                    XAttribute? attribute = currentElement.Attribute("value") ?? currentElement.Attribute("Value");
+                    if (attribute is not null)
                         return _gameData.GetValueFromAttribute(attribute.Value);
-                    }
+                }
+                else if (tmpAttribute is not null)
+                {
+                    return _gameData.GetValueFromAttribute(tmpAttribute.Value);
                 }
             }
 
