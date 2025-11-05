@@ -82,11 +82,11 @@ public class ResultSummaryService : IResultSummaryService
 
         if (warningImageItems.Count == 0)
         {
-            renderables.Add(new Markup("\n[bold green]All images parsed successfully[/]"));
+            renderables.Add(new Markup($"{Environment.NewLine}[bold green]All images parsed successfully[/]"));
         }
         else
         {
-            renderables.Add(new Markup($"\n[bold yellow]Has unsuccessful image parsing[/]"));
+            renderables.Add(new Markup($"{Environment.NewLine}[bold yellow]Has unsuccessful image parsing[/]"));
             renderables.Add(ImagePrintSummary(warningImageItems));
         }
     }
