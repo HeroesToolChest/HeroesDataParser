@@ -589,7 +589,7 @@ namespace HeroesData.Parser.GameStrings
                         currentElement = currentElement.Elements(parts[i]).FirstOrDefault();
                     }
 
-                    if (currentElement == null)
+                    if (currentElement == null || currentElement.Name == "Value")
                         break;
                 }
 
