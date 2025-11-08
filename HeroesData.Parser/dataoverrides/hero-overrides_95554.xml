@@ -938,11 +938,6 @@
         <ParentLink value="TychusMinigun|TychusMinigun|Trait" />
       </Override>
     </Ability>
-	<Ability id="OverkillTargetedRetarget,TychusOverkillRetarget" abilityType="Q">
-	  <Override>
-	    <ParentLink value="TychusOverkillTargeted|TychusOverkill|Q" />
-	  </Override>
-	</Ability>
   </CHero>
   <CHero id="Uther">
     <Ability id="UtherHolyShock,UtherHolyLight" abilityType="Q">
