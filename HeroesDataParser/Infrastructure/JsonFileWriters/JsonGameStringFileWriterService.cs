@@ -25,7 +25,6 @@ public class JsonGameStringFileWriterService : IJsonGameStringFileWriterService
         string filePath = Path.Combine(fullOutputDirectory, fileName);
 
         _logger.LogInformation("Writing to {FilePath}", filePath);
-        AnsiConsole.MarkupLineInterpolated($"[lightskyblue1]Creating {_options.CurrentLocale} gamestring file[/]...");
 
         RootGameStrings rootGameStrings = new()
         {

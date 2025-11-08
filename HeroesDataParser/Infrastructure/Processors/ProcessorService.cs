@@ -13,7 +13,9 @@ public class ProcessorService : IProcessorService
 
     private readonly ExtractDataOptions _extractDataOptions;
     private readonly ExtractImageOptions _extractImageOptions;
-    private readonly Dictionary<ExtractDataOptions, Func<Map?, Task>> _processElementByExtractDataOption;
+    private readonly Dictionary<ExtractDataOptions, Action<Map?>> _processElementByExtractDataOption;
+
+    private readonly List<Func<Task>> _dataWriterTasks = [];
 
     public ProcessorService(
         ILogger<ProcessorService> logger,
@@ -40,27 +42,36 @@ public class ProcessorService : IProcessorService
 
     public ExtractImageOptions ExtractImageOptions => _extractImageOptions;
 
-    public async Task Start()
+    public void Start()
     {
         _logger.LogDebug("Available element processors {@ActionProcessors}", _processElementByExtractDataOption.Keys);
 
-        await RunElementProcessors(_processElementByExtractDataOption);
+        RunElementProcessors(_processElementByExtractDataOption);
     }
 
-    public async Task StartForMap(Map map)
+    public void StartForMap(Map map)
     {
         _logger.LogDebug("Available element processors {@ActionProcessors} for Map {MapId}", _processElementByExtractDataOption.Keys, map.Id);
 
-        await RunElementProcessors(_processElementByExtractDataOption, map);
+        RunElementProcessors(_processElementByExtractDataOption, map);
     }
 
-    private async Task RunElementProcessors(Dictionary<ExtractDataOptions, Func<Map?, Task>> processors, Map? map = null)
+    public async Task WriteDataFiles()
     {
-        foreach (KeyValuePair<ExtractDataOptions, Func<Map?, Task>> processor in processors)
+        _logger.LogInformation("Waiting for data file write tasks to complete...");
+
+        await Task.WhenAll(_dataWriterTasks.Select(task => task()));
+
+        _logger.LogInformation("All data file write tasks complete.");
+    }
+
+    private void RunElementProcessors(Dictionary<ExtractDataOptions, Action<Map?>> processors, Map? map = null)
+    {
+        foreach (KeyValuePair<ExtractDataOptions, Action<Map?>> processor in processors)
         {
             if (_extractDataOptions.HasFlag(processor.Key))
             {
-                await processor.Value(map);
+                processor.Value(map);
             }
             else
             {
@@ -69,7 +80,7 @@ public class ProcessorService : IProcessorService
         }
     }
 
-    private async Task ProcessElementObject<TElementObject, TParser>(Map? map = null)
+    private void ProcessElementObject<TElementObject, TParser>(Map? map = null)
         where TElementObject : IElementObject
         where TParser : IDataParser<TElementObject>
     {
@@ -84,7 +95,9 @@ public class ProcessorService : IProcessorService
             var dataParser = _serviceProvider.GetRequiredService<IDataParser<TElementObject>>();
             SortedDictionary<string, TElementObject> itemsToSerialize = _dataExtractorService.Extract<TElementObject, TParser>((TParser)dataParser, map);
 
-            await WriteToJson(itemsToSerialize, map);
+            // delay until after all data extraction is done (after maps)
+            _dataWriterTasks.Add(() => WriteToJson(itemsToSerialize, map));
+
             SaveImages(itemsToSerialize);
 
             _logger.LogInformation("Action processor complete for {HeroesCollectionObject} using parser {Parser}", typeOfElementObjectName, typeOfParserName);
@@ -185,7 +198,7 @@ public class ProcessorService : IProcessorService
         return selectImageExtractOptions;
     }
 
-    private Dictionary<ExtractDataOptions, Func<Map?, Task>> GetElementProcessors() => new()
+    private Dictionary<ExtractDataOptions, Action<Map?>> GetElementProcessors() => new()
     {
         { ExtractDataOptions.Announcer, ProcessElementObject<Announcer, AnnouncerParser> },
         { ExtractDataOptions.Banner, ProcessElementObject<Banner, BannerParser> },

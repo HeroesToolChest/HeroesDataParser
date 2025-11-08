@@ -11,6 +11,8 @@ public class MapProcessorService : IMapProcessorService
     private readonly IEnumerable<IImageParser<Map>> _mapImageParsers;
     private readonly IImageWriterService _imageWriterService;
 
+    private Func<Task>? _mapDataWriterTask;
+
     public MapProcessorService(
         ILogger<MapProcessorService> logger,
         IProcessorService processorService,
@@ -27,17 +29,25 @@ public class MapProcessorService : IMapProcessorService
         _imageWriterService = imageWriterService;
     }
 
-    public async Task Start()
+    public void Start()
     {
         ExtractDataOptions extractDataOptions = _processorService.ExtractDataOptions;
 
         if (extractDataOptions.HasFlag(ExtractDataOptions.Map))
         {
-            await ProcessMapObject();
+            ProcessMapObject();
         }
     }
 
-    private async Task ProcessMapObject()
+    public async Task WriteMapDataFile()
+    {
+        if (_mapDataWriterTask is not null)
+        {
+            await _mapDataWriterTask();
+        }
+    }
+
+    private void ProcessMapObject()
     {
         string typeOfMapName = typeof(Map).Name;
         string typeOfParserName = typeof(MapParser).Name;
@@ -48,11 +58,11 @@ public class MapProcessorService : IMapProcessorService
             _logger.LogInformation("Start action processor for {MapObject} using parser {Parser}", typeOfMapName, typeOfParserName);
 
             // parses through all the maps for the data type(s)
-            SortedDictionary<string, Map> mapItemsToSerialize = await _mapDataExtractorService.Extract(_processorService.StartForMap);
+            SortedDictionary<string, Map> mapItemsToSerialize = _mapDataExtractorService.Extract(_processorService.StartForMap);
 
-            // then write out the map data
+            // delay the write out the map data
             // done last, because of the loading of map xml mods, we only want to go through the map mods once
-            await _jsonDataFileWriterService.Write(mapItemsToSerialize);
+            _mapDataWriterTask = () => _jsonDataFileWriterService.Write(mapItemsToSerialize);
 
             // extract and save images
             foreach (IImageParser<Map> mapImageParser in _mapImageParsers)

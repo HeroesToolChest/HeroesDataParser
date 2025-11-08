@@ -20,7 +20,7 @@ public class MapDataExtractorService : IMapDataExtractorService
         _resultSummaryService = resultSummaryService;
     }
 
-    public async Task<SortedDictionary<string, Map>> Extract(Func<Map, Task> elementParsersForMap)
+    public SortedDictionary<string, Map> Extract(Action<Map> elementParsersForMap)
     {
         _stopwatch.Restart();
 
@@ -71,10 +71,7 @@ public class MapDataExtractorService : IMapDataExtractorService
 
                     _logger.LogInformation("Running element processors for {MapId}", mapTitle);
 
-                    AnsiConsole.WriteLine($"Parsing data type(s) for map '{mapTitle}'...");
-                    AnsiConsole.WriteLine();
-
-                    await elementParsersForMap.Invoke(map);
+                    elementParsersForMap.Invoke(map);
 
                     _logger.LogInformation("Completed element processors for {MapId}", mapTitle);
                 }
@@ -91,8 +88,6 @@ public class MapDataExtractorService : IMapDataExtractorService
         _stopwatch.Stop();
         _logger.LogInformation("Map data extractor complete for data object type {DataObjectType}", _mapDataParser.DataObjectType);
 
-        AnsiConsole.MarkupLine("[lightskyblue1]Finished parsing map data[/]");
-
         if (totalCount < 1)
         {
             AnsiConsole.MarkupLine("[yellow]No map items found to parse[/]");
@@ -101,9 +96,11 @@ public class MapDataExtractorService : IMapDataExtractorService
             return parsedMaps;
         }
 
+        AnsiConsole.Markup("[lightskyblue1]Finished parsing map data[/]...");
+
         _resultSummaryService.AddSummaryDataItem("MapData", parsedMaps.Count, totalCount, stormLocale: _options.CurrentLocale);
 
-        string message = $"{parsedMaps.Count,6} / {totalCount} map items and data types successfully parsed in {_stopwatch.Elapsed.TotalSeconds:0.###} total seconds";
+        string message = $"{parsedMaps.Count} / {totalCount} ({_stopwatch.Elapsed.TotalSeconds:0.###} s)";
         if (parsedMaps.Count == totalCount)
             AnsiConsole.MarkupLine(message);
         else

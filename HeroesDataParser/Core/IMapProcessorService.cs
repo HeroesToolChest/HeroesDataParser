@@ -2,5 +2,7 @@
 
 public interface IMapProcessorService
 {
-    Task Start();
+    void Start();
+
+    Task WriteMapDataFile();
 }

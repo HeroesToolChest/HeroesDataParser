@@ -40,7 +40,7 @@ public class ImageWriterService : IImageWriterService
             return;
         }
 
-        AnsiConsole.MarkupLine($"[lightskyblue1]Saving images[/]...");
+        AnsiConsole.MarkupLine($"[lightskyblue1]Creating image files[/]...");
 
         var imagePathsBySubDirectoryGroups = _outputImagePaths.GroupBy(x => x.SubDirectoryPath);
         List<(ProgressTask ProgressTask, IGrouping<string, ImageWriterPath> ImagePathsBySubDirectory)> progressTasks = [];

@@ -32,7 +32,7 @@ public class DataExtractorService : IDataExtractorService
         _stopwatch.Restart();
 
         _logger.LogInformation("Starting data extractor for data object type {DataObjectType}", parser.DataObjectType);
-        AnsiConsole.WriteLine($"Parsing '{typeof(TElement).Name}' data...");
+        AnsiConsole.Write($"Parsing '{typeof(TElement).Name}' data...");
 
         SortedDictionary<string, TElement> parsedItems = new(StringComparer.Ordinal);
 
@@ -85,7 +85,8 @@ public class DataExtractorService : IDataExtractorService
 
         _resultSummaryService.AddSummaryDataItem(parser.DataObjectType, parsedItems.Count, totalCount, _options.CurrentLocale, map?.Name?.PlainText);
 
-        string message = $"{parsedItems.Count,6} / {totalCount} successfully parsed in {_stopwatch.Elapsed.TotalSeconds:0.###} seconds";
+        string message = $"{parsedItems.Count} / {totalCount} (in {_stopwatch.Elapsed.TotalSeconds:0.###} s)";
+
         if (parsedItems.Count == totalCount)
             AnsiConsole.MarkupLine(message);
         else

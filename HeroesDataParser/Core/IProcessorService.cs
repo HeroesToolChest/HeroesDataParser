@@ -6,7 +6,9 @@ public interface IProcessorService
 
     ExtractImageOptions ExtractImageOptions { get; }
 
-    Task Start();
+    void Start();
 
-    Task StartForMap(Map map);
+    void StartForMap(Map map);
+
+    Task WriteDataFiles();
 }

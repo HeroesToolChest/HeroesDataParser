@@ -51,10 +51,13 @@ public class MainService : IMainService
             LoadGameStrings(locale);
 
             _logger.LogInformation("Starting processor service for {Locale}", locale);
-            await _processorService.Start();
+            _processorService.Start();
 
             _logger.LogInformation("Starting map processor service for {Locale}", locale);
-            await _mapProcessorService.Start();
+            _mapProcessorService.Start();
+
+            await _processorService.WriteDataFiles();
+            await _mapProcessorService.WriteMapDataFile();
 
             // for gamestring extraction to a separate file
             await _gameStringFileProcessorService.Start();
@@ -69,15 +72,13 @@ public class MainService : IMainService
     private void LoadGameStrings(StormLocale locale)
     {
         _logger.LogInformation("Loading gamestrings...");
-        AnsiConsole.MarkupLine("Loading gamestrings...");
+        AnsiConsole.Write("Loading gamestrings...");
 
         _stopwatch.Start();
         _heroesXmlLoaderService.HeroesXmlLoader.LoadGameStrings(locale);
         _stopwatch.Stop();
 
         _logger.LogInformation("GameStrings {Locale} loaded", locale);
-        AnsiConsole.MarkupLineInterpolated($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfGameStringsFiles(),6} text files loaded");
-        AnsiConsole.MarkupLineInterpolated($"Finished loading gamestrings in {_stopwatch.Elapsed.TotalSeconds:0.###} seconds");
-        AnsiConsole.WriteLine();
+        AnsiConsole.WriteLine($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfGameStringsFiles()} text files (in {_stopwatch.Elapsed.TotalSeconds:0.###} s)");
     }
 }
