@@ -63,6 +63,9 @@ public class ResultSummaryService : IResultSummaryService
 
     private void RenderDataSummary(List<IRenderable> renderables)
     {
+        if (_summaryDataItems.Count == 0)
+            return;
+
         List<SummaryDataItem> warningDataItems = [.. _summaryDataItems.Where(x => x.ParseCount.Parsed < x.ParseCount.Total)];
 
         if (warningDataItems.Count == 0)
@@ -78,6 +81,9 @@ public class ResultSummaryService : IResultSummaryService
 
     private void RenderImageSummary(List<IRenderable> renderables)
     {
+        if (_summaryImageItems.Count == 0)
+            return;
+
         List<SummaryImageItem> warningImageItems = [.. _summaryImageItems.Where(x => x.ParseCount.Parsed < x.ParseCount.Total)];
 
         if (warningImageItems.Count == 0)
