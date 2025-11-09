@@ -361,17 +361,19 @@ public class HeroParser : CollectionParserBase<Hero>
     {
         IEnumerable<Ability> unknownSubAbilities = collectionObject.UnknownSubAbilities.SelectMany(x => x.Value);
 
-        try
+        foreach (Ability unknownSubAbility in unknownSubAbilities)
         {
-            foreach (Ability unknownSubAbility in unknownSubAbilities)
+            bool result = false;
+            result |= collectionObject.AddAsSubAbilityToTalent(unknownSubAbility);
+            result |= collectionObject.AddAsSubAbilityToSubAbility(unknownSubAbility);
+
+            if (!result)
             {
-                collectionObject.AddAsSubAbilityToTalent(unknownSubAbility);
-                collectionObject.AddAsSubAbilityToSubAbility(unknownSubAbility);
+                Logger.LogWarning("Could not add unknown sub ability {AbilityId} for hero {HeroId}", unknownSubAbility.LinkId.ToString(), collectionObject.Id);
+
+                unknownSubAbility.Tier = AbilityTier.Unknown;
+                collectionObject.AddAbility(unknownSubAbility);
             }
-        }
-        catch (InvalidOperationException ex)
-        {
-            Logger.LogError(ex, "Failed to add an unknown sub ability {AbilityId} to a talent for hero {HeroId}", unknownSubAbilities.Last().LinkId.ToString(), collectionObject.Id);
         }
     }
 

@@ -66,11 +66,12 @@ public static class UnitExtensions
     }
 
     /// <summary>
-    /// Adds the ability as a subability <see cref="Unit"/> if the parent ability was found as an existing unknown ability or (other) subability.
+    /// Adds the ability as a subability to the <see cref="Unit"/> if the parent ability was found as an existing unknown ability or (other) subability.
     /// </summary>
     /// <param name="unit">The <see cref="Unit"/>.</param>
     /// <param name="ability">The <see cref="Ability"/> to be added as a sub ability.</param>
-    public static void AddAsSubAbilityToSubAbility(this Unit unit, Ability ability)
+    /// <returns><see langword="true"/> if added as a subability otherwise <see langword="false"/></returns>
+    public static bool AddAsSubAbilityToSubAbility(this Unit unit, Ability ability)
     {
         bool MatchAbility(Ability x) => !x.Equals(ability) && (ability.ParentAbilityElementIds.Contains(x.AbilityElementId) || ability.ParentAbilityLinkIds.Contains(x.LinkId));
 
@@ -86,7 +87,7 @@ public static class UnitExtensions
                 unit.AssignSubAbilityToLink(ability, matchedSubAbility.LinkId);
             }
 
-            return;
+            return true;
         }
 
         List<Ability> matchingSubAbilities = [.. unit.SubAbilities
@@ -101,8 +102,10 @@ public static class UnitExtensions
                 unit.AssignSubAbilityToLink(ability, matchedSubAbility.LinkId);
             }
 
-            return;
+            return true;
         }
+
+        return false;
     }
 
     /// <summary>

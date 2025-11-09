@@ -20,11 +20,12 @@ public static class HeroExtensions
     /// </summary>
     /// <param name="hero">The <see cref="Hero"/>.</param>
     /// <param name="ability">The <see cref="Ability"/> to be added.</param>
-    public static void AddAsSubAbilityToTalent(this Hero hero, Ability ability)
+    /// <returns><see langword="true"/> if added as a subability otherwise <see langword="false"/></returns>
+    public static bool AddAsSubAbilityToTalent(this Hero hero, Ability ability)
     {
         // no parent talent id, so no sub ability
         if (ability.ParentTalentLinkIds.Count < 1 && ability.ParentTalentElementIds.Count < 1)
-            return;
+            return false;
 
         IEnumerable<Talent> matchingTalents;
 
@@ -49,12 +50,9 @@ public static class HeroExtensions
                 hero.AssignSubAbilityToLink(ability, matchedTalent.LinkId);
             }
 
-            return;
+            return true;
         }
 
-        if (hero.UnknownSubAbilities.TryGetValue(ability.Tier, out List<Ability>? unknownSubAbilities))
-            unknownSubAbilities.Add(ability);
-        else
-            hero.UnknownSubAbilities[ability.Tier] = [ability];
+        return false;
     }
 }

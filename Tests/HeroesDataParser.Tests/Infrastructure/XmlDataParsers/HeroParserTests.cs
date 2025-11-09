@@ -525,8 +525,10 @@ public class HeroParserTests
 
         // assert
         hero.Should().NotBeNull();
-        hero.Talents[TalentTier.Level1][0].TooltipAbilityLinkIds.Should().ContainSingle();
-        hero.Talents[TalentTier.Level1][0].TooltipAbilityLinkIds.First().ToString().Should().Be("DeathwingIncinerate|DeathwingIncinerate|W");
+        hero.Talents[TalentTier.Level1][0].TooltipAbilityLinkIds.Should().HaveCount(2, "DeathwingLavaBurst is being put into the unknown slot and it still counts");
+        hero.Talents[TalentTier.Level1][0].TooltipAbilityLinkIds.Should().ContainInOrder(
+            new AbilityLinkId("DeathwingIncinerate", "DeathwingIncinerate", AbilityType.W),
+            new AbilityLinkId("DeathwingLavaBurst", "DeathwingLavaBurst", AbilityType.W));
     }
 
     [TestMethod]
