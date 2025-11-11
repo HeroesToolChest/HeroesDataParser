@@ -33,8 +33,8 @@ public class GameStringFileProcessorService : IGameStringFileProcessorService
 
         _logger.LogInformation("LocalizedText option is set to {LocalizedTextOption}. Starting GameString file processor...", _options.LocalizedText);
 
-        GameStringElementName gameStringElements = _savedGameStringsService.GameStringElements;
+        GameStringItemDictionary gameStringItemDictionary = _savedGameStringsService.GameStringItemDictionary;
 
-        await _jsonGameStringFileWriterService.Write(gameStringElements, _serializedElementsService.GetDataTypes());
+        await _jsonGameStringFileWriterService.Write(gameStringItemDictionary, _serializedElementsService.GetDataTypes());
     }
 }

@@ -43,6 +43,8 @@ public class JsonGameStringFileWriterServiceTests
             AppVersion = "5.0.0",
         };
 
+        _options.Value.Returns(rootOptions);
+
         List<string> dataTypes =
         [
             "AbilTalent",
@@ -51,24 +53,22 @@ public class JsonGameStringFileWriterServiceTests
 
         string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "gamestrings", $"gamestrings_{rootOptions.BuildNumber}_enus.json");
 
-        JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _savedGameStringsService);
+        JsonSerializerOptionService jsonSerializerOptionService = new(_options, _savedGameStringsService);
 
-        _options.Value.Returns(rootOptions);
-
-        GameStringElementName gameStringElements = new()
+        GameStringItemDictionary gameStringItemDictionary = new()
         {
             {
-                "abiltalent", new GameStringPropertyName()
+                "abiltalent", new GameStringFilePropertyName()
                 {
                     {
-                        "cooldownText", new GameStringPropertyId()
+                        "cooldownText", new GameStringFilePropertyId()
                         {
                             { ":PASSIVE:|ArtanisTwinBladesPrimed|W", new GameStringText("Cooldown: 4 seconds") },
                             { "AbathurAssumingDirectControlCancel|AbathurSymbioteCancel|Heroic", new GameStringText("Cooldown: 1.5 seconds") },
                         }
                     },
                     {
-                        "energyText", new GameStringPropertyId()
+                        "energyText", new GameStringFilePropertyId()
                         {
                             { "AlarakDiscordStrike|AlarakDiscordStrike|Q", new GameStringText("<s val=\"StandardTooltipDetails\">Mana: 55</s>") },
                             { "AlarakTelekinesis|AlarakTelekinesis|W", new GameStringText("<s val=\"StandardTooltipDetails\">Mana: 30</s>") },
@@ -77,10 +77,10 @@ public class JsonGameStringFileWriterServiceTests
                 }
             },
             {
-                "Hero", new GameStringPropertyName()
+                "Hero", new GameStringFilePropertyName()
                 {
                     {
-                        "difficulty", new GameStringPropertyId()
+                        "difficulty", new GameStringFilePropertyId()
                         {
                             { "Abathur", new GameStringText("Very Hard") },
                         }
@@ -92,7 +92,7 @@ public class JsonGameStringFileWriterServiceTests
         JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, jsonSerializerOptionService);
 
         // act
-        await jsonGameStringFileWriterService.Write(gameStringElements, dataTypes);
+        await jsonGameStringFileWriterService.Write(gameStringItemDictionary, dataTypes);
 
         // assert
         File.Exists(expectedFilePath).Should().BeTrue();

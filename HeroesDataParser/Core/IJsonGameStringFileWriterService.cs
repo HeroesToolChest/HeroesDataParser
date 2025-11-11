@@ -2,5 +2,5 @@
 
 public interface IJsonGameStringFileWriterService
 {
-    Task Write(GameStringElementName gameStringElements, IEnumerable<string> dataTypes);
+    Task Write(GameStringItemDictionary gameStringItemDictionary, IEnumerable<string> dataTypes);
 }

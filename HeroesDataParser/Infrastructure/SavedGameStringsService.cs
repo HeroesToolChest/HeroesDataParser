@@ -2,5 +2,5 @@
 
 public class SavedGameStringsService : ISavedGameStringsService
 {
-    public GameStringElementName GameStringElements { get; } = [];
+    public GameStringItemDictionary GameStringItemDictionary { get; } = [];
 }

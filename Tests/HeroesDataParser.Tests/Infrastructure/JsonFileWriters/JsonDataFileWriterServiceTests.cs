@@ -92,6 +92,7 @@ public class JsonDataFileWriterServiceTests
               "innerRadius": 0,
               "sight": 0,
               "speed": 0,
+              "roles": [],
               "ratings": {
                 "complexity": 1,
                 "damage": 1,
@@ -116,6 +117,7 @@ public class JsonDataFileWriterServiceTests
               "innerRadius": 0,
               "sight": 0,
               "speed": 0,
+              "roles": [],
               "ratings": {
                 "complexity": 1,
                 "damage": 1,
@@ -413,6 +415,7 @@ public class JsonDataFileWriterServiceTests
               "innerRadius": 0,
               "sight": 0,
               "speed": 0,
+              "roles": [],
               "ratings": {
                 "complexity": 1,
                 "damage": 1,
@@ -466,7 +469,7 @@ public class JsonDataFileWriterServiceTests
         };
 
         _options.Value.Returns(rootOptions);
-        _savedGameStringsService.GameStringElements.Returns([]);
+        _savedGameStringsService.GameStringItemDictionary.Returns([]);
 
         JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _savedGameStringsService);
 
@@ -558,7 +561,7 @@ public class JsonDataFileWriterServiceTests
         };
 
         _options.Value.Returns(rootOptions);
-        _savedGameStringsService.GameStringElements.Returns([]);
+        _savedGameStringsService.GameStringItemDictionary.Returns([]);
 
         JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _savedGameStringsService);
 
@@ -605,6 +608,7 @@ public class JsonDataFileWriterServiceTests
               "innerRadius": 0,
               "sight": 0,
               "speed": 0,
+              "roles": [],
               "ratings": {
                 "complexity": 1,
                 "damage": 1,
@@ -658,6 +662,7 @@ public class JsonDataFileWriterServiceTests
               "innerRadius": 0,
               "sight": 0,
               "speed": 0,
+              "roles": [],
               "ratings": {
                 "complexity": 1,
                 "damage": 1,

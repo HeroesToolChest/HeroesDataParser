@@ -15,7 +15,7 @@ public class JsonGameStringFileWriterService : IJsonGameStringFileWriterService
         _jsonSerializerOptionService = jsonSerializerOptionService;
     }
 
-    public async Task Write(GameStringElementName gameStringElements, IEnumerable<string> dataTypes)
+    public async Task Write(GameStringItemDictionary gameStringItemDictionary, IEnumerable<string> dataTypes)
     {
         string fullOutputDirectory = Path.Combine(_options.OutputDirectory, _jsonFileDirectory);
 
@@ -44,7 +44,7 @@ public class JsonGameStringFileWriterService : IJsonGameStringFileWriterService
             },
         };
 
-        await Write(rootGameStrings.Meta, gameStringElements, filePath);
+        await Write(rootGameStrings.Meta, gameStringItemDictionary, filePath);
 
         AnsiConsole.Write("Created file ");
         AnsiConsoleHelpers.WriteFilePath(Path.Join(_jsonFileDirectory, fileName));
@@ -52,7 +52,7 @@ public class JsonGameStringFileWriterService : IJsonGameStringFileWriterService
         AnsiConsole.WriteLine();
     }
 
-    private async Task Write(MetaGameStringProperties metaProperties, GameStringElementName gameStringElements, string filePath)
+    private async Task Write(MetaGameStringProperties metaProperties, GameStringItemDictionary gameStringItemDictionary, string filePath)
     {
         byte[] metaJson = JsonSerializer.SerializeToUtf8Bytes(metaProperties, _jsonSerializerOptionService.JsonSerializerGameStringOptions);
 
@@ -73,11 +73,11 @@ public class JsonGameStringFileWriterService : IJsonGameStringFileWriterService
 
         utf8JsonWriter.WriteStartObject(RootGameStrings.GameStringItemPropertyName);
 
-        foreach (KeyValuePair<string, GameStringPropertyName> elementName in gameStringElements)
+        foreach (KeyValuePair<string, GameStringFilePropertyName> elementName in gameStringItemDictionary)
         {
             utf8JsonWriter.WriteStartObject(elementName.Key);
 
-            foreach (KeyValuePair<string, GameStringPropertyId> propertyName in elementName.Value)
+            foreach (KeyValuePair<string, GameStringFilePropertyId> propertyName in elementName.Value)
             {
                 utf8JsonWriter.WriteStartObject(propertyName.Key);
 
