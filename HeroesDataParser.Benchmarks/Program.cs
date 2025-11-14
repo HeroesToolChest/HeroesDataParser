@@ -2,7 +2,5 @@
 using BenchmarkDotNet.Running;
 using HeroesDataParser.Benchmarks;
 
-Console.WriteLine("Hello, World!");
-
 BenchmarkRunner.Run<Benchmarks>();
 
