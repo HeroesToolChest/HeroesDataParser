@@ -25,11 +25,11 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Heroes.XmlData" Version="1.0.0-alpha.2.88" />
-		<PackageReference Include="Microsoft.Extensions.Compliance.Redaction" Version="9.10.0" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection.AutoActivation" Version="9.10.0" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.10" />
-		<PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="9.10.0" />
+		<PackageReference Include="Heroes.XmlData" Version="1.0.0-alpha.2.89" />
+		<PackageReference Include="Microsoft.Extensions.Compliance.Redaction" Version="10.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.AutoActivation" Version="10.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.0.0" />
 		<PackageReference Include="Pfim" Version="0.11.3" />
 		<PackageReference Include="Polly.Core" Version="8.6.4" />
 		<PackageReference Include="Polly.Extensions" Version="8.6.4" />
@@ -40,7 +40,7 @@
 		<PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
 		<PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
-		<PackageReference Include="Spectre.Console" Version="0.53.0" />
+		<PackageReference Include="Spectre.Console" Version="0.54.0" />
 		<PackageReference Include="Spectre.Console.Analyzer" Version="1.0.0">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -49,7 +49,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="System.Text.Json" Version="9.0.10" />
 		<PackageReference Include="SystemTextJson.JsonDiffPatch" Version="2.0.0" />
 	</ItemGroup>
 
