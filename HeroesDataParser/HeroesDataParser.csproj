@@ -9,7 +9,7 @@
     <PublishSingleFile>false</PublishSingleFile>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>dotnet-heroes-data-parser</ToolCommandName>
-    <Copyright>Copyright © 2018 - 2025 Kevin Oliva</Copyright>
+    <Copyright>Copyright © 2018 - 2026 Kevin Oliva</Copyright>
     <Authors>Kevin Oliva</Authors>
     <PackageId>HeroesDataParser</PackageId>
     <Product>HeroesDataParser</Product>
