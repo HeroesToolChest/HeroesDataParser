@@ -29,7 +29,7 @@ public static class ServiceCollectionExtensions
                     .AddRetry(new Polly.Retry.RetryStrategyOptions<HttpResponseMessage>()
                     {
                         ShouldHandle = args => HandleTransientHttpError(args.Outcome),
-                        MaxRetryAttempts = 2,
+                        MaxRetryAttempts = 5,
                         BackoffType = DelayBackoffType.Exponential,
                         Delay = TimeSpan.FromSeconds(2),
                     });
