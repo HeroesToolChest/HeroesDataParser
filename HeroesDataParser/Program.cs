@@ -35,6 +35,7 @@ try
 
     builder.Services.AddCoreServices(builder);
     builder.Services.AddHDPServices(builder);
+    builder.Services.AddResiliencePipelines();
 
     builder.Services.PostConfigureAll<RootOptions>(options =>
     {

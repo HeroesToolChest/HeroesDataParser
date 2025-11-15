@@ -1,4 +1,5 @@
 ﻿using Polly;
+using Polly.Retry;
 using Serilog;
 using Serilog.Configuration;
 using System.Net;
@@ -8,6 +9,11 @@ namespace HeroesDataParser.Extensions;
 
 public static class ServiceCollectionExtensions
 {
+    public static Action<LoggerSinkConfiguration> LoggerConfigure()
+    {
+        return x => x.File(new CompactJsonFormatter(), Path.Join(SerilogLogging.LogDirectory, $"{SerilogLogging.LogPrefix}{SerilogLogging.StartDateTime:yyyyMMdd_HHmmss}.txt"), retainedFileCountLimit: SerilogLogging.RetainedFileCountLimit, fileSizeLimitBytes: 1024 * 1024 * 64);
+    }
+
     public static IServiceCollection AddCoreServices(this IServiceCollection services, HostApplicationBuilder builder)
     {
         services.AddSerilog((services, lc) => lc
@@ -26,7 +32,7 @@ public static class ServiceCollectionExtensions
             .AddResilienceHandler("hdp-pipeline", builder =>
             {
                 builder
-                    .AddRetry(new Polly.Retry.RetryStrategyOptions<HttpResponseMessage>()
+                    .AddRetry(new RetryStrategyOptions<HttpResponseMessage>()
                     {
                         ShouldHandle = args => HandleTransientHttpError(args.Outcome),
                         MaxRetryAttempts = 5,
@@ -36,11 +42,6 @@ public static class ServiceCollectionExtensions
             });
 
         return services;
-    }
-
-    public static Action<LoggerSinkConfiguration> LoggerConfigure()
-    {
-        return x => x.File(new CompactJsonFormatter(), Path.Join(SerilogLogging.LogDirectory, $"{SerilogLogging.LogPrefix}{SerilogLogging.StartDateTime:yyyyMMdd_HHmmss}.txt"), retainedFileCountLimit: SerilogLogging.RetainedFileCountLimit, fileSizeLimitBytes: 1024 * 1024 * 64);
     }
 
     public static IServiceCollection AddHDPServices(this IServiceCollection services, HostApplicationBuilder builder)
@@ -75,6 +76,21 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IJsonGameStringFileWriterService, JsonGameStringFileWriterService>();
 
         services.AddSingleton<IImageWriterService, ImageWriterService>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddResiliencePipelines(this IServiceCollection services)
+    {
+        services.AddResiliencePipeline(Constants.ImageWriterPipeline, pipeline =>
+        {
+            pipeline.AddRetry(new RetryStrategyOptions
+            {
+                MaxRetryAttempts = 3,
+                Delay = TimeSpan.FromSeconds(1),
+                BackoffType = DelayBackoffType.Exponential,
+            });
+        });
 
         return services;
     }

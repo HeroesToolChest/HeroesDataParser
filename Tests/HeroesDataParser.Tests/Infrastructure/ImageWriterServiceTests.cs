@@ -1,4 +1,7 @@
-﻿namespace HeroesDataParser.Infrastructure.Tests;
+﻿using Polly;
+using Polly.Registry;
+
+namespace HeroesDataParser.Infrastructure.Tests;
 
 [TestClass]
 public class ImageWriterServiceTests
@@ -7,6 +10,7 @@ public class ImageWriterServiceTests
     private readonly IOptions<RootOptions> _options;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly IResultSummaryService _resultSummaryService;
+    private readonly ResiliencePipelineProvider<string> _pipelineProvider;
     private readonly HeroesXmlLoader _heroesXmlLoader;
 
     public ImageWriterServiceTests()
@@ -15,6 +19,7 @@ public class ImageWriterServiceTests
         _options = Substitute.For<IOptions<RootOptions>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
         _resultSummaryService = Substitute.For<IResultSummaryService>();
+        _pipelineProvider = Substitute.For<ResiliencePipelineProvider<string>>();
 
         _heroesXmlLoader = HeroesXmlLoader.LoadWithEmpty("TestImages");
         _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
@@ -24,6 +29,10 @@ public class ImageWriterServiceTests
     public async Task Write_HasImagesToCreate_CreatesImages()
     {
         // arrange
+        _pipelineProvider
+            .GetPipeline(Constants.ImageWriterPipeline)
+            .Returns(ResiliencePipeline.Empty);
+
         _options.Value.Returns(new RootOptions()
         {
             Extractors = new Dictionary<string, ExtractorOptions>()
@@ -41,7 +50,7 @@ public class ImageWriterServiceTests
             Threads = 1,
         });
 
-        ImageWriterService imageWriterService = new(_logger, _options, _heroesXmlLoaderService, _resultSummaryService);
+        ImageWriterService imageWriterService = new(_logger, _options, _heroesXmlLoaderService, _resultSummaryService, _pipelineProvider);
         imageWriterService.Save(new HashSet<ImageWriterPath>()
         {
             {

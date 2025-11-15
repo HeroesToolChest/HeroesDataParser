@@ -1,4 +1,6 @@
-﻿using SixLabors.ImageSharp;
+﻿using Polly;
+using Polly.Registry;
+using SixLabors.ImageSharp;
 
 namespace HeroesDataParser.Infrastructure;
 
@@ -10,15 +12,22 @@ public class ImageWriterService : IImageWriterService
     private readonly RootOptions _options;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly IResultSummaryService _resultSummaryService;
+    private readonly ResiliencePipeline _pipeline;
 
     private readonly HashSet<ImageWriterPath> _outputImagePaths = [];
 
-    public ImageWriterService(ILogger<ImageWriterService> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IResultSummaryService resultSummaryService)
+    public ImageWriterService(
+        ILogger<ImageWriterService> logger,
+        IOptions<RootOptions> options,
+        IHeroesXmlLoaderService heroesXmlLoaderService,
+        IResultSummaryService resultSummaryService,
+        ResiliencePipelineProvider<string> pipelineProvider)
     {
         _logger = logger;
         _options = options.Value;
         _heroesXmlLoaderService = heroesXmlLoaderService;
         _resultSummaryService = resultSummaryService;
+        _pipeline = pipelineProvider.GetPipeline(Constants.ImageWriterPipeline);
     }
 
     public void Save(HashSet<ImageWriterPath> imagePaths)
@@ -98,8 +107,14 @@ public class ImageWriterService : IImageWriterService
             {
                 try
                 {
-                    await WriteStaticImageFile(imageParserPath.FileName, directoryPath, imageParserPath);
-                    progressTask.ProgressTask.Increment(1);
+                    // there is a very small chance an exception could be thrown, so we handle it via the pipeline for a retry
+                    await _pipeline.ExecuteAsync(
+                        async (_) =>
+                        {
+                            await WriteStaticImageFile(imageParserPath.FileName, directoryPath, imageParserPath);
+                            progressTask.ProgressTask.Increment(1);
+                        },
+                        cts);
                 }
                 catch (Exception ex)
                 {
