@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Nodes;
+﻿using NSubstitute.ReceivedExtensions;
+using System.Text.Json.Nodes;
 
 namespace HeroesDataParser.Infrastructure.JsonFileWriters.Tests;
 
@@ -9,6 +10,7 @@ public class JsonDataFileWriterServiceTests
     private readonly IOptions<RootOptions> _options;
     private readonly ISerializedElementsService _serializedElementsService;
     private readonly ISavedGameStringsService _savedGameStringsService;
+    private readonly IResultSummaryService _resultSummaryService;
 
     public JsonDataFileWriterServiceTests()
     {
@@ -16,6 +18,7 @@ public class JsonDataFileWriterServiceTests
         _options = Substitute.For<IOptions<RootOptions>>();
         _serializedElementsService = Substitute.For<ISerializedElementsService>();
         _savedGameStringsService = Substitute.For<ISavedGameStringsService>();
+        _resultSummaryService = Substitute.For<IResultSummaryService>();
     }
 
     [TestMethod]
@@ -52,7 +55,7 @@ public class JsonDataFileWriterServiceTests
 
         JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _savedGameStringsService);
 
-        JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService);
+        JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService, _resultSummaryService);
 
         SortedDictionary<string, Hero> heroesByElementId = [];
         heroesByElementId.Add("hero1", new Hero("hero1") { UnitId = "hero1" });
@@ -65,6 +68,8 @@ public class JsonDataFileWriterServiceTests
 
         // assert
         _serializedElementsService.ReceivedWithAnyArgs(1).AddSerializedElements(default!, default!);
+        _ = _resultSummaryService.Received(1).JsonDataFilesWritten;
+        _ = _resultSummaryService.Received(1).JsonDataFilesTotal;
         File.Exists(expectedFilePath).Should().BeTrue();
         File.ReadAllText(expectedFilePath).Should().Be(
         """
@@ -150,7 +155,7 @@ public class JsonDataFileWriterServiceTests
 
         JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _savedGameStringsService);
 
-        JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService);
+        JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService, _resultSummaryService);
 
         _options.Value.Returns(rootOptions);
 
@@ -163,6 +168,8 @@ public class JsonDataFileWriterServiceTests
 
         // assert
         _serializedElementsService.DidNotReceiveWithAnyArgs().AddSerializedElements(default!, default!);
+        _ = _resultSummaryService.DidNotReceive().JsonDataFilesWritten;
+        _ = _resultSummaryService.DidNotReceive().JsonDataFilesTotal;
         File.Exists(expectedFilePath).Should().BeFalse();
     }
 
@@ -216,13 +223,15 @@ public class JsonDataFileWriterServiceTests
         string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "data", "maps", "map_nameyes", $"herodata_{rootOptions.BuildNumber}_enus.json.diff");
 
         JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _savedGameStringsService);
-        JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService);
+        JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService, _resultSummaryService);
 
         // act
         await service.WriteToMaps("map name!_yes?", heroesByElementId);
 
         // assert
         _serializedElementsService.DidNotReceiveWithAnyArgs().AddSerializedElements(default!, default!);
+        _ = _resultSummaryService.Received(1).JsonDataFilesWritten;
+        _ = _resultSummaryService.Received(1).JsonDataFilesTotal;
         File.Exists(expectedFilePath).Should().BeTrue();
         File.ReadAllText(expectedFilePath).Should().Be(
         """
@@ -319,7 +328,7 @@ public class JsonDataFileWriterServiceTests
         string expectedDiffFilePath = $"{expectedNormalFilePath}.diff";
 
         JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _savedGameStringsService);
-        JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService);
+        JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService, _resultSummaryService);
 
         // act
         await service.WriteToMaps("map name!_yes?", heroesByElementId);
@@ -327,13 +336,29 @@ public class JsonDataFileWriterServiceTests
         // assert
         _serializedElementsService.DidNotReceiveWithAnyArgs().AddSerializedElements(default!, default!);
 
+        if (mapWriterJsonOutputType == MapWriterJsonOutputType.All)
+        {
+            _ = _resultSummaryService.Received(2).JsonDataFilesWritten;
+            _ = _resultSummaryService.Received(2).JsonDataFilesTotal;
+        }
+        else if (mapWriterJsonOutputType == MapWriterJsonOutputType.None)
+        {
+            _ = _resultSummaryService.DidNotReceive().JsonDataFilesWritten;
+            _ = _resultSummaryService.DidNotReceive().JsonDataFilesTotal;
+        }
+        else
+        {
+            _ = _resultSummaryService.Received(1).JsonDataFilesWritten;
+            _ = _resultSummaryService.Received(1).JsonDataFilesTotal;
+        }
+
         if (mapWriterJsonOutputType.HasFlag(MapWriterJsonOutputType.Normal))
-            AssertMapNormal(expectedNormalFilePath, expectedDiffFilePath);
+            AssertMapNormal(expectedNormalFilePath);
         else
             File.Exists(expectedNormalFilePath).Should().BeFalse();
 
         if (mapWriterJsonOutputType.HasFlag(MapWriterJsonOutputType.Diff))
-            AssertMapDiff(expectedNormalFilePath, expectedDiffFilePath);
+            AssertMapDiff(expectedDiffFilePath);
         else
             File.Exists(expectedDiffFilePath).Should().BeFalse();
     }
@@ -372,7 +397,7 @@ public class JsonDataFileWriterServiceTests
 
         JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _savedGameStringsService);
 
-        JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService);
+        JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService, _resultSummaryService);
 
         SortedDictionary<string, Hero> heroesByElementId = [];
         heroesByElementId.Add("hero1", new Hero("hero1")
@@ -388,6 +413,8 @@ public class JsonDataFileWriterServiceTests
 
         // assert
         _serializedElementsService.ReceivedWithAnyArgs(1).AddSerializedElements(default!, default!);
+        _ = _resultSummaryService.Received(1).JsonDataFilesWritten;
+        _ = _resultSummaryService.Received(1).JsonDataFilesTotal;
         File.Exists(expectedFilePath).Should().BeTrue();
         File.ReadAllText(expectedFilePath).Should().Be(
         """
@@ -473,7 +500,7 @@ public class JsonDataFileWriterServiceTests
 
         JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _savedGameStringsService);
 
-        JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService);
+        JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService, _resultSummaryService);
 
         SortedDictionary<string, Hero> heroesByElementId = [];
         heroesByElementId.Add("hero1", new Hero("hero1")
@@ -489,6 +516,8 @@ public class JsonDataFileWriterServiceTests
 
         // assert
         _serializedElementsService.ReceivedWithAnyArgs(1).AddSerializedElements(default!, default!);
+        _ = _resultSummaryService.Received(1).JsonDataFilesWritten;
+        _ = _resultSummaryService.Received(1).JsonDataFilesTotal;
         File.Exists(expectedFilePath).Should().BeTrue();
         File.ReadAllText(expectedFilePath).Should().Be(
         """
@@ -565,7 +594,7 @@ public class JsonDataFileWriterServiceTests
 
         JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _savedGameStringsService);
 
-        JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService);
+        JsonDataFileWriterService service = new(_logger, _options, _serializedElementsService, jsonSerializerOptionService, _resultSummaryService);
 
         SortedDictionary<string, Hero> heroesByElementId = [];
         heroesByElementId.Add("hero1", new Hero("hero1")
@@ -581,6 +610,8 @@ public class JsonDataFileWriterServiceTests
 
         // assert
         _serializedElementsService.ReceivedWithAnyArgs(1).AddSerializedElements(default!, default!);
+        _ = _resultSummaryService.Received(1).JsonDataFilesWritten;
+        _ = _resultSummaryService.Received(1).JsonDataFilesTotal;
         File.Exists(expectedFilePath).Should().BeTrue();
         File.ReadAllText(expectedFilePath).Should().Be(
         """
@@ -631,7 +662,7 @@ public class JsonDataFileWriterServiceTests
         """);
     }
 
-    private static void AssertMapNormal(string expectedNormalFilePath, string expectedDiffFilePath)
+    private static void AssertMapNormal(string expectedNormalFilePath)
     {
         File.Exists(expectedNormalFilePath).Should().BeTrue();
 
@@ -684,7 +715,7 @@ public class JsonDataFileWriterServiceTests
         """);
     }
 
-    private static void AssertMapDiff(string expectedNormalFilePath, string expectedDiffFilePath)
+    private static void AssertMapDiff(string expectedDiffFilePath)
     {
         File.Exists(expectedDiffFilePath).Should().BeTrue();
 

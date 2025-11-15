@@ -109,5 +109,7 @@ public class ImageWriterServiceTests
         _resultSummaryService.Received(1).AddSummaryImageItem("heroes", 1, 1);
         _resultSummaryService.Received(1).AddSummaryImageItem("maps", 2, 3);
         _resultSummaryService.Received(1).AddSummaryImageItem("items", 1, 1);
+        _ = _resultSummaryService.Received(3).ImageFilesWritten;
+        _ = _resultSummaryService.Received(3).ImageFilesTotal;
     }
 }

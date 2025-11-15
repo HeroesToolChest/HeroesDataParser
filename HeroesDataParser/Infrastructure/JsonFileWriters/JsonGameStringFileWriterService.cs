@@ -7,12 +7,14 @@ public class JsonGameStringFileWriterService : IJsonGameStringFileWriterService
     private readonly ILogger<JsonGameStringFileWriterService> _logger;
     private readonly RootOptions _options;
     private readonly IJsonSerializerOptionService _jsonSerializerOptionService;
+    private readonly IResultSummaryService _resultSummaryService;
 
-    public JsonGameStringFileWriterService(ILogger<JsonGameStringFileWriterService> logger, IOptions<RootOptions> options, IJsonSerializerOptionService jsonSerializerOptionService)
+    public JsonGameStringFileWriterService(ILogger<JsonGameStringFileWriterService> logger, IOptions<RootOptions> options, IJsonSerializerOptionService jsonSerializerOptionService, IResultSummaryService resultSummaryService)
     {
         _logger = logger;
         _options = options.Value;
         _jsonSerializerOptionService = jsonSerializerOptionService;
+        _resultSummaryService = resultSummaryService;
     }
 
     public async Task Write(GameStringItemDictionary gameStringItemDictionary, IEnumerable<string> dataTypes)
@@ -44,7 +46,18 @@ public class JsonGameStringFileWriterService : IJsonGameStringFileWriterService
             },
         };
 
-        await Write(rootGameStrings.Meta, gameStringItemDictionary, filePath);
+        try
+        {
+            _resultSummaryService.GameStringFilesTotal++;
+            await Write(rootGameStrings.Meta, gameStringItemDictionary, filePath);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error writing game string JSON file to {FilePath}", filePath);
+            return;
+        }
+
+        _resultSummaryService.GameStringFilesWritten++;
 
         AnsiConsole.Write("Created file ");
         AnsiConsoleHelpers.WriteFilePath(Path.Join(_jsonFileDirectory, fileName));

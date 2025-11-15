@@ -16,6 +16,18 @@ public class ResultSummaryService : IResultSummaryService
         _options = options.Value;
     }
 
+    public int JsonDataFilesWritten { get; set; }
+
+    public int JsonDataFilesTotal { get; set; }
+
+    public int ImageFilesWritten { get; set; }
+
+    public int ImageFilesTotal { get; set; }
+
+    public int GameStringFilesWritten { get; set; }
+
+    public int GameStringFilesTotal { get; set; }
+
     public void AddSummaryDataItem(string dataType, int parsedCount, int totalCount, StormLocale stormLocale, string? mapName = null)
     {
         SummaryDataItem item = new()
@@ -50,7 +62,9 @@ public class ResultSummaryService : IResultSummaryService
 
         RenderDataSummary(renderables);
         RenderImageSummary(renderables);
+        FileCountWrittenSummary(renderables);
 
+        AnsiConsole.WriteLine();
         AnsiConsole.Write(new Panel(new Rows(renderables))
         {
             Border = BoxBorder.Ascii,
@@ -95,6 +109,26 @@ public class ResultSummaryService : IResultSummaryService
             renderables.Add(new Markup($"{Environment.NewLine}[bold yellow]Has unsuccessful image parsing[/]"));
             renderables.Add(ImagePrintSummary(warningImageItems));
         }
+    }
+
+    private void FileCountWrittenSummary(List<IRenderable> renderables)
+    {
+        renderables.Add(new Markup($"{Environment.NewLine}Files Written:"));
+
+        if (JsonDataFilesWritten < JsonDataFilesTotal)
+            renderables.Add(new Markup($"  [SteelBlue1_1]data[/]: [[[yellow]{JsonDataFilesWritten}/{JsonDataFilesTotal}[/]]]"));
+        else
+            renderables.Add(new Markup($"  [SteelBlue1_1]data[/]: [[[green]{JsonDataFilesWritten}/{JsonDataFilesTotal}[/]]]"));
+
+        if (GameStringFilesWritten < GameStringFilesTotal)
+            renderables.Add(new Markup($"  [SteelBlue1_1]gamestrings[/]: [[[yellow]{GameStringFilesWritten}/{GameStringFilesTotal}[/]]]"));
+        else
+            renderables.Add(new Markup($"  [SteelBlue1_1]gamestrings[/]: [[[green]{GameStringFilesWritten}/{GameStringFilesTotal}[/]]]"));
+
+        if (ImageFilesWritten < ImageFilesTotal)
+            renderables.Add(new Markup($"  [SteelBlue1_1]images[/]: [[[yellow]{ImageFilesWritten}/{ImageFilesTotal}[/]]]"));
+        else
+            renderables.Add(new Markup($"  [SteelBlue1_1]images[/]: [[[green]{ImageFilesWritten}/{ImageFilesTotal}[/]]]"));
     }
 
     private Grid DataPrintSummary(IEnumerable<SummaryDataItem> warningDataItems)

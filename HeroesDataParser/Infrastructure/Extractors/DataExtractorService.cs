@@ -85,12 +85,12 @@ public class DataExtractorService : IDataExtractorService
 
         _resultSummaryService.AddSummaryDataItem(parser.DataObjectType, parsedItems.Count, totalCount, _options.CurrentLocale, map?.Name?.PlainText);
 
-        string message = $"{parsedItems.Count} / {totalCount} (in {_stopwatch.Elapsed.TotalSeconds:0.###} s)";
-
         if (parsedItems.Count == totalCount)
-            AnsiConsole.MarkupLine(message);
+            AnsiConsole.MarkupInterpolated($"{parsedItems.Count} / {totalCount}");
         else
-            AnsiConsole.MarkupLineInterpolated($"[yellow]{message}[/]");
+            AnsiConsole.MarkupInterpolated($"[yellow]{parsedItems.Count} / {totalCount}[/]");
+
+        AnsiConsole.WriteLine($" (in {_stopwatch.Elapsed.TotalSeconds:0}s {_stopwatch.Elapsed.Milliseconds:0}ms)");
 
         return parsedItems;
     }

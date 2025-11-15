@@ -8,17 +8,20 @@ public class JsonDataFileWriterService : IJsonDataFileWriterService
     private readonly RootOptions _options;
     private readonly ISerializedElementsService _serializedElementsService;
     private readonly IJsonSerializerOptionService _jsonSerializerOptionService;
+    private readonly IResultSummaryService _resultSummaryService;
 
     public JsonDataFileWriterService(
         ILogger<JsonDataFileWriterService> logger,
         IOptions<RootOptions> options,
         ISerializedElementsService serializedElementsService,
-        IJsonSerializerOptionService jsonSerializerOptionService)
+        IJsonSerializerOptionService jsonSerializerOptionService,
+        IResultSummaryService resultSummaryService)
     {
         _logger = logger;
         _options = options.Value;
         _serializedElementsService = serializedElementsService;
         _jsonSerializerOptionService = jsonSerializerOptionService;
+        _resultSummaryService = resultSummaryService;
     }
 
     public async Task Write<TElement>(SortedDictionary<string, TElement> elementsById)
@@ -114,9 +117,20 @@ public class JsonDataFileWriterService : IJsonDataFileWriterService
 
         _logger.LogInformation("Writing to {FilePath}", filePath);
 
-        await using FileStream fileStream = File.Create(filePath);
-        await fileStream.WriteAsync(bytes);
+        try
+        {
+            _resultSummaryService.JsonDataFilesTotal++;
 
+            await using FileStream fileStream = File.Create(filePath);
+            await fileStream.WriteAsync(bytes);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error writing json file {FilePath}", filePath);
+            return;
+        }
+
+        _resultSummaryService.JsonDataFilesWritten++;
         _serializedElementsService.AddSerializedElements(dataName, bytes);
 
         AnsiConsole.Write("Created file ");
@@ -140,8 +154,20 @@ public class JsonDataFileWriterService : IJsonDataFileWriterService
 
         _logger.LogInformation("Writing normal json file {FilePath} for map {MapName}", filePath, mapName);
 
-        await using FileStream fileStream = File.Create(filePath);
-        await fileStream.WriteAsync(bytes);
+        try
+        {
+            _resultSummaryService.JsonDataFilesTotal++;
+
+            await using FileStream fileStream = File.Create(filePath);
+            await fileStream.WriteAsync(bytes);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error writing json file {FilePath} for map {MapName}", filePath, mapName);
+            return;
+        }
+
+        _resultSummaryService.JsonDataFilesWritten++;
 
         AnsiConsole.Write("Created file ");
         AnsiConsoleHelpers.WriteFilePath(Path.Join(innerDirectory, fileName));
@@ -170,8 +196,20 @@ public class JsonDataFileWriterService : IJsonDataFileWriterService
 
         _logger.LogInformation("Found {TotalItems} changed items of {DataType} for map {MapName}", dataName, totalItemsChanged, mapName);
 
-        await using FileStream fileStream = File.Create(filePath);
-        await JsonSerializer.SerializeAsync(fileStream, jsonDiff, _jsonSerializerOptionService.JsonSerializerDataOptions);
+        try
+        {
+            _resultSummaryService.JsonDataFilesTotal++;
+
+            await using FileStream fileStream = File.Create(filePath);
+            await JsonSerializer.SerializeAsync(fileStream, jsonDiff, _jsonSerializerOptionService.JsonSerializerDataOptions);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error writing diff json file {FilePath} for map {MapName}", filePath, mapName);
+            return;
+        }
+
+        _resultSummaryService.JsonDataFilesWritten++;
 
         AnsiConsole.Write("Created diff file ");
         AnsiConsoleHelpers.WriteFilePath(Path.Join(innerDirectory, fileName));

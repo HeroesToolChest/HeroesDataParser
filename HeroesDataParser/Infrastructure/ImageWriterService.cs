@@ -66,7 +66,12 @@ public class ImageWriterService : IImageWriterService
         // result
         foreach (var progressTask in progressTasks)
         {
-            _resultSummaryService.AddSummaryImageItem(progressTask.ImagePathsBySubDirectory.Key, (int)progressTask.ProgressTask.Value, (int)progressTask.ProgressTask.MaxValue);
+            int success = (int)progressTask.ProgressTask.Value;
+            int total = (int)progressTask.ProgressTask.MaxValue;
+
+            _resultSummaryService.AddSummaryImageItem(progressTask.ImagePathsBySubDirectory.Key, success, total);
+            _resultSummaryService.ImageFilesWritten += success;
+            _resultSummaryService.ImageFilesTotal += total;
         }
 
         _outputImagePaths.Clear();

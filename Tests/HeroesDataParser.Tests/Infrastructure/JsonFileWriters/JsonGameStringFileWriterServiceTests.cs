@@ -6,12 +6,14 @@ public class JsonGameStringFileWriterServiceTests
     private readonly ILogger<JsonGameStringFileWriterService> _logger;
     private readonly IOptions<RootOptions> _options;
     private readonly ISavedGameStringsService _savedGameStringsService;
+    private readonly IResultSummaryService _resultSummaryService;
 
     public JsonGameStringFileWriterServiceTests()
     {
         _logger = Substitute.For<ILogger<JsonGameStringFileWriterService>>();
         _options = Substitute.For<IOptions<RootOptions>>();
         _savedGameStringsService = Substitute.For<ISavedGameStringsService>();
+        _resultSummaryService = Substitute.For<IResultSummaryService>();
     }
 
     [TestMethod]
@@ -89,12 +91,14 @@ public class JsonGameStringFileWriterServiceTests
             },
         };
 
-        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, jsonSerializerOptionService);
+        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, jsonSerializerOptionService, _resultSummaryService);
 
         // act
         await jsonGameStringFileWriterService.Write(gameStringItemDictionary, dataTypes);
 
         // assert
+        _ = _resultSummaryService.Received(1).GameStringFilesWritten;
+        _ = _resultSummaryService.Received(1).GameStringFilesTotal;
         File.Exists(expectedFilePath).Should().BeTrue();
         File.ReadAllText(expectedFilePath).Should().Be(
         """
@@ -160,12 +164,14 @@ public class JsonGameStringFileWriterServiceTests
 
         _options.Value.Returns(rootOptions);
 
-        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, jsonSerializerOptionService);
+        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, jsonSerializerOptionService, _resultSummaryService);
 
         // act
         await jsonGameStringFileWriterService.Write([], []);
 
         // assert
+        _ = _resultSummaryService.Received(1).GameStringFilesWritten;
+        _ = _resultSummaryService.Received(1).GameStringFilesTotal;
         File.Exists(expectedFilePath).Should().BeTrue();
         File.ReadAllText(expectedFilePath).Should().Be(
         """

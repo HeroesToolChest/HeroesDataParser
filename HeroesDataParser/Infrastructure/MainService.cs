@@ -63,6 +63,8 @@ public class MainService : IMainService
             await _gameStringFileProcessorService.Start();
 
             count++;
+
+            AnsiConsole.WriteLine();
         }
 
         // write out all images
@@ -79,6 +81,6 @@ public class MainService : IMainService
         _stopwatch.Stop();
 
         _logger.LogInformation("GameStrings {Locale} loaded", locale);
-        AnsiConsole.WriteLine($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfGameStringsFiles()} text files (in {_stopwatch.Elapsed.TotalSeconds:0.###} s)");
+        AnsiConsole.WriteLine($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfGameStringsFiles()} text files (in {_stopwatch.Elapsed.TotalSeconds:0}s {_stopwatch.Elapsed.TotalMilliseconds:0}ms)");
     }
 }

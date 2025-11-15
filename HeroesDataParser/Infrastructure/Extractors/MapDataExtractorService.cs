@@ -100,7 +100,7 @@ public class MapDataExtractorService : IMapDataExtractorService
 
         _resultSummaryService.AddSummaryDataItem("MapData", parsedMaps.Count, totalCount, stormLocale: _options.CurrentLocale);
 
-        string message = $"{parsedMaps.Count} / {totalCount} ({_stopwatch.Elapsed.TotalSeconds:0.###} s)";
+        string message = $"{parsedMaps.Count} / {totalCount} ({_stopwatch.Elapsed.TotalSeconds:0}s {_stopwatch.Elapsed.Milliseconds:0}ms)";
         if (parsedMaps.Count == totalCount)
             AnsiConsole.MarkupLine(message);
         else
