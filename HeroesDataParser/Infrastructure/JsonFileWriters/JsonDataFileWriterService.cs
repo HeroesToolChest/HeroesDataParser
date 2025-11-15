@@ -223,7 +223,7 @@ public class JsonDataFileWriterService : IJsonDataFileWriterService
         if (totalItemsChanged < 1)
             AnsiConsole.Write($" [0]");
         else
-            AnsiConsole.Markup($" [[[yellow]{totalItemsChanged}[/]]]");
+            AnsiConsole.Write($" [+{totalItemsChanged}]");
 
         AnsiConsole.WriteLine();
     }
