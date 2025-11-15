@@ -1,4 +1,5 @@
 ﻿using Serilog.Context;
+using System.Collections.Concurrent;
 
 namespace HeroesDataParser.Infrastructure.Extractors;
 
@@ -34,7 +35,7 @@ public class DataExtractorService : IDataExtractorService
         _logger.LogInformation("Starting data extractor for data object type {DataObjectType}", parser.DataObjectType);
         AnsiConsole.Write($"Parsing '{typeof(TElement).Name}' data...");
 
-        SortedDictionary<string, TElement> parsedItems = new(StringComparer.Ordinal);
+        ConcurrentDictionary<string, TElement> parsedItems = new(StringComparer.Ordinal);
 
         IEnumerable<string> itemIds = _heroesXmlLoaderService.HeroesXmlLoader.HeroesData.GetStormElementIds(parser.DataObjectType, StormCacheType.All);
 
@@ -45,9 +46,9 @@ public class DataExtractorService : IDataExtractorService
 
         int totalCount = 0;
 
-        foreach (string id in itemIds)
+        Parallel.ForEach(itemIds, new ParallelOptions() { MaxDegreeOfParallelism = _options.Threads }, id =>
         {
-            totalCount++;
+            Interlocked.Increment(ref totalCount);
 
             using (LogContext.PushProperty("Id", id))
             using (LogContext.PushProperty("Locale", _options.CurrentLocale))
@@ -57,11 +58,11 @@ public class DataExtractorService : IDataExtractorService
                     TElement? element = parser.Parse(id);
                     if (element is not null)
                     {
-                        parsedItems.Add(id, element);
+                        parsedItems.TryAdd(id, element);
                     }
                     else
                     {
-                        totalCount--;
+                        Interlocked.Decrement(ref totalCount);
                         _logger.LogTrace("Return is null, Id {id} not adding", id);
                     }
                 }
@@ -70,7 +71,7 @@ public class DataExtractorService : IDataExtractorService
                     _logger.LogError(ex, "Error parsing id {Id} for data object type {DataObjectType}", id, parser.DataObjectType);
                 }
             }
-        }
+        });
 
         _stopwatch.Stop();
         _logger.LogInformation("Data extractor complete for data object type {DataObjectType}", parser.DataObjectType);
@@ -79,19 +80,19 @@ public class DataExtractorService : IDataExtractorService
         {
             AnsiConsole.MarkupLine("[yellow]No items found to parse[/]");
             AnsiConsole.WriteLine();
+        }
+        else
+        {
+            _resultSummaryService.AddSummaryDataItem(parser.DataObjectType, parsedItems.Count, totalCount, _options.CurrentLocale, map?.Name?.PlainText);
 
-            return parsedItems;
+            if (parsedItems.Count == totalCount)
+                AnsiConsole.MarkupInterpolated($"{parsedItems.Count} / {totalCount}");
+            else
+                AnsiConsole.MarkupInterpolated($"[yellow]{parsedItems.Count} / {totalCount}[/]");
+
+            AnsiConsole.WriteLine($" (in {_stopwatch.Elapsed.TotalSeconds:0}s {_stopwatch.Elapsed.Milliseconds:0}ms)");
         }
 
-        _resultSummaryService.AddSummaryDataItem(parser.DataObjectType, parsedItems.Count, totalCount, _options.CurrentLocale, map?.Name?.PlainText);
-
-        if (parsedItems.Count == totalCount)
-            AnsiConsole.MarkupInterpolated($"{parsedItems.Count} / {totalCount}");
-        else
-            AnsiConsole.MarkupInterpolated($"[yellow]{parsedItems.Count} / {totalCount}[/]");
-
-        AnsiConsole.WriteLine($" (in {_stopwatch.Elapsed.TotalSeconds:0}s {_stopwatch.Elapsed.Milliseconds:0}ms)");
-
-        return parsedItems;
+        return new SortedDictionary<string, TElement>(parsedItems);
     }
 }
