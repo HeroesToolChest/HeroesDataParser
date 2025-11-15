@@ -88,7 +88,7 @@ public static class ServiceCollectionExtensions
             {
                 MaxRetryAttempts = 3,
                 Delay = TimeSpan.FromSeconds(1),
-                BackoffType = DelayBackoffType.Exponential,
+                BackoffType = DelayBackoffType.Constant,
             });
         });
 
