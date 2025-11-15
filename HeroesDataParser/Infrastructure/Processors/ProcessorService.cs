@@ -158,6 +158,9 @@ public class ProcessorService : IProcessorService
 
         foreach (var extractDataOption in _options.Extractors)
         {
+            if (extractDataOption.Value.IsEnabled is false || extractDataOption.Value.Images is false)
+                continue;
+
             if (extractDataOption.Key.Equals("hero", StringComparison.OrdinalIgnoreCase))
             {
                 if (_options.Hidden.HeroImages.HeroPortraits)
@@ -188,7 +191,7 @@ public class ProcessorService : IProcessorService
                 continue;
             }
 
-            if (!Enum.TryParse(extractDataOption.Key, true, out ExtractImageOptions result) || extractDataOption.Value.IsEnabled is false || extractDataOption.Value.Images is false)
+            if (!Enum.TryParse(extractDataOption.Key, true, out ExtractImageOptions result))
                 continue;
 
             selectImageExtractOptions |= result;
