@@ -18,7 +18,7 @@ public static class ServiceCollectionExtensions
 
         services.AddRedaction();
         services
-            .AddHttpClient("Blizzard", httpClient =>
+            .AddHttpClient(Constants.HttpClientBlizzard, httpClient =>
             {
                 httpClient.Timeout = TimeSpan.FromSeconds(15);
                 httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("HeroesDataParser", AppVersion.GetAppVersion()));

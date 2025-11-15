@@ -61,6 +61,7 @@ public class ProcessorService : IProcessorService
         _logger.LogInformation("Waiting for data file write tasks to complete...");
 
         await Task.WhenAll(_dataWriterTasks.Select(task => task()));
+        _dataWriterTasks.Clear();
 
         _logger.LogInformation("All data file write tasks complete.");
     }

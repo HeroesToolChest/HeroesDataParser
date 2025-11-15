@@ -6,13 +6,15 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
 {
     private readonly ILogger<HeroesXmlLoaderService> _logger;
     private readonly RootOptions _options;
+    private readonly IHttpClientFactory _httpClientFactory;
     private readonly ICustomConfigurationService _customConfigurationService;
     private readonly Stopwatch _stopwatch = new();
 
-    public HeroesXmlLoaderService(ILogger<HeroesXmlLoaderService> logger, IOptions<RootOptions> options, ICustomConfigurationService customConfigurationService)
+    public HeroesXmlLoaderService(ILogger<HeroesXmlLoaderService> logger, IOptions<RootOptions> options, IHttpClientFactory httpClientFactory, ICustomConfigurationService customConfigurationService)
     {
         _logger = logger;
         _options = options.Value;
+        _httpClientFactory = httpClientFactory;
         _customConfigurationService = customConfigurationService;
     }
 
@@ -174,7 +176,7 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
 
         await Task.Run(() =>
         {
-            HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, progressReporter: progressReporter);
+            HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, _httpClientFactory.CreateClient(Constants.HttpClientBlizzard), progressReporter: progressReporter);
         });
 
         _stopwatch.Stop();
@@ -205,7 +207,7 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
 
         await Task.Run(() =>
         {
-            HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, progressReporter: progressReporter);
+            HeroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, _httpClientFactory.CreateClient(Constants.HttpClientBlizzard), progressReporter: progressReporter);
         });
 
         _stopwatch.Stop();

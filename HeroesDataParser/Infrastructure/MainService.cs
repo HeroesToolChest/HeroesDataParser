@@ -81,6 +81,6 @@ public class MainService : IMainService
         _stopwatch.Stop();
 
         _logger.LogInformation("GameStrings {Locale} loaded", locale);
-        AnsiConsole.WriteLine($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfGameStringsFiles()} text files (in {_stopwatch.Elapsed.TotalSeconds:0}s {_stopwatch.Elapsed.TotalMilliseconds:0}ms)");
+        AnsiConsole.WriteLine($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfGameStringsFiles()} text files (in {_stopwatch.Elapsed.TotalSeconds:0}s {_stopwatch.Elapsed.Milliseconds:0}ms)");
     }
 }
