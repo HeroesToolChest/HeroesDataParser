@@ -1,4 +1,4 @@
-﻿namespace HeroesDataParser.SpectreConsole;
+﻿namespace HeroesDataParser.Display;
 
 public static class AnsiConsoleHelpers
 {

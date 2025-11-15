@@ -369,7 +369,8 @@ public class HeroParser : CollectionParserBase<Hero>
 
             if (!result)
             {
-                Logger.LogWarning("Could not add unknown sub ability {AbilityId} for hero {HeroId}", unknownSubAbility.LinkId.ToString(), collectionObject.Id);
+                if (Logger.IsEnabled(LogLevel.Warning))
+                    Logger.LogWarning("Could not add unknown sub ability {AbilityId} for hero {HeroId}", unknownSubAbility.LinkId.ToString(), collectionObject.Id);
 
                 unknownSubAbility.Tier = AbilityTier.Unknown;
                 collectionObject.AddAbility(unknownSubAbility);

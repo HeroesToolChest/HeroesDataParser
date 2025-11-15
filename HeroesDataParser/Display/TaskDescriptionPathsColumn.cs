@@ -1,6 +1,6 @@
 ﻿using Spectre.Console.Rendering;
 
-namespace HeroesDataParser.SpectreConsole;
+namespace HeroesDataParser.Display;
 
 public class TaskDescriptionPathsColumn : ProgressColumn
 {

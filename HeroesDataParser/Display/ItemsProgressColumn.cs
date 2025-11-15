@@ -1,6 +1,6 @@
 ﻿using Spectre.Console.Rendering;
 
-namespace HeroesDataParser.SpectreConsole;
+namespace HeroesDataParser.Display;
 
 public sealed class ItemsProgressColumn : ProgressColumn
 {
