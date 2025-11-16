@@ -71,7 +71,24 @@ public class HeroParser : CollectionParserBase<Hero>
             }
         }
 
-        SetRoleProperty(collectionObject, stormElement);
+        if (stormElement.DataValues.TryGetElementDataAt("role", out StormElementData? roleData))
+        {
+            GameStringText? roleTooltipDescription = GameStringTextService.GetGameStringTextFromId(GameStringConstants.HeroRoleGameString.Replace(GameStringConstants.IdPlaceHolder, roleData.Value.GetString()));
+            if (roleTooltipDescription is not null)
+                collectionObject.Roles.Add(roleTooltipDescription);
+        }
+
+        if (stormElement.DataValues.TryGetElementDataAt("RolesMultiClass", out StormElementData? rolesMultiClassData))
+        {
+            IEnumerable<string> roleDataIndexes = rolesMultiClassData.GetElementDataIndexes();
+
+            foreach (string index in roleDataIndexes)
+            {
+                GameStringText? roleTooltipDescription = GameStringTextService.GetGameStringTextFromId(GameStringConstants.HeroRoleGameString.Replace(GameStringConstants.IdPlaceHolder, rolesMultiClassData.GetElementDataAt(index).Value.GetString()));
+                if (roleTooltipDescription is not null)
+                    collectionObject.Roles.Add(roleTooltipDescription);
+            }
+        }
 
         if (elementData.TryGetElementDataAt("ExpandedRole", out StormElementData? expandedRoleData))
             collectionObject.ExpandedRole = GameStringTextService.GetGameStringTextFromId(_roleGameStringText.Replace(GameStringConstants.IdPlaceHolder, expandedRoleData.Value.GetString()));
@@ -389,21 +406,4 @@ public class HeroParser : CollectionParserBase<Hero>
         Logger.LogWarning("Could not get role game string text from CHeroRole");
         return string.Empty;
     }
-
-    private void SetRoleProperty(Hero collectionObject, StormElement stormElement)
-    {
-        AddRole("role");
-        AddRole("RolesMultiClass");
-
-        void AddRole(string index)
-        {
-            if (stormElement.DataValues.TryGetElementDataAt(index, out StormElementData? roleData))
-            {
-                GameStringText? roleTooltipDescription = GameStringTextService.GetGameStringTextFromId(GameStringConstants.HeroRoleGameString.Replace(GameStringConstants.IdPlaceHolder, roleData.Value.GetString()));
-                if (roleTooltipDescription is not null)
-                    collectionObject.Roles.Add(roleTooltipDescription);
-            }
-        }
-    }
 }
-

@@ -685,7 +685,7 @@ public class HeroParserTests
                 argUnit.Id = "HeroRagnaros";
             });
 
-        Talent ragnarosCatchingFireTalent = new Talent()
+        Talent ragnarosCatchingFireTalent = new()
         {
             TalentElementId = "RagnarosCatchingFire",
             ButtonElementId = "RagnarosCatchingFireTalent",
@@ -767,5 +767,26 @@ public class HeroParserTests
         subAbility.LinkId.ToString().Should().Be("GarroshArmorUpBodyCheck|GarroshArmorUpBodyCheck|Active");
         subAbility.TooltipAppendersTalentElementIds.Should().ContainSingle().And
             .ContainInConsecutiveOrder("GarroshArmorUpInnerRage");
+    }
+
+    [TestMethod]
+    public void Parse_VarianHasMultiplyMultiClassRoles_ReturnsAllRoles()
+    {
+        // arrange
+        string heroUnit = "Varian";
+
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _gameStringTextService);
+
+        // act
+        Hero? hero = heroParser.Parse(heroUnit);
+
+        // assert
+        hero.Should().NotBeNull();
+        hero.Roles.Should().HaveCount(3);
+
+        List<GameStringText> roles = [.. hero.Roles];
+        roles[0].RawText.Should().Be("Multiclass");
+        roles[1].RawText.Should().Be("Warrior");
+        roles[2].RawText.Should().Be("Assassin");
     }
 }

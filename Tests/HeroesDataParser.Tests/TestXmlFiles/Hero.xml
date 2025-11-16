@@ -4633,6 +4633,9 @@
     </TalentTreeArray>
     <TalentTreeArray Talent="VarianBannersGloryToTheAlliance" Tier="7" Column="4" />
     <TalentTreeArray Talent="VarianDemoralizingShout" Tier="7" Column="5" />
+    <Role value="Multiclass" />
+    <RolesMultiClass value="Warrior" />
+    <RolesMultiClass value="Damage" />
   </CHero>
   <CHero id="Alexstrasza">
     <AttributeId value="Alex" />
