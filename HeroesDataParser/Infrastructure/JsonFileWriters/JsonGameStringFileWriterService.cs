@@ -62,7 +62,6 @@ public class JsonGameStringFileWriterService : IJsonGameStringFileWriterService
         AnsiConsole.Write("Created file ");
         AnsiConsoleHelpers.WriteFilePath(Path.Join(_jsonFileDirectory, fileName));
         AnsiConsole.WriteLine();
-        AnsiConsole.WriteLine();
     }
 
     private async Task Write(MetaGameStringProperties metaProperties, GameStringItemDictionary gameStringItemDictionary, string filePath)

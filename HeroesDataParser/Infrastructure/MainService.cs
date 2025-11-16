@@ -63,8 +63,6 @@ public class MainService : IMainService
             await _gameStringFileProcessorService.Start();
 
             count++;
-
-            AnsiConsole.WriteLine();
         }
 
         // write out all images
