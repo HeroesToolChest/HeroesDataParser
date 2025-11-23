@@ -37,6 +37,7 @@ public class JsonSerializerOptionService : IJsonSerializerOptionService
                 new AbilityLinkIdConverter(),
                 new TalentLinkIdConverter(),
                 new GameStringTextConverter(gameStringTextType: _options.GameStringText.Type),
+                new HeroesDataVersionConverter(),
             },
             TypeInfoResolver = new HeroesElementResolver()
             {
@@ -60,6 +61,7 @@ public class JsonSerializerOptionService : IJsonSerializerOptionService
             {
                 new JsonStringEnumConverter(),
                 new GameStringTextConverter(gameStringTextType: _options.GameStringText.Type),
+                new HeroesDataVersionConverter(),
             },
         };
     }

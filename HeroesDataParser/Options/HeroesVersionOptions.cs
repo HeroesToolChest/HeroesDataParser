@@ -14,5 +14,5 @@ public class HeroesVersionOptions
 
     public bool IsOverridden => Major > -1 || Minor > -1 || Revision > -1 || Build > -1; // no ptr check
 
-    public string GetAsHeroesDataVersion() => new HeroesDataVersion(Major, Minor, Revision, Build, IsPtr).ToString();
+    public HeroesDataVersion GetAsHeroesDataVersion() => new(Major, Minor, Revision, Build, IsPtr);
 }
