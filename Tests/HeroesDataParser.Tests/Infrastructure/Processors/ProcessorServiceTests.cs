@@ -77,7 +77,6 @@ public class ProcessorServiceTests
         processorService.ExtractImageOptions.Should().Be(ExtractImageOptions.None);
     }
 
-
     [TestMethod]
     [DataRow(true, false, false, false, false, false, ExtractImageOptions.HeroPortrait)]
     [DataRow(false, true, false, false, false, false, ExtractImageOptions.Talent)]
