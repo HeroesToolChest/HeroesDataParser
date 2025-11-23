@@ -2,57 +2,58 @@
 
 public static class HeroExtensions
 {
-    /// <summary>
-    /// Adds a talent.
-    /// </summary>
-    /// <param name="hero">The <see cref="Hero"/>.</param>
-    /// <param name="talent">The <see cref="Talent"/>.</param>
-    public static void AddTalent(this Hero hero, Talent talent)
+    extension(Hero hero)
     {
-        if (hero.Talents.TryGetValue(talent.Tier, out IList<Talent>? talents))
-            talents.Add(talent);
-        else
-            hero.Talents[talent.Tier] = [talent];
-    }
-
-    /// <summary>
-    /// Adds the ability as a subability if the parent ability was found as an existing talent, otherwise adds it to the unknown sub abilities.
-    /// </summary>
-    /// <param name="hero">The <see cref="Hero"/>.</param>
-    /// <param name="ability">The <see cref="Ability"/> to be added.</param>
-    /// <returns><see langword="true"/> if added as a subability otherwise <see langword="false"/></returns>
-    public static bool AddAsSubAbilityToTalent(this Hero hero, Ability ability)
-    {
-        // no parent talent id, so no sub ability
-        if (ability.ParentTalentLinkIds.Count < 1 && ability.ParentTalentElementIds.Count < 1)
-            return false;
-
-        IEnumerable<Talent> matchingTalents;
-
-        // first ParentTalentLinkId, then ParentTalentElementId
-        if (ability.ParentTalentLinkIds.Count > 0)
+        /// <summary>
+        /// Adds a talent.
+        /// </summary>
+        /// <param name="talent">The <see cref="Talent"/>.</param>
+        public void AddTalent(Talent talent)
         {
-            matchingTalents = hero.Talents
-                .SelectMany(x => x.Value)
-                .Where(x => ability.ParentTalentLinkIds.Contains(x.LinkId));
-        }
-        else
-        {
-            matchingTalents = hero.Talents
-                .SelectMany(x => x.Value)
-                .Where(x => ability.ParentTalentElementIds.Contains(x.TalentElementId));
+            if (hero.Talents.TryGetValue(talent.Tier, out IList<Talent>? talents))
+                talents.Add(talent);
+            else
+                hero.Talents[talent.Tier] = [talent];
         }
 
-        if (matchingTalents.Any())
+        /// <summary>
+        /// Adds the ability as a subability if the parent ability was found as an existing talent, otherwise adds it to the unknown sub abilities.
+        /// </summary>
+        /// <param name="ability">The <see cref="Ability"/> to be added.</param>
+        /// <returns><see langword="true"/> if added as a subability otherwise <see langword="false"/>.</returns>
+        public bool AddAsSubAbilityToTalent(Ability ability)
         {
-            foreach (Talent matchedTalent in matchingTalents)
+            // no parent talent id, so no sub ability
+            if (ability.ParentTalentLinkIds.Count < 1 && ability.ParentTalentElementIds.Count < 1)
+                return false;
+
+            IEnumerable<Talent> matchingTalents;
+
+            // first ParentTalentLinkId, then ParentTalentElementId
+            if (ability.ParentTalentLinkIds.Count > 0)
             {
-                hero.AssignSubAbilityToLink(ability, matchedTalent.LinkId);
+                matchingTalents = hero.Talents
+                    .SelectMany(x => x.Value)
+                    .Where(x => ability.ParentTalentLinkIds.Contains(x.LinkId));
+            }
+            else
+            {
+                matchingTalents = hero.Talents
+                    .SelectMany(x => x.Value)
+                    .Where(x => ability.ParentTalentElementIds.Contains(x.TalentElementId));
             }
 
-            return true;
-        }
+            if (matchingTalents.Any())
+            {
+                foreach (Talent matchedTalent in matchingTalents)
+                {
+                    hero.AssignSubAbilityToLink(ability, matchedTalent.LinkId);
+                }
 
-        return false;
+                return true;
+            }
+
+            return false;
+        }
     }
 }
