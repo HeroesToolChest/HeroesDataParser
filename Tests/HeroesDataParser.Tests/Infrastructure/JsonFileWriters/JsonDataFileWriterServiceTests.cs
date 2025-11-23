@@ -59,7 +59,15 @@ public class JsonDataFileWriterServiceTests
 
         SortedDictionary<string, Hero> heroesByElementId = [];
         heroesByElementId.Add("hero1", new Hero("hero1") { UnitId = "hero1" });
-        heroesByElementId.Add("hero2", new Hero("hero2") { UnitId = "hero2" });
+        heroesByElementId.Add("hero2", new Hero("hero2")
+        {
+            UnitId = "hero2",
+            Armor = new Dictionary<ArmorSet, UnitArmor>()
+            {
+                { ArmorSet.Hero, new UnitArmor { BasicArmor = 10, AbilityArmor = 5, SplashArmor = 2 } },
+            },
+            SummonedUnitIds = new HashSet<string> { "summonedUnit1", "summonedUnit2" },
+        });
 
         string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "data", $"herodata_{rootOptions.BuildNumber}_enus.json");
 
@@ -137,7 +145,18 @@ public class JsonDataFileWriterServiceTests
                 "target": "",
                 "draftScreen": "",
                 "partyFrames": []
-              }
+              },
+              "armor": {
+                "Hero": {
+                  "basic": 10,
+                  "ability": 5,
+                  "splash": 2
+                }
+              },
+              "summonedUnitIds": [
+                "summonedUnit1",
+                "summonedUnit2"
+              ]
             }
           }
         }
