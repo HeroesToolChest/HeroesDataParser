@@ -22,22 +22,6 @@ public class AnnouncerParser : CollectionParserBase<Announcer>
                 collectionObject.Image = imageFilePath.Image;
                 collectionObject.ImagePath = imageFilePath.FilePath;
             }
-
-            //string tileTexturePath = tileTextureData.Value.GetString();
-
-            //StormFile? stormAssetFile = _heroesData.GetStormAssetFile(tileTexturePath);
-            //if (stormAssetFile is not null)
-            //{
-            //    collectionObject.Image = Path.ChangeExtension(Path.GetFileName(stormAssetFile.StormPath.Path), ImageFileExtension);
-            //    collectionObject.ImagePath = new RelativeFilePath()
-            //    {
-            //        FilePath = stormAssetFile.StormPath.Path,
-            //    };
-            //}
-            //else
-            //{
-            //    _logger.LogWarning("Could not get storm asset file from {TileTexturePath}", tileTexturePath);
-            //}
         }
 
         if (stormElement.DataValues.TryGetElementDataAt("heroid", out StormElementData? heroIdData))
