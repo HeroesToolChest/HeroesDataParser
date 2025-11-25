@@ -9,11 +9,15 @@ Other
 - Default rarity change to `None` instead of `Common`
 - New LocalizedText options: `None`, `Extract`, `Copy`, (no longer a cli command, now an cli option)
 
-Json files
-- Added `meta` object to all json files
-- For gamestrings file - `hero\roles` delimiter changed from comma(,) to pipe(|)
-- For gamestrings file - heroes will no longer be part `unit`
-  - Heroes and units have been split into their own `hero` and `unit`
+Data files
+- Added `meta` object
+- All data items are now in the `items` object
+
+GameString files
+- Updated `meta` object
+- `hero\roles` delimiter changed from comma(,) to pipe(|)
+- Heroes and units are now split into their own `hero` and `unit`
+- ability and talents are now split into their own `ability` and `talents`
 
 Heroes
 - Added Taunt and Dance ability
@@ -86,5 +90,8 @@ Announcers
 Banners
 - Added `NeutralMercCamp`
 - Added `RandomBanner`
-- `BannerDFEsportsWarChest18RareKT` `sortname` removed
-- `BannerDFEsportsWarChest18RareMiracle` `sortname` removed
+- Fixed `BannerDFEsportsWarChest18RareKT` having a `sortname`
+- Fixed `BannerDFEsportsWarChest18RareMiracle` having a `sortname`
+
+Bundles
+- `skins` changed from an array of objects to a single object
