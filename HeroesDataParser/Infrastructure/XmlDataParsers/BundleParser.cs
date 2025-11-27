@@ -55,10 +55,10 @@ public class BundleParser : CollectionParserBase<Bundle>
             {
                 if (skinArrayElement.Value.TryGetElementDataAt("hero", out StormElementData? heroData) && skinArrayElement.Value.TryGetElementDataAt("skin", out StormElementData? skinData))
                 {
-                    if (collectionObject.HeroSkinsByHeroId.TryGetValue(heroData.Value.GetString(), out ISet<string>? currentSkinIds))
+                    if (collectionObject.HeroSkinIdsByHeroId.TryGetValue(heroData.Value.GetString(), out ISet<string>? currentSkinIds))
                         currentSkinIds.Add(skinData.Value.GetString());
                     else
-                        collectionObject.HeroSkinsByHeroId[heroData.Value.GetString()] = new HashSet<string>(StringComparer.Ordinal) { skinData.Value.GetString() };
+                        collectionObject.HeroSkinIdsByHeroId[heroData.Value.GetString()] = new HashSet<string>(StringComparer.Ordinal) { skinData.Value.GetString() };
                 }
             }
         }

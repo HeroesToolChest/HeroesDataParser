@@ -20,7 +20,7 @@ public class LootChestParser : DataParser<LootChest>
             elementObject.MaxRerolls = maxRerollsValue;
 
         if (stormElement.DataValues.TryGetElementDataAt("typedescription", out StormElementData? typeDescriptionData))
-            elementObject.TypeDescription = typeDescriptionData.Value.GetString();
+            elementObject.TypeDescriptionId = typeDescriptionData.Value.GetString();
 
         SetDescriptionProperty(elementObject, stormElement);
     }
