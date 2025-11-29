@@ -65,15 +65,21 @@ public class JsonGameStringFileWriterServiceTests
                     {
                         "cooldownText", new GameStringFilePropertyId()
                         {
-                            { ":PASSIVE:|ArtanisTwinBladesPrimed|W", new GameStringText("Cooldown: 4 seconds") },
-                            { "AbathurAssumingDirectControlCancel|AbathurSymbioteCancel|Heroic", new GameStringText("Cooldown: 1.5 seconds") },
+                            KeyValuePairs =
+                            {
+                                { ":PASSIVE:|ArtanisTwinBladesPrimed|W", new GameStringText("Cooldown: 4 seconds") },
+                                { "AbathurAssumingDirectControlCancel|AbathurSymbioteCancel|Heroic", new GameStringText("Cooldown: 1.5 seconds") },
+                            },
                         }
                     },
                     {
                         "energyText", new GameStringFilePropertyId()
                         {
-                            { "AlarakDiscordStrike|AlarakDiscordStrike|Q", new GameStringText("<s val=\"StandardTooltipDetails\">Mana: 55</s>") },
-                            { "AlarakTelekinesis|AlarakTelekinesis|W", new GameStringText("<s val=\"StandardTooltipDetails\">Mana: 30</s>") },
+                            KeyValuePairs =
+                            {
+                                { "AlarakDiscordStrike|AlarakDiscordStrike|Q", new GameStringText("<s val=\"StandardTooltipDetails\">Mana: 55</s>") },
+                                { "AlarakTelekinesis|AlarakTelekinesis|W", new GameStringText("<s val=\"StandardTooltipDetails\">Mana: 30</s>") },
+                            },
                         }
                     },
                 }
@@ -84,7 +90,20 @@ public class JsonGameStringFileWriterServiceTests
                     {
                         "difficulty", new GameStringFilePropertyId()
                         {
-                            { "Abathur", new GameStringText("Very Hard") },
+                            KeyValuePairs =
+                            {
+                                { "Abathur", new GameStringText("Very Hard") },
+                            },
+                        }
+                    },
+                    {
+                        "roles", new GameStringFilePropertyId()
+                        {
+                            KeyArrayPairs =
+                            {
+                                { "Abathur", [new GameStringText("Role1")] },
+                                { "Varian", [new GameStringText("Role1"), new GameStringText("Role2")] },
+                            },
                         }
                     },
                 }
@@ -132,6 +151,15 @@ public class JsonGameStringFileWriterServiceTests
             "Hero": {
               "difficulty": {
                 "Abathur": "Very Hard"
+              },
+              "roles": {
+                "Abathur": [
+                  "Role1"
+                ],
+                "Varian": [
+                  "Role1",
+                  "Role2"
+                ]
               }
             }
           }

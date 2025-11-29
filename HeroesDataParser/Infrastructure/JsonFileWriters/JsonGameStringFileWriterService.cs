@@ -93,9 +93,26 @@ public class JsonGameStringFileWriterService : IJsonGameStringFileWriterService
             {
                 utf8JsonWriter.WriteStartObject(propertyName.Key);
 
-                foreach (KeyValuePair<string, GameStringText> propertyId in propertyName.Value)
+                if (propertyName.Value.KeyArrayPairs.Count > 0)
                 {
-                    utf8JsonWriter.WriteString(propertyId.Key, propertyId.Value.RawText);
+                    foreach (KeyValuePair<string, List<GameStringText>> arrayPropertyId in propertyName.Value.KeyArrayPairs)
+                    {
+                        utf8JsonWriter.WriteStartArray(arrayPropertyId.Key);
+
+                        foreach (GameStringText arrayValue in arrayPropertyId.Value)
+                        {
+                            utf8JsonWriter.WriteStringValue(arrayValue.RawText);
+                        }
+
+                        utf8JsonWriter.WriteEndArray();
+                    }
+                }
+                else
+                {
+                    foreach (KeyValuePair<string, GameStringText> propertyId in propertyName.Value.KeyValuePairs)
+                    {
+                        utf8JsonWriter.WriteString(propertyId.Key, propertyId.Value.RawText);
+                    }
                 }
 
                 utf8JsonWriter.WriteEndObject();
