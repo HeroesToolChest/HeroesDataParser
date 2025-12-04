@@ -11,50 +11,52 @@ Other
 
 Data files
 - Added `meta` object
-- All data items are now in the `items` object
+- All data items are now in a `items` object
 
 GameString files
 - Updated `meta` object
+- Updated `gamestrings` to `items`
+- Updated `hero` - `roles` to an array
 - `hero\roles` delimiter changed from comma(,) to pipe(|)
-- Heroes and units are now split into their own `hero` and `unit`
-- ability and talents are now split into their own `ability` and `talents`
+- Heroes and units are now split into their own `hero` and `unit` objects
+- Ability and talents are now split into their own `ability` and `talents` objects
 
-Heroes
-- Added Taunt and Dance ability
-- Added 'damageType' (unit only?)
-- Added 'attributes'
-- Removed 'type' (melee or ranged) -> changed to Added 'isMelee': <bool>
-- updated property names:
-'skins' -> 'skinIds'
-'variationSkins' -> 'variationSkinIds'
-'voiceLines' -> 'voiceLineIds'
-'mountCategories' -> 'mountCategoryIds'
-'scalingLinkId' -> changed to an array 'scalingLinkIds'
-'descriptors' -> 'playstyles'
-- 'cooldownTooltip' -> 'cooldownText'
-- 'shortTooltip' -> 'shortText'
-- 'fullTooltip' -> 'fullText'
-- 'energyTooltip -> 'energyText'
-- 'lifeTooltip -> 'lifeText'
--  For Charges -> 'IsHideCount' -> 'IsCountHidden' 
-- 'subAbilities' changed to an object from an array
-- 'heroUnits' changed to an object from an array
-- For both abilities and talents, 'nameId' renamed
-  - abilities -> 'abilityId'
-  - talents -> 'talentId'
-- Added 'linkId' to abilities (abilityId|buttonId|abilityType)
-- Added 'linkId' to talents (talentId|buttonId|abilityType|tier)
-- Added 'abilityId' to talents
+Heroes (and Units where applicable)
+- Added `Taunt` and `Dance` abilities
+- Added `damageType`
+- Added `attributes`
+- Removed `type` which had a value of `melee` or `ranged`
+- Added `isMelee`
+- Updated name `skins` to `skinIds`
+- Updated name `variationSkins` to `variationSkinIds`
+- Updated name `voiceLines` to `voiceLineIds`
+- Updated name `mountCategories` to `mountCategoryIds`
+- Updated name `scalingLinkId` to `scalingLinkIds` and changed the type to an array from an object
+- Updated name `descriptors` to `playstyles`
+- Updated name `cooldownTooltip` to `cooldownText`
+- Updated name `shortTooltip` to `shortText`
+- Updated name `fullTooltip` to `fullText`
+- Updated name `energyTooltip` to `energyText`
+- Updated name `lifeTooltip` to `lifeText`
+- Updated name for Charges -> `IsHideCount` to `IsCountHidden`
+- Updated `subAbilities` to an object from an array
+- Updated `heroUnits` to an object from an array
+- Updated name `nameId` for abilities to `abilityId`
+- Updated name `nameId` for talents to `talentId`
+- Added `linkId` to abilities (`abilityId|buttonId|abilityType`)
+- Added `linkId` to talents (`talentId|buttonId|abilityType|tier`)
+- Added `abilityId` to talents
 - Removed `isPassive` and `IsActive` from abilities
 - Removed `isPassive` and `IsActive` from talents
 - Added `UpgradesAbilityType` to talents
-- The "id" for subabilities changed to the linkId (either ability or talent `linkId`)
-- Added `tooltipAbilityLinkIds` (updated from the abilityTalentLinkIds - also kept for legacy reasons)
-- 'units' -> 'summonedUnitIds'
-- removed more 'charges' from talents
-- remove 'upgradeLinkIds' from ultimates that had pointed to itself
-- Added 'weapons' to 'herounits'
-- Fixed missing sortname for some heroes
+- The "id" for subabilities changed to the `linkId` (either ability or talent `linkId`)
+- Removed `abilityTalentLinkIds`
+- Added `tooltipAbilityLinkIds`
+- Updated name `units` to `summonedUnitIds`
+- Removed `charges` from talents
+- Removed `upgradeLinkIds` values from ultimate abilities that had pointed to itself
+- Added `weapons` to `herounits`
+- Fixed missing `sortname` for some heroes
 - Fixed some abilities having a 1 second cooldown where it should not
 - Fixed Ana's `AnaEyeOfHorusAttackDummy|AnaEyeOfHorusHighPoweredRound|Heroic` and `AnaEyeOfHorusAttack|AnaEyeOfHorusHighPoweredRound|Heroic` abilities missing cooldown text
 - Fixed Anubarak's `AnubarakLegionOfBeetlesVisual|AnubarakScarabHostTrait|Trait` having cooldown text
@@ -74,11 +76,11 @@ Heroes
 - Fixed Deckard's `DeckardAncientBlessings|DeckardFortitudeOfTheFaithfulAncientBlessings|Trait` missing short text and incorrect full text
 - Added the abilities (as subabilities) from talents that grant a new activable ability (those that appear in the item bar)
 - Removed `charges` from talents
-- Changed Jaina's `ImprovedIceBlock|JainaImprovedIceBlockCancel|Active` from being a subability to a (baseline) ability
-- Changed Kel'Thuzad's `KelThuzadGlacialSpike|KelThuzadGlacialSpike|Active` from being a subability to a (baseline) ability
+- Updated Jaina's `ImprovedIceBlock|JainaImprovedIceBlockCancel|Active` from being a subability to a (baseline) ability
+- Updated Kel'Thuzad's `KelThuzadGlacialSpike|KelThuzadGlacialSpike|Active` from being a subability to a (baseline) ability
 - Fixed Sgt. Hammer's `ConcussiveBlastScrapCancel|SgtHammerConcussiveBlastBarricadeCancel|W` parent ability to `SgtHammerBarricade|SgtHammerConcussiveBlastBarricadeTalent|W|Level4`
 - Fixed Tracer's `TracerLockedandLoadedFailReload|TracerLockedandLoadedAbility|Trait` parent ability to `TracerLockedandLoaded|TracerLockedandLoaded|Trait|Level7`
-- Changed Whitemane's `WhitemaneInquisition|WhitemaneInquisition|W` and `WhitemaneInquisitionClemency|WhitemaneInquisitionClemency|Active` abilities, both should have subabilities `WhitemaneInquisitionCancel|WhitemaneInquisitionCancel|W` and `WhitemaneInquisitionCancel|WhitemaneInquisitionCancel|Active`
+- Updated Whitemane's `WhitemaneInquisition|WhitemaneInquisition|W` and `WhitemaneInquisitionClemency|WhitemaneInquisitionClemency|Active` abilities, both should have subabilities `WhitemaneInquisitionCancel|WhitemaneInquisitionCancel|W` and `WhitemaneInquisitionCancel|WhitemaneInquisitionCancel|Active`
 - Fixed Li-Mings `WizardArchonPurePower|WizardArchonPurePowerHotbar|Active` ability, should have two subabilities `WizardArchonPurePowerDisintegrate|WizardArchonPurePowerDisintegrate|Heroic` and `WizardArchonPurePower|WizardArchonPurePowerHotbarCancel|Active`
 - Fixed Yrel's `YrelAvengingWrathChannel|YrelAvengingWrath|E` and `YrelAvengingWrath|YrelAvengingWrath|E` being swapped
 - Added Yrel's `YrelVindicationCast|YrelVindication|Q` as a subability to `YrelDivinePurpose|YrelDivinePurpose|Trait`
@@ -94,4 +96,11 @@ Banners
 - Fixed `BannerDFEsportsWarChest18RareMiracle` having a `sortname`
 
 Bundles
-- `skins` changed from an array of objects to a single object
+- Updated name `heroes` to `heroIds`
+- Updated name `skins` to `skinIds`
+  - Updated to a single object from an array of objects
+- Updated name `mounts` to `mountIds`
+- Updated name `lootChestBonus` to `lootChestId`
+
+LoostChests
+- Updated name `typeDescription` to `typeDescriptionId`
