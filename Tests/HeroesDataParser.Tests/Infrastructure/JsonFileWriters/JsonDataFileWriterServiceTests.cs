@@ -9,7 +9,6 @@ public class JsonDataFileWriterServiceTests
     private readonly ILogger<JsonDataFileWriterService> _logger;
     private readonly IOptions<RootOptions> _options;
     private readonly ISerializedDataStoreService _serializedDataStoreService;
-    private readonly IJsonSerializerOptionService _jsonSerializerOptionService;
     private readonly IResultSummaryService _resultSummaryService;
     private readonly IGameStringSerializerService _extractedGameStringsService;
 
@@ -18,7 +17,6 @@ public class JsonDataFileWriterServiceTests
         _logger = Substitute.For<ILogger<JsonDataFileWriterService>>();
         _options = Substitute.For<IOptions<RootOptions>>();
         _serializedDataStoreService = Substitute.For<ISerializedDataStoreService>();
-        _jsonSerializerOptionService = Substitute.For<IJsonSerializerOptionService>();
         _resultSummaryService = Substitute.For<IResultSummaryService>();
         _extractedGameStringsService = Substitute.For<IGameStringSerializerService>();
     }
@@ -220,6 +218,7 @@ public class JsonDataFileWriterServiceTests
                 IsPtr = false,
             },
             AppVersion = "5.0.0",
+            AllowEmptyDiffFiles = true,
         };
 
         _options.Value.Returns(rootOptions);
@@ -241,8 +240,8 @@ public class JsonDataFileWriterServiceTests
 
         string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "data", "maps", "map_nameyes", $"herodata_{rootOptions.BuildNumber}_enus.json.diff");
 
-        //JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _extractedGameStringsService);
-        JsonDataFileWriterService service = new(_logger, _options, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
+        JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _extractedGameStringsService);
+        JsonDataFileWriterService service = new(_logger, _options, _serializedDataStoreService, jsonSerializerOptionService, _resultSummaryService);
 
         // act
         await service.WriteToMaps("map name!_yes?", heroesByElementId);
@@ -262,6 +261,69 @@ public class JsonDataFileWriterServiceTests
           }
         }
         """);
+    }
+
+    [TestMethod]
+    public async Task WriteToMaps_HasItemsWithNoDiffFound_NoJsonFileCreated()
+    {
+        // arrange
+        RootOptions rootOptions = new()
+        {
+            OutputDirectory = Path.Combine("tests", nameof(WriteToMaps_HasItemsWithNoDiffFound_NoJsonFileCreated)),
+            CurrentLocale = StormLocale.ENUS,
+            MapWriterJsonOutputType = MapWriterJsonOutputType.Diff,
+            GameStringText = new GameStringTextOptions
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontStyles = false,
+                PreserveFont = new PreserveFontOptions
+                {
+                    PreserveFontStyleConstantVars = false,
+                    PreserveFontStyleVars = false,
+                },
+            },
+            HeroesVersion = new HeroesVersionOptions
+            {
+                Major = 2,
+                Minor = 23,
+                Revision = 2345,
+                Build = 34566,
+                IsPtr = false,
+            },
+            AppVersion = "5.0.0",
+            AllowEmptyDiffFiles = false,
+        };
+
+        _options.Value.Returns(rootOptions);
+
+        JsonNode jsonDiff = JsonNode.Parse(
+        """
+        {
+          "meta": {
+            "mapName": [
+              "Blackheart's Bay"
+            ]
+          }
+        }
+        """)!;
+        _serializedDataStoreService.GetJsonDataDiff(default!, default!).ReturnsForAnyArgs(jsonDiff);
+
+        SortedDictionary<string, Hero> heroesByElementId = [];
+        heroesByElementId.Add("hero1", new Hero("hero1") { UnitId = "hero1" });
+
+        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "data", "maps", "map_nameyes", $"herodata_{rootOptions.BuildNumber}_enus.json.diff");
+
+        JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _extractedGameStringsService);
+        JsonDataFileWriterService service = new(_logger, _options, _serializedDataStoreService, jsonSerializerOptionService, _resultSummaryService);
+
+        // act
+        await service.WriteToMaps("map name!_yes?", heroesByElementId);
+
+        // assert
+        _serializedDataStoreService.DidNotReceiveWithAnyArgs().AddSerializedData(default!, default!);
+        _ = _resultSummaryService.DidNotReceive().JsonDataFilesWritten;
+        _ = _resultSummaryService.DidNotReceive().JsonDataFilesTotal;
+        File.Exists(expectedFilePath).Should().BeFalse();
     }
 
     [TestMethod]

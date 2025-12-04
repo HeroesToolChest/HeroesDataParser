@@ -143,29 +143,36 @@ public abstract class JsonFileWriterBase
 
         Logger.LogInformation("Found {TotalItems} changed items of {DataType} for map {MapName}", dataName, totalItemsChanged, mapName);
 
-        try
+        if (totalItemsChanged > 0 || Options.AllowEmptyDiffFiles)
         {
-            IncrementFilesTotal();
+            try
+            {
+                IncrementFilesTotal();
 
-            await using FileStream fileStream = File.Create(filePath);
-            await JsonSerializer.SerializeAsync(fileStream, jsonDiff, JsonSerializerOptionService.JsonSerializerDataOptions);
+                await using FileStream fileStream = File.Create(filePath);
+                await JsonSerializer.SerializeAsync(fileStream, jsonDiff, JsonSerializerOptionService.JsonSerializerDataOptions);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, "Error writing diff json file {FilePath} for map {MapName}", filePath, mapName);
+                return;
+            }
+
+            IncrementFilesWritten();
+
+            AnsiConsole.Write("Created diff file ");
+            AnsiConsoleHelpers.WriteFilePath(Path.Join(innerDirectory, fileName));
+
+            if (totalItemsChanged < 1)
+                AnsiConsole.Write($" [0]");
+            else
+                AnsiConsole.Write($" [+{totalItemsChanged}]");
+
+            AnsiConsole.WriteLine();
         }
-        catch (Exception ex)
-        {
-            Logger.LogError(ex, "Error writing diff json file {FilePath} for map {MapName}", filePath, mapName);
-            return;
-        }
-
-        IncrementFilesWritten();
-
-        AnsiConsole.Write("Created diff file ");
-        AnsiConsoleHelpers.WriteFilePath(Path.Join(innerDirectory, fileName));
-
-        if (totalItemsChanged < 1)
-            AnsiConsole.Write($" [0]");
         else
-            AnsiConsole.Write($" [+{totalItemsChanged}]");
-
-        AnsiConsole.WriteLine();
+        {
+            AnsiConsole.WriteLine($"No changes found for {dataName}");
+        }
     }
 }

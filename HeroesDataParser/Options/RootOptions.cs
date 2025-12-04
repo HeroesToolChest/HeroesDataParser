@@ -20,6 +20,8 @@ public class RootOptions
 
     public MapWriterJsonOutputType MapWriterJsonOutputType { get; set; } = MapWriterJsonOutputType.None;
 
+    public bool AllowEmptyDiffFiles { get; set; }
+
     public int Threads { get; set; }
 
     // set/overridden during runtime

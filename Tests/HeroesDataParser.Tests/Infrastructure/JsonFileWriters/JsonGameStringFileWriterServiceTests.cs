@@ -112,6 +112,7 @@ public class JsonGameStringFileWriterServiceTests
             },
             AppVersion = "5.0.0",
             MapWriterJsonOutputType = MapWriterJsonOutputType.Diff,
+            AllowEmptyDiffFiles = true,
         };
 
         _options.Value.Returns(rootOptions);
