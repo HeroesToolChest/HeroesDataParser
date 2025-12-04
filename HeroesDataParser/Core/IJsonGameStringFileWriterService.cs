@@ -2,5 +2,9 @@
 
 public interface IJsonGameStringFileWriterService
 {
-    Task Write(GameStringItemDictionary gameStringItemDictionary, IEnumerable<string> dataTypes);
+    Task WriteForMap(string mapName);
+
+    Task Write(byte[] bytes);
+
+    void SerializeOnly();
 }

@@ -2,9 +2,9 @@
 
 public interface IGameStringTextService
 {
-    Dictionary<string, string> ValByStyleConstantName { get; }
+    ConcurrentDictionary<string, string> ValByStyleConstantName { get; }
 
-    Dictionary<string, string> ValByStyleName { get; }
+    ConcurrentDictionary<string, string> ValByStyleName { get; }
 
     bool ShouldExtractFontValues { get; }
 

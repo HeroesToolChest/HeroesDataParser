@@ -9,6 +9,7 @@ public class ProcessorService : IProcessorService
     private readonly IServiceProvider _serviceProvider;
     private readonly IDataExtractorService _dataExtractorService;
     private readonly IJsonDataFileWriterService _jsonDataFileWriterService;
+    private readonly IJsonGameStringFileWriterService _jsonGameStringFileWriterService;
     private readonly IImageWriterService _imageWriterService;
 
     private readonly ExtractDataOptions _extractDataOptions;
@@ -23,6 +24,7 @@ public class ProcessorService : IProcessorService
         IServiceProvider serviceProvider,
         IDataExtractorService dataExtractorService,
         IJsonDataFileWriterService jsonFileWriterService,
+        IJsonGameStringFileWriterService jsonGameStringFileWriterService,
         IImageWriterService imageWriterService)
     {
         _logger = logger;
@@ -30,6 +32,7 @@ public class ProcessorService : IProcessorService
         _serviceProvider = serviceProvider;
         _dataExtractorService = dataExtractorService;
         _jsonDataFileWriterService = jsonFileWriterService;
+        _jsonGameStringFileWriterService = jsonGameStringFileWriterService;
         _imageWriterService = imageWriterService;
 
         _extractDataOptions = GetExtractDataOptions();
@@ -42,31 +45,21 @@ public class ProcessorService : IProcessorService
 
     public ExtractImageOptions ExtractImageOptions => _extractImageOptions;
 
-    public void Start()
+    public async Task Start()
     {
         _logger.LogDebug("Available element processors {@ActionProcessors}", _processElementByExtractDataOption.Keys);
 
-        RunElementProcessors(_processElementByExtractDataOption);
+        await RunElementProcessors(_processElementByExtractDataOption);
     }
 
-    public void StartForMap(Map map)
+    public async Task StartForMap(Map map)
     {
         _logger.LogDebug("Available element processors {@ActionProcessors} for Map {MapId}", _processElementByExtractDataOption.Keys, map.Id);
 
-        RunElementProcessors(_processElementByExtractDataOption, map);
+        await RunElementProcessors(_processElementByExtractDataOption, map);
     }
 
-    public async Task WriteDataFiles()
-    {
-        _logger.LogInformation("Waiting for data file write tasks to complete...");
-
-        await Task.WhenAll(_dataWriterTasks.Select(task => task()));
-        _dataWriterTasks.Clear();
-
-        _logger.LogInformation("All data file write tasks complete.");
-    }
-
-    private void RunElementProcessors(Dictionary<ExtractDataOptions, Action<Map?>> processors, Map? map = null)
+    private async Task RunElementProcessors(Dictionary<ExtractDataOptions, Action<Map?>> processors, Map? map = null)
     {
         foreach (KeyValuePair<ExtractDataOptions, Action<Map?>> processor in processors)
         {
@@ -79,6 +72,10 @@ public class ProcessorService : IProcessorService
                 _logger.LogTrace("Element processor {Processor} was not run, was not selected in options", processor.Key);
             }
         }
+
+        // write out the files (data and gamestrings)
+        await WriteDataFiles();
+        await WriteGameStringFile(map?.Id);
     }
 
     private void ProcessElementObject<TElementObject, TParser>(Map? map = null)
@@ -96,7 +93,7 @@ public class ProcessorService : IProcessorService
             var dataParser = _serviceProvider.GetRequiredService<IDataParser<TElementObject>>();
             SortedDictionary<string, TElementObject> itemsToSerialize = _dataExtractorService.Extract<TElementObject, TParser>((TParser)dataParser, map);
 
-            // delay until after all data extraction is done (after maps)
+            // delay until after all data extraction is done (done for each map group)
             _dataWriterTasks.Add(() => WriteToJson(itemsToSerialize, map));
 
             SaveImages(itemsToSerialize);
@@ -132,6 +129,40 @@ public class ProcessorService : IProcessorService
             {
                 _imageWriterService.Save(imageParser.GetImages(itemsToSerialize));
             }
+        }
+    }
+
+    private async Task WriteDataFiles()
+    {
+        _logger.LogInformation("Waiting for data file write tasks to complete...");
+
+        foreach (Func<Task> task in _dataWriterTasks)
+        {
+            await task();
+        }
+
+        _dataWriterTasks.Clear();
+
+        _logger.LogInformation("All data file write tasks complete.");
+    }
+
+    private async Task WriteGameStringFile(string? mapName)
+    {
+        if (_options.LocalizedText == LocalizedTextOption.None)
+        {
+            _logger.LogInformation("LocalizedText option is set to {LocalizedTextOption}. Skipping writing gamestring file(s).", _options.LocalizedText);
+            return;
+        }
+
+        if (!string.IsNullOrWhiteSpace(mapName))
+        {
+            // write out the gamestring file for the extracted gamestrings from json serialization
+            await _jsonGameStringFileWriterService.WriteForMap(mapName);
+        }
+        else
+        {
+            // don't create a gamestring file yet
+            _jsonGameStringFileWriterService.SerializeOnly();
         }
     }
 

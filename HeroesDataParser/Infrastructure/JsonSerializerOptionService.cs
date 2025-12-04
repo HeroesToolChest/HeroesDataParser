@@ -3,15 +3,15 @@
 public class JsonSerializerOptionService : IJsonSerializerOptionService
 {
     private readonly RootOptions _options;
-    private readonly ISavedGameStringsService _savedGameStringsService;
+    private readonly IGameStringSerializerService _gameStringSerializerService;
 
     private readonly JsonSerializerOptions _jsonSerializerDataOptions;
     private readonly JsonSerializerOptions _jsonSerializerGameStringOptions;
 
-    public JsonSerializerOptionService(IOptions<RootOptions> options, ISavedGameStringsService savedGameStringsService)
+    public JsonSerializerOptionService(IOptions<RootOptions> options, IGameStringSerializerService gameStringSerializerService)
     {
         _options = options.Value;
-        _savedGameStringsService = savedGameStringsService;
+        _gameStringSerializerService = gameStringSerializerService;
 
         _jsonSerializerDataOptions = SetJsonSerializerDataOptions();
         _jsonSerializerGameStringOptions = SetJsonSerializerGameStringOptions();
@@ -43,7 +43,7 @@ public class JsonSerializerOptionService : IJsonSerializerOptionService
             {
                 Modifiers =
                 {
-                    typeInfo => JsonTypeInfoModifiers.SerializationModifiers(typeInfo, _options.LocalizedText, _savedGameStringsService.GameStringItemDictionary),
+                    typeInfo => JsonTypeInfoModifiers.SerializationModifiers(typeInfo, _options.LocalizedText, _gameStringSerializerService.DataGameStringItemDictionary),
                 },
             },
         };

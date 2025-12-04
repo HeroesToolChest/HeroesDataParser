@@ -1,4 +1,5 @@
-﻿using Polly;
+﻿using HeroesDataParser.Extensions;
+using Polly;
 using Polly.Registry;
 
 namespace HeroesDataParser.Infrastructure.Tests;

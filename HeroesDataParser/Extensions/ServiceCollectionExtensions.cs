@@ -55,7 +55,7 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<ICustomConfigurationService, CustomConfigurationService>();
             services.AddSingleton<IPreloadService, PreloadService>();
 
-            services.AddSingleton<ISerializedElementsService, SerializedElementsService>();
+            services.AddSingleton<ISerializedDataStoreService, SerializedDataStoreService>();
             services.AddSingleton<IJsonSerializerOptionService, JsonSerializerOptionService>();
 
             services.AddSingleton<IHeroesXmlLoaderService, HeroesXmlLoaderService>();
@@ -64,12 +64,10 @@ public static class ServiceCollectionExtensions
             services.AddDataParsers();
             services.AddImageWriters();
 
-            services.AddSingleton<ISavedGameStringsService, SavedGameStringsService>();
             services.AddSingleton<IResultSummaryService, ResultSummaryService>();
             services.AddSingleton<IMainService, MainService>();
             services.AddSingleton<IProcessorService, ProcessorService>();
             services.AddSingleton<IMapProcessorService, MapProcessorService>();
-            services.AddSingleton<IGameStringFileProcessorService, GameStringFileProcessorService>();
 
             services.AddSingleton<IDataExtractorService, DataExtractorService>();
             services.AddSingleton<IMapDataExtractorService, MapDataExtractorService>();
@@ -78,6 +76,9 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IJsonGameStringFileWriterService, JsonGameStringFileWriterService>();
 
             services.AddSingleton<IImageWriterService, ImageWriterService>();
+
+            services.AddSingleton<IGameStringSerializerService, GameStringSerializerService>();
+            services.AddSingleton<IBaseGameStringMergeService, BaseGameStringMergeService>();
 
             return services;
         }

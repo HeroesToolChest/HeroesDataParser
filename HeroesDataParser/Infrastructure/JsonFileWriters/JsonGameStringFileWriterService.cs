@@ -1,128 +1,86 @@
 ﻿namespace HeroesDataParser.Infrastructure.JsonFileWriters;
 
-public class JsonGameStringFileWriterService : IJsonGameStringFileWriterService
+public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStringFileWriterService
 {
     private const string _jsonFileDirectory = "gamestrings";
 
-    private readonly ILogger<JsonGameStringFileWriterService> _logger;
-    private readonly RootOptions _options;
-    private readonly IJsonSerializerOptionService _jsonSerializerOptionService;
-    private readonly IResultSummaryService _resultSummaryService;
+    private readonly IGameStringSerializerService _gameStringSerializerService;
 
-    public JsonGameStringFileWriterService(ILogger<JsonGameStringFileWriterService> logger, IOptions<RootOptions> options, IJsonSerializerOptionService jsonSerializerOptionService, IResultSummaryService resultSummaryService)
+    public JsonGameStringFileWriterService(
+        ILogger<JsonGameStringFileWriterService> logger,
+        IOptions<RootOptions> options,
+        IGameStringSerializerService gameStringSerializerService,
+        ISerializedDataStoreService serializedDataStoreService,
+        IJsonSerializerOptionService jsonSerializerOptionService,
+        IResultSummaryService resultSummaryService)
+        : base(logger, options, serializedDataStoreService, jsonSerializerOptionService, resultSummaryService)
     {
-        _logger = logger;
-        _options = options.Value;
-        _jsonSerializerOptionService = jsonSerializerOptionService;
-        _resultSummaryService = resultSummaryService;
+        _gameStringSerializerService = gameStringSerializerService;
     }
 
-    public async Task Write(GameStringItemDictionary gameStringItemDictionary, IEnumerable<string> dataTypes)
+    public async Task WriteForMap(string mapName)
     {
-        string fullOutputDirectory = Path.Combine(_options.OutputDirectory, _jsonFileDirectory);
+        RootGameStrings rootGameStrings = GetRootGameStrings(mapName);
 
-        Directory.CreateDirectory(fullOutputDirectory);
+        byte[] bytes = _gameStringSerializerService.SerializeGameStrings(rootGameStrings.Meta, JsonSerializerOptionService.JsonSerializerGameStringOptions);
 
-        string fileName = $"gamestrings_{_options.BuildNumber ?? 0}_{_options.CurrentLocale}.json".ToLowerInvariant();
-        string filePath = Path.Combine(fullOutputDirectory, fileName);
+        Span<char> buffer = stackalloc char[mapName!.Length];
+        int length = NormalizeMapDirectoryName(buffer, mapName);
 
-        _logger.LogInformation("Writing to {FilePath}", filePath);
+        await WriteSubMapJsonFile(Path.Join(_jsonFileDirectory, "maps", buffer[..length]), mapName, Constants.GameStringFilePrefix, bytes);
 
-        RootGameStrings rootGameStrings = new()
+        // after writing, clear the extracted gamestrings
+        if (Options.MapWriterJsonOutputType != MapWriterJsonOutputType.None)
+            _gameStringSerializerService.ClearStoredGameStrings();
+    }
+
+    // writes from the given bytes to a json file
+    public async Task Write(byte[] bytes)
+    {
+        await WriteBaseJsonFile(_jsonFileDirectory, Constants.GameStringFilePrefix, bytes);
+    }
+
+    // instead of writing to a file, just serializes and stores the data in the serialized data store
+    public void SerializeOnly()
+    {
+        RootGameStrings rootGameStrings = GetRootGameStrings();
+        byte[] bytes = _gameStringSerializerService.SerializeGameStrings(rootGameStrings.Meta, JsonSerializerOptionService.JsonSerializerGameStringOptions);
+
+        SerializedDataStoreService.AddSerializedData(Constants.GameStringFilePrefix, bytes);
+
+        // after saved, clear the extracted gamestrings
+        _gameStringSerializerService.ClearStoredGameStrings();
+    }
+
+    protected override void IncrementFilesTotal()
+    {
+        ResultSummaryService.GameStringFilesTotal++;
+    }
+
+    protected override void IncrementFilesWritten()
+    {
+        ResultSummaryService.GameStringFilesWritten++;
+    }
+
+    private RootGameStrings GetRootGameStrings(string? mapName = null)
+    {
+        return new()
         {
             Meta = new()
             {
-                DataTypes = [.. dataTypes],
-                HeroesVersion = _options.HeroesVersion.GetAsHeroesDataVersion(),
-                HdpVersion = _options.AppVersion,
+                DataTypes = [.. SerializedDataStoreService.GetDataTypesFromData().Where(x => !x.Equals(Constants.GameStringFilePrefix))],
+                MapName = mapName,
+                HeroesVersion = Options.HeroesVersion.GetAsHeroesDataVersion(),
+                HdpVersion = Options.AppVersion,
                 DescriptionText = new()
                 {
-                    Locale = _options.CurrentLocale,
-                    GameStringTextType = _options.GameStringText.Type,
-                    ReplaceFontStyles = _options.GameStringText.ReplaceFontStyles,
-                    PreserveFontStyleConstantVars = _options.GameStringText.PreserveFont.PreserveFontStyleConstantVars,
-                    PreserveFontStyleVars = _options.GameStringText.PreserveFont.PreserveFontStyleVars,
+                    Locale = Options.CurrentLocale,
+                    GameStringTextType = Options.GameStringText.Type,
+                    ReplaceFontStyles = Options.GameStringText.ReplaceFontStyles,
+                    PreserveFontStyleConstantVars = Options.GameStringText.PreserveFont.PreserveFontStyleConstantVars,
+                    PreserveFontStyleVars = Options.GameStringText.PreserveFont.PreserveFontStyleVars,
                 },
             },
         };
-
-        try
-        {
-            _resultSummaryService.GameStringFilesTotal++;
-            await Write(rootGameStrings.Meta, gameStringItemDictionary, filePath);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error writing game string JSON file to {FilePath}", filePath);
-            return;
-        }
-
-        _resultSummaryService.GameStringFilesWritten++;
-
-        AnsiConsole.Write("Created file ");
-        AnsiConsoleHelpers.WriteFilePath(Path.Join(_jsonFileDirectory, fileName));
-        AnsiConsole.WriteLine();
-    }
-
-    private async Task Write(MetaGameStringProperties metaProperties, GameStringItemDictionary gameStringItemDictionary, string filePath)
-    {
-        byte[] metaJson = JsonSerializer.SerializeToUtf8Bytes(metaProperties, _jsonSerializerOptionService.JsonSerializerGameStringOptions);
-
-        await using FileStream fileStream = File.Create(filePath);
-        using Utf8JsonWriter utf8JsonWriter = new(fileStream, new JsonWriterOptions()
-        {
-            Indented = true,
-            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-        });
-
-        utf8JsonWriter.WriteStartObject();
-
-        utf8JsonWriter.WritePropertyName(nameof(RootGameStrings.Meta).ToLowerInvariant());
-
-        // JsonDocument instead of WriteRawValue to format the meta json properly
-        using JsonDocument jsonMetaDocument = JsonDocument.Parse(metaJson);
-        jsonMetaDocument.RootElement.WriteTo(utf8JsonWriter);
-
-        utf8JsonWriter.WriteStartObject(RootGameStrings.GameStringItemPropertyName);
-
-        foreach (KeyValuePair<string, GameStringFilePropertyName> elementName in gameStringItemDictionary)
-        {
-            utf8JsonWriter.WriteStartObject(elementName.Key);
-
-            foreach (KeyValuePair<string, GameStringFilePropertyId> propertyName in elementName.Value)
-            {
-                utf8JsonWriter.WriteStartObject(propertyName.Key);
-
-                if (propertyName.Value.KeyArrayPairs.Count > 0)
-                {
-                    foreach (KeyValuePair<string, List<GameStringText>> arrayPropertyId in propertyName.Value.KeyArrayPairs)
-                    {
-                        utf8JsonWriter.WriteStartArray(arrayPropertyId.Key);
-
-                        foreach (GameStringText arrayValue in arrayPropertyId.Value)
-                        {
-                            utf8JsonWriter.WriteStringValue(arrayValue.RawText);
-                        }
-
-                        utf8JsonWriter.WriteEndArray();
-                    }
-                }
-                else
-                {
-                    foreach (KeyValuePair<string, GameStringText> propertyId in propertyName.Value.KeyValuePairs)
-                    {
-                        utf8JsonWriter.WriteString(propertyId.Key, propertyId.Value.RawText);
-                    }
-                }
-
-                utf8JsonWriter.WriteEndObject();
-            }
-
-            utf8JsonWriter.WriteEndObject();
-        }
-
-        utf8JsonWriter.WriteEndObject(); // end gamestrings
-        utf8JsonWriter.WriteEndObject();
-        await utf8JsonWriter.FlushAsync();
     }
 }

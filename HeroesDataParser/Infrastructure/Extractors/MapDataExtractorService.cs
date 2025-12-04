@@ -20,7 +20,7 @@ public class MapDataExtractorService : IMapDataExtractorService
         _resultSummaryService = resultSummaryService;
     }
 
-    public SortedDictionary<string, Map> Extract(Action<Map> elementParsersForMap)
+    public async Task<SortedDictionary<string, Map>> Extract(Func<Map, Task> elementParsersForMap)
     {
         _stopwatch.Restart();
 
@@ -71,7 +71,7 @@ public class MapDataExtractorService : IMapDataExtractorService
 
                     _logger.LogInformation("Running element processors for {MapId}", mapTitle);
 
-                    elementParsersForMap.Invoke(map);
+                    await elementParsersForMap.Invoke(map);
 
                     _logger.LogInformation("Completed element processors for {MapId}", mapTitle);
                 }

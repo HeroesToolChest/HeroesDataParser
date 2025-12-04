@@ -8,6 +8,7 @@ public class ProcessorServiceTests
     private readonly IServiceProvider _serviceProvider;
     private readonly IDataExtractorService _dataExtractorService;
     private readonly IJsonDataFileWriterService _jsonDataFileWriterService;
+    private readonly IJsonGameStringFileWriterService _jsonGameStringFileWriterService;
     private readonly IImageWriterService _imageWriterService;
 
     public ProcessorServiceTests()
@@ -17,6 +18,7 @@ public class ProcessorServiceTests
         _serviceProvider = Substitute.For<IServiceProvider>();
         _dataExtractorService = Substitute.For<IDataExtractorService>();
         _jsonDataFileWriterService = Substitute.For<IJsonDataFileWriterService>();
+        _jsonGameStringFileWriterService = Substitute.For<IJsonGameStringFileWriterService>();
         _imageWriterService = Substitute.For<IImageWriterService>();
     }
 
@@ -50,7 +52,7 @@ public class ProcessorServiceTests
         });
 
         // act
-        ProcessorService processorService = new(_logger, _options, _serviceProvider, _dataExtractorService, _jsonDataFileWriterService, _imageWriterService);
+        ProcessorService processorService = new(_logger, _options, _serviceProvider, _dataExtractorService, _jsonDataFileWriterService, _jsonGameStringFileWriterService, _imageWriterService);
 
         // assert
         processorService.ExtractDataOptions.Should().Be(ExtractDataOptions.VoiceLine | ExtractDataOptions.Boost | ExtractDataOptions.Hero | ExtractDataOptions.Map);
@@ -70,7 +72,7 @@ public class ProcessorServiceTests
         });
 
         // act
-        ProcessorService processorService = new(_logger, _options, _serviceProvider, _dataExtractorService, _jsonDataFileWriterService, _imageWriterService);
+        ProcessorService processorService = new(_logger, _options, _serviceProvider, _dataExtractorService, _jsonDataFileWriterService, _jsonGameStringFileWriterService, _imageWriterService);
 
         // assert
         processorService.ExtractDataOptions.Should().Be(ExtractDataOptions.None);
@@ -111,7 +113,7 @@ public class ProcessorServiceTests
         });
 
         // act
-        ProcessorService processorService = new(_logger, _options, _serviceProvider, _dataExtractorService, _jsonDataFileWriterService, _imageWriterService);
+        ProcessorService processorService = new(_logger, _options, _serviceProvider, _dataExtractorService, _jsonDataFileWriterService, _jsonGameStringFileWriterService, _imageWriterService);
 
         // assert
         processorService.ExtractImageOptions.Should().Be(resultOptions);
@@ -144,7 +146,7 @@ public class ProcessorServiceTests
         });
 
         // act
-        ProcessorService processorService = new(_logger, _options, _serviceProvider, _dataExtractorService, _jsonDataFileWriterService, _imageWriterService);
+        ProcessorService processorService = new(_logger, _options, _serviceProvider, _dataExtractorService, _jsonDataFileWriterService, _jsonGameStringFileWriterService, _imageWriterService);
 
         // assert
         processorService.ExtractImageOptions.Should().Be(resultOptions);

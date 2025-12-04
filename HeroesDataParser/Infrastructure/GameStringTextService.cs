@@ -18,9 +18,9 @@ public class GameStringTextService : IGameStringTextService
             _options.GameStringText is { Type: GameStringTextType.RawText or GameStringTextType.ColoredText or GameStringTextType.ColoredTextWithScaling };
     }
 
-    public Dictionary<string, string> ValByStyleConstantName { get; } = [];
+    public ConcurrentDictionary<string, string> ValByStyleConstantName { get; } = [];
 
-    public Dictionary<string, string> ValByStyleName { get; } = [];
+    public ConcurrentDictionary<string, string> ValByStyleName { get; } = [];
 
     public bool ShouldExtractFontValues => _shouldExtractFontValues;
 
