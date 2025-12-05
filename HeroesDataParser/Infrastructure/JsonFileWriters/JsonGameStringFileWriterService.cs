@@ -2,8 +2,6 @@
 
 public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStringFileWriterService
 {
-    private const string _jsonFileDirectory = "gamestrings";
-
     private readonly IGameStringSerializerService _gameStringSerializerService;
 
     public JsonGameStringFileWriterService(
@@ -27,7 +25,7 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
         Span<char> buffer = stackalloc char[mapName!.Length];
         int length = NormalizeMapDirectoryName(buffer, mapName);
 
-        await WriteSubMapJsonFile(Path.Join(_jsonFileDirectory, "maps", buffer[..length]), mapName, Constants.GameStringFilePrefix, bytes);
+        await WriteSubMapJsonFile(Path.Join(Constants.JsonGameStringsDirectory, Constants.MapDirectory, buffer[..length]), mapName, Constants.GameStringFilePrefix, bytes);
 
         // after writing, clear the extracted gamestrings
         if (Options.MapWriterJsonOutputType != MapWriterJsonOutputType.None)
@@ -37,7 +35,7 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
     // writes from the given bytes to a json file
     public async Task Write(byte[] bytes)
     {
-        await WriteBaseJsonFile(_jsonFileDirectory, Constants.GameStringFilePrefix, bytes);
+        await WriteBaseJsonFile(Constants.JsonGameStringsDirectory, Constants.GameStringFilePrefix, bytes);
     }
 
     // instead of writing to a file, just serializes and stores the data in the serialized data store

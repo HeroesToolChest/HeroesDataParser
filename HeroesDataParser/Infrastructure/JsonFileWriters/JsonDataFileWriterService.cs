@@ -2,8 +2,6 @@
 
 public class JsonDataFileWriterService : JsonFileWriterBase, IJsonDataFileWriterService
 {
-    private const string _jsonFileDirectory = "data";
-
     public JsonDataFileWriterService(
         ILogger<JsonDataFileWriterService> logger,
         IOptions<RootOptions> options,
@@ -20,7 +18,7 @@ public class JsonDataFileWriterService : JsonFileWriterBase, IJsonDataFileWriter
         if (!IsSerializationRequired(elementsById.Count))
             return;
 
-        await WriteTo(elementsById, _jsonFileDirectory);
+        await WriteTo(elementsById, Constants.JsonDataDirectory);
     }
 
     // write to the maps sub directory
@@ -39,7 +37,7 @@ public class JsonDataFileWriterService : JsonFileWriterBase, IJsonDataFileWriter
         Span<char> buffer = stackalloc char[mapDirectory.Length];
         int length = NormalizeMapDirectoryName(buffer, mapDirectory);
 
-        await WriteTo(elementsById, Path.Join(_jsonFileDirectory, "maps", buffer[..length]), mapDirectory);
+        await WriteTo(elementsById, Path.Join(Constants.JsonDataDirectory, Constants.MapDirectory, buffer[..length]), mapDirectory);
     }
 
     protected override void IncrementFilesTotal()

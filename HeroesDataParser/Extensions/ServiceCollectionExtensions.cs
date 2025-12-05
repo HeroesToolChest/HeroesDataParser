@@ -64,10 +64,11 @@ public static class ServiceCollectionExtensions
             services.AddDataParsers();
             services.AddImageWriters();
 
-            services.AddSingleton<IResultSummaryService, ResultSummaryService>();
             services.AddSingleton<IMainService, MainService>();
             services.AddSingleton<IProcessorService, ProcessorService>();
             services.AddSingleton<IMapProcessorService, MapProcessorService>();
+            services.AddSingleton<IResultSummaryService, ResultSummaryService>();
+            services.AddSingleton<IPostCleanupService, PostCleanupService>();
 
             services.AddSingleton<IDataExtractorService, DataExtractorService>();
             services.AddSingleton<IMapDataExtractorService, MapDataExtractorService>();

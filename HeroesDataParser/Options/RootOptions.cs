@@ -22,6 +22,8 @@ public class RootOptions
 
     public bool AllowEmptyDiffFiles { get; set; }
 
+    public bool AllowEmptyMapDirectories { get; set; }
+
     public int Threads { get; set; }
 
     // set/overridden during runtime
