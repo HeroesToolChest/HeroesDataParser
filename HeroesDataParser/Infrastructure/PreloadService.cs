@@ -224,14 +224,17 @@ public class PreloadService : IPreloadService
 
         Tree root = new($"Loaded {files.Count} custom configuration files");
 
-        foreach (string relativeFilePath in files)
+        if (_options.ShowLoadedCustomConfigFiles)
         {
-            string? subDirectory = GetExtractorSubPath(Path.GetDirectoryName(relativeFilePath));
+            foreach (string relativeFilePath in files)
+            {
+                string? subDirectory = GetExtractorSubPath(Path.GetDirectoryName(relativeFilePath));
 
-            if (!string.IsNullOrWhiteSpace(subDirectory))
-                root.AddNode($"{Path.GetFileName(relativeFilePath)} (.{Path.DirectorySeparatorChar}{subDirectory})");
-            else
-                root.AddNode(Path.GetFileName(relativeFilePath));
+                if (!string.IsNullOrWhiteSpace(subDirectory))
+                    root.AddNode($"{Path.GetFileName(relativeFilePath)} (.{Path.DirectorySeparatorChar}{subDirectory})");
+                else
+                    root.AddNode(Path.GetFileName(relativeFilePath));
+            }
         }
 
         AnsiConsole.Write(root);

@@ -24,6 +24,8 @@ public class RootOptions
 
     public bool AllowEmptyMapDirectories { get; set; }
 
+    public bool ShowLoadedCustomConfigFiles { get; set; }
+
     public int Threads { get; set; }
 
     // set/overridden during runtime
