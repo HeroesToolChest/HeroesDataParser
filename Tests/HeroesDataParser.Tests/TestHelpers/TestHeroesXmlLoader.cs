@@ -20,6 +20,7 @@ public static class TestHeroesXmlLoader
         XDocument validatorDocument = GetXDocument("Validator.xml");
         XDocument requirementDocument = GetXDocument("Requirement.xml");
         XDocument stormStyleDocument = GetXDocument("StormStyle.xml");
+        XDocument announcerPackDocument = GetXDocument("AnnouncerPack.xml");
 
         return HeroesXmlLoader.LoadWithEmpty()
             .LoadCustomMod(new ManualModLoader("test")
@@ -37,6 +38,7 @@ public static class TestHeroesXmlLoader
                     ("Talent", "CTalent"),
                     ("Validator", "CValidatorPlayerTalent"),
                     ("Requirement", "CRequirement"),
+                    ("AnnouncerPack", "CAnnouncerPack"),
                 ])
                 .AddElements(unitDocument.Root!.Elements())
                 .AddElements(heroDocument.Root!.Elements())
@@ -51,6 +53,7 @@ public static class TestHeroesXmlLoader
                 .AddElements(talentDocument.Root!.Elements())
                 .AddElements(validatorDocument.Root!.Elements())
                 .AddElements(requirementDocument.Root!.Elements())
+                .AddElements(announcerPackDocument.Root!.Elements())
                 .AddGameStrings(
                     [
                         "test_for_tooltip_decription_service=Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200~~0.045~~</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>",
@@ -208,6 +211,7 @@ public static class TestHeroesXmlLoader
                     Path.Join("Assets", "Textures", "storm_ui_glues_draft_portrait_Abathur.dds"),
                     Path.Join("Assets", "Textures", "storm_ui_ingame_partyframe_Abathur.dds"),
                     Path.Join("Assets", "Textures", "storm_ui_ingame_partyframe_Abathur.dds"),
+                    Path.Join("Assets", "Textures", "Storm_UI_Announcer_Adjutant.dds"),
                 ])
                 .AddLevelScalingArrayElements(heroDocument.Root.Descendants("LevelScalingArray"))
                 .AddStormStyleElements(stormStyleDocument.Root!.Elements()))
