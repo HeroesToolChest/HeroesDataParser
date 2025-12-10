@@ -59,7 +59,7 @@ public abstract class CollectionParserBase<T> : DataParser<T>
         if (stormElement.DataValues.TryGetElementDataAt("Flags", out StormElementData? flagsData))
         {
             if (flagsData.TryGetElementDataAt("ShowInStore", out StormElementData? showInStoreData) && showInStoreData.Value.TryGetInt32(out int showInStoreValue))
-                collectionObject.ShowInStore = showInStoreValue == 1;
+                collectionObject.IsShownInStore = showInStoreValue == 1;
         }
 
         SetEventNameProperty(collectionObject, stormElement);

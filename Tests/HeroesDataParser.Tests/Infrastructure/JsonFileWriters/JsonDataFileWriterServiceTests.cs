@@ -120,7 +120,7 @@ public class JsonDataFileWriterServiceTests
                 "draftScreen": "",
                 "partyFrames": []
               },
-              "showInStore": false
+              "isShownInStore": false
             },
             "hero2": {
               "unitId": "hero2",
@@ -146,7 +146,7 @@ public class JsonDataFileWriterServiceTests
                 "draftScreen": "",
                 "partyFrames": []
               },
-              "showInStore": false,
+              "isShownInStore": false,
               "armor": {
                 "Hero": {
                   "basic": 10,
@@ -540,7 +540,7 @@ public class JsonDataFileWriterServiceTests
                 "draftScreen": "",
                 "partyFrames": []
               },
-              "showInStore": false,
+              "isShownInStore": false,
               "description": "Hero description"
             }
           }
@@ -635,7 +635,7 @@ public class JsonDataFileWriterServiceTests
                 "draftScreen": "",
                 "partyFrames": []
               },
-              "showInStore": false
+              "isShownInStore": false
             }
           }
         }
@@ -737,7 +737,7 @@ public class JsonDataFileWriterServiceTests
                 "draftScreen": "",
                 "partyFrames": []
               },
-              "showInStore": false,
+              "isShownInStore": false,
               "description": "Hero description"
             }
           }
@@ -792,7 +792,7 @@ public class JsonDataFileWriterServiceTests
                 "draftScreen": "",
                 "partyFrames": []
               },
-              "showInStore": false
+              "isShownInStore": false
             }
           }
         }
