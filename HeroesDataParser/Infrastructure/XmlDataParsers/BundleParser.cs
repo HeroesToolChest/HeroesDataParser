@@ -1,6 +1,6 @@
 ﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
-public class BundleParser : CollectionParserBase<Bundle>
+public class BundleParser : StoreItemParserBase<Bundle>
 {
     public BundleParser(ILogger<BundleParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IGameStringTextService gameStringTextService)
         : base(logger, options, heroesXmlLoaderService, gameStringTextService)
