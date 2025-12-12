@@ -45,7 +45,6 @@ public class AnnouncerParserTests
         announcer.Id.Should().Be("Adjutant");
         announcer.Rarity.Should().Be(Rarity.Legendary);
         announcer.ReleaseDate.Should().Be(new DateOnly(2018, 3, 27));
-        announcer.IsShownInStore.Should().BeTrue();
         announcer.Image.Should().Be("storm_ui_announcer_adjutant.png");
     }
 }

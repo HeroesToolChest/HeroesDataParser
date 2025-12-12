@@ -1,6 +1,6 @@
 ﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
-public class BoostParser : CollectionParserBase<Boost>
+public class BoostParser : StoreItemParserBase<Boost>
 {
     public BoostParser(ILogger<BoostParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IGameStringTextService gameStringTextService)
         : base(logger, options, heroesXmlLoaderService, gameStringTextService)

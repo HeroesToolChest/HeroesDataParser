@@ -1,6 +1,6 @@
 ﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
-public class AnnouncerParser : CollectionParserBase<Announcer>
+public class AnnouncerParser : LoadoutItemParserBase<Announcer>
 {
     public AnnouncerParser(ILogger<AnnouncerParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IGameStringTextService gameStringTextService)
         : base(logger, options, heroesXmlLoaderService, gameStringTextService)

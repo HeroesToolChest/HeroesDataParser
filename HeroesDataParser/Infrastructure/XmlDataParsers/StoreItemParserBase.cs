@@ -1,13 +1,13 @@
 ﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
-public abstract class CollectionParserBase<T> : DataParser<T>
-    where T : ElementObject, IElementObject, IHeroesCollectionObject
+public abstract class StoreItemParserBase<T> : DataParser<T>
+    where T : ElementObject, IElementObject, IStoreItem
 {
     // https://en.wikipedia.org/wiki/Heroes_of_the_Storm
     // https://web.archive.org/web/20140525185554/http://www.heroesofthestorm.com/en-us/news/13290651/the-heroes-of-the-storm-technical-alpha-is-now-live
     private readonly DateOnly _technicalAlphaReleaseDate = new(2014, 3, 13);
 
-    public CollectionParserBase(ILogger logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IGameStringTextService gameStringTextService)
+    public StoreItemParserBase(ILogger logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IGameStringTextService gameStringTextService)
         : base(logger, options, heroesXmlLoaderService, gameStringTextService)
     {
     }
@@ -21,7 +21,7 @@ public abstract class CollectionParserBase<T> : DataParser<T>
         SetValidatedProperties(collectionObject);
     }
 
-    protected void SetCommonProperties(T collectionObject, StormElement stormElement)
+    protected virtual void SetCommonProperties(T collectionObject, StormElement stormElement)
     {
         SetNameProperty(collectionObject, stormElement);
 
@@ -29,10 +29,6 @@ public abstract class CollectionParserBase<T> : DataParser<T>
             collectionObject.SortName = GameStringTextService.GetGameStringTextFromId(sortNameData.Value.GetString());
 
         SetHyperlinkIdProperty(collectionObject, stormElement);
-
-        if (stormElement.DataValues.TryGetElementDataAt("attributeid", out StormElementData? attributeIdData))
-            collectionObject.AttributeId = attributeIdData.Value.GetString();
-
         SetRarityProperty(collectionObject, stormElement);
 
         if (stormElement.DataValues.TryGetElementDataAt("releasedate", out StormElementData? releasetDateData))
@@ -55,12 +51,6 @@ public abstract class CollectionParserBase<T> : DataParser<T>
 
         if (stormElement.DataValues.TryGetElementDataAt("collectioncategory", out StormElementData? collectionCategoryData))
             collectionObject.Category = collectionCategoryData.Value.GetString();
-
-        if (stormElement.DataValues.TryGetElementDataAt("Flags", out StormElementData? flagsData))
-        {
-            if (flagsData.TryGetElementDataAt("ShowInStore", out StormElementData? showInStoreData) && showInStoreData.Value.TryGetInt32(out int showInStoreValue))
-                collectionObject.IsShownInStore = showInStoreValue == 1;
-        }
 
         SetEventNameProperty(collectionObject, stormElement);
         SetDescriptionProperty(collectionObject, stormElement);

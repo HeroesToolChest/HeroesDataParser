@@ -1,6 +1,6 @@
 ﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
-public class HeroParser : CollectionParserBase<Hero>
+public class HeroParser : LoadoutItemParserBase<Hero>
 {
     private readonly IUnitParser _unitParser;
     private readonly ITalentParser _talentParser;

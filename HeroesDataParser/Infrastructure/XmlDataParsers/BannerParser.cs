@@ -1,6 +1,6 @@
 ﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
-public class BannerParser : CollectionParserBase<Banner>
+public class BannerParser : LoadoutItemParserBase<Banner>
 {
     public BannerParser(ILogger<BannerParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IGameStringTextService gameStringTextService)
         : base(logger, options, heroesXmlLoaderService, gameStringTextService)
