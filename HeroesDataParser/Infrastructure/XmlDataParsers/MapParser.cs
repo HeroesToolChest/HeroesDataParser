@@ -67,10 +67,10 @@ public class MapParser : DataParser<Map>
         return $"{Path.GetFileNameWithoutExtension(path)}_{new string([.. appender.ToLowerInvariant().Where(static x => !char.IsWhiteSpace(x) && !char.IsPunctuation(x))])}.{ImageFileExtension}";
     }
 
-    private static void SetMapName(Map map, StormMap stormMap)
+    private void SetMapName(Map map, StormMap stormMap)
     {
-        if (stormMap.NameByLocale.TryGetValue(StormLocale.ENUS, out string? name))
-            map.Name = new GameStringText(name, StormLocale.ENUS);
+        if (stormMap.NameByLocale.TryGetValue(Options.CurrentLocale, out string? name))
+            map.Name = new GameStringText(name, Options.CurrentLocale);
     }
 
     private void SetDataFromXmlFiles(StormElement stormElement, Map map, StormMap stormMap)
@@ -275,7 +275,14 @@ public class MapParser : DataParser<Map>
             return null;
 
         if (assetPath.StartsWith('@'))
-            return HeroesData.GetStormAssetString(assetPath[1..])?.Value;
+        {
+#if DEBUG
+            StormAssetString? stormAssetString = HeroesData.GetStormAssetString(assetPath[1..]);
+            return stormAssetString?.Value;
+#else
+            return HeroesData.GetStormAssetString(assetPath.AsSpan()[1..]);
+#endif
+        }
 
         return assetPath;
     }
@@ -287,9 +294,21 @@ public class MapParser : DataParser<Map>
 
         if (assetPath.StartsWith('@'))
         {
-            string? value = HeroesData.GetStormAssetString(assetPath[1..])?.Value;
+#if DEBUG
+            string assetPathLookup = assetPath[1..];
+
+            StormAssetString? stormAssetString = HeroesData.GetStormAssetString(assetPathLookup);
+            string? value = stormAssetString?.Value;
+
             if (value is null)
-                return GameStringTextService.GetGameStringTextFromId(assetPath[1..]);
+                return GameStringTextService.GetGameStringTextFromId(assetPathLookup);
+#else
+            ReadOnlySpan<char> assetPathLookup = assetPath.AsSpan()[1..];
+
+            string? value = HeroesData.GetStormAssetString(assetPathLookup);
+            if (value is null)
+                return GameStringTextService.GetGameStringTextFromId(assetPathLookup.ToString());
+#endif
         }
 
         return new GameStringText(assetPath);

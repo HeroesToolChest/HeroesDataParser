@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Map>
+  <CMap default="1">
+    <DraftIntroMapName value="UI/MapLoadingScreen/##id##"/>
+    <DraftIntroVO value="##id##_Draft_Map"/>
+    <DraftIntroSoundtrack value="MX_Draft_##id##_Intro"/>
+    <DraftCoinTossSoundtrack value="MX_Draft_##id##_CoinHit"/>
+    <DraftCountdownSoundtrack value="MX_Draft_Countdown"/>
+    <TitleStyle value="Storm_MapLoading_Title"/>
+    <SubTitleStyle value="Storm_MapLoading_Subtitle"/>
+    <HeadingStyle value="Storm_MapLoading_Heading"/>
+    <SectionTitleStyle value="Storm_MapLoading_SectionTitleText"/>
+    <DescriptionStyle value="Storm_MapLoading_SectionText_Base"/>
+    <TipTextStyle value="LoadingHelpLabel"/>
+  </CMap>
+  <CMap id="Default"/>
+  <CMap id="BlueMapTemplate">
+    <TitleStyle value="Storm_MapLoading_Title_Blue" />
+    <SubTitleStyle value="Storm_MapLoading_Subtitle_Blue" />
+    <HeadingStyle value="Storm_MapLoading_Heading_Blue" />
+    <SectionTitleStyle value="Storm_MapLoading_SectionTitleText_Blue" />
+    <DescriptionStyle value="Storm_MapLoading_SectionText_Blue" />
+    <TipTextStyle value="Storm_MapLoading_TipText_Blue" />
+  </CMap>
+  <CMap id="AlteracPass" parent="BlueMapTemplate">
+    <DraftIntroImage value="Assets\Textures\storm_ui_homescreenbackground_wcav.dds" />
+    <DraftIntroVO value="VanndarA_Draft_Map" />
+    <DraftIntroSFX value="UI_Bnet_Draft_Intro_AlteracPass" />
+    <DraftIntroSoundtrack value="MX_Draft_AlteracPass_Intro" />
+    <DraftCoinTossSoundtrack value="MX_Draft_AlteracPass_CoinHit" />
+  </CMap>
+</Map>
