@@ -29,4 +29,18 @@
     <DraftIntroSoundtrack value="MX_Draft_AlteracPass_Intro" />
     <DraftCoinTossSoundtrack value="MX_Draft_AlteracPass_CoinHit" />
   </CMap>
+  <CMap id="Test1" parent="BlueMapTemplate">
+    <DraftIntroImage value="storm_ui_homescreenbackground.dds" />
+    <DraftIntroVO value="VanndarA_Draft_Map" />
+    <DraftIntroSFX value="UI_Bnet_Draft_Intro_AlteracPass" />
+    <DraftIntroSoundtrack value="MX_Draft_AlteracPass_Intro" />
+    <DraftCoinTossSoundtrack value="MX_Draft_AlteracPass_CoinHit" />
+  </CMap>
+  <CMap id="MpqTest1" parent="BlueMapTemplate">
+    <DraftIntroImage value="storm_ui_homescreenbackground.dds" />
+    <DraftIntroVO value="VanndarA_Draft_Map" />
+    <DraftIntroSFX value="UI_Bnet_Draft_Intro_AlteracPass" />
+    <DraftIntroSoundtrack value="MX_Draft_AlteracPass_Intro" />
+    <DraftCoinTossSoundtrack value="MX_Draft_AlteracPass_CoinHit" />
+  </CMap>
 </Map>

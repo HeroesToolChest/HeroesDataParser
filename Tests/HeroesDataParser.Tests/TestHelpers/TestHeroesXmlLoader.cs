@@ -28,7 +28,7 @@ public static class TestHeroesXmlLoader
         XDocument mapDocument = GetXDocument("Map.xml");
 
         return HeroesXmlLoader.LoadWithEmpty()
-            .LoadCustomMod(new ManualModLoader("test")
+            .LoadCustomMod(new ManualModLoader(string.Empty)
                 .AddBaseElementTypes(
                 [
                     ("Abil", "CAbilEffectTarget"),
@@ -237,6 +237,7 @@ public static class TestHeroesXmlLoader
                     Path.Join("Assets", "Textures", "ui_ingame_mapmechanic_loadscreen_WCAV_icon1_alliance.dds"),
                     Path.Join("Assets", "Textures", "ui_ingame_mapmechanic_loadscreen_WCAV_icon2_alliance.dds"),
                     Path.Join("Assets", "Textures", "ui_ingame_mapmechanic_loadscreen_WCAV_icon3_alliance.dds"),
+                    Path.Join("Textures", "test-default.dds"),
                 ])
                 .AddLevelScalingArrayElements(heroDocument.Root.Descendants("LevelScalingArray"))
                 .AddStormStyleElements(stormStyleDocument.Root!.Elements())
@@ -275,6 +276,40 @@ public static class TestHeroesXmlLoader
                         ReplayPreviewImagePath = Path.Join("Assets", "Textures", "test-image2.dds"),
                         S2MAFilePath = "Maps/BattlefieldOfEternity/BattlefieldOfEternity.s2ma",
                         S2MVFilePath = "Maps/BattlefieldOfEternity/BattlefieldOfEternity.s2mv",
+                    },
+                    new StormMap
+                    {
+                        Name = "Test1",
+                        MapId = "Test1",
+                        MapLink = "Test1",
+                        MapSize = new(100, 100),
+                        NameByLocale = new Dictionary<StormLocale, string>
+                        {
+                            [StormLocale.ENUS] = "Test1",
+                        },
+                        LoadingScreenImagePath = Path.Join("Assets", "Textures", "test-default.dds"),
+                        LayoutFilePath = "TestLayoutFiles/NonExists.StormLayout",
+                        LayoutLoadingScreenFrame = "ScreenMapLoading_AlteracValley",
+                        ReplayPreviewImagePath = Path.Join("Textures", "test-default.dds"),
+                        S2MAFilePath = "Maps/Test1/Test1.s2ma",
+                        S2MVFilePath = "Maps/Test1/Test1.s2mv",
+                    },
+                    new StormMap
+                    {
+                        Name = "MpqTest1",
+                        MapId = "MpqTest1",
+                        MapLink = "MpqTest1",
+                        MapSize = new(100, 100),
+                        NameByLocale = new Dictionary<StormLocale, string>
+                        {
+                            [StormLocale.ENUS] = "MpqTest1",
+                        },
+                        LoadingScreenImagePath = Path.Join("Assets", "Textures", "Storm_UI_Gamemode_MapSelect_Hanamura.png"),
+                        LayoutFilePath = "TestLayoutFiles/NonExists.StormLayout",
+                        LayoutLoadingScreenFrame = "ScreenMapLoading_AlteracValley",
+                        ReplayPreviewImagePath = Path.Join("Textures", "ReplaysPreviewImage.tga"),
+                        S2MAFilePath = "TestS2MAFiles/hanamura_temple.s2ma",
+                        S2MVFilePath = "Maps/Test1/Test1.s2mv",
                     }
                 ])
                 .AddLayoutFilePaths(

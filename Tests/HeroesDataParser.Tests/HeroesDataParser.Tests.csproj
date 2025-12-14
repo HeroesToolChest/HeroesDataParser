@@ -47,6 +47,9 @@
     <None Update="TestLayoutFiles\*.StormLayout">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestS2MAFiles\*.s2ma">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   
 </Project>

@@ -97,13 +97,6 @@ public class MapParserTests
 
         _options.Value.Returns(rootOptions);
 
-        _gameStringTextService.GetGameStringTextFromId("UI/MapLoadingScreen/AlteracValley/Title1").Returns(new GameStringText("Cavalry"));
-        _gameStringTextService.GetGameStringTextFromId("UI/MapLoadingScreen/AlteracValley/Title2").Returns(new GameStringText("Cavalry2"));
-        _gameStringTextService.GetGameStringTextFromId("UI/MapLoadingScreen/AlteracValley/Title3").Returns(new GameStringText("Cavalry3"));
-        _gameStringTextService.GetGameStringTextFromId("UI/MapLoadingScreen/AlteracValley/Description1").Returns(new GameStringText("Capture the enemy Prison Camp..."));
-        _gameStringTextService.GetGameStringTextFromId("UI/MapLoadingScreen/AlteracValley/Description2").Returns(new GameStringText("Capture the enemy Prison Camp2..."));
-        _gameStringTextService.GetGameStringTextFromId("UI/MapLoadingScreen/AlteracValley/Description3").Returns(new GameStringText("Capture the enemy Prison Camp3..."));
-
         MapParser mapParser = new(_logger, _options, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
@@ -121,5 +114,68 @@ public class MapParserTests
         map.MapObjectives[0].Icons!.Should().ContainSingle();
         map.MapObjectives[0].Icons![0].Height.Should().Be(165);
         map.MapObjectives[0].Icons![0].ScaleWidth.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public void Parse_NotFound_ReturnsNull()
+    {
+        // arrange
+        RootOptions rootOptions = new()
+        {
+            CurrentLocale = StormLocale.ENUS,
+        };
+
+        _options.Value.Returns(rootOptions);
+
+        MapParser mapParser = new(_logger, _options, _heroesXmlLoaderService, _gameStringTextService);
+
+        // act
+        Map? map = mapParser.Parse("NotFound");
+
+        // assert
+        map.Should().BeNull();
+    }
+
+    [TestMethod]
+    public void Parse_ImageTesting_ReturnsMapData()
+    {
+        // arrange
+        RootOptions rootOptions = new()
+        {
+            CurrentLocale = StormLocale.ENUS,
+        };
+
+        _options.Value.Returns(rootOptions);
+
+        MapParser mapParser = new(_logger, _options, _heroesXmlLoaderService, _gameStringTextService);
+
+        // act
+        Map? map = mapParser.Parse("Test1");
+
+        // assert
+        map.Should().NotBeNull();
+        map.LoadingScreenImage.Should().Be("storm_ui_homescreenbackground.png");
+        map.ReplayPreviewImage.Should().BeNull();
+    }
+
+    [TestMethod]
+    public void Parse_MpqReplayPreviewInBaseStormAssets_ReturnsMapData()
+    {
+        // arrange
+        RootOptions rootOptions = new()
+        {
+            CurrentLocale = StormLocale.ENUS,
+        };
+
+        _options.Value.Returns(rootOptions);
+
+        MapParser mapParser = new(_logger, _options, _heroesXmlLoaderService, _gameStringTextService);
+
+        // act
+        Map? map = mapParser.Parse("MpqTest1");
+
+        // assert
+        map.Should().NotBeNull();
+        map.ReplayPreviewImage.Should().Be("ReplaysPreviewImage_mpqtest1.png");
     }
 }
