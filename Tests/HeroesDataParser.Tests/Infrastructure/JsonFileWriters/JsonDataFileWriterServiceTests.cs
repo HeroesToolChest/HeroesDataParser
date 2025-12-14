@@ -240,7 +240,7 @@ public class JsonDataFileWriterServiceTests
         SortedDictionary<string, Hero> heroesByElementId = [];
         heroesByElementId.Add("hero1", new Hero("hero1") { UnitId = "hero1" });
 
-        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "data", "maps", "map_nameyes", $"herodata_{rootOptions.BuildNumber}_enus.json.diff");
+        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "data", "maps", "map_nameyes", $"herodata_{rootOptions.BuildNumber}_enus.diff.json");
 
         JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _extractedGameStringsService);
         JsonDataFileWriterService service = new(_logger, _options, _serializedDataStoreService, jsonSerializerOptionService, _resultSummaryService);
@@ -313,7 +313,7 @@ public class JsonDataFileWriterServiceTests
         SortedDictionary<string, Hero> heroesByElementId = [];
         heroesByElementId.Add("hero1", new Hero("hero1") { UnitId = "hero1" });
 
-        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "data", "maps", "map_nameyes", $"herodata_{rootOptions.BuildNumber}_enus.json.diff");
+        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "data", "maps", "map_nameyes", $"herodata_{rootOptions.BuildNumber}_enus.diff.json");
 
         JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _extractedGameStringsService);
         JsonDataFileWriterService service = new(_logger, _options, _serializedDataStoreService, jsonSerializerOptionService, _resultSummaryService);
@@ -407,8 +407,9 @@ public class JsonDataFileWriterServiceTests
         SortedDictionary<string, Hero> heroesByElementId = [];
         heroesByElementId.Add("hero1", new Hero("hero1") { UnitId = "hero1" });
 
-        string expectedNormalFilePath = Path.Combine(rootOptions.OutputDirectory, "data", "maps", "map_nameyes", $"herodata_{rootOptions.BuildNumber}_enus.json");
-        string expectedDiffFilePath = $"{expectedNormalFilePath}.diff";
+        string filePath = Path.Combine(rootOptions.OutputDirectory, "data", "maps", "map_nameyes");
+        string expectedNormalFilePath = Path.Combine(filePath, $"herodata_{rootOptions.BuildNumber}_enus.json");
+        string expectedDiffFilePath = Path.Combine(filePath, $"herodata_{rootOptions.BuildNumber}_enus.diff.json");
 
         JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _extractedGameStringsService); // create real instance
         JsonDataFileWriterService service = new(_logger, _options, _serializedDataStoreService, jsonSerializerOptionService, _resultSummaryService);
