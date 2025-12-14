@@ -34,7 +34,11 @@ public class GameStringTextService : IGameStringTextService
 
     public GameStringText? GetGameStringTextFromId(string id)
     {
+#if DEBUG
         StormGameString? stormGameString = _heroesData.GetStormGameString(id);
+#else
+        string? stormGameString = _heroesData.GetStormGameString(id.AsSpan());
+#endif
 
         if (stormGameString is null)
             return null;
@@ -78,12 +82,16 @@ public class GameStringTextService : IGameStringTextService
 
     public string? GetStormGameString(string id)
     {
+#if DEBUG
         StormGameString? stormGameString = _heroesData.GetStormGameString(id);
 
         if (stormGameString is null)
             return null;
         else
             return stormGameString.Value;
+#else
+        return _heroesData.GetStormGameString(id.AsSpan());
+#endif
     }
 
     private GameStringText ParseGameStringText(StormGameString stormGameString)
