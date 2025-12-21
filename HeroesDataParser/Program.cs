@@ -15,7 +15,7 @@ HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
-    .WriteTo.Async(ServiceCollectionExtensions.LoggerConfigure(), bufferSize: 500, blockWhenFull: true)
+    .WriteTo.Async(SerilogLogging.LoggerConfigure(), bufferSize: 500, blockWhenFull: true)
     .CreateBootstrapLogger();
 
 try
@@ -59,6 +59,9 @@ try
 
     IMainService main = host.Services.GetRequiredService<IMainService>();
     await main.Start();
+
+    IPostCleanupService postCleanup = host.Services.GetRequiredService<IPostCleanupService>();
+    postCleanup.Start();
 
     IResultSummaryService resultSummary = host.Services.GetRequiredService<IResultSummaryService>();
     resultSummary.PrintSummary();
