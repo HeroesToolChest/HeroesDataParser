@@ -1,7 +1,6 @@
 ﻿using Polly;
 using Polly.Retry;
 using Serilog;
-using Serilog.Configuration;
 using System.Net;
 using System.Net.Http.Headers;
 
@@ -9,11 +8,6 @@ namespace HeroesDataParser.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static Action<LoggerSinkConfiguration> LoggerConfigure()
-    {
-        return x => x.File(new CompactJsonFormatter(), Path.Join(SerilogLogging.LogDirectory, $"{SerilogLogging.LogPrefix}{SerilogLogging.StartDateTime:yyyyMMdd_HHmmss}.txt"), retainedFileCountLimit: SerilogLogging.RetainedFileCountLimit, fileSizeLimitBytes: 1024 * 1024 * 64);
-    }
-
     extension(IServiceCollection services)
     {
         public IServiceCollection AddCoreServices(HostApplicationBuilder builder)
@@ -22,7 +16,7 @@ public static class ServiceCollectionExtensions
                     .ReadFrom.Configuration(builder.Configuration)
                     .ReadFrom.Services(services)
                     .Enrich.FromLogContext()
-                .WriteTo.Async(LoggerConfigure(), bufferSize: 500, blockWhenFull: true));
+                .WriteTo.Async(SerilogLogging.LoggerConfigure(), bufferSize: 500, blockWhenFull: true));
 
             services.AddRedaction();
             services
@@ -112,6 +106,7 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IDataParser<Hero>, HeroParser>();
             services.AddSingleton<IDataParser<LootChest>, LootChestParser>();
             services.AddSingleton<IDataParser<Unit>, UnitParser>();
+            services.AddSingleton<IDataParser<Veterancy>, VeterancyParser>();
 
             services.AddSingleton<IDataParser<Map>, MapParser>();
 
