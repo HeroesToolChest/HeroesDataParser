@@ -1,5 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Skin>
+  <CSkin default="1">
+    <Name value="Skin/Name/##id##"/>
+    <SortName value="Skin/SortName/##id##"/>
+    <InfoText value="Skin/Info/##id##"/>
+    <VariationIcon value="Assets/Textures/ui_glues_heroselect_skin_##id##.dds"/>
+    <AdditionalSearchText value="Skin/AdditionalSearchText/##id##"/>
+    <HyperlinkId value="##id##"/>
+    <ReleaseDate>
+      <Month value="3"/>
+      <Day value="1"/>
+      <Year value="2014"/>
+    </ReleaseDate>
+  </CSkin>
+  <CSkin default="1" id="AbathurMechaCommon">
+    <InfoText value="Skin/Info/AbathurMecha" />
+    <VODefinition value="AbathurMecha" />
+    <VoiceLineArray value="AbathurMecha_VoiceLine01" />
+    <VoiceLineArray value="AbathurMecha_VoiceLine02" />
+    <VoiceLineArray value="AbathurMecha_VoiceLine03" />
+    <VoiceLineArray value="AbathurMecha_VoiceLine04" />
+    <VoiceLineArray value="AbathurMecha_VoiceLine05" />
+    <Universe value="Heroes" />
+    <UniverseIcon value="Assets\Textures\ui_glues_store_gameicon_nexus.dds" />
+    <FeatureArray value="AlteredVO" />
+    <FeatureArray value="ThemedAbilities" />
+    <FeatureArray value="ThemedAnimations" />
+    <ReleaseDate Month="1" Day="16" Year="2018" />
+    <Rarity value="Legendary" />
+    <SortName value="Skin/SortName/AbathurXenotechCommon" />
+  </CSkin>
   <CSkin id="AbathurMecha" parent="AbathurMechaCommon">
     <AttributeId value="AbaD" />
     <VariationArray value="AbathurMechaVar1" />
@@ -73,5 +103,30 @@
     <RequiredRewardArray value="Abathur"/>
     <SortName value="Skin/SortName/AbathurAC"/>
     <IsBaseVariation value="1"/>
+  </CSkin>
+  <CSkin default="1" id="MephistoToys19Common">
+    <SortName value="Skin/SortName/MephistoToys19CommonVar1" />
+    <VoiceLineArray value="MephistoToys19_VoiceLine01" />
+    <VoiceLineArray value="MephistoToys19_VoiceLine02" />
+    <VoiceLineArray value="MephistoToys19_VoiceLine03" />
+    <VoiceLineArray value="MephistoToys19_VoiceLine04" />
+    <VoiceLineArray value="MephistoToys19_VoiceLine05" />
+    <EventName value="WinterVeil" />
+    <ReleaseDate Month="12" Day="17" Year="2019" />
+    <InfoText value="Skin/Info/MephistoToys19" />
+    <Rarity value="Legendary" />
+    <FeatureArray value="ThemedAbilities" />
+    <FeatureArray value="AlteredVO" />
+    <Universe value="Heroes" />
+  </CSkin>
+  <CSkin id="MephistoToys19Var4" parent="MephistoToys19Common">
+    <AttributeId value="Mep3"/>
+    <ModelMacroRun Models="MephistoToys19Models" Macro="MephistoToys19Var4Macro"/>
+    <ModelMacroRun Models="MephistoSkinToys19DuranceOfHateDemonFX" Macro="MephistoToys19AbilityImprisonVar4Macro"/>
+    <ModelMacroRun Models="MephistoSkinToys19SkullMissileAttackMissileModels" Macro="MephistoToys19AbilitySkullMissileVar4Macro"/>
+    <ReplacementArray Catalog="Model" From="MephistoToys19Portrait" To="MephistoToys19PortraitVar4"/>
+    <ProductId value="71474"/>
+    <RequiredRewardArray value="MephistoToys19Var4"/>
+    <HyperlinkId value="CuddlyTickleMephisto"/>
   </CSkin>
 </Skin>

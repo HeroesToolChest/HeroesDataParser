@@ -129,7 +129,7 @@ public class HeroParserTests
         hero.ReleaseDate.Should().Be(new DateOnly(2014, 3, 13));
         hero.Category.Should().BeNull();
         hero.Event.Should().BeNull();
-        hero.SearchText!.RawText.Should().Be("Abathur Zerg Swarm HotS Heart of the Swarm StarCraft II 2 SC2 Star2 Starcraft2 SC slug Double Soak");
+        hero.SearchText!.RawText.Should().Be("Abathur Zerg Swarm HotS Heart of the Swarm StarCraft II 2 SC2 Star2 Starcraft2 SC slug Double Soak ");
         hero.Description!.RawText.Should().Be("A unique Hero that can manipulate the battle from anywhere on the map.");
         hero.UnitId.Should().Be("HeroAbathur");
         hero.Title!.RawText.Should().Be("Evolution Master");

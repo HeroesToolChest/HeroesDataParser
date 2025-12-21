@@ -24,12 +24,14 @@ public abstract class StoreItemParserBase<T> : DataParser<T>
     protected virtual void SetCommonProperties(T collectionObject, StormElement stormElement)
     {
         SetNameProperty(collectionObject, stormElement);
+        SetHyperlinkIdProperty(collectionObject, stormElement);
+        SetFranchiseProperty(collectionObject, stormElement);
+        SetRarityProperty(collectionObject, stormElement);
+        SetEventNameProperty(collectionObject, stormElement);
+        SetDescriptionProperty(collectionObject, stormElement);
 
         if (stormElement.DataValues.TryGetElementDataAt("sortname", out StormElementData? sortNameData))
             collectionObject.SortName = GameStringTextService.GetGameStringTextFromId(sortNameData.Value.GetString());
-
-        SetHyperlinkIdProperty(collectionObject, stormElement);
-        SetRarityProperty(collectionObject, stormElement);
 
         if (stormElement.DataValues.TryGetElementDataAt("releasedate", out StormElementData? releasetDateData))
         {
@@ -52,8 +54,24 @@ public abstract class StoreItemParserBase<T> : DataParser<T>
         if (stormElement.DataValues.TryGetElementDataAt("collectioncategory", out StormElementData? collectionCategoryData))
             collectionObject.Category = collectionCategoryData.Value.GetString();
 
-        SetEventNameProperty(collectionObject, stormElement);
-        SetDescriptionProperty(collectionObject, stormElement);
+        if (stormElement.DataValues.TryGetElementDataAt("AdditionalSearchText", out StormElementData? additionalSearchTextData))
+        {
+            if (collectionObject.SearchText is not null && !string.IsNullOrWhiteSpace(collectionObject.SearchText.RawText))
+            {
+                string currentSearchText = collectionObject.SearchText.RawText;
+
+                if (currentSearchText[^1] != ' ')
+                    currentSearchText += ' ';
+
+                currentSearchText += GameStringTextService.GetStormGameString(additionalSearchTextData.Value.GetString());
+
+                collectionObject.SearchText = GameStringTextService.GetGameStringTextFromGameString(currentSearchText);
+            }
+            else
+            {
+                collectionObject.SearchText = GameStringTextService.GetGameStringTextFromId(additionalSearchTextData.Value.GetString());
+            }
+        }
     }
 
     protected abstract void SetAdditionalProperties(T collectionObject, StormElement stormElement);
@@ -67,7 +85,7 @@ public abstract class StoreItemParserBase<T> : DataParser<T>
             collectionObject.ReleaseDate = _technicalAlphaReleaseDate;
     }
 
-    protected void SetFranchiseProperty(IFranchise franchiseObject, StormElement stormElement)
+    private static void SetFranchiseProperty(IFranchise franchiseObject, StormElement stormElement)
     {
         if (stormElement.DataValues.TryGetElementDataAt("universe", out StormElementData? universeData))
         {

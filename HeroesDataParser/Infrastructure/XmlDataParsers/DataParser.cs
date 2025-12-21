@@ -13,7 +13,7 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
     public abstract string DataObjectType { get; }
 
     /// <summary>
-    /// Gets the allowed element types for this parser. Leave emtpy to allow all types.
+    /// Gets the allowed element types for this parser. Leave empty to allow all types.
     /// </summary>
     protected virtual string[] AllowedElementTypes { get; } = [];
 
@@ -68,55 +68,55 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
 
     protected void SetNameProperty(T elementObject, StormElement stormElement)
     {
-        if (elementObject is IName nameObject)
-        {
-            if (stormElement.DataValues.TryGetElementDataAt("name", out StormElementData? nameData))
-                nameObject.Name = GameStringTextService.GetGameStringTextFromId(nameData.Value.GetString());
-        }
+        if (elementObject is not IName nameObject)
+            return;
+
+        if (stormElement.DataValues.TryGetElementDataAt("name", out StormElementData? nameData))
+            nameObject.Name = GameStringTextService.GetGameStringTextFromId(nameData.Value.GetString());
     }
 
     protected void SetHyperlinkIdProperty(T elementObject, StormElement stormElement)
     {
-        if (elementObject is IHyperlinkId hyperlinkIdObject)
-        {
-            if (stormElement.DataValues.TryGetElementDataAt("hyperlinkid", out StormElementData? hyperlinkIdData))
-                hyperlinkIdObject.HyperlinkId = hyperlinkIdData.Value.GetString();
-        }
+        if (elementObject is not IHyperlinkId hyperlinkIdObject)
+            return;
+
+        if (stormElement.DataValues.TryGetElementDataAt("hyperlinkid", out StormElementData? hyperlinkIdData))
+            hyperlinkIdObject.HyperlinkId = hyperlinkIdData.Value.GetString();
     }
 
     protected void SetRarityProperty(T elementObject, StormElement stormElement)
     {
-        if (elementObject is IRarity rarityObject)
-        {
-            if (stormElement.DataValues.TryGetElementDataAt("rarity", out StormElementData? rarityData) && Enum.TryParse(rarityData.Value.GetString(), out Rarity rarity))
-                rarityObject.Rarity = rarity;
-        }
+        if (elementObject is not IRarity rarityObject)
+            return;
+
+        if (stormElement.DataValues.TryGetElementDataAt("rarity", out StormElementData? rarityData) && Enum.TryParse(rarityData.Value.GetString(), out Rarity rarity))
+            rarityObject.Rarity = rarity;
     }
 
     protected void SetEventNameProperty(T elementObject, StormElement stormElement)
     {
-        if (elementObject is IEventName eventNameObject)
-        {
-            if (stormElement.DataValues.TryGetElementDataAt("eventname", out StormElementData? eventNameData))
-                eventNameObject.Event = eventNameData.Value.GetString();
-        }
+        if (elementObject is not IEventName eventNameObject)
+            return;
+
+        if (stormElement.DataValues.TryGetElementDataAt("eventname", out StormElementData? eventNameData))
+            eventNameObject.Event = eventNameData.Value.GetString();
     }
 
     protected void SetDescriptionProperty(T elementObject, StormElement stormElement)
     {
-        if (elementObject is IDescription descriptionObject)
-        {
-            if (stormElement.DataValues.TryGetElementDataAt("description", out StormElementData? descriptionData))
-                descriptionObject.Description = GameStringTextService.GetGameStringTextFromId(descriptionData.Value.GetString());
-        }
+        if (elementObject is not IDescription descriptionObject)
+            return;
+
+        if (stormElement.DataValues.TryGetElementDataAt("description", out StormElementData? descriptionData))
+            descriptionObject.Description = GameStringTextService.GetGameStringTextFromId(descriptionData.Value.GetString());
     }
 
     protected void SetInfoTextProperty(T elementObject, StormElement stormElement)
     {
-        if (elementObject is IInfoText infoTextObject)
-        {
-            if (stormElement.DataValues.TryGetElementDataAt("infotext", out StormElementData? infoTextData))
-                infoTextObject.InfoText = GameStringTextService.GetGameStringTextFromId(infoTextData.Value.GetString());
-        }
+        if (elementObject is not IInfoText infoTextObject)
+            return;
+
+        if (stormElement.DataValues.TryGetElementDataAt("infotext", out StormElementData? infoTextData))
+            infoTextObject.InfoText = GameStringTextService.GetGameStringTextFromId(infoTextData.Value.GetString());
     }
 }

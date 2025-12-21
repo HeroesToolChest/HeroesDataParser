@@ -36,12 +36,12 @@ public class HeroParser : LoadoutItemParserBase<Hero>
 
     protected override void SetAdditionalProperties(Hero collectionObject, StormElement stormElement)
     {
+        SetInfoTextProperty(collectionObject, stormElement);
+
         StormElementData elementData = stormElement.DataValues;
 
         if (elementData.TryGetElementDataAt("difficulty", out StormElementData? difficultyData))
             collectionObject.Difficulty = GameStringTextService.GetGameStringTextFromId(GameStringConstants.DifficultyGameString.Replace(GameStringConstants.IdPlaceHolder, difficultyData.Value.GetString()));
-
-        SetFranchiseProperty(collectionObject, stormElement);
 
         if (elementData.TryGetElementDataAt("title", out StormElementData? titleData))
             collectionObject.Title = GameStringTextService.GetGameStringTextFromId(titleData.Value.GetString());
@@ -49,27 +49,7 @@ public class HeroParser : LoadoutItemParserBase<Hero>
         if (elementData.TryGetElementDataAt("melee", out StormElementData? meleeData) && meleeData.Value.TryGetInt32(out int meleeValue) && meleeValue == 1)
             collectionObject.IsMelee = true;
 
-        if (elementData.TryGetElementDataAt("AlternateNameSearchText", out StormElementData? alternateNameSearchTextData))
-            collectionObject.SearchText = GameStringTextService.GetGameStringTextFromId(alternateNameSearchTextData.Value.GetString());
-
-        if (elementData.TryGetElementDataAt("AdditionalSearchText", out StormElementData? additionalSearchTextData))
-        {
-            if (collectionObject.SearchText is not null && !string.IsNullOrWhiteSpace(collectionObject.SearchText.RawText))
-            {
-                string currentSearchText = collectionObject.SearchText.RawText;
-
-                if (currentSearchText[^1] != ' ')
-                    currentSearchText += ' ';
-
-                currentSearchText += GameStringTextService.GetStormGameString(additionalSearchTextData.Value.GetString());
-
-                collectionObject.SearchText = GameStringTextService.GetGameStringTextFromGameString(currentSearchText.TrimEnd());
-            }
-            else
-            {
-                collectionObject.SearchText = GameStringTextService.GetGameStringTextFromId(additionalSearchTextData.Value.GetString().TrimEnd());
-            }
-        }
+        SetAlternateSearchText(collectionObject, elementData);
 
         if (stormElement.DataValues.TryGetElementDataAt("role", out StormElementData? roleData))
         {
@@ -244,7 +224,7 @@ public class HeroParser : LoadoutItemParserBase<Hero>
                 Logger.LogWarning("Unknown gender {Gender}", genderValue);
         }
 
-        SetInfoTextProperty(collectionObject, stormElement);
+        // must be at end
         SetTalentData(collectionObject, stormElement);
         SetSubAbilities(collectionObject);
         SetTalentUpgradeLinkIds(collectionObject);
@@ -293,6 +273,25 @@ public class HeroParser : LoadoutItemParserBase<Hero>
                     .SelectMany(x => x.Value
                         .SelectMany(y => y.SummonedUnitIds))),
             StringComparer.Ordinal);
+    }
+
+    private void SetAlternateSearchText(Hero collectionObject, StormElementData elementData)
+    {
+        if (!elementData.TryGetElementDataAt("AlternateNameSearchText", out StormElementData? alternateNameSearchTextData))
+            return;
+
+        GameStringText? alternateNameSearchText = GameStringTextService.GetGameStringTextFromId(alternateNameSearchTextData.Value.GetString());
+        if (alternateNameSearchText is null)
+            return;
+
+        if (collectionObject.SearchText is not null && !string.IsNullOrWhiteSpace(collectionObject.SearchText.RawText))
+        {
+            collectionObject.SearchText = GameStringTextService.GetGameStringTextFromGameString($"{alternateNameSearchText.RawText} {collectionObject.SearchText.RawText}");
+        }
+        else
+        {
+            collectionObject.SearchText = alternateNameSearchText;
+        }
     }
 
     private void SetUnitData(Hero collectionObject)

@@ -7,7 +7,7 @@ public enum ExtractDataOptions
     Hero = 1 << 0,
     Unit = 1 << 1,
     MatchAward = 1 << 2,
-    HeroSkin = 1 << 3,
+    Skin = 1 << 3,
     Mount = 1 << 4,
     Banner = 1 << 5,
     Spray = 1 << 6,

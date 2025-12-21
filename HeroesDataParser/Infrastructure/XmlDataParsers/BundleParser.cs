@@ -82,7 +82,5 @@ public class BundleParser : StoreItemParserBase<Bundle>
         {
             collectionObject.LootChestBonus = lootChestData.Value.GetString();
         }
-
-        SetFranchiseProperty(collectionObject, stormElement);
     }
 }

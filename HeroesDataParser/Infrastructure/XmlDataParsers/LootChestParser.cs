@@ -15,13 +15,12 @@ public class LootChestParser : DataParser<LootChest>
         SetHyperlinkIdProperty(elementObject, stormElement);
         SetRarityProperty(elementObject, stormElement);
         SetEventNameProperty(elementObject, stormElement);
+        SetDescriptionProperty(elementObject, stormElement);
 
         if (stormElement.DataValues.TryGetElementDataAt("maxrerolls", out StormElementData? maxRerollsData) && maxRerollsData.Value.TryGetInt32(out int maxRerollsValue))
             elementObject.MaxRerolls = maxRerollsValue;
 
         if (stormElement.DataValues.TryGetElementDataAt("typedescription", out StormElementData? typeDescriptionData))
             elementObject.TypeDescriptionId = typeDescriptionData.Value.GetString();
-
-        SetDescriptionProperty(elementObject, stormElement);
     }
 }

@@ -241,6 +241,7 @@ public class ProcessorService : IProcessorService
         { ExtractDataOptions.Boost, ProcessElementObject<Boost, BoostParser> },
         { ExtractDataOptions.Hero, ProcessElementObject<Hero, HeroParser> },
         { ExtractDataOptions.LootChest, ProcessElementObject<LootChest, LootChestParser> },
+        { ExtractDataOptions.Skin, ProcessElementObject<Skin, SkinParser> },
         { ExtractDataOptions.Unit, ProcessElementObject<Unit, UnitParser> },
         { ExtractDataOptions.Veterancy, ProcessElementObject<Veterancy, VeterancyParser> },
     };
