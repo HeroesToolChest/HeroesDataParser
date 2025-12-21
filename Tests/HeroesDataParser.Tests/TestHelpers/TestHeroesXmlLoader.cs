@@ -26,6 +26,7 @@ public static class TestHeroesXmlLoader
         XDocument boostDocument = GetXDocument("Boost.xml");
         XDocument lootChestDocument = GetXDocument("LootChest.xml");
         XDocument mapDocument = GetXDocument("Map.xml");
+        XDocument veterancyDocument = GetXDocument("Veterancy.xml");
 
         return HeroesXmlLoader.LoadWithEmpty()
             .LoadCustomMod(new ManualModLoader(string.Empty)
@@ -50,6 +51,7 @@ public static class TestHeroesXmlLoader
                     ("Boost", "CBoost"),
                     ("LootChest", "CLootChest"),
                     ("Map", "CMap"),
+                    ("Behavior", "CBehaviorVeterancy"),
                 ])
                 .AddElements(unitDocument.Root!.Elements())
                 .AddElements(heroDocument.Root!.Elements())
@@ -70,6 +72,7 @@ public static class TestHeroesXmlLoader
                 .AddElements(boostDocument.Root!.Elements())
                 .AddElements(lootChestDocument.Root!.Elements())
                 .AddElements(mapDocument.Root!.Elements())
+                .AddElements(veterancyDocument.Root!.Elements())
                 .AddGameStrings(
                 [
                     "test_for_tooltip_decription_service=Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200~~0.045~~</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>",

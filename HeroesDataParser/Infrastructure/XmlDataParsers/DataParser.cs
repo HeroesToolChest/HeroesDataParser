@@ -12,6 +12,11 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
 
     public abstract string DataObjectType { get; }
 
+    /// <summary>
+    /// Gets the allowed element types for this parser. Leave emtpy to allow all types.
+    /// </summary>
+    protected virtual string[] AllowedElementTypes { get; } = [];
+
     public virtual T? Parse(string id)
     {
         if (string.IsNullOrEmpty(id))
@@ -27,6 +32,12 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
         if (stormElement is null)
         {
             Logger.LogWarning("Could not find data for id {Id}", id);
+            return null;
+        }
+
+        if (AllowedElementTypes.Length > 0 && !AllowedElementTypes.Contains(stormElement.ElementType))
+        {
+            Logger.LogTrace("Element type {ElementType} for id {Id} is not allowed", stormElement.ElementType, id);
             return null;
         }
 
