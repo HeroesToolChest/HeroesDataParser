@@ -1,19 +1,18 @@
 Changes from v4 to v5
 
 -------
-New stuff:
+#### New stuff:
 CollectionCategoryData.xml
 HeroRoleData.xml ?
 
-Other
-- Default rarity change to `None` instead of `Common`
+#### Other
 - New LocalizedText options: `None`, `Extract`, `Copy`, (no longer a cli command, now an cli option)
 
-Data files
+#### Data files
 - Added `meta` object
 - All data items are now in a `items` object
 
-GameString files
+#### GameString files
 - Updated `meta` object
 - Updated `gamestrings` to `items`
 - Updated `hero` - `roles` to an array
@@ -21,7 +20,7 @@ GameString files
 - Heroes and units are now split into their own `hero` and `unit` objects
 - Ability and talents are now split into their own `ability` and `talents` objects
 
-Heroes (and Units where applicable)
+#### Heroes (and Units where applicable)
 - Added `Taunt` and `Dance` abilities
 - Added `damageType`
 - Added `attributes`
@@ -38,7 +37,7 @@ Heroes (and Units where applicable)
 - Updated name `fullTooltip` to `fullText`
 - Updated name `energyTooltip` to `energyText`
 - Updated name `lifeTooltip` to `lifeText`
-- Updated name for Charges -> `IsHideCount` to `IsCountHidden`
+- Updated name `charges\IsHideCount` to `IsCountHidden`
 - Updated `subAbilities` to an object from an array
 - Updated `heroUnits` to an object from an array
 - Updated name `nameId` for abilities to `abilityId`
@@ -85,22 +84,34 @@ Heroes (and Units where applicable)
 - Fixed Yrel's `YrelAvengingWrathChannel|YrelAvengingWrath|E` and `YrelAvengingWrath|YrelAvengingWrath|E` being swapped
 - Added Yrel's `YrelVindicationCast|YrelVindication|Q` as a subability to `YrelDivinePurpose|YrelDivinePurpose|Trait`
 
-Announcers
-- Added `RandomAnnouncerPack`
-- `NoAnnouncerPack` rarity changed to `none`
+#### Announcers
+- Added `RandomAnnouncerPack` item
 
-Banners
-- Added `NeutralMercCamp`
-- Added `RandomBanner`
-- Fixed `BannerDFEsportsWarChest18RareKT` having a `sortname`
-- Fixed `BannerDFEsportsWarChest18RareMiracle` having a `sortname`
+#### Banners
+- Added `NeutralMercCamp` item 
+- Added `RandomBanner` item
+- Fixed `BannerDFEsportsWarChest18RareKT` having a `sortname` (it should not)
+- Fixed `BannerDFEsportsWarChest18RareMiracle` having a `sortname` (it should not)
 
-Bundles
+#### Bundles
 - Updated name `heroes` to `heroIds`
 - Updated name `skins` to `skinIds`
   - Updated to a single object from an array of objects
 - Updated name `mounts` to `mountIds`
 - Updated name `lootChestBonus` to `lootChestId`
 
-LoostChests
+#### LoostChests
 - Updated name `typeDescription` to `typeDescriptionId`
+
+### Skins
+- Renamed from `HeroSkins` to `Skins
+
+### Veterancy
+- Renamed from `BehaviorVeterancy` to `Veterancy`
+- Updated name `minVeterancyXP` to `minimumVeterancyXP`
+- Updated name `Basic` to `basic`
+- Updated name `Ability` to `ability`
+- Updated name `Splash` to `splash`
+- Updated name `Life` to `life`
+- Updated name `Energy` to `energy`
+- Updated name `Shields` to `shields`
