@@ -41,6 +41,12 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
             return null;
         }
 
+        if (stormElement.IsDefault)
+        {
+            Logger.LogTrace("Element for id {Id} is a default element", id);
+            return null;
+        }
+
         T? elementObject = (T?)Activator.CreateInstance(typeof(T), id);
 
         if (elementObject is null)
