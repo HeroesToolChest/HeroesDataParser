@@ -40,7 +40,7 @@ public class BannerParserTests
         banner.Category.Should().Be("Default");
         banner.Franchise.Should().BeNull();
         banner.Event.Should().BeNull();
-        banner.Rarity.Should().Be(Rarity.None);
+        banner.Rarity.Should().Be(Rarity.Common);
         banner.HyperlinkId.Should().Be("Ballistix2018PhaseOneWarbanner");
         banner.Id.Should().Be("BannerDFEsportsWarChest18RareBallistix");
         banner.ReleaseDate.Should().Be(new DateOnly(2018, 5, 22));

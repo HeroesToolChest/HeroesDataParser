@@ -27,4 +27,9 @@
     <DisplayModel value="Storm_LootUI_Chest_Halloween_Epic" />
     <Rarity value="Epic" />
   </CLootChest>
+  <CLootChest id="LootChestHalloween2018Epic" parent="Halloween2018EpicLootChest">
+    <MaxRerolls value="3" />
+    <ServerId value="125" />
+    <RequiredRewardArray value="LootChestHalloween2018EpicReward" />
+  </CLootChest>
 </LootChest>

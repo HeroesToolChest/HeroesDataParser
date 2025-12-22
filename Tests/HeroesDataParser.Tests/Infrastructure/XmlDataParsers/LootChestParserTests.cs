@@ -45,25 +45,38 @@ public class LootChestParserTests
     }
 
     [TestMethod]
-    public void Parse_Halloween2018EpicLootChest_ReturnsLootChestData()
+    public void Parse_Halloween2018EpicLootChest_ReturnsNullSinceDefault()
     {
         // arrange
-        _gameStringTextService.GetGameStringTextFromId("LootChest/Name/Halloween2018EpicLootChest").Returns(new GameStringText("name"));
-
         LootChestParser lootChestParser = new(_logger, _options, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
         LootChest? lootChest = lootChestParser.Parse("Halloween2018EpicLootChest");
 
         // assert
+        lootChest.Should().BeNull();
+    }
+
+    [TestMethod]
+    public void Parse_LootChestHalloween2018Epic_ReturnsLootChestData()
+    {
+        // arrange
+        _gameStringTextService.GetGameStringTextFromId("LootChest/Name/LootChestHalloween2018Epic").Returns(new GameStringText("name"));
+
+        LootChestParser lootChestParser = new(_logger, _options, _heroesXmlLoaderService, _gameStringTextService);
+
+        // act
+        LootChest? lootChest = lootChestParser.Parse("LootChestHalloween2018Epic");
+
+        // assert
         lootChest.Should().NotBeNull();
-        lootChest.HyperlinkId.Should().Be("Halloween2018EpicLootChest");
-        lootChest.Id.Should().Be("Halloween2018EpicLootChest");
+        lootChest.HyperlinkId.Should().Be("LootChestHalloween2018Epic");
+        lootChest.Id.Should().Be("LootChestHalloween2018Epic");
         lootChest.Description.Should().BeNull();
         lootChest.Event.Should().Be("Halloween18");
-        lootChest.MaxRerolls.Should().Be(5);
+        lootChest.MaxRerolls.Should().Be(3);
         lootChest.Name!.RawText.Should().Be("name");
         lootChest.Rarity.Should().Be(Rarity.Epic);
-        lootChest.TypeDescriptionId.Should().Be("Halloween2018EpicLootChest");
+        lootChest.TypeDescriptionId.Should().Be("LootChestHalloween2018Epic");
     }
 }
