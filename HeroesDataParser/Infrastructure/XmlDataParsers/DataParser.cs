@@ -119,4 +119,26 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
         if (stormElement.DataValues.TryGetElementDataAt("infotext", out StormElementData? infoTextData))
             infoTextObject.InfoText = GameStringTextService.GetGameStringTextFromId(infoTextData.Value.GetString());
     }
+
+    protected void SetImageProperty(T elementObject, StormElement stormElement)
+    {
+        if (elementObject is not IImage imageObject)
+            return;
+
+        if (stormElement.DataValues.TryGetElementDataAt("tiletexture", out StormElementData? tileTextureData))
+        {
+            ImageFilePath? imageFilePath = GetImageFilePath(tileTextureData);
+            if (imageFilePath is not null)
+            {
+                imageObject.Image = imageFilePath.Image;
+                if (elementObject is IImagePath imagePathObject)
+                    imagePathObject.ImagePath = imageFilePath.FilePath;
+            }
+            else
+            {
+                if (Logger.IsEnabled(LogLevel.Warning))
+                    Logger.LogWarning("Could not get storm asset file from {TileTexturePath}", tileTextureData.Value.GetString());
+            }
+        }
+    }
 }

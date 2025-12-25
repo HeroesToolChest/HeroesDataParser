@@ -17,11 +17,17 @@ public class BundleImageParserTests : ImageWriterBase
         BundleImageParser bundleImageParser = new(_logger);
 
         SortedDictionary<string, Bundle> elementsById = [];
-        elementsById.Add("bundle1", new Bundle("id1")
+        Bundle bundle = new("id1")
         {
             Image = "bundle1.png",
-            ImagePath = new RelativeFilePath { FilePath = Path.Combine(TestImagesDirectory, "bundle1.png") },
-        });
+        };
+
+        (bundle as IImagePath).ImagePath = new RelativeFilePath
+        {
+            FilePath = Path.Combine(TestImagesDirectory, "bundle1.png"),
+        };
+
+        elementsById.Add("bundle1", bundle);
 
         // act
         HashSet<ImageWriterPath> imagePaths = bundleImageParser.GetImages(elementsById);

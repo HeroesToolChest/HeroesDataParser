@@ -11,18 +11,10 @@ public class AnnouncerParser : LoadoutItemParserBase<Announcer>
 
     protected override void SetAdditionalProperties(Announcer collectionObject, StormElement stormElement)
     {
+        SetImageProperty(collectionObject, stormElement);
+
         if (stormElement.DataValues.TryGetElementDataAt("gender", out StormElementData? genderData))
             collectionObject.Gender = genderData.Value.GetString();
-
-        if (stormElement.DataValues.TryGetElementDataAt("tiletexture", out StormElementData? tileTextureData))
-        {
-            ImageFilePath? imageFilePath = GetImageFilePath(tileTextureData);
-            if (imageFilePath is not null)
-            {
-                collectionObject.Image = imageFilePath.Image;
-                collectionObject.ImagePath = imageFilePath.FilePath;
-            }
-        }
 
         if (stormElement.DataValues.TryGetElementDataAt("heroid", out StormElementData? heroIdData))
             collectionObject.HeroId = heroIdData.Value.GetString();

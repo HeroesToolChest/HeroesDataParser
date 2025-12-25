@@ -11,24 +11,7 @@ public class BundleParser : StoreItemParserBase<Bundle>
 
     protected override void SetAdditionalProperties(Bundle collectionObject, StormElement stormElement)
     {
-        if (stormElement.DataValues.TryGetElementDataAt("tiletexture", out StormElementData? tileTextureData))
-        {
-            string tileTexturePath = tileTextureData.Value.GetString();
-
-            StormFile? stormAssetFile = HeroesData.GetStormAssetFile(tileTexturePath);
-            if (stormAssetFile is not null)
-            {
-                collectionObject.Image = Path.ChangeExtension(Path.GetFileName(stormAssetFile.StormPath.Path), ImageFileExtension);
-                collectionObject.ImagePath = new RelativeFilePath()
-                {
-                    FilePath = stormAssetFile.StormPath.Path,
-                };
-            }
-            else
-            {
-                Logger.LogWarning("Could not get storm asset file from {TileTexturePath}", tileTexturePath);
-            }
-        }
+        SetImageProperty(collectionObject, stormElement);
 
         if (stormElement.DataValues.TryGetElementDataAt("flags", out StormElementData? flagsData))
         {

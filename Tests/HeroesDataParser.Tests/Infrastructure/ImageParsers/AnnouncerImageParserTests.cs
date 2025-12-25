@@ -17,11 +17,17 @@ public class AnnouncerImageParserTests : ImageWriterBase
         AnnouncerImageParser announcerImageParser = new(_logger);
 
         SortedDictionary<string, Announcer> elementsById = [];
-        elementsById.Add("announcer1", new Announcer("id1")
+        Announcer announcer = new("id1")
         {
             Image = "announcer1.png",
-            ImagePath = new RelativeFilePath { FilePath = Path.Combine(TestImagesDirectory, "announcer1.png") },
-        });
+        };
+
+        (announcer as IImagePath).ImagePath = new RelativeFilePath
+        {
+            FilePath = Path.Combine(TestImagesDirectory, "announcer1.png"),
+        };
+
+        elementsById.Add("announcer1", announcer);
 
         // act
         HashSet<ImageWriterPath> imagePaths = announcerImageParser.GetImages(elementsById);

@@ -39,6 +39,15 @@ public abstract class ImageParserBase<TElement> : IImageParser<TElement>
 
     protected abstract void SetImages(TElement element, HashSet<ImageWriterPath> imagePaths);
 
+    protected void AddBasicImage(TElement element, HashSet<ImageWriterPath> imagePaths)
+    {
+        if (element is not IImage imageObject || element is not IImagePath imagePathObject)
+            return;
+
+        if (!string.IsNullOrWhiteSpace(imageObject.Image) && !string.IsNullOrWhiteSpace(imagePathObject.ImagePath?.FilePath))
+            TryAddToFiles(imagePaths, imageObject.Image, imagePathObject.ImagePath, element);
+    }
+
     private protected void TryAddToFiles(HashSet<ImageWriterPath> imagePaths, string? fileName, RelativeFilePath? relativePath, TElement element)
     {
         if (string.IsNullOrWhiteSpace(fileName) || string.IsNullOrWhiteSpace(relativePath?.FilePath))

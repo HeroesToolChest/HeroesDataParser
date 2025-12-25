@@ -11,7 +11,7 @@ namespace HeroesDataParser;
 
 public sealed class DDSImage : IDisposable
 {
-    private readonly IImage _ddsImageFile;
+    private readonly Pfim.IImage _ddsImageFile;
 
     public DDSImage(string file)
     {

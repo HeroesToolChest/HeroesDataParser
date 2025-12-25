@@ -2,6 +2,7 @@
 global using Heroes.Element.JsonTypeInfoResolvers;
 global using Heroes.Element.Models;
 global using Heroes.Element.Models.AbilityTalents;
+global using Heroes.Element.Models.ObjectProperties;
 global using Heroes.Element.Models.Types;
 global using Heroes.LocaleText;
 global using Heroes.XmlData;

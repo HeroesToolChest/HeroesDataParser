@@ -83,7 +83,7 @@ public class BundleParserTests
         bundle.HeroSkinIdsByHeroId.Should().BeEmpty();
         bundle.MountIds.Should().BeEmpty();
         bundle.ReleaseDate.Should().Be(new DateOnly(2016, 11, 22));
-        bundle.Image.Should().Be("storm_ui_Bundles_H22_AlteredWar.png");
+        bundle.Image.Should().Be("storm_ui_bundles_h22_alteredwar.png");
         bundle.Name!.RawText.Should().Be("name");
         bundle.SortName!.RawText.Should().Be("sortname");
         bundle.GemsBonus.Should().Be(800);

@@ -13,7 +13,6 @@ public class BundleImageParser : ImageParserBase<Bundle>
 
     protected override void SetImages(Bundle element, HashSet<ImageWriterPath> imagePaths)
     {
-        if (!string.IsNullOrWhiteSpace(element.Image) && !string.IsNullOrWhiteSpace(element.ImagePath?.FilePath))
-            TryAddToFiles(imagePaths, element.Image, element.ImagePath, element);
+        AddBasicImage(element, imagePaths);
     }
 }

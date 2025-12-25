@@ -13,7 +13,6 @@ public class AnnouncerImageParser : ImageParserBase<Announcer>
 
     protected override void SetImages(Announcer element, HashSet<ImageWriterPath> imagePaths)
     {
-        if (!string.IsNullOrWhiteSpace(element.Image) && !string.IsNullOrWhiteSpace(element.ImagePath?.FilePath))
-            TryAddToFiles(imagePaths, element.Image, element.ImagePath, element);
+        AddBasicImage(element, imagePaths);
     }
 }
