@@ -86,6 +86,8 @@ HeroRoleData.xml ?
 
 #### Announcers
 - Added `RandomAnnouncerPack` item
+- Fixed `MeiOWA` incorrect `heroId`
+- Fixed `RavenLord` incorrect `heroId`
 
 #### Banners
 - Added `NeutralMercCamp` item 
@@ -99,12 +101,42 @@ HeroRoleData.xml ?
   - Updated to a single object from an array of objects
 - Updated name `mounts` to `mountIds`
 - Updated name `lootChestBonus` to `lootChestId`
+- Fixed `LootChestBoostPromoBundle` missing `image`
+- Fixed missing `Franchise` of `Starcraft` to many items
 
-#### LoostChests
+#### LootChests
 - Updated name `typeDescription` to `typeDescriptionId`
+- Removed the `TEST` prefixed items
 
 ### Skins
 - Renamed from `HeroSkins` to `Skins
+- Added `Random` item
+- Added `event`
+- Updated name `variationSkins` to `variationSkinIds`
+- Updated name `voiceLines` to `voiceLineIds`
+- Fixed missing `Franchise` of `Starcraft` to many items
+- Fixed `AbathurUltimatePurple` incorrect `releaseDate`
+- Fixed `AmazonBaseVar3` incorrect `releaseDate`
+- Fixed `ArtanisBaseVar3` incorrect `releaseDate`
+- Fixed `AzmodanUltimateVar3` incorrect `franchise`
+- Fixed `BarbarianDeathKnightFemale` incorrect `releaseDate`
+- Fixed `ButcherToys21Var3` and `ButcherToys21Var4` incorrect `releaseDate`
+- Fixed `DehakaMaster` having a `sortname` (it should not)
+- Fixed `DehakaMecha` having a `sortname` (it should not)
+- Fixed `DemonHunterHornsVar2` incorrect `releaseDate`
+- Fixed `DVaBaseVar3` and `DVaBaseVar4` incorrect `releaseDate`
+- Fixed `LiLiShadowblade` and `LiLiShadowbladeVar1` incorrect `releaseDate`
+- Fixed `MedivhBaseVar3` incorrect `releaseDate`
+- Fixed `OrpheaBaseVar3` and `OrpheaBaseVar4` incorrect `releaseDate`
+- Fixed `RehgarGFWinter`, `RehgarGFWinterBlue`, and `RehgarGFWinterWhite` incorrect `releaseDate`
+- Fixed `SamuroMonkeyVar5` incorrect `releaseDate`
+- Fixed `StukovPirate` incorrect `releaseDate`
+- Fixed `TassadarUltimate` having a `sortname` (it should not)
+- Fixed `ThrallToon20Var1`, `ThrallToon20Var3`, `ThrallToon20Var4` incorrect `releaseDate`
+- Fixed `TinkerAzure` and `TinkerCamo` incorrect `releaseDate`
+- Fixed `TracerVar3` incorrect `releaseDate`
+- Fixed `YrelBaseVar3` and `YrelBaseVar4` incorrect `releaseDate`
+- Fixed `ZagaraBaseVar3` incorrect `releaseDate`
 
 ### Veterancy
 - Renamed from `BehaviorVeterancy` to `Veterancy`
