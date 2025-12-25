@@ -8,6 +8,16 @@ public abstract class LoadoutItemParserBase<T> : StoreItemParserBase<T>
     {
     }
 
+    public override T? Parse(string id)
+    {
+        T? collectionObject = base.Parse(id);
+
+        if (collectionObject is null || collectionObject.AttributeId is null)
+            return null;
+
+        return collectionObject;
+    }
+
     protected override void SetProperties(T collectionObject, StormElement stormElement)
     {
         base.SetProperties(collectionObject, stormElement);

@@ -26,7 +26,7 @@ public class AnnouncerParser : LoadoutItemParserBase<Announcer>
 
         if (stormElement.DataValues.TryGetElementDataAt("heroid", out StormElementData? heroIdData))
             collectionObject.HeroId = heroIdData.Value.GetString();
-        if (stormElement.DataValues.TryGetElementDataAt("hero", out StormElementData? heroData))
+        if (string.IsNullOrEmpty(collectionObject.HeroId) && stormElement.DataValues.TryGetElementDataAt("hero", out StormElementData? heroData))
             collectionObject.HeroId = heroData.Value.GetString();
     }
 }

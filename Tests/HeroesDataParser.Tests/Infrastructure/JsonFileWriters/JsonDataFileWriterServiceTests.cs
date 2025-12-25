@@ -98,6 +98,7 @@ public class JsonDataFileWriterServiceTests
           "items": {
             "hero1": {
               "unitId": "hero1",
+              "franchise": "Starcraft",
               "isMelee": false,
               "gender": "Male",
               "radius": 0,
@@ -123,6 +124,7 @@ public class JsonDataFileWriterServiceTests
             },
             "hero2": {
               "unitId": "hero2",
+              "franchise": "Starcraft",
               "isMelee": false,
               "gender": "Male",
               "radius": 0,
@@ -517,6 +519,7 @@ public class JsonDataFileWriterServiceTests
           "items": {
             "hero1": {
               "unitId": "hero1",
+              "franchise": "Starcraft",
               "isMelee": false,
               "gender": "Male",
               "radius": 0,
@@ -612,6 +615,7 @@ public class JsonDataFileWriterServiceTests
           "items": {
             "hero1": {
               "unitId": "hero1",
+              "franchise": "Starcraft",
               "isMelee": false,
               "gender": "Male",
               "radius": 0,
@@ -712,6 +716,7 @@ public class JsonDataFileWriterServiceTests
           "items": {
             "hero1": {
               "unitId": "hero1",
+              "franchise": "Starcraft",
               "isMelee": false,
               "gender": "Male",
               "radius": 0,
@@ -766,6 +771,7 @@ public class JsonDataFileWriterServiceTests
           "items": {
             "hero1": {
               "unitId": "hero1",
+              "franchise": "Starcraft",
               "isMelee": false,
               "gender": "Male",
               "radius": 0,

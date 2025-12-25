@@ -47,13 +47,7 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
             return null;
         }
 
-        T? elementObject = (T?)Activator.CreateInstance(typeof(T), id);
-
-        if (elementObject is null)
-        {
-            Logger.LogError("Failed to create instance of type {Type} for id {Id}", typeof(T), id);
-            return null;
-        }
+        T? elementObject = (T?)Activator.CreateInstance(typeof(T), id) ?? throw new InvalidOperationException($"Failed to create instance of type {typeof(T)} for id {id}");
 
         using (LogContext.PushProperty("XmlPaths", stormElement.OriginalXElements.Select(x => x.StormPath)))
         {

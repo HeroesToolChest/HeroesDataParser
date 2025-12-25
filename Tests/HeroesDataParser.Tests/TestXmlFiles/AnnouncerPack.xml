@@ -34,4 +34,19 @@
     <Rarity value="Legendary"/>
     <TileTexture value="Assets\Textures\Storm_UI_Announcer_Adjutant.dds"/>
   </CAnnouncerPack>
+  <CAnnouncerPack id="GarroshA">
+    <AttributeId value="GARR"/>
+    <HyperlinkId value="GarroshAnnouncer"/>
+    <TileTexture value="Assets\Textures\storm_ui_announcer_garrosh.dds"/>
+    <VoiceOver value="GarroshA"/>
+    <CollectionCategory value="Warcraft"/>
+    <Rarity value="Epic"/>
+  </CAnnouncerPack>
+  <CAnnouncerPack id="GarroshA" parent="StormAnnouncerPackQuick" heroid="Garrosh">
+    <ProductId value="29869"/>
+    <ReleaseDate Month="8" Day="8" Year="2017"/>
+    <CollectionCategory value="Warcraft"/>
+    <AttributeId value="AGAR"/>
+    <Gender value="Male"/>
+  </CAnnouncerPack>
 </AnnouncerPack>

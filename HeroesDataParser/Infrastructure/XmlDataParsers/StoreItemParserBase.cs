@@ -106,23 +106,5 @@ public abstract class StoreItemParserBase<T> : DataParser<T>
             else
                 franchiseObject.Franchise = Franchise.Unknown;
         }
-
-        if (stormElement.DataValues.TryGetElementDataAt("UniverseIcon", out StormElementData? universeIconData))
-        {
-            string? iconImageName = Path.GetFileName(universeIconData.Value.GetString());
-
-            if (iconImageName.Equals("UI_GLUES_STORE_GAMEICON_SC2.DDS", StringComparison.OrdinalIgnoreCase))
-                franchiseObject.Franchise = Franchise.Starcraft;
-            else if (iconImageName.Equals("UI_GLUES_STORE_GAMEICON_WOW.DDS", StringComparison.OrdinalIgnoreCase))
-                franchiseObject.Franchise = Franchise.Warcraft;
-            else if (iconImageName.Equals("UI_GLUES_STORE_GAMEICON_D3.DDS", StringComparison.OrdinalIgnoreCase))
-                franchiseObject.Franchise = Franchise.Diablo;
-            else if (iconImageName.Equals("UI_GLUES_STORE_GAMEICON_OW.DDS", StringComparison.OrdinalIgnoreCase))
-                franchiseObject.Franchise = Franchise.Overwatch;
-            else if (iconImageName.Equals("UI_GLUES_STORE_GAMEICON_RETRO.DDS", StringComparison.OrdinalIgnoreCase))
-                franchiseObject.Franchise = Franchise.Classic;
-            else if (iconImageName.Equals("UI_GLUES_STORE_GAMEICON_NEXUS.DDS", StringComparison.OrdinalIgnoreCase))
-                franchiseObject.Franchise = Franchise.Nexus;
-        }
     }
 }

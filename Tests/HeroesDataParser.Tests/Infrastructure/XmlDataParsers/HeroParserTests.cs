@@ -70,7 +70,8 @@ public class HeroParserTests
         Hero? hero = heroParser.Parse(heroUnit);
 
         // assert
-        hero!.HeroPortraits.PartyFrames.Should().HaveCount(4)
+        hero.Should().NotBeNull();
+        hero.HeroPortraits.PartyFrames.Should().HaveCount(4)
             .And.ContainInConsecutiveOrder("test-default.png", "test-image1.png", "test-image2.png", "test-image3.png");
     }
 

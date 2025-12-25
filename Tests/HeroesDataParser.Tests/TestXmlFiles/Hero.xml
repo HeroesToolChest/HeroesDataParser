@@ -139,6 +139,7 @@
   <CHero default="1" id="LegacyVOHero">
   </CHero>
   <CHero id="HpTESTHero">
+    <AttributeId value="0000" />
     <PartyFrameImage value="Assets\Textures\test-default.dds" />
     <hdp-PartyFrameImageArray value="Assets\Textures\test-image1.dds"/>
     <hdp-PartyFrameImageArray value="Assets\Textures\test-image2.dds"/>
@@ -4605,6 +4606,7 @@
     <ExpandedRole value="RangedAssassin" />
   </CHero>
   <CHero id="Varian">
+    <AttributeId value="Vari" />
     <TalentTreeArray Talent="VarianLionsFangLionsMawQuest" Tier="1" Column="1" />
     <TalentTreeArray Talent="VarianParryOverpower" Tier="1" Column="2" />
     <TalentTreeArray Talent="VarianHighKingsQuestQuest" Tier="1" Column="3" />
