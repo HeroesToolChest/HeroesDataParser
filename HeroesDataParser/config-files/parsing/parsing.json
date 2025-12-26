@@ -40,7 +40,7 @@
         ]
       }
     },
-    "Unit" : {
+    "Unit": {
       "Disallow": {
         "Exact": [
           "AbathurSymbiote",
@@ -58,6 +58,15 @@
         "Regex": [
           // starts with hero but excludes with test in name
           "^Hero(?!.*test)"
+        ]
+      }
+    },
+    "VoiceLine": {
+      "Disallow": {
+        "Exact": [
+        ],
+        "Regex": [
+          "_P$" // tose that end with _P
         ]
       }
     }

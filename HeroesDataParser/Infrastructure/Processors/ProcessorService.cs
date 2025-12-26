@@ -244,5 +244,6 @@ public class ProcessorService : IProcessorService
         { ExtractDataOptions.Skin, ProcessElementObject<Skin, SkinParser> },
         { ExtractDataOptions.Unit, ProcessElementObject<Unit, UnitParser> },
         { ExtractDataOptions.Veterancy, ProcessElementObject<Veterancy, VeterancyParser> },
+        { ExtractDataOptions.VoiceLine, ProcessElementObject<VoiceLine, VoiceLineParser> },
     };
 }

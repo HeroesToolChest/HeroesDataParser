@@ -240,6 +240,7 @@ public static class TestHeroesXmlLoader
                     Path.Join("Assets", "Textures", "ui_ingame_mapmechanic_loadscreen_WCAV_icon1_alliance.dds"),
                     Path.Join("Assets", "Textures", "ui_ingame_mapmechanic_loadscreen_WCAV_icon2_alliance.dds"),
                     Path.Join("Assets", "Textures", "ui_ingame_mapmechanic_loadscreen_WCAV_icon3_alliance.dds"),
+                    Path.Join("Assets", "Textures", "Storm_UI_Voice_Abathur.dds"),
                     Path.Join("Textures", "test-default.dds"),
                 ])
                 .AddLevelScalingArrayElements(heroDocument.Root.Descendants("LevelScalingArray"))

@@ -1,5 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <VoiceLine>
+  <CVoiceLine default="1">
+    <Name value="VoiceLine/Name/##id##" />
+    <SortName value="VoiceLine/SortName/##id##" />
+    <Description value="VoiceLine/Description/##id##" />
+    <ReleaseDate>
+      <Month value="1" />
+      <Day value="1" />
+      <Year value="2014" />
+    </ReleaseDate>
+    <AttributeId value="TODO" />
+    <ProductId value="11089" />
+    <LootChestRewardCutsceneFile value="Cutscenes/UI_LootChest_Reward_BG.StormCutscene" />
+    <TileCutsceneFile value="Cutscenes/UI_LootChest_Reward_BG.StormCutscene" />
+  </CVoiceLine>
+  <CVoiceLine default="1" id="StormVoiceLineCommonBase">
+    <?token id="heroid" type="CHeroLink" value="Bogus"?>
+    <Hero value="##heroid##" />
+    <TileTexture value="Assets\Textures\Storm_UI_Voice_##heroid##.dds" />
+  </CVoiceLine>
+  <CVoiceLine default="1" id="StormVoiceLine01Common" parent="StormVoiceLineCommonBase">
+    <Flags index="FreePlay" value="1" />
+    <HyperlinkId value="##heroid##VoiceLine01" />
+    <ProductId value="0" />
+  </CVoiceLine>
   <CVoiceLine default="1" id="Abathur_VoiceLine01Common" parent="StormVoiceLine01Common">
     <?token id="heroid" type="CHeroLink" value="Abathur"?>
     <AttributeId value="AB01" />

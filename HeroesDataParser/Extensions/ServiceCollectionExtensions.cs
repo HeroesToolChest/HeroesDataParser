@@ -108,6 +108,7 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IDataParser<Skin>, SkinParser>();
             services.AddSingleton<IDataParser<Unit>, UnitParser>();
             services.AddSingleton<IDataParser<Veterancy>, VeterancyParser>();
+            services.AddSingleton<IDataParser<VoiceLine>, VoiceLineParser>();
 
             services.AddSingleton<IDataParser<Map>, MapParser>();
 
@@ -122,6 +123,8 @@ public static class ServiceCollectionExtensions
             // add all image writers
             services.AddSingleton<IImageParser<Announcer>, AnnouncerImageParser>();
             services.AddSingleton<IImageParser<Bundle>, BundleImageParser>();
+            services.AddSingleton<IImageParser<VoiceLine>, VoiceLineImageParser>();
+
             services.AddSingleton<IImageParser<Map>, ReplayPreviewImageParser>();
             services.AddSingleton<IImageParser<Map>, LoadingScreenImageParser>();
             services.AddSingleton<IImageParser<Map>, MapObjectiveIconImageParser>();
