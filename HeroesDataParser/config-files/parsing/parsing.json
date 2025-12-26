@@ -1,44 +1,11 @@
 {
   "XmlDataParsers": {
-    "AnnouncerPack": {
-      "Disallow": {
-        "Exact": [
-          "Cook",
-          "Default",
-          "GardensNightAnnouncer",
-          "Quality",
-          "StormAnnouncerPackQuick"
-        ],
-        "Regex": [
-        ]
-      }
-    },
-    "Banner": {
-      "Disallow": {
-        "Exact": [
-          "BannerCommon"
-        ],
-        "Regex": [
-          "^(?!BannerDFCommunity65Base$).*Base$" // exclude all Base banners except for BannerDFCommunity65Base
-        ]
-      }
-    },
     "Boost": {
       "Disallow": {
         "Exact": [
         ],
         "Regex": [
           ".*\\(Test\\)$"
-        ]
-      }
-    },
-    "Bundle": {
-      "Disallow": {
-        "Exact": [
-          "ShardBundlePack"
-        ],
-        "Regex": [
-          ".*Base"
         ]
       }
     },
@@ -67,23 +34,9 @@
     "LootChest": {
       "Disallow": {
         "Exact": [
-          // these are used as parents
-          "BaseLootChest",
-          "CommonLootChest",
-          "RareLootChest",
-          "EpicLootChest",
-          "LegendaryLootChest"
         ],
         "Regex": [
-          ".*Parent$",
-          "^TEST.*",
-
-          // these are used as parents
-          "^Halloween.*LootChest$",
-          "^Lunar18.*LootChest$",
-          "^Summer18.*LootChest$",
-          "^WinterVeil.*LootChest$",
-          "^Summer.*LootChest$"
+          "^TEST.*"
         ]
       }
     },
