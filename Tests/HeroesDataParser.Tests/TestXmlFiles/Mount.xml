@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Mount>
+  <CMount default="1">
+    <Name value="Mount/Name/##id##"/>
+    <SortName value="Mount/SortName/##id##"/>
+    <InfoText value="Mount/Info/##id##"/>
+    <Model value="##id##"/>
+    <VariationIcon value="Assets/Textures/ui_glues_heroselect_mount_##id##.dds"/>
+    <AdditionalSearchText value="Mount/AdditionalSearchText/##id##"/>
+    <HyperlinkId value="##id##"/>
+    <Actor value="MountModel"/>
+    <Flags index="ShowInStore" value="1"/>
+    <ReleaseDate>
+      <Month value="1"/>
+      <Day value="1"/>
+      <Year value="2014"/>
+    </ReleaseDate>
+  </CMount>
+  <CMount default="1">
+    <CollectionCategory value="Unsorted" />
+    <PreviewCutsceneFile value="Cutscenes\StoreMount_##id##.StormCutscene" />
+    <TileCutsceneFile value="Cutscenes\FrameMount_##id##.StormCutscene" />
+    <MiniPortraitCutsceneFile value="Cutscenes\MiniPortrait_##id##.StormCutscene" />
+    <HeroSelectCutsceneFile value="Cutscenes\HeroSelect_##id##.StormCutscene" />
+    <LootChestRewardCutsceneFile value="Cutscenes/FrameMount_##id##.StormCutscene" />
+    <VOArray index="Mounted" value="MountedSound" />
+    <VOArray index="Dismounted" value="GenericDismountedSound" />
+    <VOArray index="Looping" value="MountLoopingSound" />
+    <VOArray index="Moving" value="MountMovingSound" />
+    <VOArray index="Stationary" value="MountStationarySound" />
+    <VOArray index="StartMoving" value="GenericMountMoveStartSound" />
+    <VOArray index="StopMoving" value="GenericMountMoveStopSound" />
+    <VOArray index="Turbo" value="GenericMountTurboSound" />
+  </CMount>
+  <CMount default="1" id="AbstractBear">
+    <LootChestRewardCutsceneFile value="Cutscenes/UI/UI_LootChest_Reward_Mount_Bear.StormCutscene" />
+  </CMount>
+  <CMount default="1" id="MountBearRank17BaseCommon" parent="AbstractBear">
+    <Model value="MountBearRank17Base"/>
+    <MountCategory value="Ride"/>
+    <TileCutsceneFile value="Cutscenes\FrameMount_MountBearRank17.StormCutscene"/>
+    <HeroSelectCutsceneFile value="Cutscenes\HeroSelect_MountBearRank17.StormCutscene"/>
+    <PreviewCutsceneFile value="Cutscenes\StoreMount_MountBearRank17.StormCutscene"/>
+    <MiniPortraitCutsceneFile value="Cutscenes\MiniPortrait_MountBearRank17.StormCutscene"/>
+    <VOArray index="Mounted" value="Mount_EarthbreakerGrizzly_Summon"/>
+    <VOArray index="Dismounted" value="Mount_EarthbreakerGrizzly_Dismiss"/>
+    <VOArray index="StartMoving" value="Mount_EarthbreakerGrizzly_Start"/>
+    <VOArray index="StopMoving" value="Mount_EarthbreakerGrizzly_Stop"/>
+    <CollectionCategory value="Beast"/>
+    <SortName value="Mount/SortName/MountBearRank17BaseCommonVar1"/>
+    <InfoText value="Mount/Info/MountBearRank17Base"/>
+    <Universe value="Warcraft"/>
+  </CMount>
+  <CMount id="MountBearRank17Base" parent="MountBearRank17BaseCommon">
+    <AttributeId value="BEA5"/>
+    <VariationArray value="MountBearRank17BaseVar1"/>
+    <VariationArray value="MountBearRank17BaseVar2"/>
+    <SortName value="Mount/SortName/MountBearRank17BaseCommonVar0"/>
+    <ProductId value="30512"/>
+    <RequiredRewardArray value="MountBearRank17Base"/>
+    <ReleaseDate Month="9" Day="5" Year="2017"/>
+    <HyperlinkId value="EarthbreakerGrizzly"/>
+  </CMount>
+  <CMount default="1" id="AbstractCloud">
+    <LootChestRewardCutsceneFile value="Cutscenes/UI/UI_LootChest_Reward_Mount_Cloud.StormCutscene" />
+  </CMount>
+  <CMount default="1" id="MountCloudCommon" parent="AbstractCloud">
+    <HyperlinkId value="NimbusCloud"/>
+    <Universe value="Heroes"/>
+    <ReleaseDate Day="31" Year="2017"/>
+    <MountCategory value="Ridesurf"/>
+    <VOArray index="Mounted" value="Mount_NimbusCloud_Summon"/>
+    <VOArray index="Dismounted" value="Mount_NimbusCloud_Dismiss"/>
+    <VOArray index="Moving" value="Mount_NimbusCloud_Ride"/>
+    <VOArray index="Stationary" value="Mount_NimbusCloud_Idle"/>
+    <VOArray index="StartMoving" value="Mount_NimbusCloud_RideStart"/>
+    <VOArray index="StopMoving" value="Mount_NimbusCloud_RideStop"/>
+    <TileCutsceneFile value="Cutscenes\FrameMount_MountCloud.StormCutscene"/>
+    <HeroSelectCutsceneFile value="Cutscenes\HeroSelect_MountCloud.StormCutscene"/>
+    <PreviewCutsceneFile value="Cutscenes\StoreMount_MountCloud.StormCutscene"/>
+    <MiniPortraitCutsceneFile value="Cutscenes\MiniPortrait_MountCloud.StormCutscene"/>
+    <CreationActorMessageArray Send="StatusSet KillParticlesOnDeath 1"/>
+    <CollectionCategory value="Magical"/>
+    <SortName value="Mount/SortName/MountCloudCommonVar1"/>
+    <InfoText value="Mount/Info/MountCloud"/>
+  </CMount>
+  <CMount id="MountCloudVar1" parent="MountCloudCommon">
+    <AttributeId value="CLO1"/>
+    <Model value="MountCloud_Base_01"/>
+    <RequiredRewardArray value="MountCloudVar1"/>
+    <VariationIcon value="Assets\Textures\ui_glues_swatch_green_bright.dds"/>
+    <ProductId value="23785"/>
+    <HyperlinkId value="JadeNimbusCloud"/>
+    <Rarity value="Legendary"/>
+  </CMount>
+  <CMount id="MountCloudVar2" parent="MountCloudCommon">
+    <AttributeId value="CLO2"/>
+    <Model value="MountCloud_Base_02"/>
+    <RequiredRewardArray value="MountCloudVar2"/>
+    <VariationIcon value="Assets\Textures\ui_glues_swatch_blue_sky.dds"/>
+    <ProductId value="23786"/>
+    <HyperlinkId value="AzureNimbusCloud"/>
+    <Rarity value="Legendary"/>
+  </CMount>
+</Mount>

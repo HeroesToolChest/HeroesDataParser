@@ -11,8 +11,6 @@ public class SkinParser : LoadoutItemParserBase<Skin>
 
     protected override void SetAdditionalProperties(Skin collectionObject, StormElement stormElement)
     {
-        SetInfoTextProperty(collectionObject, stormElement);
-
         if (stormElement.DataValues.TryGetElementDataAt("FeatureArray", out StormElementData? featureArrayData))
         {
             IEnumerable<string> featureArrayIndexes = featureArrayData.GetElementDataIndexes();

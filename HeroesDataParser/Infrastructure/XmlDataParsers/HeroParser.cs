@@ -36,8 +36,6 @@ public class HeroParser : LoadoutItemParserBase<Hero>
 
     protected override void SetAdditionalProperties(Hero collectionObject, StormElement stormElement)
     {
-        SetInfoTextProperty(collectionObject, stormElement);
-
         StormElementData elementData = stormElement.DataValues;
 
         if (elementData.TryGetElementDataAt("difficulty", out StormElementData? difficultyData))
