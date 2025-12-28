@@ -79,26 +79,4 @@ public class MainService : IMainService
         _logger.LogInformation("GameStrings {Locale} loaded", locale);
         AnsiConsole.WriteLine($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfGameStringsFiles()} text files (in {_stopwatch.Elapsed.TotalSeconds:0}s {_stopwatch.Elapsed.Milliseconds:0}ms)");
     }
-
-    private void DeleteEmtpyDiretories(string rootDirectory)
-    {
-        if (!Directory.Exists(rootDirectory))
-            return;
-
-        string[] directories = Directory.GetDirectories(rootDirectory);
-        foreach (string directory in directories)
-        {
-            if (Directory.GetFiles(directory).Length == 0)
-            {
-                try
-                {
-                    Directory.Delete(directory);
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Could not delete empty directory {Directory}", directory);
-                }
-            }
-        }
-    }
 }
