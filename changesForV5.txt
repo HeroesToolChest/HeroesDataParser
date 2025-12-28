@@ -20,7 +20,7 @@ HeroRoleData.xml ?
 - Heroes and units are now split into their own `hero` and `unit` objects
 - Ability and talents are now split into their own `ability` and `talents` objects
 
-#### Heroes (and Units where applicable)
+#### Hero (and Unit where applicable)
 - Added `Taunt` and `Dance` abilities
 - Added `damageType`
 - Added `attributes`
@@ -84,18 +84,22 @@ HeroRoleData.xml ?
 - Fixed Yrel's `YrelAvengingWrathChannel|YrelAvengingWrath|E` and `YrelAvengingWrath|YrelAvengingWrath|E` being swapped
 - Added Yrel's `YrelVindicationCast|YrelVindication|Q` as a subability to `YrelDivinePurpose|YrelDivinePurpose|Trait`
 
-#### Announcers
+#### Announcer
 - Added `RandomAnnouncerPack` item
+- Added `Cook` item
+- Added `Default` item`
+- Added `GardensNightAnnouncer` item
+- Added `Quality` item
 - Fixed `MeiOWA` incorrect `heroId`
 - Fixed `RavenLord` incorrect `heroId`
 
-#### Banners
+#### Banner
 - Added `NeutralMercCamp` item 
 - Added `RandomBanner` item
-- Fixed `BannerDFEsportsWarChest18RareKT` having a `sortname` (it should not)
-- Fixed `BannerDFEsportsWarChest18RareMiracle` having a `sortname` (it should not)
+- Fixed `BannerDFEsportsWarChest18RareKT` having a `sortname`
+- Fixed `BannerDFEsportsWarChest18RareMiracle` having a `sortname`
 
-#### Bundles
+#### Bundle
 - Updated name `heroes` to `heroIds`
 - Updated name `skins` to `skinIds`
   - Updated to a single object from an array of objects
@@ -104,11 +108,31 @@ HeroRoleData.xml ?
 - Fixed `LootChestBoostPromoBundle` missing `image`
 - Fixed missing `Franchise` of `Starcraft` to many items
 
-#### LootChests
+#### LootChest
 - Updated name `typeDescription` to `typeDescriptionId`
 - Removed the `TEST` prefixed items
 
-### Skins
+#### Mount
+- Added `Randon` item
+- Fixed `ChoGallRunCelestialHorse` having a `sortName`
+- Fixed `ChoGallRunMountHorseCraft20` having a `sortName`
+- Fixed `ChoGallRunMountHorseCraft20Var1` having a `sortName`
+- Fixed `ChoGallRunMountHorseCraft20Var2` having a `sortName`
+- Fixed `ChoGallRunMountHorseDead` having a `sortName`
+- Fixed `ChoGallRunMountHorseGhost` having a `sortName`
+- Fixed `ChoGallRunMountHorseGhostInvisible` having a `sortName`
+- Fixed `ChoGallRunMountHorseGhostVar1` having a `sortName`
+- Fixed `ChoGallRunMountHorseGhostVar2` having a `sortName`
+- Fixed `ChoGallRunMountHorseGhostVar3` having a `sortName`
+- Fixed `ChoGallRunMountHorseGhostVar4` having a `sortName`
+- Fixed `ChoGallRunMountWarhorseReverence19` having a `sortName`
+- Fixed `ChoGallRunMountWarhorseReverence19Var1` having a `sortName`
+- Fixed `ChoGallRunMountWarhorseReverence19Var2` having a `sortName`
+- Fixed `MountAzmodanMadAxe18`, `MountAzmodanMadAxe18Var1`, and `MountAzmodanMadAxe18Var2` missing `name`
+- Fixed `MountAzmodanMadAxe18`, `MountAzmodanMadAxe18Var1`, and `MountAzmodanMadAxe18Var2` incorrect `hyperlinkId`
+- Fixed `MountRoosterLunarVar1` missing `event`
+
+#### Skin
 - Renamed from `HeroSkins` to `Skins
 - Added `Random` item
 - Added `event`
@@ -131,14 +155,14 @@ HeroRoleData.xml ?
 - Fixed `RehgarGFWinter`, `RehgarGFWinterBlue`, and `RehgarGFWinterWhite` incorrect `releaseDate`
 - Fixed `SamuroMonkeyVar5` incorrect `releaseDate`
 - Fixed `StukovPirate` incorrect `releaseDate`
-- Fixed `TassadarUltimate` having a `sortname` (it should not)
+- Fixed `TassadarUltimate` having a `sortname`
 - Fixed `ThrallToon20Var1`, `ThrallToon20Var3`, `ThrallToon20Var4` incorrect `releaseDate`
 - Fixed `TinkerAzure` and `TinkerCamo` incorrect `releaseDate`
 - Fixed `TracerVar3` incorrect `releaseDate`
 - Fixed `YrelBaseVar3` and `YrelBaseVar4` incorrect `releaseDate`
 - Fixed `ZagaraBaseVar3` incorrect `releaseDate`
 
-### Veterancy
+#### Veterancy
 - Renamed from `BehaviorVeterancy` to `Veterancy`
 - Updated name `minVeterancyXP` to `minimumVeterancyXP`
 - Updated name `Basic` to `basic`
@@ -147,3 +171,8 @@ HeroRoleData.xml ?
 - Updated name `Life` to `life`
 - Updated name `Energy` to `energy`
 - Updated name `Shields` to `shields`
+
+#### VoiceLine
+- Added `RandomVoiceLine` item
+- Added `heroId` name
+- Removed the `_P` suffixed items
