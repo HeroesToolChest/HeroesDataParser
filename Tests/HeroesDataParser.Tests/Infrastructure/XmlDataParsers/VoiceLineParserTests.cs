@@ -22,7 +22,7 @@ public class VoiceLineParserTests
     }
 
     [TestMethod]
-    public void Parse_AbathurBase_VoiceLine01_ReturnsAnnouncerData()
+    public void Parse_AbathurBase_VoiceLine01_ReturnsVoiceLineData()
     {
         // arrange
         _gameStringTextService.GetGameStringTextFromId("VoiceLine/Description/AbathurBase_VoiceLine01").Returns(new GameStringText("aba voiceline1"));

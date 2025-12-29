@@ -22,7 +22,7 @@ public class MountParserTests
     }
 
     [TestMethod]
-    public void Parse_MountBearRank17Base_ReturnsMapData()
+    public void Parse_MountBearRank17Base_ReturnsMountData()
     {
         // arrange
         _gameStringTextService.GetGameStringTextFromId("Mount/Info/MountBearRank17Base").Returns(new GameStringText("info mount bear"));

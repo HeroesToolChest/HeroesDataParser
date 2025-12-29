@@ -22,7 +22,7 @@ public class SkinParserTests
     }
 
     [TestMethod]
-    public void Parse_MephistoToys19Var4_ReturnsAnnouncerData()
+    public void Parse_MephistoToys19Var4_ReturnsSkinData()
     {
         // arrange
         _gameStringTextService.GetGameStringTextFromId("Skin/Info/MephistoToys19").Returns(new GameStringText("info meph toys"));
@@ -58,7 +58,7 @@ public class SkinParserTests
     }
 
     [TestMethod]
-    public void Parse_AbathurMecha_ReturnsAnnouncerData()
+    public void Parse_AbathurMecha_ReturnsSkinData()
     {
         // arrange
         SkinParser skinParser = new(_logger, _options, _heroesXmlLoaderService, _gameStringTextService);
