@@ -161,7 +161,7 @@ public class ProcessorService : IProcessorService
         }
         else
         {
-            // don't create a gamestring file yet
+            // don't create a gamestring file yet, if we have map parsing available the base gamestring file will be created after all maps are processed
             _jsonGameStringFileWriterService.SerializeOnly();
         }
     }

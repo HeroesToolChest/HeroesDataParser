@@ -4,11 +4,9 @@ public class MainService : IMainService
 {
     private readonly ILogger<MainService> _logger;
     private readonly RootOptions _options;
-    private readonly IProcessorService _processorService;
-    private readonly IMapProcessorService _mapProcessorService;
+    private readonly IMainLocalePreProcess _mainLocalePreProcess;
+    private readonly IMainLocaleProcess _mainLocaleProcess;
     private readonly IImageWriterService _imageWriterService;
-    private readonly ISerializedDataStoreService _serializedElementsService;
-    private readonly IGameStringSerializerService _gameStringSerializerService;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
     private readonly Stopwatch _stopwatch = new();
@@ -16,20 +14,16 @@ public class MainService : IMainService
     public MainService(
         ILogger<MainService> logger,
         IOptions<RootOptions> options,
-        IProcessorService processorService,
-        IMapProcessorService mapProcessorService,
+        IMainLocalePreProcess mainLocalePreProcess,
+        IMainLocaleProcess mainLocaleProcess,
         IImageWriterService imageWriterService,
-        ISerializedDataStoreService serializedElementsService,
-        IGameStringSerializerService gameStringSerializerService,
         IHeroesXmlLoaderService heroesXmlLoaderService)
     {
         _logger = logger;
         _options = options.Value;
-        _processorService = processorService;
-        _mapProcessorService = mapProcessorService;
+        _mainLocalePreProcess = mainLocalePreProcess;
+        _mainLocaleProcess = mainLocaleProcess;
         _imageWriterService = imageWriterService;
-        _serializedElementsService = serializedElementsService;
-        _gameStringSerializerService = gameStringSerializerService;
         _heroesXmlLoaderService = heroesXmlLoaderService;
     }
 
@@ -39,8 +33,7 @@ public class MainService : IMainService
 
         foreach (StormLocale locale in _options.Localizations)
         {
-            _serializedElementsService.ClearAllSerializedData();
-            _gameStringSerializerService.ClearStoredGameStrings();
+            _mainLocalePreProcess.Run();
 
             _options.CurrentLocale = locale;
             _logger.LogInformation("Localization: {Locale}", locale);
@@ -51,14 +44,7 @@ public class MainService : IMainService
 
             LoadGameStrings(locale);
 
-            _logger.LogInformation("Starting processor service for {Locale}", locale);
-            await _processorService.Start();
-
-            if (_processorService.ExtractDataOptions.HasFlag(ExtractDataOptions.Map))
-            {
-                _logger.LogInformation("Starting map processor service for {Locale}", locale);
-                await _mapProcessorService.Start();
-            }
+            await _mainLocaleProcess.Run(locale);
 
             count++;
         }

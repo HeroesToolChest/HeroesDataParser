@@ -1,4 +1,5 @@
-﻿using System.Text.Json.JsonDiffPatch;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.JsonDiffPatch;
 
 namespace HeroesDataParser.Infrastructure;
 
@@ -30,7 +31,7 @@ public class SerializedDataStoreService : ISerializedDataStoreService
         _serializedDataByDataType[dataType] = bytes;
     }
 
-    public bool TryGetSerializedData(string dataType, out byte[]? bytes)
+    public bool TryGetSerializedData(string dataType, [NotNullWhen(true)] out byte[]? bytes)
     {
         return _serializedDataByDataType.TryGetValue(dataType, out bytes);
     }

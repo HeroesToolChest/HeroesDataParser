@@ -14,6 +14,8 @@ public class GameStringSerializerService : IGameStringSerializerService
 
     public GameStringItemDictionary DataGameStringItemDictionary => _dataGameStringItemDictionary;
 
+    // along with the meta properties, serialize the game strings stored in the GameStringItemDictionary
+    // this method does not clear the dictionary after serialization
     public byte[] SerializeGameStrings(MetaGameStringProperties metaGameStringProperties, JsonSerializerOptions jsonSerializerOptions)
     {
         return Serialize(metaGameStringProperties, jsonSerializerOptions);

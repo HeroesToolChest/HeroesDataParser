@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HeroesDataParser.Infrastructure.XmlDataParsers.Tests;
+﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers.Tests;
 
 [TestClass]
 public class MountParserTests

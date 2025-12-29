@@ -59,6 +59,8 @@ public static class ServiceCollectionExtensions
             services.AddImageWriters();
 
             services.AddSingleton<IMainService, MainService>();
+            services.AddSingleton<IMainLocalePreProcess, MainLocalePreProcess>();
+            services.AddSingleton<IMainLocaleProcess, MainLocaleProcess>();
             services.AddSingleton<IProcessorService, ProcessorService>();
             services.AddSingleton<IMapProcessorService, MapProcessorService>();
             services.AddSingleton<IResultSummaryService, ResultSummaryService>();

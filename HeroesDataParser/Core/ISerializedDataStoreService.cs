@@ -1,4 +1,6 @@
-﻿namespace HeroesDataParser.Core;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace HeroesDataParser.Core;
 
 public interface ISerializedDataStoreService
 {
@@ -6,7 +8,7 @@ public interface ISerializedDataStoreService
 
     void AddSerializedData(string dataType, byte[] bytes);
 
-    bool TryGetSerializedData(string dataType, out byte[]? bytes);
+    bool TryGetSerializedData(string dataType, [NotNullWhen(true)] out byte[]? bytes);
 
     void ClearAllSerializedData();
 

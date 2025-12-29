@@ -38,7 +38,7 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
         await WriteBaseJsonFile(Constants.JsonGameStringsDirectory, Constants.GameStringFilePrefix, bytes);
     }
 
-    // instead of writing to a file, just serializes and stores the data in the serialized data store
+    // instead of writing to a file, just serializes (the current dictionary items) and stores the data in the serialized data store, clear the stored gamestrings after saving
     public void SerializeOnly()
     {
         RootGameStrings rootGameStrings = GetRootGameStrings();
