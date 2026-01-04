@@ -112,6 +112,15 @@ HeroRoleData.xml ?
 - Updated name `typeDescription` to `typeDescriptionId`
 - Removed the `TEST` prefixed items
 
+#### MatchAward
+- Added `GivenToNonwinner` item
+- Added `MostDamageToPlants` item
+- Renamed from `name` to `scoreScreenName`
+- Renamed from `description` to `scoreScreenDescription`
+- Added `endOfMatchName`
+- Added `endOfMatchDescription`
+- Added `endOfMatchTooltipText`
+
 #### Mount
 - Added `Randon` item
 - Fixed `ChoGallRunCelestialHorse` having a `sortName`
