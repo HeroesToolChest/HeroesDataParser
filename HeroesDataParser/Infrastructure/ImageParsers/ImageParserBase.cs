@@ -1,67 +1,108 @@
-﻿namespace HeroesDataParser.Infrastructure.ImageParsers;
+﻿using SixLabors.ImageSharp;
+
+namespace HeroesDataParser.Infrastructure.ImageParsers;
 
 public abstract class ImageParserBase<TElement> : IImageParser<TElement>
     where TElement : IElementObject
 {
     private readonly ILogger _logger;
+    private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
-    public ImageParserBase(ILogger logger)
+    private readonly HashSet<ImageWriterFile> _imageWriterFiles = [];
+
+    public ImageParserBase(ILogger logger, IHeroesXmlLoaderService heroesXmlLoaderService)
     {
         _logger = logger;
+        _heroesXmlLoaderService = heroesXmlLoaderService;
     }
 
     public abstract ExtractImageOptions ExtractImageOption { get; }
 
     protected abstract string SubDirectory { get; }
 
-    public HashSet<ImageWriterPath> GetImages(SortedDictionary<string, TElement> elementsById)
+    protected ILogger Logger => _logger;
+
+    protected IHeroesXmlLoaderService HeroesXmlLoaderService => _heroesXmlLoaderService;
+
+    public HashSet<ImageWriterFile> GetImages(SortedDictionary<string, TElement> elementsById)
     {
-        _logger.LogTrace("Saving images");
+        Logger.LogTrace("Saving images");
 
         if (elementsById.Count < 1)
         {
-            _logger.LogInformation("No elements to find images");
+            Logger.LogInformation("No elements to find images");
             return [];
         }
-
-        HashSet<ImageWriterPath> imagePaths = [];
 
         // get all the images
         foreach (TElement element in elementsById.Values)
         {
-            SetImages(element, imagePaths);
+            SetImages(element);
         }
 
-        _logger.LogTrace("Saving images complete");
+        Logger.LogTrace("Saving images complete");
 
-        return imagePaths;
+        return _imageWriterFiles;
     }
 
-    protected abstract void SetImages(TElement element, HashSet<ImageWriterPath> imagePaths);
+    protected abstract void SetImages(TElement element);
 
-    protected void AddBasicImage(TElement element, HashSet<ImageWriterPath> imagePaths)
+    protected void AddBasicImage(TElement element)
     {
         if (element is not IImage imageObject || element is not IImagePath imagePathObject)
             return;
 
         if (!string.IsNullOrWhiteSpace(imageObject.Image) && !string.IsNullOrWhiteSpace(imagePathObject.ImagePath?.FilePath))
-            TryAddToFiles(imagePaths, imageObject.Image, imagePathObject.ImagePath, element);
+            TryAddToFiles(imageObject.Image, element.Id, async (directoryPath) => await ProcessBasicImage(imageObject.Image, imagePathObject.ImagePath, directoryPath));
     }
 
-    private protected void TryAddToFiles(HashSet<ImageWriterPath> imagePaths, string? fileName, RelativeFilePath? relativePath, TElement element)
+    private protected void TryAddToFiles(string? imageName, string elementId, Func<string, Task> imageProcesser)
     {
-        if (string.IsNullOrWhiteSpace(fileName) || string.IsNullOrWhiteSpace(relativePath?.FilePath))
+        if (string.IsNullOrWhiteSpace(imageName))
             return;
 
-        ImageWriterPath imageParserPath = new()
+        ImageWriterFile imageWriterFile = new()
         {
-            ElementId = element.Id,
+            ElementId = elementId,
             SubDirectoryPath = SubDirectory,
-            FileName = fileName,
-            RelativeFilePath = relativePath.FilePath,
-            RelativeMpqFilePath = relativePath.MpqFilePath,
+            FileName = imageName,
+            ProcessImageFile = imageProcesser,
         };
 
-        imagePaths.Add(imageParserPath);
+        _imageWriterFiles.Add(imageWriterFile);
+    }
+
+    private protected void VerifyFileExists(RelativeFilePath relativeFilePath)
+    {
+        if (!HeroesXmlLoaderService.HeroesXmlLoader.FileExists(relativeFilePath.FilePath, relativeFilePath.MpqFilePath))
+        {
+            Logger.LogWarning("Unable to to create file because {@ImageWriterPath} does not exist", relativeFilePath);
+            throw new FileNotFoundException("Image file not found.");
+        }
+    }
+
+    // find and save a basic image to the output directory
+    private protected Task ProcessBasicImage(string imageName, RelativeFilePath relativeFilePath, string directoryPath)
+    {
+        VerifyFileExists(relativeFilePath);
+
+        string filePath = Path.Combine(directoryPath, imageName);
+
+        using Stream stream = _heroesXmlLoaderService.HeroesXmlLoader.GetFile(relativeFilePath.FilePath, relativeFilePath.MpqFilePath);
+
+        _logger.LogTrace("Writing image file {@RelativeFilePath} to {OutputFilePath}", relativeFilePath, filePath);
+
+        if (relativeFilePath.FilePath.EndsWith(".dds", StringComparison.OrdinalIgnoreCase))
+        {
+            using DDSImage ddsImage = new(stream);
+
+            return ddsImage.Save(filePath);
+        }
+        else
+        {
+            using Image image = Image.Load(stream);
+
+            return image.SaveAsync(filePath);
+        }
     }
 }

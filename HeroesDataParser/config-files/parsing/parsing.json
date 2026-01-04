@@ -40,6 +40,16 @@
         ]
       }
     },
+    "MatchAward": {
+      "Disallow": {
+        "Exact": [
+          "EndOfMatchAwardMapSpecificBoolean"
+        ],
+        "Regex": [
+          "^(?!EndOfMatchAward).*"
+        ]
+      }
+    },
     "Unit": {
       "Disallow": {
         "Exact": [

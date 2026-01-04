@@ -29,25 +29,37 @@ public abstract class ParserBase
 
     protected IGameStringTextService GameStringTextService => _gameStringTextService;
 
-    protected ImageFilePath? GetImageFilePath(StormElementData data)
+    // path should start with Assets\Textures\
+    // output image file name for the json files
+    protected string GetImageOutputFileName(string filePath)
     {
-        string tileTexturePath = data.Value.GetString();
+        Span<char> pathSpan = stackalloc char[filePath.Length];
 
-        StormFile? stormAssetFile = _heroesData.GetStormAssetFile(tileTexturePath);
+        int size = Path.GetFileName(filePath.AsSpan()).ToLowerInvariant(pathSpan);
+
+        return Path.ChangeExtension(pathSpan[..size].ToString(), ImageFileExtension);
+    }
+
+    // path should start with Assets\Textures\
+    protected ImageFilePath? GetImageFilePath(string assetsTexturePath)
+    {
+        StormFile? stormAssetFile = _heroesData.GetStormAssetFile(assetsTexturePath);
         if (stormAssetFile is null)
             return null;
 
-        Span<char> pathSpan = stackalloc char[stormAssetFile.StormPath.Path.Length];
+        string image = GetImageOutputFileName(stormAssetFile.StormPath.Path);
 
-        int size = Path.GetFileName(stormAssetFile.StormPath.Path.AsSpan()).ToLowerInvariant(pathSpan);
-
-        string image = Path.ChangeExtension(pathSpan[..size].ToString(), ImageFileExtension);
         RelativeFilePath imagePath = new()
         {
             FilePath = stormAssetFile.StormPath.Path,
         };
 
         return new ImageFilePath(image, imagePath);
+    }
+
+    protected ImageFilePath? GetImageFilePath(StormElementData data)
+    {
+        return GetImageFilePath(data.Value.GetString());
     }
 
     protected double GetScaleValue(string elementType, string id, string? elementName)

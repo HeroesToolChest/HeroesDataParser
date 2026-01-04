@@ -2,8 +2,8 @@
 
 public class HeroAbilityTalentImageParser : ImageParserBase<Hero>
 {
-    public HeroAbilityTalentImageParser(ILogger<HeroAbilityTalentImageParser> logger)
-        : base(logger)
+    public HeroAbilityTalentImageParser(ILogger<HeroAbilityTalentImageParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+        : base(logger, heroesXmlLoaderService)
     {
     }
 
@@ -11,36 +11,48 @@ public class HeroAbilityTalentImageParser : ImageParserBase<Hero>
 
     protected override string SubDirectory => "abilitytalents";
 
-    protected override void SetImages(Hero element, HashSet<ImageWriterPath> imagePaths)
+    protected override void SetImages(Hero element)
     {
-        SetAbilityImages(element, imagePaths);
-        SetTalentImages(element, imagePaths);
+        SetAbilityImages(element);
+        SetTalentImages(element);
     }
 
-    protected void SetAbilityImages(Hero element, HashSet<ImageWriterPath> imagePaths)
+    protected void SetAbilityImages(Hero element)
     {
         foreach (ICollection<Ability> abilityList in element.Abilities.Values)
         {
             foreach (Ability ability in abilityList)
             {
-                if (string.IsNullOrWhiteSpace(ability.Icon) || string.IsNullOrWhiteSpace(ability.IconPath?.FilePath))
+                string? abilityIcon = ability.Icon;
+                RelativeFilePath? abilityIconPath = ability.IconPath;
+
+                if (string.IsNullOrWhiteSpace(abilityIcon) || string.IsNullOrWhiteSpace(abilityIconPath?.FilePath))
                     return;
 
-                TryAddToFiles(imagePaths, ability.Icon, ability.IconPath, element);
+                TryAddToFiles(abilityIcon, element.Id, async (directoryPath) =>
+                {
+                    await ProcessBasicImage(abilityIcon, abilityIconPath, directoryPath);
+                });
             }
         }
     }
 
-    protected void SetTalentImages(Hero element, HashSet<ImageWriterPath> imagePaths)
+    protected void SetTalentImages(Hero element)
     {
         foreach (ICollection<Talent> talentList in element.Talents.Values)
         {
             foreach (Talent talent in talentList)
             {
-                if (string.IsNullOrWhiteSpace(talent.Icon) || string.IsNullOrWhiteSpace(talent.IconPath?.FilePath))
+                string? talentIcon = talent.Icon;
+                RelativeFilePath? talentIconPath = talent.IconPath;
+
+                if (string.IsNullOrWhiteSpace(talentIcon) || string.IsNullOrWhiteSpace(talentIconPath?.FilePath))
                     return;
 
-                TryAddToFiles(imagePaths, talent.Icon, talent.IconPath, element);
+                TryAddToFiles(talentIcon, element.Id, async (directoryPath) =>
+                {
+                    await ProcessBasicImage(talentIcon, talentIconPath, directoryPath);
+                });
             }
         }
     }

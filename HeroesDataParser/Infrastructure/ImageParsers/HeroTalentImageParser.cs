@@ -2,8 +2,8 @@
 
 public class HeroTalentImageParser : HeroAbilityTalentImageParser
 {
-    public HeroTalentImageParser(ILogger<HeroTalentImageParser> logger)
-        : base(logger)
+    public HeroTalentImageParser(ILogger<HeroTalentImageParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+        : base(logger, heroesXmlLoaderService)
     {
     }
 
@@ -11,8 +11,8 @@ public class HeroTalentImageParser : HeroAbilityTalentImageParser
 
     protected override string SubDirectory => "talents";
 
-    protected override void SetImages(Hero element, HashSet<ImageWriterPath> imagePaths)
+    protected override void SetImages(Hero element)
     {
-        SetTalentImages(element, imagePaths);
+        SetTalentImages(element);
     }
 }

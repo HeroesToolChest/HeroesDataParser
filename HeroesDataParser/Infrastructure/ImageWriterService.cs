@@ -1,6 +1,5 @@
 ﻿using Polly;
 using Polly.Registry;
-using SixLabors.ImageSharp;
 
 namespace HeroesDataParser.Infrastructure;
 
@@ -10,27 +9,26 @@ public class ImageWriterService : IImageWriterService
 
     private readonly ILogger<ImageWriterService> _logger;
     private readonly RootOptions _options;
-    private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly IResultSummaryService _resultSummaryService;
     private readonly ResiliencePipeline _pipeline;
 
-    private readonly HashSet<ImageWriterPath> _outputImagePaths = [];
+    private readonly HashSet<ImageWriterFile> _outputImagePaths = [];
 
     public ImageWriterService(
         ILogger<ImageWriterService> logger,
         IOptions<RootOptions> options,
-        IHeroesXmlLoaderService heroesXmlLoaderService,
         IResultSummaryService resultSummaryService,
         ResiliencePipelineProvider<string> pipelineProvider)
     {
         _logger = logger;
         _options = options.Value;
-        _heroesXmlLoaderService = heroesXmlLoaderService;
+        _resultSummaryService = resultSummaryService;
+        _pipeline = pipelineProvider.GetPipeline(Constants.ImageWriterPipeline);
         _resultSummaryService = resultSummaryService;
         _pipeline = pipelineProvider.GetPipeline(Constants.ImageWriterPipeline);
     }
 
-    public void Save(HashSet<ImageWriterPath> imagePaths)
+    public void Save(HashSet<ImageWriterFile> imagePaths)
     {
         _outputImagePaths.UnionWith(imagePaths);
     }
@@ -52,7 +50,7 @@ public class ImageWriterService : IImageWriterService
         AnsiConsole.MarkupLine($"[lightskyblue1]Creating image files[/]...");
 
         var imagePathsBySubDirectoryGroups = _outputImagePaths.GroupBy(x => x.SubDirectoryPath);
-        List<(ProgressTask ProgressTask, IGrouping<string, ImageWriterPath> ImagePathsBySubDirectory)> progressTasks = [];
+        List<(ProgressTask ProgressTask, IGrouping<string, ImageWriterFile> ImagePathsBySubDirectory)> progressTasks = [];
 
         await AnsiConsole.Progress()
             .Columns(
@@ -63,7 +61,7 @@ public class ImageWriterService : IImageWriterService
             ])
             .StartAsync(async ctx =>
             {
-                foreach (IGrouping<string, ImageWriterPath> imagePathsBySubDirectoryGroup in imagePathsBySubDirectoryGroups)
+                foreach (IGrouping<string, ImageWriterFile> imagePathsBySubDirectoryGroup in imagePathsBySubDirectoryGroups)
                 {
                     // Create a progress task for each sub-directory
                     progressTasks.Add((ctx.AddTask(Path.Join(_imageDirectory, imagePathsBySubDirectoryGroup.Key), maxValue: imagePathsBySubDirectoryGroup.Count()), imagePathsBySubDirectoryGroup));
@@ -86,7 +84,7 @@ public class ImageWriterService : IImageWriterService
         _outputImagePaths.Clear();
     }
 
-    private async Task RunImageWriter(List<(ProgressTask ProgressTask, IGrouping<string, ImageWriterPath> ImagePathsBySubDirectory)> progressTasks)
+    private async Task RunImageWriter(List<(ProgressTask ProgressTask, IGrouping<string, ImageWriterFile> ImagePathsBySubDirectory)> progressTasks)
     {
         using var cts = new CancellationTokenSource();
 
@@ -103,7 +101,7 @@ public class ImageWriterService : IImageWriterService
             string directoryPath = Path.Combine(_options.OutputDirectory, _imageDirectory, progressTask.ImagePathsBySubDirectory.Key);
             Directory.CreateDirectory(directoryPath);
 
-            foreach (ImageWriterPath imageParserPath in progressTask.ImagePathsBySubDirectory)
+            foreach (ImageWriterFile imageWriterFile in progressTask.ImagePathsBySubDirectory)
             {
                 try
                 {
@@ -111,46 +109,19 @@ public class ImageWriterService : IImageWriterService
                     await _pipeline.ExecuteAsync(
                         async (_) =>
                         {
-                            await WriteStaticImageFile(imageParserPath.FileName, directoryPath, imageParserPath);
+                            await imageWriterFile.ProcessImageFile(directoryPath);
+
                             progressTask.ProgressTask.Increment(1);
                         },
                         cts);
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error writing image file {FileName} to directory {SubDirectory}", imageParserPath.FileName, directoryPath);
+                    _logger.LogError(ex, "Error writing image file {FileName} to directory {SubDirectory}", imageWriterFile.FileName, directoryPath);
                 }
             }
 
             progressTask.ProgressTask.StopTask();
         });
-    }
-
-    private Task WriteStaticImageFile(string fileName, string directoryPath, ImageWriterPath imageRelativeFilePath)
-    {
-        if (!_heroesXmlLoaderService.HeroesXmlLoader.FileExists(imageRelativeFilePath.RelativeFilePath, imageRelativeFilePath.RelativeMpqFilePath))
-        {
-            _logger.LogWarning("Unable to write {FileName} because {@ImageWriterPath} does not exist", fileName, imageRelativeFilePath);
-            throw new FileNotFoundException("Image file not found.", imageRelativeFilePath.RelativeFilePath);
-        }
-
-        string filePath = Path.Combine(directoryPath, fileName);
-
-        using Stream stream = _heroesXmlLoaderService.HeroesXmlLoader.GetFile(imageRelativeFilePath.RelativeFilePath, imageRelativeFilePath.RelativeMpqFilePath);
-
-        _logger.LogTrace("Writing image file {@RelativeFilePath} to {OutputFilePath}", imageRelativeFilePath, filePath);
-
-        if (imageRelativeFilePath.RelativeFilePath.EndsWith(".dds", StringComparison.OrdinalIgnoreCase))
-        {
-            using DDSImage ddsImage = new(stream);
-
-            return ddsImage.Save(filePath);
-        }
-        else
-        {
-            using Image image = Image.Load(stream);
-
-            return image.SaveAsync(filePath);
-        }
     }
 }

@@ -2,8 +2,8 @@
 
 public class HeroPortraitImageParser : ImageParserBase<Hero>
 {
-    public HeroPortraitImageParser(ILogger<HeroPortraitImageParser> logger)
-        : base(logger)
+    public HeroPortraitImageParser(ILogger<HeroPortraitImageParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+        : base(logger, heroesXmlLoaderService)
     {
     }
 
@@ -11,20 +11,37 @@ public class HeroPortraitImageParser : ImageParserBase<Hero>
 
     protected override string SubDirectory => "heroportraits";
 
-    protected override void SetImages(Hero element, HashSet<ImageWriterPath> imagePaths)
+    protected override void SetImages(Hero element)
     {
-        TryAddToFiles(imagePaths, element.HeroPortraits.HeroSelectPortrait, element.HeroPortraits.HeroSelectPortraitPath, element);
-        TryAddToFiles(imagePaths, element.HeroPortraits.LeaderboardPortrait, element.HeroPortraits.LeaderboardPortraitPath, element);
-        TryAddToFiles(imagePaths, element.HeroPortraits.LoadingScreenPortrait, element.HeroPortraits.LoadingScreenPortraitPath, element);
-        TryAddToFiles(imagePaths, element.HeroPortraits.PartyPanelPortrait, element.HeroPortraits.PartyPanelPortraitPath, element);
-        TryAddToFiles(imagePaths, element.HeroPortraits.TargetPortrait, element.HeroPortraits.TargetPortraitPath, element);
-        TryAddToFiles(imagePaths, element.HeroPortraits.DraftScreen, element.HeroPortraits.DraftScreenPath, element);
-        TryAddToFiles(imagePaths, element.HeroPortraits.MiniMapIcon, element.HeroPortraits.MiniMapIconPath, element);
-        TryAddToFiles(imagePaths, element.HeroPortraits.TargetInfoPanel, element.HeroPortraits.TargetInfoPanelPath, element);
+        ProcessPortraitImage(element.HeroPortraits.HeroSelectPortrait, element.HeroPortraits.HeroSelectPortraitPath, element.Id);
+        ProcessPortraitImage(element.HeroPortraits.LeaderboardPortrait, element.HeroPortraits.LeaderboardPortraitPath, element.Id);
+        ProcessPortraitImage(element.HeroPortraits.LoadingScreenPortrait, element.HeroPortraits.LoadingScreenPortraitPath, element.Id);
+        ProcessPortraitImage(element.HeroPortraits.PartyPanelPortrait, element.HeroPortraits.PartyPanelPortraitPath, element.Id);
+        ProcessPortraitImage(element.HeroPortraits.TargetPortrait, element.HeroPortraits.TargetPortraitPath, element.Id);
+        ProcessPortraitImage(element.HeroPortraits.DraftScreen, element.HeroPortraits.DraftScreenPath, element.Id);
+        ProcessPortraitImage(element.HeroPortraits.MiniMapIcon, element.HeroPortraits.MiniMapIconPath, element.Id);
+        ProcessPortraitImage(element.HeroPortraits.TargetInfoPanel, element.HeroPortraits.TargetInfoPanelPath, element.Id);
 
         for (int i = 0; i < element.HeroPortraits.PartyFrames.Count; i++)
         {
-            TryAddToFiles(imagePaths, element.HeroPortraits.PartyFrames[i], element.HeroPortraits.PartyFramePaths[i], element);
+            string partyFrame = element.HeroPortraits.PartyFrames[i];
+            RelativeFilePath partyFramePath = element.HeroPortraits.PartyFramePaths[i];
+
+            TryAddToFiles(partyFrame, element.Id, async (directoryPath) =>
+            {
+                await ProcessBasicImage(partyFrame, partyFramePath, directoryPath);
+            });
+        }
+    }
+
+    private void ProcessPortraitImage(string? imageName, RelativeFilePath? relativeFilePath, string elementId)
+    {
+        if (!string.IsNullOrWhiteSpace(imageName) && !string.IsNullOrWhiteSpace(relativeFilePath?.FilePath))
+        {
+            TryAddToFiles(imageName, elementId, async (directoryPath) =>
+            {
+                await ProcessBasicImage(imageName, relativeFilePath, directoryPath);
+            });
         }
     }
 }

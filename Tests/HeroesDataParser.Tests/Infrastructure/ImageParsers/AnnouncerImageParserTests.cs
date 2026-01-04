@@ -4,17 +4,19 @@
 public class AnnouncerImageParserTests : ImageWriterBase
 {
     private readonly ILogger<AnnouncerImageParser> _logger;
+    private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
     public AnnouncerImageParserTests()
     {
         _logger = Substitute.For<ILogger<AnnouncerImageParser>>();
+        _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
     }
 
     [TestMethod]
-    public void SaveImages_HasImages_GetImagePaths()
+    public void GetImages_HasImages_GetImagePaths()
     {
         // arrange
-        AnnouncerImageParser announcerImageParser = new(_logger);
+        AnnouncerImageParser announcerImageParser = new(_logger, _heroesXmlLoaderService);
 
         SortedDictionary<string, Announcer> elementsById = [];
         Announcer announcer = new("id1")
@@ -30,18 +32,16 @@ public class AnnouncerImageParserTests : ImageWriterBase
         elementsById.Add("announcer1", announcer);
 
         // act
-        HashSet<ImageWriterPath> imagePaths = announcerImageParser.GetImages(elementsById);
+        HashSet<ImageWriterFile> imageWriterFiles = announcerImageParser.GetImages(elementsById);
 
         // assert
-        imagePaths.Should().ContainSingle();
+        imageWriterFiles.Should().ContainSingle();
 
-        List<ImageWriterPath> imagePathsList = [.. imagePaths];
+        List<ImageWriterFile> imageWriterFilesList = [.. imageWriterFiles];
 
-        ImageWriterPath path1 = imagePathsList[0];
+        ImageWriterFile path1 = imageWriterFilesList[0];
         path1.ElementId.Should().Be("id1");
         path1.FileName.Should().Be("announcer1.png");
-        path1.RelativeFilePath.Should().Be(Path.Join("TestImages", "announcer1.png"));
         path1.SubDirectoryPath.Should().Be("announcers");
-        path1.RelativeMpqFilePath.Should().BeNull();
     }
 }

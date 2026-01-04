@@ -4,17 +4,19 @@
 public class ReplayPreviewImageParserTests : ImageWriterBase
 {
     private readonly ILogger<ReplayPreviewImageParser> _logger;
+    private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
     public ReplayPreviewImageParserTests()
     {
         _logger = Substitute.For<ILogger<ReplayPreviewImageParser>>();
+        _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
     }
 
     [TestMethod]
-    public void SaveImages_HasImages_GetImagePaths()
+    public void GetImages_HasImages_GetImagePaths()
     {
         // arrange
-        ReplayPreviewImageParser replayPreviewImageParser = new(_logger);
+        ReplayPreviewImageParser replayPreviewImageParser = new(_logger, _heroesXmlLoaderService);
 
         SortedDictionary<string, Map> elementsById = [];
         elementsById.Add("map1", new Map("id1")
@@ -29,24 +31,20 @@ public class ReplayPreviewImageParserTests : ImageWriterBase
         });
 
         // act
-        HashSet<ImageWriterPath> imagePaths = replayPreviewImageParser.GetImages(elementsById);
+        HashSet<ImageWriterFile> imageWriterFiles = replayPreviewImageParser.GetImages(elementsById);
 
         // assert
-        imagePaths.Should().HaveCount(2);
+        imageWriterFiles.Should().HaveCount(2);
 
-        List<ImageWriterPath> imagePathsList = [.. imagePaths];
+        List<ImageWriterFile> imageWriterFileList = [.. imageWriterFiles];
 
-        ImageWriterPath path1 = imagePathsList[0];
+        ImageWriterFile path1 = imageWriterFileList[0];
         path1.ElementId.Should().Be("id1");
-        path1.RelativeFilePath.Should().Be(Path.Join("TestImages", "replaypreview1.dds"));
-        path1.RelativeMpqFilePath.Should().BeNull();
         path1.FileName.Should().Be("replaypreview1.png");
         path1.SubDirectoryPath.Should().Be("replaypreviews");
 
-        ImageWriterPath path2 = imagePathsList[1];
+        ImageWriterFile path2 = imageWriterFileList[1];
         path2.ElementId.Should().Be("id2");
-        path2.RelativeFilePath.Should().Be(Path.Join("TestImages", "replaypreview2.dds"));
-        path2.RelativeMpqFilePath.Should().BeNull();
         path2.FileName.Should().Be("replaypreview2.png");
         path2.SubDirectoryPath.Should().Be("replaypreviews");
     }

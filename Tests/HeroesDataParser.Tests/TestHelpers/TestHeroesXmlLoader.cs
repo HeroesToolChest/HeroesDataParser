@@ -28,6 +28,8 @@ public static class TestHeroesXmlLoader
         XDocument mapDocument = GetXDocument("Map.xml");
         XDocument veterancyDocument = GetXDocument("Veterancy.xml");
         XDocument mountDocument = GetXDocument("Mount.xml");
+        XDocument matchAwardDocument = GetXDocument("MatchAward.xml");
+        XDocument scoreValueDocument = GetXDocument("ScoreValue.xml");
 
         return HeroesXmlLoader.LoadWithEmpty()
             .LoadCustomMod(new ManualModLoader(string.Empty)
@@ -54,6 +56,8 @@ public static class TestHeroesXmlLoader
                     ("Map", "CMap"),
                     ("Behavior", "CBehaviorVeterancy"),
                     ("Mount", "CMount"),
+                    ("User", "CUser"),
+                    ("ScoreValue", "CScoreValue"),
                 ])
                 .AddElements(unitDocument.Root!.Elements())
                 .AddElements(heroDocument.Root!.Elements())
@@ -76,6 +80,8 @@ public static class TestHeroesXmlLoader
                 .AddElements(mapDocument.Root!.Elements())
                 .AddElements(veterancyDocument.Root!.Elements())
                 .AddElements(mountDocument.Root!.Elements())
+                .AddElements(matchAwardDocument.Root!.Elements())
+                .AddElements(scoreValueDocument.Root!.Elements())
                 .AddGameStrings(
                 [
                     "test_for_tooltip_decription_service=Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200~~0.045~~</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>",
@@ -244,6 +250,19 @@ public static class TestHeroesXmlLoader
                     Path.Join("Assets", "Textures", "ui_ingame_mapmechanic_loadscreen_WCAV_icon2_alliance.dds"),
                     Path.Join("Assets", "Textures", "ui_ingame_mapmechanic_loadscreen_WCAV_icon3_alliance.dds"),
                     Path.Join("Assets", "Textures", "Storm_UI_Voice_Abathur.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_scorescreen_mvp_experienced_blue.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_scorescreen_mvp_experienced_red.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_mvp_icons_rewards_experienced.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_scorescreen_mvp_MasterOfTheCurse_blue.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_scorescreen_mvp_MasterOfTheCurse_red.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_mvp_icons_rewards_MasterOfTheCurse.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_scorescreen_mvp_shriner_blue.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_scorescreen_mvp_shriner_red.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_mvp_icons_rewards_shriner.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_scorescreen_mvp_loyaldefender_wcav_blue.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_scorescreen_mvp_loyaldefender_wcav_red.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_mvp_icons_rewards_loyaldefender_wcav.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_mvp_icons_rewards_dominator.dds"),
                     Path.Join("Textures", "test-default.dds"),
                 ])
                 .AddLevelScalingArrayElements(heroDocument.Root.Descendants("LevelScalingArray"))

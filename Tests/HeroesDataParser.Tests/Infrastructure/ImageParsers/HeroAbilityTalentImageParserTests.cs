@@ -4,17 +4,19 @@
 public class HeroAbilityTalentImageParserTests : ImageWriterBase
 {
     private readonly ILogger<HeroAbilityTalentImageParser> _logger;
+    private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
     public HeroAbilityTalentImageParserTests()
     {
         _logger = Substitute.For<ILogger<HeroAbilityTalentImageParser>>();
+        _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
     }
 
     [TestMethod]
-    public void SaveImages_HasImages_GetImagePaths()
+    public void GetImages_HasImages_GetImagePaths()
     {
         // arrange
-        HeroAbilityTalentImageParser heroAbilityTalentImageParser = new(_logger);
+        HeroAbilityTalentImageParser heroAbilityTalentImageParser = new(_logger, _heroesXmlLoaderService);
 
         SortedDictionary<string, Hero> elementsById = [];
 
@@ -43,38 +45,30 @@ public class HeroAbilityTalentImageParserTests : ImageWriterBase
         elementsById.Add("hero1", hero);
 
         // act
-        HashSet<ImageWriterPath> imagePaths = heroAbilityTalentImageParser.GetImages(elementsById);
+        HashSet<ImageWriterFile> imageWriterFiles = heroAbilityTalentImageParser.GetImages(elementsById);
 
         // assert
-        imagePaths.Should().HaveCount(4);
+        imageWriterFiles.Should().HaveCount(4);
 
-        List<ImageWriterPath> imagePathsList = [.. imagePaths];
+        List<ImageWriterFile> imageWriterFileList = [.. imageWriterFiles];
 
-        ImageWriterPath abilityPath1 = imagePathsList[0];
+        ImageWriterFile abilityPath1 = imageWriterFileList[0];
         abilityPath1.ElementId.Should().Be("id1");
-        abilityPath1.RelativeFilePath.Should().Be(Path.Join("TestImages", "ability_icon1.dds"));
-        abilityPath1.RelativeMpqFilePath.Should().BeNull();
         abilityPath1.FileName.Should().Be("ability1.png");
         abilityPath1.SubDirectoryPath.Should().Be("abilitytalents");
 
-        ImageWriterPath abilityPath2 = imagePathsList[1];
+        ImageWriterFile abilityPath2 = imageWriterFileList[1];
         abilityPath2.ElementId.Should().Be("id1");
-        abilityPath2.RelativeFilePath.Should().Be(Path.Join("TestImages", "ability_icon2.dds"));
-        abilityPath2.RelativeMpqFilePath.Should().BeNull();
         abilityPath2.FileName.Should().Be("ability2.png");
         abilityPath2.SubDirectoryPath.Should().Be("abilitytalents");
 
-        ImageWriterPath talentPath1 = imagePathsList[2];
+        ImageWriterFile talentPath1 = imageWriterFileList[2];
         talentPath1.ElementId.Should().Be("id1");
-        talentPath1.RelativeFilePath.Should().Be(Path.Join("TestImages", "talent_icon1.dds"));
-        talentPath1.RelativeMpqFilePath.Should().BeNull();
         talentPath1.FileName.Should().Be("talent1.png");
         talentPath1.SubDirectoryPath.Should().Be("abilitytalents");
 
-        ImageWriterPath talentPath2 = imagePathsList[3];
+        ImageWriterFile talentPath2 = imageWriterFileList[3];
         talentPath2.ElementId.Should().Be("id1");
-        talentPath2.RelativeFilePath.Should().Be(Path.Join("TestImages", "talent_icon2.dds"));
-        talentPath2.RelativeMpqFilePath.Should().BeNull();
         talentPath2.FileName.Should().Be("talent2.png");
         talentPath2.SubDirectoryPath.Should().Be("abilitytalents");
     }

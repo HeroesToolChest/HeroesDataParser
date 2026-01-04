@@ -4,17 +4,19 @@
 public class VoiceLineImageParserTests : ImageWriterBase
 {
     private readonly ILogger<VoiceLineImageParser> _logger;
+    private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
     public VoiceLineImageParserTests()
     {
         _logger = Substitute.For<ILogger<VoiceLineImageParser>>();
+        _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
     }
 
     [TestMethod]
-    public void SaveImages_HasImages_GetImagePaths()
+    public void GetImages_HasImages_GetImagePaths()
     {
         // arrange
-        VoiceLineImageParser voiceLineImageParser = new(_logger);
+        VoiceLineImageParser voiceLineImageParser = new(_logger, _heroesXmlLoaderService);
 
         SortedDictionary<string, VoiceLine> elementsById = [];
         VoiceLine voiceLine = new("id1")
@@ -30,18 +32,16 @@ public class VoiceLineImageParserTests : ImageWriterBase
         elementsById.Add("voiceline1", voiceLine);
 
         // act
-        HashSet<ImageWriterPath> imagePaths = voiceLineImageParser.GetImages(elementsById);
+        HashSet<ImageWriterFile> imageWriterFiles = voiceLineImageParser.GetImages(elementsById);
 
         // assert
-        imagePaths.Should().ContainSingle();
+        imageWriterFiles.Should().ContainSingle();
 
-        List<ImageWriterPath> imagePathsList = [.. imagePaths];
+        List<ImageWriterFile> imageWriterFileList = [.. imageWriterFiles];
 
-        ImageWriterPath path1 = imagePathsList[0];
+        ImageWriterFile path1 = imageWriterFileList[0];
         path1.ElementId.Should().Be("id1");
         path1.FileName.Should().Be("voiceline1.png");
-        path1.RelativeFilePath.Should().Be(Path.Join("TestImages", "voiceline1.png"));
         path1.SubDirectoryPath.Should().Be("voicelines");
-        path1.RelativeMpqFilePath.Should().BeNull();
     }
 }

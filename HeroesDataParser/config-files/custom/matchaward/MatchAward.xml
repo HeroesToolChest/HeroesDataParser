@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CScoreValueCustom id="EndOfMatchAwardMostAltarDamageDone">
+    <hdp-Id value="MostAltarDamage" />
+  </CScoreValueCustom>
+  <CScoreValueCustom id="EndOfMatchAwardHatTrickBoolean" >
+    <hdp-MvpIcon>
+      <Value value="Assets\Textures\storm_ui_mvp_icons_rewards_hottrick.dds" />
+      <Name value="hattrick" />
+    </hdp-MvpIcon> 
+  </CScoreValueCustom>
+  <CScoreValueCustom id="EndOfMatchAwardHighestKillStreakBoolean" >
+    <hdp-MvpIcon>
+      <Value value="Assets\Textures\storm_ui_mvp_icons_rewards_dominator.dds" />
+      <Name value="dominator" />
+    </hdp-MvpIcon>
+  </CScoreValueCustom>
+  <CScoreValueCustom id="EndOfMatchAwardMVPBoolean">
+    <hdp-MvpIcon>
+      <Value value="Assets\Textures\storm_ui_mvp_icon.dds" />
+      <Name value="mvp" />
+    </hdp-MvpIcon>
+  </CScoreValueCustom>
+</Catalog>

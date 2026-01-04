@@ -2,7 +2,7 @@
 
 public interface IDataExtractorService
 {
-    public SortedDictionary<string, TElement> Extract<TElement, TParser>(TParser parser, Map? map = null)
+    SortedDictionary<string, TElement> Extract<TElement, TParser>(TParser parser, Map? map = null)
         where TElement : IElementObject
         where TParser : IDataParser<TElement>;
 }

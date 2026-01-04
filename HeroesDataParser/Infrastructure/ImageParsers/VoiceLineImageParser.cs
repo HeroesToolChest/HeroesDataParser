@@ -2,8 +2,8 @@
 
 public class VoiceLineImageParser : ImageParserBase<VoiceLine>
 {
-    public VoiceLineImageParser(ILogger<VoiceLineImageParser> logger)
-    : base(logger)
+    public VoiceLineImageParser(ILogger<VoiceLineImageParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+        : base(logger, heroesXmlLoaderService)
     {
     }
 
@@ -11,8 +11,8 @@ public class VoiceLineImageParser : ImageParserBase<VoiceLine>
 
     protected override string SubDirectory => "voicelines";
 
-    protected override void SetImages(VoiceLine element, HashSet<ImageWriterPath> imagePaths)
+    protected override void SetImages(VoiceLine element)
     {
-        AddBasicImage(element, imagePaths);
+        AddBasicImage(element);
     }
 }

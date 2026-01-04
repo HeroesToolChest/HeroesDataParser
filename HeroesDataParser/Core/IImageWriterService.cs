@@ -2,7 +2,7 @@
 
 public interface IImageWriterService
 {
-    void Save(HashSet<ImageWriterPath> imagePaths);
+    void Save(HashSet<ImageWriterFile> imagePaths);
 
     Task Write();
 }

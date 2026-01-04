@@ -4,17 +4,19 @@
 public class HeroTalentImageParserTests : ImageWriterBase
 {
     private readonly ILogger<HeroTalentImageParser> _logger;
+    private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
     public HeroTalentImageParserTests()
     {
         _logger = Substitute.For<ILogger<HeroTalentImageParser>>();
+        _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
     }
 
     [TestMethod]
-    public void SaveImages_HasImages_GetImagePaths()
+    public void GetImages_HasImages_GetImagePaths()
     {
         // arrange
-        HeroTalentImageParser heroTalentImageParser = new(_logger);
+        HeroTalentImageParser heroTalentImageParser = new(_logger, _heroesXmlLoaderService);
 
         SortedDictionary<string, Hero> elementsById = [];
 
@@ -33,23 +35,19 @@ public class HeroTalentImageParserTests : ImageWriterBase
         elementsById.Add("hero1", hero);
 
         // act
-        HashSet<ImageWriterPath> imagePaths = heroTalentImageParser.GetImages(elementsById);
+        HashSet<ImageWriterFile> imageWriterFiles = heroTalentImageParser.GetImages(elementsById);
 
         // assert
-        imagePaths.Should().HaveCount(2);
+        imageWriterFiles.Should().HaveCount(2);
 
-        List<ImageWriterPath> imagePathsList = [.. imagePaths];
+        List<ImageWriterFile> imageWriterFileList = [.. imageWriterFiles];
 
-        ImageWriterPath talentPath1 = imagePathsList[0];
+        ImageWriterFile talentPath1 = imageWriterFileList[0];
         talentPath1.ElementId.Should().Be("id1");
-        talentPath1.RelativeFilePath.Should().Be(Path.Join("TestImages", "talent_icon1.dds"));
-        talentPath1.RelativeMpqFilePath.Should().BeNull();
         talentPath1.FileName.Should().Be("talent1.png");
         talentPath1.SubDirectoryPath.Should().Be("talents");
 
-        ImageWriterPath talentPath2 = imagePathsList[1];
+        ImageWriterFile talentPath2 = imageWriterFileList[1];
         talentPath2.ElementId.Should().Be("id1");
-        talentPath2.RelativeFilePath.Should().Be(Path.Join("TestImages", "talent_icon2.dds"));
-        talentPath2.RelativeMpqFilePath.Should().BeNull();
     }
 }

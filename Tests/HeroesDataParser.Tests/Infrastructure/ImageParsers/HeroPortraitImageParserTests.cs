@@ -4,17 +4,19 @@
 public class HeroPortraitImageParserTests : ImageWriterBase
 {
     private readonly ILogger<HeroPortraitImageParser> _logger;
+    private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
     public HeroPortraitImageParserTests()
     {
         _logger = Substitute.For<ILogger<HeroPortraitImageParser>>();
+        _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
     }
 
     [TestMethod]
-    public void SaveImages_HasImages_GetImagePaths()
+    public void GetImages_HasImages_GetImagePaths()
     {
         // arrange
-        HeroPortraitImageParser heroPortraitImageWriter = new(_logger);
+        HeroPortraitImageParser heroPortraitImageWriter = new(_logger, _heroesXmlLoaderService);
 
         SortedDictionary<string, Hero> elementsById = [];
         elementsById.Add("hero1", new Hero("id1")
@@ -43,64 +45,44 @@ public class HeroPortraitImageParserTests : ImageWriterBase
         });
 
         // act
-        HashSet<ImageWriterPath> imagePaths = heroPortraitImageWriter.GetImages(elementsById);
+        HashSet<ImageWriterFile> imageWriterFiles = heroPortraitImageWriter.GetImages(elementsById);
 
         // assert
-        imagePaths.Should().HaveCount(10);
+        imageWriterFiles.Should().HaveCount(10);
 
-        List<ImageWriterPath> imagePathsList = [.. imagePaths];
+        List<ImageWriterFile> imageWriterFileList = [.. imageWriterFiles];
 
-        ImageWriterPath path1 = imagePathsList[0];
+        ImageWriterFile path1 = imageWriterFileList[0];
         path1.ElementId.Should().Be("id1");
-        path1.RelativeFilePath.Should().Be(Path.Join("TestImages", "hero_select_portrait1.dds"));
-        path1.RelativeMpqFilePath.Should().BeNull();
         path1.ElementId.Should().Be("id1");
         path1.FileName.Should().Be("heroSelectPortrait1.png");
         path1.SubDirectoryPath.Should().Be("heroportraits");
 
-        ImageWriterPath path2 = imagePathsList[1];
+        ImageWriterFile path2 = imageWriterFileList[1];
         path2.ElementId.Should().Be("id1");
-        path2.RelativeFilePath.Should().Be(Path.Join("TestImages", "leaderboard_portrait1.dds"));
-        path2.RelativeMpqFilePath.Should().BeNull();
 
-        ImageWriterPath path3 = imagePathsList[2];
+        ImageWriterFile path3 = imageWriterFileList[2];
         path3.ElementId.Should().Be("id1");
-        path3.RelativeFilePath.Should().Be(Path.Join("TestImages", "loading_screen_portrait1.dds"));
-        path3.RelativeMpqFilePath.Should().BeNull();
 
-        ImageWriterPath path4 = imagePathsList[3];
+        ImageWriterFile path4 = imageWriterFileList[3];
         path4.ElementId.Should().Be("id1");
-        path4.RelativeFilePath.Should().Be(Path.Join("TestImages", "party_panel_portrait1.dds"));
-        path4.RelativeMpqFilePath.Should().BeNull();
 
-        ImageWriterPath path5 = imagePathsList[4];
+        ImageWriterFile path5 = imageWriterFileList[4];
         path5.ElementId.Should().Be("id1");
-        path5.RelativeFilePath.Should().Be(Path.Join("TestImages", "target_portrait1.dds"));
-        path5.RelativeMpqFilePath.Should().BeNull();
 
-        ImageWriterPath path6 = imagePathsList[5];
+        ImageWriterFile path6 = imageWriterFileList[5];
         path6.ElementId.Should().Be("id1");
-        path6.RelativeFilePath.Should().Be(Path.Join("TestImages", "draft_screen1.dds"));
-        path6.RelativeMpqFilePath.Should().BeNull();
 
-        ImageWriterPath path7 = imagePathsList[6];
+        ImageWriterFile path7 = imageWriterFileList[6];
         path7.ElementId.Should().Be("id1");
-        path7.RelativeFilePath.Should().Be(Path.Join("TestImages", "minimap_icon1.dds"));
-        path7.RelativeMpqFilePath.Should().BeNull();
 
-        ImageWriterPath path8 = imagePathsList[7];
+        ImageWriterFile path8 = imageWriterFileList[7];
         path8.ElementId.Should().Be("id1");
-        path8.RelativeFilePath.Should().Be(Path.Join("TestImages", "target_info_panel1.dds"));
-        path8.RelativeMpqFilePath.Should().BeNull();
 
-        ImageWriterPath path9 = imagePathsList[8];
+        ImageWriterFile path9 = imageWriterFileList[8];
         path9.ElementId.Should().Be("id1");
-        path9.RelativeFilePath.Should().Be(Path.Join("TestImages", "party_frame1.dds"));
-        path9.RelativeMpqFilePath.Should().BeNull();
 
-        ImageWriterPath path10 = imagePathsList[9];
+        ImageWriterFile path10 = imageWriterFileList[9];
         path10.ElementId.Should().Be("id1");
-        path10.RelativeFilePath.Should().Be(Path.Join("TestImages", "party_frame2.dds"));
-        path10.RelativeMpqFilePath.Should().BeNull();
     }
 }

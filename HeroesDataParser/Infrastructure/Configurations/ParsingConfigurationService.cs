@@ -40,9 +40,9 @@ public class ParsingConfigurationService : ConfigurationServiceBase, IParsingCon
         ProcessFiles();
     }
 
-    public IEnumerable<string> FilterAllowedItems(string dataObjectType, IEnumerable<string> items)
+    public IEnumerable<string> FilterAllowedItems(string elementName, IEnumerable<string> items)
     {
-        if (_parsingDataObjectTypeByDOT.TryGetValue(dataObjectType, out ParsingDataObjectType? type))
+        if (_parsingDataObjectTypeByDOT.TryGetValue(elementName, out ParsingDataObjectType? type))
         {
             ParsingDisallow parsingDisallow = type.ParsingDisallow;
 
@@ -51,12 +51,12 @@ public class ParsingConfigurationService : ConfigurationServiceBase, IParsingCon
                 if (!parsingDisallow.Exact.Contains(item) && !parsingDisallow.Regex.Any(x => Regex.IsMatch(item, x)))
                     yield return item;
                 else
-                    _logger.LogTrace("Item {Item} is disallowed for {DataObjectType}", item, dataObjectType);
+                    _logger.LogTrace("Item {Item} is disallowed for {DataObjectType}", item, elementName);
             }
         }
         else
         {
-            _logger.LogTrace("No parsing configuration found for {DataObjectType}", dataObjectType);
+            _logger.LogTrace("No parsing configuration found for {DataObjectType}", elementName);
 
             foreach (string item in items)
             {

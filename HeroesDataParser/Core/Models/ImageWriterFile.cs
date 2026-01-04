@@ -2,34 +2,26 @@
 
 // for output image paths
 [DebuggerDisplay("SubDirectoryPath = {SubDirectoryPath}, FileName = {FileName}")]
-public class ImageWriterPath : IEquatable<ImageWriterPath>
+public class ImageWriterFile : IEquatable<ImageWriterFile>
 {
     /// <summary>
-    /// Gets the output sub-directory path where the image is to be created.
+    /// Gets the output subdirectory path where the image is to be created.
     /// </summary>
     public required string SubDirectoryPath { get; init; }
 
     /// <summary>
-    /// Gets the file name (with extension) of the image to be created.
+    /// Gets the file name (with extension) of the image to be created. This is used as a unique identifier for the image, which may or may not be the actually written file name due to processing.
     /// </summary>
     public required string FileName { get; init; }
 
     /// <summary>
-    /// Gets the id of the element.
+    /// Gets the id of the element of which this image belongs to.
     /// </summary>
     public required string ElementId { get; init; }
 
-    /// <summary>
-    /// Gets the relative file path (including the file name) of the image that is to the original image file.
-    /// </summary>
-    public required string RelativeFilePath { get; init; }
+    public required Func<string, Task> ProcessImageFile { get; init; }
 
-    /// <summary>
-    /// Gets the relative file path of the mpq file that contains the <see cref="RelativeFilePath"/>.
-    /// </summary>
-    public required string? RelativeMpqFilePath { get; init; }
-
-    public bool Equals(ImageWriterPath? other)
+    public bool Equals(ImageWriterFile? other)
     {
         if (other is null)
             return false;
@@ -40,7 +32,7 @@ public class ImageWriterPath : IEquatable<ImageWriterPath>
             && string.Equals(SubDirectoryPath, other.SubDirectoryPath, StringComparison.OrdinalIgnoreCase);
     }
 
-    public override bool Equals(object? obj) => obj is ImageWriterPath other && Equals(other);
+    public override bool Equals(object? obj) => obj is ImageWriterFile other && Equals(other);
 
     public override int GetHashCode()
     {

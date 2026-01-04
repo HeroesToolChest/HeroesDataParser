@@ -242,6 +242,7 @@ public class ProcessorService : IProcessorService
         { ExtractDataOptions.Hero, ProcessElementObject<Hero, HeroParser> },
         { ExtractDataOptions.LootChest, ProcessElementObject<LootChest, LootChestParser> },
         { ExtractDataOptions.Mount, ProcessElementObject<Mount, MountParser> },
+        { ExtractDataOptions.MatchAward, ProcessElementObject<MatchAward, MatchAwardParser> },
         { ExtractDataOptions.Skin, ProcessElementObject<Skin, SkinParser> },
         { ExtractDataOptions.Unit, ProcessElementObject<Unit, UnitParser> },
         { ExtractDataOptions.Veterancy, ProcessElementObject<Veterancy, VeterancyParser> },

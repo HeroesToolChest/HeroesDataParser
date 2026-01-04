@@ -108,6 +108,7 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IDataParser<Hero>, HeroParser>();
             services.AddSingleton<IDataParser<LootChest>, LootChestParser>();
             services.AddSingleton<IDataParser<Mount>, MountParser>();
+            services.AddSingleton<IDataParser<MatchAward>, MatchAwardParser>();
             services.AddSingleton<IDataParser<Skin>, SkinParser>();
             services.AddSingleton<IDataParser<Unit>, UnitParser>();
             services.AddSingleton<IDataParser<Veterancy>, VeterancyParser>();
@@ -131,6 +132,7 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IImageParser<Map>, ReplayPreviewImageParser>();
             services.AddSingleton<IImageParser<Map>, LoadingScreenImageParser>();
             services.AddSingleton<IImageParser<Map>, MapObjectiveIconImageParser>();
+            services.AddSingleton<IImageParser<MatchAward>, MatchAwardImageParser>();
             services.AddSingleton<IImageParser<Hero>, HeroTalentImageParser>();
             services.AddSingleton<IImageParser<Hero>, HeroAbilityImageParser>();
             services.AddSingleton<IImageParser<Hero>, HeroAbilityTalentImageParser>();

@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MatchAward>
+  <CUser id="EndOfMatchGeneralAward">
+    <Instances Id="Generic Instance"/>
+    <Instances Id="Experienced">
+      <Fixed Fixed="12335">
+        <Field Id="Base"/>
+      </Fixed>
+      <GameLink GameLink="EndOfMatchAwardMostXPContributionBoolean">
+        <Field Id="Score Value Boolean"/>
+      </GameLink>
+      <String String="01">
+        <Field Id="Award Badge Index"/>
+      </String>
+      <String String="true">
+        <Field Id="Present as Ratio"/>
+      </String>
+      <Text Text="UserData/EndOfMatchGeneralAward/Experienced_Award Name">
+        <Field Id="Award Name"/>
+      </Text>
+      <Text Text="UserData/EndOfMatchGeneralAward/Experienced_Description">
+        <Field Id="Description"/>
+      </Text>
+      <Text Text="UserData/EndOfMatchGeneralAward/Experienced_Tooltip Text">
+        <Field Id="Tooltip Text"/>
+      </Text>
+    </Instances>
+    <Instances Id="Master of the Curse">
+      <Fixed Fixed="1498">
+        <Field Id="Base"/>
+      </Fixed>
+      <GameLink GameLink="EndOfMatchAwardMostCurseDamageDoneBoolean">
+        <Field Id="Score Value Boolean"/>
+      </GameLink>
+      <String String="16">
+        <Field Id="Award Badge Index"/>
+      </String>
+      <String String="true">
+        <Field Id="Present as Ratio"/>
+      </String>
+      <Text Text="UserData/EndOfMatchMapSpecificAward/Master of the Curse_Award Name">
+        <Field Id="Award Name"/>
+      </Text>
+      <Text Text="UserData/EndOfMatchMapSpecificAward/Master of the Curse_Description">
+        <Field Id="Description"/>
+      </Text>
+      <Text Text="UserData/EndOfMatchMapSpecificAward/Master of the Curse_Tooltip Text">
+        <Field Id="Tooltip Text"/>
+      </Text>
+    </Instances>
+  </CUser>
+  <CUser id="EndOfMatchMapSpecificAward">
+    <Instances Id="Shriner">
+      <Fixed Fixed="2">
+        <Field Id="Base"/>
+      </Fixed>
+      <GameLink GameLink="EndOfMatchAwardMostDragonShrinesCapturedBoolean">
+        <Field Id="Score Value Boolean"/>
+      </GameLink>
+      <String String="09">
+        <Field Id="Award Badge Index"/>
+      </String>
+      <String String="true">
+        <Field Id="Gated by Base"/>
+      </String>
+      <Text Text="UserData/EndOfMatchMapSpecificAward/Shriner_Award Name">
+        <Field Id="Award Name"/>
+      </Text>
+      <Text Text="UserData/EndOfMatchMapSpecificAward/Shriner_Description">
+        <Field Id="Description"/>
+      </Text>
+      <Text Text="UserData/EndOfMatchMapSpecificAward/Shriner_Tooltip Text">
+        <Field Id="Tooltip Text"/>
+      </Text>
+    </Instances>
+    <Instances Id="[Override]Generic Instance">
+      <Fixed Fixed="6">
+        <Field Id="Base"/>
+      </Fixed>
+      <GameLink GameLink="EndOfMatchAwardMostInterruptedCageUnlocksBoolean">
+        <Field Id="Score Value Boolean"/>
+      </GameLink>
+      <String String="true">
+        <Field Id="Gated by Base"/>
+      </String>
+      <String String="true">
+        <Field Id="Present as Ratio"/>
+      </String>
+      <String String="36">
+        <Field Id="Award Badge Index"/>
+      </String>
+      <Text Text="UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Award Name">
+        <Field Id="Award Name"/>
+      </Text>
+      <Text Text="UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Description">
+        <Field Id="Description"/>
+      </Text>
+      <Text Text="UserData/EndOfMatchMapSpecificAward/[Override]Generic Instance_Tooltip Text">
+        <Field Id="Tooltip Text"/>
+      </Text>
+    </Instances>
+  </CUser>
+</MatchAward>

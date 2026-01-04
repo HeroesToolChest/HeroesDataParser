@@ -2,8 +2,8 @@
 
 public class AnnouncerImageParser : ImageParserBase<Announcer>
 {
-    public AnnouncerImageParser(ILogger<AnnouncerImageParser> logger)
-        : base(logger)
+    public AnnouncerImageParser(ILogger<AnnouncerImageParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+        : base(logger, heroesXmlLoaderService)
     {
     }
 
@@ -11,8 +11,8 @@ public class AnnouncerImageParser : ImageParserBase<Announcer>
 
     protected override string SubDirectory => "announcers";
 
-    protected override void SetImages(Announcer element, HashSet<ImageWriterPath> imagePaths)
+    protected override void SetImages(Announcer element)
     {
-        AddBasicImage(element, imagePaths);
+        AddBasicImage(element);
     }
 }

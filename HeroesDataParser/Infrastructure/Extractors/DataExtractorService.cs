@@ -29,16 +29,30 @@ public class DataExtractorService : IDataExtractorService
         where TElement : IElementObject
         where TParser : IDataParser<TElement>
     {
+        ConcurrentDictionary<string, TElement> parsedItems = new(StringComparer.Ordinal);
+
+        int totalCount = ExtractInternal<TElement, TParser>(parser, typeof(TElement).Name, (id, element) =>
+        {
+            parsedItems.TryAdd(id, element);
+        });
+
+        DisplayExtractionSummary(totalCount, parsedItems.Count, parser.DataObjectType, map);
+
+        return new SortedDictionary<string, TElement>(parsedItems);
+    }
+
+    private int ExtractInternal<TElement, TParser>(TParser parser, string nameOfElement, Action<string, TElement> itemAdder)
+        where TElement : IElementObject
+        where TParser : IDataParser<TElement>
+    {
         _stopwatch.Restart();
 
         _logger.LogInformation("Starting data extractor for data object type {DataObjectType}", parser.DataObjectType);
-        AnsiConsole.Write($"Parsing '{typeof(TElement).Name}' data...");
-
-        ConcurrentDictionary<string, TElement> parsedItems = new(StringComparer.Ordinal);
+        AnsiConsole.Write($"Parsing '{nameOfElement}' data...");
 
         IEnumerable<string> itemIds = _heroesXmlLoaderService.HeroesXmlLoader.HeroesData.GetStormElementIds(parser.DataObjectType, StormCacheType.All);
 
-        itemIds = _parsingConfigurationService.FilterAllowedItems(parser.DataObjectType, itemIds)
+        itemIds = _parsingConfigurationService.FilterAllowedItems(nameOfElement, itemIds)
             .OrderBy(x => x);
 
         _logger.LogDebug("Element ids: {@ItemIds}", itemIds);
@@ -57,7 +71,7 @@ public class DataExtractorService : IDataExtractorService
                     TElement? element = parser.Parse(id);
                     if (element is not null)
                     {
-                        parsedItems.TryAdd(id, element);
+                        itemAdder.Invoke(element.Id, element);
                     }
                     else
                     {
@@ -75,6 +89,11 @@ public class DataExtractorService : IDataExtractorService
         _stopwatch.Stop();
         _logger.LogInformation("Data extractor complete for data object type {DataObjectType}", parser.DataObjectType);
 
+        return totalCount;
+    }
+
+    private void DisplayExtractionSummary(int totalCount, int parsedItemsCount, string dataObjectType, Map? map)
+    {
         if (totalCount < 1)
         {
             AnsiConsole.MarkupLine("[yellow]No items found to parse[/]");
@@ -82,16 +101,14 @@ public class DataExtractorService : IDataExtractorService
         }
         else
         {
-            _resultSummaryService.AddSummaryDataItem(parser.DataObjectType, parsedItems.Count, totalCount, _options.CurrentLocale, map?.Name?.PlainText);
+            _resultSummaryService.AddSummaryDataItem(dataObjectType, parsedItemsCount, totalCount, _options.CurrentLocale, map?.Name?.PlainText);
 
-            if (parsedItems.Count == totalCount)
-                AnsiConsole.MarkupInterpolated($"{parsedItems.Count} / {totalCount}");
+            if (parsedItemsCount == totalCount)
+                AnsiConsole.MarkupInterpolated($"{parsedItemsCount} / {totalCount}");
             else
-                AnsiConsole.MarkupInterpolated($"[yellow]{parsedItems.Count} / {totalCount}[/]");
+                AnsiConsole.MarkupInterpolated($"[yellow]{parsedItemsCount} / {totalCount}[/]");
 
             AnsiConsole.WriteLine($" (in {_stopwatch.Elapsed.TotalSeconds:0}s {_stopwatch.Elapsed.Milliseconds:0}ms)");
         }
-
-        return new SortedDictionary<string, TElement>(parsedItems);
     }
 }

@@ -2,8 +2,8 @@
 
 public class BundleImageParser : ImageParserBase<Bundle>
 {
-    public BundleImageParser(ILogger<BundleImageParser> logger)
-        : base(logger)
+    public BundleImageParser(ILogger<BundleImageParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+        : base(logger, heroesXmlLoaderService)
     {
     }
 
@@ -11,8 +11,8 @@ public class BundleImageParser : ImageParserBase<Bundle>
 
     protected override string SubDirectory => "bundles";
 
-    protected override void SetImages(Bundle element, HashSet<ImageWriterPath> imagePaths)
+    protected override void SetImages(Bundle element)
     {
-        AddBasicImage(element, imagePaths);
+        AddBasicImage(element);
     }
 }

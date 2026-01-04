@@ -2,8 +2,8 @@
 
 public class LoadingScreenImageParser : ImageParserBase<Map>
 {
-    public LoadingScreenImageParser(ILogger<LoadingScreenImageParser> logger)
-        : base(logger)
+    public LoadingScreenImageParser(ILogger<LoadingScreenImageParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+        : base(logger, heroesXmlLoaderService)
     {
     }
 
@@ -11,9 +11,14 @@ public class LoadingScreenImageParser : ImageParserBase<Map>
 
     protected override string SubDirectory => "loadingscreens";
 
-    protected override void SetImages(Map element, HashSet<ImageWriterPath> imagePaths)
+    protected override void SetImages(Map element)
     {
         if (!string.IsNullOrWhiteSpace(element.LoadingScreenImage) && !string.IsNullOrWhiteSpace(element.LoadingScreenImagePath?.FilePath))
-            TryAddToFiles(imagePaths, element.LoadingScreenImage, element.LoadingScreenImagePath, element);
+        {
+            TryAddToFiles(element.LoadingScreenImage, element.Id, async (directoryPath) =>
+            {
+                await ProcessBasicImage(element.LoadingScreenImage, element.LoadingScreenImagePath, directoryPath);
+            });
+        }
     }
 }

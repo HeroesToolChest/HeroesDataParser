@@ -4,17 +4,19 @@
 public class BundleImageParserTests : ImageWriterBase
 {
     private readonly ILogger<BundleImageParser> _logger;
+    private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
     public BundleImageParserTests()
     {
         _logger = Substitute.For<ILogger<BundleImageParser>>();
+        _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
     }
 
     [TestMethod]
-    public void SaveImages_HasImages_GetImagePaths()
+    public void GetImages_HasImages_GetImagePaths()
     {
         // arrange
-        BundleImageParser bundleImageParser = new(_logger);
+        BundleImageParser bundleImageParser = new(_logger, _heroesXmlLoaderService);
 
         SortedDictionary<string, Bundle> elementsById = [];
         Bundle bundle = new("id1")
@@ -30,18 +32,16 @@ public class BundleImageParserTests : ImageWriterBase
         elementsById.Add("bundle1", bundle);
 
         // act
-        HashSet<ImageWriterPath> imagePaths = bundleImageParser.GetImages(elementsById);
+        HashSet<ImageWriterFile> imageWriterFiles = bundleImageParser.GetImages(elementsById);
 
         // assert
-        imagePaths.Should().ContainSingle();
+        imageWriterFiles.Should().ContainSingle();
 
-        List<ImageWriterPath> imagePathsList = [.. imagePaths];
+        List<ImageWriterFile> imageWriterFileList = [.. imageWriterFiles];
 
-        ImageWriterPath path1 = imagePathsList[0];
+        ImageWriterFile path1 = imageWriterFileList[0];
         path1.ElementId.Should().Be("id1");
         path1.FileName.Should().Be("bundle1.png");
-        path1.RelativeFilePath.Should().Be(Path.Join("TestImages", "bundle1.png"));
         path1.SubDirectoryPath.Should().Be("bundles");
-        path1.RelativeMpqFilePath.Should().BeNull();
     }
 }
