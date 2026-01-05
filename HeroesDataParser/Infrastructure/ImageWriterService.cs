@@ -101,7 +101,7 @@ public class ImageWriterService : IImageWriterService
             string directoryPath = Path.Combine(_options.OutputDirectory, _imageDirectory, progressTask.ImagePathsBySubDirectory.Key);
             Directory.CreateDirectory(directoryPath);
 
-            foreach (ImageWriterFile imageWriterFile in progressTask.ImagePathsBySubDirectory)
+            await Parallel.ForEachAsync(progressTask.ImagePathsBySubDirectory, parallelOptions, async (imageWriterFile, cts) =>
             {
                 try
                 {
@@ -119,7 +119,7 @@ public class ImageWriterService : IImageWriterService
                 {
                     _logger.LogError(ex, "Error writing image file {FileName} to directory {SubDirectory}", imageWriterFile.FileName, directoryPath);
                 }
-            }
+            });
 
             progressTask.ProgressTask.StopTask();
         });
