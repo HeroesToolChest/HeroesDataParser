@@ -6,10 +6,15 @@ public class HeroAbilityTalentImageParserTests : ImageWriterBase
     private readonly ILogger<HeroAbilityTalentImageParser> _logger;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
+    private readonly HeroesXmlLoader _heroesXmlLoader;
+
     public HeroAbilityTalentImageParserTests()
     {
         _logger = Substitute.For<ILogger<HeroAbilityTalentImageParser>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
+
+        _heroesXmlLoader = TestHeroesXmlLoader.GetArrangedHeroesXmlLoader();
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
     }
 
     [TestMethod]
@@ -71,5 +76,40 @@ public class HeroAbilityTalentImageParserTests : ImageWriterBase
         talentPath2.ElementId.Should().Be("id1");
         talentPath2.FileName.Should().Be("talent2.png");
         talentPath2.SubDirectoryPath.Should().Be("abilitytalents");
+    }
+
+    [TestMethod]
+    public async Task ProcessImageFile_FileExists_ImagesAreCreated()
+    {
+        // arrange
+        string outputImageDirectory = Path.Combine(OutputBaseDirectory, OutputImageDirectory, nameof(Hero));
+        Directory.CreateDirectory(outputImageDirectory);
+
+        SortedDictionary<string, Hero> elementsById = [];
+
+        Hero hero = new("id1");
+        hero.AddAbility(new Ability()
+        {
+            Icon = "storm_ui_icon_abathur_toxicnest.png",
+            IconPath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "storm_ui_icon_abathur_toxicnest.dds") },
+        });
+        hero.AddTalent(new Talent()
+        {
+            Icon = "storm_ui_icon_alexstrasza_dragon_queen.png",
+            IconPath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "storm_ui_icon_alexstrasza_dragon_queen.dds") },
+        });
+
+        elementsById.Add("hero1", hero);
+
+        HeroAbilityTalentImageParser heroAbilityTalentImageParser = new(_logger, _heroesXmlLoaderService);
+        HashSet<ImageWriterFile> imageWriterFiles = heroAbilityTalentImageParser.GetImages(elementsById);
+
+        // act
+        foreach (ImageWriterFile imageWriterFile in imageWriterFiles)
+            await imageWriterFile.ProcessImageFile.Invoke(outputImageDirectory);
+
+        // assert
+        File.Exists(Path.Combine(outputImageDirectory, "storm_ui_icon_abathur_toxicnest.png")).Should().BeTrue();
+        File.Exists(Path.Combine(outputImageDirectory, "storm_ui_icon_alexstrasza_dragon_queen.png")).Should().BeTrue();
     }
 }

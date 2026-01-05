@@ -45,14 +45,9 @@ public class MatchAwardImageParser : ImageParserBase<MatchAward>
 
     private async Task ProcessScoreScreenImageFile(string scoreScreenImage, RelativeFilePath relativeFilePath, string directoryPath, string color)
     {
-        string imageFilePath = relativeFilePath.FilePath.Replace("%team%", color, StringComparison.OrdinalIgnoreCase);
-        string? mpqImageFilePath = relativeFilePath.MpqFilePath?.Replace("%team%", color, StringComparison.OrdinalIgnoreCase);
+        VerifyFileExists(relativeFilePath);
 
-        RelativeFilePath updatedRelativeFilePath = new() { FilePath = imageFilePath, MpqFilePath = mpqImageFilePath };
-
-        VerifyFileExists(updatedRelativeFilePath);
-
-        using Stream stream = HeroesXmlLoaderService.HeroesXmlLoader.GetFile(updatedRelativeFilePath.FilePath, updatedRelativeFilePath.MpqFilePath);
+        using Stream stream = HeroesXmlLoaderService.HeroesXmlLoader.GetFile(relativeFilePath.FilePath, relativeFilePath.MpqFilePath);
         using DDSImage ddsImage = new(stream);
 
         string scoreImagePath = Path.Combine(directoryPath, scoreScreenImage.Replace("%team%", color, StringComparison.OrdinalIgnoreCase));

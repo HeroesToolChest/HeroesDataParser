@@ -77,7 +77,7 @@ public abstract class ImageParserBase<TElement> : IImageParser<TElement>
         if (!HeroesXmlLoaderService.HeroesXmlLoader.FileExists(relativeFilePath.FilePath, relativeFilePath.MpqFilePath))
         {
             Logger.LogWarning("Unable to to create file because {@ImageWriterPath} does not exist", relativeFilePath);
-            throw new FileNotFoundException("Image file not found.");
+            throw new FileNotFoundException("Image file not found.", relativeFilePath.FilePath);
         }
     }
 

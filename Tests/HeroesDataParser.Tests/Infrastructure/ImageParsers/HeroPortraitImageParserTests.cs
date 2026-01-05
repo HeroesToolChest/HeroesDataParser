@@ -6,10 +6,15 @@ public class HeroPortraitImageParserTests : ImageWriterBase
     private readonly ILogger<HeroPortraitImageParser> _logger;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
+    private readonly HeroesXmlLoader _heroesXmlLoader;
+
     public HeroPortraitImageParserTests()
     {
         _logger = Substitute.For<ILogger<HeroPortraitImageParser>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
+
+        _heroesXmlLoader = TestHeroesXmlLoader.GetArrangedHeroesXmlLoader();
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
     }
 
     [TestMethod]
@@ -84,5 +89,57 @@ public class HeroPortraitImageParserTests : ImageWriterBase
 
         ImageWriterFile path10 = imageWriterFileList[9];
         path10.ElementId.Should().Be("id1");
+    }
+
+    [TestMethod]
+    public async Task ProcessImageFile_FileExists_ImagesAreCreated()
+    {
+        // arrange
+        string outputImageDirectory = Path.Combine(OutputBaseDirectory, OutputImageDirectory, nameof(HeroPortrait));
+        Directory.CreateDirectory(outputImageDirectory);
+
+        SortedDictionary<string, Hero> elementsById = [];
+        elementsById.Add("hero1", new Hero("id1")
+        {
+            HeroPortraits = new HeroPortrait()
+            {
+                HeroSelectPortrait = "storm_ui_ingame_heroselect_btn_anduin.png",
+                HeroSelectPortraitPath = new RelativeFilePath { FilePath = Path.Combine(TestImagesDirectory, "storm_ui_ingame_heroselect_btn_anduin.dds") },
+                LeaderboardPortrait = "storm_ui_ingame_hero_leaderboard_zuljin.png",
+                LeaderboardPortraitPath = new RelativeFilePath { FilePath = Path.Combine(TestImagesDirectory, "storm_ui_ingame_hero_leaderboard_zuljin.dds") },
+                LoadingScreenPortrait = "storm_ui_hero_loading_screen_firebat.png",
+                LoadingScreenPortraitPath = new RelativeFilePath { FilePath = Path.Combine(TestImagesDirectory, "storm_ui_hero_loading_screen_firebat.dds") },
+                PartyPanelPortrait = "storm_ui_ingame_partypanel_btn_ana.png",
+                PartyPanelPortraitPath = new RelativeFilePath { FilePath = Path.Combine(TestImagesDirectory, "storm_ui_ingame_partypanel_btn_ana.dds") },
+                TargetPortrait = "ui_targetportrait_hero_artanis.png",
+                TargetPortraitPath = new RelativeFilePath { FilePath = Path.Combine(TestImagesDirectory, "ui_targetportrait_hero_artanis.dds") },
+                DraftScreen = "storm_ui_glues_draft_portrait_abathur.png",
+                DraftScreenPath = new RelativeFilePath { FilePath = Path.Combine(TestImagesDirectory, "storm_ui_glues_draft_portrait_abathur.dds") },
+                MiniMapIcon = "storm_ui_minimapicon_alarak.png",
+                MiniMapIconPath = new RelativeFilePath { FilePath = Path.Combine(TestImagesDirectory, "storm_ui_minimapicon_alarak.dds") },
+                TargetInfoPanel = "storm_ui_ingame_hero_loadingscreen_d2amazonf.png",
+                TargetInfoPanelPath = new RelativeFilePath { FilePath = Path.Combine(TestImagesDirectory, "storm_ui_ingame_hero_loadingscreen_d2amazonf.dds") },
+                PartyFrames = ["storm_ui_ingame_partyframe_alexstrasza.png"],
+                PartyFramePaths = [new RelativeFilePath { FilePath = Path.Combine(TestImagesDirectory, "storm_ui_ingame_partyframe_alexstrasza.dds") }],
+            },
+        });
+
+        HeroPortraitImageParser heroPortraitImageWriter = new(_logger, _heroesXmlLoaderService);
+        HashSet<ImageWriterFile> imageWriterFiles = heroPortraitImageWriter.GetImages(elementsById);
+
+        // act
+        foreach (ImageWriterFile imageWriterFile in imageWriterFiles)
+            await imageWriterFile.ProcessImageFile.Invoke(outputImageDirectory);
+
+        // assert
+        File.Exists(Path.Combine(outputImageDirectory, "storm_ui_ingame_heroselect_btn_anduin.png")).Should().BeTrue();
+        File.Exists(Path.Combine(outputImageDirectory, "storm_ui_ingame_hero_leaderboard_zuljin.png")).Should().BeTrue();
+        File.Exists(Path.Combine(outputImageDirectory, "storm_ui_hero_loading_screen_firebat.png")).Should().BeTrue();
+        File.Exists(Path.Combine(outputImageDirectory, "storm_ui_ingame_partypanel_btn_ana.png")).Should().BeTrue();
+        File.Exists(Path.Combine(outputImageDirectory, "ui_targetportrait_hero_artanis.png")).Should().BeTrue();
+        File.Exists(Path.Combine(outputImageDirectory, "storm_ui_glues_draft_portrait_abathur.png")).Should().BeTrue();
+        File.Exists(Path.Combine(outputImageDirectory, "storm_ui_minimapicon_alarak.png")).Should().BeTrue();
+        File.Exists(Path.Combine(outputImageDirectory, "storm_ui_ingame_partyframe_alexstrasza.png")).Should().BeTrue();
+        File.Exists(Path.Combine(outputImageDirectory, "storm_ui_ingame_hero_loadingscreen_d2amazonf.png")).Should().BeTrue();
     }
 }

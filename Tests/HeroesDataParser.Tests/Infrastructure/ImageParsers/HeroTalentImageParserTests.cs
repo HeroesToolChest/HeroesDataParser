@@ -6,10 +6,15 @@ public class HeroTalentImageParserTests : ImageWriterBase
     private readonly ILogger<HeroTalentImageParser> _logger;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
+    private readonly HeroesXmlLoader _heroesXmlLoader;
+
     public HeroTalentImageParserTests()
     {
         _logger = Substitute.For<ILogger<HeroTalentImageParser>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
+
+        _heroesXmlLoader = TestHeroesXmlLoader.GetArrangedHeroesXmlLoader();
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
     }
 
     [TestMethod]
@@ -49,5 +54,34 @@ public class HeroTalentImageParserTests : ImageWriterBase
 
         ImageWriterFile talentPath2 = imageWriterFileList[1];
         talentPath2.ElementId.Should().Be("id1");
+    }
+
+    [TestMethod]
+    public async Task ProcessImageFile_FileExists_ImagesAreCreated()
+    {
+        // arrange
+        string outputImageDirectory = Path.Combine(OutputBaseDirectory, OutputImageDirectory, nameof(Talent));
+        Directory.CreateDirectory(outputImageDirectory);
+
+        SortedDictionary<string, Hero> elementsById = [];
+
+        Hero hero = new("id1");
+        hero.AddTalent(new Talent()
+        {
+            Icon = "storm_ui_icon_abathur_toxicnest.png",
+            IconPath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "storm_ui_icon_abathur_toxicnest.dds") },
+        });
+
+        elementsById.Add("hero1", hero);
+
+        HeroTalentImageParser heroTalentImageParser = new(_logger, _heroesXmlLoaderService);
+        HashSet<ImageWriterFile> imageWriterFiles = heroTalentImageParser.GetImages(elementsById);
+
+        // act
+        foreach (ImageWriterFile imageWriterFile in imageWriterFiles)
+            await imageWriterFile.ProcessImageFile.Invoke(outputImageDirectory);
+
+        // assert
+        File.Exists(Path.Combine(outputImageDirectory, "storm_ui_icon_abathur_toxicnest.png")).Should().BeTrue();
     }
 }

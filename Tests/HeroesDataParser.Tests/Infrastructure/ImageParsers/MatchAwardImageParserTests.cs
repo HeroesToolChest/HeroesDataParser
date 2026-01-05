@@ -6,10 +6,15 @@ public class MatchAwardImageParserTests : ImageWriterBase
     private readonly ILogger<MatchAwardImageParser> _logger;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
+    private readonly HeroesXmlLoader _heroesXmlLoader;
+
     public MatchAwardImageParserTests()
     {
         _logger = Substitute.For<ILogger<MatchAwardImageParser>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
+
+        _heroesXmlLoader = TestHeroesXmlLoader.GetArrangedHeroesXmlLoader();
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
     }
 
     [TestMethod]
@@ -87,5 +92,50 @@ public class MatchAwardImageParserTests : ImageWriterBase
         path5.ElementId.Should().Be("id2");
         path5.FileName.Should().Be("mvp_screen2.png");
         path5.SubDirectoryPath.Should().Be("matchawards");
+    }
+
+    [TestMethod]
+    public async Task ProcessImageFile_FileExists_ImagesAreCreated()
+    {
+        // arrange
+        string outputImageDirectory = Path.Combine(OutputBaseDirectory, OutputImageDirectory, nameof(MatchAward));
+        Directory.CreateDirectory(outputImageDirectory);
+
+        SortedDictionary<string, MatchAward> elementsById = [];
+
+        MatchAward matchAward1 = new("id1")
+        {
+            MVPScreenImage = "storm_ui_mvp_icons_rewards_loyaldefender_%color%.png",
+            MVPScreenImagePath = new RelativeFilePath
+            {
+                FilePath = Path.Combine(TestImagesDirectory, "storm_ui_mvp_icons_rewards_loyaldefender.dds"),
+            },
+            ScoreScreenImage = "storm_ui_scorescreen_mvp_bulwark_%team%.png",
+            ScoreScreenImageBluePath = new RelativeFilePath
+            {
+                FilePath = Path.Combine(TestImagesDirectory, "storm_ui_scorescreen_mvp_bulwark_blue.dds"),
+            },
+            ScoreScreenImageRedPath = new RelativeFilePath
+            {
+                FilePath = Path.Combine(TestImagesDirectory, "storm_ui_scorescreen_mvp_bulwark_red.dds"),
+            },
+        };
+
+        elementsById.Add("matchaward1", matchAward1);
+
+        MatchAwardImageParser matchAwardImageParser = new(_logger, _heroesXmlLoaderService);
+        HashSet<ImageWriterFile> imageWriterFiles = matchAwardImageParser.GetImages(elementsById);
+
+        // act
+        foreach (ImageWriterFile imageWriterFile in imageWriterFiles)
+            await imageWriterFile.ProcessImageFile.Invoke(outputImageDirectory);
+
+        // assert
+        File.Exists(Path.Combine(outputImageDirectory, "storm_ui_mvp_icons_rewards_loyaldefender_blue.png")).Should().BeTrue();
+        File.Exists(Path.Combine(outputImageDirectory, "storm_ui_mvp_icons_rewards_loyaldefender_red.png")).Should().BeTrue();
+        File.Exists(Path.Combine(outputImageDirectory, "storm_ui_mvp_icons_rewards_loyaldefender_gold.png")).Should().BeTrue();
+
+        File.Exists(Path.Combine(outputImageDirectory, "storm_ui_scorescreen_mvp_bulwark_blue.png")).Should().BeTrue();
+        File.Exists(Path.Combine(outputImageDirectory, "storm_ui_scorescreen_mvp_bulwark_red.png")).Should().BeTrue();
     }
 }

@@ -6,10 +6,15 @@ public class HeroAbilityImageParserTests : ImageWriterBase
     private readonly ILogger<HeroAbilityImageParser> _logger;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
+    private readonly HeroesXmlLoader _heroesXmlLoader;
+
     public HeroAbilityImageParserTests()
     {
         _logger = Substitute.For<ILogger<HeroAbilityImageParser>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
+
+        _heroesXmlLoader = TestHeroesXmlLoader.GetArrangedHeroesXmlLoader();
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
     }
 
     [TestMethod]
@@ -51,5 +56,34 @@ public class HeroAbilityImageParserTests : ImageWriterBase
         path2.ElementId.Should().Be("id1");
         path2.FileName.Should().Be("ability2.png");
         path2.SubDirectoryPath.Should().Be("abilities");
+    }
+
+    [TestMethod]
+    public async Task ProcessImageFile_FileExists_ImagesAreCreated()
+    {
+        // arrange
+        string outputImageDirectory = Path.Combine(OutputBaseDirectory, OutputImageDirectory, nameof(Ability));
+        Directory.CreateDirectory(outputImageDirectory);
+
+        SortedDictionary<string, Hero> elementsById = [];
+
+        Hero hero = new("id1");
+        hero.AddAbility(new Ability()
+        {
+            Icon = "storm_ui_icon_alexstrasza_dragon_queen.png",
+            IconPath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "storm_ui_icon_alexstrasza_dragon_queen.dds") },
+        });
+
+        elementsById.Add("hero1", hero);
+
+        HeroAbilityImageParser heroAbilityImageParser = new(_logger, _heroesXmlLoaderService);
+        HashSet<ImageWriterFile> imageWriterFiles = heroAbilityImageParser.GetImages(elementsById);
+
+        // act
+        foreach (ImageWriterFile imageWriterFile in imageWriterFiles)
+            await imageWriterFile.ProcessImageFile.Invoke(outputImageDirectory);
+
+        // assert
+        File.Exists(Path.Combine(outputImageDirectory, "storm_ui_icon_alexstrasza_dragon_queen.png")).Should().BeTrue();
     }
 }

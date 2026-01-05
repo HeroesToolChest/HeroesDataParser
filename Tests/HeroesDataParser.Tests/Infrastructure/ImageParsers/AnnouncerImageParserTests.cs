@@ -6,10 +6,15 @@ public class AnnouncerImageParserTests : ImageWriterBase
     private readonly ILogger<AnnouncerImageParser> _logger;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
+    private readonly HeroesXmlLoader _heroesXmlLoader;
+
     public AnnouncerImageParserTests()
     {
         _logger = Substitute.For<ILogger<AnnouncerImageParser>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
+
+        _heroesXmlLoader = TestHeroesXmlLoader.GetArrangedHeroesXmlLoader();
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
     }
 
     [TestMethod]
@@ -43,5 +48,36 @@ public class AnnouncerImageParserTests : ImageWriterBase
         path1.ElementId.Should().Be("id1");
         path1.FileName.Should().Be("announcer1.png");
         path1.SubDirectoryPath.Should().Be("announcers");
+    }
+
+    [TestMethod]
+    public async Task ProcessImageFile_FileExists_ImagesAreCreated()
+    {
+        // arrange
+        string outputImageDirectory = Path.Combine(OutputBaseDirectory, OutputImageDirectory, nameof(Announcer));
+        Directory.CreateDirectory(outputImageDirectory);
+
+        SortedDictionary<string, Announcer> elementsById = [];
+        Announcer announcer = new("id1")
+        {
+            Image = "storm_ui_announcer_adjutant.png",
+        };
+
+        (announcer as IImagePath).ImagePath = new RelativeFilePath
+        {
+            FilePath = Path.Combine(TestImagesDirectory, "storm_ui_announcer_adjutant.dds"),
+        };
+
+        elementsById.Add("announcer1", announcer);
+
+        AnnouncerImageParser announcerImageParser = new(_logger, _heroesXmlLoaderService);
+        HashSet<ImageWriterFile> imageWriterFiles = announcerImageParser.GetImages(elementsById);
+
+        // act
+        foreach (ImageWriterFile imageWriterFile in imageWriterFiles)
+            await imageWriterFile.ProcessImageFile.Invoke(outputImageDirectory);
+
+        // assert
+        File.Exists(Path.Combine(outputImageDirectory, "storm_ui_announcer_adjutant.png")).Should().BeTrue();
     }
 }

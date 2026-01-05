@@ -6,10 +6,15 @@ public class MapObjectiveIconImageParserTests : ImageWriterBase
     private readonly ILogger<MapObjectiveIconImageParser> _logger;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
+    private readonly HeroesXmlLoader _heroesXmlLoader;
+
     public MapObjectiveIconImageParserTests()
     {
         _logger = Substitute.For<ILogger<MapObjectiveIconImageParser>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
+
+        _heroesXmlLoader = TestHeroesXmlLoader.GetArrangedHeroesXmlLoader();
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
     }
 
     [TestMethod]
@@ -78,5 +83,49 @@ public class MapObjectiveIconImageParserTests : ImageWriterBase
         path3.ElementId.Should().Be("id1");
         path3.FileName.Should().Be("objective_icon3.png");
         path3.SubDirectoryPath.Should().Be("mapobjectives");
+    }
+
+    [TestMethod]
+    public async Task ProcessImageFile_FileExists_ImagesAreCreated()
+    {
+        // arrange
+        string outputImageDirectory = Path.Combine(OutputBaseDirectory, OutputImageDirectory, nameof(Map));
+        Directory.CreateDirectory(outputImageDirectory);
+
+        SortedDictionary<string, Map> elementsById = [];
+
+        Map map = new("id1");
+
+        MapObjective objective1 = new()
+        {
+            Icons =
+            [
+                new MapObjectiveIcon
+                {
+                    Image = "storm_ui_loadscreen_industrial_district_icon_02.png",
+                    ImagePath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "storm_ui_loadscreen_industrial_district_icon_02.dds") },
+                },
+                new MapObjectiveIcon
+                {
+                    Image = "storm_ui_loadscreen_industrial_district_icon_03.png",
+                    ImagePath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "storm_ui_loadscreen_industrial_district_icon_03.dds") },
+                },
+            ],
+        };
+
+        map.MapObjectives.Add(objective1);
+
+        elementsById.Add("map1", map);
+
+        MapObjectiveIconImageParser mapObjectiveIconImageParser = new(_logger, _heroesXmlLoaderService);
+        HashSet<ImageWriterFile> imageWriterFiles = mapObjectiveIconImageParser.GetImages(elementsById);
+
+        // act
+        foreach (ImageWriterFile imageWriterFile in imageWriterFiles)
+            await imageWriterFile.ProcessImageFile.Invoke(outputImageDirectory);
+
+        // assert
+        File.Exists(Path.Combine(outputImageDirectory, "storm_ui_loadscreen_industrial_district_icon_02.png")).Should().BeTrue();
+        File.Exists(Path.Combine(outputImageDirectory, "storm_ui_loadscreen_industrial_district_icon_03.png")).Should().BeTrue();
     }
 }
