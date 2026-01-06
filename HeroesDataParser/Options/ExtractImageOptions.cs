@@ -4,7 +4,7 @@
 public enum ExtractImageOptions
 {
     None = 0,
-    Unit = 1 << 0,
+    UnitPortrait = 1 << 0,
     HeroPortrait = 1 << 1,
     Talent = 1 << 2,
     Ability = 1 << 3,
@@ -21,6 +21,7 @@ public enum ExtractImageOptions
     MapObjectives = 1 << 14,
     All = ~(~0 << 15),
 
+    UnitData = UnitPortrait | AbilityTalent,
     HeroData = HeroPortrait | AbilityTalent,
     HeroDataSplit = HeroPortrait | Ability | Talent,
     AllSplit = All & ~AbilityTalent,

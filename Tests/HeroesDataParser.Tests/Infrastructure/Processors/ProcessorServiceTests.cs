@@ -100,12 +100,13 @@ public class ProcessorServiceTests
             },
             Hidden = new HiddenOptions()
             {
+                Abilities = abilities,
+                AbilityTalents = abilityTalents,
                 HeroImages = new HeroImagesOptions()
                 {
                     HeroPortraits = heroPortraits,
                     Talents = talents,
-                    Abilities = abilities,
-                    AbilityTalents = abilityTalents,
+
                     HeroData = heroData,
                     HeroDataSplit = heroDataSplit,
                 },

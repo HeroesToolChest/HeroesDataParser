@@ -137,6 +137,9 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IImageParser<Hero>, HeroAbilityImageParser>();
             services.AddSingleton<IImageParser<Hero>, HeroAbilityTalentImageParser>();
             services.AddSingleton<IImageParser<Hero>, HeroPortraitImageParser>();
+            services.AddSingleton<IImageParser<Unit>, UnitPortraitImageParser>();
+            services.AddSingleton<IImageParser<Unit>, UnitAbilityImageParser>();
+            services.AddSingleton<IImageParser<Unit>, UnitAbilityTalentImageParser>();
 
             return services;
         }

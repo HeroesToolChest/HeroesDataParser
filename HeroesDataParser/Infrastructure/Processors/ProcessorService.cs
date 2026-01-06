@@ -198,14 +198,28 @@ public class ProcessorService : IProcessorService
                     selectImageExtractOptions |= ExtractImageOptions.HeroPortrait;
                 if (_options.Hidden.HeroImages.Talents)
                     selectImageExtractOptions |= ExtractImageOptions.Talent;
-                if (_options.Hidden.HeroImages.Abilities)
+                if (_options.Hidden.Abilities)
                     selectImageExtractOptions |= ExtractImageOptions.Ability;
-                if (_options.Hidden.HeroImages.AbilityTalents)
+                if (_options.Hidden.AbilityTalents)
                     selectImageExtractOptions |= ExtractImageOptions.AbilityTalent;
                 if (_options.Hidden.HeroImages.HeroData)
                     selectImageExtractOptions |= ExtractImageOptions.HeroData;
                 if (_options.Hidden.HeroImages.HeroDataSplit)
                     selectImageExtractOptions |= ExtractImageOptions.HeroDataSplit;
+
+                continue;
+            }
+
+            if (extractDataOption.Key.Equals("unit", StringComparison.OrdinalIgnoreCase))
+            {
+                if (_options.Hidden.UnitImages.UnitPortraits)
+                    selectImageExtractOptions |= ExtractImageOptions.UnitPortrait;
+                if (_options.Hidden.Abilities)
+                    selectImageExtractOptions |= ExtractImageOptions.Ability;
+                if (_options.Hidden.AbilityTalents)
+                    selectImageExtractOptions |= ExtractImageOptions.AbilityTalent;
+                if (_options.Hidden.UnitImages.UnitData)
+                    selectImageExtractOptions |= ExtractImageOptions.UnitData;
 
                 continue;
             }
