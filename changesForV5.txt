@@ -171,6 +171,11 @@ HeroRoleData.xml ?
 - Fixed `YrelBaseVar3` and `YrelBaseVar4` incorrect `releaseDate`
 - Fixed `ZagaraBaseVar3` incorrect `releaseDate`
 
+#### Spray
+- Added 'RandomSpray' item
+- Animated sprays have been changed from `gif` to `apng`
+  - This was changed due to quality limitations of `gif` format
+
 #### Veterancy
 - Renamed from `BehaviorVeterancy` to `Veterancy`
 - Updated name `minVeterancyXP` to `minimumVeterancyXP`
