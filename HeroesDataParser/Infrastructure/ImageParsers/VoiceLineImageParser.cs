@@ -13,6 +13,6 @@ public class VoiceLineImageParser : ImageParserBase<VoiceLine>
 
     protected override void SetImages(VoiceLine element)
     {
-        AddBasicImage(element);
+        AddStaticImage(element);
     }
 }

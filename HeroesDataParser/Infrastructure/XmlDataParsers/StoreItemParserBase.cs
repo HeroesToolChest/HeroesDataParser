@@ -30,6 +30,7 @@ public abstract class StoreItemParserBase<T> : DataParser<T>
         SetEventNameProperty(collectionObject, stormElement);
         SetDescriptionProperty(collectionObject, stormElement);
         SetInfoTextProperty(collectionObject, stormElement);
+        SetImageProperty(collectionObject, stormElement);
 
         if (stormElement.DataValues.TryGetElementDataAt("sortname", out StormElementData? sortNameData))
             collectionObject.SortName = GameStringTextService.GetGameStringTextFromId(sortNameData.Value.GetString());

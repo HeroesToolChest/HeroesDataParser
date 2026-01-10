@@ -28,9 +28,9 @@ public class UnitAbilityTalentImageParser : ImageParserBase<Unit>
                 if (string.IsNullOrWhiteSpace(abilityIcon) || string.IsNullOrWhiteSpace(abilityIconPath?.FilePath))
                     return;
 
-                TryAddToFiles(abilityIcon, element.Id, async (directoryPath) =>
+                AddToFiles(abilityIcon, element.Id, async (directoryPath) =>
                 {
-                    await ProcessBasicImage(abilityIcon, abilityIconPath, directoryPath);
+                    await ProcessStaticImage(abilityIcon, abilityIconPath, directoryPath);
                 });
             }
         }

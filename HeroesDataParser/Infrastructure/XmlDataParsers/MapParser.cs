@@ -59,12 +59,12 @@ public class MapParser : DataParser<Map>
 
     private static string? GetImagePath(string path)
     {
-        return Path.ChangeExtension(Path.GetFileName(path), ImageFileExtension);
+        return Path.ChangeExtension(Path.GetFileName(path), StaticImageFileExtension);
     }
 
     private static string? GetImagePathWithAppender(string path, string appender)
     {
-        return $"{Path.GetFileNameWithoutExtension(path)}_{new string([.. appender.ToLowerInvariant().Where(static x => !char.IsWhiteSpace(x) && !char.IsPunctuation(x))])}.{ImageFileExtension}";
+        return $"{Path.GetFileNameWithoutExtension(path)}_{new string([.. appender.ToLowerInvariant().Where(static x => !char.IsWhiteSpace(x) && !char.IsPunctuation(x))])}.{StaticImageFileExtension}";
     }
 
     private void SetMapName(Map map, StormMap stormMap)
@@ -225,7 +225,7 @@ public class MapParser : DataParser<Map>
                 StormFile? stormAssetFile = HeroesData.GetStormAssetFile(resolvedTexturePath);
                 if (stormAssetFile is not null)
                 {
-                    mapIcon.Image = Path.ChangeExtension(Path.GetFileName(stormAssetFile.StormPath.Path), ImageFileExtension);
+                    mapIcon.Image = Path.ChangeExtension(Path.GetFileName(stormAssetFile.StormPath.Path), StaticImageFileExtension);
                     mapIcon.ImagePath = new RelativeFilePath()
                     {
                         FilePath = stormAssetFile.StormPath.Path,

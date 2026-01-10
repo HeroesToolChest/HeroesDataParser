@@ -2,7 +2,9 @@
 
 public abstract class ParserBase
 {
-    public const string ImageFileExtension = "png";
+    public const string StaticImageFileExtension = "png";
+    public const string GifImageFileExtension = "gif";
+    public const string APngImageFileExtension = "apng";
 
     private readonly ILogger _logger;
     private readonly RootOptions _options;
@@ -29,37 +31,44 @@ public abstract class ParserBase
 
     protected IGameStringTextService GameStringTextService => _gameStringTextService;
 
-    // path should start with Assets\Textures\
-    // output image file name for the json files
-    protected string GetImageOutputFileName(string filePath)
+    /// <summary>
+    /// Gets the image output file name for the given file path.
+    /// </summary>
+    /// <param name="filePath">Path should start with Assets\Textures\.</param>
+    /// <returns>The filename in lowercase and as a .png.</returns>
+    protected string GetStaticImageOutputFileName(string filePath)
     {
-        Span<char> pathSpan = stackalloc char[filePath.Length];
-
-        int size = Path.GetFileName(filePath.AsSpan()).ToLowerInvariant(pathSpan);
-
-        return Path.ChangeExtension(pathSpan[..size].ToString(), ImageFileExtension);
+        return GetImageOutputFileName(filePath, StaticImageFileExtension);
     }
 
-    // path should start with Assets\Textures\
-    protected ImageFilePath? GetImageFilePath(string assetsTexturePath)
+    /// <summary>
+    /// Gets the static image file path for the given assets texture path.
+    /// </summary>
+    /// <param name="assetsTexturePath">Path should start with Assets\Textures\.</param>
+    /// <returns>An <see cref="ImageFilePath"/> if the texture exists; otherwise, null.</returns>
+    protected ImageFilePath? GetStaticImageFilePath(string assetsTexturePath)
     {
-        StormFile? stormAssetFile = _heroesData.GetStormAssetFile(assetsTexturePath);
-        if (stormAssetFile is null)
-            return null;
+        return GetImageFilePath(assetsTexturePath, StaticImageFileExtension);
+    }
 
-        string image = GetImageOutputFileName(stormAssetFile.StormPath.Path);
-
-        RelativeFilePath imagePath = new()
+    /// <summary>
+    /// Gets the animated image file path for the given assets texture path.
+    /// </summary>
+    /// <param name="assetsTexturePath">Path should start with Assets\Textures\.</param>
+    /// <returns>An <see cref="ImageFilePath"/> if the texture exists; otherwise, null.</returns>
+    protected ImageFilePath? GetAnimatedImageFilePath(string assetsTexturePath)
+    {
+        return Options.Hidden.AnimatedImageType switch
         {
-            FilePath = stormAssetFile.StormPath.Path,
+            AnimatedImageType.APNG => GetImageFilePath(assetsTexturePath, APngImageFileExtension),
+            AnimatedImageType.GIF => GetImageFilePath(assetsTexturePath, GifImageFileExtension),
+            _ => GetImageFilePath(assetsTexturePath, APngImageFileExtension),
         };
-
-        return new ImageFilePath(image, imagePath);
     }
 
     protected ImageFilePath? GetImageFilePath(StormElementData data)
     {
-        return GetImageFilePath(data.Value.GetString());
+        return GetStaticImageFilePath(data.Value.GetString());
     }
 
     protected double GetScaleValue(string elementType, string id, string? elementName)
@@ -78,5 +87,30 @@ public abstract class ParserBase
         }
 
         return _heroesData.GetScalingValue(dataObjectType, id, elementName) ?? 0;
+    }
+
+    private ImageFilePath? GetImageFilePath(string assetsTexturePath, string fileExtension)
+    {
+        StormFile? stormAssetFile = _heroesData.GetStormAssetFile(assetsTexturePath);
+        if (stormAssetFile is null)
+            return null;
+
+        string image = GetImageOutputFileName(stormAssetFile.StormPath.Path, fileExtension);
+
+        RelativeFilePath imagePath = new()
+        {
+            FilePath = stormAssetFile.StormPath.Path,
+        };
+
+        return new ImageFilePath(image, imagePath);
+    }
+
+    private string GetImageOutputFileName(string filePath, string fileExtension)
+    {
+        Span<char> pathSpan = stackalloc char[filePath.Length];
+
+        int size = Path.GetFileName(filePath.AsSpan()).ToLowerInvariant(pathSpan);
+
+        return Path.ChangeExtension(pathSpan[..size].ToString(), fileExtension);
     }
 }

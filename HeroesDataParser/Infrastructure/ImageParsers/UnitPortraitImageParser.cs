@@ -21,9 +21,9 @@ public class UnitPortraitImageParser : ImageParserBase<Unit>
     {
         if (!string.IsNullOrWhiteSpace(imageName) && !string.IsNullOrWhiteSpace(relativeFilePath?.FilePath))
         {
-            TryAddToFiles(imageName, elementId, async (directoryPath) =>
+            AddToFiles(imageName, elementId, async (directoryPath) =>
             {
-                await ProcessBasicImage(imageName, relativeFilePath, directoryPath);
+                await ProcessStaticImage(imageName, relativeFilePath, directoryPath);
             });
         }
     }

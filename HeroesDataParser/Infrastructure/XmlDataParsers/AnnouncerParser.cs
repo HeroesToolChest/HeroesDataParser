@@ -11,8 +11,6 @@ public class AnnouncerParser : LoadoutItemParserBase<Announcer>
 
     protected override void SetAdditionalProperties(Announcer collectionObject, StormElement stormElement)
     {
-        SetImageProperty(collectionObject, stormElement);
-
         if (stormElement.DataValues.TryGetElementDataAt("gender", out StormElementData? genderData))
             collectionObject.Gender = genderData.Value.GetString();
 

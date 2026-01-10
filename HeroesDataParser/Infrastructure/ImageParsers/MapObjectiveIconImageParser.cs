@@ -19,9 +19,9 @@ public class MapObjectiveIconImageParser : ImageParserBase<Map>
             {
                 if (!string.IsNullOrWhiteSpace(mapObjectiveIcon.Image) && !string.IsNullOrWhiteSpace(mapObjectiveIcon?.ImagePath?.FilePath))
                 {
-                    TryAddToFiles(mapObjectiveIcon.Image, element.Id, async (directoryPath) =>
+                    AddToFiles(mapObjectiveIcon.Image, element.Id, async (directoryPath) =>
                     {
-                        await ProcessBasicImage(mapObjectiveIcon.Image, mapObjectiveIcon.ImagePath, directoryPath);
+                        await ProcessStaticImage(mapObjectiveIcon.Image, mapObjectiveIcon.ImagePath, directoryPath);
                     });
                 }
             }

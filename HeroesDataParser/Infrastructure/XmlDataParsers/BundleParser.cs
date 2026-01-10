@@ -11,8 +11,6 @@ public class BundleParser : StoreItemParserBase<Bundle>
 
     protected override void SetAdditionalProperties(Bundle collectionObject, StormElement stormElement)
     {
-        SetImageProperty(collectionObject, stormElement);
-
         if (stormElement.DataValues.TryGetElementDataAt("flags", out StormElementData? flagsData))
         {
             if (flagsData.TryGetElementDataAt("ShowDynamicProductContent", out StormElementData? dynamicProductContent))

@@ -15,9 +15,9 @@ public class ReplayPreviewImageParser : ImageParserBase<Map>
     {
         if (!string.IsNullOrWhiteSpace(element.ReplayPreviewImage) && !string.IsNullOrWhiteSpace(element.ReplayPreviewImagePath?.FilePath))
         {
-            TryAddToFiles(element.ReplayPreviewImage, element.Id, async (directoryPath) =>
+            AddToFiles(element.ReplayPreviewImage, element.Id, async (directoryPath) =>
             {
-                await ProcessBasicImage(element.ReplayPreviewImage, element.ReplayPreviewImagePath, directoryPath);
+                await ProcessStaticImage(element.ReplayPreviewImage, element.ReplayPreviewImagePath, directoryPath);
             });
         }
     }

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Spray>
+  <CSpray default="1">
+    <Name value="Spray/Name/##id##" />
+    <SortName value="Spray/SortName/##id##" />
+    <Description value="Spray/Description/##id##" />
+    <AdditionalSearchText value="Spray/AdditionalSearchText/##id##" />
+    <Model value="##id##" />
+    <LootChestRewardCutsceneFile value="Cutscenes/UI_LootChest_Reward_Spray.StormCutscene" />
+    <AnimCount value="0" />
+    <AnimDuration value="0" />
+    <ReleaseDate>
+      <Month value="1" />
+      <Day value="1" />
+      <Year value="2014" />
+    </ReleaseDate>
+    <HyperlinkId value="##id##" />
+  </CSpray>
+  <CSpray default="1" id="SprayCommon">
+    <TextureSlot value="main" />
+    <RequiredRewardArray value="##id##" />
+  </CSpray>
+  <CSpray default="1" id="SprayStaticFluidCommon" parent="SprayCommon">
+    <Model value="SprayStaticFluidModel"/>
+  </CSpray>
+  <CSpray default="1" id="SprayAnimated2FrameFluidCommon" parent="SprayCommon">
+    <Model value="SprayAnimated2FrameFluidModel" />
+    <AnimCount value="2" />
+    <AnimDuration value="2000" />
+    <LootChestRewardCutsceneFile value="Cutscenes/UI_LootChest_Reward_Spray_Animated.StormCutscene" />
+    <Rarity value="Rare" />
+  </CSpray>
+  <CSpray id="SprayAnimatedCraft20LowBattery" parent="SprayAnimated2FrameFluidCommon">
+    <Texture value="Assets/Textures/storm_lootspray_animated_craft20_lowbattery.dds"/>
+    <AttributeId value="SY8O"/>
+    <ProductId value="79259"/>
+    <CollectionCategory value="SeasonalEvents"/>
+    <ReleaseDate Month="9" Day="8" Year="2020"/>
+    <HyperlinkId value="LowBattery"/>
+    <EventName value="HallowsEnd"/>
+  </CSpray>
+  <CSpray id="Classic21Diablospray" parent="SprayStaticFluidCommon">
+    <AttributeId value="SY9D"/>
+    <ProductId value="458621"/>
+    <Texture value="Assets/Textures/classic21_diablo_spray.dds"/>
+    <CollectionCategory value="Default"/>
+    <ReleaseDate Month="11" Day="9" Year="2021"/>
+  </CSpray>
+</Spray>

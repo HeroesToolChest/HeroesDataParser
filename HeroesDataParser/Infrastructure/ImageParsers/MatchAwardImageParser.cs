@@ -19,7 +19,7 @@ public class MatchAwardImageParser : ImageParserBase<MatchAward>
         {
             if (!string.IsNullOrWhiteSpace(element.ScoreScreenImageBluePath?.FilePath))
             {
-                TryAddToFiles($"{element.ScoreScreenImage} (blue)", element.Id, async (directoryPath) =>
+                AddToFiles($"{element.ScoreScreenImage} (blue)", element.Id, async (directoryPath) =>
                 {
                     await ProcessScoreScreenImageFile(element.ScoreScreenImage, element.ScoreScreenImageBluePath, directoryPath, "blue");
                 });
@@ -27,7 +27,7 @@ public class MatchAwardImageParser : ImageParserBase<MatchAward>
 
             if (!string.IsNullOrWhiteSpace(element.ScoreScreenImageRedPath?.FilePath))
             {
-                TryAddToFiles($"{element.ScoreScreenImage} (red)", element.Id, async (directoryPath) =>
+                AddToFiles($"{element.ScoreScreenImage} (red)", element.Id, async (directoryPath) =>
                 {
                     await ProcessScoreScreenImageFile(element.ScoreScreenImage, element.ScoreScreenImageRedPath, directoryPath, "red");
                 });
@@ -36,7 +36,7 @@ public class MatchAwardImageParser : ImageParserBase<MatchAward>
 
         if (!string.IsNullOrWhiteSpace(element.MVPScreenImage) && !string.IsNullOrWhiteSpace(element.MVPScreenImagePath?.FilePath))
         {
-            TryAddToFiles(element.MVPScreenImage, element.Id, async (directoryPath) =>
+            AddToFiles(element.MVPScreenImage, element.Id, async (directoryPath) =>
             {
                 await ProcessMVPImageFile(element.MVPScreenImage, element.MVPScreenImagePath, directoryPath);
             });

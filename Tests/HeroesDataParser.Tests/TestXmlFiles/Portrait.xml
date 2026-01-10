@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Portrait>
+  <CReward default="1">
+    <Name value="Reward/Name/##id##"/>
+    <Description value="Reward/Description/##id##"/>
+    <DescriptionUnearned value="Reward/DescriptionUnearned/##id##"/>
+    <HyperlinkId value="##id##"/>
+    <RewardDisplayType value="Flyout"/>
+  </CReward>
+  <CRewardPortrait default="1" id="PortraitParent">
+    <Category File="HeroPortrait" Tag="PORT" />
+    <IconFile value="$HeroPortraits1" />
+    <UIOrderHint value="1000" />
+    <Flags index="Allowed" value="1" />
+    <CollectionCategory value="Unsorted" />
+  </CRewardPortrait>
+  <CRewardPortrait id="2015TespaMembershipPortrait" parent="PortraitParent">
+    <Flags index="Allowed" value="0" />
+    <Flags index="Cloaked" value="1" />
+    <IconFile value="$HeroPortraits3" />
+    <IconSlot value="11" />
+    <UIOrderHint value="700" />
+    <CollectionCategory value="PortraitAchievements1" />
+    <License value="11283" />
+    <Description value="Reward/Description/TespaMembershipPortrait" />
+  </CRewardPortrait>
+</Portrait>

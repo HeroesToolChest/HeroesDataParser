@@ -11,8 +11,6 @@ public class VoiceLineParser : LoadoutItemParserBase<VoiceLine>
 
     protected override void SetAdditionalProperties(VoiceLine collectionObject, StormElement stormElement)
     {
-        SetImageProperty(collectionObject, stormElement);
-
         if (stormElement.DataValues.TryGetElementDataAt("heroid", out StormElementData? heroIdData))
             collectionObject.HeroId = heroIdData.Value.GetString();
         if (string.IsNullOrEmpty(collectionObject.HeroId) && stormElement.DataValues.TryGetElementDataAt("hero", out StormElementData? heroData))

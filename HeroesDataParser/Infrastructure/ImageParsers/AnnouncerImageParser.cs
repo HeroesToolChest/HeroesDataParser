@@ -13,6 +13,6 @@ public class AnnouncerImageParser : ImageParserBase<Announcer>
 
     protected override void SetImages(Announcer element)
     {
-        AddBasicImage(element);
+        AddStaticImage(element);
     }
 }

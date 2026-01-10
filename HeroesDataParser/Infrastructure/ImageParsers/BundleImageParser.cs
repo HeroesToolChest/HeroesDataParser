@@ -13,6 +13,6 @@ public class BundleImageParser : ImageParserBase<Bundle>
 
     protected override void SetImages(Bundle element)
     {
-        AddBasicImage(element);
+        AddStaticImage(element);
     }
 }

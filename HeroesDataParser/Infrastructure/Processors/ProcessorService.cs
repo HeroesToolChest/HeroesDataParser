@@ -258,6 +258,7 @@ public class ProcessorService : IProcessorService
         { ExtractDataOptions.Mount, ProcessElementObject<Mount, MountParser> },
         { ExtractDataOptions.MatchAward, ProcessElementObject<MatchAward, MatchAwardParser> },
         { ExtractDataOptions.Skin, ProcessElementObject<Skin, SkinParser> },
+        { ExtractDataOptions.Spray, ProcessElementObject<Spray, SprayParser> },
         { ExtractDataOptions.Unit, ProcessElementObject<Unit, UnitParser> },
         { ExtractDataOptions.Veterancy, ProcessElementObject<Veterancy, VeterancyParser> },
         { ExtractDataOptions.VoiceLine, ProcessElementObject<VoiceLine, VoiceLineParser> },

@@ -27,9 +27,9 @@ public class HeroPortraitImageParser : ImageParserBase<Hero>
             string partyFrame = element.HeroPortraits.PartyFrames[i];
             RelativeFilePath partyFramePath = element.HeroPortraits.PartyFramePaths[i];
 
-            TryAddToFiles(partyFrame, element.Id, async (directoryPath) =>
+            AddToFiles(partyFrame, element.Id, async (directoryPath) =>
             {
-                await ProcessBasicImage(partyFrame, partyFramePath, directoryPath);
+                await ProcessStaticImage(partyFrame, partyFramePath, directoryPath);
             });
         }
     }
@@ -38,9 +38,9 @@ public class HeroPortraitImageParser : ImageParserBase<Hero>
     {
         if (!string.IsNullOrWhiteSpace(imageName) && !string.IsNullOrWhiteSpace(relativeFilePath?.FilePath))
         {
-            TryAddToFiles(imageName, elementId, async (directoryPath) =>
+            AddToFiles(imageName, elementId, async (directoryPath) =>
             {
-                await ProcessBasicImage(imageName, relativeFilePath, directoryPath);
+                await ProcessStaticImage(imageName, relativeFilePath, directoryPath);
             });
         }
     }

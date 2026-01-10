@@ -15,9 +15,9 @@ public class LoadingScreenImageParser : ImageParserBase<Map>
     {
         if (!string.IsNullOrWhiteSpace(element.LoadingScreenImage) && !string.IsNullOrWhiteSpace(element.LoadingScreenImagePath?.FilePath))
         {
-            TryAddToFiles(element.LoadingScreenImage, element.Id, async (directoryPath) =>
+            AddToFiles(element.LoadingScreenImage, element.Id, async (directoryPath) =>
             {
-                await ProcessBasicImage(element.LoadingScreenImage, element.LoadingScreenImagePath, directoryPath);
+                await ProcessStaticImage(element.LoadingScreenImage, element.LoadingScreenImagePath, directoryPath);
             });
         }
     }

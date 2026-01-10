@@ -11,8 +11,6 @@ public class MountParser : LoadoutItemParserBase<Mount>
 
     protected override void SetAdditionalProperties(Mount collectionObject, StormElement stormElement)
     {
-        SetImageProperty(collectionObject, stormElement);
-
         if (stormElement.DataValues.TryGetElementDataAt("MountCategory", out StormElementData? mountCategoryData))
         {
             collectionObject.MountCategory = mountCategoryData.Value.GetString();

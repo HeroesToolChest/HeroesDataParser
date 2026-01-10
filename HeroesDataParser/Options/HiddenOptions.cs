@@ -6,6 +6,8 @@ public class HiddenOptions
 
     public bool AllowHeroSpecialAbilities { get; set; }
 
+    public AnimatedImageType AnimatedImageType { get; set; } = AnimatedImageType.APNG;
+
     public bool Abilities { get; set; }
 
     public bool AbilityTalents { get; set; }

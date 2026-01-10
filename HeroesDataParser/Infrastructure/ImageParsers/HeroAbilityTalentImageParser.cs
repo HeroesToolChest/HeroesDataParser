@@ -29,9 +29,9 @@ public class HeroAbilityTalentImageParser : ImageParserBase<Hero>
                 if (string.IsNullOrWhiteSpace(abilityIcon) || string.IsNullOrWhiteSpace(abilityIconPath?.FilePath))
                     return;
 
-                TryAddToFiles(abilityIcon, element.Id, async (directoryPath) =>
+                AddToFiles(abilityIcon, element.Id, async (directoryPath) =>
                 {
-                    await ProcessBasicImage(abilityIcon, abilityIconPath, directoryPath);
+                    await ProcessStaticImage(abilityIcon, abilityIconPath, directoryPath);
                 });
             }
         }
@@ -49,9 +49,9 @@ public class HeroAbilityTalentImageParser : ImageParserBase<Hero>
                 if (string.IsNullOrWhiteSpace(talentIcon) || string.IsNullOrWhiteSpace(talentIconPath?.FilePath))
                     return;
 
-                TryAddToFiles(talentIcon, element.Id, async (directoryPath) =>
+                AddToFiles(talentIcon, element.Id, async (directoryPath) =>
                 {
-                    await ProcessBasicImage(talentIcon, talentIconPath, directoryPath);
+                    await ProcessStaticImage(talentIcon, talentIconPath, directoryPath);
                 });
             }
         }

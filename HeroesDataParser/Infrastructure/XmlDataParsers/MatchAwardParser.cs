@@ -55,17 +55,17 @@ public class MatchAwardParser : DataParser<MatchAward>
             return;
 
         string iconPath = iconData.Value.GetString();
-        ImageFilePath? imageFileBluePath = GetImageFilePath(iconPath.Replace("%team%", "blue"));
-        ImageFilePath? imageFileRedPath = GetImageFilePath(iconPath.Replace("%team%", "red"));
+        ImageFilePath? imageFileBluePath = GetStaticImageFilePath(iconPath.Replace("%team%", "blue"));
+        ImageFilePath? imageFileRedPath = GetStaticImageFilePath(iconPath.Replace("%team%", "red"));
 
         matchAward.ScoreScreenImageBluePath = imageFileBluePath?.FilePath;
         matchAward.ScoreScreenImageRedPath = imageFileRedPath?.FilePath;
-        matchAward.ScoreScreenImage = GetImageOutputFileName(iconPath);
+        matchAward.ScoreScreenImage = GetStaticImageOutputFileName(iconPath);
 
         if (stormElement.DataValues.TryGetElementDataAt("hdp-MvpIcon", out StormElementData? hdpMvpIconData))
         {
             string mvpImagePath = hdpMvpIconData.Value.GetString();
-            ImageFilePath? imageFilePath = GetImageFilePath(mvpImagePath);
+            ImageFilePath? imageFilePath = GetStaticImageFilePath(mvpImagePath);
 
             if (imageFilePath is not null)
             {
@@ -96,7 +96,7 @@ public class MatchAwardParser : DataParser<MatchAward>
 
             string imagePath = $"Assets\\Textures\\storm_ui_mvp_icons_rewards_{nameSegment}.dds";
 
-            ImageFilePath? imageFilePath = GetImageFilePath(imagePath);
+            ImageFilePath? imageFilePath = GetStaticImageFilePath(imagePath);
             if (imageFilePath is null)
                 return;
 
