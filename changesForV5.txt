@@ -106,7 +106,18 @@ HeroRoleData.xml ?
 - Updated name `mounts` to `mountIds`
 - Updated name `lootChestBonus` to `lootChestId`
 - Fixed `LootChestBoostPromoBundle` missing `image`
-- Fixed missing `Franchise` of `Starcraft` to many items
+- Fixed missing `Franchise` of `Starcraft` on many items
+
+#### Emoticon
+- Updated name `aliases` to `universalAliases`
+- Updated name `heroSkinId` to `skinId`
+- Updated name `caseSensitive` to `isCaseSensitive`
+- Updated the animated emoticons' `image` values so that the filename does not end with a number suffix
+- Fixed missing `isHidden`
+- Fixed missing `localizedAliases` from many items
+- Removed `descriptionLocked`
+- Animated emoticons have been changed from `gif` to `apng`
+  - This was changed due to quality limitations of `gif` format
 
 #### LootChest
 - Updated name `typeDescription` to `typeDescriptionId`
