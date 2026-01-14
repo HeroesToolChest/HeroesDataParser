@@ -28,59 +28,47 @@ public class SprayImageParser : ImageParserBase<Spray>
         if (element.Animation is null)
             return;
 
-        SetStaticImage(element);
+        SetOriginalTextureImage(element);
 
-        if (!string.IsNullOrWhiteSpace(element.Image) && element is IImagePath elementImagePath && !string.IsNullOrWhiteSpace(elementImagePath.ImagePath?.FilePath))
+        if (string.IsNullOrWhiteSpace(element.Image) || element is not IImagePath elementImagePath || string.IsNullOrWhiteSpace(elementImagePath.ImagePath?.FilePath))
+            return;
+
+        AddToFiles(element.Image, element.Id, async (outputDirectoryPath) =>
         {
-            AddToFiles(element.Image, element.Id, async (outputDirectoryPath) =>
+            RelativeFilePath relativeFilePath = elementImagePath.ImagePath;
+
+            await ProcessImage(element.Image, relativeFilePath, outputDirectoryPath, (ddsImage, outputFilePath) =>
             {
-                RelativeFilePath relativeFilePath = elementImagePath.ImagePath;
+                int ddsImageWidth = ddsImage.Width;
 
-                await ProcessImage(element.Image, relativeFilePath, outputDirectoryPath, (ddsImage, outputFilePath) =>
+                if (element.Animation.Frames > 0)
+                    ddsImageWidth /= element.Animation.Frames;
+
+                AnimatedImage animatedImage = new()
                 {
-                    int ddsImageWidth = ddsImage.Width;
+                    OutputFileName = outputFilePath,
+                    Size = new SixLabors.ImageSharp.Size(ddsImageWidth, ddsImage.Height),
+                    MaxSize = new SixLabors.ImageSharp.Size(ddsImageWidth, ddsImage.Height),
+                    Frames = element.Animation.Frames,
+                    FrameDelay = element.Animation.Duration / 2,
+                };
 
-                    if (element.Animation.Frames > 0)
-                        ddsImageWidth /= element.Animation.Frames;
-
-                    AnimatedImage animatedImage = new()
-                    {
-                        OutputFileName = outputFilePath,
-                        Size = new SixLabors.ImageSharp.Size(ddsImageWidth, ddsImage.Height),
-                        MaxSize = new SixLabors.ImageSharp.Size(ddsImageWidth, ddsImage.Height),
-                        Frames = element.Animation.Frames,
-                        FrameDelay = element.Animation.Duration / 2,
-                    };
-
-                    if (outputFilePath.EndsWith($".{ParserBase.GifImageFileExtension}", StringComparison.OrdinalIgnoreCase))
-                    {
-                        return ddsImage.SaveAsGif(outputFilePath, animatedImage.Size, animatedImage.MaxSize, animatedImage.Frames, animatedImage.FrameDelay);
-                    }
-                    else if (outputFilePath.EndsWith($".{ParserBase.APngImageFileExtension}", StringComparison.OrdinalIgnoreCase))
-                    {
-                        return ddsImage.SaveAsAPNG(outputFilePath, animatedImage.Size, animatedImage.MaxSize, animatedImage.Frames, animatedImage.FrameDelay);
-                    }
-                    else
-                    {
-                        Logger.LogError("Animated image format not supported for file {OutputFilePath}", outputFilePath);
-                        throw new NotSupportedException($"Animated image format not supported for file {outputFilePath}");
-                    }
-                });
+                return SaveAnimatedImage(ddsImage, animatedImage, outputFilePath);
             });
-        }
+        });
     }
 
-    // for the animated image, we still need the static image but this one points to the animation texture
-    private void SetStaticImage(Spray element)
+    // for the animated image, we create a static image from the original texture
+    private void SetOriginalTextureImage(Spray element)
     {
-        if (!string.IsNullOrWhiteSpace(element.Image) && element is IImagePath elementImagePath && !string.IsNullOrWhiteSpace(elementImagePath.ImagePath?.FilePath))
-        {
-            AddToFiles(element.Animation!.Texture, element.Id, async (outputDirectoryPath) =>
-            {
-                RelativeFilePath relativeFilePath = elementImagePath.ImagePath;
+        if (string.IsNullOrWhiteSpace(element.Image) || element is not IImagePath elementImagePath || string.IsNullOrWhiteSpace(elementImagePath.ImagePath?.FilePath))
+            return;
 
-                await ProcessStaticImage(element.Animation.Texture!, relativeFilePath, outputDirectoryPath);
-            });
-        }
+        AddToFiles(element.Animation!.Texture, element.Id, async (outputDirectoryPath) =>
+        {
+            RelativeFilePath relativeFilePath = elementImagePath.ImagePath;
+
+            await ProcessStaticImage(element.Animation.Texture!, relativeFilePath, outputDirectoryPath);
+        });
     }
 }

@@ -253,6 +253,7 @@ public class ProcessorService : IProcessorService
         { ExtractDataOptions.Banner, ProcessElementObject<Banner, BannerParser> },
         { ExtractDataOptions.Bundle, ProcessElementObject<Bundle, BundleParser> },
         { ExtractDataOptions.Boost, ProcessElementObject<Boost, BoostParser> },
+        { ExtractDataOptions.Emoticon, ProcessElementObject<Emoticon, EmoticonParser> },
         { ExtractDataOptions.Hero, ProcessElementObject<Hero, HeroParser> },
         { ExtractDataOptions.LootChest, ProcessElementObject<LootChest, LootChestParser> },
         { ExtractDataOptions.Mount, ProcessElementObject<Mount, MountParser> },

@@ -15,6 +15,16 @@
     <Rows value="3"/>
     <Columns value="4"/>
   </CTextureSheet>
+  <CTextureSheet id="storm_emoji_abathur_mecha_sheet">
+    <Image value="Assets\Textures\storm_emoji_abathur_mecha_sheet.dds"/>
+    <Rows value="3"/>
+    <Columns value="4"/>
+  </CTextureSheet>
+  <CTextureSheet id="storm_emoji_reghar_classic21_anim_sheet">
+    <Image value="Assets\Textures\storm_emoji_reghar_classic21_anim_sheet.dds"/>
+    <Rows value="2"/>
+    <Columns value="4"/>
+  </CTextureSheet>
   
   <CEmoticon default="1">
     <LocalizedAliasArray value="Emoticon/Name/##id##"/>
@@ -24,6 +34,9 @@
     <Expression value="Unknown"/>
     <Priority value="100"/>
     <Image TextureSheet="EmoticonsSheet1" DurationPerFrame="500"/>
+  </CEmoticon>
+  <CEmoticon default="1" id="skinned_hero_emoticon">
+    <Priority value="120"/>
   </CEmoticon>
   <CEmoticon default="1" id="abstract_emoticon">
     <Image TextureSheet=""/>
@@ -61,5 +74,24 @@
     <UniversalAliasArray value=":greymanerofl:"/>
     <UniversalAliasArray value=":greylol:"/>
     <UniversalAliasArray value=":greyrofl:"/>
+  </CEmoticon>
+  <CEmoticon default="1" id="abathur_mecha_emoticon" parent="skinned_hero_emoticon">
+    <Image TextureSheet="storm_emoji_abathur_mecha_sheet"/>
+    <Hero value="Abathur"/>
+    <Skin value="AbathurMecha"/>
+  </CEmoticon>
+  <CEmoticon id="abathur_mecha_angry" parent="abathur_mecha_emoticon">
+    <Image Width="37"/>
+    <Expression value="Angry"/>
+    <UniversalAliasArray value=":abathurxenotechangry:"/>
+    <UniversalAliasArray value=":abaxangry:"/>
+  </CEmoticon>
+  <CEmoticon default="1" id="hostemoji_anniversary_emoticon" parent="generic_emoticon">
+    <Image TextureSheet="storm_emoji_reghar_classic21_anim_sheet"/>
+  </CEmoticon>
+  <CEmoticon id="abstract_cool_casesensitive" parent="abstract_emoticon">
+    <LocalizedAliasArray value="Emoticon/Name/ascii_cool"/>
+    <Flags index="CaseSensitive" value="1"/>
+    <Expression value="Cool"/>
   </CEmoticon>
 </Emoticon>

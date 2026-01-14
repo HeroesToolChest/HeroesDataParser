@@ -105,6 +105,7 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IDataParser<Banner>, BannerParser>();
             services.AddSingleton<IDataParser<Boost>, BoostParser>();
             services.AddSingleton<IDataParser<Bundle>, BundleParser>();
+            services.AddSingleton<IDataParser<Emoticon>, EmoticonParser>();
             services.AddSingleton<IDataParser<Hero>, HeroParser>();
             services.AddSingleton<IDataParser<LootChest>, LootChestParser>();
             services.AddSingleton<IDataParser<Mount>, MountParser>();
@@ -128,6 +129,7 @@ public static class ServiceCollectionExtensions
             // add all image writers
             services.AddSingleton<IImageParser<Announcer>, AnnouncerImageParser>();
             services.AddSingleton<IImageParser<Bundle>, BundleImageParser>();
+            services.AddSingleton<IImageParser<Emoticon>, EmoticonImageParser>();
             services.AddSingleton<IImageParser<MatchAward>, MatchAwardImageParser>();
             services.AddSingleton<IImageParser<Spray>, SprayImageParser>();
             services.AddSingleton<IImageParser<VoiceLine>, VoiceLineImageParser>();

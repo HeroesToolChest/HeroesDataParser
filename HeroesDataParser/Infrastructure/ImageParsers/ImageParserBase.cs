@@ -56,6 +56,23 @@ public abstract class ImageParserBase<TElement> : IImageParser<TElement>
             AddToFiles(imageObject.Image, element.Id, async (directoryPath) => await ProcessStaticImage(imageObject.Image, imagePathObject.ImagePath, directoryPath));
     }
 
+    protected Task SaveAnimatedImage(DDSImage ddsImage, AnimatedImage animatedImage, string outputFilePath)
+    {
+        if (outputFilePath.EndsWith($".{ParserBase.APngImageFileExtension}", StringComparison.OrdinalIgnoreCase))
+        {
+            return ddsImage.SaveAsAPNG(outputFilePath, animatedImage.Size, animatedImage.MaxSize, animatedImage.Frames, animatedImage.FrameDelay);
+        }
+        else if (outputFilePath.EndsWith($".{ParserBase.GifImageFileExtension}", StringComparison.OrdinalIgnoreCase))
+        {
+            return ddsImage.SaveAsGif(outputFilePath, animatedImage.Size, animatedImage.MaxSize, animatedImage.Frames, animatedImage.FrameDelay);
+        }
+        else
+        {
+            Logger.LogError("Animated image format not supported for file {OutputFilePath}", outputFilePath);
+            throw new NotSupportedException($"Animated image format not supported for file {outputFilePath}");
+        }
+    }
+
     /// <summary>
     /// Adds the iamge to be process later with the <paramref name="imageProcesser"/>.
     /// </summary>

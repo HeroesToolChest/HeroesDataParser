@@ -298,15 +298,14 @@ public sealed class DDSImage : IDisposable
 
             GifFrameMetadata gifFrameMetadata = imagePart.Frames.RootFrame.Metadata.GetGifMetadata();
             gifFrameMetadata.FrameDelay = frameDelay / 10;
+            gifFrameMetadata.DisposalMethod = GifDisposalMethod.RestoreToBackground;
 
             gif.Frames.AddFrame(imagePart.Frames.RootFrame);
         }
 
         gif.Frames.RemoveFrame(0);
-        return gif.SaveAsync(file, new GifEncoder()
-        {
-            ColorTableMode = GifColorTableMode.Local,
-        });
+
+        return gif.SaveAsync(file, new GifEncoder());
     }
 
     private Task SaveAsAPNG<T>(string file, Size size, Size innerSize, int frames, int frameDelay)
@@ -321,7 +320,6 @@ public sealed class DDSImage : IDisposable
 
         PngMetadata pngMetadata = apng.Metadata.GetPngMetadata();
         pngMetadata.RepeatCount = 0;
-        pngMetadata.AnimateRootFrame = false;
 
         for (int i = 0; i < frames; i++)
         {
@@ -336,9 +334,13 @@ public sealed class DDSImage : IDisposable
 
             PngFrameMetadata pngFrameMetadata = imagePart.Frames.RootFrame.Metadata.GetPngMetadata();
             pngFrameMetadata.FrameDelay = new Rational((uint)frameDelay, 1000, false);
+            pngFrameMetadata.DisposalMethod = PngDisposalMethod.RestoreToBackground;
+            pngFrameMetadata.BlendMethod = PngBlendMethod.Source;
 
             apng.Frames.AddFrame(imagePart.Frames.RootFrame);
         }
+
+        apng.Frames.RemoveFrame(0);
 
         return apng.SaveAsync(file, new PngEncoder()
         {
@@ -346,7 +348,7 @@ public sealed class DDSImage : IDisposable
             CompressionLevel = PngCompressionLevel.DefaultCompression,
             FilterMethod = PngFilterMethod.Adaptive,
             InterlaceMethod = PngInterlaceMode.None,
-            BitDepth = PngBitDepth.Bit8,
+            BitDepth = PngBitDepth.Bit16,
         });
     }
 }

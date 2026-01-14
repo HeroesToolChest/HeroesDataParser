@@ -48,7 +48,7 @@ public class SprayParser : LoadoutItemParserBase<Spray>
             if (collectionObject is IImagePath imagePathObject)
                 imagePathObject.ImagePath = imageFilePath.FilePath;
         }
-        else
+        else if (!string.IsNullOrWhiteSpace(texture))
         {
             if (Logger.IsEnabled(LogLevel.Warning))
                 Logger.LogWarning("Could not get storm asset file from {texture}", texture);

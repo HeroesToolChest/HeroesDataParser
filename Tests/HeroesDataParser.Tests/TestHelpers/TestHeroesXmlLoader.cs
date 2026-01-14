@@ -31,6 +31,7 @@ public static class TestHeroesXmlLoader
         XDocument matchAwardDocument = GetXDocument("MatchAward.xml");
         XDocument scoreValueDocument = GetXDocument("ScoreValue.xml");
         XDocument sprayDocument = GetXDocument("Spray.xml");
+        XDocument emoticonDocument = GetXDocument("Emoticon.xml");
 
         return HeroesXmlLoader.LoadWithEmpty()
             .LoadCustomMod(new ManualModLoader(string.Empty)
@@ -60,6 +61,8 @@ public static class TestHeroesXmlLoader
                     ("User", "CUser"),
                     ("ScoreValue", "CScoreValue"),
                     ("Spray", "CSpray"),
+                    ("Emoticon", "CEmoticon"),
+                    ("TextureSheet", "CTextureSheet"),
                 ])
                 .AddElements(unitDocument.Root!.Elements())
                 .AddElements(heroDocument.Root!.Elements())
@@ -85,6 +88,7 @@ public static class TestHeroesXmlLoader
                 .AddElements(matchAwardDocument.Root!.Elements())
                 .AddElements(scoreValueDocument.Root!.Elements())
                 .AddElements(sprayDocument.Root!.Elements())
+                .AddElements(emoticonDocument.Root!.Elements())
                 .AddGameStrings(
                 [
                     "test_for_tooltip_decription_service=Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200~~0.045~~</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>",
@@ -268,6 +272,9 @@ public static class TestHeroesXmlLoader
                     Path.Join("Assets", "Textures", "storm_ui_mvp_icons_rewards_dominator.dds"),
                     Path.Join("Assets", "Textures", "storm_lootspray_animated_craft20_lowbattery.dds"),
                     Path.Join("Assets", "Textures", "classic21_diablo_spray.dds"),
+                    Path.Join("Assets", "Textures", "storm_emoji_greymane_sheet.dds"),
+                    Path.Join("Assets", "Textures", "storm_emoji_cat_gleam_anim_sheet.dds"),
+                    Path.Join("Assets", "Textures", "storm_emoji_abathur_mecha_sheet.dds"),
                     Path.Join("Textures", "test-default.dds"),
                 ])
                 .AddLevelScalingArrayElements(heroDocument.Root.Descendants("LevelScalingArray"))
