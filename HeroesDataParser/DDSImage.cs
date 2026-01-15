@@ -278,32 +278,38 @@ public sealed class DDSImage : IDisposable
     private Task SaveAsGif<T>(string file, Size size, Size innerSize, int frames, int frameDelay)
         where T : unmanaged, IPixel<T>
     {
+        int gifFrameDelay = frameDelay / 10;
+        GifDisposalMethod gifDisposalMethod = GifDisposalMethod.RestoreToBackground;
+
         // Load full base image
         using Image<T> image = Image.LoadPixelData<T>(_ddsImageFile.Data, _ddsImageFile.Width, _ddsImageFile.Height);
-        using Image<T> gif = new(size.Width, size.Height);
+
+        // with first frame
+        using Image<T> gif = image.Clone(x => x.Crop(new Rectangle(new Point(0, 0), size)));
 
         GifMetadata gifMetadata = gif.Metadata.GetGifMetadata();
         gifMetadata.RepeatCount = 0;
 
-        for (int i = 0; i < frames; i++)
+        GifFrameMetadata firstFrameMetadata = gif.Frames.RootFrame.Metadata.GetGifMetadata();
+        firstFrameMetadata.FrameDelay = gifFrameDelay;
+        firstFrameMetadata.DisposalMethod = gifDisposalMethod;
+
+        int calcWidth = image.Width / innerSize.Width;
+
+        // Add remaining frames
+        for (int i = 1; i < frames; i++)
         {
-#pragma warning disable SA1407 // Arithmetic expressions should declare precedence
-            int xPos = i % (image.Width / innerSize.Width) * innerSize.Width;
-#pragma warning restore SA1407 // Arithmetic expressions should declare precedence
-            int yPos = i / (image.Width / innerSize.Width) * innerSize.Height;
+            int xPos = (i % calcWidth) * innerSize.Width;
+            int yPos = (i / calcWidth) * innerSize.Height;
 
-            using Image<T> imagePart = image.Clone();
-
-            imagePart.Mutate(x => x.Crop(new Rectangle(new Point(xPos, yPos), size)));
+            using Image<T> imagePart = image.Clone(x => x.Crop(new Rectangle(new Point(xPos, yPos), size)));
 
             GifFrameMetadata gifFrameMetadata = imagePart.Frames.RootFrame.Metadata.GetGifMetadata();
-            gifFrameMetadata.FrameDelay = frameDelay / 10;
-            gifFrameMetadata.DisposalMethod = GifDisposalMethod.RestoreToBackground;
+            gifFrameMetadata.FrameDelay = gifFrameDelay;
+            gifFrameMetadata.DisposalMethod = gifDisposalMethod;
 
             gif.Frames.AddFrame(imagePart.Frames.RootFrame);
         }
-
-        gif.Frames.RemoveFrame(0);
 
         return gif.SaveAsync(file, new GifEncoder());
     }
@@ -311,36 +317,41 @@ public sealed class DDSImage : IDisposable
     private Task SaveAsAPNG<T>(string file, Size size, Size innerSize, int frames, int frameDelay)
         where T : unmanaged, IPixel<T>
     {
-        if (Path.GetExtension(file) != ".apng")
-            throw new Exception("File is not an apng");
+        Rational apngFrameDelay = new((uint)frameDelay, 1000, false);
+        PngDisposalMethod pngDisposalMethod = PngDisposalMethod.RestoreToBackground;
+        PngBlendMethod pngBlendMethod = PngBlendMethod.Source;
 
         // Load full base image
         using Image<T> image = Image.LoadPixelData<T>(_ddsImageFile.Data, _ddsImageFile.Width, _ddsImageFile.Height);
-        using Image<T> apng = new(size.Width, size.Height);
+
+        // with first frame
+        using Image<T> apng = image.Clone(x => x.Crop(new Rectangle(new Point(0, 0), size)));
 
         PngMetadata pngMetadata = apng.Metadata.GetPngMetadata();
         pngMetadata.RepeatCount = 0;
 
-        for (int i = 0; i < frames; i++)
+        PngFrameMetadata firstFrameMetadata = apng.Frames.RootFrame.Metadata.GetPngMetadata();
+        firstFrameMetadata.FrameDelay = apngFrameDelay;
+        firstFrameMetadata.DisposalMethod = pngDisposalMethod;
+        firstFrameMetadata.BlendMethod = pngBlendMethod;
+
+        int calcWidth = image.Width / innerSize.Width;
+
+        // Add remaining frames
+        for (int i = 1; i < frames; i++)
         {
-#pragma warning disable SA1407 // Arithmetic expressions should declare precedence
-            int xPos = i % (image.Width / innerSize.Width) * innerSize.Width;
-#pragma warning restore SA1407 // Arithmetic expressions should declare precedence
-            int yPos = i / (image.Width / innerSize.Width) * innerSize.Height;
+            int xPos = (i % calcWidth) * innerSize.Width;
+            int yPos = (i / calcWidth) * innerSize.Height;
 
-            using Image<T> imagePart = image.Clone();
-
-            imagePart.Mutate(x => x.Crop(new Rectangle(new Point(xPos, yPos), size)));
+            using Image<T> imagePart = image.Clone(x => x.Crop(new Rectangle(new Point(xPos, yPos), size)));
 
             PngFrameMetadata pngFrameMetadata = imagePart.Frames.RootFrame.Metadata.GetPngMetadata();
-            pngFrameMetadata.FrameDelay = new Rational((uint)frameDelay, 1000, false);
-            pngFrameMetadata.DisposalMethod = PngDisposalMethod.RestoreToBackground;
-            pngFrameMetadata.BlendMethod = PngBlendMethod.Source;
+            pngFrameMetadata.FrameDelay = apngFrameDelay;
+            pngFrameMetadata.DisposalMethod = pngDisposalMethod;
+            pngFrameMetadata.BlendMethod = pngBlendMethod;
 
             apng.Frames.AddFrame(imagePart.Frames.RootFrame);
         }
-
-        apng.Frames.RemoveFrame(0);
 
         return apng.SaveAsync(file, new PngEncoder()
         {
