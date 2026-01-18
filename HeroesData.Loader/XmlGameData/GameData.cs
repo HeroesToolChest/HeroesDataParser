@@ -660,6 +660,10 @@ namespace HeroesData.Loader.XmlGameData
                     return "0";
                 }
             }
+            else if (value.StartsWith('-'))
+            {
+                return $"-{GetValueFromAttribute(value[1..])}";
+            }
 
             return value;
         }
