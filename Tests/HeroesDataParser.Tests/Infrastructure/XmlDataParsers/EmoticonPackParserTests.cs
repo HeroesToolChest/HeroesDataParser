@@ -24,7 +24,7 @@ public class EmoticonPackParserTests
     }
 
     [TestMethod]
-    public void Parse_AbathurEmoticonPack_ReturnsAnnouncerData()
+    public void Parse_AbathurEmoticonPack_ReturnsEmoticonPackData()
     {
         // arrange
         _gameStringTextService.GetGameStringTextFromId("EmoticonPack/Name/AbathurEmoticonPack").Returns(new GameStringText("Abathur Pack 1"));
@@ -49,11 +49,10 @@ public class EmoticonPackParserTests
         emoticonPack.Event.Should().BeNull();
         emoticonPack.EmoticonIds.Should().HaveCount(5)
             .And.ContainInOrder("abathur_happy", "abathur_rofl", "abathur_sad", "abathur_silly", "abathur_speechless");
-
     }
 
     [TestMethod]
-    public void Parse_SkeletalHandSymbolPack1_ReturnsAnnouncerData()
+    public void Parse_SkeletalHandSymbolPack1_ReturnsEmoticonPackData()
     {
         // arrange
         EmoticonPackParser emoticonPackParser = new(_logger, _options, _heroesXmlLoaderService, _gameStringTextService);

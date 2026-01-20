@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<PortraitPack>
+  <CPortraitPack default="1">
+    <Name value="Reward/Name/##id##"/>
+    <SortName value="Reward/SortName/##id##"/>
+    <LootChestRewardCutsceneFile value="Cutscenes/UI_LootChest_Reward_Portrait.StormCutscene"/>
+    <TextureSlot value="main"/>
+    <PortraitArray value="##id##"/>
+    <HyperlinkId value="##id##"/>
+  </CPortraitPack>
+  <CPortraitPack default="1" id="HallowsEndPortraitParent">
+    <EventName value="HallowsEnd" />
+  </CPortraitPack>
+  <CPortraitPack id="AbathurCarbotsPortrait">
+    <ProductId value="36419" />
+  </CPortraitPack>
+  <CPortraitPack id="AdmiralKrakenovPortrait">
+    <PortraitArray index="0" value="StukovPortraitPirate" />
+    <ProductId value="28882" />
+    <Name value="Reward/Name/StukovPortraitPirate" />
+  </CPortraitPack>
+  <CPortraitPack id="ArthasCrimsonCountHallowsEndPortrait" parent="HallowsEndPortraitParent">
+    <ProductId value="31840" />
+  </CPortraitPack>
+</PortraitPack>

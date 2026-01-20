@@ -110,6 +110,7 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IDataParser<LootChest>, LootChestParser>();
             services.AddSingleton<IDataParser<Mount>, MountParser>();
             services.AddSingleton<IDataParser<MatchAward>, MatchAwardParser>();
+            services.AddSingleton<IDataParser<PortraitPack>, PortraitPackParser>();
             services.AddSingleton<IDataParser<Skin>, SkinParser>();
             services.AddSingleton<IDataParser<Spray>, SprayParser>();
             services.AddSingleton<IDataParser<Unit>, UnitParser>();

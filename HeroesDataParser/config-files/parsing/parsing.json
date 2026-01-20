@@ -50,6 +50,15 @@
         ]
       }
     },
+    "PortraitPack": {
+      "Disallow": {
+        "Exact": [
+        ],
+        "Regex": [
+          "^Test.*"
+        ]
+      }
+    },
     "Unit": {
       "Disallow": {
         "Exact": [
