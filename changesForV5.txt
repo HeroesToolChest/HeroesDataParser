@@ -119,6 +119,10 @@ HeroRoleData.xml ?
 - Animated emoticons have been changed from `gif` to `apng`
   - This was changed due to quality limitations of `gif` format
 
+#### EmoticonPack
+- Fixed `EmojiDeathwingPack1` incorrect `name`
+- Fixed `EmojiDeathwingPack2` incorrect `name`
+
 #### LootChest
 - Updated name `typeDescription` to `typeDescriptionId`
 - Removed the `TEST` prefixed items
@@ -126,14 +130,14 @@ HeroRoleData.xml ?
 #### MatchAward
 - Added `GivenToNonwinner` item
 - Added `MostDamageToPlants` item
-- Renamed from `name` to `scoreScreenName`
-- Renamed from `description` to `scoreScreenDescription`
+- Updated name `name` to `scoreScreenName`
+- Updated name `description` to `scoreScreenDescription`
 - Added `endOfMatchName`
 - Added `endOfMatchDescription`
 - Added `endOfMatchTooltipText`
 
 #### Mount
-- Added `Randon` item
+- Added `Random` item
 - Fixed `ChoGallRunCelestialHorse` having a `sortName`
 - Fixed `ChoGallRunMountHorseCraft20` having a `sortName`
 - Fixed `ChoGallRunMountHorseCraft20Var1` having a `sortName`
@@ -148,9 +152,16 @@ HeroRoleData.xml ?
 - Fixed `ChoGallRunMountWarhorseReverence19` having a `sortName`
 - Fixed `ChoGallRunMountWarhorseReverence19Var1` having a `sortName`
 - Fixed `ChoGallRunMountWarhorseReverence19Var2` having a `sortName`
-- Fixed `MountAzmodanMadAxe18`, `MountAzmodanMadAxe18Var1`, and `MountAzmodanMadAxe18Var2` missing `name`
-- Fixed `MountAzmodanMadAxe18`, `MountAzmodanMadAxe18Var1`, and `MountAzmodanMadAxe18Var2` incorrect `hyperlinkId`
+- Fixed `MountAzmodanMadAxe18` missing `name`
+- Fixed `MountAzmodanMadAxe18Var1` missing `name`
+- Fixed `MountAzmodanMadAxe18Var2` missing `name`
+- Fixed `MountAzmodanMadAxe18` incorrect `hyperlinkId`
+- Fixed `MountAzmodanMadAxe18Var1` incorrect `hyperlinkId`
+- Fixed `MountAzmodanMadAxe18Var2` incorrect `hyperlinkId`
 - Fixed `MountRoosterLunarVar1` missing `event`
+
+#### PortraitPack
+- Added missing `rewardPortraitIds` to many items
 
 #### Skin
 - Renamed from `HeroSkins` to `Skins
@@ -164,22 +175,32 @@ HeroRoleData.xml ?
 - Fixed `ArtanisBaseVar3` incorrect `releaseDate`
 - Fixed `AzmodanUltimateVar3` incorrect `franchise`
 - Fixed `BarbarianDeathKnightFemale` incorrect `releaseDate`
-- Fixed `ButcherToys21Var3` and `ButcherToys21Var4` incorrect `releaseDate`
-- Fixed `DehakaMaster` having a `sortname` (it should not)
-- Fixed `DehakaMecha` having a `sortname` (it should not)
+- Fixed `ButcherToys21Var3` incorrect `releaseDate`
+- Fixed `ButcherToys21Var4` incorrect `releaseDate`
+- Fixed `DehakaMaster` having a `sortname`
+- Fixed `DehakaMecha` having a `sortname`
 - Fixed `DemonHunterHornsVar2` incorrect `releaseDate`
-- Fixed `DVaBaseVar3` and `DVaBaseVar4` incorrect `releaseDate`
-- Fixed `LiLiShadowblade` and `LiLiShadowbladeVar1` incorrect `releaseDate`
+- Fixed `DVaBaseVar3` incorrect `releaseDate`
+- Fixed `DVaBaseVar4` incorrect `releaseDate`
+- Fixed `LiLiShadowblade` incorrect `releaseDate`
+- Fixed `LiLiShadowbladeVar1` incorrect `releaseDate`
 - Fixed `MedivhBaseVar3` incorrect `releaseDate`
-- Fixed `OrpheaBaseVar3` and `OrpheaBaseVar4` incorrect `releaseDate`
-- Fixed `RehgarGFWinter`, `RehgarGFWinterBlue`, and `RehgarGFWinterWhite` incorrect `releaseDate`
+- Fixed `OrpheaBaseVar3` incorrect `releaseDate`
+- Fixed `OrpheaBaseVar4` incorrect `releaseDate`
+- Fixed `RehgarGFWinter` incorrect `releaseDate
+- Fixed `RehgarGFWinterBlue` incorrect `releaseDate
+- Fixed `RehgarGFWinterWhite` incorrect `releaseDate`
 - Fixed `SamuroMonkeyVar5` incorrect `releaseDate`
 - Fixed `StukovPirate` incorrect `releaseDate`
 - Fixed `TassadarUltimate` having a `sortname`
-- Fixed `ThrallToon20Var1`, `ThrallToon20Var3`, `ThrallToon20Var4` incorrect `releaseDate`
-- Fixed `TinkerAzure` and `TinkerCamo` incorrect `releaseDate`
+- Fixed `ThrallToon20Var1` incorrect `releaseDate`
+- Fixed `ThrallToon20Var3` incorrect `releaseDate`
+- Fixed `ThrallToon20Var4` incorrect `releaseDate`
+- Fixed `TinkerAzure` incorrect `releaseDate`
+- Fixed `TinkerCamo` incorrect `releaseDate`
 - Fixed `TracerVar3` incorrect `releaseDate`
-- Fixed `YrelBaseVar3` and `YrelBaseVar4` incorrect `releaseDate`
+- Fixed `YrelBaseVar3` incorrect `releaseDate`
+- Fixed `YrelBaseVar4` incorrect `releaseDate`
 - Fixed `ZagaraBaseVar3` incorrect `releaseDate`
 
 #### Spray
