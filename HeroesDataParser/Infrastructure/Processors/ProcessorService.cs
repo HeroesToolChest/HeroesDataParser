@@ -260,6 +260,7 @@ public class ProcessorService : IProcessorService
         { ExtractDataOptions.Mount, ProcessElementObject<Mount, MountParser> },
         { ExtractDataOptions.MatchAward, ProcessElementObject<MatchAward, MatchAwardParser> },
         { ExtractDataOptions.PortraitPack, ProcessElementObject<PortraitPack, PortraitPackParser> },
+        { ExtractDataOptions.RewardPortrait, ProcessElementObject<RewardPortrait, RewardPortraitParser> },
         { ExtractDataOptions.Skin, ProcessElementObject<Skin, SkinParser> },
         { ExtractDataOptions.Spray, ProcessElementObject<Spray, SprayParser> },
         { ExtractDataOptions.Unit, ProcessElementObject<Unit, UnitParser> },

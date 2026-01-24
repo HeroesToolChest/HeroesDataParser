@@ -34,6 +34,7 @@ public static class TestHeroesXmlLoader
         XDocument emoticonDocument = GetXDocument("Emoticon.xml");
         XDocument emoticonPackDocument = GetXDocument("EmoticonPack.xml");
         XDocument portraitPackDocument = GetXDocument("PortraitPack.xml");
+        XDocument rewardPortraitDocument = GetXDocument("RewardPortrait.xml");
 
         return HeroesXmlLoader.LoadWithEmpty()
             .LoadCustomMod(new ManualModLoader(string.Empty)
@@ -67,6 +68,7 @@ public static class TestHeroesXmlLoader
                     ("TextureSheet", "CTextureSheet"),
                     ("EmoticonPack", "CEmoticonPack"),
                     ("PortraitPack", "CPortraitPack"),
+                    ("RewardPortrait", "CRewardPortrait"),
                 ])
                 .AddElements(unitDocument.Root!.Elements())
                 .AddElements(heroDocument.Root!.Elements())
@@ -95,6 +97,7 @@ public static class TestHeroesXmlLoader
                 .AddElements(emoticonDocument.Root!.Elements())
                 .AddElements(emoticonPackDocument.Root!.Elements())
                 .AddElements(portraitPackDocument.Root!.Elements())
+                .AddElements(rewardPortraitDocument.Root!.Elements())
                 .AddGameStrings(
                 [
                     "test_for_tooltip_decription_service=Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200~~0.045~~</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>",
@@ -369,6 +372,11 @@ public static class TestHeroesXmlLoader
                     "UI/LoadingScreen_WCAV_Icon1_Alliance=Assets\\Textures\\ui_ingame_mapmechanic_loadscreen_WCAV_icon1_alliance.dds",
                     "UI/LoadingScreen_WCAV_Icon2_Alliance=Assets\\Textures\\ui_ingame_mapmechanic_loadscreen_WCAV_icon2_alliance.dds",
                     "UI/LoadingScreen_WCAV_Icon3_Alliance=Assets\\Textures\\ui_ingame_mapmechanic_loadscreen_WCAV_icon3_alliance.dds",
+                ])
+                .AddConstantXElements(
+                [
+                    XElement.Parse("<const id=\"$HeroPortraits33\" value=\"ui_heroes_portraits_sheet33.dds\" />"),
+                    XElement.Parse("<const id=\"$HeroPortraits3\" value=\"ui_heroes_portraits_sheet3.dds\" />"),
                 ]))
             .LoadGameStrings();
     }

@@ -1,6 +1,4 @@
-﻿using HeroesDataParser.Infrastructure.XmlDataParsers;
-
-namespace HeroesDataParser.Tests.Infrastructure.XmlDataParsers;
+﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers.Tests;
 
 [TestClass]
 public class EmoticonPackParserTests

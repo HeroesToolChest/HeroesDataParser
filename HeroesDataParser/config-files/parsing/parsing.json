@@ -59,6 +59,17 @@
         ]
       }
     },
+    "RewardPortrait": {
+      "Disallow": {
+        "Exact": [
+          "_PORTRAITPLACEHOLDER",
+          "PortraitOverlayPlayerLevel",
+          "PortraitOverlayStormLeagueLevel"
+        ],
+        "Regex": [
+        ]
+      }
+    },
     "Unit": {
       "Disallow": {
         "Exact": [
