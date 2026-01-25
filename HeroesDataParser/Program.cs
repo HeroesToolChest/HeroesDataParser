@@ -1,6 +1,9 @@
 ﻿using Serilog;
+using System.Text;
 
 // TODO: CLI
+
+Console.OutputEncoding = Encoding.UTF8;
 
 SetAppCulture();
 

@@ -67,7 +67,7 @@ public class ResultSummaryService : IResultSummaryService
         AnsiConsole.WriteLine();
         AnsiConsole.Write(new Panel(new Rows(renderables))
         {
-            Border = BoxBorder.Ascii,
+            Border = BoxBorder.Square,
             Header = new PanelHeader("Result Summary"),
             Padding = new Padding(1, 1, 1, 1),
         });
@@ -88,7 +88,7 @@ public class ResultSummaryService : IResultSummaryService
         }
         else
         {
-            renderables.Add(new Markup($"[bold yellow]Has unsuccessful data parsing[/]"));
+            renderables.Add(new Markup($"[bold yellow]:warning:  Has unsuccessful data parsing[/]"));
             renderables.Add(DataPrintSummary(warningDataItems));
         }
     }
@@ -116,17 +116,17 @@ public class ResultSummaryService : IResultSummaryService
         renderables.Add(new Markup($"{Environment.NewLine}Files Written:"));
 
         if (JsonDataFilesWritten < JsonDataFilesTotal)
-            renderables.Add(new Markup($"  [SteelBlue1_1]data[/]: [[[yellow]{JsonDataFilesWritten}/{JsonDataFilesTotal}[/]]]"));
+            renderables.Add(new Markup($"  [SteelBlue1_1]data[/]: [[[yellow]:warning:  {JsonDataFilesWritten}/{JsonDataFilesTotal}[/]]]"));
         else
             renderables.Add(new Markup($"  [SteelBlue1_1]data[/]: [[[green]{JsonDataFilesWritten}/{JsonDataFilesTotal}[/]]]"));
 
         if (GameStringFilesWritten < GameStringFilesTotal)
-            renderables.Add(new Markup($"  [SteelBlue1_1]gamestrings[/]: [[[yellow]{GameStringFilesWritten}/{GameStringFilesTotal}[/]]]"));
+            renderables.Add(new Markup($"  [SteelBlue1_1]gamestrings[/]: [[[yellow]:warning:  {GameStringFilesWritten}/{GameStringFilesTotal}[/]]]"));
         else
             renderables.Add(new Markup($"  [SteelBlue1_1]gamestrings[/]: [[[green]{GameStringFilesWritten}/{GameStringFilesTotal}[/]]]"));
 
         if (ImageFilesWritten < ImageFilesTotal)
-            renderables.Add(new Markup($"  [SteelBlue1_1]images[/]: [[[yellow]{ImageFilesWritten}/{ImageFilesTotal}[/]]]"));
+            renderables.Add(new Markup($"  [SteelBlue1_1]images[/]: [[[yellow]:warning:  {ImageFilesWritten}/{ImageFilesTotal}[/]]]"));
         else
             renderables.Add(new Markup($"  [SteelBlue1_1]images[/]: [[[green]{ImageFilesWritten}/{ImageFilesTotal}[/]]]"));
     }

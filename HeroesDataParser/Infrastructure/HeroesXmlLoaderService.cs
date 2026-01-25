@@ -66,7 +66,7 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
     private async Task ExecuteDataLoading()
     {
         await AnsiConsole.Status()
-            .Spinner(Spinner.Known.Star)
+            .Spinner(Spinner.Known.Default)
             .SpinnerStyle(Style.Parse("yellow bold"))
             .StartAsync("[yellow bold]Initializing[/]", async ctx =>
             {

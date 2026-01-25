@@ -104,7 +104,7 @@ public class MapDataExtractorService : IMapDataExtractorService
         if (parsedMaps.Count == totalCount)
             AnsiConsole.MarkupLine(message);
         else
-            AnsiConsole.MarkupLineInterpolated($"[yellow]{message}[/]");
+            AnsiConsole.MarkupLineInterpolated($"[yellow]:warning:  {message}[/]");
 
         return parsedMaps;
     }

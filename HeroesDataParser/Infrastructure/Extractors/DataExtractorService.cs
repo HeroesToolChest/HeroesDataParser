@@ -106,7 +106,7 @@ public class DataExtractorService : IDataExtractorService
             if (parsedItemsCount == totalCount)
                 AnsiConsole.MarkupInterpolated($"{parsedItemsCount} / {totalCount}");
             else
-                AnsiConsole.MarkupInterpolated($"[yellow]{parsedItemsCount} / {totalCount}[/]");
+                AnsiConsole.MarkupInterpolated($"[yellow]:warning:  {parsedItemsCount} / {totalCount}[/]");
 
             AnsiConsole.WriteLine($" (in {_stopwatch.Elapsed.TotalSeconds:0}s {_stopwatch.Elapsed.Milliseconds:0}ms)");
         }
