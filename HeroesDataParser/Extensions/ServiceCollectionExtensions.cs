@@ -114,6 +114,7 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IDataParser<RewardPortrait>, RewardPortraitParser>();
             services.AddSingleton<IDataParser<Skin>, SkinParser>();
             services.AddSingleton<IDataParser<Spray>, SprayParser>();
+            services.AddSingleton<IDataParser<TypeDescription>, TypeDescriptionParser>();
             services.AddSingleton<IDataParser<Unit>, UnitParser>();
             services.AddSingleton<IDataParser<Veterancy>, VeterancyParser>();
             services.AddSingleton<IDataParser<VoiceLine>, VoiceLineParser>();
@@ -134,6 +135,7 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IImageParser<Emoticon>, EmoticonImageParser>();
             services.AddSingleton<IImageParser<MatchAward>, MatchAwardImageParser>();
             services.AddSingleton<IImageParser<Spray>, SprayImageParser>();
+            services.AddSingleton<IImageParser<TypeDescription>, TypeDescriptionImageParser>();
             services.AddSingleton<IImageParser<VoiceLine>, VoiceLineImageParser>();
 
             services.AddSingleton<IImageParser<Map>, ReplayPreviewImageParser>();

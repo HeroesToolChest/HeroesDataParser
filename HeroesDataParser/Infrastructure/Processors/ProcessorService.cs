@@ -263,6 +263,7 @@ public class ProcessorService : IProcessorService
         { ExtractDataOptions.RewardPortrait, ProcessElementObject<RewardPortrait, RewardPortraitParser> },
         { ExtractDataOptions.Skin, ProcessElementObject<Skin, SkinParser> },
         { ExtractDataOptions.Spray, ProcessElementObject<Spray, SprayParser> },
+        { ExtractDataOptions.TypeDescription, ProcessElementObject<TypeDescription, TypeDescriptionParser> },
         { ExtractDataOptions.Unit, ProcessElementObject<Unit, UnitParser> },
         { ExtractDataOptions.Veterancy, ProcessElementObject<Veterancy, VeterancyParser> },
         { ExtractDataOptions.VoiceLine, ProcessElementObject<VoiceLine, VoiceLineParser> },

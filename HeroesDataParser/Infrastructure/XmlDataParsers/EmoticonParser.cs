@@ -92,7 +92,7 @@ public class EmoticonParser : DataParser<Emoticon>
 
     private void SetImageProperties(Emoticon elementObject, StormElement stormElement)
     {
-        string texture = string.Empty;
+        string? texture = null;
 
         int index = 0;
         int count = 0;
@@ -104,7 +104,7 @@ public class EmoticonParser : DataParser<Emoticon>
             if (imageData.TryGetElementDataAt("TextureSheet", out StormElementData? textureSheetData))
             {
                 SetTextureSheetProperties(elementObject, textureSheetData.Value.GetString());
-                texture = elementObject.TextureSheet.Image ?? string.Empty;
+                texture = elementObject.TextureSheet.Image;
             }
 
             if (imageData.TryGetElementDataAt("Index", out StormElementData? indexData))
@@ -158,7 +158,7 @@ public class EmoticonParser : DataParser<Emoticon>
             elementObject.TextureSheet.Columns = columnsData.Value.GetInt();
     }
 
-    private void SetImageFilePath(Emoticon elementObject, string texture)
+    private void SetImageFilePath(Emoticon elementObject, string? texture)
     {
         ImageFilePath? imageFilePath;
 

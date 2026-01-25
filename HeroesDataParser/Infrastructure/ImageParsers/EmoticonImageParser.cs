@@ -40,9 +40,7 @@ public class EmoticonImageParser : ImageParserBase<Emoticon>
                 int imageWidth = ddsImage.Width / element.TextureSheet.Columns.Value;
                 int imageHeight = ddsImage.Height / element.TextureSheet.Rows.Value;
 
-#pragma warning disable SA1407 // Arithmetic expressions should declare precedence
-                int xPos = element.Index % element.TextureSheet.Columns.Value * imageWidth;
-#pragma warning restore SA1407 // Arithmetic expressions should declare precedence
+                int xPos = (element.Index % element.TextureSheet.Columns.Value) * imageWidth;
                 int yPos = element.Index / element.TextureSheet.Columns.Value * imageHeight;
 
                 return ddsImage.Save(outputFilePath, new SixLabors.ImageSharp.Point(xPos, yPos), new SixLabors.ImageSharp.Size(element.Width.Value, imageHeight));

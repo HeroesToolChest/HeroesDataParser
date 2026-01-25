@@ -67,6 +67,6 @@ public class EmoticonPackParserTests
         emoticonPack.ReleaseDate.Should().Be(new DateOnly(2017, 10, 17));
         emoticonPack.Event.Should().Be("HallowsEnd");
         emoticonPack.EmoticonIds.Should().HaveCount(5)
-            .And.ContainInOrder("hand_thumbsup_skeletal", "hand_thumbsdown_skeletal", "hand_fistbump_skeletal", "hand_hangloose_skeletal", "hand_rockon_skeletal");
+            .And.ContainInOrder("hand_fistbump_skeletal", "hand_hangloose_skeletal", "hand_rockon_skeletal", "hand_thumbsdown_skeletal", "hand_thumbsup_skeletal");
     }
 }

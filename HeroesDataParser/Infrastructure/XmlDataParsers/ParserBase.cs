@@ -36,7 +36,7 @@ public abstract class ParserBase
     /// </summary>
     /// <param name="filePath">Path should start with Assets\Textures\.</param>
     /// <returns>The filename in lowercase and as a .png.</returns>
-    protected string GetStaticImageOutputFileName(string filePath)
+    protected string GetStaticImageOutputFileName(string? filePath)
     {
         return GetImageOutputFileName(filePath, StaticImageFileExtension);
     }
@@ -46,7 +46,7 @@ public abstract class ParserBase
     /// </summary>
     /// <param name="assetsTexturePath">Path should start with Assets\Textures\.</param>
     /// <returns>An <see cref="ImageFilePath"/> if the texture exists; otherwise, null.</returns>
-    protected ImageFilePath? GetStaticImageFilePath(string assetsTexturePath)
+    protected ImageFilePath? GetStaticImageFilePath(string? assetsTexturePath)
     {
         return GetImageFilePath(assetsTexturePath, StaticImageFileExtension);
     }
@@ -56,7 +56,7 @@ public abstract class ParserBase
     /// </summary>
     /// <param name="assetsTexturePath">Path should start with Assets\Textures\.</param>
     /// <returns>An <see cref="ImageFilePath"/> if the texture exists; otherwise, null.</returns>
-    protected ImageFilePath? GetAnimatedImageFilePath(string assetsTexturePath)
+    protected ImageFilePath? GetAnimatedImageFilePath(string? assetsTexturePath)
     {
         return Options.Hidden.AnimatedImageType switch
         {
@@ -89,7 +89,7 @@ public abstract class ParserBase
         return _heroesData.GetScalingValue(dataObjectType, id, elementName) ?? 0;
     }
 
-    private ImageFilePath? GetImageFilePath(string assetsTexturePath, string fileExtension)
+    private ImageFilePath? GetImageFilePath(string? assetsTexturePath, string fileExtension)
     {
         StormFile? stormAssetFile = _heroesData.GetStormAssetFile(assetsTexturePath);
         if (stormAssetFile is null)
@@ -105,11 +105,14 @@ public abstract class ParserBase
         return new ImageFilePath(image, imagePath);
     }
 
-    private string GetImageOutputFileName(string filePath, string fileExtension)
+    private string GetImageOutputFileName(ReadOnlySpan<char> filePath, string fileExtension)
     {
+        if (filePath.IsEmpty)
+            return string.Empty;
+
         Span<char> pathSpan = stackalloc char[filePath.Length];
 
-        int size = Path.GetFileName(filePath.AsSpan()).ToLowerInvariant(pathSpan);
+        int size = Path.GetFileName(filePath).ToLowerInvariant(pathSpan);
 
         return Path.ChangeExtension(pathSpan[..size].ToString(), fileExtension);
     }

@@ -35,6 +35,7 @@ public static class TestHeroesXmlLoader
         XDocument emoticonPackDocument = GetXDocument("EmoticonPack.xml");
         XDocument portraitPackDocument = GetXDocument("PortraitPack.xml");
         XDocument rewardPortraitDocument = GetXDocument("RewardPortrait.xml");
+        XDocument typeDescriptionDocument = GetXDocument("TypeDescription.xml");
 
         return HeroesXmlLoader.LoadWithEmpty()
             .LoadCustomMod(new ManualModLoader(string.Empty)
@@ -68,7 +69,8 @@ public static class TestHeroesXmlLoader
                     ("TextureSheet", "CTextureSheet"),
                     ("EmoticonPack", "CEmoticonPack"),
                     ("PortraitPack", "CPortraitPack"),
-                    ("RewardPortrait", "CRewardPortrait"),
+                    ("Reward", "CReward"),
+                    ("TypeDescription", "CTypeDescription"),
                 ])
                 .AddElements(unitDocument.Root!.Elements())
                 .AddElements(heroDocument.Root!.Elements())
@@ -98,6 +100,7 @@ public static class TestHeroesXmlLoader
                 .AddElements(emoticonPackDocument.Root!.Elements())
                 .AddElements(portraitPackDocument.Root!.Elements())
                 .AddElements(rewardPortraitDocument.Root!.Elements())
+                .AddElements(typeDescriptionDocument.Root!.Elements())
                 .AddGameStrings(
                 [
                     "test_for_tooltip_decription_service=Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200~~0.045~~</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>",
@@ -284,6 +287,8 @@ public static class TestHeroesXmlLoader
                     Path.Join("Assets", "Textures", "storm_emoji_greymane_sheet.dds"),
                     Path.Join("Assets", "Textures", "storm_emoji_cat_gleam_anim_sheet.dds"),
                     Path.Join("Assets", "Textures", "storm_emoji_abathur_mecha_sheet.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_profile_hero_progression_icon_epicsummerlootchest.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_heroes_rewardicons_sheet.dds"),
                     Path.Join("Textures", "test-default.dds"),
                 ])
                 .AddLevelScalingArrayElements(heroDocument.Root.Descendants("LevelScalingArray"))
@@ -372,6 +377,7 @@ public static class TestHeroesXmlLoader
                     "UI/LoadingScreen_WCAV_Icon1_Alliance=Assets\\Textures\\ui_ingame_mapmechanic_loadscreen_WCAV_icon1_alliance.dds",
                     "UI/LoadingScreen_WCAV_Icon2_Alliance=Assets\\Textures\\ui_ingame_mapmechanic_loadscreen_WCAV_icon2_alliance.dds",
                     "UI/LoadingScreen_WCAV_Icon3_Alliance=Assets\\Textures\\ui_ingame_mapmechanic_loadscreen_WCAV_icon3_alliance.dds",
+                    "UI/Storm_UI_ProfileDialog_ProgressionReward_Icon_EpicSummerLootChest=Assets\\Textures\\storm_ui_profile_hero_progression_icon_epicsummerlootchest.dds",
                 ])
                 .AddConstantXElements(
                 [
