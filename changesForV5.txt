@@ -1,10 +1,6 @@
 Changes from v4 to v5
 
 -------
-#### New stuff:
-CollectionCategoryData.xml
-HeroRoleData.xml ?
-
 #### Other
 - New LocalizedText options: `None`, `Extract`, `Copy`, (no longer a cli command, now an cli option)
 
@@ -12,20 +8,69 @@ HeroRoleData.xml ?
 - Added `meta` object
 - All data items are now in a `items` object
 
-#### GameString files
-- Updated `meta` object
-- Updated `gamestrings` to `items`
-- Updated `hero` - `roles` to an array
-- `hero\roles` delimiter changed from comma(,) to pipe(|)
+#### GameStrings file
 - Heroes and units are now split into their own `hero` and `unit` objects
 - Ability and talents are now split into their own `ability` and `talents` objects
+- Added `matchAward` `endOfMatchTooltipText`
+- Added `matchAward` `scoreScreenDescription`
+- Added `matchAward` `scoreScreenName`
+- Added `banner` `infoText`
+- Added `bundle` `infoText`
+- Added `portraitPack` `sortName`
+- Added `map`
+- Updated `meta` object with  new properties
+- Updated name `gamestrings` to `items`
+- Updated `hero` `roles` to an array
+- Updated name `ability` `cooldown` to `cooldownText`
+- Updated name `ability` `energy` to `energyText`
+- Updated name `ability` `full` to `fullText`
+- Updated name `ability` `life` to `lifeText`
+- Updated name `ability` `short` to `shortText`
+- Updated name `talent` `cooldown` to `cooldownText`
+- Updated name `talent` `energy` to `energyText`
+- Updated name `talent` `full` to `fullText`
+- Updated name `talent` `short` to `shortText`
+- Updated name `award` to `matchAward`
+- Updated name `award` `description` to `endOfMatchDescription`
+- Updated name `award` `name` to `endOfMatchName`
+- Updated name `banner` `sortname` to `sortName`
+- Updated name `emoticon` `searchtext` to `searchText`
+- Updated name `emoticon` `localizedaliases` to `localizedAliases`
+- Updated name `emoticonpack` to `emoticonPack`
+- Updated name `heroskin` to `skin`
+- Updated name `skin` `infotext` to `infoText`
+- Updated name `skin` `searchtext` to `searchText`
+- Updated name `skin` `sortname` to `sortName`
+- Updated name `lootchest` to `lootChest`
+- Updated name `mount` `infotext` to `infoText`
+- Updated name `mount` `searchtext` to `searchText`
+- Updated name `mount` `sortname` to `sortName`
+- Updated name `portrait` to `portraitPack`
+- Updated name `rewardportrait` to `rewardPortrait`
+- Updated name `rewardPortrait` `descriptionunearned` to `descriptionUnearned`
+- Updated name `spray` `searchtext` to `searchText`
+- Updated name `spray` `sortname` to `sortName`
+- Updated name `voiceline` to `voiceLine`
+- Removed `emoticon` `descriptionlocked`
+- Removed `emoticon` `aliases`
+- Removed `emoticon` `expression`
 
 #### Hero (and Unit where applicable)
+- The "id" for subabilities changed to the `linkId` (either ability or talent `linkId`)
+- Added the abilities (as subabilities) from talents that grant a new activable ability (those that appear in the item bar)
 - Added `Taunt` and `Dance` abilities
 - Added `damageType`
 - Added `attributes`
-- Removed `type` which had a value of `melee` or `ranged`
 - Added `isMelee`
+- Added `linkId` to abilities (`abilityId|buttonId|abilityType`)
+- Added `linkId` to talents (`talentId|buttonId|abilityType|tier`)
+- Added `abilityId` to talents
+- Added `UpgradesAbilityType` to talents
+- Added `tooltipAbilityLinkIds`
+- Added `weapons` to `herounits`
+- Added `MedicMedivacDropship` as a heroUnit to Medic
+- Added `HeroMedivhRaven` as a heroUnit to Medivh
+- Added Yrel's `YrelVindicationCast|YrelVindication|Q` as a subability to `YrelDivinePurpose|YrelDivinePurpose|Trait`
 - Updated name `skins` to `skinIds`
 - Updated name `variationSkins` to `variationSkinIds`
 - Updated name `voiceLines` to `voiceLineIds`
@@ -42,47 +87,35 @@ HeroRoleData.xml ?
 - Updated `heroUnits` to an object from an array
 - Updated name `nameId` for abilities to `abilityId`
 - Updated name `nameId` for talents to `talentId`
-- Added `linkId` to abilities (`abilityId|buttonId|abilityType`)
-- Added `linkId` to talents (`talentId|buttonId|abilityType|tier`)
-- Added `abilityId` to talents
-- Removed `isPassive` and `IsActive` from abilities
-- Removed `isPassive` and `IsActive` from talents
-- Added `UpgradesAbilityType` to talents
-- The "id" for subabilities changed to the `linkId` (either ability or talent `linkId`)
-- Removed `abilityTalentLinkIds`
-- Added `tooltipAbilityLinkIds`
 - Updated name `units` to `summonedUnitIds`
-- Removed `charges` from talents
-- Removed `upgradeLinkIds` values from ultimate abilities that had pointed to itself
-- Added `weapons` to `herounits`
+- Updated Greymane's `GreymaneRazorSwipe|GreymaneRazorSwipe|Q` and `GreymaneDisengage|GreymaneDisengage|E` abilities' parent ability to `GreymaneDarkflight|GreymaneDarkflight|E`
+- Updated Jaina's `ImprovedIceBlock|JainaImprovedIceBlockHotbar|Active` from being a subability to a (baseline) ability
+- Updated Kel'Thuzad's `KelThuzadGlacialSpike|KelThuzadGlacialSpike|Active` from being a subability to a (baseline) ability
+- Updated Whitemane's `WhitemaneInquisition|WhitemaneInquisition|W` and `WhitemaneInquisitionClemency|WhitemaneInquisitionClemency|Active` abilities, both should have subabilities `WhitemaneInquisitionCancel|WhitemaneInquisitionCancel|W` and `WhitemaneInquisitionCancel|WhitemaneInquisitionCancel|Active`
 - Fixed missing `sortname` for some heroes
 - Fixed some abilities having a 1 second cooldown where it should not
-- Fixed Ana's `AnaEyeOfHorusAttackDummy|AnaEyeOfHorusHighPoweredRound|Heroic` and `AnaEyeOfHorusAttack|AnaEyeOfHorusHighPoweredRound|Heroic` abilities missing cooldown text
-- Fixed Anubarak's `AnubarakLegionOfBeetlesVisual|AnubarakScarabHostTrait|Trait` having cooldown text
 - Fixed Deathwing's `DeathwingMoltenFlame|DeathwingMoltenFlame|Q` incorrent energy text
-- Changed Greymane's `GreymaneRazorSwipe|GreymaneRazorSwipe|Q` and `GreymaneDisengage|GreymaneDisengage|E` abilities' parent ability to `GreymaneDarkflight|GreymaneDarkflight|E`
 - Fixed Greymane's `Dismount|UnsummonMount|Z` ability having the incorrect parent ability (should be `Mount|GreymaneSummonMount|Z`)
-- Removed basic abilities from `LostVikings` (the `HeroLostVikingsController`)
 - Fixed Lost Vikings' `LostVikingsMasteryVikingBribery|LostVikingsVikingBribery|E` ability type
 - Fixed Lost Vikings' `LostVikingsMasterySpinToWin|LostVikingsSpinToWin|Q` ability type
 - Fixed Lost Vikings' `LostVikingsMasteryNorseForce|LostVikingsNorseForce|Q` ability type
 - Fixed Lost Vikings' `LostVikingsMasteryJump|LostVikingsJump|W` ability type
 - Fixed Dva's `DVaMechBunnyHopHeroic|DVaBunnyHopOff|Heroic` incorrect cooldown
-- Added `MedicMedivacDropship` as a heroUnit to Medic
-- Added `HeroMedivhRaven` as a heroUnit to Medivh
 - Fixed `MedivhPortalCancel|MedivhPortalCancel|Trait` having energy text
 - Fixed Amazon's `AmazonWarTravelerSummonMount|AmazonWarTravelerSummonMount|Z` name
-- Fixed Deckard's `DeckardAncientBlessings|DeckardFortitudeOfTheFaithfulAncientBlessings|Trait` missing short text and incorrect full text
-- Added the abilities (as subabilities) from talents that grant a new activable ability (those that appear in the item bar)
-- Removed `charges` from talents
-- Updated Jaina's `ImprovedIceBlock|JainaImprovedIceBlockCancel|Active` from being a subability to a (baseline) ability
-- Updated Kel'Thuzad's `KelThuzadGlacialSpike|KelThuzadGlacialSpike|Active` from being a subability to a (baseline) ability
+- Fixed Deckard's `DeckardAncientBlessings|DeckardFortitudeOfTheFaithfulAncientBlessings|Trait` missing `shortText` and incorrect `fullText`
 - Fixed Sgt. Hammer's `ConcussiveBlastScrapCancel|SgtHammerConcussiveBlastBarricadeCancel|W` parent ability to `SgtHammerBarricade|SgtHammerConcussiveBlastBarricadeTalent|W|Level4`
 - Fixed Tracer's `TracerLockedandLoadedFailReload|TracerLockedandLoadedAbility|Trait` parent ability to `TracerLockedandLoaded|TracerLockedandLoaded|Trait|Level7`
-- Updated Whitemane's `WhitemaneInquisition|WhitemaneInquisition|W` and `WhitemaneInquisitionClemency|WhitemaneInquisitionClemency|Active` abilities, both should have subabilities `WhitemaneInquisitionCancel|WhitemaneInquisitionCancel|W` and `WhitemaneInquisitionCancel|WhitemaneInquisitionCancel|Active`
 - Fixed Li-Mings `WizardArchonPurePower|WizardArchonPurePowerHotbar|Active` ability, should have two subabilities `WizardArchonPurePowerDisintegrate|WizardArchonPurePowerDisintegrate|Heroic` and `WizardArchonPurePower|WizardArchonPurePowerHotbarCancel|Active`
 - Fixed Yrel's `YrelAvengingWrathChannel|YrelAvengingWrath|E` and `YrelAvengingWrath|YrelAvengingWrath|E` being swapped
-- Added Yrel's `YrelVindicationCast|YrelVindication|Q` as a subability to `YrelDivinePurpose|YrelDivinePurpose|Trait`
+- Removed `type` (which had a value of `melee` or `ranged`)
+- Removed `isPassive` and `IsActive` from abilities
+- Removed `isPassive` and `IsActive` from talents
+- Removed `abilityTalentLinkIds`
+- Removed `charges` from talents
+- Removed `upgradeLinkIds` values from ultimate abilities that had pointed to itself
+- Removed basic abilities from `LostVikings` (the `HeroLostVikingsController`)
+- Removed `charges` from talents
 
 #### Announcer
 - Added `RandomAnnouncerPack` item
