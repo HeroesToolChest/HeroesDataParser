@@ -87,7 +87,7 @@ HeroRoleData.xml ?
 #### Announcer
 - Added `RandomAnnouncerPack` item
 - Added `Cook` item
-- Added `Default` item`
+- Added `Default` item
 - Added `GardensNightAnnouncer` item
 - Added `Quality` item
 - Fixed `MeiOWA` incorrect `heroId`
@@ -163,6 +163,21 @@ HeroRoleData.xml ?
 #### PortraitPack
 - Added missing `rewardPortraitIds` to many items
 
+#### RewardPortrait
+- Fixed `AcolytePortrait` missing `descriptionUnearned`
+- Fixed `CallofKelThuzadPortrait` missing `descriptionUnearned`
+- Fixed `CyberSharkBlizzcon18RewardPortrait` missing `descriptionUnearned`
+- Fixed `DragonqueenAlexstraszaPortrait` missing `descriptionUnearned`
+- Fixed `DragonstrikePortrait` missing `descriptionUnearned`
+- Fixed `EasternClash2018Portrait` missing `descriptionUnearned`
+- Fixed `GhoulPortrait` missing `descriptionUnearned`
+- Fixed `NecromancerPortrait` missing `descriptionUnearned`
+- Fixed `PachimariPortrait` missing `descriptionUnearned`
+- Fixed `StainedGlassAlexstraszaandHanzoPortrait` missing `descriptionUnearned`
+- Fixed `StainedGlassDragonKnightPortrait` missing `descriptionUnearned`
+- Fixed `WesternClash2018Portrait` missing `descriptionUnearned`
+- Fixed `Zerg20YearPortrait` missing `descriptionUnearned`
+
 #### Skin
 - Renamed from `HeroSkins` to `Skins
 - Added `Random` item
@@ -207,6 +222,14 @@ HeroRoleData.xml ?
 - Added 'RandomSpray' item
 - Animated sprays have been changed from `gif` to `apng`
   - This was changed due to quality limitations of `gif` format
+
+#### TypeDescription
+- Added `largeIcon`
+- Updated name `image` to `rewardIcon`
+- Updated `rewardIcon` file name from the prefix `storm_typedescription` to `'storm_ui_heroes_reward_icon`
+- Removed `hyperlinkId`
+- Removed `iconSlot`
+- Removed `textureSheet`
 
 #### Veterancy
 - Renamed from `BehaviorVeterancy` to `Veterancy`
