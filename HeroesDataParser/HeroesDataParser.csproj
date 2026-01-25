@@ -25,11 +25,11 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Heroes.XmlData" Version="1.0.0-alpha.2.95" />
-		<PackageReference Include="Microsoft.Extensions.Compliance.Redaction" Version="10.0.0" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection.AutoActivation" Version="10.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.0.0" />
+		<PackageReference Include="Heroes.XmlData" Version="1.0.0-alpha.2.112" />
+		<PackageReference Include="Microsoft.Extensions.Compliance.Redaction" Version="10.2.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.AutoActivation" Version="10.2.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.2.0" />
 		<PackageReference Include="Pfim" Version="0.11.4" />
 		<PackageReference Include="Polly.Core" Version="8.6.5" />
 		<PackageReference Include="Polly.Extensions" Version="8.6.5" />
