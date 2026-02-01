@@ -2,7 +2,7 @@
 
 public class StorageLoadOptions
 {
-    public StorageType Type { get; set; } = StorageType.Unknown;
+    public StorageType Type { get; set; } = StorageType.Game;
 
     public string? Path { get; set; }
 

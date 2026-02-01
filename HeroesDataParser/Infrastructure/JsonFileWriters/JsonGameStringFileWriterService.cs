@@ -7,11 +7,12 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
     public JsonGameStringFileWriterService(
         ILogger<JsonGameStringFileWriterService> logger,
         IOptions<RootOptions> options,
+        IAnsiConsole console,
         IGameStringSerializerService gameStringSerializerService,
         ISerializedDataStoreService serializedDataStoreService,
         IJsonSerializerOptionService jsonSerializerOptionService,
         IResultSummaryService resultSummaryService)
-        : base(logger, options, serializedDataStoreService, jsonSerializerOptionService, resultSummaryService)
+        : base(logger, options, console, serializedDataStoreService, jsonSerializerOptionService, resultSummaryService)
     {
         _gameStringSerializerService = gameStringSerializerService;
     }

@@ -2,7 +2,6 @@
 
 public enum StorageType
 {
-    Unknown,
     Mods,
     Game,
     Online,

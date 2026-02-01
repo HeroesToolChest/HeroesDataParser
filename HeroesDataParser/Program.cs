@@ -1,46 +1,36 @@
 ﻿using Serilog;
 using System.Text;
 
-// TODO: CLI
-
 Console.OutputEncoding = Encoding.UTF8;
 
 SetAppCulture();
 
-AnsiConsole.Record();
-AnsiConsole.MarkupLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-AnsiConsole.MarkupLine($"[bold]Heroes Data Parser v{AppVersion.GetAppVersion()}[/]");
-AnsiConsole.MarkupLine("  --[link]https://github.com/HeroesToolChest/HeroesDataParser[/]");
-AnsiConsole.MarkupLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-AnsiConsole.WriteLine();
 
-HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
+
+//AnsiConsole.MarkupLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+//AnsiConsole.MarkupLine($"[bold]Heroes Data Parser v{AppVersion.GetAppVersion()}[/]");
+//AnsiConsole.MarkupLine("  --[link]https://github.com/HeroesToolChest/HeroesDataParser[/]");
+//AnsiConsole.MarkupLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+//AnsiConsole.WriteLine();
+
+//HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
 
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
     .WriteTo.Async(SerilogLogging.LoggerConfigure(), bufferSize: 500, blockWhenFull: true)
-    .CreateBootstrapLogger();
+    .CreateLogger();
+//.CreateBootstrapLogger();
 
 try
 {
     Log.Information($"HDP v{AppVersion.GetAppVersion()}");
 
-    // TODO: from cli
-    //int? theCliBuildNumber = null;
-
-    //builder.Configuration
-    //    .AddInMemoryCollection(new Dictionary<string, string?>
-    //    {
-    //        // TODO: from cli options, set here
-    //        //["RootOptions:OutputDirectory"] = "mypath",
-    //        //["RootOptions:BuildNumber"] = theCliBuildNumber?.ToString(),
-    //    });
-
-    builder.Services.AddCoreServices(builder);
-    builder.Services.AddHDPServices(builder);
-    builder.Services.AddResiliencePipelines();
-
-    builder.Services.PostConfigureAll<RootOptions>(options =>
+    ServiceCollection services = new();
+    services.AddConfiguration();
+    services.AddCoreServices();
+    services.AddHDPServices();
+    services.AddResiliencePipelines();
+    services.PostConfigureAll<RootOptions>(options =>
     {
         options.CurrentLocale = StormLocale.ENUS;
         options.AppVersion = AppVersion.GetAppVersion();
@@ -52,22 +42,65 @@ try
         }
     });
 
-    using IHost host = builder.Build();
+    TypeRegistrar registrar = new(services);
+    CommandApp<RootCommand> app = new(registrar);
+    app.Configure(config =>
+    {
+        config.SetApplicationName(Constants.AppNameLower);
+        config.SetApplicationVersion(AppVersion.GetAppVersion());
+        config.UseStrictParsing();
+        config.CaseSensitivity(CaseSensitivity.None);
+#if DEBUG
+        config.PropagateExceptions();
+        config.ValidateExamples();
+#endif
+    });
 
-    IPreloadService preload = host.Services.GetRequiredService<IPreloadService>();
-    PreloadData preloadData = preload.Preload();
+    await app.RunAsync(args);
 
-    IHeroesXmlLoaderService loading = host.Services.GetRequiredService<IHeroesXmlLoaderService>();
-    await loading.Load(preloadData);
+    //// TODO: from cli
+    ////int? theCliBuildNumber = null;
 
-    IMainService main = host.Services.GetRequiredService<IMainService>();
-    await main.Start();
+    ////builder.Configuration
+    ////    .AddInMemoryCollection(new Dictionary<string, string?>
+    ////    {
+    ////        // TODO: from cli options, set here
+    ////        //["RootOptions:OutputDirectory"] = "mypath",
+    ////        //["RootOptions:BuildNumber"] = theCliBuildNumber?.ToString(),
+    ////    });
 
-    IPostCleanupService postCleanup = host.Services.GetRequiredService<IPostCleanupService>();
-    postCleanup.Start();
+    //builder.Services.AddCoreServices(builder);
+    //builder.Services.AddHDPServices(builder);
+    //builder.Services.AddResiliencePipelines();
 
-    IResultSummaryService resultSummary = host.Services.GetRequiredService<IResultSummaryService>();
-    resultSummary.PrintSummary();
+    //builder.Services.PostConfigureAll<RootOptions>(options =>
+    //{
+    //    options.CurrentLocale = StormLocale.ENUS;
+    //    options.AppVersion = AppVersion.GetAppVersion();
+
+    //    if (!options.GameStringText.ReplaceFontStyles)
+    //    {
+    //        options.GameStringText.PreserveFont.PreserveFontStyleConstantVars = false;
+    //        options.GameStringText.PreserveFont.PreserveFontStyleVars = false;
+    //    }
+    //});
+
+    //using IHost host = builder.Build();
+
+    //IPreloadService preload = host.Services.GetRequiredService<IPreloadService>();
+    //PreloadData preloadData = preload.Preload();
+
+    //IHeroesXmlLoaderService loading = host.Services.GetRequiredService<IHeroesXmlLoaderService>();
+    //await loading.Load(preloadData);
+
+    //IMainService main = host.Services.GetRequiredService<IMainService>();
+    //await main.Start();
+
+    //IPostCleanupService postCleanup = host.Services.GetRequiredService<IPostCleanupService>();
+    //postCleanup.Start();
+
+    //IResultSummaryService resultSummary = host.Services.GetRequiredService<IResultSummaryService>();
+    //resultSummary.PrintSummary();
 }
 catch (Exception ex)
 {

@@ -9,6 +9,7 @@ public class ImageWriterService : IImageWriterService
 
     private readonly ILogger<ImageWriterService> _logger;
     private readonly RootOptions _options;
+    private readonly IAnsiConsole _console;
     private readonly IResultSummaryService _resultSummaryService;
     private readonly ResiliencePipeline _pipeline;
 
@@ -17,11 +18,13 @@ public class ImageWriterService : IImageWriterService
     public ImageWriterService(
         ILogger<ImageWriterService> logger,
         IOptions<RootOptions> options,
+        IAnsiConsole console,
         IResultSummaryService resultSummaryService,
         ResiliencePipelineProvider<string> pipelineProvider)
     {
         _logger = logger;
         _options = options.Value;
+        _console = console;
         _resultSummaryService = resultSummaryService;
         _pipeline = pipelineProvider.GetPipeline(Constants.ImageWriterPipeline);
         _resultSummaryService = resultSummaryService;
@@ -47,12 +50,12 @@ public class ImageWriterService : IImageWriterService
             return;
         }
 
-        AnsiConsole.MarkupLine($"[lightskyblue1]Creating image files[/]...");
+        _console.MarkupLine($"[lightskyblue1]Creating image files[/]...");
 
         var imagePathsBySubDirectoryGroups = _outputImagePaths.GroupBy(x => x.SubDirectoryPath);
         List<(ProgressTask ProgressTask, IGrouping<string, ImageWriterFile> ImagePathsBySubDirectory)> progressTasks = [];
 
-        await AnsiConsole.Progress()
+        await _console.Progress()
             .Columns(
             [
                 new TaskDescriptionPathsColumn(),

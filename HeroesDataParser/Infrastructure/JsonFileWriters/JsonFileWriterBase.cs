@@ -5,12 +5,14 @@ public abstract class JsonFileWriterBase
     public JsonFileWriterBase(
         ILogger logger,
         IOptions<RootOptions> options,
+        IAnsiConsole console,
         ISerializedDataStoreService serializedDataStoreService,
         IJsonSerializerOptionService jsonSerializerOptionService,
         IResultSummaryService resultSummaryService)
     {
         Logger = logger;
         Options = options.Value;
+        Console = console;
         SerializedDataStoreService = serializedDataStoreService;
         JsonSerializerOptionService = jsonSerializerOptionService;
         ResultSummaryService = resultSummaryService;
@@ -19,6 +21,8 @@ public abstract class JsonFileWriterBase
     protected ILogger Logger { get; }
 
     protected RootOptions Options { get; }
+
+    protected IAnsiConsole Console { get; }
 
     protected ISerializedDataStoreService SerializedDataStoreService { get; }
 
@@ -92,9 +96,9 @@ public abstract class JsonFileWriterBase
         IncrementFilesWritten();
         SerializedDataStoreService.AddSerializedData(dataName, bytes);
 
-        AnsiConsole.Write("Created file ");
-        AnsiConsoleHelpers.WriteFilePath(Path.Join(innerDirectory, fileName));
-        AnsiConsole.WriteLine();
+        Console.Write("Created file ");
+        WriteFilePath(Path.Join(innerDirectory, fileName));
+        Console.WriteLine();
     }
 
     protected async Task WriteMapDiff(string innerDirectory, string mapName, string dataName, byte[] bytes)
@@ -129,9 +133,22 @@ public abstract class JsonFileWriterBase
 
         IncrementFilesWritten();
 
-        AnsiConsole.Write("Created file ");
-        AnsiConsoleHelpers.WriteFilePath(Path.Join(innerDirectory, fileName));
-        AnsiConsole.WriteLine();
+        Console.Write("Created file ");
+        WriteFilePath(Path.Join(innerDirectory, fileName));
+        Console.WriteLine();
+    }
+
+    private static void WriteFilePath(string filePath)
+    {
+        AnsiConsole.Write(GetFilePath(filePath));
+    }
+
+    private static TextPath GetFilePath(string filePath)
+    {
+        return new TextPath(filePath)
+            .SeparatorColor(Color.SpringGreen1)
+            .StemColor(Color.SteelBlue1_1)
+            .LeafColor(Color.Orange1);
     }
 
     private async Task WriteDiffJsonFile(string innerDirectory, string mapName, string dataName, string fileName, string filePath, byte[] bytes)
@@ -160,19 +177,19 @@ public abstract class JsonFileWriterBase
 
             IncrementFilesWritten();
 
-            AnsiConsole.Write("Created diff file ");
-            AnsiConsoleHelpers.WriteFilePath(Path.Join(innerDirectory, fileName));
+            Console.Write("Created diff file ");
+            WriteFilePath(Path.Join(innerDirectory, fileName));
 
             if (totalItemsChanged < 1)
-                AnsiConsole.Write($" [0]");
+                Console.Write($" [0]");
             else
-                AnsiConsole.Write($" [+{totalItemsChanged}]");
+                Console.Write($" [+{totalItemsChanged}]");
 
-            AnsiConsole.WriteLine();
+            Console.WriteLine();
         }
         else
         {
-            AnsiConsole.WriteLine($"No changes found for {dataName}");
+            Console.WriteLine($"No changes found for {dataName}");
         }
     }
 }

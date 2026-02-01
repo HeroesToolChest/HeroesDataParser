@@ -84,7 +84,7 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
                 continue;
 
             // check if the directory name is in the extractors list
-            if (!Options.Extractors.ContainsKey(fileInfo.Name))
+            if (Enum.TryParse(fileInfo.Name, true, out ExtractDataOptions extractorName) && !Options.Extractors.ContainsKey(extractorName))
                 continue;
 
             string directoryPath = Path.Join(_customConfigurationDirectory, fileInfo.Name);

@@ -3,6 +3,7 @@
 public class MainLocaleProcess : IMainLocaleProcess
 {
     private readonly ILogger<MainLocaleProcess> _logger;
+    private readonly RootOptions _options;
     private readonly IProcessorService _processorService;
     private readonly IMapProcessorService _mapProcessorService;
     private readonly ISerializedDataStoreService _serializedDataStoreService;
@@ -10,12 +11,14 @@ public class MainLocaleProcess : IMainLocaleProcess
 
     public MainLocaleProcess(
         ILogger<MainLocaleProcess> logger,
+        IOptions<RootOptions> options,
         IProcessorService processorService,
         IMapProcessorService mapProcessorService,
         ISerializedDataStoreService serializedDataStoreService,
         IJsonGameStringFileWriterService jsonGameStringFileWriterService)
     {
         _logger = logger;
+        _options = options.Value;
         _processorService = processorService;
         _mapProcessorService = mapProcessorService;
         _serializedDataStoreService = serializedDataStoreService;
@@ -28,7 +31,7 @@ public class MainLocaleProcess : IMainLocaleProcess
 
         await _processorService.Start();
 
-        if (_processorService.ExtractDataOptions.HasFlag(ExtractDataOptions.Map))
+        if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.Map))
         {
             _logger.LogInformation("Starting map processor service for {Locale}", locale);
             await _mapProcessorService.Start();

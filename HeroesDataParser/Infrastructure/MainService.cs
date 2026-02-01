@@ -4,6 +4,7 @@ public class MainService : IMainService
 {
     private readonly ILogger<MainService> _logger;
     private readonly RootOptions _options;
+    private readonly IAnsiConsole _console;
     private readonly IMainLocalePreProcess _mainLocalePreProcess;
     private readonly IMainLocaleProcess _mainLocaleProcess;
     private readonly IImageWriterService _imageWriterService;
@@ -14,6 +15,7 @@ public class MainService : IMainService
     public MainService(
         ILogger<MainService> logger,
         IOptions<RootOptions> options,
+        IAnsiConsole console,
         IMainLocalePreProcess mainLocalePreProcess,
         IMainLocaleProcess mainLocaleProcess,
         IImageWriterService imageWriterService,
@@ -21,6 +23,7 @@ public class MainService : IMainService
     {
         _logger = logger;
         _options = options.Value;
+        _console = console;
         _mainLocalePreProcess = mainLocalePreProcess;
         _mainLocaleProcess = mainLocaleProcess;
         _imageWriterService = imageWriterService;
@@ -37,7 +40,7 @@ public class MainService : IMainService
 
             _options.CurrentLocale = locale;
             _logger.LogInformation("Localization: {Locale}", locale);
-            AnsiConsole.Write(new Rule($"[[ [greenyellow]Locale: {locale}[/] ... [paleturquoise1]{count} of {_options.Localizations.Count}[/] ]]")
+            _console.Write(new Rule($"[[ [greenyellow]Locale: {locale}[/] ... [paleturquoise1]{count} of {_options.Localizations.Count}[/] ]]")
             {
                 Justification = Justify.Left,
             });
@@ -56,13 +59,13 @@ public class MainService : IMainService
     private void LoadGameStrings(StormLocale locale)
     {
         _logger.LogInformation("Loading gamestrings...");
-        AnsiConsole.Write("Loading gamestrings...");
+        _console.Write("Loading gamestrings...");
 
         _stopwatch.Start();
         _heroesXmlLoaderService.HeroesXmlLoader.LoadGameStrings(locale);
         _stopwatch.Stop();
 
         _logger.LogInformation("GameStrings {Locale} loaded", locale);
-        AnsiConsole.WriteLine($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfGameStringsFiles()} text files (in {_stopwatch.Elapsed.TotalSeconds:0}s {_stopwatch.Elapsed.Milliseconds:0}ms)");
+        _console.WriteLine($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfGameStringsFiles()} text files (in {_stopwatch.Elapsed.TotalSeconds:0}s {_stopwatch.Elapsed.Milliseconds:0}ms)");
     }
 }

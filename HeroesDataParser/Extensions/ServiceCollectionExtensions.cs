@@ -1,6 +1,6 @@
-﻿using Polly;
+﻿using Microsoft.Extensions.Configuration;
+using Polly;
 using Polly.Retry;
-using Serilog;
 using System.Net;
 using System.Net.Http.Headers;
 
@@ -10,14 +10,22 @@ public static class ServiceCollectionExtensions
 {
     extension(IServiceCollection services)
     {
-        public IServiceCollection AddCoreServices(HostApplicationBuilder builder)
+        public IServiceCollection AddConfiguration()
         {
-            services.AddSerilog((services, lc) => lc
-                    .ReadFrom.Configuration(builder.Configuration)
-                    .ReadFrom.Services(services)
-                    .Enrich.FromLogContext()
-                .WriteTo.Async(SerilogLogging.LoggerConfigure(), bufferSize: 500, blockWhenFull: true));
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
+                .AddJsonFile("appsettings.release.json", optional: true, reloadOnChange: false)
+                .Build();
 
+            services.AddSingleton(configuration);
+            services.Configure<RootOptions>(configuration.GetSection(nameof(RootOptions)));
+
+            return services;
+        }
+
+        public IServiceCollection AddCoreServices()
+        {
+            services.AddSingleton<IFileProvider>(sp => new PhysicalFileProvider(AppContext.BaseDirectory));
             services.AddRedaction();
             services
                 .AddHttpClient(Constants.HttpClientBlizzard, httpClient =>
@@ -40,14 +48,11 @@ public static class ServiceCollectionExtensions
             return services;
         }
 
-        public IServiceCollection AddHDPServices(HostApplicationBuilder builder)
+        public IServiceCollection AddHDPServices()
         {
-            services.Configure<RootOptions>(builder.Configuration.GetSection(nameof(RootOptions)));
-            services.AddSingleton(builder.Environment.ContentRootFileProvider);
-
             services.AddSingleton<IParsingConfigurationService, ParsingConfigurationService>();
             services.AddSingleton<ICustomConfigurationService, CustomConfigurationService>();
-            services.AddSingleton<IPreloadService, PreloadService>();
+            services.AddSingleton<IConfigurationLoaderService, ConfigurationLoaderService>();
 
             services.AddSingleton<ISerializedDataStoreService, SerializedDataStoreService>();
             services.AddSingleton<IJsonSerializerOptionService, JsonSerializerOptionService>();
@@ -58,6 +63,7 @@ public static class ServiceCollectionExtensions
             services.AddDataParsers();
             services.AddImageWriters();
 
+            services.AddSingleton<IPreLoaderService, PreLoaderService>();
             services.AddSingleton<IMainService, MainService>();
             services.AddSingleton<IMainLocalePreProcess, MainLocalePreProcess>();
             services.AddSingleton<IMainLocaleProcess, MainLocaleProcess>();

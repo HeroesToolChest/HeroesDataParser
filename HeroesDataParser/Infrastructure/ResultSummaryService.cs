@@ -6,14 +6,16 @@ public class ResultSummaryService : IResultSummaryService
 {
     private readonly ILogger<ResultSummaryService> _logger;
     private readonly RootOptions _options;
+    private readonly IAnsiConsole _console;
 
     private readonly List<SummaryDataItem> _summaryDataItems = [];
     private readonly List<SummaryImageItem> _summaryImageItems = [];
 
-    public ResultSummaryService(ILogger<ResultSummaryService> logger, IOptions<RootOptions> options)
+    public ResultSummaryService(ILogger<ResultSummaryService> logger, IOptions<RootOptions> options, IAnsiConsole console)
     {
         _logger = logger;
         _options = options.Value;
+        _console = console;
     }
 
     public int JsonDataFilesWritten { get; set; }
@@ -64,15 +66,15 @@ public class ResultSummaryService : IResultSummaryService
         RenderImageSummary(renderables);
         FileCountWrittenSummary(renderables);
 
-        AnsiConsole.WriteLine();
-        AnsiConsole.Write(new Panel(new Rows(renderables))
+        _console.WriteLine();
+        _console.Write(new Panel(new Rows(renderables))
         {
             Border = BoxBorder.Square,
             Header = new PanelHeader("Result Summary"),
             Padding = new Padding(1, 1, 1, 1),
         });
 
-        AnsiConsole.WriteLine();
+        _console.WriteLine();
     }
 
     private void RenderDataSummary(List<IRenderable> renderables)

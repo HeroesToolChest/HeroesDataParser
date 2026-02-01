@@ -1,10 +1,13 @@
-﻿namespace HeroesDataParser.Infrastructure.JsonFileWriters.Tests;
+﻿using Spectre.Console;
+
+namespace HeroesDataParser.Infrastructure.JsonFileWriters.Tests;
 
 [TestClass]
 public class JsonGameStringFileWriterServiceTests
 {
     private readonly ILogger<JsonGameStringFileWriterService> _logger;
     private readonly IOptions<RootOptions> _options;
+    private readonly IAnsiConsole _console;
     private readonly IGameStringSerializerService _gameStringSerializerService;
     private readonly ISerializedDataStoreService _serializedDataStoreService;
     private readonly IJsonSerializerOptionService _jsonSerializerOptionService;
@@ -14,6 +17,7 @@ public class JsonGameStringFileWriterServiceTests
     {
         _logger = Substitute.For<ILogger<JsonGameStringFileWriterService>>();
         _options = Substitute.For<IOptions<RootOptions>>();
+        _console = Substitute.For<IAnsiConsole>();
         _gameStringSerializerService = Substitute.For<IGameStringSerializerService>();
         _serializedDataStoreService = Substitute.For<ISerializedDataStoreService>();
         _jsonSerializerOptionService = Substitute.For<IJsonSerializerOptionService>();
@@ -68,7 +72,7 @@ public class JsonGameStringFileWriterServiceTests
         _gameStringSerializerService.SerializeGameStrings(default!, default!)
             .ReturnsForAnyArgs(expectedBytes);
 
-        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
+        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
 
         // act
         await jsonGameStringFileWriterService.WriteForMap(mapName);
@@ -131,7 +135,7 @@ public class JsonGameStringFileWriterServiceTests
         _gameStringSerializerService.SerializeGameStrings(default!, default!)
             .ReturnsForAnyArgs(expectedBytes);
 
-        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
+        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
 
         // act
         await jsonGameStringFileWriterService.WriteForMap(mapName);
@@ -169,7 +173,7 @@ public class JsonGameStringFileWriterServiceTests
 
         _options.Value.Returns(rootOptions);
 
-        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
+        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
 
         // act
         await jsonGameStringFileWriterService.WriteForMap("mapName");
@@ -208,7 +212,7 @@ public class JsonGameStringFileWriterServiceTests
 
         _options.Value.Returns(rootOptions);
 
-        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
+        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
 
         // act
         await jsonGameStringFileWriterService.WriteForMap("mapName");
@@ -242,7 +246,7 @@ public class JsonGameStringFileWriterServiceTests
         byte[] testBytes = "{\"test\":\"data\"}"u8.ToArray();
         string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "gamestrings", $"gamestrings_{rootOptions.BuildNumber}_enus.json");
 
-        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
+        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
 
         // act
         await jsonGameStringFileWriterService.Write(testBytes);
@@ -297,7 +301,7 @@ public class JsonGameStringFileWriterServiceTests
         _gameStringSerializerService.SerializeGameStrings(default!, default!)
             .ReturnsForAnyArgs(expectedBytes);
 
-        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
+        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
 
         // act
         jsonGameStringFileWriterService.SerializeOnly();

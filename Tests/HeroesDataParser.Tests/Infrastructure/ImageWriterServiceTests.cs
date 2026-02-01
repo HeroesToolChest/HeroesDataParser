@@ -1,6 +1,6 @@
-﻿using HeroesDataParser.Extensions;
-using Polly;
+﻿using Polly;
 using Polly.Registry;
+using Spectre.Console;
 
 namespace HeroesDataParser.Infrastructure.Tests;
 
@@ -9,6 +9,7 @@ public class ImageWriterServiceTests
 {
     private readonly ILogger<ImageWriterService> _logger;
     private readonly IOptions<RootOptions> _options;
+    private readonly IAnsiConsole _console;
     private readonly IResultSummaryService _resultSummaryService;
     private readonly ResiliencePipelineProvider<string> _pipelineProvider;
 
@@ -16,6 +17,8 @@ public class ImageWriterServiceTests
     {
         _logger = Substitute.For<ILogger<ImageWriterService>>();
         _options = Substitute.For<IOptions<RootOptions>>();
+        _console = new TestConsole();
+
         _resultSummaryService = Substitute.For<IResultSummaryService>();
         _pipelineProvider = Substitute.For<ResiliencePipelineProvider<string>>();
     }
@@ -30,10 +33,10 @@ public class ImageWriterServiceTests
 
         _options.Value.Returns(new RootOptions()
         {
-            Extractors = new Dictionary<string, ExtractorOptions>()
+            Extractors = new Dictionary<ExtractDataOptions, ExtractorOptions>()
             {
                 {
-                    "something1",
+                    ExtractDataOptions.Announcer,
                     new ExtractorOptions()
                     {
                         IsEnabled = true,
@@ -45,7 +48,7 @@ public class ImageWriterServiceTests
             Threads = 1,
         });
 
-        ImageWriterService imageWriterService = new(_logger, _options, _resultSummaryService, _pipelineProvider);
+        ImageWriterService imageWriterService = new(_logger, _options, _console, _resultSummaryService, _pipelineProvider);
         imageWriterService.Save(new HashSet<ImageWriterFile>()
         {
             {

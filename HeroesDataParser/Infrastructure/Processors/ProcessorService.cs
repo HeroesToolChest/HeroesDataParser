@@ -12,8 +12,6 @@ public class ProcessorService : IProcessorService
     private readonly IJsonGameStringFileWriterService _jsonGameStringFileWriterService;
     private readonly IImageWriterService _imageWriterService;
 
-    private readonly ExtractDataOptions _extractDataOptions;
-    private readonly ExtractImageOptions _extractImageOptions;
     private readonly Dictionary<ExtractDataOptions, Action<Map?>> _processElementByExtractDataOption;
 
     private readonly List<Func<Task>> _dataWriterTasks = [];
@@ -35,15 +33,8 @@ public class ProcessorService : IProcessorService
         _jsonGameStringFileWriterService = jsonGameStringFileWriterService;
         _imageWriterService = imageWriterService;
 
-        _extractDataOptions = GetExtractDataOptions();
-        _extractImageOptions = GetExtractImageOptions();
-
         _processElementByExtractDataOption = GetElementProcessors();
     }
-
-    public ExtractDataOptions ExtractDataOptions => _extractDataOptions;
-
-    public ExtractImageOptions ExtractImageOptions => _extractImageOptions;
 
     public async Task Start()
     {
@@ -63,7 +54,7 @@ public class ProcessorService : IProcessorService
     {
         foreach (KeyValuePair<ExtractDataOptions, Action<Map?>> processor in processors)
         {
-            if (_extractDataOptions.HasFlag(processor.Key))
+            if (_options.ExtractDataOptions.HasFlag(processor.Key))
             {
                 processor.Value(map);
             }
@@ -125,7 +116,7 @@ public class ProcessorService : IProcessorService
 
         foreach (IImageParser<TElementObject> imageParser in imageParsers)
         {
-            if (_extractImageOptions.HasFlag(imageParser.ExtractImageOption))
+            if (_options.ExtractImageOptions.HasFlag(imageParser.ExtractImageOption))
             {
                 _imageWriterService.Save(imageParser.GetImages(itemsToSerialize));
             }
@@ -164,87 +155,6 @@ public class ProcessorService : IProcessorService
             // don't create a gamestring file yet, if we have map parsing available the base gamestring file will be created after all maps are processed
             _jsonGameStringFileWriterService.SerializeOnly();
         }
-    }
-
-    private ExtractDataOptions GetExtractDataOptions()
-    {
-        ExtractDataOptions selectDataExtractOptions = ExtractDataOptions.None;
-
-        foreach (var extractDataOption in _options.Extractors)
-        {
-            if (!Enum.TryParse(extractDataOption.Key, true, out ExtractDataOptions result) || extractDataOption.Value.IsEnabled is false)
-                continue;
-
-            selectDataExtractOptions |= result;
-        }
-
-        _logger.LogDebug("Selected data extractors: {@DataOptions}", selectDataExtractOptions);
-
-        return selectDataExtractOptions;
-    }
-
-    private ExtractImageOptions GetExtractImageOptions()
-    {
-        ExtractImageOptions selectImageExtractOptions = ExtractImageOptions.None;
-
-        foreach (var extractDataOption in _options.Extractors)
-        {
-            if (extractDataOption.Value.IsEnabled is false || extractDataOption.Value.Images is false)
-                continue;
-
-            if (extractDataOption.Key.Equals("hero", StringComparison.OrdinalIgnoreCase))
-            {
-                if (_options.Hidden.HeroImages.HeroPortraits)
-                    selectImageExtractOptions |= ExtractImageOptions.HeroPortrait;
-                if (_options.Hidden.HeroImages.Talents)
-                    selectImageExtractOptions |= ExtractImageOptions.Talent;
-                if (_options.Hidden.Abilities)
-                    selectImageExtractOptions |= ExtractImageOptions.Ability;
-                if (_options.Hidden.AbilityTalents)
-                    selectImageExtractOptions |= ExtractImageOptions.AbilityTalent;
-                if (_options.Hidden.HeroImages.HeroData)
-                    selectImageExtractOptions |= ExtractImageOptions.HeroData;
-                if (_options.Hidden.HeroImages.HeroDataSplit)
-                    selectImageExtractOptions |= ExtractImageOptions.HeroDataSplit;
-
-                continue;
-            }
-
-            if (extractDataOption.Key.Equals("unit", StringComparison.OrdinalIgnoreCase))
-            {
-                if (_options.Hidden.UnitImages.UnitPortraits)
-                    selectImageExtractOptions |= ExtractImageOptions.UnitPortrait;
-                if (_options.Hidden.Abilities)
-                    selectImageExtractOptions |= ExtractImageOptions.Ability;
-                if (_options.Hidden.AbilityTalents)
-                    selectImageExtractOptions |= ExtractImageOptions.AbilityTalent;
-                if (_options.Hidden.UnitImages.UnitData)
-                    selectImageExtractOptions |= ExtractImageOptions.UnitData;
-
-                continue;
-            }
-
-            if (extractDataOption.Key.Equals("map", StringComparison.OrdinalIgnoreCase))
-            {
-                if (_options.Hidden.MapImages.ReplayPreviews)
-                    selectImageExtractOptions |= ExtractImageOptions.ReplayPreview;
-                if (_options.Hidden.MapImages.LoadingScreens)
-                    selectImageExtractOptions |= ExtractImageOptions.LoadingScreen;
-                if (_options.Hidden.MapImages.MapObjectiveIcons)
-                    selectImageExtractOptions |= ExtractImageOptions.MapObjectives;
-
-                continue;
-            }
-
-            if (!Enum.TryParse(extractDataOption.Key, true, out ExtractImageOptions result))
-                continue;
-
-            selectImageExtractOptions |= result;
-        }
-
-        _logger.LogDebug("Selected image extractors: {@ImageOptions}", selectImageExtractOptions);
-
-        return selectImageExtractOptions;
     }
 
     private Dictionary<ExtractDataOptions, Action<Map?>> GetElementProcessors() => new()

@@ -6,6 +6,7 @@ public class DataExtractorService : IDataExtractorService
 {
     private readonly ILogger<DataExtractorService> _logger;
     private readonly RootOptions _options;
+    private readonly IAnsiConsole _console;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly IParsingConfigurationService _parsingConfigurationService;
     private readonly IResultSummaryService _resultSummaryService;
@@ -14,12 +15,14 @@ public class DataExtractorService : IDataExtractorService
     public DataExtractorService(
         ILogger<DataExtractorService> logger,
         IOptions<RootOptions> options,
+        IAnsiConsole console,
         IHeroesXmlLoaderService heroesXmlLoaderService,
         IParsingConfigurationService parsingConfigurationService,
         IResultSummaryService resultSummaryService)
     {
         _logger = logger;
         _options = options.Value;
+        _console = console;
         _heroesXmlLoaderService = heroesXmlLoaderService;
         _parsingConfigurationService = parsingConfigurationService;
         _resultSummaryService = resultSummaryService;
@@ -48,7 +51,7 @@ public class DataExtractorService : IDataExtractorService
         _stopwatch.Restart();
 
         _logger.LogInformation("Starting data extractor for data object type {DataObjectType}", parser.DataObjectType);
-        AnsiConsole.Write($"Parsing '{nameOfElement}' data...");
+        _console.Write($"Parsing '{nameOfElement}' data...");
 
         IEnumerable<string> itemIds = _heroesXmlLoaderService.HeroesXmlLoader.HeroesData.GetStormElementIds(parser.DataObjectType, StormCacheType.All);
 
@@ -96,19 +99,19 @@ public class DataExtractorService : IDataExtractorService
     {
         if (totalCount < 1)
         {
-            AnsiConsole.MarkupLine("[yellow]No items found to parse[/]");
-            AnsiConsole.WriteLine();
+            _console.MarkupLine("[yellow]No items found to parse[/]");
+            _console.WriteLine();
         }
         else
         {
             _resultSummaryService.AddSummaryDataItem(dataObjectType, parsedItemsCount, totalCount, _options.CurrentLocale, map?.Name?.PlainText);
 
             if (parsedItemsCount == totalCount)
-                AnsiConsole.MarkupInterpolated($"{parsedItemsCount} / {totalCount}");
+                _console.MarkupInterpolated($"{parsedItemsCount} / {totalCount}");
             else
-                AnsiConsole.MarkupInterpolated($"[yellow]:warning:  {parsedItemsCount} / {totalCount}[/]");
+                _console.MarkupInterpolated($"[yellow]:warning:  {parsedItemsCount} / {totalCount}[/]");
 
-            AnsiConsole.WriteLine($" (in {_stopwatch.Elapsed.TotalSeconds:0}s {_stopwatch.Elapsed.Milliseconds:0}ms)");
+            _console.WriteLine($" (in {_stopwatch.Elapsed.TotalSeconds:0}s {_stopwatch.Elapsed.Milliseconds:0}ms)");
         }
     }
 }

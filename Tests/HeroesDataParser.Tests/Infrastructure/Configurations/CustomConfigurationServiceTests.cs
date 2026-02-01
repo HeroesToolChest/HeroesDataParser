@@ -28,8 +28,8 @@ public class CustomConfigurationServiceTests
             },
             Extractors =
             {
-                { "hero", new ExtractorOptions() },
-                { "announcer", new ExtractorOptions() },
+                { ExtractDataOptions.Hero, new ExtractorOptions() },
+                { ExtractDataOptions.Announcer, new ExtractorOptions() },
             },
         });
 
@@ -97,7 +97,7 @@ public class CustomConfigurationServiceTests
             },
             Extractors =
             {
-                { "hero", new ExtractorOptions() },
+                { ExtractDataOptions.Hero, new ExtractorOptions() },
             },
         });
 
@@ -147,8 +147,8 @@ public class CustomConfigurationServiceTests
             },
             Extractors =
             {
-                { "hero", new ExtractorOptions() },
-                { "announcer", new ExtractorOptions() },
+                { ExtractDataOptions.Hero, new ExtractorOptions() },
+                { ExtractDataOptions.Announcer, new ExtractorOptions() },
             },
         });
 
@@ -216,8 +216,8 @@ public class CustomConfigurationServiceTests
             },
             Extractors =
             {
-                { "hero", new ExtractorOptions() },
-                { "announcer", new ExtractorOptions() },
+                { ExtractDataOptions.Hero, new ExtractorOptions() },
+                { ExtractDataOptions.Announcer, new ExtractorOptions() },
             },
         });
 
@@ -267,8 +267,8 @@ public class CustomConfigurationServiceTests
             },
             Extractors =
             {
-                { "hero", new ExtractorOptions() },
-                { "announcer", new ExtractorOptions() },
+                { ExtractDataOptions.Hero, new ExtractorOptions() },
+                { ExtractDataOptions.Announcer, new ExtractorOptions() },
             },
         });
 
@@ -318,7 +318,7 @@ public class CustomConfigurationServiceTests
             },
             Extractors =
             {
-                { "hero", new ExtractorOptions() },
+                { ExtractDataOptions.Hero, new ExtractorOptions() },
             },
         });
 
@@ -372,7 +372,7 @@ public class CustomConfigurationServiceTests
             },
             Extractors =
             {
-                { "hero", new ExtractorOptions() },
+                { ExtractDataOptions.Hero, new ExtractorOptions() },
             },
         });
 
@@ -460,7 +460,7 @@ public class CustomConfigurationServiceTests
             },
             Extractors =
             {
-                { "hero", new ExtractorOptions() },
+                { ExtractDataOptions.Hero, new ExtractorOptions() },
             },
         });
 
@@ -511,8 +511,8 @@ public class CustomConfigurationServiceTests
             },
             Extractors =
             {
-                { "hero", new ExtractorOptions() },
-                { "announcer", new ExtractorOptions() },
+                { ExtractDataOptions.Hero, new ExtractorOptions() },
+                { ExtractDataOptions.Announcer, new ExtractorOptions() },
             },
         });
 
@@ -620,7 +620,7 @@ public class CustomConfigurationServiceTests
             },
             Extractors =
             {
-                { "hero", new ExtractorOptions() },
+                { ExtractDataOptions.Hero, new ExtractorOptions() },
             },
         });
 

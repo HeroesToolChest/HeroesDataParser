@@ -5,6 +5,7 @@ namespace HeroesDataParser.Infrastructure.Processors;
 public class MapProcessorService : IMapProcessorService
 {
     private readonly ILogger<MapProcessorService> _logger;
+    private readonly RootOptions _options;
     private readonly IProcessorService _processorService;
     private readonly IMapDataExtractorService _mapDataExtractorService;
     private readonly IJsonDataFileWriterService _jsonDataFileWriterService;
@@ -17,6 +18,7 @@ public class MapProcessorService : IMapProcessorService
 
     public MapProcessorService(
         ILogger<MapProcessorService> logger,
+        IOptions<RootOptions> options,
         IProcessorService processorService,
         IMapDataExtractorService mapDataExtractorService,
         IJsonDataFileWriterService jsonDataFileWriterService,
@@ -26,6 +28,7 @@ public class MapProcessorService : IMapProcessorService
         IBaseGameStringMergeService baseGameStringMergeService)
     {
         _logger = logger;
+        _options = options.Value;
         _processorService = processorService;
         _mapDataExtractorService = mapDataExtractorService;
         _jsonDataFileWriterService = jsonDataFileWriterService;
@@ -81,7 +84,7 @@ public class MapProcessorService : IMapProcessorService
             // extract and save images
             foreach (IImageParser<Map> mapImageParser in _mapImageParsers)
             {
-                if (_processorService.ExtractImageOptions.HasFlag(mapImageParser.ExtractImageOption))
+                if (_options.ExtractImageOptions.HasFlag(mapImageParser.ExtractImageOption))
                 {
                     _imageWriterService.Save(mapImageParser.GetImages(mapItemsToSerialize));
                 }

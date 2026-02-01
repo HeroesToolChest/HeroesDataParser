@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace HeroesDataParser.Core.Models;
 
-public class PreloadData
+public class LoadedConfiguration
 {
     public CASCConfig? CascConfig { get; set; }
 

@@ -6,15 +6,23 @@ public class MapDataExtractorService : IMapDataExtractorService
 {
     private readonly ILogger<MapDataExtractorService> _logger;
     private readonly RootOptions _options;
+    private readonly IAnsiConsole _console;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly IDataParser<Map> _mapDataParser;
     private readonly IResultSummaryService _resultSummaryService;
     private readonly Stopwatch _stopwatch = new();
 
-    public MapDataExtractorService(ILogger<MapDataExtractorService> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IDataParser<Map> mapDataParser, IResultSummaryService resultSummaryService)
+    public MapDataExtractorService(
+        ILogger<MapDataExtractorService> logger,
+        IOptions<RootOptions> options,
+        IAnsiConsole console,
+        IHeroesXmlLoaderService heroesXmlLoaderService,
+        IDataParser<Map> mapDataParser,
+        IResultSummaryService resultSummaryService)
     {
         _logger = logger;
         _options = options.Value;
+        _console = console;
         _heroesXmlLoaderService = heroesXmlLoaderService;
         _mapDataParser = mapDataParser;
         _resultSummaryService = resultSummaryService;
@@ -45,13 +53,13 @@ public class MapDataExtractorService : IMapDataExtractorService
 
             using (LogContext.PushProperty("MapId", mapTitle))
             {
-                AnsiConsole.MarkupLineInterpolated($"[darkseagreen2_1]{(_options.StorageLoad.Type == StorageType.Online ? "Downloading" : "Loading")} '{mapTitle}' mod[/]...");
+                _console.MarkupLineInterpolated($"[darkseagreen2_1]{(_options.StorageLoad.Type == StorageType.Online ? "Downloading" : "Loading")} '{mapTitle}' mod[/]...");
 
                 _heroesXmlLoaderService.HeroesXmlLoader.LoadMapMod(mapTitle);
 
-                AnsiConsole.MarkupLineInterpolated($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfXmlDataFiles() - currentXmlCount,6} xml files loaded");
-                AnsiConsole.MarkupLineInterpolated($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfFontStyleFiles() - currentFontStyleCount,6} storm style files loaded");
-                AnsiConsole.MarkupLineInterpolated($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfGameStringsFiles() - currentGameStringCount,6} gamestring files loaded");
+                _console.MarkupLineInterpolated($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfXmlDataFiles() - currentXmlCount,6} xml files loaded");
+                _console.MarkupLineInterpolated($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfFontStyleFiles() - currentFontStyleCount,6} storm style files loaded");
+                _console.MarkupLineInterpolated($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfGameStringsFiles() - currentGameStringCount,6} gamestring files loaded");
 
                 Map? map = null;
 
@@ -90,21 +98,21 @@ public class MapDataExtractorService : IMapDataExtractorService
 
         if (totalCount < 1)
         {
-            AnsiConsole.MarkupLine("[yellow]No map items found to parse[/]");
-            AnsiConsole.WriteLine();
+            _console.MarkupLine("[yellow]No map items found to parse[/]");
+            _console.WriteLine();
 
             return parsedMaps;
         }
 
-        AnsiConsole.Markup("[lightskyblue1]Finished parsing map data[/]...");
+        _console.Markup("[lightskyblue1]Finished parsing map data[/]...");
 
         _resultSummaryService.AddSummaryDataItem("MapData", parsedMaps.Count, totalCount, stormLocale: _options.CurrentLocale);
 
         string message = $"{parsedMaps.Count} / {totalCount} ({_stopwatch.Elapsed.TotalSeconds:0}s {_stopwatch.Elapsed.Milliseconds:0}ms)";
         if (parsedMaps.Count == totalCount)
-            AnsiConsole.MarkupLine(message);
+            _console.MarkupLine(message);
         else
-            AnsiConsole.MarkupLineInterpolated($"[yellow]:warning:  {message}[/]");
+            _console.MarkupLineInterpolated($"[yellow]:warning:  {message}[/]");
 
         return parsedMaps;
     }

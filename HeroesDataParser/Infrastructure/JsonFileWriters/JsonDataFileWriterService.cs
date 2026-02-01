@@ -5,10 +5,11 @@ public class JsonDataFileWriterService : JsonFileWriterBase, IJsonDataFileWriter
     public JsonDataFileWriterService(
         ILogger<JsonDataFileWriterService> logger,
         IOptions<RootOptions> options,
+        IAnsiConsole console,
         ISerializedDataStoreService serializedElementsService,
         IJsonSerializerOptionService jsonSerializerOptionService,
         IResultSummaryService resultSummaryService)
-        : base(logger, options, serializedElementsService, jsonSerializerOptionService, resultSummaryService)
+        : base(logger, options, console, serializedElementsService, jsonSerializerOptionService, resultSummaryService)
     {
     }
 

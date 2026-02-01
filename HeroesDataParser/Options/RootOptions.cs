@@ -10,7 +10,7 @@ public class RootOptions
 
     public string OutputDirectory { get; set; } = ".";
 
-    public Dictionary<string, ExtractorOptions> Extractors { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+    public Dictionary<ExtractDataOptions, ExtractorOptions> Extractors { get; set; } = [];
 
     public HashSet<StormLocale> Localizations { get; set; } = [];
 
@@ -28,11 +28,14 @@ public class RootOptions
 
     public int Threads { get; set; }
 
-    // set/overridden during runtime
+    public HiddenOptions Hidden { get; set; } = new();
+
+    // properties below here a set/overridden during runtime
     public StormLocale CurrentLocale { get; set; } = StormLocale.ENUS;
 
-    // set/overridden during runtime
     public string AppVersion { get; set; } = string.Empty;
 
-    public HiddenOptions Hidden { get; set; } = new();
+    public ExtractDataOptions ExtractDataOptions { get; set; }
+
+    public ExtractImageOptions ExtractImageOptions { get; set; }
 }
