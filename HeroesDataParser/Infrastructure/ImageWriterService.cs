@@ -27,8 +27,6 @@ public class ImageWriterService : IImageWriterService
         _console = console;
         _resultSummaryService = resultSummaryService;
         _pipeline = pipelineProvider.GetPipeline(Constants.ImageWriterPipeline);
-        _resultSummaryService = resultSummaryService;
-        _pipeline = pipelineProvider.GetPipeline(Constants.ImageWriterPipeline);
     }
 
     public void Save(HashSet<ImageWriterFile> imagePaths)

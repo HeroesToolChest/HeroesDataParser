@@ -8,16 +8,14 @@ public abstract class ParserBase
 
     private readonly ILogger _logger;
     private readonly RootOptions _options;
-    private readonly HeroesXmlLoader _heroesXmlLoader;
-    private readonly HeroesData _heroesData;
+    private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly IGameStringTextService _gameStringTextService;
 
     protected ParserBase(ILogger logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IGameStringTextService gameStringTextService)
     {
         _logger = logger;
         _options = options.Value;
-        _heroesXmlLoader = heroesXmlLoaderService.HeroesXmlLoader;
-        _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
+        _heroesXmlLoaderService = heroesXmlLoaderService;
         _gameStringTextService = gameStringTextService;
     }
 
@@ -25,9 +23,9 @@ public abstract class ParserBase
 
     protected RootOptions Options => _options;
 
-    protected HeroesXmlLoader HeroesXmlLoader => _heroesXmlLoader;
+    protected HeroesXmlLoader HeroesXmlLoader => _heroesXmlLoaderService.HeroesXmlLoader;
 
-    protected HeroesData HeroesData => _heroesData;
+    protected HeroesData HeroesData => _heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
 
     protected IGameStringTextService GameStringTextService => _gameStringTextService;
 
@@ -73,7 +71,7 @@ public abstract class ParserBase
 
     protected double GetScaleValue(string elementType, string id, string? elementName)
     {
-        string? dataObjectType = _heroesData.GetDataObjectTypeByElementType(elementType);
+        string? dataObjectType = HeroesData.GetDataObjectTypeByElementType(elementType);
         if (string.IsNullOrWhiteSpace(dataObjectType))
         {
             Logger.LogWarning("Could not get data object type for element type {ElementType}", elementType);
@@ -86,12 +84,12 @@ public abstract class ParserBase
             return 0;
         }
 
-        return _heroesData.GetScalingValue(dataObjectType, id, elementName) ?? 0;
+        return HeroesData.GetScalingValue(dataObjectType, id, elementName) ?? 0;
     }
 
     private ImageFilePath? GetImageFilePath(string? assetsTexturePath, string fileExtension)
     {
-        StormFile? stormAssetFile = _heroesData.GetStormAssetFile(assetsTexturePath);
+        StormFile? stormAssetFile = HeroesData.GetStormAssetFile(assetsTexturePath);
         if (stormAssetFile is null)
             return null;
 

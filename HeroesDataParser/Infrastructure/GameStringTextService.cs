@@ -4,25 +4,23 @@ public class GameStringTextService : IGameStringTextService
 {
     private readonly ILogger<GameStringTextService> _logger;
     private readonly RootOptions _options;
-    private readonly HeroesData _heroesData;
-
-    private readonly bool _shouldExtractFontValues;
+    private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
     public GameStringTextService(ILogger<GameStringTextService> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService)
     {
         _logger = logger;
         _options = options.Value;
-        _heroesData = heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
-
-        _shouldExtractFontValues = _options.GameStringText.ReplaceFontStyles &&
-            _options.GameStringText is { Type: GameStringTextType.RawText or GameStringTextType.ColoredText or GameStringTextType.ColoredTextWithScaling };
+        _heroesXmlLoaderService = heroesXmlLoaderService;
     }
 
     public ConcurrentDictionary<string, string> ValByStyleConstantName { get; } = [];
 
     public ConcurrentDictionary<string, string> ValByStyleName { get; } = [];
 
-    public bool ShouldExtractFontValues => _shouldExtractFontValues;
+    public bool ShouldExtractFontValues => _options.GameStringText.ReplaceFontStyles &&
+        _options.GameStringText is { Type: GameStringTextType.RawText or GameStringTextType.ColoredText or GameStringTextType.ColoredTextWithScaling };
+
+    private HeroesData HeroesData => _heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
 
     public GameStringText GetGameStringText(string text)
     {
@@ -35,7 +33,7 @@ public class GameStringTextService : IGameStringTextService
     public GameStringText? GetGameStringTextFromId(string id)
     {
 #if DEBUG
-        StormGameString? stormGameString = _heroesData.GetStormGameString(id);
+        StormGameString? stormGameString = HeroesData.GetStormGameString(id);
 #else
         string? stormGameString = _heroesData.GetStormGameString(id.AsSpan());
 #endif
@@ -83,7 +81,7 @@ public class GameStringTextService : IGameStringTextService
     public string? GetStormGameString(string id)
     {
 #if DEBUG
-        StormGameString? stormGameString = _heroesData.GetStormGameString(id);
+        StormGameString? stormGameString = HeroesData.GetStormGameString(id);
 
         if (stormGameString is null)
             return null;
@@ -96,7 +94,7 @@ public class GameStringTextService : IGameStringTextService
 
     private GameStringText ParseGameStringText(StormGameString stormGameString)
     {
-        GameStringText tooltipDescription = _heroesData.ParseGameString(stormGameString, gameStringLocale: _options.CurrentLocale, extractFontValues: ShouldExtractFontValues);
+        GameStringText tooltipDescription = HeroesData.ParseGameString(stormGameString, gameStringLocale: _options.CurrentLocale, extractFontValues: ShouldExtractFontValues);
         ExtractFontValues(tooltipDescription);
 
         return tooltipDescription;
@@ -104,7 +102,7 @@ public class GameStringTextService : IGameStringTextService
 
     private GameStringText ParseGameStringText(string gamestring)
     {
-        GameStringText tooltipDescription = _heroesData.ParseGameString(gamestring, gameStringLocale: _options.CurrentLocale, extractFontValues: ShouldExtractFontValues);
+        GameStringText tooltipDescription = HeroesData.ParseGameString(gamestring, gameStringLocale: _options.CurrentLocale, extractFontValues: ShouldExtractFontValues);
         ExtractFontValues(tooltipDescription);
 
         return tooltipDescription;
@@ -125,7 +123,7 @@ public class GameStringTextService : IGameStringTextService
                     continue;
                 }
 
-                StormStyleConstantElement? styleConstantElement = _heroesData.GetStormStyleConstantStormElement(item.AsSpan().TrimStart('#'));
+                StormStyleConstantElement? styleConstantElement = HeroesData.GetStormStyleConstantStormElement(item.AsSpan().TrimStart('#'));
                 if (styleConstantElement is null || !styleConstantElement.HasVal)
                     continue;
 
@@ -144,14 +142,14 @@ public class GameStringTextService : IGameStringTextService
                     continue;
                 }
 
-                StormStyleStyleElement? stormStyleStyleElement = _heroesData.GetStormStyleStyleStormElement(item);
+                StormStyleStyleElement? stormStyleStyleElement = HeroesData.GetStormStyleStyleStormElement(item);
                 if (stormStyleStyleElement is null || !stormStyleStyleElement.DataValues.TryGetElementDataAt("textcolor", out StormElementData? textColorData))
                     continue;
 
                 // maybe a constant
                 string textColorValue = textColorData.Value.GetString();
 
-                StormStyleConstantElement? styleConstantElement = _heroesData.GetStormStyleConstantStormElement(textColorValue.AsSpan().TrimStart('#'));
+                StormStyleConstantElement? styleConstantElement = HeroesData.GetStormStyleConstantStormElement(textColorValue.AsSpan().TrimStart('#'));
 
                 if (styleConstantElement is null || !styleConstantElement.HasVal)
                     ValByStyleName[item] = textColorValue;
