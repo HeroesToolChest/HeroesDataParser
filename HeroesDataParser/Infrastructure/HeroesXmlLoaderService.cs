@@ -81,9 +81,8 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
                 await Task.Run(() =>
                 {
                     HeroesXmlLoader.LoadStormMods();
+                    LoadCustomStormMod();
                 });
-
-                LoadCustomStormMod();
 
                 _stopwatch.Stop();
             });
