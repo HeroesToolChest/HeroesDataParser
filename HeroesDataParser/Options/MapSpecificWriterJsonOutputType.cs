@@ -1,7 +1,7 @@
 ﻿namespace HeroesDataParser.Options;
 
 [Flags]
-public enum MapWriterJsonOutputType
+public enum MapSpecificWriterJsonOutputType
 {
     None = 0,
     Normal,

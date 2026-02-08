@@ -35,7 +35,7 @@ public class GameStringTextService : IGameStringTextService
 #if DEBUG
         StormGameString? stormGameString = HeroesData.GetStormGameString(id);
 #else
-        string? stormGameString = _heroesData.GetStormGameString(id.AsSpan());
+        string? stormGameString = HeroesData.GetStormGameString(id.AsSpan());
 #endif
 
         if (stormGameString is null)

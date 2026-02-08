@@ -18,11 +18,11 @@ public class RootOptions
 
     public GameStringTextOptions GameStringText { get; set; } = new();
 
-    public MapWriterJsonOutputType MapWriterJsonOutputType { get; set; } = MapWriterJsonOutputType.None;
+    public MapSpecificWriterJsonOutputType MapSpecificWriterJsonOutputType { get; set; } = MapSpecificWriterJsonOutputType.None;
 
-    public bool AllowEmptyDiffFiles { get; set; }
+    public bool AllowEmptyMapSpecificDiffFiles { get; set; }
 
-    public bool AllowEmptyMapDirectories { get; set; }
+    public bool AllowEmptyMapSpecificDirectories { get; set; }
 
     public bool ShowLoadedCustomConfigFiles { get; set; }
 

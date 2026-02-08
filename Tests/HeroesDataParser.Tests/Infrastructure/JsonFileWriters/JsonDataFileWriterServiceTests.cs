@@ -203,7 +203,7 @@ public class JsonDataFileWriterServiceTests
         {
             OutputDirectory = Path.Combine("tests", nameof(WriteToMaps_HasItemsWithNoDiffFound_CreatesJsonFile)),
             CurrentLocale = StormLocale.ENUS,
-            MapWriterJsonOutputType = MapWriterJsonOutputType.Diff,
+            MapSpecificWriterJsonOutputType = MapSpecificWriterJsonOutputType.Diff,
             GameStringText = new GameStringTextOptions
             {
                 Type = GameStringTextType.RawText,
@@ -223,7 +223,7 @@ public class JsonDataFileWriterServiceTests
                 IsPtr = false,
             },
             AppVersion = "5.0.0",
-            AllowEmptyDiffFiles = true,
+            AllowEmptyMapSpecificDiffFiles = true,
         };
 
         _options.Value.Returns(rootOptions);
@@ -276,7 +276,7 @@ public class JsonDataFileWriterServiceTests
         {
             OutputDirectory = Path.Combine("tests", nameof(WriteToMaps_HasItemsWithNoDiffFound_NoJsonFileCreated)),
             CurrentLocale = StormLocale.ENUS,
-            MapWriterJsonOutputType = MapWriterJsonOutputType.Diff,
+            MapSpecificWriterJsonOutputType = MapSpecificWriterJsonOutputType.Diff,
             GameStringText = new GameStringTextOptions
             {
                 Type = GameStringTextType.RawText,
@@ -296,7 +296,7 @@ public class JsonDataFileWriterServiceTests
                 IsPtr = false,
             },
             AppVersion = "5.0.0",
-            AllowEmptyDiffFiles = false,
+            AllowEmptyMapSpecificDiffFiles = false,
         };
 
         _options.Value.Returns(rootOptions);
@@ -332,18 +332,18 @@ public class JsonDataFileWriterServiceTests
     }
 
     [TestMethod]
-    [DataRow(MapWriterJsonOutputType.Normal)]
-    [DataRow(MapWriterJsonOutputType.Diff)]
-    [DataRow(MapWriterJsonOutputType.Normal | MapWriterJsonOutputType.Diff)]
-    [DataRow(MapWriterJsonOutputType.None)]
-    public async Task WriteToMaps_HasItemsWithDiffWasFound_CreatesJsonFile(MapWriterJsonOutputType mapWriterJsonOutputType)
+    [DataRow(MapSpecificWriterJsonOutputType.Normal)]
+    [DataRow(MapSpecificWriterJsonOutputType.Diff)]
+    [DataRow(MapSpecificWriterJsonOutputType.Normal | MapSpecificWriterJsonOutputType.Diff)]
+    [DataRow(MapSpecificWriterJsonOutputType.None)]
+    public async Task WriteToMaps_HasItemsWithDiffWasFound_CreatesJsonFile(MapSpecificWriterJsonOutputType mapWriterJsonOutputType)
     {
         // arrange
         RootOptions rootOptions = new()
         {
             OutputDirectory = Path.Combine("tests", $"{nameof(WriteToMaps_HasItemsWithDiffWasFound_CreatesJsonFile)}_{mapWriterJsonOutputType}"),
             CurrentLocale = StormLocale.ENUS,
-            MapWriterJsonOutputType = mapWriterJsonOutputType,
+            MapSpecificWriterJsonOutputType = mapWriterJsonOutputType,
             GameStringText = new GameStringTextOptions
             {
                 Type = GameStringTextType.RawText,
@@ -423,12 +423,12 @@ public class JsonDataFileWriterServiceTests
         // assert
         _serializedDataStoreService.DidNotReceiveWithAnyArgs().AddSerializedData(default!, default!);
 
-        if (mapWriterJsonOutputType == MapWriterJsonOutputType.All)
+        if (mapWriterJsonOutputType == MapSpecificWriterJsonOutputType.All)
         {
             _ = _resultSummaryService.Received(2).JsonDataFilesWritten;
             _ = _resultSummaryService.Received(2).JsonDataFilesTotal;
         }
-        else if (mapWriterJsonOutputType == MapWriterJsonOutputType.None)
+        else if (mapWriterJsonOutputType == MapSpecificWriterJsonOutputType.None)
         {
             _ = _resultSummaryService.DidNotReceive().JsonDataFilesWritten;
             _ = _resultSummaryService.DidNotReceive().JsonDataFilesTotal;
@@ -439,12 +439,12 @@ public class JsonDataFileWriterServiceTests
             _ = _resultSummaryService.Received(1).JsonDataFilesTotal;
         }
 
-        if (mapWriterJsonOutputType.HasFlag(MapWriterJsonOutputType.Normal))
+        if (mapWriterJsonOutputType.HasFlag(MapSpecificWriterJsonOutputType.Normal))
             AssertMapNormal(expectedNormalFilePath);
         else
             File.Exists(expectedNormalFilePath).Should().BeFalse();
 
-        if (mapWriterJsonOutputType.HasFlag(MapWriterJsonOutputType.Diff))
+        if (mapWriterJsonOutputType.HasFlag(MapSpecificWriterJsonOutputType.Diff))
             AssertMapDiff(expectedDiffFilePath);
         else
             File.Exists(expectedDiffFilePath).Should().BeFalse();

@@ -26,9 +26,9 @@ public class JsonDataFileWriterService : JsonFileWriterBase, IJsonDataFileWriter
     public async Task WriteToMaps<TElement>(string mapDirectory, SortedDictionary<string, TElement> elementsById)
         where TElement : IElementObject
     {
-        if (Options.MapWriterJsonOutputType == MapWriterJsonOutputType.None)
+        if (Options.MapSpecificWriterJsonOutputType == MapSpecificWriterJsonOutputType.None)
         {
-            Logger.LogInformation($"{nameof(MapWriterJsonOutputType)} is set to None, skipping writing json data for maps");
+            Logger.LogInformation($"{nameof(MapSpecificWriterJsonOutputType)} is set to None, skipping writing json data for maps");
             return;
         }
 

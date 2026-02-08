@@ -23,5 +23,5 @@ public enum ExtractDataOptions
     LootChest = 1 << 16,
     TypeDescription = 1 << 17,
     Map = 1 << 18,
-    All = ~(~0 << 18),
+    All = ~(~0 << 19),
 }

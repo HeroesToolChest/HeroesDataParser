@@ -16,5 +16,6 @@ global using HeroesDataParser.Tests.TestHelpers;
 global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Options;
 global using NSubstitute;
+global using Spectre.Console.Cli.Testing;
 global using Spectre.Console.Testing;
 global using System.Xml.Linq;

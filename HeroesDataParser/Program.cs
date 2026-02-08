@@ -5,21 +5,10 @@ Console.OutputEncoding = Encoding.UTF8;
 
 SetAppCulture();
 
-
-
-//AnsiConsole.MarkupLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-//AnsiConsole.MarkupLine($"[bold]Heroes Data Parser v{AppVersion.GetAppVersion()}[/]");
-//AnsiConsole.MarkupLine("  --[link]https://github.com/HeroesToolChest/HeroesDataParser[/]");
-//AnsiConsole.MarkupLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-//AnsiConsole.WriteLine();
-
-//HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
-
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
     .WriteTo.Async(SerilogLogging.LoggerConfigure(), bufferSize: 500, blockWhenFull: true)
     .CreateLogger();
-//.CreateBootstrapLogger();
 
 try
 {
@@ -35,11 +24,8 @@ try
         options.CurrentLocale = StormLocale.ENUS;
         options.AppVersion = AppVersion.GetAppVersion();
 
-        if (!options.GameStringText.ReplaceFontStyles)
-        {
-            options.GameStringText.PreserveFont.PreserveFontStyleConstantVars = false;
-            options.GameStringText.PreserveFont.PreserveFontStyleVars = false;
-        }
+        if (options.GameStringText.PreserveFont.PreserveFontStyleConstantVars || options.GameStringText.PreserveFont.PreserveFontStyleVars)
+            options.GameStringText.ReplaceFontStyles = true;
     });
 
     TypeRegistrar registrar = new(services);
@@ -57,50 +43,6 @@ try
     });
 
     await app.RunAsync(args);
-
-    //// TODO: from cli
-    ////int? theCliBuildNumber = null;
-
-    ////builder.Configuration
-    ////    .AddInMemoryCollection(new Dictionary<string, string?>
-    ////    {
-    ////        // TODO: from cli options, set here
-    ////        //["RootOptions:OutputDirectory"] = "mypath",
-    ////        //["RootOptions:BuildNumber"] = theCliBuildNumber?.ToString(),
-    ////    });
-
-    //builder.Services.AddCoreServices(builder);
-    //builder.Services.AddHDPServices(builder);
-    //builder.Services.AddResiliencePipelines();
-
-    //builder.Services.PostConfigureAll<RootOptions>(options =>
-    //{
-    //    options.CurrentLocale = StormLocale.ENUS;
-    //    options.AppVersion = AppVersion.GetAppVersion();
-
-    //    if (!options.GameStringText.ReplaceFontStyles)
-    //    {
-    //        options.GameStringText.PreserveFont.PreserveFontStyleConstantVars = false;
-    //        options.GameStringText.PreserveFont.PreserveFontStyleVars = false;
-    //    }
-    //});
-
-    //using IHost host = builder.Build();
-
-    //IPreloadService preload = host.Services.GetRequiredService<IPreloadService>();
-    //PreloadData preloadData = preload.Preload();
-
-    //IHeroesXmlLoaderService loading = host.Services.GetRequiredService<IHeroesXmlLoaderService>();
-    //await loading.Load(preloadData);
-
-    //IMainService main = host.Services.GetRequiredService<IMainService>();
-    //await main.Start();
-
-    //IPostCleanupService postCleanup = host.Services.GetRequiredService<IPostCleanupService>();
-    //postCleanup.Start();
-
-    //IResultSummaryService resultSummary = host.Services.GetRequiredService<IResultSummaryService>();
-    //resultSummary.PrintSummary();
 }
 catch (Exception ex)
 {

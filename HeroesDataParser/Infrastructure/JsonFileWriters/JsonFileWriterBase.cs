@@ -65,10 +65,10 @@ public abstract class JsonFileWriterBase
 
     protected async Task WriteSubMapJsonFile(string innerDirectory, string mapName, string dataName, byte[] bytes)
     {
-        if (Options.MapWriterJsonOutputType.HasFlag(MapWriterJsonOutputType.Normal))
+        if (Options.MapSpecificWriterJsonOutputType.HasFlag(MapSpecificWriterJsonOutputType.Normal))
             await WriteNormalMap(innerDirectory, mapName, dataName, bytes);
 
-        if (Options.MapWriterJsonOutputType.HasFlag(MapWriterJsonOutputType.Diff))
+        if (Options.MapSpecificWriterJsonOutputType.HasFlag(MapSpecificWriterJsonOutputType.Diff))
             await WriteMapDiff(innerDirectory, mapName, dataName, bytes);
     }
 
@@ -160,7 +160,7 @@ public abstract class JsonFileWriterBase
 
         Logger.LogInformation("Found {TotalItems} changed items of {DataType} for map {MapName}", dataName, totalItemsChanged, mapName);
 
-        if (totalItemsChanged > 0 || Options.AllowEmptyDiffFiles)
+        if (totalItemsChanged > 0 || Options.AllowEmptyMapSpecificDiffFiles)
         {
             try
             {

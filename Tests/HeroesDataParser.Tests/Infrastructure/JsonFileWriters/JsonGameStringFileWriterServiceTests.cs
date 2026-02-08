@@ -53,7 +53,7 @@ public class JsonGameStringFileWriterServiceTests
                 IsPtr = false,
             },
             AppVersion = "5.0.0",
-            MapWriterJsonOutputType = MapWriterJsonOutputType.Normal,
+            MapSpecificWriterJsonOutputType = MapSpecificWriterJsonOutputType.Normal,
         };
 
         _options.Value.Returns(rootOptions);
@@ -115,8 +115,8 @@ public class JsonGameStringFileWriterServiceTests
                 IsPtr = false,
             },
             AppVersion = "5.0.0",
-            MapWriterJsonOutputType = MapWriterJsonOutputType.Diff,
-            AllowEmptyDiffFiles = true,
+            MapSpecificWriterJsonOutputType = MapSpecificWriterJsonOutputType.Diff,
+            AllowEmptyMapSpecificDiffFiles = true,
         };
 
         _options.Value.Returns(rootOptions);
@@ -166,7 +166,7 @@ public class JsonGameStringFileWriterServiceTests
                 IsPtr = false,
             },
             AppVersion = "4.10.5",
-            MapWriterJsonOutputType = MapWriterJsonOutputType.None,
+            MapSpecificWriterJsonOutputType = MapSpecificWriterJsonOutputType.None,
         };
 
         JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _gameStringSerializerService);
@@ -203,7 +203,7 @@ public class JsonGameStringFileWriterServiceTests
                 IsPtr = false,
             },
             AppVersion = "4.10.5",
-            MapWriterJsonOutputType = MapWriterJsonOutputType.Normal,
+            MapSpecificWriterJsonOutputType = MapSpecificWriterJsonOutputType.Normal,
         };
 
         string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "gamestrings", "maps", "mapname", "gamestrings_0_dede.json");

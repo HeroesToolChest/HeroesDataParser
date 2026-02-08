@@ -29,7 +29,7 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
         await WriteSubMapJsonFile(Path.Join(Constants.JsonGameStringsDirectory, Constants.MapDirectory, buffer[..length]), mapName, Constants.GameStringFilePrefix, bytes);
 
         // after writing, clear the extracted gamestrings
-        if (Options.MapWriterJsonOutputType != MapWriterJsonOutputType.None)
+        if (Options.MapSpecificWriterJsonOutputType != MapSpecificWriterJsonOutputType.None)
             _gameStringSerializerService.ClearStoredGameStrings();
     }
 

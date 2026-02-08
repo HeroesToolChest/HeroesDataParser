@@ -19,7 +19,7 @@ public class PostCleanupService : IPostCleanupService
 
     private void CleanDataMapDirectories()
     {
-        if (_options.AllowEmptyMapDirectories)
+        if (_options.AllowEmptyMapSpecificDirectories)
             return;
 
         string dataMapsDirectory = Path.Combine(_options.OutputDirectory, Constants.JsonDataDirectory, Constants.MapDirectory);
@@ -30,7 +30,7 @@ public class PostCleanupService : IPostCleanupService
 
     private void CleanGameStringDirectories()
     {
-        if (_options.AllowEmptyMapDirectories)
+        if (_options.AllowEmptyMapSpecificDirectories)
             return;
 
         string gamestringsMapsDirectory = Path.Combine(_options.OutputDirectory, Constants.JsonGameStringsDirectory, Constants.MapDirectory);

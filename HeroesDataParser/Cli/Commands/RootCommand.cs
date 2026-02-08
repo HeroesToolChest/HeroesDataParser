@@ -27,6 +27,25 @@ public class RootCommand : AsyncCommand<RootSettings>
 
     protected override async Task<int> ExecuteAsync(CommandContext context, RootSettings settings, CancellationToken cancellationToken)
     {
+        SetOptions(settings);
+
+        _console.MarkupLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        _console.MarkupLine($"[bold]{Constants.AppName} v{AppVersion.GetAppVersion()}[/]");
+        _console.MarkupLine("  --[link]https://github.com/HeroesToolChest/HeroesDataParser[/]");
+        _console.MarkupLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        _console.WriteLine();
+
+        await _preLoaderService.Load();
+
+        await _mainService.Start();
+        _postCleanupService.Start();
+        _resultSummaryService.PrintSummary();
+
+        return 0;
+    }
+
+    private void SetOptions(RootSettings settings)
+    {
         _options.StorageLoad.Type = settings.StorageType;
         _options.StorageLoad.Path = settings.StorageDirectory?.FullName;
         _options.StorageLoad.Ptr = settings.IsPtr;
@@ -49,19 +68,29 @@ public class RootCommand : AsyncCommand<RootSettings>
             ParseExtractor(extractor);
         }
 
-        _console.MarkupLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        _console.MarkupLine($"[bold]{Constants.AppName} v{AppVersion.GetAppVersion()}[/]");
-        _console.MarkupLine("  --[link]https://github.com/HeroesToolChest/HeroesDataParser[/]");
-        _console.MarkupLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        _console.WriteLine();
+        if (settings.StormLocales.Length > 0)
+            _options.Localizations.Clear();
 
-        await _preLoaderService.Load();
+        foreach (string locale in settings.StormLocales)
+        {
+            if (Enum.TryParse(locale, true, out StormLocale stormLocale))
+                _options.Localizations.Add(stormLocale);
+        }
 
-        await _mainService.Start();
-        _postCleanupService.Start();
-        _resultSummaryService.PrintSummary();
+        _options.GameStringText.Type = settings.GameStringTextType;
+        _options.GameStringText.ReplaceFontStyles = settings.GameStringReplaceFontStyles;
+        _options.GameStringText.PreserveFont.PreserveFontStyleConstantVars = settings.GameStringPreserveConstantVars;
+        _options.GameStringText.PreserveFont.PreserveFontStyleVars = settings.GameStringPreserveStyleVars;
 
-        return 0;
+        if (settings.GameStringPreserveConstantVars || settings.GameStringPreserveStyleVars)
+            _options.GameStringText.ReplaceFontStyles = true;
+
+        _options.LocalizedText = settings.LocalizedTextOption;
+        _options.MapSpecificWriterJsonOutputType = settings.MapSpecificWriterJsonOutputType;
+        _options.AllowEmptyMapSpecificDiffFiles = settings.AllowEmptyMapSpecificDiffFiles;
+        _options.AllowEmptyMapSpecificDirectories = settings.AllowEmptyMapSpecificDirectories;
+        _options.ShowLoadedCustomConfigFiles = settings.ShowLoadedCustomConfigFiles;
+        _options.Threads = settings.Threads;
     }
 
     private void ParseExtractor(ReadOnlySpan<char> extractor)

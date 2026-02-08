@@ -12,8 +12,8 @@ public class RootSettings : CommandSettings
     [Description("The path of 'Heroes of the Storm' directory or an already extracted 'mods' directory")]
     public DirectoryInfo? StorageDirectory { get; init; }
 
-    [CommandOption("--ptr")]
-    [Description("Only for 'online' type, download from the ptr server")]
+    [CommandOption("--download-ptr")]
+    [Description("Download from the ptr server instead of live ('online' storage-type only)")]
     public bool IsPtr { get; init; }
 
     [CommandOption("-e|--extractor <EXTRACTOR>")]
@@ -21,10 +21,54 @@ public class RootSettings : CommandSettings
     [DefaultValue("Hero")]
     public string[] Extractors { get; init; } = [];
 
-    [CommandOption("-g|--gamestring-text")]
-    [Description("The format of the gamestrings texts")]
+    [CommandOption("-l|--localization <LOCALE>")]
+    [DefaultValue("enUS")]
+    [Description("Localizations for gamestrings to process (can be specified multiple times)")]
+    public string[] StormLocales { get; init; } = [];
+
+    [CommandOption("-g|--gamestring-text <FORMAT>")]
+    [Description("The format of the gamestrings")]
     [DefaultValue(GameStringTextType.RawText)]
     public GameStringTextType GameStringTextType { get; init; }
+
+    [CommandOption("--gamestring-replace-font-vars")]
+    [Description("Replace font variables in gamestrings with the actual values")]
+    public bool GameStringReplaceFontStyles { get; init; }
+
+    [CommandOption("--gamestring-preserve-constant-vars")]
+    [Description("Preserve constant variables in gamestrings")]
+    public bool GameStringPreserveConstantVars { get; init; }
+
+    [CommandOption("--gamestring-preserve-style-vars")]
+    [Description("Preserve style variables in gamestrings")]
+    public bool GameStringPreserveStyleVars { get; init; }
+
+    [CommandOption("--localized-text <OPTION>")]
+    [Description("Specifies how to handle gamestring properties during JSON serialization")]
+    [DefaultValue(LocalizedTextOption.None)]
+    public LocalizedTextOption LocalizedTextOption { get; init; }
+
+    [CommandOption("--map-specific-json-output <TYPE>")]
+    [Description("Specifies how to handle the map specific JSON file creation")]
+    [DefaultValue(MapSpecificWriterJsonOutputType.Diff)]
+    public MapSpecificWriterJsonOutputType MapSpecificWriterJsonOutputType { get; init; }
+
+    [CommandOption("--map-specific-empty-diff")]
+    [Description("Allows map specific diff files without any item changes to be created")]
+    public bool AllowEmptyMapSpecificDiffFiles { get; init; }
+
+    [CommandOption("--map-specific-empty-directories")]
+    [Description("Allows map specific empty directories to be created")]
+    public bool AllowEmptyMapSpecificDirectories { get; init; }
+
+    [CommandOption("--custom-configs")]
+    [Description("Display the loaded custom config files")]
+    public bool ShowLoadedCustomConfigFiles { get; init; }
+
+    [CommandOption("-t|--threads <NUMBER>")]
+    [Description("The number of threads to use for data parsing and image writing (defaults to max number of processors)")]
+    [DefaultValue(-1)]
+    public int Threads { get; init; }
 
     [CommandOption("-o|--output-path <PATH>")]
     [Description("The path of the output directory (defaults to current directory)")]
@@ -32,7 +76,7 @@ public class RootSettings : CommandSettings
     public DirectoryInfo OutputDirectory { get; init; } = null!;
 
     [CommandOption("--heroes-version")]
-    [Description("Manually set the 'Heroes of the Storm' version in the format of major.minor.revision.build_<ptr> (e.g. 1.2.3.4 or 1.2.3.4_ptr)")]
+    [Description("Manually set the 'Heroes of the Storm' version in the format of major.minor.revision.build<_ptr> (e.g. 1.2.3.4 or 1.2.3.4_ptr)")]
     public string? HeroesVersion { get; init; }
 
     public override ValidationResult Validate()
@@ -46,7 +90,7 @@ public class RootSettings : CommandSettings
         if (IsPtr && StorageType != StorageType.Online)
             return ValidationResult.Error("--ptr is only valid when storage-type is 'online'");
 
-        if (!string.IsNullOrWhiteSpace(HeroesVersion) && !HeroesDataVersion.TryParse(HeroesVersion, out HeroesDataVersion? heroesDataVersion))
+        if (!string.IsNullOrWhiteSpace(HeroesVersion) && !HeroesDataVersion.TryParse(HeroesVersion, out _))
             return ValidationResult.Error("--heroes-version is not in the correct format");
 
         foreach (string extractor in Extractors)
@@ -55,6 +99,24 @@ public class RootSettings : CommandSettings
             if (!result.Successful)
                 return result;
         }
+
+        foreach (string locale in StormLocales)
+        {
+            if (!Enum.TryParse(locale, true, out StormLocale _))
+                return ValidationResult.Error($"--localization has an invalid locale: {locale}");
+        }
+
+        if ((int)GameStringTextType > 6)
+            return ValidationResult.Error("--gamestring-text must be a value less than 7");
+
+        if ((int)LocalizedTextOption > 2)
+            return ValidationResult.Error("--localized-text must be a value less than 3");
+
+        if ((int)MapSpecificWriterJsonOutputType > 3)
+            return ValidationResult.Error("--map-json-output must be a value less than 4");
+
+        if (Threads == 0 || Threads < -1)
+            return ValidationResult.Error("--threads must be -1 or a positive integer");
 
         return ValidationResult.Success();
     }
@@ -69,10 +131,10 @@ public class RootSettings : CommandSettings
         ReadOnlySpan<char> value = extractor[keyPair[1]]; // images
 
         if (!Enum.TryParse<ExtractDataOptions>(key, true, out _))
-            return ValidationResult.Error($"Invalid extractor: {key}");
+            return ValidationResult.Error($"--gamestring-text has an invalid extractor: {key}");
 
         if (!value.IsEmpty && !value.Equals("i", StringComparison.OrdinalIgnoreCase) && !value.Equals("images", StringComparison.OrdinalIgnoreCase))
-            return ValidationResult.Error($"Invalid extractor option: {value}");
+            return ValidationResult.Error($"--gamestring-text has an invalid extractor option: {value}");
 
         return ValidationResult.Success();
     }
