@@ -35,7 +35,7 @@ public class RootCommandTest
         // act
         CommandAppResult result = app.Run(
         [
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
         ]);
 
         // assert
@@ -74,12 +74,50 @@ public class RootCommandTest
         CommandAppResult result = app.Run(
         [
             "online",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
         ]);
 
         // assert
         result.ExitCode.Should().Be(-1);
         result.Output.Should().Contain("must not be specified");
+    }
+
+    [TestMethod]
+    public void RootCommand_InvalidStoragePath_ReturnsError()
+    {
+        // arrange
+        CommandAppTester app = new();
+        app.SetDefaultCommand<RootCommand>();
+
+        // act
+        CommandAppResult result = app.Run(
+        [
+            "game",
+            "--storage-path", "aaa",
+        ]);
+
+        // assert
+        result.ExitCode.Should().Be(-1);
+        result.Output.Should().Contain("does not exist");
+    }
+
+    [TestMethod]
+    public void RootCommand_InvalidOutputPath_ReturnsError()
+    {
+        // arrange
+        CommandAppTester app = new();
+        app.SetDefaultCommand<RootCommand>();
+
+        // act
+        CommandAppResult result = app.Run(
+        [
+            "game",
+            "-p", "aaa",
+        ]);
+
+        // assert
+        result.ExitCode.Should().Be(-1);
+        result.Output.Should().Contain("does not exist");
     }
 
     [TestMethod]
@@ -95,7 +133,7 @@ public class RootCommandTest
         CommandAppResult result = app.Run(
         [
             $"{storageType}",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
             "--download-ptr",
         ]);
 
@@ -118,7 +156,7 @@ public class RootCommandTest
         CommandAppResult result = app.Run(
         [
             "game",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
             "--heroes-version", $"{heroesVersion}"
         ]);
 
@@ -138,7 +176,7 @@ public class RootCommandTest
         CommandAppResult result = app.Run(
         [
             "game",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
             "--extractor", "hero",
             "--extractor", "aaa",
         ]);
@@ -159,7 +197,7 @@ public class RootCommandTest
         CommandAppResult result = app.Run(
         [
             "game",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
             "--extractor", "hero",
             "--extractor", "unit",
             "--extractor", "announcer:aa",
@@ -181,7 +219,7 @@ public class RootCommandTest
         CommandAppResult result = app.Run(
         [
             "game",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
             "--localization", "enus",
             "--localization", "aaa",
         ]);
@@ -202,7 +240,7 @@ public class RootCommandTest
         CommandAppResult result = app.Run(
         [
             "game",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
             "--gamestring-text", "7",
         ]);
 
@@ -222,7 +260,7 @@ public class RootCommandTest
         CommandAppResult result = app.Run(
         [
             "game",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
             "--localized-text", "3",
         ]);
 
@@ -242,7 +280,7 @@ public class RootCommandTest
         CommandAppResult result = app.Run(
         [
             "game",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
             "--localized-text", "4",
         ]);
 
@@ -264,7 +302,7 @@ public class RootCommandTest
         CommandAppResult result = app.Run(
         [
             "game",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
             "--threads", $"{num}",
         ]);
 
@@ -290,18 +328,20 @@ public class RootCommandTest
         CommandAppResult result = await app.RunAsync(
         [
             $"{storageType}",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
         ],
         TestContext.CancellationToken);
 
         // assert
+        await AssertCommandSuccessful(result);
+
         rootOptions.Extractors.Should().ContainKey(ExtractDataOptions.Hero);
         rootOptions.Extractors[ExtractDataOptions.Hero].IsEnabled.Should().BeTrue();
         rootOptions.Extractors[ExtractDataOptions.Hero].Images.Should().BeFalse();
         rootOptions.Localizations.Should().Contain(StormLocale.ENUS);
         rootOptions.StorageLoad.Ptr.Should().BeFalse();
         rootOptions.StorageLoad.Type.Should().Be(storageType == "game" ? StorageType.Game : StorageType.Mods);
-        rootOptions.StorageLoad.Path.Should().EndWith("somepath");
+        rootOptions.StorageLoad.Path.Should().EndWith("TestXmlFiles");
         rootOptions.OutputDirectory.Should().Be(".");
         rootOptions.GameStringText.Type.Should().Be(GameStringTextType.RawText);
         rootOptions.GameStringText.ReplaceFontStyles.Should().BeFalse();
@@ -312,8 +352,6 @@ public class RootCommandTest
         rootOptions.AllowEmptyMapSpecificDiffFiles.Should().BeFalse();
         rootOptions.AllowEmptyMapSpecificDirectories.Should().BeFalse();
         rootOptions.ShowLoadedCustomConfigFiles.Should().BeFalse();
-
-        await AssertCommandSuccessful(result);
     }
 
     [TestMethod]
@@ -336,6 +374,8 @@ public class RootCommandTest
         TestContext.CancellationToken);
 
         // assert
+        await AssertCommandSuccessful(result);
+
         rootOptions.Extractors.Should().ContainKey(ExtractDataOptions.Hero);
         rootOptions.Extractors[ExtractDataOptions.Hero].IsEnabled.Should().BeTrue();
         rootOptions.Extractors[ExtractDataOptions.Hero].Images.Should().BeFalse();
@@ -343,8 +383,6 @@ public class RootCommandTest
         rootOptions.StorageLoad.Type.Should().Be(StorageType.Online);
         rootOptions.StorageLoad.Path.Should().BeNull();
         rootOptions.OutputDirectory.Should().Be(".");
-
-        await AssertCommandSuccessful(result);
     }
 
     [TestMethod]
@@ -362,21 +400,21 @@ public class RootCommandTest
         CommandAppResult result = await app.RunAsync(
         [
             "game",
-            "--storage-path", "somepath",
-            "-o", "outputdir",
+            "--storage-path", "TestXmlFiles",
+            "-o", "tests",
         ],
         TestContext.CancellationToken);
 
         // assert
+        await AssertCommandSuccessful(result);
+
         rootOptions.Extractors.Should().ContainKey(ExtractDataOptions.Hero);
         rootOptions.Extractors[ExtractDataOptions.Hero].IsEnabled.Should().BeTrue();
         rootOptions.Extractors[ExtractDataOptions.Hero].Images.Should().BeFalse();
         rootOptions.StorageLoad.Ptr.Should().BeFalse();
         rootOptions.StorageLoad.Type.Should().Be(StorageType.Game);
-        rootOptions.StorageLoad.Path.Should().EndWith("somepath");
-        rootOptions.OutputDirectory.Should().EndWith("outputdir");
-
-        await AssertCommandSuccessful(result);
+        rootOptions.StorageLoad.Path.Should().EndWith("TestXmlFiles");
+        rootOptions.OutputDirectory.Should().EndWith("tests");
     }
 
     [TestMethod]
@@ -394,25 +432,25 @@ public class RootCommandTest
         CommandAppResult result = await app.RunAsync(
         [
             "game",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
             "--heroes-version", "1.2.3.4_ptr",
         ],
         TestContext.CancellationToken);
 
         // assert
+        await AssertCommandSuccessful(result);
+
         rootOptions.Extractors.Should().ContainKey(ExtractDataOptions.Hero);
         rootOptions.Extractors[ExtractDataOptions.Hero].IsEnabled.Should().BeTrue();
         rootOptions.Extractors[ExtractDataOptions.Hero].Images.Should().BeFalse();
         rootOptions.StorageLoad.Ptr.Should().BeFalse();
         rootOptions.StorageLoad.Type.Should().Be(StorageType.Game);
-        rootOptions.StorageLoad.Path.Should().EndWith("somepath");
+        rootOptions.StorageLoad.Path.Should().EndWith("TestXmlFiles");
         rootOptions.HeroesVersion.Major.Should().Be(1);
         rootOptions.HeroesVersion.Minor.Should().Be(2);
         rootOptions.HeroesVersion.Revision.Should().Be(3);
         rootOptions.HeroesVersion.Build.Should().Be(4);
         rootOptions.HeroesVersion.IsPtr.Should().BeTrue();
-
-        await AssertCommandSuccessful(result);
     }
 
     [TestMethod]
@@ -430,20 +468,20 @@ public class RootCommandTest
         CommandAppResult result = await app.RunAsync(
         [
             "game",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
             "-e", "unit",
             "-e", "announcer:images",
         ],
         TestContext.CancellationToken);
 
         // assert
+        await AssertCommandSuccessful(result);
+
         rootOptions.Extractors.Should().ContainKeys(ExtractDataOptions.Unit, ExtractDataOptions.Announcer);
         rootOptions.Extractors[ExtractDataOptions.Unit].IsEnabled.Should().BeTrue();
         rootOptions.Extractors[ExtractDataOptions.Unit].Images.Should().BeFalse();
         rootOptions.Extractors[ExtractDataOptions.Announcer].IsEnabled.Should().BeTrue();
         rootOptions.Extractors[ExtractDataOptions.Announcer].Images.Should().BeTrue();
-
-        await AssertCommandSuccessful(result);
     }
 
     [TestMethod]
@@ -461,17 +499,17 @@ public class RootCommandTest
         CommandAppResult result = await app.RunAsync(
         [
             "game",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
             "-l", "frfr",
             "-l", "dede",
         ],
         TestContext.CancellationToken);
 
         // assert
+        await AssertCommandSuccessful(result);
+
         rootOptions.Localizations.Should().Contain(StormLocale.FRFR);
         rootOptions.Localizations.Should().Contain(StormLocale.DEDE);
-
-        await AssertCommandSuccessful(result);
     }
 
     [TestMethod]
@@ -489,7 +527,7 @@ public class RootCommandTest
         CommandAppResult result = await app.RunAsync(
         [
             "game",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
             "-g", "PlainTextWithScalingWithNewlines",
             "--gamestring-replace-font-vars",
             "--gamestring-preserve-constant-vars",
@@ -498,12 +536,12 @@ public class RootCommandTest
         TestContext.CancellationToken);
 
         // assert
+        await AssertCommandSuccessful(result);
+
         rootOptions.GameStringText.Type.Should().Be(GameStringTextType.PlainTextWithScalingWithNewlines);
         rootOptions.GameStringText.ReplaceFontStyles.Should().BeTrue();
         rootOptions.GameStringText.PreserveFont.PreserveFontStyleConstantVars.Should().BeTrue();
         rootOptions.GameStringText.PreserveFont.PreserveFontStyleVars.Should().BeTrue();
-
-        await AssertCommandSuccessful(result);
     }
 
     [TestMethod]
@@ -521,18 +559,18 @@ public class RootCommandTest
         CommandAppResult result = await app.RunAsync(
         [
             "game",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
             "--gamestring-preserve-constant-vars",
         ],
         TestContext.CancellationToken);
 
         // assert
+        await AssertCommandSuccessful(result);
+
         rootOptions.GameStringText.Type.Should().Be(GameStringTextType.RawText);
         rootOptions.GameStringText.ReplaceFontStyles.Should().BeTrue();
         rootOptions.GameStringText.PreserveFont.PreserveFontStyleConstantVars.Should().BeTrue();
         rootOptions.GameStringText.PreserveFont.PreserveFontStyleVars.Should().BeFalse();
-
-        await AssertCommandSuccessful(result);
     }
 
     [TestMethod]
@@ -550,18 +588,18 @@ public class RootCommandTest
         CommandAppResult result = await app.RunAsync(
         [
             "game",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
             "--gamestring-preserve-style-vars",
         ],
         TestContext.CancellationToken);
 
         // assert
+        await AssertCommandSuccessful(result);
+
         rootOptions.GameStringText.Type.Should().Be(GameStringTextType.RawText);
         rootOptions.GameStringText.ReplaceFontStyles.Should().BeTrue();
         rootOptions.GameStringText.PreserveFont.PreserveFontStyleConstantVars.Should().BeFalse();
         rootOptions.GameStringText.PreserveFont.PreserveFontStyleVars.Should().BeTrue();
-
-        await AssertCommandSuccessful(result);
     }
 
     [TestMethod]
@@ -579,15 +617,15 @@ public class RootCommandTest
         CommandAppResult result = await app.RunAsync(
         [
             "game",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
             "--localized-text", "extract",
         ],
         TestContext.CancellationToken);
 
         // assert
-        rootOptions.LocalizedText.Should().Be(LocalizedTextOption.Extract);
-
         await AssertCommandSuccessful(result);
+
+        rootOptions.LocalizedText.Should().Be(LocalizedTextOption.Extract);
     }
 
     [TestMethod]
@@ -605,7 +643,7 @@ public class RootCommandTest
         CommandAppResult result = await app.RunAsync(
         [
             "game",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
             "--map-specific-json-output", "Normal",
             "--map-specific-empty-diff",
             "--map-specific-empty-directories",
@@ -613,11 +651,11 @@ public class RootCommandTest
         TestContext.CancellationToken);
 
         // assert
+        await AssertCommandSuccessful(result);
+
         rootOptions.MapSpecificWriterJsonOutputType.Should().Be(MapSpecificWriterJsonOutputType.Normal);
         rootOptions.AllowEmptyMapSpecificDiffFiles.Should().BeTrue();
         rootOptions.AllowEmptyMapSpecificDirectories.Should().BeTrue();
-
-        await AssertCommandSuccessful(result);
     }
 
     [TestMethod]
@@ -635,15 +673,15 @@ public class RootCommandTest
         CommandAppResult result = await app.RunAsync(
         [
             "game",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
             "--custom-configs",
         ],
         TestContext.CancellationToken);
 
         // assert
-        rootOptions.ShowLoadedCustomConfigFiles.Should().BeTrue();
-
         await AssertCommandSuccessful(result);
+
+        rootOptions.ShowLoadedCustomConfigFiles.Should().BeTrue();
     }
 
     [TestMethod]
@@ -661,15 +699,15 @@ public class RootCommandTest
         CommandAppResult result = await app.RunAsync(
         [
             "game",
-            "--storage-path", "somepath",
+            "--storage-path", "TestXmlFiles",
             "-t", "4",
         ],
         TestContext.CancellationToken);
 
         // assert
-        rootOptions.Threads.Should().Be(4);
-
         await AssertCommandSuccessful(result);
+
+        rootOptions.Threads.Should().Be(4);
     }
 
     private ServiceCollection GetServiceCollection()

@@ -72,8 +72,7 @@ public class RootSettings : CommandSettings
 
     [CommandOption("-o|--output-path <PATH>")]
     [Description("The path of the output directory (defaults to current directory)")]
-    [DefaultValue(typeof(DirectoryInfo), ".")]
-    public DirectoryInfo OutputDirectory { get; init; } = null!;
+    public DirectoryInfo? OutputDirectory { get; init; }
 
     [CommandOption("--heroes-version")]
     [Description("Manually set the 'Heroes of the Storm' version in the format of major.minor.revision.build<_ptr> (e.g. 1.2.3.4 or 1.2.3.4_ptr)")]
@@ -81,8 +80,14 @@ public class RootSettings : CommandSettings
 
     public override ValidationResult Validate()
     {
-        if ((StorageType == StorageType.Game || StorageType == StorageType.Mods) && StorageDirectory is null)
-            return ValidationResult.Error("--storage-path is required when storage-type is 'game' or 'mods'");
+        if (StorageType == StorageType.Game || StorageType == StorageType.Mods)
+        {
+            if (StorageDirectory is null)
+                return ValidationResult.Error("--storage-path is required when storage-type is 'game' or 'mods'");
+
+            if (!StorageDirectory.Exists)
+                return ValidationResult.Error("The provided --storage-path does not exist");
+        }
 
         if (StorageType == StorageType.Online && StorageDirectory is not null)
             return ValidationResult.Error("--storage-path must not be specified when storage-type is 'online'");
@@ -117,6 +122,9 @@ public class RootSettings : CommandSettings
 
         if (Threads == 0 || Threads < -1)
             return ValidationResult.Error("--threads must be -1 or a positive integer");
+
+        if (OutputDirectory is not null && !OutputDirectory.Exists)
+            return ValidationResult.Error("The provided --output-path does not exist");
 
         return ValidationResult.Success();
     }

@@ -39,14 +39,6 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
             return;
         }
 
-        // TODO: not going to be needed in this service (move to cli validation)
-        if (VerifyPath() is false)
-        {
-            _logger.LogError("Failed to verify path.");
-            Environment.Exit(1);
-            return;
-        }
-
         await ExecuteLoader(preloadData);
         await ExecuteDataLoading();
 
@@ -218,30 +210,6 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
         });
 
         _stopwatch.Stop();
-    }
-
-    private bool VerifyPath()
-    {
-        if (_options.StorageLoad.Type == StorageType.Game || _options.StorageLoad.Type == StorageType.Mods)
-        {
-            if (string.IsNullOrWhiteSpace(_options.StorageLoad.Path))
-            {
-                _logger.LogCritical("StorageLoad path is empty.");
-                _console.Markup("[red]Error: The storage load path is empty. Please provide a path to the game or mods directory.[/]");
-
-                return false;
-            }
-
-            if (!Directory.Exists(_options.StorageLoad.Path))
-            {
-                _logger.LogCritical("StorageLoad path does not exist.");
-                _console.Markup("[red]Error: The storage load path does not exist. Please provide a valid path to the game or mods directory.[/]");
-
-                return false;
-            }
-        }
-
-        return true;
     }
 
     private void LoadCustomStormMod()
