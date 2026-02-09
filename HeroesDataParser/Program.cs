@@ -1,12 +1,19 @@
-﻿using Serilog;
+﻿using Microsoft.Extensions.Configuration;
+using Serilog;
 using System.Text;
 
 Console.OutputEncoding = Encoding.UTF8;
 
 SetAppCulture();
 
+IConfigurationRoot configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
+    .AddJsonFile("appsettings.release.json", optional: true, reloadOnChange: false)
+    .Build();
+
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
+    .ReadFrom.Configuration(configuration)
     .WriteTo.Async(SerilogLogging.LoggerConfigure(), bufferSize: 500, blockWhenFull: true)
     .CreateLogger();
 
@@ -15,7 +22,7 @@ try
     Log.Information($"HDP v{AppVersion.GetAppVersion()}");
 
     ServiceCollection services = new();
-    services.AddConfiguration();
+    services.AddConfiguration(configuration);
     services.AddCoreServices();
     services.AddHDPServices();
     services.AddResiliencePipelines();

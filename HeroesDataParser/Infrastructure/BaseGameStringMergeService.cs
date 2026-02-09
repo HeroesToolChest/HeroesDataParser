@@ -25,10 +25,7 @@ public class BaseGameStringMergeService : IBaseGameStringMergeService
     {
         // get existing base game strings
         if (!_serializedDataStoreService.TryGetSerializedData(Constants.GameStringFilePrefix, out byte[]? baseBytes))
-        {
-            _logger.LogError("Base game strings not found in serialized data store.");
             return null;
-        }
 
         // serialize and get the bytes of the current extracted gamestrings (maps)
         byte[] currentBytes = _gameStringSerializerService.SerializeGameStrings(new MetaGameStringProperties(), _jsonSerializerOptionService.JsonSerializerGameStringOptions);

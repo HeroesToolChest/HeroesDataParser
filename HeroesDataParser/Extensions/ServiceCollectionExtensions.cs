@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Polly;
 using Polly.Retry;
+using Serilog;
 using System.Net;
 using System.Net.Http.Headers;
 
@@ -10,15 +11,16 @@ public static class ServiceCollectionExtensions
 {
     extension(IServiceCollection services)
     {
-        public IServiceCollection AddConfiguration()
+        public IServiceCollection AddConfiguration(IConfigurationRoot configuration)
         {
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
-                .AddJsonFile("appsettings.release.json", optional: true, reloadOnChange: false)
-                .Build();
-
             services.AddSingleton(configuration);
             services.Configure<RootOptions>(configuration.GetSection(nameof(RootOptions)));
+
+            services.AddLogging(logging =>
+            {
+                logging.ClearProviders();
+                logging.AddSerilog(Log.Logger, dispose: true);
+            });
 
             return services;
         }
