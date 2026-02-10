@@ -100,15 +100,32 @@ public class RootCommand : AsyncCommand<RootSettings>
         extractor.Split(keyPair, ':', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
         ReadOnlySpan<char> key = extractor[keyPair[0]];
-        ReadOnlySpan<char> value = extractor[keyPair[1]]; // images
+        ReadOnlySpan<char> imageValue = extractor[keyPair[1]]; // images
 
         if (!Enum.TryParse(key, true, out ExtractDataOptions extractorName))
             return;
 
+        if (extractorName == ExtractDataOptions.All)
+        {
+            foreach (ExtractDataOptions option in Enum.GetValues<ExtractDataOptions>())
+            {
+                if (option == ExtractDataOptions.None)
+                    continue;
+
+                _options.Extractors[option] = new ExtractorOptions()
+                {
+                    IsEnabled = true,
+                    Images = !imageValue.IsEmpty, // should already be validated
+                };
+            }
+
+            return;
+        }
+
         _options.Extractors[extractorName] = new ExtractorOptions()
         {
             IsEnabled = true,
-            Images = !value.IsEmpty, // should already be validated
+            Images = !imageValue.IsEmpty, // should already be validated
         };
     }
 }

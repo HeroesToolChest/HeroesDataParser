@@ -78,6 +78,8 @@ public class RootSettings : CommandSettings
     [Description("Manually set the 'Heroes of the Storm' version in the format of major.minor.revision.build<_ptr> (e.g. 1.2.3.4 or 1.2.3.4_ptr)")]
     public string? HeroesVersion { get; init; }
 
+    public FileInfo? AppSettingsPath { get; init; }
+
     public override ValidationResult Validate()
     {
         if (StorageType == StorageType.Game || StorageType == StorageType.Mods)

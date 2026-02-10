@@ -485,6 +485,39 @@ public class RootCommandTest
     }
 
     [TestMethod]
+    public async Task RootCommand_WithExtractorArgumentAsAll_ExecutesSuccessfully()
+    {
+        // arrange
+        RootOptions rootOptions = new();
+        _options.Value.Returns(rootOptions);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<RootCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            "game",
+            "--storage-path", "TestXmlFiles",
+            "-e", "all:i",
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        await AssertCommandSuccessful(result);
+
+        foreach (ExtractDataOptions option in Enum.GetValues<ExtractDataOptions>())
+        {
+            if (option == ExtractDataOptions.None)
+                continue;
+
+            rootOptions.Extractors[option].IsEnabled.Should().BeTrue();
+            rootOptions.Extractors[option].Images.Should().BeTrue();
+        }
+    }
+
+    [TestMethod]
     public async Task RootCommand_WithLocalizationArguments_ExecutesSuccessfully()
     {
         // arrange
