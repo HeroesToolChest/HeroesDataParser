@@ -216,12 +216,12 @@
     </Ability>
     <Ability id="DeathwingLavaBurst" abilityType="W">
       <Override>
-        <ParentLink value="DeathwingWorldbreakerForm|DeathwingWorldbreaker|W" />
+        <ParentLink value="DeathwingFormSwitch|DeathwingFormSwitch|Active" />
       </Override>
     </Ability>
     <Ability id="DeathwingEarthShatter" abilityType="E">
       <Override>
-        <ParentLink value="DeathwingWorldbreakerForm|DeathwingWorldbreaker|W" />
+        <ParentLink value="DeathwingFormSwitch|DeathwingFormSwitch|Active" />
       </Override>
     </Ability>  
   </CHero>
