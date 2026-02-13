@@ -16,10 +16,4 @@
   <CAbilEffectTarget id="DeathwingSkyfall">
     <hdp-ParentTalentArray value="DeathwingSkyfall" />
   </CAbilEffectTarget>
-  <CAbilEffectTarget id="DeathwingOnslaught">
-    <ParentAbil value="DeathwingWorldbreakerForm" />
-  </CAbilEffectTarget>
-  <CAbilEffectTarget id="DeathwingEarthShatter">
-    <ParentAbil value="DeathwingWorldbreakerForm" />
-  </CAbilEffectTarget>
 </Catalog>
