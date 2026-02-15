@@ -62,21 +62,6 @@ public class ConfigurationLoaderService : IConfigurationLoaderService
         return directoryPath[paths[3]].ToString();
     }
 
-    private static HeroesDataVersion? GetVersionFromCascConfig(CASCConfig cascConfig)
-    {
-        string version;
-
-        if (cascConfig.BuildUID.Equals(HeroesXmlLoader.ProductPtrName, StringComparison.OrdinalIgnoreCase))
-            version = $"{cascConfig.VersionName}_ptr";
-        else
-            version = cascConfig.VersionName;
-
-        if (!HeroesDataVersion.TryParse(version, out HeroesDataVersion? parsedVersion))
-            return null;
-
-        return parsedVersion;
-    }
-
     // check the version from the selected storage versus the user set version (if any)
     private void HeroesVersionCheck(LoadedConfiguration loadedConfiguration)
     {
@@ -87,7 +72,7 @@ public class ConfigurationLoaderService : IConfigurationLoaderService
         if (heroesDataVersion is null)
         {
             _logger.LogWarning("Could not determine Heroes of the Storm data version from the selected storage");
-            _console.MarkupLineInterpolated($"[yellow]Version: UNKNOWN (default to [bold]{_options.HeroesVersion.GetAsHeroesDataVersion()}[/][/]");
+            _console.MarkupLineInterpolated($"[yellow]Version: UNKNOWN (default to [bold]{_options.HeroesVersion.GetAsHeroesDataVersion()})[/][/]");
             return;
         }
 
@@ -145,7 +130,7 @@ public class ConfigurationLoaderService : IConfigurationLoaderService
     {
         preloadData.CascConfig = HeroesXmlLoader.GetCASCConfig(_options.StorageLoad.Path!, new CASCLoggerOptions());
 
-        return GetVersionFromCascConfig(preloadData.CascConfig);
+        return preloadData.CascConfig.GetVersionFromCascConfig();
     }
 
     private HeroesDataVersion? GetModsVersion(LoadedConfiguration preloadData)
@@ -173,7 +158,7 @@ public class ConfigurationLoaderService : IConfigurationLoaderService
     {
         preloadData.CascConfig = HeroesXmlLoader.GetOnlineCASCConfig(_httpClientFactory.CreateClient(Constants.HttpClientBlizzard), _options.StorageLoad.Ptr, new CASCLoggerOptions());
 
-        return GetVersionFromCascConfig(preloadData.CascConfig);
+        return preloadData.CascConfig.GetVersionFromCascConfig();
     }
 
     private void SelectedLocalizations()

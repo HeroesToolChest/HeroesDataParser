@@ -78,8 +78,6 @@ public class RootSettings : CommandSettings
     [Description("Manually set the 'Heroes of the Storm' version in the format of major.minor.revision.build<_ptr> (e.g. 1.2.3.4 or 1.2.3.4_ptr)")]
     public string? HeroesVersion { get; init; }
 
-    public FileInfo? AppSettingsPath { get; init; }
-
     public override ValidationResult Validate()
     {
         if (StorageType == StorageType.Game || StorageType == StorageType.Mods)
@@ -141,10 +139,10 @@ public class RootSettings : CommandSettings
         ReadOnlySpan<char> value = extractor[keyPair[1]]; // images
 
         if (!Enum.TryParse<ExtractDataOptions>(key, true, out _))
-            return ValidationResult.Error($"--gamestring-text has an invalid extractor: {key}");
+            return ValidationResult.Error($"--extractor has an invalid extractor: {key}");
 
         if (!value.IsEmpty && !value.Equals("i", StringComparison.OrdinalIgnoreCase) && !value.Equals("images", StringComparison.OrdinalIgnoreCase))
-            return ValidationResult.Error($"--gamestring-text has an invalid extractor option: {value}");
+            return ValidationResult.Error($"--extractor has an invalid extractor option: {value}");
 
         return ValidationResult.Success();
     }

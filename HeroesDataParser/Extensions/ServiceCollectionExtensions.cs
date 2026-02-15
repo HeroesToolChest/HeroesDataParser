@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using HeroesDataParser.Options.CASCExtractOptions;
+using Microsoft.Extensions.Configuration;
 using Polly;
 using Polly.Retry;
 using Serilog;
@@ -15,6 +16,7 @@ public static class ServiceCollectionExtensions
         {
             services.AddSingleton(configuration);
             services.Configure<RootOptions>(configuration.GetSection(nameof(RootOptions)));
+            services.Configure<CASCExtractOptions>(configuration.GetSection(nameof(CASCExtractOptions)));
 
             services.AddLogging(logging =>
             {
@@ -64,6 +66,7 @@ public static class ServiceCollectionExtensions
 
             services.AddDataParsers();
             services.AddImageWriters();
+            services.AddCommandServices();
 
             services.AddSingleton<IPreLoaderService, PreLoaderService>();
             services.AddSingleton<IMainService, MainService>();
@@ -91,6 +94,15 @@ public static class ServiceCollectionExtensions
         public IServiceCollection AddResiliencePipelines()
         {
             services.AddResiliencePipeline(Constants.ImageWriterPipeline, pipeline =>
+            {
+                pipeline.AddRetry(new RetryStrategyOptions
+                {
+                    MaxRetryAttempts = 3,
+                    Delay = TimeSpan.FromSeconds(1),
+                    BackoffType = DelayBackoffType.Constant,
+                });
+            });
+            services.AddResiliencePipeline(Constants.CASCFileExtractorPipeline, pipeline =>
             {
                 pipeline.AddRetry(new RetryStrategyOptions
                 {
@@ -158,6 +170,13 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IImageParser<Unit>, UnitPortraitImageParser>();
             services.AddSingleton<IImageParser<Unit>, UnitAbilityImageParser>();
             services.AddSingleton<IImageParser<Unit>, UnitAbilityTalentImageParser>();
+
+            return services;
+        }
+
+        private IServiceCollection AddCommandServices()
+        {
+            services.AddSingleton<ICASCExtractorService, CASCExtractorService>();
 
             return services;
         }

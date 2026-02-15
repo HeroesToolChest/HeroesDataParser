@@ -87,11 +87,8 @@ public class ImageWriterService : IImageWriterService
 
     private async Task RunImageWriter(List<(ProgressTask ProgressTask, IGrouping<string, ImageWriterFile> ImagePathsBySubDirectory)> progressTasks)
     {
-        using var cts = new CancellationTokenSource();
-
         ParallelOptions parallelOptions = new()
         {
-            CancellationToken = cts.Token,
             MaxDegreeOfParallelism = _options.Threads,
         };
 

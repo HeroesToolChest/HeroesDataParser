@@ -47,6 +47,8 @@ try
         config.PropagateExceptions();
         config.ValidateExamples();
 #endif
+        config.AddCommand<CASCExtractCommand>("casc-extract")
+            .WithDescription("Extract the data files from a 'Heroes of the Storm' directory or from online");
     });
 
     await app.RunAsync(args);
