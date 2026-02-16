@@ -1,5 +1,4 @@
 ﻿using CASCLib;
-using HeroesDataParser.Options.CASCExtractOptions;
 using Polly;
 using Polly.Registry;
 
@@ -14,6 +13,11 @@ public class CASCExtractorService : ICASCExtractorService
     private readonly ResiliencePipeline _pipeline;
 
     private readonly Stopwatch _stopwatch = new();
+
+    private readonly JsonSerializerOptions _jsonSerializerOptions = new()
+    {
+        WriteIndented = true,
+    };
 
     public CASCExtractorService(
         ILogger<CASCExtractorService> logger,
@@ -288,7 +292,8 @@ public class CASCExtractorService : ICASCExtractorService
 
     private void DisplayOutputDirectory()
     {
-        _logger.LogInformation("Root directory(s) for extraction: {RootDirectories}", string.Join(", ", _options.Directories));
+        if (_logger.IsEnabled(LogLevel.Information))
+            _logger.LogInformation("Root directory(s) for extraction: {RootDirectories}", string.Join(", ", _options.Directories));
 
         if (_options.Directories.Length == 1)
         {
@@ -318,7 +323,8 @@ public class CASCExtractorService : ICASCExtractorService
         }
         else
         {
-            _logger.LogInformation("Applying filters: {FileFilters}", string.Join(", ", _options.FileFilters));
+            if (_logger.IsEnabled(LogLevel.Information))
+                _logger.LogInformation("Applying filters: {FileFilters}", string.Join(", ", _options.FileFilters));
             _console.MarkupLineInterpolated($"[aqua]Filters: {string.Join(", ", _options.FileFilters)}[/]");
         }
     }
@@ -375,9 +381,6 @@ public class CASCExtractorService : ICASCExtractorService
         };
 
         await using FileStream fileStream = File.Create(Path.Combine(_options.OutputDirectory, "mods", HeroesXmlLoader.ModsHdpInfoFileName));
-        await JsonSerializer.SerializeAsync(fileStream, modsInfoFile, new JsonSerializerOptions()
-        {
-            WriteIndented = true,
-        });
+        await JsonSerializer.SerializeAsync(fileStream, modsInfoFile, _jsonSerializerOptions);
     }
 }

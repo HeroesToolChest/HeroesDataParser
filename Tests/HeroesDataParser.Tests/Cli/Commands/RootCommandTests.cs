@@ -4,7 +4,7 @@ using Spectre.Console;
 namespace HeroesDataParser.Cli.Commands.Tests;
 
 [TestClass]
-public class RootCommandTest
+public class RootCommandTests
 {
     private readonly IOptions<RootOptions> _options;
     private readonly IAnsiConsole _console;
@@ -13,7 +13,7 @@ public class RootCommandTest
     private readonly IPostCleanupService _postCleanupService;
     private readonly IResultSummaryService _resultSummaryService;
 
-    public RootCommandTest()
+    public RootCommandTests()
     {
         _options = Substitute.For<IOptions<RootOptions>>();
         _console = Substitute.For<IAnsiConsole>();

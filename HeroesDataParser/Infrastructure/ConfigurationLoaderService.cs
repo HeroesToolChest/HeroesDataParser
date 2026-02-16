@@ -1,6 +1,4 @@
-﻿using CASCLib;
-
-namespace HeroesDataParser.Infrastructure;
+﻿namespace HeroesDataParser.Infrastructure;
 
 public class ConfigurationLoaderService : IConfigurationLoaderService
 {

@@ -1,5 +1,4 @@
-﻿using HeroesDataParser.Options.CASCExtractOptions;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Polly;
 using Polly.Retry;
 using Serilog;
