@@ -17,6 +17,8 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.Async(SerilogLogging.LoggerConfigure(), bufferSize: 500, blockWhenFull: true)
     .CreateLogger();
 
+int exitCode = 0;
+
 try
 {
     Log.Information($"HDP v{AppVersion.GetAppVersion()}");
@@ -51,7 +53,14 @@ try
             .WithDescription("Extract the data files from a 'Heroes of the Storm' directory or from online");
     });
 
-    await app.RunAsync(args);
+    exitCode = await app.RunAsync(args);
+}
+catch (CommandParseException ex)
+{
+    Log.Error(ex, "Command line parsing error");
+    AnsiConsole.WriteException(ex);
+
+    exitCode = -1;
 }
 catch (Exception ex)
 {
@@ -59,6 +68,8 @@ catch (Exception ex)
 
     AnsiConsole.WriteLine("An application error occured. Check logs for more details.");
     AnsiConsole.WriteException(ex);
+
+    exitCode = -1;
 }
 finally
 {
@@ -68,6 +79,8 @@ finally
 
     await Log.CloseAndFlushAsync();
 }
+
+return exitCode;
 
 static void SetAppCulture()
 {
