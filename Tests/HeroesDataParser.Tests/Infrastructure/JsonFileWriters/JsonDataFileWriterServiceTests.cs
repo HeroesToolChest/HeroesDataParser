@@ -1,6 +1,6 @@
 ﻿using NSubstitute.ReceivedExtensions;
 using Spectre.Console;
-using System.Text.Json.Nodes;
+using System.Text.Json;
 
 namespace HeroesDataParser.Infrastructure.JsonFileWriters.Tests;
 
@@ -203,7 +203,7 @@ public class JsonDataFileWriterServiceTests
         {
             OutputDirectory = Path.Combine("tests", nameof(WriteToMaps_HasItemsWithNoDiffFound_CreatesJsonFile)),
             CurrentLocale = StormLocale.ENUS,
-            MapSpecificWriterJsonOutputType = MapSpecificWriterJsonOutputType.Diff,
+            MapSpecificWriterJsonOutputType = MapSpecificWriterJsonOutputType.Patch,
             GameStringText = new GameStringTextOptions
             {
                 Type = GameStringTextType.RawText,
@@ -223,27 +223,27 @@ public class JsonDataFileWriterServiceTests
                 IsPtr = false,
             },
             AppVersion = "5.0.0",
-            AllowEmptyMapSpecificDiffFiles = true,
+            AllowEmptyMapSpecificPatchFiles = true,
         };
 
         _options.Value.Returns(rootOptions);
 
-        JsonNode jsonDiff = JsonNode.Parse(
+        JsonPatch jsonPatch = JsonSerializer.Deserialize<JsonPatch>(
         """
-        {
-          "meta": {
-            "mapName": [
-              "Blackheart's Bay"
-            ]
+        [
+          {
+            "op": "add",
+            "path": "/meta/mapName",
+            "value": "Blackheart's Bay"
           }
-        }
+        ]
         """)!;
-        _serializedDataStoreService.GetJsonDataDiff(default!, default!).ReturnsForAnyArgs(jsonDiff);
+        _serializedDataStoreService.GetJsonDataPatch(default!, default!).ReturnsForAnyArgs(jsonPatch);
 
         SortedDictionary<string, Hero> heroesByElementId = [];
         heroesByElementId.Add("hero1", new Hero("hero1") { UnitId = "hero1" });
 
-        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "data", "maps", "map_nameyes", $"herodata_{rootOptions.BuildNumber}_enus.diff.json");
+        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "data", "maps", "map_nameyes", $"herodata_{rootOptions.BuildNumber}_enus.patch.json");
 
         JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _extractedGameStringsService);
         JsonDataFileWriterService service = new(_logger, _options, _console, _serializedDataStoreService, jsonSerializerOptionService, _resultSummaryService);
@@ -258,13 +258,13 @@ public class JsonDataFileWriterServiceTests
         File.Exists(expectedFilePath).Should().BeTrue();
         File.ReadAllText(expectedFilePath).Should().Be(
         """
-        {
-          "meta": {
-            "mapName": [
-              "Blackheart's Bay"
-            ]
+        [
+          {
+            "op": "add",
+            "path": "/meta/mapName",
+            "value": "Blackheart's Bay"
           }
-        }
+        ]
         """);
     }
 
@@ -276,7 +276,7 @@ public class JsonDataFileWriterServiceTests
         {
             OutputDirectory = Path.Combine("tests", nameof(WriteToMaps_HasItemsWithNoDiffFound_NoJsonFileCreated)),
             CurrentLocale = StormLocale.ENUS,
-            MapSpecificWriterJsonOutputType = MapSpecificWriterJsonOutputType.Diff,
+            MapSpecificWriterJsonOutputType = MapSpecificWriterJsonOutputType.Patch,
             GameStringText = new GameStringTextOptions
             {
                 Type = GameStringTextType.RawText,
@@ -296,22 +296,22 @@ public class JsonDataFileWriterServiceTests
                 IsPtr = false,
             },
             AppVersion = "5.0.0",
-            AllowEmptyMapSpecificDiffFiles = false,
+            AllowEmptyMapSpecificPatchFiles = false,
         };
 
         _options.Value.Returns(rootOptions);
 
-        JsonNode jsonDiff = JsonNode.Parse(
+        JsonPatch jsonPatch = JsonSerializer.Deserialize<JsonPatch>(
         """
-        {
-          "meta": {
-            "mapName": [
-              "Blackheart's Bay"
-            ]
+        [
+          {
+            "op": "add",
+            "path": "/meta/mapName",
+            "value": "Blackheart's Bay"
           }
-        }
+        ]
         """)!;
-        _serializedDataStoreService.GetJsonDataDiff(default!, default!).ReturnsForAnyArgs(jsonDiff);
+        _serializedDataStoreService.GetJsonDataPatch(default!, default!).ReturnsForAnyArgs(jsonPatch);
 
         SortedDictionary<string, Hero> heroesByElementId = [];
         heroesByElementId.Add("hero1", new Hero("hero1") { UnitId = "hero1" });
@@ -333,15 +333,15 @@ public class JsonDataFileWriterServiceTests
 
     [TestMethod]
     [DataRow(MapSpecificWriterJsonOutputType.Normal)]
-    [DataRow(MapSpecificWriterJsonOutputType.Diff)]
-    [DataRow(MapSpecificWriterJsonOutputType.Normal | MapSpecificWriterJsonOutputType.Diff)]
+    [DataRow(MapSpecificWriterJsonOutputType.Patch)]
+    [DataRow(MapSpecificWriterJsonOutputType.Normal | MapSpecificWriterJsonOutputType.Patch)]
     [DataRow(MapSpecificWriterJsonOutputType.None)]
-    public async Task WriteToMaps_HasItemsWithDiffWasFound_CreatesJsonFile(MapSpecificWriterJsonOutputType mapWriterJsonOutputType)
+    public async Task WriteToMaps_HasItemsWithPatchWasFound_CreatesJsonFile(MapSpecificWriterJsonOutputType mapWriterJsonOutputType)
     {
         // arrange
         RootOptions rootOptions = new()
         {
-            OutputDirectory = Path.Combine("tests", $"{nameof(WriteToMaps_HasItemsWithDiffWasFound_CreatesJsonFile)}_{mapWriterJsonOutputType}"),
+            OutputDirectory = Path.Combine("tests", $"{nameof(WriteToMaps_HasItemsWithPatchWasFound_CreatesJsonFile)}_{mapWriterJsonOutputType}"),
             CurrentLocale = StormLocale.ENUS,
             MapSpecificWriterJsonOutputType = mapWriterJsonOutputType,
             GameStringText = new GameStringTextOptions
@@ -367,52 +367,39 @@ public class JsonDataFileWriterServiceTests
 
         _options.Value.Returns(rootOptions);
 
-        JsonNode jsonDiff = JsonNode.Parse(
+        JsonPatch jsonPatch = JsonSerializer.Deserialize<JsonPatch>(
         """
-        {
-          "meta": {
-            "totalItems": [
-              972,
-              973
-            ],
-            "mapName": [
-              "Blackheart's Bay"
-            ]
+        [
+          {
+            "op": "replace",
+            "path": "/meta/totalItems",
+            "value": 918
           },
-          "items": {
-            "CatapultMinion": {
-              "portraits": {
-                "targetInfo": [
-                  "storm_ui_ingame_targetinfopanel_unit_bb_minion_catapult.png"
-                ]
-              }
-            },
-            "BlackheartsCoreBombardMissile": [
-              {
-                "radius": 0,
-                "innerRadius": 0,
-                "sight": 0,
-                "speed": 0,
-                "life": {
-                  "amount": 10,
-                  "scale": 0,
-                  "regenRate": 0,
-                  "regenScale": 0
-                },
-                "portraits": {}
-              }
-            ]
+          {
+            "op": "add",
+            "path": "/meta/mapName",
+            "value": "Blackheart's Bay"
+          },
+          {
+            "op": "add",
+            "path": "/items/CatapultMinion/portraits/targetInfo",
+            "value": "storm_ui_ingame_targetinfopanel_unit_bb_minion_catapult.png"
+          },
+          {
+            "op": "add",
+            "path": "/items/DocksTreasureChest/portraits/targetInfo",
+            "value": "storm_ui_ingame_targetinfopanel_unit_bb_doodad_chest.png"
           }
-        }
+        ]
         """)!;
-        _serializedDataStoreService.GetJsonDataDiff(default!, default!).ReturnsForAnyArgs(jsonDiff);
+        _serializedDataStoreService.GetJsonDataPatch(default!, default!).ReturnsForAnyArgs(jsonPatch);
 
         SortedDictionary<string, Hero> heroesByElementId = [];
         heroesByElementId.Add("hero1", new Hero("hero1") { UnitId = "hero1" });
 
         string filePath = Path.Combine(rootOptions.OutputDirectory, "data", "maps", "map_nameyes");
         string expectedNormalFilePath = Path.Combine(filePath, $"herodata_{rootOptions.BuildNumber}_enus.json");
-        string expectedDiffFilePath = Path.Combine(filePath, $"herodata_{rootOptions.BuildNumber}_enus.diff.json");
+        string expectedPatchFilePath = Path.Combine(filePath, $"herodata_{rootOptions.BuildNumber}_enus.patch.json");
 
         JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _extractedGameStringsService); // create real instance
         JsonDataFileWriterService service = new(_logger, _options, _console, _serializedDataStoreService, jsonSerializerOptionService, _resultSummaryService);
@@ -444,10 +431,10 @@ public class JsonDataFileWriterServiceTests
         else
             File.Exists(expectedNormalFilePath).Should().BeFalse();
 
-        if (mapWriterJsonOutputType.HasFlag(MapSpecificWriterJsonOutputType.Diff))
-            AssertMapDiff(expectedDiffFilePath);
+        if (mapWriterJsonOutputType.HasFlag(MapSpecificWriterJsonOutputType.Patch))
+            AssertMapPatch(expectedPatchFilePath);
         else
-            File.Exists(expectedDiffFilePath).Should().BeFalse();
+            File.Exists(expectedPatchFilePath).Should().BeFalse();
     }
 
     [TestMethod]
@@ -803,47 +790,34 @@ public class JsonDataFileWriterServiceTests
         """);
     }
 
-    private static void AssertMapDiff(string expectedDiffFilePath)
+    private static void AssertMapPatch(string expectedPatchFilePath)
     {
-        File.Exists(expectedDiffFilePath).Should().BeTrue();
+        File.Exists(expectedPatchFilePath).Should().BeTrue();
 
-        File.ReadAllText(expectedDiffFilePath).Should().Be(
+        File.ReadAllText(expectedPatchFilePath).Should().Be(
         """
-        {
-          "meta": {
-            "totalItems": [
-              972,
-              973
-            ],
-            "mapName": [
-              "Blackheart's Bay"
-            ]
+        [
+          {
+            "op": "replace",
+            "path": "/meta/totalItems",
+            "value": 918
           },
-          "items": {
-            "CatapultMinion": {
-              "portraits": {
-                "targetInfo": [
-                  "storm_ui_ingame_targetinfopanel_unit_bb_minion_catapult.png"
-                ]
-              }
-            },
-            "BlackheartsCoreBombardMissile": [
-              {
-                "radius": 0,
-                "innerRadius": 0,
-                "sight": 0,
-                "speed": 0,
-                "life": {
-                  "amount": 10,
-                  "scale": 0,
-                  "regenRate": 0,
-                  "regenScale": 0
-                },
-                "portraits": {}
-              }
-            ]
+          {
+            "op": "add",
+            "path": "/meta/mapName",
+            "value": "Blackheart's Bay"
+          },
+          {
+            "op": "add",
+            "path": "/items/CatapultMinion/portraits/targetInfo",
+            "value": "storm_ui_ingame_targetinfopanel_unit_bb_minion_catapult.png"
+          },
+          {
+            "op": "add",
+            "path": "/items/DocksTreasureChest/portraits/targetInfo",
+            "value": "storm_ui_ingame_targetinfopanel_unit_bb_doodad_chest.png"
           }
-        }
+        ]
         """);
     }
 }

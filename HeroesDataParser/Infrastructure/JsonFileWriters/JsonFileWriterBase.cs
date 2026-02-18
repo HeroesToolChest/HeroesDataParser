@@ -51,7 +51,7 @@ public abstract class JsonFileWriterBase
 
     protected string GetFileName(string dataName, bool isDiff)
     {
-        string diffSuffix = isDiff ? ".diff" : string.Empty;
+        string diffSuffix = isDiff ? ".patch" : string.Empty;
         return $"{dataName}_{Options.BuildNumber ?? 0}_{Options.CurrentLocale}{diffSuffix}.json".ToLowerInvariant();
     }
 
@@ -68,8 +68,8 @@ public abstract class JsonFileWriterBase
         if (Options.MapSpecificWriterJsonOutputType.HasFlag(MapSpecificWriterJsonOutputType.Normal))
             await WriteNormalMap(innerDirectory, mapName, dataName, bytes);
 
-        if (Options.MapSpecificWriterJsonOutputType.HasFlag(MapSpecificWriterJsonOutputType.Diff))
-            await WriteMapDiff(innerDirectory, mapName, dataName, bytes);
+        if (Options.MapSpecificWriterJsonOutputType.HasFlag(MapSpecificWriterJsonOutputType.Patch))
+            await WriteMapPatch(innerDirectory, mapName, dataName, bytes);
     }
 
     // the normal json file without a map loaded
@@ -101,14 +101,14 @@ public abstract class JsonFileWriterBase
         Console.WriteLine();
     }
 
-    protected async Task WriteMapDiff(string innerDirectory, string mapName, string dataName, byte[] bytes)
+    protected async Task WriteMapPatch(string innerDirectory, string mapName, string dataName, byte[] bytes)
     {
         string fileName = GetFileName(dataName, true);
         string filePath = GetFilePath(innerDirectory, fileName);
 
-        Logger.LogInformation("Writing diff json file {FilePath} for map {MapName}", filePath, mapName);
+        Logger.LogInformation("Writing json patch file {FilePath} for map {MapName}", filePath, mapName);
 
-        await WriteDiffJsonFile(innerDirectory, mapName, dataName, fileName, filePath, bytes);
+        await WritePatchJsonFile(innerDirectory, mapName, dataName, fileName, filePath, bytes);
     }
 
     protected async Task WriteNormalMap(string innerDirectory, string mapName, string dataName, byte[] bytes)
@@ -151,23 +151,36 @@ public abstract class JsonFileWriterBase
             .LeafColor(Color.Orange1);
     }
 
-    private async Task WriteDiffJsonFile(string innerDirectory, string mapName, string dataName, string fileName, string filePath, byte[] bytes)
+    private static int GetCountOfUniqueItems(IReadOnlyList<PatchOperation> patchOperations)
     {
-        JsonNode? jsonDiff = SerializedDataStoreService.GetJsonDataDiff(dataName, bytes);
-        JsonNode? metaNode = jsonDiff?[ElementConstants.ItemsPropertyName]; // null means that the items are the same
+        return patchOperations.Select(x =>
+        {
+            if (x.Path.SegmentCount > 1 && x.Path.GetSegment(0).AsSpan().Equals("items", StringComparison.OrdinalIgnoreCase))
+                return x.Path.GetSegment(1).ToString();
+            else
+                return null;
+        })
+        .Where(x => !string.IsNullOrEmpty(x))
+        .Distinct()
+        .Count();
+    }
 
-        int totalItemsChanged = metaNode?.AsObject()?.Count ?? 0;
+    private async Task WritePatchJsonFile(string innerDirectory, string mapName, string dataName, string fileName, string filePath, byte[] bytes)
+    {
+        JsonPatch? jsonPatch = SerializedDataStoreService.GetJsonDataPatch(dataName, bytes);
 
-        Logger.LogInformation("Found {TotalItems} changed items of {DataType} for map {MapName}", dataName, totalItemsChanged, mapName);
+        int totalItemsChanged = jsonPatch is not null ? GetCountOfUniqueItems(jsonPatch.Operations) : 0;
 
-        if (totalItemsChanged > 0 || Options.AllowEmptyMapSpecificDiffFiles)
+        Logger.LogInformation("Found {TotalItems} changed items of {DataType} for map {MapName}", totalItemsChanged, dataName, mapName);
+
+        if (totalItemsChanged > 0 || Options.AllowEmptyMapSpecificPatchFiles)
         {
             try
             {
                 IncrementFilesTotal();
 
                 await using FileStream fileStream = File.Create(filePath);
-                await JsonSerializer.SerializeAsync(fileStream, jsonDiff, JsonSerializerOptionService.JsonSerializerDataOptions);
+                await JsonSerializer.SerializeAsync(fileStream, jsonPatch, JsonSerializerOptionService.JsonSerializerDataOptions);
             }
             catch (Exception ex)
             {
@@ -177,7 +190,7 @@ public abstract class JsonFileWriterBase
 
             IncrementFilesWritten();
 
-            Console.Write("Created diff file ");
+            Console.Write("Created patch file ");
             WriteFilePath(Path.Join(innerDirectory, fileName));
 
             if (totalItemsChanged < 1)

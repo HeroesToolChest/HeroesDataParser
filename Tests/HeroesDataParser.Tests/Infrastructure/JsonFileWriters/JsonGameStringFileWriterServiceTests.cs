@@ -81,7 +81,7 @@ public class JsonGameStringFileWriterServiceTests
         _ = _resultSummaryService.Received(1).GameStringFilesWritten;
         _ = _resultSummaryService.Received(1).GameStringFilesTotal;
         _serializedDataStoreService.DidNotReceiveWithAnyArgs().AddSerializedData(default!, default!);
-        _serializedDataStoreService.DidNotReceiveWithAnyArgs().GetJsonDataDiff(default!, default!);
+        _serializedDataStoreService.DidNotReceiveWithAnyArgs().GetJsonDataPatch(default!, default!);
         _gameStringSerializerService.Received(1).ClearStoredGameStrings();
         File.Exists(expectedFilePath).Should().BeTrue();
     }
@@ -115,8 +115,8 @@ public class JsonGameStringFileWriterServiceTests
                 IsPtr = false,
             },
             AppVersion = "5.0.0",
-            MapSpecificWriterJsonOutputType = MapSpecificWriterJsonOutputType.Diff,
-            AllowEmptyMapSpecificDiffFiles = true,
+            MapSpecificWriterJsonOutputType = MapSpecificWriterJsonOutputType.Patch,
+            AllowEmptyMapSpecificPatchFiles = true,
         };
 
         _options.Value.Returns(rootOptions);
@@ -144,7 +144,7 @@ public class JsonGameStringFileWriterServiceTests
         _ = _resultSummaryService.Received(1).GameStringFilesWritten;
         _ = _resultSummaryService.Received(1).GameStringFilesTotal;
         _serializedDataStoreService.DidNotReceiveWithAnyArgs().AddSerializedData(default!, default!);
-        _serializedDataStoreService.ReceivedWithAnyArgs(1).GetJsonDataDiff(default!, default!);
+        _serializedDataStoreService.ReceivedWithAnyArgs(1).GetJsonDataPatch(default!, default!);
         _gameStringSerializerService.Received(1).ClearStoredGameStrings();
         File.Exists(expectedFilePath).Should().BeTrue();
     }
@@ -182,7 +182,7 @@ public class JsonGameStringFileWriterServiceTests
         _ = _resultSummaryService.DidNotReceive().GameStringFilesWritten;
         _ = _resultSummaryService.DidNotReceive().GameStringFilesTotal;
         _serializedDataStoreService.DidNotReceiveWithAnyArgs().AddSerializedData(default!, default!);
-        _serializedDataStoreService.DidNotReceiveWithAnyArgs().GetJsonDataDiff(default!, default!);
+        _serializedDataStoreService.DidNotReceiveWithAnyArgs().GetJsonDataPatch(default!, default!);
         _gameStringSerializerService.DidNotReceive().ClearStoredGameStrings();
     }
 

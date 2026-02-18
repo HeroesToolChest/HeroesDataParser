@@ -20,7 +20,7 @@ public class RootOptions
 
     public MapSpecificWriterJsonOutputType MapSpecificWriterJsonOutputType { get; set; } = MapSpecificWriterJsonOutputType.None;
 
-    public bool AllowEmptyMapSpecificDiffFiles { get; set; }
+    public bool AllowEmptyMapSpecificPatchFiles { get; set; }
 
     public bool AllowEmptyMapSpecificDirectories { get; set; }
 

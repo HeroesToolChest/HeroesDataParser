@@ -348,8 +348,8 @@ public class RootCommandTests
         rootOptions.GameStringText.PreserveFont.PreserveFontStyleConstantVars.Should().BeFalse();
         rootOptions.GameStringText.PreserveFont.PreserveFontStyleVars.Should().BeFalse();
         rootOptions.LocalizedText.Should().Be(LocalizedTextOption.None);
-        rootOptions.MapSpecificWriterJsonOutputType.Should().Be(MapSpecificWriterJsonOutputType.Diff);
-        rootOptions.AllowEmptyMapSpecificDiffFiles.Should().BeFalse();
+        rootOptions.MapSpecificWriterJsonOutputType.Should().Be(MapSpecificWriterJsonOutputType.Patch);
+        rootOptions.AllowEmptyMapSpecificPatchFiles.Should().BeFalse();
         rootOptions.AllowEmptyMapSpecificDirectories.Should().BeFalse();
         rootOptions.ShowLoadedCustomConfigFiles.Should().BeFalse();
     }
@@ -678,7 +678,7 @@ public class RootCommandTests
             "game",
             "--storage-path", "TestXmlFiles",
             "--map-specific-json-output", "Normal",
-            "--map-specific-empty-diff",
+            "--map-specific-empty-patch",
             "--map-specific-empty-directories",
         ],
         TestContext.CancellationToken);
@@ -687,7 +687,7 @@ public class RootCommandTests
         await AssertCommandSuccessful(result);
 
         rootOptions.MapSpecificWriterJsonOutputType.Should().Be(MapSpecificWriterJsonOutputType.Normal);
-        rootOptions.AllowEmptyMapSpecificDiffFiles.Should().BeTrue();
+        rootOptions.AllowEmptyMapSpecificPatchFiles.Should().BeTrue();
         rootOptions.AllowEmptyMapSpecificDirectories.Should().BeTrue();
     }
 

@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Text.Json.JsonDiffPatch;
 
 namespace HeroesDataParser.Infrastructure;
 
@@ -15,7 +14,7 @@ public class SerializedDataStoreService : ISerializedDataStoreService
     }
 
     // dataType is for looking up the original (existing) data, bytes is the new data to compare against
-    public JsonNode? GetJsonDataDiff(string dataType, byte[] bytesToCompare)
+    public JsonPatch? GetJsonDataPatch(string dataType, byte[] bytesToCompare)
     {
         if (!_serializedDataByDataType.TryGetValue(dataType, out byte[]? baseBytes))
         {
@@ -23,7 +22,7 @@ public class SerializedDataStoreService : ISerializedDataStoreService
             return null;
         }
 
-        return GetJsonDiffFromBytes(bytesToCompare, baseBytes);
+        return GetJsonPatchFromBytes(bytesToCompare, baseBytes);
     }
 
     public void AddSerializedData(string dataType, byte[] bytes)
@@ -43,11 +42,11 @@ public class SerializedDataStoreService : ISerializedDataStoreService
 
     public IEnumerable<string> GetDataTypesFromData() => _serializedDataByDataType.Keys;
 
-    private static JsonNode? GetJsonDiffFromBytes(byte[] bytesToCompare, byte[] baseBytes)
+    private static JsonPatch GetJsonPatchFromBytes(byte[] bytesToCompare, byte[] baseBytes)
     {
         JsonNode? baseJson = JsonNode.Parse(baseBytes);
         JsonNode? newJson = JsonNode.Parse(bytesToCompare);
 
-        return baseJson.Diff(newJson);
+        return baseJson.CreatePatch(newJson);
     }
 }

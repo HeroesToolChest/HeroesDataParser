@@ -4,7 +4,7 @@ namespace HeroesDataParser.Core;
 
 public interface ISerializedDataStoreService
 {
-    JsonNode? GetJsonDataDiff(string dataType, byte[] bytesToCompare);
+    JsonPatch? GetJsonDataPatch(string dataType, byte[] bytesToCompare);
 
     void AddSerializedData(string dataType, byte[] bytes);
 
