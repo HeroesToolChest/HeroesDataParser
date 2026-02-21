@@ -2,6 +2,7 @@
 
 public class RootCommand : AsyncCommand<RootSettings>
 {
+    private readonly ILogger<RootCommand> _logger;
     private readonly RootOptions _options;
     private readonly IAnsiConsole _console;
     private readonly IPreLoaderService _preLoaderService;
@@ -10,6 +11,7 @@ public class RootCommand : AsyncCommand<RootSettings>
     private readonly IResultSummaryService _resultSummaryService;
 
     public RootCommand(
+        ILogger<RootCommand> logger,
         IOptions<RootOptions> options,
         IAnsiConsole console,
         IPreLoaderService preLoaderService,
@@ -17,6 +19,7 @@ public class RootCommand : AsyncCommand<RootSettings>
         IPostCleanupService postCleanupService,
         IResultSummaryService resultSummaryService)
     {
+        _logger = logger;
         _options = options.Value;
         _console = console;
         _preLoaderService = preLoaderService;
@@ -27,6 +30,8 @@ public class RootCommand : AsyncCommand<RootSettings>
 
     protected override async Task<int> ExecuteAsync(CommandContext context, RootSettings settings, CancellationToken cancellationToken)
     {
+        _logger.LogInformation("Starting {CommandName}", nameof(RootCommand));
+
         SetOptions(settings);
 
         _console.MarkupLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
@@ -87,7 +92,7 @@ public class RootCommand : AsyncCommand<RootSettings>
 
         _options.LocalizedText = settings.LocalizedTextOption;
         _options.MapSpecificWriterJsonOutputType = settings.MapSpecificWriterJsonOutputType;
-        _options.AllowEmptyMapSpecificDiffFiles = settings.AllowEmptyMapSpecificDiffFiles;
+        _options.AllowEmptyMapSpecificPatchFiles = settings.AllowEmptyMapSpecificPatchFiles;
         _options.AllowEmptyMapSpecificDirectories = settings.AllowEmptyMapSpecificDirectories;
         _options.ShowLoadedCustomConfigFiles = settings.ShowLoadedCustomConfigFiles;
         _options.Threads = settings.Threads;

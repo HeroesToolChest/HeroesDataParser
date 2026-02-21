@@ -49,6 +49,9 @@
     <None Update="TestXmlFiles\*.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TestJsonFiles\*.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TestLayoutFiles\*.StormLayout">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -50,12 +50,12 @@ public class RootSettings : CommandSettings
 
     [CommandOption("--map-specific-json-output <TYPE>")]
     [Description("Specifies how to handle the map specific JSON file creation")]
-    [DefaultValue(MapSpecificWriterJsonOutputType.Diff)]
+    [DefaultValue(MapSpecificWriterJsonOutputType.Patch)]
     public MapSpecificWriterJsonOutputType MapSpecificWriterJsonOutputType { get; init; }
 
-    [CommandOption("--map-specific-empty-diff")]
-    [Description("Allows map specific diff files without any item changes to be created")]
-    public bool AllowEmptyMapSpecificDiffFiles { get; init; }
+    [CommandOption("--map-specific-empty-patch")]
+    [Description("Allows map specific patch files without any item changes to be created")]
+    public bool AllowEmptyMapSpecificPatchFiles { get; init; }
 
     [CommandOption("--map-specific-empty-directories")]
     [Description("Allows map specific empty directories to be created")]

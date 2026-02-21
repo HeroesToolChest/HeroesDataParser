@@ -1,4 +1,4 @@
-﻿namespace HeroesDataParser.Options.CASCExtractOptions;
+﻿namespace HeroesDataParser.Options;
 
 public class CASCExtractOptions
 {

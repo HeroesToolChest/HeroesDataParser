@@ -1,0 +1,26 @@
+[
+  {
+    "op": "replace",
+    "path": "/meta/totalItems",
+    "value": 75
+  },
+  {
+    "op": "add",
+    "path": "/meta/mapName",
+    "value": "Blackheart's Revenge"
+  },
+  {
+    "op": "add",
+    "path": "/items/CommodoreFord",
+    "value": {
+      "name": "Commodore Ford",
+      "hyperlinkId": "##heroid##Announcer",
+      "attributeId": "CF01",
+      "rarity": "Epic",
+      "releaseDate": "2014-03-13",
+      "category": "Default",
+      "gender": "Unknown",
+      "heroId": "##heroid##"
+    }
+  }
+]

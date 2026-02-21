@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using HeroesDataParser.Cli.Commands.JsonPatchCommands;
+using Microsoft.Extensions.Configuration;
 using Serilog;
 using System.Text;
 
@@ -51,6 +52,14 @@ try
 #endif
         config.AddCommand<CASCExtractCommand>("casc-extract")
             .WithDescription("Extract the data files from a 'Heroes of the Storm' directory or from online");
+
+        config.AddBranch<JsonPatchSettings>("json-patch", jsonPatch =>
+        {
+            jsonPatch.SetDescription("Perform json patching");
+
+            jsonPatch.AddCommand<JsonApplyCommand>("apply")
+                .WithDescription("Apply a json patch file to a json file");
+        });
     });
 
     exitCode = await app.RunAsync(args);
