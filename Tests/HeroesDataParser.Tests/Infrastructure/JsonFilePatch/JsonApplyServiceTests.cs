@@ -6,12 +6,14 @@ public class JsonApplyServiceTests
     private readonly ILogger<JsonApplyService> _logger;
     private readonly IOptions<JsonApplyOptions> _options;
     private readonly TestConsole _console;
+    private readonly IJsonSerializerOptionService _jsonSerializerOptionService;
 
     public JsonApplyServiceTests()
     {
         _logger = Substitute.For<ILogger<JsonApplyService>>();
         _options = Substitute.For<IOptions<JsonApplyOptions>>();
         _console = new TestConsole();
+        _jsonSerializerOptionService = Substitute.For<IJsonSerializerOptionService>();
     }
 
     [TestMethod]
@@ -25,7 +27,13 @@ public class JsonApplyServiceTests
             OutputDirectory = "TestOutput",
         });
 
-        JsonApplyService jsonApplyService = new(_logger, _options, _console);
+        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(new JsonSerializerOptions()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            WriteIndented = true,
+        });
+
+        JsonApplyService jsonApplyService = new(_logger, _options, _console, _jsonSerializerOptionService);
 
         // act
         await jsonApplyService.ApplyJsonPatch();
@@ -43,9 +51,30 @@ public class JsonApplyServiceTests
             JsonFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
             JsonPatchFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json"),
             OutputDirectory = "TestOutput",
+            GameStringText = new GameStringTextOptions()
+            {
+                Type = GameStringTextType.RawText,
+            },
         });
 
-        JsonApplyService jsonApplyService = new(_logger, _options, _console);
+        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(new JsonSerializerOptions()
+        {
+            WriteIndented = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            Converters =
+            {
+                new JsonStringEnumConverter(),
+                new DoubleRoundingConverter(),
+                new LinkIdConverter(),
+                new AbilityLinkIdConverter(),
+                new TalentLinkIdConverter(),
+                new HeroesDataVersionConverter(),
+            },
+        });
+
+        JsonApplyService jsonApplyService = new(_logger, _options, _console, _jsonSerializerOptionService);
 
         // act
         await jsonApplyService.ApplyJsonPatch();

@@ -1,6 +1,5 @@
 ﻿using NSubstitute.ReceivedExtensions;
 using Spectre.Console;
-using System.Text.Json;
 
 namespace HeroesDataParser.Infrastructure.JsonFileWriters.Tests;
 

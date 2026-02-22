@@ -1,7 +1,9 @@
 ﻿global using AwesomeAssertions;
+global using Heroes.Element.JsonConverters;
 global using Heroes.Element.JsonTypeInfoResolvers;
 global using Heroes.Element.Models;
 global using Heroes.Element.Models.AbilityTalents;
+global using Heroes.Element.Models.Meta;
 global using Heroes.Element.Models.ObjectProperties;
 global using Heroes.Element.Models.Types;
 global using Heroes.LocaleText;
@@ -18,5 +20,7 @@ global using Microsoft.Extensions.Options;
 global using NSubstitute;
 global using Spectre.Console.Cli.Testing;
 global using Spectre.Console.Testing;
+global using System.Text.Encodings.Web;
+global using System.Text.Json;
+global using System.Text.Json.Serialization;
 global using System.Xml.Linq;
-global using Heroes.Element.Models.Meta;

@@ -2,17 +2,17 @@
   "meta": {
     "heroesVersion": "2.55.15.96477",
     "hdpVersion": "5.0.0",
-    "dataType": "announcerdata",
+    "dataType": "AnnouncerData",
+    "mapName": "Blackheart's Revenge",
     "localizedText": "None",
-    "descriptionText": {
+    "gameStringText": {
       "locale": "ENUS",
-      "gameStringTextType": "RawText",
+      "textType": "RawText",
       "replaceFontStyles": false,
       "preserveFontStyleConstantVars": false,
       "preserveFontStyleVars": false
     },
-    "totalItems": 75,
-    "mapName": "Blackheart's Revenge"
+    "totalItems": 75
   },
   "items": {
     "AbathurA": {
@@ -179,6 +179,16 @@
       "gender": "Male",
       "heroId": "AI",
       "image": "storm_ui_announcer_kevinjohnson.png"
+    },
+    "CommodoreFord": {
+      "name": "Commodore Ford",
+      "hyperlinkId": "##heroid##Announcer",
+      "attributeId": "CF01",
+      "rarity": "Epic",
+      "releaseDate": "2014-03-13",
+      "category": "Default",
+      "gender": "Unknown",
+      "heroId": "##heroid##"
     },
     "Cook": {
       "name": "Cook Announcer",
@@ -817,16 +827,6 @@
       "gender": "Unknown",
       "heroId": "Zeratul",
       "image": "storm_ui_announcer_zeratul.png"
-    },
-    "CommodoreFord": {
-      "name": "Commodore Ford",
-      "hyperlinkId": "##heroid##Announcer",
-      "attributeId": "CF01",
-      "rarity": "Epic",
-      "releaseDate": "2014-03-13",
-      "category": "Default",
-      "gender": "Unknown",
-      "heroId": "##heroid##"
     }
   }
 }

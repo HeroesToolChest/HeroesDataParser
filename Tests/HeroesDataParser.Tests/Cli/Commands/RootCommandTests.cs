@@ -6,6 +6,7 @@ namespace HeroesDataParser.Cli.Commands.Tests;
 [TestClass]
 public class RootCommandTests
 {
+    private readonly ILogger<RootCommand> _logger;
     private readonly IOptions<RootOptions> _options;
     private readonly IAnsiConsole _console;
     private readonly IPreLoaderService _preLoaderService;
@@ -15,6 +16,7 @@ public class RootCommandTests
 
     public RootCommandTests()
     {
+        _logger = Substitute.For<ILogger<RootCommand>>();
         _options = Substitute.For<IOptions<RootOptions>>();
         _console = Substitute.For<IAnsiConsole>();
         _preLoaderService = Substitute.For<IPreLoaderService>();
@@ -746,6 +748,7 @@ public class RootCommandTests
     private ServiceCollection GetServiceCollection()
     {
         ServiceCollection services = new();
+        services.AddSingleton(_logger);
         services.AddSingleton(_options);
         services.AddSingleton(_console);
         services.AddSingleton(_preLoaderService);

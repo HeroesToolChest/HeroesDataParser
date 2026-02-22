@@ -2,11 +2,11 @@
   "meta": {
     "heroesVersion": "2.55.15.96477",
     "hdpVersion": "5.0.0",
-    "dataType": "announcerdata",
+    "dataType": "AnnouncerData",
     "localizedText": "None",
-    "descriptionText": {
+    "gameStringText": {
       "locale": "ENUS",
-      "gameStringTextType": "RawText",
+      "textType": "RawText",
       "replaceFontStyles": false,
       "preserveFontStyleConstantVars": false,
       "preserveFontStyleVars": false

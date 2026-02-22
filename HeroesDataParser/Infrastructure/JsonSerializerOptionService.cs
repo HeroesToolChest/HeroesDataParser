@@ -5,6 +5,7 @@ public class JsonSerializerOptionService : IJsonSerializerOptionService
     private readonly RootOptions _options;
     private readonly IGameStringSerializerService _gameStringSerializerService;
 
+    private readonly JsonSerializerOptions _generalJsonSerializerOptions;
     private readonly JsonSerializerOptions _jsonSerializerDataOptions;
     private readonly JsonSerializerOptions _jsonSerializerGameStringOptions;
 
@@ -13,15 +14,18 @@ public class JsonSerializerOptionService : IJsonSerializerOptionService
         _options = options.Value;
         _gameStringSerializerService = gameStringSerializerService;
 
-        _jsonSerializerDataOptions = SetJsonSerializerDataOptions();
-        _jsonSerializerGameStringOptions = SetJsonSerializerGameStringOptions();
+        _generalJsonSerializerOptions = GetGeneralJsonSerializerOptions();
+        _jsonSerializerDataOptions = GetJsonSerializerDataOptions();
+        _jsonSerializerGameStringOptions = GetJsonSerializerGameStringOptions();
     }
+
+    public JsonSerializerOptions GeneralJsonSerializerOptions => _generalJsonSerializerOptions;
 
     public JsonSerializerOptions JsonSerializerDataOptions => _jsonSerializerDataOptions;
 
     public JsonSerializerOptions JsonSerializerGameStringOptions => _jsonSerializerGameStringOptions;
 
-    private JsonSerializerOptions SetJsonSerializerDataOptions()
+    private static JsonSerializerOptions GetGeneralJsonSerializerOptions()
     {
         return new JsonSerializerOptions()
         {
@@ -36,20 +40,28 @@ public class JsonSerializerOptionService : IJsonSerializerOptionService
                 new LinkIdConverter(),
                 new AbilityLinkIdConverter(),
                 new TalentLinkIdConverter(),
-                new GameStringTextConverter(gameStringTextType: _options.GameStringText.Type),
                 new HeroesDataVersionConverter(),
-            },
-            TypeInfoResolver = new HeroesElementResolver()
-            {
-                Modifiers =
-                {
-                    typeInfo => JsonTypeInfoModifiers.SerializationModifiers(typeInfo, _options.LocalizedText, _gameStringSerializerService.DataGameStringItemDictionary),
-                },
             },
         };
     }
 
-    private JsonSerializerOptions SetJsonSerializerGameStringOptions()
+    private JsonSerializerOptions GetJsonSerializerDataOptions()
+    {
+        JsonSerializerOptions jsonSerializerOptions = new(_generalJsonSerializerOptions);
+
+        jsonSerializerOptions.Converters.Add(new GameStringTextConverter(gameStringTextType: _options.GameStringText.Type));
+        jsonSerializerOptions.TypeInfoResolver = new HeroesElementResolver()
+        {
+            Modifiers =
+            {
+                typeInfo => JsonTypeInfoModifiers.SerializationModifiers(typeInfo, _options.LocalizedText, _gameStringSerializerService.DataGameStringItemDictionary),
+            },
+        };
+
+        return jsonSerializerOptions;
+    }
+
+    private JsonSerializerOptions GetJsonSerializerGameStringOptions()
     {
         return new JsonSerializerOptions()
         {

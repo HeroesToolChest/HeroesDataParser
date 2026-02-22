@@ -9,4 +9,8 @@ public class JsonApplyOptions
     public JsonFileType JsonFileType { get; set; } = JsonFileType.None;
 
     public string OutputDirectory { get; set; } = string.Empty;
+
+    public GameStringTextOptions GameStringText { get; set; } = new();
+
+    public LocalizedTextOption LocalizedText { get; set; } = LocalizedTextOption.None;
 }

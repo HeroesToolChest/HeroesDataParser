@@ -32,7 +32,7 @@ public class DataExtractorService : IDataExtractorService
         where TElement : IElementObject
         where TParser : IDataParser<TElement>
     {
-        ConcurrentDictionary<string, TElement> parsedItems = new(StringComparer.Ordinal);
+        ConcurrentDictionary<string, TElement> parsedItems = new(StringComparer.OrdinalIgnoreCase);
 
         int totalCount = ExtractInternal<TElement, TParser>(parser, typeof(TElement).Name, (id, element) =>
         {
@@ -41,7 +41,7 @@ public class DataExtractorService : IDataExtractorService
 
         DisplayExtractionSummary(totalCount, parsedItems.Count, parser.DataObjectType, map);
 
-        return new SortedDictionary<string, TElement>(parsedItems);
+        return new SortedDictionary<string, TElement>(parsedItems, StringComparer.OrdinalIgnoreCase);
     }
 
     private int ExtractInternal<TElement, TParser>(TParser parser, string nameOfElement, Action<string, TElement> itemAdder)
