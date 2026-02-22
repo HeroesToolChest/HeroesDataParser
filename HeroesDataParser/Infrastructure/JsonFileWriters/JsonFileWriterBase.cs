@@ -49,10 +49,10 @@ public abstract class JsonFileWriterBase
 
     protected abstract void IncrementFilesWritten();
 
-    protected string GetFileName(string dataName, bool isDiff)
+    protected string GetFileName(DataType dataType, bool isDiff)
     {
         string diffSuffix = isDiff ? ".patch" : string.Empty;
-        return $"{dataName}_{Options.BuildNumber ?? 0}_{Options.CurrentLocale}{diffSuffix}.json".ToLowerInvariant();
+        return $"{dataType}_{Options.BuildNumber ?? 0}_{Options.CurrentLocale}{diffSuffix}.json".ToLowerInvariant();
     }
 
     protected string GetFilePath(string innerDirectory, string fileName)
@@ -63,19 +63,19 @@ public abstract class JsonFileWriterBase
         return Path.Combine(directory, fileName);
     }
 
-    protected async Task WriteSubMapJsonFile(string innerDirectory, string mapName, string dataName, byte[] bytes)
+    protected async Task WriteSubMapJsonFile(string innerDirectory, string mapName, DataType dataType, byte[] bytes)
     {
         if (Options.MapSpecificWriterJsonOutputType.HasFlag(MapSpecificWriterJsonOutputType.Normal))
-            await WriteNormalMap(innerDirectory, mapName, dataName, bytes);
+            await WriteNormalMap(innerDirectory, mapName, dataType, bytes);
 
         if (Options.MapSpecificWriterJsonOutputType.HasFlag(MapSpecificWriterJsonOutputType.Patch))
-            await WriteMapPatch(innerDirectory, mapName, dataName, bytes);
+            await WriteMapPatch(innerDirectory, mapName, dataType, bytes);
     }
 
     // the normal json file without a map loaded
-    protected async Task WriteBaseJsonFile(string innerDirectory, string dataName, byte[] bytes)
+    protected async Task WriteBaseJsonFile(string innerDirectory, DataType dataType, byte[] bytes)
     {
-        string fileName = GetFileName(dataName, false);
+        string fileName = GetFileName(dataType, false);
         string filePath = GetFilePath(innerDirectory, fileName);
 
         Logger.LogInformation("Writing to {FilePath}", filePath);
@@ -94,26 +94,26 @@ public abstract class JsonFileWriterBase
         }
 
         IncrementFilesWritten();
-        SerializedDataStoreService.AddSerializedData(dataName, bytes);
+        SerializedDataStoreService.AddSerializedData(dataType, bytes);
 
         Console.Write("Created file ");
         WriteFilePath(Path.Join(innerDirectory, fileName));
         Console.WriteLine();
     }
 
-    protected async Task WriteMapPatch(string innerDirectory, string mapName, string dataName, byte[] bytes)
+    protected async Task WriteMapPatch(string innerDirectory, string mapName, DataType dataType, byte[] bytes)
     {
-        string fileName = GetFileName(dataName, true);
+        string fileName = GetFileName(dataType, true);
         string filePath = GetFilePath(innerDirectory, fileName);
 
         Logger.LogInformation("Writing json patch file {FilePath} for map {MapName}", filePath, mapName);
 
-        await WritePatchJsonFile(innerDirectory, mapName, dataName, fileName, filePath, bytes);
+        await WritePatchJsonFile(innerDirectory, mapName, dataType, fileName, filePath, bytes);
     }
 
-    protected async Task WriteNormalMap(string innerDirectory, string mapName, string dataName, byte[] bytes)
+    protected async Task WriteNormalMap(string innerDirectory, string mapName, DataType dataType, byte[] bytes)
     {
-        string fileName = GetFileName(dataName, false);
+        string fileName = GetFileName(dataType, false);
         string filePath = GetFilePath(innerDirectory, fileName);
 
         Logger.LogInformation("Writing normal json file {FilePath} for map {MapName}", filePath, mapName);
@@ -165,13 +165,13 @@ public abstract class JsonFileWriterBase
         .Count();
     }
 
-    private async Task WritePatchJsonFile(string innerDirectory, string mapName, string dataName, string fileName, string filePath, byte[] bytes)
+    private async Task WritePatchJsonFile(string innerDirectory, string mapName, DataType dataType, string fileName, string filePath, byte[] bytes)
     {
-        JsonPatch? jsonPatch = SerializedDataStoreService.GetJsonDataPatch(dataName, bytes);
+        JsonPatch? jsonPatch = SerializedDataStoreService.GetJsonDataPatch(dataType, bytes);
 
         int totalItemsChanged = jsonPatch is not null ? GetCountOfUniqueItems(jsonPatch.Operations) : 0;
 
-        Logger.LogInformation("Found {TotalItems} changed items of {DataType} for map {MapName}", totalItemsChanged, dataName, mapName);
+        Logger.LogInformation("Found {TotalItems} changed items of {DataType} for map {MapName}", totalItemsChanged, dataType, mapName);
 
         if (totalItemsChanged > 0 || Options.AllowEmptyMapSpecificPatchFiles)
         {
@@ -202,7 +202,7 @@ public abstract class JsonFileWriterBase
         }
         else
         {
-            Console.WriteLine($"No changes found for {dataName}");
+            Console.WriteLine($"No changes found for {dataType}");
         }
     }
 }

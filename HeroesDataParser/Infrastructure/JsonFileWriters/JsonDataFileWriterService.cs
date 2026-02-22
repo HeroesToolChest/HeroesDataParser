@@ -72,11 +72,17 @@ public class JsonDataFileWriterService : JsonFileWriterBase, IJsonDataFileWriter
 
         string dataName = $"{typeof(TElement).Name}{Constants.ElementDataSuffix}".ToLowerInvariant();
 
+        if (!Enum.TryParse(dataName, true, out DataType dataType))
+        {
+            Logger.LogWarning("Unable to parse data type from data name {DataName}, defaulting to Unknown", dataName);
+            dataType = DataType.Unknown;
+        }
+
         RootDataElement<TElement> rootDataElement = new()
         {
             Meta = new()
             {
-                DataType = dataName,
+                DataType = dataType,
                 MapName = mapName,
                 LocalizedText = Options.LocalizedText,
                 HeroesVersion = Options.HeroesVersion.GetAsHeroesDataVersion(),
@@ -97,8 +103,8 @@ public class JsonDataFileWriterService : JsonFileWriterBase, IJsonDataFileWriter
         byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(rootDataElement, JsonSerializerOptionService.JsonSerializerDataOptions);
 
         if (isMap)
-            await WriteSubMapJsonFile(innerDirectory, mapName!, dataName, bytes);
+            await WriteSubMapJsonFile(innerDirectory, mapName!, dataType, bytes);
         else
-            await WriteBaseJsonFile(innerDirectory, dataName, bytes);
+            await WriteBaseJsonFile(innerDirectory, dataType, bytes);
     }
 }

@@ -4,13 +4,13 @@ namespace HeroesDataParser.Core;
 
 public interface ISerializedDataStoreService
 {
-    JsonPatch? GetJsonDataPatch(string dataType, byte[] bytesToCompare);
+    JsonPatch? GetJsonDataPatch(DataType dataType, byte[] bytesToCompare);
 
-    void AddSerializedData(string dataType, byte[] bytes);
+    void AddSerializedData(DataType dataType, byte[] bytes);
 
-    bool TryGetSerializedData(string dataType, [NotNullWhen(true)] out byte[]? bytes);
+    bool TryGetSerializedData(DataType dataType, [NotNullWhen(true)] out byte[]? bytes);
 
     void ClearAllSerializedData();
 
-    IEnumerable<string> GetDataTypesFromData();
+    IEnumerable<DataType> GetDataTypesFromData();
 }

@@ -1,4 +1,5 @@
-﻿using Spectre.Console;
+﻿
+using Spectre.Console;
 
 namespace HeroesDataParser.Infrastructure.JsonFileWriters.Tests;
 
@@ -289,10 +290,10 @@ public class JsonGameStringFileWriterServiceTests
 
         _options.Value.Returns(rootOptions);
 
-        List<string> dataTypes =
+        List<DataType> dataTypes =
         [
-            "Hero",
-            "Unit",
+            DataType.HeroData,
+            DataType.UnitData,
         ];
 
         _serializedDataStoreService.GetDataTypesFromData().Returns(dataTypes);
@@ -307,7 +308,7 @@ public class JsonGameStringFileWriterServiceTests
         jsonGameStringFileWriterService.SerializeOnly();
 
         // assert
-        _serializedDataStoreService.Received(1).AddSerializedData(Constants.GameStringFilePrefix, expectedBytes);
+        _serializedDataStoreService.Received(1).AddSerializedData(DataType.GameStrings, expectedBytes);
         _gameStringSerializerService.Received(1).ClearStoredGameStrings();
     }
 }

@@ -87,11 +87,11 @@ public class JsonDataFileWriterServiceTests
           "meta": {
             "heroesVersion": "2.23.2345.34566",
             "hdpVersion": "5.0.0",
-            "dataType": "herodata",
+            "dataType": "HeroData",
             "localizedText": "None",
-            "descriptionText": {
+            "gameStringText": {
               "locale": "ENUS",
-              "gameStringTextType": "RawText",
+              "textType": "RawText",
               "replaceFontStyles": false,
               "preserveFontStyleConstantVars": false,
               "preserveFontStyleVars": false
@@ -495,11 +495,11 @@ public class JsonDataFileWriterServiceTests
           "meta": {
             "heroesVersion": "2.23.2345.34566_ptr",
             "hdpVersion": "5.0.0",
-            "dataType": "herodata",
+            "dataType": "HeroData",
             "localizedText": "None",
-            "descriptionText": {
+            "gameStringText": {
               "locale": "DEDE",
-              "gameStringTextType": "RawText",
+              "textType": "RawText",
               "replaceFontStyles": false,
               "preserveFontStyleConstantVars": false,
               "preserveFontStyleVars": false
@@ -598,7 +598,7 @@ public class JsonDataFileWriterServiceTests
           "meta": {
             "heroesVersion": "2.23.2345.34566_ptr",
             "hdpVersion": "5.0.0",
-            "dataType": "herodata",
+            "dataType": "HeroData",
             "localizedText": "Extract",
             "totalItems": 1
           },
@@ -692,11 +692,11 @@ public class JsonDataFileWriterServiceTests
           "meta": {
             "heroesVersion": "2.23.2345.34566_ptr",
             "hdpVersion": "5.0.0",
-            "dataType": "herodata",
+            "dataType": "HeroData",
             "localizedText": "Copy",
-            "descriptionText": {
+            "gameStringText": {
               "locale": "DEDE",
-              "gameStringTextType": "RawText",
+              "textType": "RawText",
               "replaceFontStyles": false,
               "preserveFontStyleConstantVars": false,
               "preserveFontStyleVars": false
@@ -746,12 +746,12 @@ public class JsonDataFileWriterServiceTests
           "meta": {
             "heroesVersion": "2.23.2345.34566",
             "hdpVersion": "5.0.0",
-            "dataType": "herodata",
+            "dataType": "HeroData",
             "mapName": "map name!_yes?",
             "localizedText": "None",
-            "descriptionText": {
+            "gameStringText": {
               "locale": "ENUS",
-              "gameStringTextType": "RawText",
+              "textType": "RawText",
               "replaceFontStyles": false,
               "preserveFontStyleConstantVars": false,
               "preserveFontStyleVars": false

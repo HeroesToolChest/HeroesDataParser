@@ -6,7 +6,7 @@ public class SerializedDataStoreService : ISerializedDataStoreService
 {
     private readonly ILogger<SerializedDataStoreService> _logger;
 
-    private readonly Dictionary<string, byte[]> _serializedDataByDataType = [];
+    private readonly Dictionary<DataType, byte[]> _serializedDataByDataType = [];
 
     public SerializedDataStoreService(ILogger<SerializedDataStoreService> logger)
     {
@@ -14,7 +14,7 @@ public class SerializedDataStoreService : ISerializedDataStoreService
     }
 
     // dataType is for looking up the original (existing) data, bytes is the new data to compare against
-    public JsonPatch? GetJsonDataPatch(string dataType, byte[] bytesToCompare)
+    public JsonPatch? GetJsonDataPatch(DataType dataType, byte[] bytesToCompare)
     {
         if (!_serializedDataByDataType.TryGetValue(dataType, out byte[]? baseBytes))
         {
@@ -25,12 +25,12 @@ public class SerializedDataStoreService : ISerializedDataStoreService
         return GetJsonPatchFromBytes(bytesToCompare, baseBytes);
     }
 
-    public void AddSerializedData(string dataType, byte[] bytes)
+    public void AddSerializedData(DataType dataType, byte[] bytes)
     {
         _serializedDataByDataType[dataType] = bytes;
     }
 
-    public bool TryGetSerializedData(string dataType, [NotNullWhen(true)] out byte[]? bytes)
+    public bool TryGetSerializedData(DataType dataType, [NotNullWhen(true)] out byte[]? bytes)
     {
         return _serializedDataByDataType.TryGetValue(dataType, out bytes);
     }
@@ -40,7 +40,7 @@ public class SerializedDataStoreService : ISerializedDataStoreService
         _serializedDataByDataType.Clear();
     }
 
-    public IEnumerable<string> GetDataTypesFromData() => _serializedDataByDataType.Keys;
+    public IEnumerable<DataType> GetDataTypesFromData() => _serializedDataByDataType.Keys;
 
     private static JsonPatch GetJsonPatchFromBytes(byte[] bytesToCompare, byte[] baseBytes)
     {

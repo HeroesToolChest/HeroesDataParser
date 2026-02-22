@@ -24,7 +24,7 @@ public class BaseGameStringMergeService : IBaseGameStringMergeService
     public byte[]? MergeWithMap()
     {
         // get existing base game strings
-        if (!_serializedDataStoreService.TryGetSerializedData(Constants.GameStringFilePrefix, out byte[]? baseBytes))
+        if (!_serializedDataStoreService.TryGetSerializedData(DataType.GameStrings, out byte[]? baseBytes))
             return null;
 
         // serialize and get the bytes of the current extracted gamestrings (maps)

@@ -26,7 +26,7 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
         Span<char> buffer = stackalloc char[mapName!.Length];
         int length = NormalizeMapDirectoryName(buffer, mapName);
 
-        await WriteSubMapJsonFile(Path.Join(Constants.JsonGameStringsDirectory, Constants.MapDirectory, buffer[..length]), mapName, Constants.GameStringFilePrefix, bytes);
+        await WriteSubMapJsonFile(Path.Join(Constants.JsonGameStringsDirectory, Constants.MapDirectory, buffer[..length]), mapName, DataType.GameStrings, bytes);
 
         // after writing, clear the extracted gamestrings
         if (Options.MapSpecificWriterJsonOutputType != MapSpecificWriterJsonOutputType.None)
@@ -36,7 +36,7 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
     // writes from the given bytes to a json file
     public async Task Write(byte[] bytes)
     {
-        await WriteBaseJsonFile(Constants.JsonGameStringsDirectory, Constants.GameStringFilePrefix, bytes);
+        await WriteBaseJsonFile(Constants.JsonGameStringsDirectory, DataType.GameStrings, bytes);
     }
 
     // instead of writing to a file, just serializes (the current dictionary items) and stores the data in the serialized data store, clear the stored gamestrings after saving
@@ -45,7 +45,7 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
         RootGameStrings rootGameStrings = GetRootGameStrings();
         byte[] bytes = _gameStringSerializerService.SerializeGameStrings(rootGameStrings.Meta, JsonSerializerOptionService.JsonSerializerGameStringOptions);
 
-        SerializedDataStoreService.AddSerializedData(Constants.GameStringFilePrefix, bytes);
+        SerializedDataStoreService.AddSerializedData(DataType.GameStrings, bytes);
 
         // after saved, clear the extracted gamestrings
         _gameStringSerializerService.ClearStoredGameStrings();
@@ -67,7 +67,7 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
         {
             Meta = new()
             {
-                DataTypes = [.. SerializedDataStoreService.GetDataTypesFromData().Where(x => !x.Equals(Constants.GameStringFilePrefix))],
+                DataTypes = [.. SerializedDataStoreService.GetDataTypesFromData().Where(x => !x.Equals(DataType.GameStrings))],
                 MapName = mapName,
                 HeroesVersion = Options.HeroesVersion.GetAsHeroesDataVersion(),
                 HdpVersion = Options.AppVersion,

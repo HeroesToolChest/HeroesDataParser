@@ -19,3 +19,4 @@ global using NSubstitute;
 global using Spectre.Console.Cli.Testing;
 global using Spectre.Console.Testing;
 global using System.Xml.Linq;
+global using Heroes.Element.Models.Meta;
