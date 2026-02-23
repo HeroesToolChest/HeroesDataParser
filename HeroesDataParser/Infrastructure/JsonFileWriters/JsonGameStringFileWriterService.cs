@@ -17,10 +17,13 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
         _gameStringSerializerService = gameStringSerializerService;
     }
 
-    public async Task WriteForMap(string mapName)
+    // writes the map specific gamestrings to a json file in the maps sub directory
+    public async Task WriteMapSpecific(string mapName)
     {
-        RootGameStrings rootGameStrings = GetRootGameStrings(mapName);
+        SortedSet<DataType> dataTypes = [.. SerializedDataStoreService.GetDataTypesFromData().Where(x => !x.Equals(DataType.GameStrings))];
+        RootGameStrings rootGameStrings = GetRootGameStrings(dataTypes, mapName);
 
+        // get the current extracted gamestrings
         byte[] bytes = _gameStringSerializerService.SerializeGameStrings(rootGameStrings.Meta, JsonSerializerOptionService.JsonSerializerGameStringOptions);
 
         Span<char> buffer = stackalloc char[mapName!.Length];
@@ -33,22 +36,37 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
             _gameStringSerializerService.ClearStoredGameStrings();
     }
 
-    // writes from the given bytes to a json file
-    public async Task Write(byte[] bytes)
+    // writes the base gamestring file (no map data)
+    public async Task WriteBase()
     {
-        await WriteBaseJsonFile(Constants.JsonGameStringsDirectory, DataType.GameStrings, bytes);
-    }
+        SortedSet<DataType> dataTypes = [.. SerializedDataStoreService.GetDataTypesFromData().Where(x => !x.Equals(DataType.GameStrings) && !x.Equals(DataType.MapData))];
+        RootGameStrings rootGameStrings = GetRootGameStrings(dataTypes);
 
-    // instead of writing to a file, just serializes (the current dictionary items) and stores the data in the serialized data store, clear the stored gamestrings after saving
-    public void SerializeOnly()
-    {
-        RootGameStrings rootGameStrings = GetRootGameStrings();
+        // get the current extracted gamestrings
         byte[] bytes = _gameStringSerializerService.SerializeGameStrings(rootGameStrings.Meta, JsonSerializerOptionService.JsonSerializerGameStringOptions);
 
+        // add to store service, so the map specific writer can create a patch with the base gamestrings if needed
         SerializedDataStoreService.AddSerializedData(DataType.GameStrings, bytes);
 
-        // after saved, clear the extracted gamestrings
+        await WriteBaseJsonFile(Constants.JsonGameStringsDirectory, DataType.GameStrings, bytes);
+
+        // after writing, clear the extracted gamestrings
         _gameStringSerializerService.ClearStoredGameStrings();
+    }
+
+    // write the base gamestring file for the map data
+    public async Task WriteMap()
+    {
+        SortedSet<DataType> dataTypes = [DataType.MapData];
+        RootGameStrings rootGameStrings = GetRootGameStrings(dataTypes);
+
+        // get the current extracted gamestrings (should only be for mapdata)
+        byte[] bytes = _gameStringSerializerService.SerializeGameStrings(rootGameStrings.Meta, JsonSerializerOptionService.JsonSerializerGameStringOptions);
+
+        string fileName = GetFileName($"{DataType.GameStrings}_{DataType.MapData}", false);
+        string filePath = GetFilePath(Constants.JsonGameStringsDirectory, fileName);
+
+        await WriteBaseJsonFile(Constants.JsonGameStringsDirectory, filePath, fileName, DataType.GameStrings, bytes);
     }
 
     protected override void IncrementFilesTotal()
@@ -61,13 +79,13 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
         ResultSummaryService.GameStringFilesWritten++;
     }
 
-    private RootGameStrings GetRootGameStrings(string? mapName = null)
+    private RootGameStrings GetRootGameStrings(SortedSet<DataType> dataTypes, string? mapName = null)
     {
         return new()
         {
             Meta = new()
             {
-                DataTypes = [.. SerializedDataStoreService.GetDataTypesFromData().Where(x => !x.Equals(DataType.GameStrings))],
+                DataTypes = dataTypes,
                 MapName = mapName,
                 HeroesVersion = Options.HeroesVersion.GetAsHeroesDataVersion(),
                 HdpVersion = Options.AppVersion,

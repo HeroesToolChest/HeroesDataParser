@@ -49,10 +49,10 @@ public abstract class JsonFileWriterBase
 
     protected abstract void IncrementFilesWritten();
 
-    protected string GetFileName(DataType dataType, bool isDiff)
+    protected string GetFileName(string fileSuffixName, bool isPatch)
     {
-        string diffSuffix = isDiff ? ".patch" : string.Empty;
-        return $"{dataType}_{Options.BuildNumber ?? 0}_{Options.CurrentLocale}{diffSuffix}.json".ToLowerInvariant();
+        string patchSuffix = isPatch ? ".patch" : string.Empty;
+        return $"{fileSuffixName}_{Options.BuildNumber ?? 0}_{Options.CurrentLocale}{patchSuffix}.json".ToLowerInvariant();
     }
 
     protected string GetFilePath(string innerDirectory, string fileName)
@@ -75,9 +75,14 @@ public abstract class JsonFileWriterBase
     // the normal json file without a map loaded
     protected async Task WriteBaseJsonFile(string innerDirectory, DataType dataType, byte[] bytes)
     {
-        string fileName = GetFileName(dataType, false);
+        string fileName = GetFileName(dataType.ToString(), false);
         string filePath = GetFilePath(innerDirectory, fileName);
 
+        await WriteBaseJsonFile(innerDirectory, filePath, fileName, dataType, bytes);
+    }
+
+    protected async Task WriteBaseJsonFile(string innerDirectory, string filePath, string fileName, DataType dataType, byte[] bytes)
+    {
         Logger.LogInformation("Writing to {FilePath}", filePath);
 
         try
@@ -103,7 +108,7 @@ public abstract class JsonFileWriterBase
 
     protected async Task WriteMapPatch(string innerDirectory, string mapName, DataType dataType, byte[] bytes)
     {
-        string fileName = GetFileName(dataType, true);
+        string fileName = GetFileName(dataType.ToString(), true);
         string filePath = GetFilePath(innerDirectory, fileName);
 
         Logger.LogInformation("Writing json patch file {FilePath} for map {MapName}", filePath, mapName);
@@ -113,7 +118,7 @@ public abstract class JsonFileWriterBase
 
     protected async Task WriteNormalMap(string innerDirectory, string mapName, DataType dataType, byte[] bytes)
     {
-        string fileName = GetFileName(dataType, false);
+        string fileName = GetFileName(dataType.ToString(), false);
         string filePath = GetFilePath(innerDirectory, fileName);
 
         Logger.LogInformation("Writing normal json file {FilePath} for map {MapName}", filePath, mapName);

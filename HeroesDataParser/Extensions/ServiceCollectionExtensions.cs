@@ -86,7 +86,6 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IImageWriterService, ImageWriterService>();
 
             services.AddSingleton<IGameStringSerializerService, GameStringSerializerService>();
-            services.AddSingleton<IBaseGameStringMergeService, BaseGameStringMergeService>();
 
             return services;
         }

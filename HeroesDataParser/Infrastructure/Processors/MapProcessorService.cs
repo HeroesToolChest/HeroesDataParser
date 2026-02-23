@@ -12,9 +12,6 @@ public class MapProcessorService : IMapProcessorService
     private readonly IJsonGameStringFileWriterService _jsonGameStringFileWriterService;
     private readonly IEnumerable<IImageParser<Map>> _mapImageParsers;
     private readonly IImageWriterService _imageWriterService;
-    private readonly IBaseGameStringMergeService _baseGameStringMergeService;
-
-    private Func<Task>? _mapDataWriterTask;
 
     public MapProcessorService(
         ILogger<MapProcessorService> logger,
@@ -24,8 +21,7 @@ public class MapProcessorService : IMapProcessorService
         IJsonDataFileWriterService jsonDataFileWriterService,
         IJsonGameStringFileWriterService jsonGameStringFileWriterService,
         IEnumerable<IImageParser<Map>> mapImageParsers,
-        IImageWriterService imageWriterService,
-        IBaseGameStringMergeService baseGameStringMergeService)
+        IImageWriterService imageWriterService)
     {
         _logger = logger;
         _options = options.Value;
@@ -35,33 +31,17 @@ public class MapProcessorService : IMapProcessorService
         _jsonGameStringFileWriterService = jsonGameStringFileWriterService;
         _mapImageParsers = mapImageParsers;
         _imageWriterService = imageWriterService;
-        _baseGameStringMergeService = baseGameStringMergeService;
     }
 
     public async Task Start()
     {
         await ProcessMapObject();
-        await WriteMapDataFile();
-        await WriteGameStrings();
+        await WriteBaseMapGameStrings();
     }
 
-    private async Task WriteMapDataFile()
+    private async Task WriteBaseMapGameStrings()
     {
-        if (_mapDataWriterTask is not null)
-            await _mapDataWriterTask();
-    }
-
-    private async Task WriteGameStrings()
-    {
-        byte[]? bytes = _baseGameStringMergeService.MergeWithMap();
-
-        if (bytes is null)
-        {
-            _logger.LogInformation("No merged game strings to write.");
-            return;
-        }
-
-        await _jsonGameStringFileWriterService.Write(bytes);
+        await _jsonGameStringFileWriterService.WriteMap();
     }
 
     private async Task ProcessMapObject()
@@ -77,9 +57,8 @@ public class MapProcessorService : IMapProcessorService
             // parses through all the maps for the data type(s)
             SortedDictionary<string, Map> mapItemsToSerialize = await _mapDataExtractorService.Extract(_processorService.StartForMap);
 
-            // delay the write out the map data
-            // done last, because of the loading of map xml mods, we only want to go through the map mods once
-            _mapDataWriterTask = () => _jsonDataFileWriterService.Write(mapItemsToSerialize);
+            // write out the map data file
+            await _jsonDataFileWriterService.Write(mapItemsToSerialize);
 
             // extract and save images
             foreach (IImageParser<Map> mapImageParser in _mapImageParsers)

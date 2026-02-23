@@ -148,12 +148,11 @@ public class ProcessorService : IProcessorService
         if (!string.IsNullOrWhiteSpace(mapName))
         {
             // write out the gamestring file for the extracted gamestrings from json serialization
-            await _jsonGameStringFileWriterService.WriteForMap(mapName);
+            await _jsonGameStringFileWriterService.WriteMapSpecific(mapName);
         }
         else
         {
-            // don't create a gamestring file yet, if we have map parsing available the base gamestring file will be created after all maps are processed
-            _jsonGameStringFileWriterService.SerializeOnly();
+            await _jsonGameStringFileWriterService.WriteBase();
         }
     }
 

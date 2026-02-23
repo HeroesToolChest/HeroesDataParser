@@ -36,9 +36,9 @@ public class MainLocaleProcess : IMainLocaleProcess
             _logger.LogInformation("Starting map processor service for {Locale}", locale);
             await _mapProcessorService.Start();
         }
-        else if (_serializedDataStoreService.TryGetSerializedData(DataType.GameStrings, out byte[]? gameStringData))
+        else
         {
-            await _jsonGameStringFileWriterService.Write(gameStringData);
+            await _jsonGameStringFileWriterService.WriteBase();
         }
     }
 }

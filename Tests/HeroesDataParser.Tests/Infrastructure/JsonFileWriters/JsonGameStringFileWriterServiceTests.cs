@@ -1,5 +1,4 @@
-﻿
-using Spectre.Console;
+﻿using Spectre.Console;
 
 namespace HeroesDataParser.Infrastructure.JsonFileWriters.Tests;
 
@@ -26,14 +25,14 @@ public class JsonGameStringFileWriterServiceTests
     }
 
     [TestMethod]
-    public async Task WriteForMap_JsonOutputTypeIsNormal_CreatesJsonFile()
+    public async Task WriteMapSpecific_JsonOutputTypeIsNormal_CreatesJsonFile()
     {
         // arrange
         string mapName = "this! is a_map";
 
         RootOptions rootOptions = new()
         {
-            OutputDirectory = Path.Combine("tests", nameof(WriteForMap_JsonOutputTypeIsNormal_CreatesJsonFile)),
+            OutputDirectory = Path.Combine("tests", nameof(WriteMapSpecific_JsonOutputTypeIsNormal_CreatesJsonFile)),
             CurrentLocale = StormLocale.ENUS,
             GameStringText = new GameStringTextOptions
             {
@@ -76,7 +75,7 @@ public class JsonGameStringFileWriterServiceTests
         JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
 
         // act
-        await jsonGameStringFileWriterService.WriteForMap(mapName);
+        await jsonGameStringFileWriterService.WriteMapSpecific(mapName);
 
         // assert
         _ = _resultSummaryService.Received(1).GameStringFilesWritten;
@@ -88,14 +87,14 @@ public class JsonGameStringFileWriterServiceTests
     }
 
     [TestMethod]
-    public async Task WriteForMap_JsonOutputTypeIsDiff_CreatesJsonFile()
+    public async Task WriteMapSpecific_JsonOutputTypeIsPatch_CreatesJsonFile()
     {
         // arrange
         string mapName = "this! is a_map";
 
         RootOptions rootOptions = new()
         {
-            OutputDirectory = Path.Combine("tests", nameof(WriteForMap_JsonOutputTypeIsDiff_CreatesJsonFile)),
+            OutputDirectory = Path.Combine("tests", nameof(WriteMapSpecific_JsonOutputTypeIsPatch_CreatesJsonFile)),
             CurrentLocale = StormLocale.ENUS,
             GameStringText = new GameStringTextOptions
             {
@@ -122,13 +121,7 @@ public class JsonGameStringFileWriterServiceTests
 
         _options.Value.Returns(rootOptions);
 
-        List<string> dataTypes =
-        [
-            "AbilTalent",
-            "Hero",
-        ];
-
-        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "gamestrings", "maps", "this_is_amap", $"gamestrings_{rootOptions.BuildNumber}_enus.diff.json");
+        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "gamestrings", "maps", "this_is_amap", $"gamestrings_{rootOptions.BuildNumber}_enus.patch.json");
 
         JsonSerializerOptionService jsonSerializerOptionService = new(_options, _gameStringSerializerService);
 
@@ -139,7 +132,7 @@ public class JsonGameStringFileWriterServiceTests
         JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
 
         // act
-        await jsonGameStringFileWriterService.WriteForMap(mapName);
+        await jsonGameStringFileWriterService.WriteMapSpecific(mapName);
 
         // assert
         _ = _resultSummaryService.Received(1).GameStringFilesWritten;
@@ -151,12 +144,12 @@ public class JsonGameStringFileWriterServiceTests
     }
 
     [TestMethod]
-    public async Task WriteForMap_JsonOutputTypeIsNone_NoJsonFileCreated()
+    public async Task WriteMapSpecific_JsonOutputTypeIsNone_NoJsonFileCreated()
     {
         // arrange
         RootOptions rootOptions = new()
         {
-            OutputDirectory = Path.Combine("tests", nameof(WriteForMap_JsonOutputTypeIsNone_NoJsonFileCreated)),
+            OutputDirectory = Path.Combine("tests", nameof(WriteMapSpecific_JsonOutputTypeIsNone_NoJsonFileCreated)),
             CurrentLocale = StormLocale.DEDE,
             HeroesVersion = new HeroesVersionOptions
             {
@@ -177,7 +170,7 @@ public class JsonGameStringFileWriterServiceTests
         JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
 
         // act
-        await jsonGameStringFileWriterService.WriteForMap("mapName");
+        await jsonGameStringFileWriterService.WriteMapSpecific("mapName");
 
         // assert
         _ = _resultSummaryService.DidNotReceive().GameStringFilesWritten;
@@ -216,7 +209,7 @@ public class JsonGameStringFileWriterServiceTests
         JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
 
         // act
-        await jsonGameStringFileWriterService.WriteForMap("mapName");
+        await jsonGameStringFileWriterService.WriteMapSpecific("mapName");
 
         // assert
         _ = _resultSummaryService.Received(1).GameStringFilesWritten;
@@ -225,47 +218,12 @@ public class JsonGameStringFileWriterServiceTests
     }
 
     [TestMethod]
-    public async Task Write_WithValidBytes_CreatesJsonFile()
+    public async Task WriteBase_HasBuildNumber_CreatesJsonFile()
     {
         // arrange
         RootOptions rootOptions = new()
         {
-            OutputDirectory = Path.Combine("tests", nameof(Write_WithValidBytes_CreatesJsonFile)),
-            CurrentLocale = StormLocale.ENUS,
-            HeroesVersion = new HeroesVersionOptions
-            {
-                Major = 2,
-                Minor = 55,
-                Revision = 1234,
-                Build = 98765,
-                IsPtr = false,
-            },
-        };
-
-        _options.Value.Returns(rootOptions);
-
-        byte[] testBytes = "{\"test\":\"data\"}"u8.ToArray();
-        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "gamestrings", $"gamestrings_{rootOptions.BuildNumber}_enus.json");
-
-        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
-
-        // act
-        await jsonGameStringFileWriterService.Write(testBytes);
-
-        // assert
-        _ = _resultSummaryService.Received(1).GameStringFilesWritten;
-        _ = _resultSummaryService.Received(1).GameStringFilesTotal;
-        File.Exists(expectedFilePath).Should().BeTrue();
-        File.ReadAllBytes(expectedFilePath).Should().BeEquivalentTo(testBytes);
-    }
-
-    [TestMethod]
-    public void SerializeOnly_HasGameStringElements_StoresSerializedData()
-    {
-        // arrange
-        RootOptions rootOptions = new()
-        {
-            OutputDirectory = Path.Combine("tests", nameof(SerializeOnly_HasGameStringElements_StoresSerializedData)),
+            OutputDirectory = Path.Combine("tests", nameof(WriteBase_HasBuildNumber_CreatesJsonFile)),
             CurrentLocale = StormLocale.ENUS,
             GameStringText = new GameStringTextOptions
             {
@@ -279,24 +237,18 @@ public class JsonGameStringFileWriterServiceTests
             },
             HeroesVersion = new HeroesVersionOptions
             {
-                Major = 3,
-                Minor = 45,
-                Revision = 6789,
-                Build = 12345,
+                Major = 2,
+                Minor = 23,
+                Revision = 2345,
+                Build = 34566,
                 IsPtr = false,
             },
-            AppVersion = "6.1.0",
+            AppVersion = "5.0.0",
         };
 
         _options.Value.Returns(rootOptions);
 
-        List<DataType> dataTypes =
-        [
-            DataType.HeroData,
-            DataType.UnitData,
-        ];
-
-        _serializedDataStoreService.GetDataTypesFromData().Returns(dataTypes);
+        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "gamestrings", $"gamestrings_{rootOptions.BuildNumber}_enus.json");
 
         byte[] expectedBytes = "test-serialized-data"u8.ToArray();
         _gameStringSerializerService.SerializeGameStrings(default!, default!)
@@ -305,10 +257,163 @@ public class JsonGameStringFileWriterServiceTests
         JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
 
         // act
-        jsonGameStringFileWriterService.SerializeOnly();
+        await jsonGameStringFileWriterService.WriteBase();
 
         // assert
-        _serializedDataStoreService.Received(1).AddSerializedData(DataType.GameStrings, expectedBytes);
+        _ = _resultSummaryService.Received(1).GameStringFilesWritten;
+        _ = _resultSummaryService.Received(1).GameStringFilesTotal;
+        _serializedDataStoreService.ReceivedWithAnyArgs(2).AddSerializedData(default!, default!);
         _gameStringSerializerService.Received(1).ClearStoredGameStrings();
+        File.Exists(expectedFilePath).Should().BeTrue();
+    }
+
+    [TestMethod]
+    public async Task WriteBase_NoBuildNumber_CreatesJsonFile()
+    {
+        // arrange
+        RootOptions rootOptions = new()
+        {
+            OutputDirectory = Path.Combine("tests", nameof(WriteBase_NoBuildNumber_CreatesJsonFile)),
+            CurrentLocale = StormLocale.DEDE,
+            GameStringText = new GameStringTextOptions
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontStyles = false,
+                PreserveFont = new PreserveFontOptions
+                {
+                    PreserveFontStyleConstantVars = false,
+                    PreserveFontStyleVars = false,
+                },
+            },
+            HeroesVersion = new HeroesVersionOptions
+            {
+                Major = 2,
+                Minor = 23,
+                Revision = 2345,
+                Build = -1,
+                IsPtr = false,
+            },
+            AppVersion = "4.10.5",
+        };
+
+        _options.Value.Returns(rootOptions);
+
+        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "gamestrings", "gamestrings_0_dede.json");
+
+        byte[] expectedBytes = "test-base-data"u8.ToArray();
+        _gameStringSerializerService.SerializeGameStrings(default!, default!)
+            .ReturnsForAnyArgs(expectedBytes);
+
+        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
+
+        // act
+        await jsonGameStringFileWriterService.WriteBase();
+
+        // assert
+        _ = _resultSummaryService.Received(1).GameStringFilesWritten;
+        _ = _resultSummaryService.Received(1).GameStringFilesTotal;
+        _serializedDataStoreService.ReceivedWithAnyArgs(2).AddSerializedData(default!, default!);
+        _gameStringSerializerService.Received(1).ClearStoredGameStrings();
+        File.Exists(expectedFilePath).Should().BeTrue();
+    }
+
+    [TestMethod]
+    public async Task WriteMap_HasBuildNumber_CreatesJsonFile()
+    {
+        // arrange
+        RootOptions rootOptions = new()
+        {
+            OutputDirectory = Path.Combine("tests", nameof(WriteMap_HasBuildNumber_CreatesJsonFile)),
+            CurrentLocale = StormLocale.ENUS,
+            GameStringText = new GameStringTextOptions
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontStyles = false,
+                PreserveFont = new PreserveFontOptions
+                {
+                    PreserveFontStyleConstantVars = false,
+                    PreserveFontStyleVars = false,
+                },
+            },
+            HeroesVersion = new HeroesVersionOptions
+            {
+                Major = 2,
+                Minor = 23,
+                Revision = 2345,
+                Build = 34566,
+                IsPtr = false,
+            },
+            AppVersion = "5.0.0",
+        };
+
+        _options.Value.Returns(rootOptions);
+
+        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "gamestrings", $"gamestrings_mapdata_{rootOptions.BuildNumber}_enus.json");
+
+        byte[] expectedBytes = "test-serialized-data"u8.ToArray();
+        _gameStringSerializerService.SerializeGameStrings(default!, default!)
+            .ReturnsForAnyArgs(expectedBytes);
+
+        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
+
+        // act
+        await jsonGameStringFileWriterService.WriteMap();
+
+        // assert
+        _ = _resultSummaryService.Received(1).GameStringFilesWritten;
+        _ = _resultSummaryService.Received(1).GameStringFilesTotal;
+        _serializedDataStoreService.ReceivedWithAnyArgs(1).AddSerializedData(default!, default!);
+        _gameStringSerializerService.DidNotReceive().ClearStoredGameStrings();
+        File.Exists(expectedFilePath).Should().BeTrue();
+    }
+
+    [TestMethod]
+    public async Task WriteMap_NoBuildNumber_CreatesJsonFile()
+    {
+        // arrange
+        RootOptions rootOptions = new()
+        {
+            OutputDirectory = Path.Combine("tests", nameof(WriteMap_NoBuildNumber_CreatesJsonFile)),
+            CurrentLocale = StormLocale.DEDE,
+            GameStringText = new GameStringTextOptions
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontStyles = false,
+                PreserveFont = new PreserveFontOptions
+                {
+                    PreserveFontStyleConstantVars = false,
+                    PreserveFontStyleVars = false,
+                },
+            },
+            HeroesVersion = new HeroesVersionOptions
+            {
+                Major = 2,
+                Minor = 23,
+                Revision = 2345,
+                Build = -1,
+                IsPtr = false,
+            },
+            AppVersion = "4.10.5",
+        };
+
+        _options.Value.Returns(rootOptions);
+
+        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "gamestrings", "gamestrings_mapdata_0_dede.json");
+
+        byte[] expectedBytes = "test-map-data"u8.ToArray();
+        _gameStringSerializerService.SerializeGameStrings(default!, default!)
+            .ReturnsForAnyArgs(expectedBytes);
+
+        JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
+
+        // act
+        await jsonGameStringFileWriterService.WriteMap();
+
+        // assert
+        _ = _resultSummaryService.Received(1).GameStringFilesWritten;
+        _ = _resultSummaryService.Received(1).GameStringFilesTotal;
+        _serializedDataStoreService.ReceivedWithAnyArgs(1).AddSerializedData(default!, default!);
+        _gameStringSerializerService.DidNotReceive().ClearStoredGameStrings();
+        File.Exists(expectedFilePath).Should().BeTrue();
     }
 }
