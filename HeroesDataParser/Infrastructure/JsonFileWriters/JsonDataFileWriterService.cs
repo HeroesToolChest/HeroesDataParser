@@ -82,6 +82,7 @@ public class JsonDataFileWriterService : JsonFileWriterBase, IJsonDataFileWriter
         {
             Meta = new()
             {
+                ItemsType = ItemsType.Data,
                 DataType = dataType,
                 MapName = mapName,
                 LocalizedText = Options.LocalizedText,

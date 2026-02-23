@@ -2,6 +2,7 @@
   "meta": {
     "heroesVersion": "2.55.15.96477",
     "hdpVersion": "5.0.0",
+    "itemsType": "Data",
     "dataType": "AnnouncerData",
     "localizedText": "None",
     "gameStringText": {

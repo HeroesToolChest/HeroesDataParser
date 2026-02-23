@@ -85,6 +85,7 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
         {
             Meta = new()
             {
+                ItemsType = ItemsType.GameStrings,
                 DataTypes = dataTypes,
                 MapName = mapName,
                 HeroesVersion = Options.HeroesVersion.GetAsHeroesDataVersion(),

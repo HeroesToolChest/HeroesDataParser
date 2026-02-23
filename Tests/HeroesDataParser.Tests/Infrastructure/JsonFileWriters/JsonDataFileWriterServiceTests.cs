@@ -86,6 +86,7 @@ public class JsonDataFileWriterServiceTests
           "meta": {
             "heroesVersion": "2.23.2345.34566",
             "hdpVersion": "5.0.0",
+            "itemsType": "Data",
             "dataType": "HeroData",
             "localizedText": "None",
             "gameStringText": {
@@ -494,6 +495,7 @@ public class JsonDataFileWriterServiceTests
           "meta": {
             "heroesVersion": "2.23.2345.34566_ptr",
             "hdpVersion": "5.0.0",
+            "itemsType": "Data",
             "dataType": "HeroData",
             "localizedText": "None",
             "gameStringText": {
@@ -597,6 +599,7 @@ public class JsonDataFileWriterServiceTests
           "meta": {
             "heroesVersion": "2.23.2345.34566_ptr",
             "hdpVersion": "5.0.0",
+            "itemsType": "Data",
             "dataType": "HeroData",
             "localizedText": "Extract",
             "totalItems": 1
@@ -691,6 +694,7 @@ public class JsonDataFileWriterServiceTests
           "meta": {
             "heroesVersion": "2.23.2345.34566_ptr",
             "hdpVersion": "5.0.0",
+            "itemsType": "Data",
             "dataType": "HeroData",
             "localizedText": "Copy",
             "gameStringText": {
@@ -745,6 +749,7 @@ public class JsonDataFileWriterServiceTests
           "meta": {
             "heroesVersion": "2.23.2345.34566",
             "hdpVersion": "5.0.0",
+            "itemsType": "Data",
             "dataType": "HeroData",
             "mapName": "map name!_yes?",
             "localizedText": "None",
