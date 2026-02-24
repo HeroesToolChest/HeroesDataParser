@@ -43,14 +43,16 @@ public class JsonApplyServiceTests
     }
 
     [TestMethod]
-    public async Task ApplyJsonPatch_ValidJsonPatchFile_ReturnsError()
+    public async Task ApplyJsonPatch_ValidJsonDataPatchFile_ReturnsError()
     {
         // arrange
+        string outputDirectory = Path.Combine("TestOutput", "ApplyJsonPatch_ValidJsonDataPatchFile");
+
         _options.Value.Returns(new JsonApplyOptions()
         {
             JsonFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
             JsonPatchFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json"),
-            OutputDirectory = "TestOutput",
+            OutputDirectory = outputDirectory,
             GameStringText = new GameStringTextOptions()
             {
                 Type = GameStringTextType.RawText,
@@ -82,8 +84,56 @@ public class JsonApplyServiceTests
         // assert
         _console.Output.Should().Contain("JSON patch applied successfully");
 
-        string patchedText = File.ReadAllText(Path.Combine("TestOutput", "announcerdata_96477_enus.json"));
+        string patchedText = File.ReadAllText(Path.Combine(outputDirectory, "announcerdata_96477_enus.json"));
         string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "announcerdata_96477_enus_patched_map.json"));
+
+        patchedText.Should().BeEquivalentTo(comparedToText);
+    }
+
+    [TestMethod]
+    public async Task ApplyJsonPatch_ValidJsonGameStringPatchFile_ReturnsError()
+    {
+        string outputDirectory = Path.Combine("TestOutput", "ApplyJsonPatch_ValidJsonGameStringPatchFile");
+
+        // arrange
+        _options.Value.Returns(new JsonApplyOptions()
+        {
+            JsonFilePath = Path.Combine("TestJsonFiles", "gamestrings_96477_enus.json"),
+            JsonPatchFilePath = Path.Combine("TestJsonFiles", "gamestrings_96477_enus.patch.json"),
+            OutputDirectory = outputDirectory,
+            GameStringText = new GameStringTextOptions()
+            {
+                Type = GameStringTextType.RawText,
+            },
+        });
+
+        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(new JsonSerializerOptions()
+        {
+            WriteIndented = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            Converters =
+            {
+                new JsonStringEnumConverter(),
+                new DoubleRoundingConverter(),
+                new LinkIdConverter(),
+                new AbilityLinkIdConverter(),
+                new TalentLinkIdConverter(),
+                new HeroesDataVersionConverter(),
+            },
+        });
+
+        JsonApplyService jsonApplyService = new(_logger, _options, _console, _jsonSerializerOptionService);
+
+        // act
+        await jsonApplyService.ApplyJsonPatch();
+
+        // assert
+        _console.Output.Should().Contain("JSON patch applied successfully");
+
+        string patchedText = File.ReadAllText(Path.Combine(outputDirectory, "gamestrings_96477_enus.json"));
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "gamestrings_96477_enus_patched_map.json"));
 
         patchedText.Should().BeEquivalentTo(comparedToText);
     }
