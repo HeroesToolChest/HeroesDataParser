@@ -5,25 +5,21 @@ public class JsonSerializerOptionService : IJsonSerializerOptionService
     private readonly RootOptions _options;
     private readonly IGameStringSerializerService _gameStringSerializerService;
 
-    private readonly JsonSerializerOptions _generalJsonSerializerOptions;
-    private readonly JsonSerializerOptions _jsonSerializerDataOptions;
-    private readonly JsonSerializerOptions _jsonSerializerGameStringOptions;
-
     public JsonSerializerOptionService(IOptions<RootOptions> options, IGameStringSerializerService gameStringSerializerService)
     {
         _options = options.Value;
         _gameStringSerializerService = gameStringSerializerService;
 
-        _generalJsonSerializerOptions = GetGeneralJsonSerializerOptions();
-        _jsonSerializerDataOptions = GetJsonSerializerDataOptions();
-        _jsonSerializerGameStringOptions = GetJsonSerializerGameStringOptions();
+        GeneralJsonSerializerOptions = GetGeneralJsonSerializerOptions();
+        JsonSerializerDataOptions = GetJsonSerializerDataOptions();
+        JsonSerializerGameStringOptions = GetJsonSerializerGameStringOptions();
     }
 
-    public JsonSerializerOptions GeneralJsonSerializerOptions => _generalJsonSerializerOptions;
+    public JsonSerializerOptions GeneralJsonSerializerOptions { get; }
 
-    public JsonSerializerOptions JsonSerializerDataOptions => _jsonSerializerDataOptions;
+    public JsonSerializerOptions JsonSerializerDataOptions { get; }
 
-    public JsonSerializerOptions JsonSerializerGameStringOptions => _jsonSerializerGameStringOptions;
+    public JsonSerializerOptions JsonSerializerGameStringOptions { get; }
 
     private static JsonSerializerOptions GetGeneralJsonSerializerOptions()
     {
@@ -47,7 +43,7 @@ public class JsonSerializerOptionService : IJsonSerializerOptionService
 
     private JsonSerializerOptions GetJsonSerializerDataOptions()
     {
-        JsonSerializerOptions jsonSerializerOptions = new(_generalJsonSerializerOptions);
+        JsonSerializerOptions jsonSerializerOptions = new(GeneralJsonSerializerOptions);
 
         jsonSerializerOptions.Converters.Add(new GameStringTextConverter(gameStringTextType: _options.GameStringText.Type));
         jsonSerializerOptions.TypeInfoResolver = new HeroesElementResolver()
@@ -74,6 +70,7 @@ public class JsonSerializerOptionService : IJsonSerializerOptionService
                 new JsonStringEnumConverter(),
                 new GameStringTextConverter(gameStringTextType: _options.GameStringText.Type),
                 new HeroesDataVersionConverter(),
+                new GameStringItemDictionaryConverter(),
             },
         };
     }

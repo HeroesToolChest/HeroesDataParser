@@ -69,7 +69,7 @@ public class JsonGameStringFileWriterServiceTests
         JsonSerializerOptionService jsonSerializerOptionService = new(_options, _gameStringSerializerService);
 
         byte[] expectedBytes = "test-serialized-data"u8.ToArray();
-        _gameStringSerializerService.SerializeGameStrings(default!, default!)
+        _gameStringSerializerService.SerializeGameStrings(default!)
             .ReturnsForAnyArgs(expectedBytes);
 
         JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
@@ -126,7 +126,7 @@ public class JsonGameStringFileWriterServiceTests
         JsonSerializerOptionService jsonSerializerOptionService = new(_options, _gameStringSerializerService);
 
         byte[] expectedBytes = "test-serialized-data"u8.ToArray();
-        _gameStringSerializerService.SerializeGameStrings(default!, default!)
+        _gameStringSerializerService.SerializeGameStrings(default!)
             .ReturnsForAnyArgs(expectedBytes);
 
         JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
@@ -251,7 +251,7 @@ public class JsonGameStringFileWriterServiceTests
         string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "gamestrings", $"gamestrings_{rootOptions.BuildNumber}_enus.json");
 
         byte[] expectedBytes = "test-serialized-data"u8.ToArray();
-        _gameStringSerializerService.SerializeGameStrings(default!, default!)
+        _gameStringSerializerService.SerializeGameStrings(default!)
             .ReturnsForAnyArgs(expectedBytes);
 
         JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
@@ -301,7 +301,7 @@ public class JsonGameStringFileWriterServiceTests
         string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "gamestrings", "gamestrings_0_dede.json");
 
         byte[] expectedBytes = "test-base-data"u8.ToArray();
-        _gameStringSerializerService.SerializeGameStrings(default!, default!)
+        _gameStringSerializerService.SerializeGameStrings(default!)
             .ReturnsForAnyArgs(expectedBytes);
 
         JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
@@ -351,7 +351,7 @@ public class JsonGameStringFileWriterServiceTests
         string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "gamestrings", $"gamestrings_mapdata_{rootOptions.BuildNumber}_enus.json");
 
         byte[] expectedBytes = "test-serialized-data"u8.ToArray();
-        _gameStringSerializerService.SerializeGameStrings(default!, default!)
+        _gameStringSerializerService.SerializeGameStrings(default!)
             .ReturnsForAnyArgs(expectedBytes);
 
         JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
@@ -401,7 +401,7 @@ public class JsonGameStringFileWriterServiceTests
         string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "gamestrings", "gamestrings_mapdata_0_dede.json");
 
         byte[] expectedBytes = "test-map-data"u8.ToArray();
-        _gameStringSerializerService.SerializeGameStrings(default!, default!)
+        _gameStringSerializerService.SerializeGameStrings(default!)
             .ReturnsForAnyArgs(expectedBytes);
 
         JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
