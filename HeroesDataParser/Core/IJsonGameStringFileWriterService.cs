@@ -7,5 +7,4 @@ public interface IJsonGameStringFileWriterService
     Task WriteBase();
 
     Task WriteMap();
-
 }

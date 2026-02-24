@@ -11,10 +11,4 @@ public class GameStringConstants
     public const string StringCooldownColon = "e_gameUIStringCooldownColon";
     public const string AbilTooltipCooldownText = "UI/AbilTooltipCooldown";
     public const string AbilTooltipCooldownPluralText = "UI/AbilTooltipCooldownPlural";
-    //public const string MatchAwardMapSpecificInstanceNamePrefix = "UserData/EndOfMatchMapSpecificAward/";
-    //public const string HeroEnergyTypeManaText = "UI/HeroEnergyType/Mana";
-
-    //public const string DefaultHeroDifficulty = "Easy";
-
-    //public const string AbilMountLinkId = "Mount";
 }
