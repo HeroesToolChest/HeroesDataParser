@@ -95,34 +95,20 @@ public class JsonApplyService : IJsonApplyService
             Items = itemObjects,
         };
 
-        // get file name based on patch file
-        string outputFileName = Path.GetFileNameWithoutExtension(_options.JsonPatchFilePath.Replace(".patch", string.Empty)) + ".json";
-        string outputFilePath = Path.Combine(_options.OutputDirectory, outputFileName);
+        await using FileStream stream = File.Create(_options.OutputFilePath);
+        await JsonSerializer.SerializeAsync(stream, rootJsonElement, _jsonSerializerOptions);
 
-        Directory.CreateDirectory(_options.OutputDirectory);
-
-        await using var stream2 = File.Create(outputFilePath);
-        await JsonSerializer.SerializeAsync(stream2, rootJsonElement, _jsonSerializerOptions);
-
-        _logger.LogInformation("JSON patch applied successfully. Output saved to {OutputFilePath}", outputFilePath);
-        _console.MarkupLine($"[green]JSON patch applied successfully. Output saved to {outputFilePath}[/]");
+        DisplaySuccess();
     }
 
     private async Task CreateReserializedGameString(PatchResult result)
     {
         RootJsonGameStringElement? rootJsonGameStringElement = result.Result?.AsObject().Deserialize<RootJsonGameStringElement>(_jsonSerializerOptions);
 
-        // get file name based on patch file
-        string outputFileName = Path.GetFileNameWithoutExtension(_options.JsonPatchFilePath.Replace(".patch", string.Empty)) + ".json";
-        string outputFilePath = Path.Combine(_options.OutputDirectory, outputFileName);
+        await using FileStream stream = File.Create(_options.OutputFilePath);
+        await JsonSerializer.SerializeAsync(stream, rootJsonGameStringElement, _jsonSerializerOptions);
 
-        Directory.CreateDirectory(_options.OutputDirectory);
-
-        await using var stream2 = File.Create(outputFilePath);
-        await JsonSerializer.SerializeAsync(stream2, rootJsonGameStringElement, _jsonSerializerOptions);
-
-        _logger.LogInformation("JSON patch applied successfully. Output saved to {OutputFilePath}", outputFilePath);
-        _console.MarkupLine($"[green]JSON patch applied successfully. Output saved to {outputFilePath}[/]");
+        DisplaySuccess();
     }
 
     private JsonPatch? GetPatchFile()
@@ -207,5 +193,11 @@ public class JsonApplyService : IJsonApplyService
     private void DisplayJsonFailed()
     {
         _console.MarkupLine("[red]Not a valid JSON patch[/]");
+    }
+
+    private void DisplaySuccess()
+    {
+        _logger.LogInformation("JSON patch applied successfully. Output saved to {OutputFilePath}", _options.OutputFilePath);
+        _console.MarkupLine($"[green]JSON patch applied successfully. Output saved to {_options.OutputFilePath}[/]");
     }
 }

@@ -43,16 +43,16 @@ public class JsonApplyServiceTests
     }
 
     [TestMethod]
-    public async Task ApplyJsonPatch_ValidJsonDataPatchFile_ReturnsError()
+    public async Task ApplyJsonPatch_ValidJsonDataPatchFile_NewPatchedFileCreated()
     {
         // arrange
-        string outputDirectory = Path.Combine("TestOutput", "ApplyJsonPatch_ValidJsonDataPatchFile");
+        string outputFilePath = Path.Combine("TestOutput", "ApplyJsonPatch_ValidJsonDataPatchFile", "announcerdata_96477_enus.json");
 
         _options.Value.Returns(new JsonApplyOptions()
         {
             JsonFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
             JsonPatchFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json"),
-            OutputDirectory = outputDirectory,
+            OutputFilePath = outputFilePath,
             GameStringText = new GameStringTextOptions()
             {
                 Type = GameStringTextType.RawText,
@@ -84,23 +84,23 @@ public class JsonApplyServiceTests
         // assert
         _console.Output.Should().Contain("JSON patch applied successfully");
 
-        string patchedText = File.ReadAllText(Path.Combine(outputDirectory, "announcerdata_96477_enus.json"));
+        string patchedText = File.ReadAllText(outputFilePath);
         string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "announcerdata_96477_enus_patched_map.json"));
 
         patchedText.Should().BeEquivalentTo(comparedToText);
     }
 
     [TestMethod]
-    public async Task ApplyJsonPatch_ValidJsonGameStringPatchFile_ReturnsError()
+    public async Task ApplyJsonPatch_ValidJsonGameStringPatchFile__NewPatchedFileCreated()
     {
-        string outputDirectory = Path.Combine("TestOutput", "ApplyJsonPatch_ValidJsonGameStringPatchFile");
+        string outputFilePath = Path.Combine("TestOutput", "ApplyJsonPatch_ValidJsonGameStringPatchFile", "gamestrings_96477_enus.json");
 
         // arrange
         _options.Value.Returns(new JsonApplyOptions()
         {
             JsonFilePath = Path.Combine("TestJsonFiles", "gamestrings_96477_enus.json"),
             JsonPatchFilePath = Path.Combine("TestJsonFiles", "gamestrings_96477_enus.patch.json"),
-            OutputDirectory = outputDirectory,
+            OutputFilePath = outputFilePath,
             GameStringText = new GameStringTextOptions()
             {
                 Type = GameStringTextType.RawText,
@@ -132,7 +132,7 @@ public class JsonApplyServiceTests
         // assert
         _console.Output.Should().Contain("JSON patch applied successfully");
 
-        string patchedText = File.ReadAllText(Path.Combine(outputDirectory, "gamestrings_96477_enus.json"));
+        string patchedText = File.ReadAllText(outputFilePath);
         string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "gamestrings_96477_enus_patched_map.json"));
 
         patchedText.Should().BeEquivalentTo(comparedToText);

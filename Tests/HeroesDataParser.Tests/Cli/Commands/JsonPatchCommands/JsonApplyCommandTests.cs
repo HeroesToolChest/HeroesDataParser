@@ -92,7 +92,7 @@ public class JsonApplyCommandTests
     }
 
     [TestMethod]
-    public async Task JsonApplyCommand_HasDefaultOutputDirectory_ReturnsError()
+    public async Task JsonApplyCommand_SameOutputDirectoryNoOverwrite_ReturnsError()
     {
         // arrange
         JsonApplyOptions jsonApplyOptions = new();
@@ -111,15 +111,41 @@ public class JsonApplyCommandTests
         TestContext.CancellationToken);
 
         // assert
+        result.ExitCode.Should().Be(1);
+        result.Output.Should().Contain("already exists and overwrite is not");
+    }
+
+    [TestMethod]
+    public async Task JsonApplyCommand_HasDefaultOutputDirectoryWithOverwrite_ReturnsSuccess()
+    {
+        // arrange
+        JsonApplyOptions jsonApplyOptions = new();
+        _options.Value.Returns(jsonApplyOptions);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<JsonApplyCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"), Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json"),
+            "--overwrite",
+        ],
+        TestContext.CancellationToken);
+
+        // assert
         await AssertCommandSuccessful(result);
 
         jsonApplyOptions.JsonFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json")));
         jsonApplyOptions.JsonPatchFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json")));
         jsonApplyOptions.OutputDirectory.Should().Be(Path.GetFullPath("TestJsonFiles"));
+        jsonApplyOptions.OutputFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json")));
     }
 
     [TestMethod]
-    public async Task JsonApplyCommand_HasOutputDirectory_ReturnsError()
+    public async Task JsonApplyCommand_HasOutputDirectory_ReturnsSuccess()
     {
         // arrange
         JsonApplyOptions jsonApplyOptions = new();

@@ -5,7 +5,7 @@ namespace HeroesDataParser.Cli.Settings.JsonPatchSettings;
 public class JsonApplySettings : JsonPatchSettings
 {
     [CommandArgument(0, "<file-path>")]
-    [Description("The path of the json file to be patched")]
+    [Description("The path of the original json file")]
     public FileInfo FilePath { get; init; } = null!;
 
     [CommandArgument(1, "<patch-file-path>")]
@@ -13,8 +13,13 @@ public class JsonApplySettings : JsonPatchSettings
     public FileInfo PatchFilePath { get; init; } = null!;
 
     [CommandOption("-o|--output-path <PATH>")]
-    [Description("The path of the output directory (defaults to the patch file directory)")]
+    [Description("The path of the output directory where the new file will be created (defaults to the patch file directory)")]
     public DirectoryInfo? OutputDirectory { get; init; }
+
+    [CommandOption("--overwrite")]
+    [Description("Allow the created file to override an existing file")]
+    [DefaultValue(false)]
+    public bool Overwrite { get; init; }
 
     public override ValidationResult Validate()
     {

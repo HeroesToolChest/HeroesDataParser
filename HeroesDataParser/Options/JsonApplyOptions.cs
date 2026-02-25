@@ -6,9 +6,11 @@ public class JsonApplyOptions
 
     public string JsonPatchFilePath { get; set; } = string.Empty;
 
-    public JsonFileType JsonFileType { get; set; } = JsonFileType.None;
-
     public string OutputDirectory { get; set; } = string.Empty;
+
+    public string OutputFilePath { get; set; } = string.Empty;
+
+    public bool AllowOverwrite { get; set; }
 
     public GameStringTextOptions GameStringText { get; set; } = new();
 
