@@ -58,7 +58,7 @@ try
             jsonPatch.SetDescription("Perform json patching");
 
             jsonPatch.AddCommand<JsonApplyCommand>("apply")
-                .WithDescription("Apply a json patch file to a json file");
+                .WithDescription("Create a new file that is patched from an existing json file");
         });
     });
 
@@ -78,7 +78,7 @@ catch (Exception ex)
     AnsiConsole.WriteLine("An application error occured. Check logs for more details.");
     AnsiConsole.WriteException(ex);
 
-    exitCode = -1;
+    exitCode = 1;
 }
 finally
 {

@@ -51,19 +51,9 @@ public class JsonApplyService : IJsonApplyService
             return;
         }
 
-        if (itemsType == ItemsType.Data)
-        {
-            await CreateReserializedData(result);
-        }
-        else if (itemsType == ItemsType.GameStrings)
-        {
-            await CreateReserializedGameString(result);
-        }
-        else
-        {
-            _logger.LogError("Unsupported itemsType: {ItemsType}", itemsType);
-            _console.MarkupLine($"[red]Unsupported itemsType: {itemsType}[/]");
-        }
+        await ApplyPatch(itemsType.Value, result);
+
+        DeletePatchFile();
     }
 
     private async Task CreateReserializedData(PatchResult result)
@@ -179,6 +169,41 @@ public class JsonApplyService : IJsonApplyService
         }
 
         return itemsType;
+    }
+
+    private async Task ApplyPatch(ItemsType itemsType, PatchResult result)
+    {
+        if (itemsType == ItemsType.Data)
+        {
+            await CreateReserializedData(result);
+        }
+        else if (itemsType == ItemsType.GameStrings)
+        {
+            await CreateReserializedGameString(result);
+        }
+        else
+        {
+            _logger.LogError("Unsupported itemsType: {ItemsType}", itemsType);
+            _console.MarkupLine($"[red]Unsupported itemsType: {itemsType}[/]");
+        }
+    }
+
+    private void DeletePatchFile()
+    {
+        if (_options.DeletePatchFile)
+        {
+            try
+            {
+                File.Delete(_options.JsonPatchFilePath);
+                _logger.LogInformation("Deleted JSON patch file at {PatchFilePath}", _options.JsonPatchFilePath);
+                _console.MarkupLine($"[green]Deleted JSON patch file at {_options.JsonPatchFilePath}[/]");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to delete JSON patch file at {PatchFilePath}", _options.JsonPatchFilePath);
+                _console.MarkupLine($"[red]Failed to delete JSON patch file at {_options.JsonPatchFilePath}[/]");
+            }
+        }
     }
 
     private Type GetElementType()

@@ -22,20 +22,22 @@ public class JsonApplyCommand : AsyncCommand<JsonApplySettings>
         _options.JsonFilePath = settings.FilePath.FullName;
         _options.JsonPatchFilePath = settings.PatchFilePath.FullName;
 
+        string outputDirectory;
         if (settings.OutputDirectory is null)
-            _options.OutputDirectory = settings.PatchFilePath.DirectoryName ?? ".";
+            outputDirectory = settings.PatchFilePath.DirectoryName ?? ".";
         else
-            _options.OutputDirectory = settings.OutputDirectory.FullName;
+            outputDirectory = settings.OutputDirectory.FullName;
 
-        _options.OutputFilePath = GetOutputFilePath();
+        _options.OutputFilePath = GetOutputFilePath(outputDirectory);
         _options.AllowOverwrite = settings.Overwrite;
+        _options.DeletePatchFile = settings.DeletePatchFile;
 
         if (!_options.AllowOverwrite)
         {
             if (File.Exists(_options.OutputFilePath))
             {
                 _logger.LogError("Output file already exists and overwrite is not allowed: {OutputFilePath}", _options.OutputFilePath);
-                _console.MarkupLine($"[red]Output file already exists and overwrite is not allowed: {_options.OutputFilePath}[/]");
+                _console.MarkupLine($"[red]Output file already exists: {_options.OutputFilePath}[/]");
                 return 1;
             }
         }
@@ -45,13 +47,13 @@ public class JsonApplyCommand : AsyncCommand<JsonApplySettings>
         return 0;
     }
 
-    private string GetOutputFilePath()
+    private string GetOutputFilePath(string outputDirectory)
     {
         // get file name based on patch file
         string outputFileName = Path.GetFileNameWithoutExtension(_options.JsonPatchFilePath.Replace(".patch", string.Empty)) + ".json";
-        string outputFilePath = Path.Combine(_options.OutputDirectory, outputFileName);
+        string outputFilePath = Path.Combine(outputDirectory, outputFileName);
 
-        Directory.CreateDirectory(_options.OutputDirectory);
+        Directory.CreateDirectory(outputDirectory);
 
         return outputFilePath;
     }

@@ -112,7 +112,7 @@ public class JsonApplyCommandTests
 
         // assert
         result.ExitCode.Should().Be(1);
-        result.Output.Should().Contain("already exists and overwrite is not");
+        result.Output.Should().Contain("already exists");
     }
 
     [TestMethod]
@@ -140,8 +140,8 @@ public class JsonApplyCommandTests
 
         jsonApplyOptions.JsonFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json")));
         jsonApplyOptions.JsonPatchFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json")));
-        jsonApplyOptions.OutputDirectory.Should().Be(Path.GetFullPath("TestJsonFiles"));
         jsonApplyOptions.OutputFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json")));
+        jsonApplyOptions.DeletePatchFile.Should().BeFalse();
     }
 
     [TestMethod]
@@ -169,7 +169,34 @@ public class JsonApplyCommandTests
 
         jsonApplyOptions.JsonFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json")));
         jsonApplyOptions.JsonPatchFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json")));
-        jsonApplyOptions.OutputDirectory.Should().Be(Path.GetFullPath("TestXmlFiles"));
+        jsonApplyOptions.OutputFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestXmlFiles", "announcerdata_96477_enus.json")));
+    }
+
+    [TestMethod]
+    public async Task JsonApplyCommand_DeletePatchFile_ReturnsSuccess()
+    {
+        // arrange
+        JsonApplyOptions jsonApplyOptions = new();
+        _options.Value.Returns(jsonApplyOptions);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<JsonApplyCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"), Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json"),
+            "-o", "TestXmlFiles",
+            "--delete-patch-file",
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        await AssertCommandSuccessful(result);
+
+        jsonApplyOptions.DeletePatchFile.Should().BeTrue();
     }
 
     private ServiceCollection GetServiceCollection()

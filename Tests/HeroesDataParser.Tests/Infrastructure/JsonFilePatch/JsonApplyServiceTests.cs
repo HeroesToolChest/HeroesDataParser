@@ -24,7 +24,6 @@ public class JsonApplyServiceTests
         {
             JsonFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
             JsonPatchFilePath = Path.Combine("TestJsonFiles", "invalid_patch.json"),
-            OutputDirectory = "TestOutput",
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(new JsonSerializerOptions()
@@ -91,20 +90,21 @@ public class JsonApplyServiceTests
     }
 
     [TestMethod]
-    public async Task ApplyJsonPatch_ValidJsonGameStringPatchFile__NewPatchedFileCreated()
+    public async Task ApplyJsonPatch_ValidJsonGameStringPatchFile_NewPatchedFileCreated()
     {
-        string outputFilePath = Path.Combine("TestOutput", "ApplyJsonPatch_ValidJsonGameStringPatchFile", "gamestrings_96477_enus.json");
-
         // arrange
+        string outputFilePath = Path.Combine("TestOutput", "ApplyJsonPatch_ValidJsonGameStringPatchFile", "gamestrings_96477_enus.json");
+        string patchFilePath = Path.Combine("TestJsonFiles", "gamestrings_96477_enus.patch.json");
         _options.Value.Returns(new JsonApplyOptions()
         {
             JsonFilePath = Path.Combine("TestJsonFiles", "gamestrings_96477_enus.json"),
-            JsonPatchFilePath = Path.Combine("TestJsonFiles", "gamestrings_96477_enus.patch.json"),
+            JsonPatchFilePath = patchFilePath,
             OutputFilePath = outputFilePath,
             GameStringText = new GameStringTextOptions()
             {
                 Type = GameStringTextType.RawText,
             },
+            DeletePatchFile = false,
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(new JsonSerializerOptions()
@@ -136,5 +136,63 @@ public class JsonApplyServiceTests
         string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "gamestrings_96477_enus_patched_map.json"));
 
         patchedText.Should().BeEquivalentTo(comparedToText);
+
+        File.Exists(patchFilePath).Should().BeTrue();
+    }
+
+    [TestMethod]
+    public async Task ApplyJsonPatch_DeletePatchFile_PatchFileDeleted()
+    {
+        // arrange
+        string testOuputDirectory = Path.Combine("TestOutput", "ApplyJsonPatch_DeletePatchFile");
+        string clonedPatchFilePath = Path.Combine(testOuputDirectory, "gamestrings_96477_enus.patch.json");
+        string outputFilePath = Path.Combine(testOuputDirectory, "gamestrings_96477_enus.json");
+
+        string patchFileContent = File.ReadAllText(Path.Combine("TestJsonFiles", "gamestrings_96477_enus.patch.json"));
+        Directory.CreateDirectory(testOuputDirectory);
+        using (StreamWriter streamWriter = File.CreateText(clonedPatchFilePath))
+        {
+            streamWriter.Write(patchFileContent);
+        }
+
+        _options.Value.Returns(new JsonApplyOptions()
+        {
+            JsonFilePath = Path.Combine("TestJsonFiles", "gamestrings_96477_enus.json"),
+            JsonPatchFilePath = clonedPatchFilePath,
+            OutputFilePath = outputFilePath,
+            GameStringText = new GameStringTextOptions()
+            {
+                Type = GameStringTextType.RawText,
+            },
+            DeletePatchFile = true,
+        });
+
+        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(new JsonSerializerOptions()
+        {
+            WriteIndented = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            Converters =
+            {
+                new JsonStringEnumConverter(),
+                new DoubleRoundingConverter(),
+                new LinkIdConverter(),
+                new AbilityLinkIdConverter(),
+                new TalentLinkIdConverter(),
+                new HeroesDataVersionConverter(),
+            },
+        });
+
+        JsonApplyService jsonApplyService = new(_logger, _options, _console, _jsonSerializerOptionService);
+
+        // act
+        await jsonApplyService.ApplyJsonPatch();
+
+        // assert
+        _console.Output.Should().Contain("JSON patch applied successfully")
+            .And.Contain("Deleted JSON patch file");
+
+        File.Exists(clonedPatchFilePath).Should().BeFalse();
     }
 }

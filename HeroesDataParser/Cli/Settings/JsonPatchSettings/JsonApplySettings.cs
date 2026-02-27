@@ -21,6 +21,11 @@ public class JsonApplySettings : JsonPatchSettings
     [DefaultValue(false)]
     public bool Overwrite { get; init; }
 
+    [CommandOption("--delete-patch-file")]
+    [Description("Delete the patch file after applying it")]
+    [DefaultValue(false)]
+    public bool DeletePatchFile { get; init; }
+
     public override ValidationResult Validate()
     {
         if (!FilePath.Exists)
