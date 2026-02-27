@@ -7,7 +7,7 @@ public interface IGameStringSerializerService
     /// </summary>
     GameStringItemDictionary DataGameStringItemDictionary { get; }
 
-    byte[] SerializeGameStrings(MetaGameStringProperties metaGameStringProperties);
+    byte[] SerializeGameStrings(MetaGameStringProperties metaGameStringProperties, JsonSerializerOptions jsonSerializerOptions);
 
     void ClearStoredGameStrings();
 }

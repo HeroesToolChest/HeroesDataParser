@@ -24,7 +24,7 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
         RootGameStrings rootGameStrings = GetRootGameStrings(dataTypes, mapName);
 
         // get the current extracted gamestrings
-        byte[] bytes = _gameStringSerializerService.SerializeGameStrings(rootGameStrings.Meta);
+        byte[] bytes = _gameStringSerializerService.SerializeGameStrings(rootGameStrings.Meta, JsonSerializerOptionService.JsonSerializerGameStringOptions);
 
         Span<char> buffer = stackalloc char[mapName!.Length];
         int length = NormalizeMapDirectoryName(buffer, mapName);
@@ -43,7 +43,7 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
         RootGameStrings rootGameStrings = GetRootGameStrings(dataTypes);
 
         // get the current extracted gamestrings
-        byte[] bytes = _gameStringSerializerService.SerializeGameStrings(rootGameStrings.Meta);
+        byte[] bytes = _gameStringSerializerService.SerializeGameStrings(rootGameStrings.Meta, JsonSerializerOptionService.JsonSerializerGameStringOptions);
 
         // add to store service, so the map specific writer can create a patch with the base gamestrings if needed
         SerializedDataStoreService.AddSerializedData(DataType.GameStrings, bytes);
@@ -61,7 +61,7 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
         RootGameStrings rootGameStrings = GetRootGameStrings(dataTypes);
 
         // get the current extracted gamestrings (should only be for mapdata)
-        byte[] bytes = _gameStringSerializerService.SerializeGameStrings(rootGameStrings.Meta);
+        byte[] bytes = _gameStringSerializerService.SerializeGameStrings(rootGameStrings.Meta, JsonSerializerOptionService.JsonSerializerGameStringOptions);
 
         string fileName = GetFileName($"{DataType.GameStrings}_{DataType.MapData}", false);
         string filePath = GetFilePath(Constants.JsonGameStringsDirectory, fileName);

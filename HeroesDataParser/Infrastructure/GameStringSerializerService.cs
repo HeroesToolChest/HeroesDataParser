@@ -3,19 +3,18 @@
 public class GameStringSerializerService : IGameStringSerializerService
 {
     private readonly ILogger<GameStringSerializerService> _logger;
-    private readonly IJsonSerializerOptionService _jsonSerializerOptionService;
 
-    public GameStringSerializerService(ILogger<GameStringSerializerService> logger, IJsonSerializerOptionService jsonSerializerOptionService)
+    public GameStringSerializerService(ILogger<GameStringSerializerService> logger)
     {
         _logger = logger;
-        _jsonSerializerOptionService = jsonSerializerOptionService;
     }
 
     public GameStringItemDictionary DataGameStringItemDictionary { get; } = [];
 
     // along with the meta properties, serialize the game strings stored in the GameStringItemDictionary
     // this method does not clear the dictionary after serialization
-    public byte[] SerializeGameStrings(MetaGameStringProperties metaGameStringProperties)
+    // param JsonSerializerOptions is not DI because it would be circular dependency with JsonSerializerOptionService
+    public byte[] SerializeGameStrings(MetaGameStringProperties metaGameStringProperties, JsonSerializerOptions jsonSerializerOptions)
     {
         RootJsonGameStringElement rootJsonGameStringElement = new()
         {
@@ -23,7 +22,7 @@ public class GameStringSerializerService : IGameStringSerializerService
             Items = DataGameStringItemDictionary,
         };
 
-        return JsonSerializer.SerializeToUtf8Bytes(rootJsonGameStringElement, _jsonSerializerOptionService.JsonSerializerGameStringOptions);
+        return JsonSerializer.SerializeToUtf8Bytes(rootJsonGameStringElement, jsonSerializerOptions);
     }
 
     public void ClearStoredGameStrings()

@@ -4,12 +4,10 @@
 public class GameStringSerializerServiceTests
 {
     private readonly ILogger<GameStringSerializerService> _logger;
-    private readonly IJsonSerializerOptionService _jsonSerializerOptionService;
 
     public GameStringSerializerServiceTests()
     {
         _logger = Substitute.For<ILogger<GameStringSerializerService>>();
-        _jsonSerializerOptionService = Substitute.For<IJsonSerializerOptionService>();
     }
 
     [TestMethod]
@@ -22,7 +20,10 @@ public class GameStringSerializerServiceTests
             HdpVersion = "5.0.0",
         };
 
-        _jsonSerializerOptionService.JsonSerializerGameStringOptions.Returns(new JsonSerializerOptions
+        GameStringSerializerService service = new(_logger);
+
+        // act
+        byte[] result = service.SerializeGameStrings(metaProperties, new JsonSerializerOptions
         {
             WriteIndented = true,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -34,11 +35,6 @@ public class GameStringSerializerServiceTests
                 new HeroesDataVersionConverter(),
             },
         });
-
-        GameStringSerializerService service = new(_logger, _jsonSerializerOptionService);
-
-        // act
-        byte[] result = service.SerializeGameStrings(metaProperties);
 
         // assert
         string json = System.Text.Encoding.UTF8.GetString(result);
@@ -67,7 +63,7 @@ public class GameStringSerializerServiceTests
     public void SerializeGameStrings_WithPopulatedDictionary_ReturnsJsonWithGameStringData()
     {
         // arrange
-        GameStringSerializerService service = new(_logger, _jsonSerializerOptionService);
+        GameStringSerializerService service = new(_logger);
 
         GameStringFilePropertyId propertyId = new();
         propertyId.KeyValuePairs["HeroAbathur"] = new GameStringText("Abathur");
@@ -83,7 +79,8 @@ public class GameStringSerializerServiceTests
             HdpVersion = "5.0.0",
         };
 
-        _jsonSerializerOptionService.JsonSerializerGameStringOptions.Returns(new JsonSerializerOptions
+        // act
+        byte[] result = service.SerializeGameStrings(metaProperties, new JsonSerializerOptions
         {
             WriteIndented = true,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -97,9 +94,6 @@ public class GameStringSerializerServiceTests
                 new GameStringItemDictionaryConverter(),
             },
         });
-
-        // act
-        byte[] result = service.SerializeGameStrings(metaProperties);
 
         // assert
         string json = System.Text.Encoding.UTF8.GetString(result);
@@ -134,7 +128,7 @@ public class GameStringSerializerServiceTests
     public void SerializeGameStrings_DoesNotClearDictionaryAfterSerialization_DictionaryRetainsData()
     {
         // arrange
-        GameStringSerializerService service = new(_logger, _jsonSerializerOptionService);
+        GameStringSerializerService service = new(_logger);
 
         GameStringFilePropertyId propertyId = new();
         propertyId.KeyValuePairs["HeroAbathur"] = new GameStringText("Abathur");
@@ -150,7 +144,8 @@ public class GameStringSerializerServiceTests
             HdpVersion = "5.0.0",
         };
 
-        _jsonSerializerOptionService.JsonSerializerGameStringOptions.Returns(new JsonSerializerOptions
+        // act
+        service.SerializeGameStrings(metaProperties, new JsonSerializerOptions
         {
             WriteIndented = true,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -165,9 +160,6 @@ public class GameStringSerializerServiceTests
             },
         });
 
-        // act
-        service.SerializeGameStrings(metaProperties);
-
         // assert
         service.DataGameStringItemDictionary.Should().NotBeEmpty();
         service.DataGameStringItemDictionary.Should().ContainKey("hero");
@@ -177,7 +169,7 @@ public class GameStringSerializerServiceTests
     public void ClearStoredGameStrings_WithPopulatedDictionary_ClearsDictionary()
     {
         // arrange
-        GameStringSerializerService service = new(_logger, _jsonSerializerOptionService);
+        GameStringSerializerService service = new(_logger);
 
         GameStringFilePropertyId propertyId = new();
         propertyId.KeyValuePairs["HeroAbathur"] = new GameStringText("Abathur");
@@ -198,7 +190,7 @@ public class GameStringSerializerServiceTests
     public void ClearStoredGameStrings_WithEmptyDictionary_RemainsEmpty()
     {
         // arrange
-        GameStringSerializerService service = new(_logger, _jsonSerializerOptionService);
+        GameStringSerializerService service = new(_logger);
 
         // act
         service.ClearStoredGameStrings();
