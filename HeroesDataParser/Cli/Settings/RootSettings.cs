@@ -123,8 +123,8 @@ public class RootSettings : CommandSettings
         if (Threads == 0 || Threads < -1)
             return ValidationResult.Error("--threads must be -1 or a positive integer");
 
-        if (OutputDirectory is not null && !OutputDirectory.Exists)
-            return ValidationResult.Error("The provided --output-path does not exist");
+        if (OutputDirectory is not null && File.Exists(OutputDirectory.FullName))
+            return ValidationResult.Error("The provided --output-path is an existing file and not a directory");
 
         return ValidationResult.Success();
     }

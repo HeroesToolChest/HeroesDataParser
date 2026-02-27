@@ -57,8 +57,8 @@ public class CASCExtractSettings : CommandSettings
 
         foreach (string directory in Directories)
         {
-            if (Path.HasExtension(directory))
-                return ValidationResult.Error($"--directory {directory} must be a directory path, not a file");
+            if (File.Exists(directory))
+                return ValidationResult.Error($"--directory {directory} must be a directory path, not an existing file");
 
             ReadOnlySpan<char> rootSegment = directory.AsSpan()
                 .TrimStart(Path.DirectorySeparatorChar)
@@ -75,8 +75,8 @@ public class CASCExtractSettings : CommandSettings
         if (Threads == 0 || Threads < -1)
             return ValidationResult.Error("--threads must be -1 or a positive integer");
 
-        if (OutputDirectory is not null && !OutputDirectory.Exists)
-            return ValidationResult.Error("The provided --output-path does not exist");
+        if (OutputDirectory is not null && File.Exists(OutputDirectory.FullName))
+            return ValidationResult.Error("The provided --output-path is an existing file and not a directory");
 
         return ValidationResult.Success();
     }

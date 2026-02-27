@@ -73,7 +73,7 @@ public class JsonApplyCommandTests
     }
 
     [TestMethod]
-    public void JsonApplyCommand_InvalidOutputDirectory_ReturnsError()
+    public void JsonApplyCommand_utputDirectoryIsExistingFile_ReturnsError()
     {
         // arrange
         CommandAppTester app = new();
@@ -83,12 +83,12 @@ public class JsonApplyCommandTests
         CommandAppResult result = app.Run(
         [
             Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"), Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json"),
-            "--output-path", "nonexistent_directory",
+            "--output-path", Path.Join("TestJsonFiles", "announcerdata_96477_enus.json"),
         ]);
 
         // assert
         result.ExitCode.Should().Be(-1);
-        result.Output.Should().Contain("--output-path does not exist");
+        result.Output.Should().Contain("is an existing file and not a directory");
     }
 
     [TestMethod]

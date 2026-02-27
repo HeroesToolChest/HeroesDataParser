@@ -134,7 +134,6 @@ public class CASCExtractCommandTests
     [DataRow("core", "first directory must be 'mods'")]
     [DataRow("mods_234", "first directory must be 'mods'")]
     [DataRow("modsmods", "first directory must be 'mods'")]
-    [DataRow("mods.xml", "must be a directory path")]
     public void CASCExtractCommand_InvalidDirectoryOption_ReturnsError(string directory, string errorMessage)
     {
         // arrange
@@ -178,7 +177,7 @@ public class CASCExtractCommandTests
     }
 
     [TestMethod]
-    public void CASCExtractCommand_OutputDirectoryDoesNotExists_ReturnsError()
+    public void CASCExtractCommand_OutputDirectoryIsAnExistingFile_ReturnsError()
     {
         // arrange
         CommandAppTester app = new();
@@ -190,12 +189,12 @@ public class CASCExtractCommandTests
             "game",
             "-p", "TestXmlFiles",
             "-d", "mods",
-            "-o", "aaa"
+            "-o", Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json")
         ]);
 
         // assert
         result.ExitCode.Should().Be(-1);
-        result.Output.Should().Contain("--output-path does not exist");
+        result.Output.Should().Contain("is an existing file and not a directory");
     }
 
     [TestMethod]

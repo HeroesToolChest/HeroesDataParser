@@ -34,8 +34,8 @@ public class JsonApplySettings : JsonPatchSettings
         if (!PatchFilePath.Exists)
             return ValidationResult.Error("The provided <patch-file-path> does not exist");
 
-        if (OutputDirectory is not null && !OutputDirectory.Exists)
-            return ValidationResult.Error("The provided --output-path does not exist");
+        if (OutputDirectory is not null && File.Exists(OutputDirectory.FullName))
+            return ValidationResult.Error("The provided --output-path is an existing file and not a directory");
 
         return ValidationResult.Success();
     }
