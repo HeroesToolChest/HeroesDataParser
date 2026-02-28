@@ -207,7 +207,7 @@ public abstract class JsonFileWriterBase
         }
         else
         {
-            Console.WriteLine($"No changes found for {dataType}");
+            Console.WriteLine($"No changes found for {dataType.ToString().ToLowerInvariant()} patch file");
         }
     }
 }
