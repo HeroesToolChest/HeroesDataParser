@@ -1,4 +1,6 @@
-﻿namespace HeroesDataParser.Infrastructure.JsonFilePatch.Tests;
+﻿using HeroesDataParser.Options.JsonFilePatchOptions;
+
+namespace HeroesDataParser.Infrastructure.JsonFilePatch.Tests;
 
 [TestClass]
 public class JsonApplyServiceTests
@@ -52,10 +54,6 @@ public class JsonApplyServiceTests
             JsonFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
             JsonPatchFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json"),
             OutputFilePath = outputFilePath,
-            GameStringText = new GameStringTextOptions()
-            {
-                Type = GameStringTextType.RawText,
-            },
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(new JsonSerializerOptions()
@@ -100,10 +98,6 @@ public class JsonApplyServiceTests
             JsonFilePath = Path.Combine("TestJsonFiles", "gamestrings_96477_enus.json"),
             JsonPatchFilePath = patchFilePath,
             OutputFilePath = outputFilePath,
-            GameStringText = new GameStringTextOptions()
-            {
-                Type = GameStringTextType.RawText,
-            },
             DeletePatchFile = false,
         });
 
@@ -160,10 +154,6 @@ public class JsonApplyServiceTests
             JsonFilePath = Path.Combine("TestJsonFiles", "gamestrings_96477_enus.json"),
             JsonPatchFilePath = clonedPatchFilePath,
             OutputFilePath = outputFilePath,
-            GameStringText = new GameStringTextOptions()
-            {
-                Type = GameStringTextType.RawText,
-            },
             DeletePatchFile = true,
         });
 

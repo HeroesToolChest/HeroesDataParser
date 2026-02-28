@@ -1,4 +1,6 @@
-﻿namespace HeroesDataParser.Infrastructure.JsonFilePatch.Tests;
+﻿using HeroesDataParser.Options.JsonFilePatchOptions;
+
+namespace HeroesDataParser.Infrastructure.JsonFilePatch.Tests;
 
 [TestClass]
 public class JsonCreateServiceTests

@@ -22,7 +22,7 @@ public class JsonApplyService : IJsonApplyService
         _console = console;
         _jsonSerializerOptionService = jsonSerializerOptionService;
         _jsonSerializerOptions = new(_jsonSerializerOptionService.GeneralJsonSerializerOptions);
-        _jsonSerializerOptions.Converters.Add(new GameStringTextConverter(gameStringTextType: _options.GameStringText.Type));
+        _jsonSerializerOptions.Converters.Add(new GameStringTextConverter(gameStringTextType: GameStringTextType.RawText));
         _jsonSerializerOptions.Converters.Add(new GameStringItemDictionaryConverter());
     }
 
