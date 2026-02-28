@@ -1,6 +1,6 @@
 ﻿using Heroes.Element;
 
-namespace HeroesDataParser.Infrastructure.JsonFilePatch;
+namespace HeroesDataParser.Infrastructure.JsonFilePatchCommands;
 
 public class JsonApplyService : IJsonApplyService
 {

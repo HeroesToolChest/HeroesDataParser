@@ -48,7 +48,7 @@ public class JsonCreateCommand : AsyncCommand<JsonCreateSettings>
 
     private string GetOutputFilePath(string outputDirectory)
     {
-        // get file name based on patch file
+        // get file name based on new file
         ReadOnlySpan<char> fileName = Path.GetFileNameWithoutExtension(_options.NewJsonFilePath.AsSpan());
         if (fileName.EndsWith(".patch", StringComparison.OrdinalIgnoreCase))
         {

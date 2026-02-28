@@ -1,6 +1,6 @@
 ﻿using HeroesDataParser.Options.JsonFilePatchOptions;
 
-namespace HeroesDataParser.Infrastructure.JsonFilePatch.Tests;
+namespace HeroesDataParser.Infrastructure.JsonFilePatchCommands.Tests;
 
 [TestClass]
 public class JsonApplyServiceTests

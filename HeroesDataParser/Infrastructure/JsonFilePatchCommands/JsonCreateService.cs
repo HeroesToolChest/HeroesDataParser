@@ -1,4 +1,4 @@
-﻿namespace HeroesDataParser.Infrastructure.JsonFilePatch;
+﻿namespace HeroesDataParser.Infrastructure.JsonFilePatchCommands;
 
 public class JsonCreateService : IJsonCreateService
 {
