@@ -50,11 +50,14 @@ public class JsonApplyCommand : AsyncCommand<JsonApplySettings>
     private string GetOutputFilePath(string outputDirectory)
     {
         // get file name based on patch file
-        string outputFileName = Path.GetFileNameWithoutExtension(_options.JsonPatchFilePath.Replace(".patch", string.Empty)) + ".json";
-        string outputFilePath = Path.Combine(outputDirectory, outputFileName);
+        ReadOnlySpan<char> fileName = Path.GetFileNameWithoutExtension(_options.JsonPatchFilePath.AsSpan());
+        if (fileName.EndsWith(".patch", StringComparison.OrdinalIgnoreCase))
+        {
+            fileName = fileName[..^".patch".Length];
+        }
 
-        Directory.CreateDirectory(outputDirectory);
+        string outputFileName = $"{fileName}.json";
 
-        return outputFilePath;
+        return Path.Combine(outputDirectory, outputFileName);
     }
 }

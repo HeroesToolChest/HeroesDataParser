@@ -73,7 +73,7 @@ public class JsonApplyCommandTests
     }
 
     [TestMethod]
-    public void JsonApplyCommand_utputDirectoryIsExistingFile_ReturnsError()
+    public void JsonApplyCommand_OutputDirectoryIsExistingFile_ReturnsError()
     {
         // arrange
         CommandAppTester app = new();
@@ -141,6 +141,7 @@ public class JsonApplyCommandTests
         jsonApplyOptions.JsonFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json")));
         jsonApplyOptions.JsonPatchFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json")));
         jsonApplyOptions.OutputFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json")));
+        jsonApplyOptions.AllowOverwrite.Should().BeTrue();
         jsonApplyOptions.DeletePatchFile.Should().BeFalse();
     }
 

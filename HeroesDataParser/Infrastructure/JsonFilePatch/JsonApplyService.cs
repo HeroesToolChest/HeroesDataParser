@@ -85,6 +85,8 @@ public class JsonApplyService : IJsonApplyService
             Items = itemObjects,
         };
 
+        CreateDirectory();
+
         await using FileStream stream = File.Create(_options.OutputFilePath);
         await JsonSerializer.SerializeAsync(stream, rootJsonElement, _jsonSerializerOptions);
 
@@ -94,6 +96,8 @@ public class JsonApplyService : IJsonApplyService
     private async Task CreateReserializedGameString(PatchResult result)
     {
         RootJsonGameStringElement? rootJsonGameStringElement = result.Result?.AsObject().Deserialize<RootJsonGameStringElement>(_jsonSerializerOptions);
+
+        CreateDirectory();
 
         await using FileStream stream = File.Create(_options.OutputFilePath);
         await JsonSerializer.SerializeAsync(stream, rootJsonGameStringElement, _jsonSerializerOptions);
@@ -224,5 +228,12 @@ public class JsonApplyService : IJsonApplyService
     {
         _logger.LogInformation("JSON patch applied successfully. Output saved to {OutputFilePath}", _options.OutputFilePath);
         _console.MarkupLine($"[green]JSON patch applied successfully. Output saved to {_options.OutputFilePath}[/]");
+    }
+
+    private void CreateDirectory()
+    {
+        string? directoryName = Path.GetDirectoryName(_options.OutputFilePath);
+        if (!string.IsNullOrEmpty(directoryName))
+            Directory.CreateDirectory(directoryName);
     }
 }
