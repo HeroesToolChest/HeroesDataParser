@@ -59,6 +59,9 @@ try
 
             jsonPatch.AddCommand<JsonApplyCommand>("apply")
                 .WithDescription("Create a new file that is patched from an existing json file");
+
+            jsonPatch.AddCommand<JsonCreateCommand>("create")
+                .WithDescription("Create a new JSON patch file from two existing JSON files");
         });
     });
 

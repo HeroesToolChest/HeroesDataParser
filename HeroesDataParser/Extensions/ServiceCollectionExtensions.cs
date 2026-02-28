@@ -17,6 +17,7 @@ public static class ServiceCollectionExtensions
             services.Configure<RootOptions>(configuration.GetSection(nameof(RootOptions)));
             services.Configure<CASCExtractOptions>(configuration.GetSection(nameof(CASCExtractOptions)));
             services.Configure<JsonApplyOptions>(configuration.GetSection(nameof(JsonApplyOptions)));
+            services.Configure<JsonCreateOptions>(configuration.GetSection(nameof(JsonCreateOptions)));
 
             services.AddLogging(logging =>
             {
@@ -177,6 +178,7 @@ public static class ServiceCollectionExtensions
         {
             services.AddSingleton<ICASCExtractorService, CASCExtractorService>();
             services.AddSingleton<IJsonApplyService, JsonApplyService>();
+            services.AddSingleton<IJsonCreateService, JsonCreateService>();
 
             return services;
         }
