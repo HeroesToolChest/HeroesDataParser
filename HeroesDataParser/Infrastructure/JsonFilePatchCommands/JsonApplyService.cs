@@ -30,11 +30,11 @@ public class JsonApplyService : IJsonApplyService
     {
         _logger.LogInformation("Applying JSON patch from {PatchFilePath} to {JsonFilePath}", _options.JsonPatchFilePath, _options.JsonFilePath);
 
-        JsonPatch? patch = GetPatchFile();
+        JsonPatch? patch = await GetPatchFile();
         if (patch is null)
             return;
 
-        JsonNode? jsonNode = GetJsonNode();
+        JsonNode? jsonNode = await GetJsonNode();
         if (jsonNode is null)
             return;
 
@@ -70,7 +70,7 @@ public class JsonApplyService : IJsonApplyService
 
         foreach (KeyValuePair<string, JsonNode?> property in result.Result![1]!.AsObject())
         {
-            object? @object = property.Value.Deserialize(GetElementType(), _jsonSerializerOptions);
+            object? @object = property.Value.Deserialize(await GetElementType(), _jsonSerializerOptions);
             if (@object is not null)
             {
                 ((IElementObjectSetter)@object).SetId(property.Key);
@@ -105,7 +105,7 @@ public class JsonApplyService : IJsonApplyService
         DisplaySuccess();
     }
 
-    private JsonPatch? GetPatchFile()
+    private async Task<JsonPatch?> GetPatchFile()
     {
         JsonPatch? jsonPatch;
 
@@ -113,7 +113,7 @@ public class JsonApplyService : IJsonApplyService
 
         try
         {
-            jsonPatch = JsonSerializer.Deserialize<JsonPatch>(jsonPatchFileStream);
+            jsonPatch = await JsonSerializer.DeserializeAsync<JsonPatch>(jsonPatchFileStream);
 
             if (jsonPatch is null)
             {
@@ -132,12 +132,12 @@ public class JsonApplyService : IJsonApplyService
         return jsonPatch;
     }
 
-    private JsonNode? GetJsonNode()
+    private async Task<JsonNode?> GetJsonNode()
     {
         using FileStream jsonFileStream = File.OpenRead(_options.JsonFilePath);
         try
         {
-            JsonNode? jsonNode = JsonNode.Parse(jsonFileStream);
+            JsonNode? jsonNode = await JsonNode.ParseAsync(jsonFileStream);
             if (jsonNode is null)
             {
                 _logger.LogError("Failed to parse JSON file from {JsonFilePath}", _options.JsonFilePath);
@@ -210,10 +210,10 @@ public class JsonApplyService : IJsonApplyService
         }
     }
 
-    private Type GetElementType()
+    private async Task<Type> GetElementType()
     {
         using FileStream jsonFileStream = File.OpenRead(_options.JsonFilePath);
-        using JsonDocument jsonDocument = JsonDocument.Parse(jsonFileStream);
+        using JsonDocument jsonDocument = await JsonDocument.ParseAsync(jsonFileStream);
         using IElementDocument elementDocument = DataDocument.Load(jsonDocument);
 
         return elementDocument.GetElementType;

@@ -31,8 +31,8 @@ public class JsonCreateService : IJsonCreateService
         using FileStream startStream = File.OpenRead(_options.OldJsonFilePath);
         using FileStream targetStream = File.OpenRead(_options.NewJsonFilePath);
 
-        JsonNode? start = JsonNode.Parse(startStream);
-        JsonNode? target = JsonNode.Parse(targetStream);
+        JsonNode? start = await JsonNode.ParseAsync(startStream);
+        JsonNode? target = await JsonNode.ParseAsync(targetStream);
 
         if (start is null || target is null)
         {
