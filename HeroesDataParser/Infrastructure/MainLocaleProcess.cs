@@ -6,23 +6,17 @@ public class MainLocaleProcess : IMainLocaleProcess
     private readonly RootOptions _options;
     private readonly IProcessorService _processorService;
     private readonly IMapProcessorService _mapProcessorService;
-    private readonly ISerializedDataStoreService _serializedDataStoreService;
-    private readonly IJsonGameStringFileWriterService _jsonGameStringFileWriterService;
 
     public MainLocaleProcess(
         ILogger<MainLocaleProcess> logger,
         IOptions<RootOptions> options,
         IProcessorService processorService,
-        IMapProcessorService mapProcessorService,
-        ISerializedDataStoreService serializedDataStoreService,
-        IJsonGameStringFileWriterService jsonGameStringFileWriterService)
+        IMapProcessorService mapProcessorService)
     {
         _logger = logger;
         _options = options.Value;
         _processorService = processorService;
         _mapProcessorService = mapProcessorService;
-        _serializedDataStoreService = serializedDataStoreService;
-        _jsonGameStringFileWriterService = jsonGameStringFileWriterService;
     }
 
     public async Task Run(StormLocale locale)
@@ -35,10 +29,6 @@ public class MainLocaleProcess : IMainLocaleProcess
         {
             _logger.LogInformation("Starting map processor service for {Locale}", locale);
             await _mapProcessorService.Start();
-        }
-        else
-        {
-            await _jsonGameStringFileWriterService.WriteBase();
         }
     }
 }
