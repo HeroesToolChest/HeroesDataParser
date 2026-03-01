@@ -88,7 +88,7 @@ public class JsonDataFileWriterService : JsonFileWriterBase, IJsonDataFileWriter
                 LocalizedText = Options.LocalizedText,
                 HeroesVersion = Options.HeroesVersion.GetAsHeroesDataVersion(),
                 HdpVersion = Options.AppVersion,
-                DescriptionText = Options.LocalizedText == LocalizedTextOption.Extract ? null : new()
+                GameStringTextProperties = Options.LocalizedText == LocalizedTextOption.Extract ? null : new()
                 {
                     Locale = Options.CurrentLocale,
                     GameStringTextType = Options.GameStringText.Type,

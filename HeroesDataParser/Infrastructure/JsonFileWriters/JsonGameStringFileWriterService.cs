@@ -90,7 +90,7 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
                 MapName = mapName,
                 HeroesVersion = Options.HeroesVersion.GetAsHeroesDataVersion(),
                 HdpVersion = Options.AppVersion,
-                DescriptionText = new()
+                GameStringTextProperties = new()
                 {
                     Locale = Options.CurrentLocale,
                     GameStringTextType = Options.GameStringText.Type,
