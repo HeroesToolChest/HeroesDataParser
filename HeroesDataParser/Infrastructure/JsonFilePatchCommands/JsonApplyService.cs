@@ -67,16 +67,17 @@ public class JsonApplyService : IJsonApplyService
         }
 
         SortedDictionary<string, object> itemObjects = new(StringComparer.OrdinalIgnoreCase);
+        Type elementType = await GetElementType();
 
         foreach (KeyValuePair<string, JsonNode?> property in result.Result![1]!.AsObject())
         {
-            object? @object = property.Value.Deserialize(await GetElementType(), _jsonSerializerOptions);
-            if (@object is not null)
-            {
-                ((IElementObjectSetter)@object).SetId(property.Key);
+            object? @object = property.Value.Deserialize(elementType, _jsonSerializerOptions);
+            if (@object is null)
+                continue;
 
-                itemObjects.Add(property.Key, @object);
-            }
+            ((IElementObjectSetter)@object).SetId(property.Key);
+
+            itemObjects.Add(property.Key, @object);
         }
 
         RootJsonDataElement rootJsonElement = new()
@@ -204,7 +205,7 @@ public class JsonApplyService : IJsonApplyService
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Failed to delete JSON patch file at {PatchFilePath}", _options.JsonPatchFilePath);
+                _logger.LogError(ex, "Failed to delete JSON patch fi le at {PatchFilePath}", _options.JsonPatchFilePath);
                 _console.MarkupLine($"[red]Failed to delete JSON patch file at {_options.JsonPatchFilePath}[/]");
             }
         }
