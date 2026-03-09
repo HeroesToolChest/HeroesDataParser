@@ -83,12 +83,13 @@ public class RootCommand : AsyncCommand<RootSettings>
         }
 
         _options.GameStringText.Type = settings.GameStringTextType;
-        _options.GameStringText.ReplaceFontStyles = settings.GameStringReplaceFontStyles;
-        _options.GameStringText.PreserveFont.PreserveFontStyleConstantVars = settings.GameStringPreserveConstantVars;
-        _options.GameStringText.PreserveFont.PreserveFontStyleVars = settings.GameStringPreserveStyleVars;
+        _options.GameStringText.ReplaceFontConstantVars = settings.GameStringReplaceConstantVars;
+        _options.GameStringText.ReplaceFontStylesVars = settings.GameStringReplaceStyleVars;
+        _options.GameStringText.PreserveFontStyleConstantVars = settings.GameStringPreserveConstantVars;
+        _options.GameStringText.PreserveFontStyleVars = settings.GameStringPreserveStyleVars;
 
         if (settings.GameStringPreserveConstantVars || settings.GameStringPreserveStyleVars)
-            _options.GameStringText.ReplaceFontStyles = true;
+            _options.GameStringText.ReplaceFontStylesVars = true;
 
         _options.LocalizedText = settings.LocalizedTextOption;
         _options.MapSpecificWriterJsonOutputType = settings.MapSpecificWriterJsonOutputType;

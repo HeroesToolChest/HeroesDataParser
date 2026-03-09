@@ -314,6 +314,46 @@ public class RootCommandTests
     }
 
     [TestMethod]
+    public void RootCommand_InvalidPreserveConstantVars_ReturnsError()
+    {
+        // arrange
+        CommandAppTester app = new();
+        app.SetDefaultCommand<RootCommand>();
+
+        // act
+        CommandAppResult result = app.Run(
+        [
+            "game",
+            "--storage-path", "TestXmlFiles",
+            "--gs-preserve-constant-vars",
+        ]);
+
+        // assert
+        result.ExitCode.Should().Be(-1);
+        result.Output.Should().Contain("cannot be used without");
+    }
+
+    [TestMethod]
+    public void RootCommand_InvalidPreserveStyleVars_ReturnsError()
+    {
+        // arrange
+        CommandAppTester app = new();
+        app.SetDefaultCommand<RootCommand>();
+
+        // act
+        CommandAppResult result = app.Run(
+        [
+            "game",
+            "--storage-path", "TestXmlFiles",
+            "--gs-preserve-style-vars",
+        ]);
+
+        // assert
+        result.ExitCode.Should().Be(-1);
+        result.Output.Should().Contain("cannot be used without");
+    }
+
+    [TestMethod]
     [DataRow("game")]
     [DataRow("mods")]
     public async Task RootCommand_WithDefaultValidArguments_ExecutesSuccessfully(string storageType)
@@ -346,9 +386,9 @@ public class RootCommandTests
         rootOptions.StorageLoad.Path.Should().EndWith("TestXmlFiles");
         rootOptions.OutputDirectory.Should().Be(".");
         rootOptions.GameStringText.Type.Should().Be(GameStringTextType.RawText);
-        rootOptions.GameStringText.ReplaceFontStyles.Should().BeFalse();
-        rootOptions.GameStringText.PreserveFont.PreserveFontStyleConstantVars.Should().BeFalse();
-        rootOptions.GameStringText.PreserveFont.PreserveFontStyleVars.Should().BeFalse();
+        rootOptions.GameStringText.ReplaceFontStylesVars.Should().BeFalse();
+        rootOptions.GameStringText.PreserveFontStyleConstantVars.Should().BeFalse();
+        rootOptions.GameStringText.PreserveFontStyleVars.Should().BeFalse();
         rootOptions.LocalizedText.Should().Be(LocalizedTextOption.None);
         rootOptions.MapSpecificWriterJsonOutputType.Should().Be(MapSpecificWriterJsonOutputType.Patch);
         rootOptions.AllowEmptyMapSpecificPatchFiles.Should().BeFalse();
@@ -564,9 +604,10 @@ public class RootCommandTests
             "game",
             "--storage-path", "TestXmlFiles",
             "-g", "PlainTextWithScalingWithNewlines",
-            "--gamestring-replace-font-vars",
-            "--gamestring-preserve-constant-vars",
-            "--gamestring-preserve-style-vars",
+            "--gs-replace-constant-vars",
+            "--gs-replace-style-vars",
+            "--gs-preserve-constant-vars",
+            "--gs-preserve-style-vars",
         ],
         TestContext.CancellationToken);
 
@@ -574,67 +615,10 @@ public class RootCommandTests
         await AssertCommandSuccessful(result);
 
         rootOptions.GameStringText.Type.Should().Be(GameStringTextType.PlainTextWithScalingWithNewlines);
-        rootOptions.GameStringText.ReplaceFontStyles.Should().BeTrue();
-        rootOptions.GameStringText.PreserveFont.PreserveFontStyleConstantVars.Should().BeTrue();
-        rootOptions.GameStringText.PreserveFont.PreserveFontStyleVars.Should().BeTrue();
-    }
-
-    [TestMethod]
-    public async Task RootCommand_OnlyPreserveConstantVarsArgument_ReplaceFontStylesSetsToTrue()
-    {
-        // arrange
-        RootOptions rootOptions = new();
-        _options.Value.Returns(rootOptions);
-
-        TypeRegistrar registrar = new(GetServiceCollection());
-        CommandAppTester app = new(registrar);
-        app.SetDefaultCommand<RootCommand>();
-
-        // act
-        CommandAppResult result = await app.RunAsync(
-        [
-            "game",
-            "--storage-path", "TestXmlFiles",
-            "--gamestring-preserve-constant-vars",
-        ],
-        TestContext.CancellationToken);
-
-        // assert
-        await AssertCommandSuccessful(result);
-
-        rootOptions.GameStringText.Type.Should().Be(GameStringTextType.RawText);
-        rootOptions.GameStringText.ReplaceFontStyles.Should().BeTrue();
-        rootOptions.GameStringText.PreserveFont.PreserveFontStyleConstantVars.Should().BeTrue();
-        rootOptions.GameStringText.PreserveFont.PreserveFontStyleVars.Should().BeFalse();
-    }
-
-    [TestMethod]
-    public async Task RootCommand_OnlyPreserveStyleVarsArgument_ReplaceFontStylesSetsToTrue()
-    {
-        // arrange
-        RootOptions rootOptions = new();
-        _options.Value.Returns(rootOptions);
-
-        TypeRegistrar registrar = new(GetServiceCollection());
-        CommandAppTester app = new(registrar);
-        app.SetDefaultCommand<RootCommand>();
-
-        // act
-        CommandAppResult result = await app.RunAsync(
-        [
-            "game",
-            "--storage-path", "TestXmlFiles",
-            "--gamestring-preserve-style-vars",
-        ],
-        TestContext.CancellationToken);
-
-        // assert
-        await AssertCommandSuccessful(result);
-
-        rootOptions.GameStringText.Type.Should().Be(GameStringTextType.RawText);
-        rootOptions.GameStringText.ReplaceFontStyles.Should().BeTrue();
-        rootOptions.GameStringText.PreserveFont.PreserveFontStyleConstantVars.Should().BeFalse();
-        rootOptions.GameStringText.PreserveFont.PreserveFontStyleVars.Should().BeTrue();
+        rootOptions.GameStringText.ReplaceFontConstantVars.Should().BeTrue();
+        rootOptions.GameStringText.ReplaceFontStylesVars.Should().BeTrue();
+        rootOptions.GameStringText.PreserveFontStyleConstantVars.Should().BeTrue();
+        rootOptions.GameStringText.PreserveFontStyleVars.Should().BeTrue();
     }
 
     [TestMethod]

@@ -49,7 +49,8 @@ public class GameStringSerializerServiceTests
             "dataTypes": [],
             "gameStringText": {
               "locale": "ENUS",
-              "replaceFontStyles": false,
+              "replaceFontConstantVars": false,
+              "replaceFontStylesVars": false,
               "preserveFontStyleConstantVars": false,
               "preserveFontStyleVars": false
             }
@@ -89,7 +90,7 @@ public class GameStringSerializerServiceTests
             Converters =
             {
                 new JsonStringEnumConverter(),
-                new GameStringTextConverter(gameStringTextType: GameStringTextType.RawText),
+                new GameStringTextConverter(new GameStringTextConverterOptions() { GameStringTextType = GameStringTextType.RawText }),
                 new HeroesDataVersionConverter(),
                 new GameStringItemDictionaryConverter(),
             },
@@ -108,7 +109,8 @@ public class GameStringSerializerServiceTests
             "dataTypes": [],
             "gameStringText": {
               "locale": "ENUS",
-              "replaceFontStyles": false,
+              "replaceFontConstantVars": false,
+              "replaceFontStylesVars": false,
               "preserveFontStyleConstantVars": false,
               "preserveFontStyleVars": false
             }
@@ -154,7 +156,7 @@ public class GameStringSerializerServiceTests
             Converters =
             {
                 new JsonStringEnumConverter(),
-                new GameStringTextConverter(gameStringTextType: GameStringTextType.RawText),
+                new GameStringTextConverter(new GameStringTextConverterOptions() { GameStringTextType = GameStringTextType.RawText }),
                 new HeroesDataVersionConverter(),
                 new GameStringItemDictionaryConverter(),
             },

@@ -37,12 +37,10 @@ public class JsonGameStringFileWriterServiceTests
             GameStringText = new GameStringTextOptions
             {
                 Type = GameStringTextType.RawText,
-                ReplaceFontStyles = false,
-                PreserveFont = new PreserveFontOptions
-                {
-                    PreserveFontStyleConstantVars = false,
-                    PreserveFontStyleVars = false,
-                },
+                ReplaceFontStylesVars = false,
+                ReplaceFontConstantVars = false,
+                PreserveFontStyleConstantVars = false,
+                PreserveFontStyleVars = false,
             },
             HeroesVersion = new HeroesVersionOptions
             {
@@ -99,12 +97,10 @@ public class JsonGameStringFileWriterServiceTests
             GameStringText = new GameStringTextOptions
             {
                 Type = GameStringTextType.RawText,
-                ReplaceFontStyles = false,
-                PreserveFont = new PreserveFontOptions
-                {
-                    PreserveFontStyleConstantVars = false,
-                    PreserveFontStyleVars = false,
-                },
+                ReplaceFontStylesVars = false,
+                ReplaceFontConstantVars = false,
+                PreserveFontStyleConstantVars = false,
+                PreserveFontStyleVars = false,
             },
             HeroesVersion = new HeroesVersionOptions
             {
@@ -228,12 +224,10 @@ public class JsonGameStringFileWriterServiceTests
             GameStringText = new GameStringTextOptions
             {
                 Type = GameStringTextType.RawText,
-                ReplaceFontStyles = false,
-                PreserveFont = new PreserveFontOptions
-                {
-                    PreserveFontStyleConstantVars = false,
-                    PreserveFontStyleVars = false,
-                },
+                ReplaceFontStylesVars = false,
+                ReplaceFontConstantVars = false,
+                PreserveFontStyleConstantVars = false,
+                PreserveFontStyleVars = false,
             },
             HeroesVersion = new HeroesVersionOptions
             {
@@ -278,12 +272,10 @@ public class JsonGameStringFileWriterServiceTests
             GameStringText = new GameStringTextOptions
             {
                 Type = GameStringTextType.RawText,
-                ReplaceFontStyles = false,
-                PreserveFont = new PreserveFontOptions
-                {
-                    PreserveFontStyleConstantVars = false,
-                    PreserveFontStyleVars = false,
-                },
+                ReplaceFontStylesVars = false,
+                ReplaceFontConstantVars = false,
+                PreserveFontStyleConstantVars = false,
+                PreserveFontStyleVars = false,
             },
             HeroesVersion = new HeroesVersionOptions
             {
@@ -328,12 +320,10 @@ public class JsonGameStringFileWriterServiceTests
             GameStringText = new GameStringTextOptions
             {
                 Type = GameStringTextType.RawText,
-                ReplaceFontStyles = false,
-                PreserveFont = new PreserveFontOptions
-                {
-                    PreserveFontStyleConstantVars = false,
-                    PreserveFontStyleVars = false,
-                },
+                ReplaceFontStylesVars = false,
+                ReplaceFontConstantVars = false,
+                PreserveFontStyleConstantVars = false,
+                PreserveFontStyleVars = false,
             },
             HeroesVersion = new HeroesVersionOptions
             {
@@ -378,12 +368,10 @@ public class JsonGameStringFileWriterServiceTests
             GameStringText = new GameStringTextOptions
             {
                 Type = GameStringTextType.RawText,
-                ReplaceFontStyles = false,
-                PreserveFont = new PreserveFontOptions
-                {
-                    PreserveFontStyleConstantVars = false,
-                    PreserveFontStyleVars = false,
-                },
+                ReplaceFontStylesVars = false,
+                ReplaceFontConstantVars = false,
+                PreserveFontStyleConstantVars = false,
+                PreserveFontStyleVars = false,
             },
             HeroesVersion = new HeroesVersionOptions
             {

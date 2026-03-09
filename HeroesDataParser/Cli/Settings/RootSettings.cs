@@ -31,15 +31,19 @@ public class RootSettings : CommandSettings
     [DefaultValue(GameStringTextType.RawText)]
     public GameStringTextType GameStringTextType { get; init; }
 
-    [CommandOption("--gamestring-replace-font-vars")]
-    [Description("Replace font variables in gamestrings with the actual values")]
-    public bool GameStringReplaceFontStyles { get; init; }
+    [CommandOption("--gs-replace-constant-vars")]
+    [Description("Replace constant variables in gamestrings with the color text hex values")]
+    public bool GameStringReplaceConstantVars { get; init; }
 
-    [CommandOption("--gamestring-preserve-constant-vars")]
+    [CommandOption("--gs-replace-style-vars")]
+    [Description("Replace font variables in gamestrings with the color text hex values")]
+    public bool GameStringReplaceStyleVars { get; init; }
+
+    [CommandOption("--gs-preserve-constant-vars")]
     [Description("Preserve constant variables in gamestrings")]
     public bool GameStringPreserveConstantVars { get; init; }
 
-    [CommandOption("--gamestring-preserve-style-vars")]
+    [CommandOption("--gs-preserve-style-vars")]
     [Description("Preserve style variables in gamestrings")]
     public bool GameStringPreserveStyleVars { get; init; }
 
@@ -110,6 +114,12 @@ public class RootSettings : CommandSettings
             if (!Enum.TryParse(locale, true, out StormLocale _))
                 return ValidationResult.Error($"--localization has an invalid locale: {locale}");
         }
+
+        if (GameStringPreserveConstantVars && !GameStringReplaceConstantVars)
+            return ValidationResult.Error("--gs-preserve-constant-vars cannot be used without --gs-replace-constant-vars");
+
+        if (GameStringPreserveStyleVars && !GameStringReplaceStyleVars)
+            return ValidationResult.Error("--gs-preserve-style-vars cannot be used without --gs-replace-style-vars");
 
         if ((int)GameStringTextType > 6)
             return ValidationResult.Error("--gamestring-text must be a value less than 7");

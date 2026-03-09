@@ -4,8 +4,13 @@ public class GameStringTextOptions
 {
     public GameStringTextType Type { get; set; } = GameStringTextType.RawText;
 
-    public bool ReplaceFontStyles { get; set; }
+    public bool ReplaceFontConstantVars { get; set; }
 
-    // only enable if ReplaceFontStyles is true
-    public PreserveFontOptions PreserveFont { get; set; } = new();
+    // should be false if ReplaceFontConstantsVars is false
+    public bool PreserveFontStyleConstantVars { get; set; }
+
+    public bool ReplaceFontStylesVars { get; set; }
+
+    // should be false if ReplaceFontStylesVars is false
+    public bool PreserveFontStyleVars { get; set; }
 }

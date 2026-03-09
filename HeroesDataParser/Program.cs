@@ -1,5 +1,4 @@
-﻿using HeroesDataParser.Cli.Commands.JsonPatchCommands;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Serilog;
 using System.Text;
 
@@ -34,8 +33,11 @@ try
         options.CurrentLocale = StormLocale.ENUS;
         options.AppVersion = AppVersion.GetAppVersion();
 
-        if (options.GameStringText.PreserveFont.PreserveFontStyleConstantVars || options.GameStringText.PreserveFont.PreserveFontStyleVars)
-            options.GameStringText.ReplaceFontStyles = true;
+        if (!options.GameStringText.ReplaceFontConstantVars)
+            options.GameStringText.PreserveFontStyleConstantVars = false;
+
+        if (!options.GameStringText.ReplaceFontStylesVars)
+            options.GameStringText.PreserveFontStyleVars = false;
     });
 
     TypeRegistrar registrar = new(services);
@@ -58,10 +60,18 @@ try
             jsonPatch.SetDescription("Perform json patching");
 
             jsonPatch.AddCommand<JsonApplyCommand>("apply")
-                .WithDescription("Create a new file that is patched from an existing json file");
+                .WithDescription("Patch a JSON file with a JSON patch file");
 
             jsonPatch.AddCommand<JsonCreateCommand>("create")
-                .WithDescription("Create a new JSON patch file from two existing JSON files");
+                .WithDescription("Create a new JSON patch file from two JSON files");
+        });
+
+        config.AddBranch<GameStringTextSettings>("gamestring-text", gamestringText =>
+        {
+            gamestringText.SetDescription("Perform gamestring text formatting");
+
+            gamestringText.AddCommand<GameStringTextFormatCommand>("format")
+                .WithDescription("Format the gamestring text in a JSON file");
         });
     });
 

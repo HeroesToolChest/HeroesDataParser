@@ -17,17 +17,28 @@ public class GameStringTextService : IGameStringTextService
 
     public ConcurrentDictionary<string, string> ValByStyleName { get; } = [];
 
-    public bool ShouldExtractFontValues => _options.GameStringText.ReplaceFontStyles &&
-        _options.GameStringText is { Type: GameStringTextType.RawText or GameStringTextType.ColoredText or GameStringTextType.ColoredTextWithScaling };
+    public bool ShouldExtractFontValues
+    {
+        get
+        {
+            if (_options.GameStringText is { Type: GameStringTextType.RawText or GameStringTextType.ColoredText or GameStringTextType.ColoredTextWithScaling })
+            {
+                if (_options.GameStringText.ReplaceFontConstantVars || _options.GameStringText.ReplaceFontStylesVars)
+                    return true;
+            }
+
+            return false;
+        }
+    }
 
     private HeroesData HeroesData => _heroesXmlLoaderService.HeroesXmlLoader.HeroesData;
 
     public GameStringText GetGameStringText(string text)
     {
-        GameStringText tooltipDescription = new(text, gameStringLocale: _options.CurrentLocale, extractFontValues: ShouldExtractFontValues);
-        ExtractFontValues(tooltipDescription);
+        GameStringText gameStringText = new(text, gameStringLocale: _options.CurrentLocale, extractFontValues: ShouldExtractFontValues);
+        ExtractFontValues(gameStringText);
 
-        return tooltipDescription;
+        return gameStringText;
     }
 
     public GameStringText? GetGameStringTextFromId(string id)
@@ -109,55 +120,67 @@ public class GameStringTextService : IGameStringTextService
     }
 
     // extract the font values out and save them so we don't have to perform the "lookup" from heroesdata every time
-    private void ExtractFontValues(GameStringText tooltipDescription)
+    private void ExtractFontValues(GameStringText gameStringText)
     {
-        if (tooltipDescription.IsFontValuesExtracted)
+        if (!gameStringText.IsFontValuesExtracted)
+            return;
+
+        if (_options.GameStringText.ReplaceFontConstantVars)
+            ExtractFontConstants(gameStringText);
+
+        if (_options.GameStringText.ReplaceFontStylesVars)
+            ExtractFontStyles(gameStringText);
+    }
+
+    private void ExtractFontConstants(GameStringText gameStringText)
+    {
+        List<string> fontStyleConstantValues = [.. gameStringText.FontStyleConstantValues!];
+
+        foreach (string item in fontStyleConstantValues)
         {
-            List<string> fontStyleConstantValues = [.. tooltipDescription.FontStyleConstantValues];
-
-            foreach (string item in fontStyleConstantValues)
+            if (ValByStyleConstantName.TryGetValue(item, out string? existingValue))
             {
-                if (ValByStyleConstantName.TryGetValue(item, out string? existingValue))
-                {
-                    tooltipDescription.AddFontValueReplacement(item, existingValue, FontTagType.Constant, _options.GameStringText.PreserveFont.PreserveFontStyleConstantVars);
-                    continue;
-                }
-
-                StormStyleConstantElement? styleConstantElement = HeroesData.GetStormStyleConstantStormElement(item.AsSpan().TrimStart('#'));
-                if (styleConstantElement is null || !styleConstantElement.HasVal)
-                    continue;
-
-                ValByStyleConstantName[item] = styleConstantElement.Val;
-
-                tooltipDescription.AddFontValueReplacement(item, styleConstantElement.Val, FontTagType.Constant, _options.GameStringText.PreserveFont.PreserveFontStyleConstantVars);
+                gameStringText.AddFontValueReplacement(item, existingValue, FontTagType.Constant, _options.GameStringText.PreserveFontStyleConstantVars);
+                continue;
             }
 
-            List<string> fontStyleValues = [.. tooltipDescription.FontStyleValues];
+            StormStyleConstantElement? styleConstantElement = HeroesData.GetStormStyleConstantStormElement(item.AsSpan().TrimStart('#'));
+            if (styleConstantElement is null || !styleConstantElement.HasVal)
+                continue;
 
-            foreach (string item in fontStyleValues)
+            ValByStyleConstantName[item] = styleConstantElement.Val;
+
+            gameStringText.AddFontValueReplacement(item, styleConstantElement.Val, FontTagType.Constant, _options.GameStringText.PreserveFontStyleConstantVars);
+        }
+    }
+
+    private void ExtractFontStyles(GameStringText gameStringText)
+    {
+        List<string> fontStyleValues = [.. gameStringText.FontStyleValues!];
+
+        foreach (string item in fontStyleValues)
+        {
+            if (ValByStyleName.TryGetValue(item, out string? existingValue))
             {
-                if (ValByStyleName.TryGetValue(item, out string? existingValue))
-                {
-                    tooltipDescription.AddFontValueReplacement(item, existingValue, FontTagType.Style, _options.GameStringText.PreserveFont.PreserveFontStyleVars);
-                    continue;
-                }
-
-                StormStyleStyleElement? stormStyleStyleElement = HeroesData.GetStormStyleStyleStormElement(item);
-                if (stormStyleStyleElement is null || !stormStyleStyleElement.DataValues.TryGetElementDataAt("textcolor", out StormElementData? textColorData))
-                    continue;
-
-                // maybe a constant
-                string textColorValue = textColorData.Value.GetString();
-
-                StormStyleConstantElement? styleConstantElement = HeroesData.GetStormStyleConstantStormElement(textColorValue.AsSpan().TrimStart('#'));
-
-                if (styleConstantElement is null || !styleConstantElement.HasVal)
-                    ValByStyleName[item] = textColorValue;
-                else
-                    ValByStyleName[item] = styleConstantElement.Val;
-
-                tooltipDescription.AddFontValueReplacement(item, ValByStyleName[item], FontTagType.Style, _options.GameStringText.PreserveFont.PreserveFontStyleVars);
+                gameStringText.AddFontValueReplacement(item, existingValue, FontTagType.Style, _options.GameStringText.PreserveFontStyleVars);
+                continue;
             }
+
+            StormStyleStyleElement? stormStyleStyleElement = HeroesData.GetStormStyleStyleStormElement(item);
+            if (stormStyleStyleElement is null || !stormStyleStyleElement.DataValues.TryGetElementDataAt("textcolor", out StormElementData? textColorData))
+                continue;
+
+            // maybe a constant
+            string textColorValue = textColorData.Value.GetString();
+
+            StormStyleConstantElement? styleConstantElement = HeroesData.GetStormStyleConstantStormElement(textColorValue.AsSpan().TrimStart('#'));
+
+            if (styleConstantElement is null || !styleConstantElement.HasVal)
+                ValByStyleName[item] = textColorValue;
+            else
+                ValByStyleName[item] = styleConstantElement.Val;
+
+            gameStringText.AddFontValueReplacement(item, ValByStyleName[item], FontTagType.Style, _options.GameStringText.PreserveFontStyleVars);
         }
     }
 }

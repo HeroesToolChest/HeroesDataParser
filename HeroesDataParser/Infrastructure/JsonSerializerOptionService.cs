@@ -49,7 +49,7 @@ public class JsonSerializerOptionService : IJsonSerializerOptionService
 
         _jsonSerializerDataOptions = new(GeneralJsonSerializerOptions);
 
-        _jsonSerializerDataOptions.Converters.Add(new GameStringTextConverter(gameStringTextType: _options.GameStringText.Type));
+        _jsonSerializerDataOptions.Converters.Add(new GameStringTextConverter(new GameStringTextConverterOptions() { GameStringTextType = _options.GameStringText.Type }));
         _jsonSerializerDataOptions.TypeInfoResolver = new HeroesElementResolver()
         {
             Modifiers =
@@ -75,7 +75,7 @@ public class JsonSerializerOptionService : IJsonSerializerOptionService
             Converters =
             {
                 new JsonStringEnumConverter(),
-                new GameStringTextConverter(gameStringTextType: _options.GameStringText.Type),
+                new GameStringTextConverter(new GameStringTextConverterOptions() { GameStringTextType = _options.GameStringText.Type }),
                 new HeroesDataVersionConverter(),
                 new GameStringItemDictionaryConverter(),
             },

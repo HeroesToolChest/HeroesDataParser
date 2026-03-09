@@ -35,12 +35,10 @@ public class JsonDataFileWriterServiceTests
             GameStringText = new GameStringTextOptions
             {
                 Type = GameStringTextType.RawText,
-                ReplaceFontStyles = false,
-                PreserveFont = new PreserveFontOptions
-                {
-                    PreserveFontStyleConstantVars = false,
-                    PreserveFontStyleVars = false,
-                },
+                ReplaceFontStylesVars = false,
+                ReplaceFontConstantVars = false,
+                PreserveFontStyleConstantVars = false,
+                PreserveFontStyleVars = false,
             },
             HeroesVersion = new HeroesVersionOptions
             {
@@ -92,7 +90,8 @@ public class JsonDataFileWriterServiceTests
             "gameStringText": {
               "locale": "ENUS",
               "textType": "RawText",
-              "replaceFontStyles": false,
+              "replaceFontConstantVars": false,
+              "replaceFontStylesVars": false,
               "preserveFontStyleConstantVars": false,
               "preserveFontStyleVars": false
             },
@@ -207,12 +206,10 @@ public class JsonDataFileWriterServiceTests
             GameStringText = new GameStringTextOptions
             {
                 Type = GameStringTextType.RawText,
-                ReplaceFontStyles = false,
-                PreserveFont = new PreserveFontOptions
-                {
-                    PreserveFontStyleConstantVars = false,
-                    PreserveFontStyleVars = false,
-                },
+                ReplaceFontStylesVars = false,
+                ReplaceFontConstantVars = false,
+                PreserveFontStyleConstantVars = false,
+                PreserveFontStyleVars = false,
             },
             HeroesVersion = new HeroesVersionOptions
             {
@@ -280,12 +277,10 @@ public class JsonDataFileWriterServiceTests
             GameStringText = new GameStringTextOptions
             {
                 Type = GameStringTextType.RawText,
-                ReplaceFontStyles = false,
-                PreserveFont = new PreserveFontOptions
-                {
-                    PreserveFontStyleConstantVars = false,
-                    PreserveFontStyleVars = false,
-                },
+                ReplaceFontStylesVars = false,
+                ReplaceFontConstantVars = false,
+                PreserveFontStyleConstantVars = false,
+                PreserveFontStyleVars = false,
             },
             HeroesVersion = new HeroesVersionOptions
             {
@@ -347,12 +342,10 @@ public class JsonDataFileWriterServiceTests
             GameStringText = new GameStringTextOptions
             {
                 Type = GameStringTextType.RawText,
-                ReplaceFontStyles = false,
-                PreserveFont = new PreserveFontOptions
-                {
-                    PreserveFontStyleConstantVars = false,
-                    PreserveFontStyleVars = false,
-                },
+                ReplaceFontStylesVars = false,
+                ReplaceFontConstantVars = false,
+                PreserveFontStyleConstantVars = false,
+                PreserveFontStyleVars = false,
             },
             HeroesVersion = new HeroesVersionOptions
             {
@@ -449,12 +442,10 @@ public class JsonDataFileWriterServiceTests
             GameStringText = new GameStringTextOptions
             {
                 Type = GameStringTextType.RawText,
-                ReplaceFontStyles = false,
-                PreserveFont = new PreserveFontOptions
-                {
-                    PreserveFontStyleConstantVars = false,
-                    PreserveFontStyleVars = false,
-                },
+                ReplaceFontStylesVars = false,
+                ReplaceFontConstantVars = false,
+                PreserveFontStyleConstantVars = false,
+                PreserveFontStyleVars = false,
             },
             HeroesVersion = new HeroesVersionOptions
             {
@@ -501,7 +492,8 @@ public class JsonDataFileWriterServiceTests
             "gameStringText": {
               "locale": "DEDE",
               "textType": "RawText",
-              "replaceFontStyles": false,
+              "replaceFontConstantVars": false,
+              "replaceFontStylesVars": false,
               "preserveFontStyleConstantVars": false,
               "preserveFontStyleVars": false
             },
@@ -552,12 +544,10 @@ public class JsonDataFileWriterServiceTests
             GameStringText = new GameStringTextOptions
             {
                 Type = GameStringTextType.RawText,
-                ReplaceFontStyles = false,
-                PreserveFont = new PreserveFontOptions
-                {
-                    PreserveFontStyleConstantVars = false,
-                    PreserveFontStyleVars = false,
-                },
+                ReplaceFontStylesVars = false,
+                ReplaceFontConstantVars = false,
+                PreserveFontStyleConstantVars = false,
+                PreserveFontStyleVars = false,
             },
             HeroesVersion = new HeroesVersionOptions
             {
@@ -647,12 +637,10 @@ public class JsonDataFileWriterServiceTests
             GameStringText = new GameStringTextOptions
             {
                 Type = GameStringTextType.RawText,
-                ReplaceFontStyles = false,
-                PreserveFont = new PreserveFontOptions
-                {
-                    PreserveFontStyleConstantVars = false,
-                    PreserveFontStyleVars = false,
-                },
+                ReplaceFontStylesVars = false,
+                ReplaceFontConstantVars = false,
+                PreserveFontStyleConstantVars = false,
+                PreserveFontStyleVars = false,
             },
             HeroesVersion = new HeroesVersionOptions
             {
@@ -700,7 +688,8 @@ public class JsonDataFileWriterServiceTests
             "gameStringText": {
               "locale": "DEDE",
               "textType": "RawText",
-              "replaceFontStyles": false,
+              "replaceFontConstantVars": false,
+              "replaceFontStylesVars": false,
               "preserveFontStyleConstantVars": false,
               "preserveFontStyleVars": false
             },
@@ -756,7 +745,8 @@ public class JsonDataFileWriterServiceTests
             "gameStringText": {
               "locale": "ENUS",
               "textType": "RawText",
-              "replaceFontStyles": false,
+              "replaceFontConstantVars": false,
+              "replaceFontStylesVars": false,
               "preserveFontStyleConstantVars": false,
               "preserveFontStyleVars": false
             },

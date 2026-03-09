@@ -60,4 +60,8 @@
     </None>
   </ItemGroup>
   
+  <ItemGroup>
+    <Folder Include="Infrastructure\Commands\GameStringText\" />
+  </ItemGroup>
+  
 </Project>
