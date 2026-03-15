@@ -7,11 +7,11 @@
     "localizedText": "Copy",
     "gameStringText": {
       "locale": "ENUS",
-      "textType": "RawText",
+      "textType": "ColoredText",
       "replaceFontConstantVars": true,
-      "replaceFontStyles": true,
-      "preserveFontStyleConstantVars": true,
-      "preserveFontStyleVars": true
+      "replaceFontStylesVars": true,
+      "preserveFontStyleConstantVars": false,
+      "preserveFontStyleVars": false
     },
     "totalItems": 3
   },
@@ -145,7 +145,7 @@
             },
             "cooldownText": "Charge Cooldown: 10 seconds",
             "shortText": "Spawn a mine",
-            "fullText": "Spawn a mine that becomes active after a short time. Deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">153~~0.04~~</c> damage and reveals the enemy for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">4</c> seconds. Lasts <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">90</c> seconds.<n/><n/>Stores up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> charges.",
+            "fullText": "Spawn a mine that becomes active after a short time. Deals 153 damage and reveals the enemy for 4 seconds. Lasts 90 seconds.  Stores up to 3 charges.",
             "abilityType": "W"
           }
         ],
@@ -158,7 +158,7 @@
             "icon": "storm_ui_icon_abathur_evolvemonstrosity.png",
             "cooldownText": "Cooldown: 90 seconds",
             "shortText": "Minion or Locust becomes a powerful Monstrosity",
-            "fullText": "Turn an allied Minion or Locust into a Monstrosity. When enemy Minions near the Monstrosity die, it gains <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2%</c> Health and <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2%</c> Basic Attack damage, stacking up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">40</c> times. The Monstrosity can be healed by Carapace and has the ability to Burrow to a visible location every <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">80</c> seconds.<n/><n/>Using Symbiote on the Monstrosity allows Abathur to control it, in addition to Symbiote's normal benefits. This Ability can be reactivated to automatically cast Symbiote on his Monstrosity.",
+            "fullText": "Turn an allied Minion or Locust into a Monstrosity. When enemy Minions near the Monstrosity die, it gains 2% Health and 2% Basic Attack damage, stacking up to 40 times. The Monstrosity can be healed by Carapace and has the ability to Burrow to a visible location every 80 seconds.  Using Symbiote on the Monstrosity allows Abathur to control it, in addition to Symbiote's normal benefits. This Ability can be reactivated to automatically cast Symbiote on his Monstrosity.",
             "abilityType": "Heroic"
           },
           {
@@ -169,7 +169,7 @@
             "icon": "storm_ui_icon_abathur_ultimateevolution.png",
             "cooldownText": "Cooldown: 70 seconds",
             "shortText": "Clone target allied Hero and control it",
-            "fullText": "Clone target allied Hero and control it for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">20</c> seconds. Abathur has perfected the clone, granting it <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">20%</c> Spell Power, <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">20%</c> bonus Attack Damage, and <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">10%</c> bonus Movement Speed. Cannot use their Heroic Ability.",
+            "fullText": "Clone target allied Hero and control it for 20 seconds. Abathur has perfected the clone, granting it 20% Spell Power, 20% bonus Attack Damage, and 10% bonus Movement Speed. Cannot use their Heroic Ability.",
             "abilityType": "Heroic"
           }
         ],
@@ -182,7 +182,7 @@
             "icon": "storm_ui_icon_abathur_spawnlocust.png",
             "cooldownText": "Cooldown: 15 seconds",
             "shortText": "Spawn locusts that attack down the nearest lane",
-            "fullText": "Spawns a Locust to attack down the nearest lane every <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15</c> seconds. Locusts last for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">16</c> seconds, have <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">350~~0.04~~</c> health and deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">58~~0.04~~</c> damage with each Basic Attack, dealing <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">25%</c> bonus damage to enemy Structures.",
+            "fullText": "Spawns a Locust to attack down the nearest lane every 15 seconds. Locusts last for 16 seconds, have 350 health and deal 58 damage with each Basic Attack, dealing 25% bonus damage to enemy Structures.",
             "abilityType": "Trait"
           }
         ],
@@ -206,7 +206,7 @@
             "buttonId": "HearthstoneNoMana",
             "name": "Hearthstone",
             "icon": "storm_ui_icon_miscrune_1.png",
-            "fullText": "After Channeling for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">6</c> seconds, teleport back to the Hall of Storms, instantly restoring <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1125</c> Health.",
+            "fullText": "After Channeling for 6 seconds, teleport back to the Hall of Storms, instantly restoring 1125 Health.",
             "abilityType": "B"
           }
         ]
@@ -236,7 +236,7 @@
               "icon": "storm_ui_icon_talent_mule.png",
               "cooldownText": "Cooldown: 60 seconds",
               "shortText": "Activate to heal Structures",
-              "fullText": "Activate to calldown a Mule that repairs Structures, one at a time, near target point for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">40</c> seconds, healing for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">90</c> Health every <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1</c> second. ",
+              "fullText": "Activate to calldown a Mule that repairs Structures, one at a time, near target point for 40 seconds, healing for 90 Health every 1 second. ",
               "abilityType": "Active"
             }
           ]
@@ -251,7 +251,7 @@
               "icon": "storm_ui_icon_abathur_spawnlocust.png",
               "cooldownText": "Cooldown: 45 seconds",
               "shortText": "Spawn a group of Locusts",
-              "fullText": "Activate to spawn <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> Locusts at a nearby location.",
+              "fullText": "Activate to spawn 3 Locusts at a nearby location.",
               "abilityType": "Active"
             }
           ]
@@ -282,7 +282,7 @@
             "name": "Pressurized Glands",
             "icon": "storm_ui_icon_abathur_spikeburst.png",
             "shortText": "Increases Spike Burst range and decreases cooldown",
-            "fullText": "Increases the range of Symbiote's Spike Burst by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">25%</c> and decreases the cooldown by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1</c> second.",
+            "fullText": "Increases the range of Symbiote's Spike Burst by 25% and decreases the cooldown by 1 second.",
             "abilityType": "W",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -300,7 +300,7 @@
             "name": "Envenomed Nest",
             "icon": "storm_ui_icon_abathur_toxicnest.png",
             "shortText": "Toxic Nests deal more damage, reduce Armor",
-            "fullText": "Toxic Nests deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">75%</c> more damage over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> seconds and reduce the Armor of enemy Heroes hit by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">10</c> for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">4</c> seconds.",
+            "fullText": "Toxic Nests deal 75% more damage over 3 seconds and reduce the Armor of enemy Heroes hit by 10 for 4 seconds.",
             "abilityType": "W",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -317,7 +317,7 @@
             "name": "Reinforced Carapace",
             "icon": "storm_ui_icon_abathur_carapace.png",
             "shortText": "Increase Carapace Shield",
-            "fullText": "Increase the Shield amount of Carapace by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">40%</c>.",
+            "fullText": "Increase the Shield amount of Carapace by 40%.",
             "abilityType": "E",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -335,7 +335,7 @@
             "name": "Survival Instincts",
             "icon": "storm_ui_icon_abathur_spawnlocust.png",
             "shortText": "Increases Locust Health and damage",
-            "fullText": "Increases Locust's Health by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100%</c> and damage by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">60%</c>.",
+            "fullText": "Increases Locust's Health by 100% and damage by 60%.",
             "abilityType": "Trait",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -354,7 +354,7 @@
             "name": "Adrenal Overload",
             "icon": "storm_ui_icon_abathur_symbiote.png",
             "shortText": "Symbiote host gains Attack Speed",
-            "fullText": "Heroic Symbiote hosts gain <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">25%</c> increased Attack Speed.",
+            "fullText": "Heroic Symbiote hosts gain 25% increased Attack Speed.",
             "abilityType": "Q",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -371,7 +371,7 @@
             "name": "Needlespine",
             "icon": "storm_ui_icon_abathur_stab.png",
             "shortText": "Increases Stab damage and range",
-            "fullText": "Increases the damage and range of Symbiote's Stab by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">20%</c>.",
+            "fullText": "Increases the damage and range of Symbiote's Stab by 20%.",
             "abilityType": "Q",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -389,7 +389,7 @@
             "name": "Prolific Dispersal",
             "icon": "storm_ui_icon_abathur_toxicnest.png",
             "shortText": "Increases Toxic Nest charges, duration",
-            "fullText": "Increase the duration of Toxic Nests by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">45</c> seconds, reduce its cooldown by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds, and add <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> additional charges.",
+            "fullText": "Increase the duration of Toxic Nests by 45 seconds, reduce its cooldown by 2 seconds, and add 2 additional charges.",
             "abilityType": "W",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -408,7 +408,7 @@
             "name": "Vile Nest",
             "icon": "storm_ui_icon_abathur_toxicnest.png",
             "shortText": "Toxic Nests slow Move Speed",
-            "fullText": "Toxic Nests Slow enemy Movement Speed by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">40%</c> for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2.5</c> seconds.",
+            "fullText": "Toxic Nests Slow enemy Movement Speed by 40% for 2.5 seconds.",
             "abilityType": "W",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -444,7 +444,7 @@
             "icon": "storm_ui_icon_talent_mule.png",
             "cooldownText": "Cooldown: 60 seconds",
             "shortText": "Activate to heal Structures",
-            "fullText": "Activate to calldown a Mule that repairs Structures, one at a time, near target point for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">40</c> seconds, healing for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">90</c> Health every <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1</c> second. ",
+            "fullText": "Activate to calldown a Mule that repairs Structures, one at a time, near target point for 40 seconds, healing for 90 Health every 1 second. ",
             "abilityType": "Active",
             "isQuest": false,
             "upgradesAbilityType": false,
@@ -461,7 +461,7 @@
             "icon": "storm_ui_icon_abathur_ultimateevolution.png",
             "cooldownText": "Cooldown: 70 seconds",
             "shortText": "Clone target allied Hero and control it",
-            "fullText": "Clone target allied Hero and control it for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">20</c> seconds. Abathur has perfected the clone, granting it <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">20%</c> Spell Power, <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">20%</c> bonus Attack Damage, and <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">10%</c> bonus Movement Speed. Cannot use their Heroic Ability.",
+            "fullText": "Clone target allied Hero and control it for 20 seconds. Abathur has perfected the clone, granting it 20% Spell Power, 20% bonus Attack Damage, and 10% bonus Movement Speed. Cannot use their Heroic Ability.",
             "abilityType": "Heroic",
             "isQuest": false,
             "upgradesAbilityType": false,
@@ -476,7 +476,7 @@
             "icon": "storm_ui_icon_abathur_evolvemonstrosity.png",
             "cooldownText": "Cooldown: 90 seconds",
             "shortText": "Minion or Locust becomes a powerful Monstrosity",
-            "fullText": "Turn an allied Minion or Locust into a Monstrosity. When enemy Minions near the Monstrosity die, it gains <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2%</c> Health and <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2%</c> Basic Attack damage, stacking up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">40</c> times. The Monstrosity can be healed by Carapace and has the ability to Burrow to a visible location every <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">80</c> seconds.<n/><n/>Using Symbiote on the Monstrosity allows Abathur to control it, in addition to Symbiote's normal benefits. This Ability can be reactivated to automatically cast Symbiote on his Monstrosity.",
+            "fullText": "Turn an allied Minion or Locust into a Monstrosity. When enemy Minions near the Monstrosity die, it gains 2% Health and 2% Basic Attack damage, stacking up to 40 times. The Monstrosity can be healed by Carapace and has the ability to Burrow to a visible location every 80 seconds.  Using Symbiote on the Monstrosity allows Abathur to control it, in addition to Symbiote's normal benefits. This Ability can be reactivated to automatically cast Symbiote on his Monstrosity.",
             "abilityType": "Heroic",
             "isQuest": true,
             "upgradesAbilityType": false,
@@ -492,7 +492,7 @@
             "name": "Spatial Efficiency",
             "icon": "storm_ui_icon_abathur_stab.png",
             "shortText": "Stab gains an additional charge",
-            "fullText": "Symbiote's Stab gains <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1</c> additional charge and its cooldown is reduced by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">.5</c> seconds.",
+            "fullText": "Symbiote's Stab gains 1 additional charge and its cooldown is reduced by .5 seconds.",
             "abilityType": "Q",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -510,7 +510,7 @@
             "name": "Soma Transference",
             "icon": "storm_ui_icon_abathur_spikeburst.png",
             "shortText": "Spike Burst heals for each Hero hit",
-            "fullText": "Symbiote's Spike Burst heals the host for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">64~~0.04~~</c> Health per enemy Hero hit.",
+            "fullText": "Symbiote's Spike Burst heals the host for 64 Health per enemy Hero hit.",
             "abilityType": "W",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -528,7 +528,7 @@
             "name": "Bombard Strain",
             "icon": "storm_ui_icon_abathur_spawnlocust.png",
             "shortText": "Locusts gain a ranged attack, increased duration",
-            "fullText": "Locust's Basic Attacks become a long-range siege attack and their duration is increased by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">75%</c>.",
+            "fullText": "Locust's Basic Attacks become a long-range siege attack and their duration is increased by 75%.",
             "abilityType": "Trait",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -547,7 +547,7 @@
             "name": "Envenomed Spikes",
             "icon": "storm_ui_icon_abathur_spikeburst.png",
             "shortText": "Spike Burst Slows Move Speed",
-            "fullText": "Abathur's Symbiote's Spike Burst also Slows enemy Movement Speed by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">40%</c> for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds.",
+            "fullText": "Abathur's Symbiote's Spike Burst also Slows enemy Movement Speed by 40% for 2 seconds.",
             "abilityType": "W",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -565,7 +565,7 @@
             "name": "Adrenaline Boost",
             "icon": "storm_ui_icon_abathur_carapace.png",
             "shortText": "Carapace increases Move Speed",
-            "fullText": "Symbiote's Carapace increases the Movement Speed of the target by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">40%</c> for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3.5</c> seconds.",
+            "fullText": "Symbiote's Carapace increases the Movement Speed of the target by 40% for 3.5 seconds.",
             "abilityType": "E",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -583,7 +583,7 @@
             "name": "Volatile Mutation",
             "icon": "storm_ui_icon_abathur_volatilemutation.png",
             "shortText": "Heroic summons radiate damage",
-            "fullText": "Ultimate Evolution clones and Monstrosities deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">137~~0.04~~</c> damage to nearby enemies every <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> seconds and when they die. Enemy Heroes hit heal the clone or Monstrosity for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100%</c> of the damage dealt.",
+            "fullText": "Ultimate Evolution clones and Monstrosities deal 137 damage to nearby enemies every 3 seconds and when they die. Enemy Heroes hit heal the clone or Monstrosity for 100% of the damage dealt.",
             "abilityType": "Heroic",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -602,7 +602,7 @@
             "icon": "storm_ui_icon_abathur_spawnlocust.png",
             "cooldownText": "Cooldown: 45 seconds",
             "shortText": "Spawn a group of Locusts",
-            "fullText": "Activate to spawn <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> Locusts at a nearby location.",
+            "fullText": "Activate to spawn 3 Locusts at a nearby location.",
             "abilityType": "Active",
             "isQuest": false,
             "upgradesAbilityType": false,
@@ -618,7 +618,7 @@
             "name": "Evolutionary Link",
             "icon": "storm_ui_icon_abathur_ultimateevolution.png",
             "shortText": "Ultimate Evolution target gets a Shield",
-            "fullText": "Increase the duration of Ultimate Evolution by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">50%</c>. As long as the Ultimate Evolution is alive, the original target of the clone gains a Shield equal to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">35%</c> of their maximum Health. Refreshes every <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">5</c> seconds.",
+            "fullText": "Increase the duration of Ultimate Evolution by 50%. As long as the Ultimate Evolution is alive, the original target of the clone gains a Shield equal to 35% of their maximum Health. Refreshes every 5 seconds.",
             "abilityType": "Heroic",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -638,7 +638,7 @@
             "name": "Evolution Complete",
             "icon": "storm_ui_icon_abathur_evolvemonstrosity.png",
             "shortText": "Monstrosity gains Attack Damage",
-            "fullText": "Increase Monstrosity's Basic Attack damage by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100%</c>.",
+            "fullText": "Increase Monstrosity's Basic Attack damage by 100%.",
             "abilityType": "Heroic",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -727,7 +727,7 @@
                 },
                 "cooldownText": "Charge Cooldown: 3 seconds",
                 "shortText": "Shoots a spike that deals damage to the first enemy it contacts.",
-                "fullText": "Shoots a spike towards target area that deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">119~~0.04~~</c> damage to the first enemy it contacts.",
+                "fullText": "Shoots a spike towards target area that deals 119 damage to the first enemy it contacts.",
                 "abilityType": "Q"
               },
               {
@@ -738,7 +738,7 @@
                 "icon": "storm_ui_icon_abathur_spikeburst.png",
                 "cooldownText": "Cooldown: 6 seconds",
                 "shortText": "Damage nearby enemies",
-                "fullText": "Deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">120~~0.04~~</c> damage to nearby enemies.",
+                "fullText": "Deals 120 damage to nearby enemies.",
                 "abilityType": "W"
               },
               {
@@ -748,7 +748,7 @@
                 "name": "Carapace",
                 "icon": "storm_ui_icon_abathur_carapace.png",
                 "cooldownText": "Cooldown: 6 seconds",
-                "fullText": "Shields the assisted ally for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">150~~0.04~~</c>. Allied Heroes are healed for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">22~~0.04~~</c> Health per second while the Shield is active. Lasts for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">6</c> seconds.",
+                "fullText": "Shields the assisted ally for 150. Allied Heroes are healed for 22 Health per second while the Shield is active. Lasts for 6 seconds.",
                 "abilityType": "E"
               }
             ],
@@ -890,10 +890,10 @@
             "buttonId": "AlarakDiscordStrike",
             "name": "Discord Strike",
             "icon": "storm_ui_icon_alarak_discordstrike.png",
-            "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 55</s>",
+            "energyText": "Mana: 55",
             "cooldownText": "Cooldown: 8 seconds",
             "shortText": "Damage and silence enemies in an area",
-            "fullText": "After a <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">0.5</c> second delay, enemies in front of Alarak take <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">165~~0.04~~</c> damage and are silenced for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.5</c> seconds. ",
+            "fullText": "After a 0.5 second delay, enemies in front of Alarak take 165 damage and are silenced for 1.5 seconds. ",
             "abilityType": "Q"
           },
           {
@@ -902,10 +902,10 @@
             "buttonId": "AlarakTelekinesis",
             "name": "Telekinesis",
             "icon": "storm_ui_icon_alarak_telekinesis.png",
-            "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 30</s>",
+            "energyText": "Mana: 30",
             "cooldownText": "Cooldown: 12 seconds",
             "shortText": "Push enemies towards a location",
-            "fullText": "<c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">Vector Targeting</c><n/>Create a force, pushing Alarak and all enemies hit from the targeted point towards the targeted direction. Deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">48~~0.04~~</c> damage to enemies.",
+            "fullText": "Vector Targeting Create a force, pushing Alarak and all enemies hit from the targeted point towards the targeted direction. Deals 48 damage to enemies.",
             "abilityType": "W"
           },
           {
@@ -914,10 +914,10 @@
             "buttonId": "AlarakLightningSurge",
             "name": "Lightning Surge",
             "icon": "storm_ui_icon_alarak_lightningsurge.png",
-            "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 25</s>",
+            "energyText": "Mana: 25",
             "cooldownText": "Cooldown: 6 seconds",
             "shortText": "Damage enemies in a line",
-            "fullText": "Deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">62~~0.04~~</c> damage to an enemy and an additional <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100%</c> damage to enemies between Alarak and the target. Restore <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">75~~0.04~~</c> health for each Hero hit.",
+            "fullText": "Deal 62 damage to an enemy and an additional 100% damage to enemies between Alarak and the target. Restore 75 health for each Hero hit.",
             "abilityType": "E"
           }
         ],
@@ -929,10 +929,10 @@
             "name": "Deadly Charge",
             "icon": "storm_ui_icon_alarak_recklesscharge.png",
             "toggleCooldown": 0.5,
-            "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 60</s>",
+            "energyText": "Mana: 60",
             "cooldownText": "Cooldown: 45 seconds",
             "shortText": "Channel to charge a long distance",
-            "fullText": "After channeling, Alarak charges forward dealing <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">200~~0.04~~</c> damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.5</c> seconds.<n/><n/>Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling.",
+            "fullText": "After channeling, Alarak charges forward dealing 200 damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to 1.5 seconds.  Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling.",
             "abilityType": "Heroic"
           },
           {
@@ -941,10 +941,10 @@
             "buttonId": "AlarakCounterStrikeTargeted",
             "name": "Counter-Strike",
             "icon": "storm_ui_icon_alarak_counterstrike.png",
-            "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 50</s>",
+            "energyText": "Mana: 50",
             "cooldownText": "Cooldown: 30 seconds",
             "shortText": "Prevents damage to deal damage in a large area",
-            "fullText": "Alarak targets an area and channels for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1</c> second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">275~~0.04~~</c> damage.",
+            "fullText": "Alarak targets an area and channels for 1 second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals 275 damage.",
             "abilityType": "Heroic"
           }
         ],
@@ -955,8 +955,8 @@
             "buttonId": "AlarakSadism",
             "name": "Sadism",
             "icon": "storm_ui_icon_alarak_sadism.png",
-            "shortText": "Each point of Sadism increases Alarak's Ability damage and self-healing against enemy Heroes by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1%</c><n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Repeatable Quest:</c> Takedowns increase Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3%</c>, up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30%</c>. Sadism gained from Takedowns is lost on death.",
-            "fullText": "Alarak's Ability damage and self-healing are increased by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100%</c> against enemy Heroes.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Repeatable Quest:</c> Takedowns increase Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3%</c>, up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30%</c>. Sadism gained from Takedowns is lost on death.",
+            "shortText": "Each point of Sadism increases Alarak's Ability damage and self-healing against enemy Heroes by 1%  Repeatable Quest: Takedowns increase Sadism by 3%, up to 30%. Sadism gained from Takedowns is lost on death.",
+            "fullText": "Alarak's Ability damage and self-healing are increased by 100% against enemy Heroes.  Repeatable Quest: Takedowns increase Sadism by 3%, up to 30%. Sadism gained from Takedowns is lost on death.",
             "abilityType": "Trait"
           }
         ],
@@ -968,7 +968,7 @@
             "name": "Summon Mount",
             "icon": "storm_ui_icon_generic_mount.png",
             "cooldownText": "Cooldown: 4 seconds",
-            "fullText": "After Channeling for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1</c> second, gain <s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">30%</s> Movement Speed.",
+            "fullText": "After Channeling for 1 second, gain 30% Movement Speed.",
             "abilityType": "Z"
           }
         ],
@@ -979,7 +979,7 @@
             "buttonId": "Hearthstone",
             "name": "Hearthstone",
             "icon": "storm_ui_icon_miscrune_1.png",
-            "fullText": "After Channeling for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">6</c> seconds, teleport back to the Hall of Storms, instantly restoring <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1125</c> Health and <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">150</c> Mana.",
+            "fullText": "After Channeling for 6 seconds, teleport back to the Hall of Storms, instantly restoring 1125 Health and 150 Mana.",
             "abilityType": "B"
           }
         ]
@@ -993,10 +993,10 @@
               "buttonId": "AlarakCounterStrike2ndHeroicSadism",
               "name": "Counter-Strike",
               "icon": "storm_ui_icon_alarak_counterstrike.png",
-              "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 50</s>",
+              "energyText": "Mana: 50",
               "cooldownText": "Cooldown: 30 seconds",
               "shortText": "Deal increased ability damage to Heroes",
-              "fullText": "Alarak targets an area and channels for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1</c> second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">275~~0.04~~</c> damage.<n/><n/><s val=\"cbe8ff-ffffff\" hlt-name=\"StandardTooltipHeader\">Sadism</s><n/><n/>Alarak's Ability damage and self-healing are increased by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100%</c> against enemy Heroes.<n/><n/>Takedowns increase Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3%</c>, up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30%</c>. Sadism gained from Takedowns is lost on death.",
+              "fullText": "Alarak targets an area and channels for 1 second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals 275 damage.  Sadism  Alarak's Ability damage and self-healing are increased by 100% against enemy Heroes.  Takedowns increase Sadism by 3%, up to 30%. Sadism gained from Takedowns is lost on death.",
               "abilityType": "Trait"
             }
           ]
@@ -1011,7 +1011,7 @@
               "icon": "storm_ui_icon_alarak_recklesscharge.png",
               "toggleCooldown": 0.25,
               "shortText": "Charge Recklessly",
-              "fullText": "Unleash Alarak's Deadly Charge.<n/><n/>Issuing a move order while this is channeling will cancel the cast at no cost. Taking damage will interrupt the channeling.",
+              "fullText": "Unleash Alarak's Deadly Charge.  Issuing a move order while this is channeling will cancel the cast at no cost. Taking damage will interrupt the channeling.",
               "abilityType": "Heroic"
             }
           ],
@@ -1023,10 +1023,10 @@
               "name": "Deadly Charge",
               "icon": "storm_ui_icon_alarak_recklesscharge.png",
               "toggleCooldown": 0.5,
-              "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 60</s>",
+              "energyText": "Mana: 60",
               "cooldownText": "Cooldown: 45 seconds",
               "shortText": "Deal increased ability damage to Heroes",
-              "fullText": "After channeling, Alarak charges forward dealing <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">200~~0.04~~</c> damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.5</c> seconds.<n/><n/>Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling.<n/><n/><s val=\"cbe8ff-ffffff\" hlt-name=\"StandardTooltipHeader\">Sadism</s><n/><n/>Alarak's Ability damage and self-healing are increased by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100%</c> against enemy Heroes.<n/><n/>Takedowns increase Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3%</c>, up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30%</c>. Sadism gained from Takedowns is lost on death.",
+              "fullText": "After channeling, Alarak charges forward dealing 200 damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to 1.5 seconds.  Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling.  Sadism  Alarak's Ability damage and self-healing are increased by 100% against enemy Heroes.  Takedowns increase Sadism by 3%, up to 30%. Sadism gained from Takedowns is lost on death.",
               "abilityType": "Trait"
             }
           ]
@@ -1041,7 +1041,7 @@
               "icon": "storm_ui_icon_alarak_recklesscharge.png",
               "toggleCooldown": 0.25,
               "shortText": "Charge Recklessly",
-              "fullText": "Unleash Alarak's Deadly Charge.<n/><n/>Issuing a move order while this is channeling will cancel the cast at no cost. Taking damage will interrupt the channeling.",
+              "fullText": "Unleash Alarak's Deadly Charge.  Issuing a move order while this is channeling will cancel the cast at no cost. Taking damage will interrupt the channeling.",
               "abilityType": "Trait"
             }
           ]
@@ -1070,7 +1070,7 @@
               "icon": "storm_ui_icon_alarak_sadism_b.png",
               "cooldownText": "Cooldown: 300 seconds",
               "shortText": "Mark and damage Hero to increase Sadism",
-              "fullText": "Activate to mark an enemy Hero for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">300</c> seconds.<n/><n/>Hitting the marked Hero with Discord Strike increases Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3%</c>. Killing the marked Hero increases Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">5%</c> and lowers the cooldown of Rite of Rak'Shir to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">10</c> seconds.<n/><n/>Sadism gained from Rite of Rak'Shir is lost on death.",
+              "fullText": "Activate to mark an enemy Hero for 300 seconds.  Hitting the marked Hero with Discord Strike increases Sadism by 3%. Killing the marked Hero increases Sadism by 5% and lowers the cooldown of Rite of Rak'Shir to 10 seconds.  Sadism gained from Rite of Rak'Shir is lost on death.",
               "abilityType": "Trait"
             }
           ]
@@ -1085,7 +1085,7 @@
               "icon": "storm_ui_icon_alarak_lightningsurge.png",
               "toggleCooldown": 0.125,
               "shortText": "Damage enemies in a line",
-              "fullText": "Deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">62~~0.04~~</c> damage to an enemy and an additional <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100%</c> damage to enemies between Alarak and the target. Restore <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">75~~0.04~~</c> health for each Hero hit.",
+              "fullText": "Deal 62 damage to an enemy and an additional 100% damage to enemies between Alarak and the target. Restore 75 health for each Hero hit.",
               "abilityType": "E"
             }
           ]
@@ -1100,7 +1100,7 @@
               "icon": "storm_ui_icon_alarak_hastybargain.png",
               "cooldownText": "Cooldown: 20 seconds",
               "shortText": "Activate to reduce Sadism bonus and reset Basic Ability cooldowns",
-              "fullText": "Activate to permanently reduce Alarak's Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">4%</c> and reset the cooldowns of his Basic Abilities.",
+              "fullText": "Activate to permanently reduce Alarak's Sadism by 4% and reset the cooldowns of his Basic Abilities.",
               "abilityType": "Active"
             }
           ]
@@ -1115,7 +1115,7 @@
               "icon": "storm_ui_icon_alarak_lasttrick.png",
               "cooldownText": "Cooldown: 30 seconds",
               "shortText": "Cleanse and teleport, but reduce Health",
-              "fullText": "Activate to teleport to the chosen location and remove all Roots, Slows, and damage over time effects. If Alarak fails to hit enemy Heroes <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> times with Basic Abilities within <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">4</c> seconds of using Last Laugh, his Health is reduced to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1</c>.",
+              "fullText": "Activate to teleport to the chosen location and remove all Roots, Slows, and damage over time effects. If Alarak fails to hit enemy Heroes 3 times with Basic Abilities within 4 seconds of using Last Laugh, his Health is reduced to 1.",
               "abilityType": "Active"
             }
           ]
@@ -1157,7 +1157,7 @@
             "name": "Overwhelming Power",
             "icon": "storm_ui_icon_alarak_discordstrike.png",
             "shortText": "Discord Strike grants Attack Speed, Lifesteal",
-            "fullText": "Hitting an enemy Hero with Discord Strike grants <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">40%</c> Attack Speed and causes Basic Attacks to heal for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15%</c> of the damage dealt, increased by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">50%</c> of Sadism's bonus when hitting Heroes. These effects last for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">4</c> seconds.",
+            "fullText": "Hitting an enemy Hero with Discord Strike grants 40% Attack Speed and causes Basic Attacks to heal for 15% of the damage dealt, increased by 50% of Sadism's bonus when hitting Heroes. These effects last for 4 seconds.",
             "abilityType": "Q",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -1174,7 +1174,7 @@
             "name": "Ruthless Momentum",
             "icon": "storm_ui_icon_alarak_telekinesis.png",
             "shortText": "Reduce cooldown at high Health",
-            "fullText": "Reduce the Mana cost of Telekinesis from <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30</c> to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">20.</c> Telekinesis's cooldown recharges <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100%</c> faster while above <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">80%</c> Health.",
+            "fullText": "Reduce the Mana cost of Telekinesis from 30 to 20. Telekinesis's cooldown recharges 100% faster while above 80% Health.",
             "abilityType": "W",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -1193,8 +1193,8 @@
             "abilityId": "AlarakLightningSurge",
             "name": "Extended Lightning",
             "icon": "storm_ui_icon_alarak_lightningsurge.png",
-            "shortText": "<c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Quest:</c> Reduce Sadism, empower Lightning Surge",
-            "fullText": "Reduce Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">10%</c>.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Quest:</c> Hit Heroes with the center of Lightning Surge.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">5</c> Heroes, increase Lightning Surge's range by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">20%</c>.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15</c> Heroes, Lightning Surge's center also Slows enemies by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">40%</c> for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> Heroes with the center of a single cast, increase Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">10%</c> and instantly gain all other Rewards.",
+            "shortText": "Quest: Reduce Sadism, empower Lightning Surge",
+            "fullText": "Reduce Sadism by 10%.  Quest: Hit Heroes with the center of Lightning Surge.  Reward: After hitting 5 Heroes, increase Lightning Surge's range by 20%.  Reward: After hitting 15 Heroes, Lightning Surge's center also Slows enemies by 40% for 2 seconds.  Reward: After hitting 3 Heroes with the center of a single cast, increase Sadism by 10% and instantly gain all other Rewards.",
             "abilityType": "E",
             "isQuest": true,
             "upgradesAbilityType": false,
@@ -1213,8 +1213,8 @@
             "abilityId": "AlarakDiscordStrike",
             "name": "Chaos Reigns",
             "icon": "storm_ui_icon_alarak_discordstrike.png",
-            "shortText": "<c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Quest:</c> Hit Heroes to increase Discord Strike damage",
-            "fullText": "<img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Quest:</c> Hit Heroes with Discord Strike.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15</c> Heroes, increase Discord Strike's damage by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">60</c>.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> Heroes with a single Discord Strike, increase its damage by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">60</c>.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Reward:</c> After hitting <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> Heroes with a single Discord Strike, increase its damage by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100</c> and instantly gain all other Rewards.",
+            "shortText": "Quest: Hit Heroes to increase Discord Strike damage",
+            "fullText": "Quest: Hit Heroes with Discord Strike.  Reward: After hitting 15 Heroes, increase Discord Strike's damage by 60.  Reward: After hitting 2 Heroes with a single Discord Strike, increase its damage by 60.  Reward: After hitting 3 Heroes with a single Discord Strike, increase its damage by 100 and instantly gain all other Rewards.",
             "abilityType": "Q",
             "isQuest": true,
             "upgradesAbilityType": false,
@@ -1230,8 +1230,8 @@
             "abilityId": "AlarakLightningSurge",
             "name": "Negatively Charged",
             "icon": "storm_ui_icon_alarak_lightningsurge.png",
-            "shortText": "<c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Quest:</c> Increase Lightning Surge center damage",
-            "fullText": "Increase the Lightning Surge damage bonus to enemies between Alarak and his victim to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">175%</c>.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Repeatable Quest:</c> Each Hero hit by the center of Lightning Surge permanently increases the damage bonus by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">5%</c>.",
+            "shortText": "Quest: Increase Lightning Surge center damage",
+            "fullText": "Increase the Lightning Surge damage bonus to enemies between Alarak and his victim to 175%.  Repeatable Quest: Each Hero hit by the center of Lightning Surge permanently increases the damage bonus by 5%.",
             "abilityType": "E",
             "isQuest": true,
             "upgradesAbilityType": false,
@@ -1249,7 +1249,7 @@
             "name": "Show of Force",
             "icon": "storm_ui_icon_alarak_sadism.png",
             "shortText": "Ability combos deal bonus damage, grant Sadism",
-            "fullText": "Heroes hit with <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> of Alarak's Abilities within <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds take an additional <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">61~~0.04~~</c> damage and increase Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2%</c>, stacking up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">20%</c>. <n/><n/>Sadism gained from Show of Force is lost on death.",
+            "fullText": "Heroes hit with 3 of Alarak's Abilities within 2 seconds take an additional 61 damage and increase Sadism by 2%, stacking up to 20%.   Sadism gained from Show of Force is lost on death.",
             "abilityType": "Trait",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -1270,7 +1270,7 @@
             "name": "Dissonance",
             "icon": "storm_ui_icon_alarak_discordstrike.png",
             "shortText": "Increase Discord Strike's Silence duration",
-            "fullText": "Increase Discord Strike's Silence duration by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">0.75</c> seconds.",
+            "fullText": "Increase Discord Strike's Silence duration by 0.75 seconds.",
             "abilityType": "Q",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -1287,7 +1287,7 @@
             "name": "Hindered Motion",
             "icon": "storm_ui_icon_alarak_telekinesis_a.png",
             "shortText": "Telekinesis Slows",
-            "fullText": "Telekinesis Slows enemies by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30%</c> for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> seconds.",
+            "fullText": "Telekinesis Slows enemies by 30% for 3 seconds.",
             "abilityType": "W",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -1304,7 +1304,7 @@
             "name": "Applied Force",
             "icon": "storm_ui_icon_alarak_telekinesis.png",
             "shortText": "Reduce Sadism, increase Telekinesis distance, range",
-            "fullText": "Reduce Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">10%</c>, but Telekinesis pushes <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15%</c> further and has <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15%</c> increased range.",
+            "fullText": "Reduce Sadism by 10%, but Telekinesis pushes 15% further and has 15% increased range.",
             "abilityType": "W",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -1323,10 +1323,10 @@
             "name": "Deadly Charge",
             "icon": "storm_ui_icon_alarak_recklesscharge.png",
             "toggleCooldown": 0.5,
-            "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 60</s>",
+            "energyText": "Mana: 60",
             "cooldownText": "Cooldown: 45 seconds",
             "shortText": "Channel to charge a long distance",
-            "fullText": "After channeling, Alarak charges forward dealing <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">200~~0.04~~</c> damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.5</c> seconds.<n/><n/>Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling.",
+            "fullText": "After channeling, Alarak charges forward dealing 200 damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to 1.5 seconds.  Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling.",
             "abilityType": "Heroic",
             "isQuest": false,
             "upgradesAbilityType": false,
@@ -1339,10 +1339,10 @@
             "abilityId": "AlarakCounterStrikeTargeted",
             "name": "Counter-Strike",
             "icon": "storm_ui_icon_alarak_counterstrike.png",
-            "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 50</s>",
+            "energyText": "Mana: 50",
             "cooldownText": "Cooldown: 30 seconds",
             "shortText": "Prevents damage to deal damage in a large area",
-            "fullText": "Alarak targets an area and channels for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1</c> second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">275~~0.04~~</c> damage.",
+            "fullText": "Alarak targets an area and channels for 1 second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals 275 damage.",
             "abilityType": "Heroic",
             "isQuest": false,
             "upgradesAbilityType": false,
@@ -1358,7 +1358,7 @@
             "name": "Blade of the Highlord",
             "icon": "storm_ui_icon_alarak_sadism.png",
             "shortText": "Basic Attacks increase Sadism",
-            "fullText": "Basic Attacks against Heroes increase Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2%</c> stacking up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">40%</c>.<n/><n/>Sadism gained from Blade of the Highlord is lost on death.",
+            "fullText": "Basic Attacks against Heroes increase Sadism by 2% stacking up to 40%.  Sadism gained from Blade of the Highlord is lost on death.",
             "abilityType": "Trait",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -1377,7 +1377,7 @@
             "name": "Pure Malice",
             "icon": "storm_ui_icon_alarak_sadism_a.png",
             "shortText": "Allied deaths increase Sadism",
-            "fullText": "Increase Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">10%</c> any time an allied Hero dies, up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">40%</c>.<n/><n/>Sadism gained from Pure Malice is lost on death.",
+            "fullText": "Increase Sadism by 10% any time an allied Hero dies, up to 40%.  Sadism gained from Pure Malice is lost on death.",
             "abilityType": "Trait",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -1397,7 +1397,7 @@
             "icon": "storm_ui_icon_alarak_sadism_b.png",
             "cooldownText": "Cooldown: 300 seconds",
             "shortText": "Mark and damage Hero to increase Sadism",
-            "fullText": "Activate to mark an enemy Hero for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">300</c> seconds.<n/><n/>Hitting the marked Hero with Discord Strike increases Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3%</c>. Killing the marked Hero increases Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">5%</c> and lowers the cooldown of Rite of Rak'Shir to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">10</c> seconds.<n/><n/>Sadism gained from Rite of Rak'Shir is lost on death.",
+            "fullText": "Activate to mark an enemy Hero for 300 seconds.  Hitting the marked Hero with Discord Strike increases Sadism by 3%. Killing the marked Hero increases Sadism by 5% and lowers the cooldown of Rite of Rak'Shir to 10 seconds.  Sadism gained from Rite of Rak'Shir is lost on death.",
             "abilityType": "Trait",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -1413,7 +1413,7 @@
             "name": "Lethal Onslaught",
             "icon": "storm_ui_icon_alarak_discordstrike.png",
             "shortText": "Discord Strike grants Sadism bonus to Basic Attacks",
-            "fullText": "Hitting an enemy Hero with Discord Strike grants <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">50%</c> of Sadism's damage bonus to Alarak's Basic Attacks for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">4</c> seconds. Basic Attacks against Heroes refresh this duration.",
+            "fullText": "Hitting an enemy Hero with Discord Strike grants 50% of Sadism's damage bonus to Alarak's Basic Attacks for 4 seconds. Basic Attacks against Heroes refresh this duration.",
             "abilityType": "Q",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -1430,7 +1430,7 @@
             "name": "Lightning Barrage",
             "icon": "storm_ui_icon_alarak_lightningsurge.png",
             "shortText": "Center hits grant free Lightning Surge cast",
-            "fullText": "Hitting an enemy Hero with the center of Lightning Surge allows it to be cast again for free on a different primary target within the next <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> seconds. This free cast cannot benefit from Lightning Barrage.",
+            "fullText": "Hitting an enemy Hero with the center of Lightning Surge allows it to be cast again for free on a different primary target within the next 3 seconds. This free cast cannot benefit from Lightning Barrage.",
             "abilityType": "E",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -1448,7 +1448,7 @@
             "name": "Mocking Strikes",
             "icon": "storm_ui_icon_talent_autoattack_cooldown.png",
             "shortText": "Reduce cooldowns against disabled Heroes",
-            "fullText": "Basic Attacks against enemy Heroes reduce the cooldown of Alarak's Basic Abilities by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.5</c> seconds. This bonus is doubled against enemy Heroes who are Stunned, Silenced, Slowed, or Rooted.",
+            "fullText": "Basic Attacks against enemy Heroes reduce the cooldown of Alarak's Basic Abilities by 1.5 seconds. This bonus is doubled against enemy Heroes who are Stunned, Silenced, Slowed, or Rooted.",
             "abilityType": "Passive",
             "isQuest": false,
             "upgradesAbilityType": false,
@@ -1468,8 +1468,8 @@
             "abilityId": "AlarakCounterStrikeTargeted",
             "name": "Wrath of the Highlord",
             "icon": "storm_ui_icon_alarak_sadism.png",
-            "shortText": "Deadly Charge empowers Sadism's damage<n/>Basic Abilities reduce Counter-Strike's cooldown",
-            "fullText": "If Deadly Charge was the selected Heroic, Heroes hit by Deadly Charge take bonus damage from Alarak's Abilities equal to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">75%</c> of Sadism's bonus damage for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">4</c> seconds.<n/><n/>If Counter-Strike was the selected Heroic, its cooldown is reduced by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2.5</c> seconds for each enemy Hero hit by Alarak's Basic Abilities.",
+            "shortText": "Deadly Charge empowers Sadism's damage Basic Abilities reduce Counter-Strike's cooldown",
+            "fullText": "If Deadly Charge was the selected Heroic, Heroes hit by Deadly Charge take bonus damage from Alarak's Abilities equal to 75% of Sadism's bonus damage for 4 seconds.  If Counter-Strike was the selected Heroic, its cooldown is reduced by 2.5 seconds for each enemy Hero hit by Alarak's Basic Abilities.",
             "abilityType": "Heroic",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -1499,7 +1499,7 @@
             "icon": "storm_ui_icon_alarak_lasttrick.png",
             "cooldownText": "Cooldown: 30 seconds",
             "shortText": "Cleanse and teleport, but reduce Health",
-            "fullText": "Activate to teleport to the chosen location and remove all Roots, Slows, and damage over time effects. If Alarak fails to hit enemy Heroes <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> times with Basic Abilities within <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">4</c> seconds of using Last Laugh, his Health is reduced to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1</c>.",
+            "fullText": "Activate to teleport to the chosen location and remove all Roots, Slows, and damage over time effects. If Alarak fails to hit enemy Heroes 3 times with Basic Abilities within 4 seconds of using Last Laugh, his Health is reduced to 1.",
             "abilityType": "Active",
             "isQuest": false,
             "upgradesAbilityType": false,
@@ -1514,7 +1514,7 @@
             "icon": "storm_ui_icon_alarak_hastybargain.png",
             "cooldownText": "Cooldown: 20 seconds",
             "shortText": "Activate to reduce Sadism bonus and reset Basic Ability cooldowns",
-            "fullText": "Activate to permanently reduce Alarak's Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">4%</c> and reset the cooldowns of his Basic Abilities.",
+            "fullText": "Activate to permanently reduce Alarak's Sadism by 4% and reset the cooldowns of his Basic Abilities.",
             "abilityType": "Active",
             "isQuest": false,
             "upgradesAbilityType": false,
@@ -1634,10 +1634,10 @@
             "buttonId": "AlexstraszaGiftOfLife",
             "name": "Gift of Life",
             "icon": "storm_ui_icon_alexstrasza_gift_of_life.png",
-            "lifeText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Health: </s><s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">15%</s>",
+            "lifeText": "Health: 15%",
             "cooldownText": "Cooldown: 7 seconds",
             "shortText": "Give a portion of Health to an allied Hero",
-            "fullText": "Sacrifice <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15%</c> of Alexstrasza's current Health, healing an allied Hero for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">150%</c> of that amount.<n/><n/><c val=\"00ff90\" hlt-name=\"#AbilityPassive\">Passive:</c> Increase Alexstrasza's Health regeneration by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">150%</c>.<n/><n/><c val=\"D65CFF\" hlt-name=\"#ColorViolet\">Dragonqueen: Breath of Life</c><n/>Cooldown greatly reduced and does not cost Health.",
+            "fullText": "Sacrifice 15% of Alexstrasza's current Health, healing an allied Hero for 150% of that amount.  Passive: Increase Alexstrasza's Health regeneration by 150%.  Dragonqueen: Breath of Life Cooldown greatly reduced and does not cost Health.",
             "abilityType": "Q"
           },
           {
@@ -1646,10 +1646,10 @@
             "buttonId": "AlexstraszaAbundance",
             "name": "Abundance",
             "icon": "storm_ui_icon_alexstrasza_abundance.png",
-            "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 75</s>",
+            "energyText": "Mana: 75",
             "cooldownText": "Cooldown: 14 seconds",
             "shortText": "Heal allied Heroes in an area",
-            "fullText": "Plant a seed of healing that blooms after <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> seconds, healing nearby allied Heroes for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">20%</c> of their maximum Health.<n/><n/><c val=\"D65CFF\" hlt-name=\"#ColorViolet\">Dragonqueen: Preservation</c><n/>Heal area and amount greatly increased.",
+            "fullText": "Plant a seed of healing that blooms after 3 seconds, healing nearby allied Heroes for 20% of their maximum Health.  Dragonqueen: Preservation Heal area and amount greatly increased.",
             "abilityType": "W"
           },
           {
@@ -1658,10 +1658,10 @@
             "buttonId": "AlexstraszaFlameBuffet",
             "name": "Flame Buffet",
             "icon": "storm_ui_icon_alexstrasza_flame_buffet.png",
-            "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 50</s>",
+            "energyText": "Mana: 50",
             "cooldownText": "Cooldown: 2 seconds",
             "shortText": "Launch a fireball that ignites enemies and can Slow them",
-            "fullText": "Launch a fireball, Burning enemies hit for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">75~~0.04~~</c> damage over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">5.5</c> seconds.<n/><n/>Hitting enemies that are already Burning deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">125~~0.04~~</c> bonus damage upon impact, Slows them by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">40%</c> decaying over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds, and refunds the Mana cost.<n/><n/><c val=\"D65CFF\" hlt-name=\"#ColorViolet\">Dragonqueen: Wing Buffet</c><n/>Damage and Knockback enemies in an arc.",
+            "fullText": "Launch a fireball, Burning enemies hit for 75 damage over 5.5 seconds.  Hitting enemies that are already Burning deals 125 bonus damage upon impact, Slows them by 40% decaying over 2 seconds, and refunds the Mana cost.  Dragonqueen: Wing Buffet Damage and Knockback enemies in an arc.",
             "abilityType": "E"
           }
         ],
@@ -1672,10 +1672,10 @@
             "buttonId": "AlexstraszaLifebinder",
             "name": "Life-Binder",
             "icon": "storm_ui_icon_alexstrasza_life_binder.png",
-            "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 50</s>",
+            "energyText": "Mana: 50",
             "cooldownText": "Cooldown: 50 seconds",
             "shortText": "Link Alexstrasza's Health with an ally",
-            "fullText": "Bind Alexstrasza's life force with an allied Hero. Both her and her target are healed for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">480~~0.04~~</c> Health over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds. Afterwards, the Hero with a lower percentage of Health is healed to the same Health percentage as the other Hero.<n/><n/><c val=\"D65CFF\" hlt-name=\"#ColorViolet\">Dragonqueen:</c> Cast range increased by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">45%</c>.",
+            "fullText": "Bind Alexstrasza's life force with an allied Hero. Both her and her target are healed for 480 Health over 2 seconds. Afterwards, the Hero with a lower percentage of Health is healed to the same Health percentage as the other Hero.  Dragonqueen: Cast range increased by 45%.",
             "abilityType": "Heroic"
           },
           {
@@ -1684,10 +1684,10 @@
             "buttonId": "AlexstraszaCleansingFlame",
             "name": "Cleansing Flame",
             "icon": "storm_ui_icon_alexstrasza_cleansing_flame.png",
-            "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 100</s>",
+            "energyText": "Mana: 100",
             "cooldownText": "Cooldown: 100 seconds",
             "shortText": "Rain healing and damaging fire from the sky",
-            "fullText": "After <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.25</c> seconds, take to the sky and drop <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">5</c> fireballs over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">6</c> seconds at the position of the mouse cursor. Fireballs deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">135~~0.04~~</c> damage to enemies and heal allied Heroes for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">300~~0.04~~</c> Health.<n/><n/><c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds after dropping all fireballs, Alexstrasza lands at the position of the mouse cursor.",
+            "fullText": "After 1.25 seconds, take to the sky and drop 5 fireballs over 6 seconds at the position of the mouse cursor. Fireballs deal 135 damage to enemies and heal allied Heroes for 300 Health.  2 seconds after dropping all fireballs, Alexstrasza lands at the position of the mouse cursor.",
             "abilityType": "Heroic"
           }
         ],
@@ -1700,7 +1700,7 @@
             "icon": "storm_ui_icon_alexstrasza_dragon_queen.png",
             "cooldownText": "Cooldown: 150 seconds",
             "shortText": "Transform into a dragon aspect with empowered Abilities",
-            "fullText": "After <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.25</c> seconds, transform into a dragon and gain <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">500~~0.04~~</c> Health.<n/><n/>While Dragonqueen is active, Alexstrasza's Abilities are empowered, and her Basic Attacks deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">143~~0.04~~</c> damage and heal allied Heroes for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">43~~0.04~~</c> in an arc in front of her. Additionally, the duration of incoming Stuns, Roots, and Slows, is reduced by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">50%</c>.<n/><n/>Lasts <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15</c> seconds.",
+            "fullText": "After 1.25 seconds, transform into a dragon and gain 500 Health.  While Dragonqueen is active, Alexstrasza's Abilities are empowered, and her Basic Attacks deal 143 damage and heal allied Heroes for 43 in an arc in front of her. Additionally, the duration of incoming Stuns, Roots, and Slows, is reduced by 50%.  Lasts 15 seconds.",
             "abilityType": "Trait"
           }
         ],
@@ -1712,7 +1712,7 @@
             "name": "Summon Mount",
             "icon": "storm_ui_icon_generic_mount.png",
             "cooldownText": "Cooldown: 4 seconds",
-            "fullText": "After Channeling for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1</c> second, gain <s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">30%</s> Movement Speed.",
+            "fullText": "After Channeling for 1 second, gain 30% Movement Speed.",
             "abilityType": "Z"
           }
         ],
@@ -1723,7 +1723,7 @@
             "buttonId": "Hearthstone",
             "name": "Hearthstone",
             "icon": "storm_ui_icon_miscrune_1.png",
-            "fullText": "After Channeling for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">6</c> seconds, teleport back to the Hall of Storms, instantly restoring <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1125</c> Health and <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">150</c> Mana.",
+            "fullText": "After Channeling for 6 seconds, teleport back to the Hall of Storms, instantly restoring 1125 Health and 150 Mana.",
             "abilityType": "B"
           }
         ]
@@ -1753,7 +1753,7 @@
               "icon": "storm_ui_icon_alexstrasza_life_unbound.png",
               "cooldownText": "Cooldown: 90 seconds",
               "shortText": "Heal an ally and damage enemies",
-              "fullText": "Activate to heal an allied Hero for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15%</c> of their maximum Health and deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">200~~0.04~~</c> damage to nearby enemies.<n/><n/>Healing a Stunned, Rooted, or Silenced ally reduces Life Unbound's cooldown by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30</c> seconds.<n/><n/><c val=\"ffff8a\">Cannot be used on Alexstrasza.</c>",
+              "fullText": "Activate to heal an allied Hero for 15% of their maximum Health and deal 200 damage to nearby enemies.  Healing a Stunned, Rooted, or Silenced ally reduces Life Unbound's cooldown by 30 seconds.  Cannot be used on Alexstrasza.",
               "abilityType": "Active"
             }
           ]
@@ -1768,7 +1768,7 @@
               "icon": "storm_ui_icon_alexstrasza_pacify.png",
               "cooldownText": "Cooldown: 60 seconds",
               "shortText": "Slow an enemy Hero and reduce their damage",
-              "fullText": "Activate to Slow and reduce an enemy Hero's damage by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">50%</c> for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> seconds.<n/><n/>Healing a Stunned, Rooted, or Silenced ally reduces Pacify's cooldown by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30</c> seconds.",
+              "fullText": "Activate to Slow and reduce an enemy Hero's damage by 50% for 3 seconds.  Healing a Stunned, Rooted, or Silenced ally reduces Pacify's cooldown by 30 seconds.",
               "abilityType": "Active"
             }
           ]
@@ -1783,7 +1783,7 @@
               "icon": "storm_ui_icon_alexstrasza_dragon_scales.png",
               "cooldownText": "Cooldown: 10 seconds",
               "shortText": "Gain Armor while disabled",
-              "fullText": "Gain <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">50</c> Armor while Stunned, Rooted, or Silenced, and for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds after. Can only trigger once every <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">10</c> seconds.",
+              "fullText": "Gain 50 Armor while Stunned, Rooted, or Silenced, and for 2 seconds after. Can only trigger once every 10 seconds.",
               "abilityType": "Passive"
             }
           ]
@@ -1798,7 +1798,7 @@
               "icon": "storm_ui_icon_alexstrasza_blessing_of_the_red.png",
               "cooldownText": "Cooldown: 40 seconds",
               "shortText": "Grant bonus Health to an ally",
-              "fullText": "Activate to grant an allied Hero <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">500</c> bonus maximum Health until they die.<n/><n/>Cannot be used on Alexstrasza, or on a Hero who already has Blessing of the Red.",
+              "fullText": "Activate to grant an allied Hero 500 bonus maximum Health until they die.  Cannot be used on Alexstrasza, or on a Hero who already has Blessing of the Red.",
               "abilityType": "Active"
             }
           ]
@@ -1814,7 +1814,7 @@
             "name": "Live and Let Live",
             "icon": "storm_ui_icon_alexstrasza_gift_of_life.png",
             "shortText": "High Health reduces Gift of Life cooldown",
-            "fullText": "While Alexstrasza is above <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">75%</c> Health, Gift of Life's cooldown recharges <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">125%</c> faster.",
+            "fullText": "While Alexstrasza is above 75% Health, Gift of Life's cooldown recharges 125% faster.",
             "abilityType": "Q",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -1830,8 +1830,8 @@
             "abilityId": "AlexstraszaAbundance",
             "name": "Circle of Life",
             "icon": "storm_ui_icon_alexstrasza_abundance.png",
-            "shortText": "<c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Quest:</c> Regen Globes empower Abundance",
-            "fullText": "<img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Quest:</c> Collect Regeneration Globes.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Reward:</c> After collecting <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">10</c> Regeneration Globes, Abundance heals for an additional <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">5%</c> maximum Health.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Reward:</c> After collecting <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15</c> Regeneration Globes, Abundance's healing burst creates a Regeneration Globe.",
+            "shortText": "Quest: Regen Globes empower Abundance",
+            "fullText": "Quest: Collect Regeneration Globes.  Reward: After collecting 10 Regeneration Globes, Abundance heals for an additional 5% maximum Health.  Reward: After collecting 15 Regeneration Globes, Abundance's healing burst creates a Regeneration Globe.",
             "abilityType": "W",
             "isQuest": true,
             "upgradesAbilityType": false,
@@ -1847,8 +1847,8 @@
             "abilityId": "AlexstraszaFlameBuffet",
             "name": "Flames of Fury",
             "icon": "storm_ui_icon_alexstrasza_flame_buffet.png",
-            "shortText": "<c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Quest:</c> Flame Buffet reduces Dragonqueen cooldown",
-            "fullText": "Reduce the Mana cost of Flame Buffet from <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">50</c> to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">40</c>.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Quest:</c> Hit <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">20</c> Burning Heroes with Flame Buffet.<n/><n/><img path=\"@UI/StormTalentInTextQuestIcon\" alignment=\"uppermiddle\" color=\"B48E4C\" width=\"20\" height=\"22\"/><c val=\"e4b800\" hlt-name=\"#TooltipQuest\">Reward:</c> Hitting a Burning Hero with Flame Buffet reduces Dragonqueen's cooldown by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">5</c> seconds.",
+            "shortText": "Quest: Flame Buffet reduces Dragonqueen cooldown",
+            "fullText": "Reduce the Mana cost of Flame Buffet from 50 to 40.  Quest: Hit 20 Burning Heroes with Flame Buffet.  Reward: Hitting a Burning Hero with Flame Buffet reduces Dragonqueen's cooldown by 5 seconds.",
             "abilityType": "E",
             "isQuest": true,
             "upgradesAbilityType": false,
@@ -1867,7 +1867,7 @@
             "name": "Surge of Vitality",
             "icon": "storm_ui_icon_alexstrasza_abundance.png",
             "shortText": "Abundance grants Move Speed",
-            "fullText": "Abundance's healing burst grants allied Heroes <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30%</c> Movement Speed for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> seconds.",
+            "fullText": "Abundance's healing burst grants allied Heroes 30% Movement Speed for 3 seconds.",
             "abilityType": "W",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -1884,7 +1884,7 @@
             "name": "Heat Exhaustion",
             "icon": "storm_ui_icon_alexstrasza_flame_buffet.png",
             "shortText": "Increase Flame Buffet Slow",
-            "fullText": "Increase Flame Buffet's Slow from <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">40%</c> to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">50%</c> and cause it to no longer decay.",
+            "fullText": "Increase Flame Buffet's Slow from 40% to 50% and cause it to no longer decay.",
             "abilityType": "E",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -1901,7 +1901,7 @@
             "name": "Exuberance",
             "icon": "storm_ui_icon_alexstrasza_exuberance.png",
             "shortText": "High Health grants Move Speed",
-            "fullText": "While above <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">75%</c> Health, gain <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15%</c> Movement Speed.",
+            "fullText": "While above 75% Health, gain 15% Movement Speed.",
             "abilityType": "Passive",
             "isQuest": false,
             "upgradesAbilityType": false,
@@ -1917,7 +1917,7 @@
             "name": "Lifeblossom",
             "icon": "storm_ui_icon_alexstrasza_life_blossom.png",
             "shortText": "Gift of Life creates a Lifeblossom at high Health",
-            "fullText": "While Alexstrasza is above <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">75%</c> Health, Gift of Life creates a Lifeblossom at the target's location. Alexstrasza can collect the Lifeblossom to make her next Gift of Life cost no Health.<n/><n/><c val=\"00ff90\" hlt-name=\"#AbilityPassive\">Passive:</c> Reduces the cost of Gift of Life to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">10%</c> of Alexstrasza's current Health.",
+            "fullText": "While Alexstrasza is above 75% Health, Gift of Life creates a Lifeblossom at the target's location. Alexstrasza can collect the Lifeblossom to make her next Gift of Life cost no Health.  Passive: Reduces the cost of Gift of Life to 10% of Alexstrasza's current Health.",
             "abilityType": "Q",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -1934,7 +1934,7 @@
             "name": "Verdant Flourish",
             "icon": "storm_ui_icon_alexstrasza_abundance.png",
             "shortText": "Regen Globe and Abundance healing increased",
-            "fullText": "Alexstrasza receives <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">40%</c> more healing from Abundance and <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100%</c> more healing from Regeneration Globes.",
+            "fullText": "Alexstrasza receives 40% more healing from Abundance and 100% more healing from Regeneration Globes.",
             "abilityType": "W",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -1951,7 +1951,7 @@
             "name": "Fire Within",
             "icon": "storm_ui_icon_alexstrasza_flame_buffet.png",
             "shortText": "Flame Buffet restores Health",
-            "fullText": "Hitting a Burning Hero with Flame Buffet heals Alexstrasza for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">10%</c> of her maximum Health.",
+            "fullText": "Hitting a Burning Hero with Flame Buffet heals Alexstrasza for 10% of her maximum Health.",
             "abilityType": "E",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -1969,10 +1969,10 @@
             "abilityId": "AlexstraszaLifebinder",
             "name": "Life-Binder",
             "icon": "storm_ui_icon_alexstrasza_life_binder.png",
-            "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 50</s>",
+            "energyText": "Mana: 50",
             "cooldownText": "Cooldown: 50 seconds",
             "shortText": "Link Alexstrasza's Health with an ally",
-            "fullText": "Bind Alexstrasza's life force with an allied Hero. Both her and her target are healed for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">480~~0.04~~</c> Health over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds. Afterwards, the Hero with a lower percentage of Health is healed to the same Health percentage as the other Hero.<n/><n/><c val=\"D65CFF\" hlt-name=\"#ColorViolet\">Dragonqueen:</c> Cast range increased by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">45%</c>.",
+            "fullText": "Bind Alexstrasza's life force with an allied Hero. Both her and her target are healed for 480 Health over 2 seconds. Afterwards, the Hero with a lower percentage of Health is healed to the same Health percentage as the other Hero.  Dragonqueen: Cast range increased by 45%.",
             "abilityType": "Heroic",
             "isQuest": false,
             "upgradesAbilityType": false,
@@ -1985,10 +1985,10 @@
             "abilityId": "AlexstraszaCleansingFlame",
             "name": "Cleansing Flame",
             "icon": "storm_ui_icon_alexstrasza_cleansing_flame.png",
-            "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 100</s>",
+            "energyText": "Mana: 100",
             "cooldownText": "Cooldown: 100 seconds",
             "shortText": "Rain healing and damaging fire from the sky",
-            "fullText": "After <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.25</c> seconds, take to the sky and drop <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">5</c> fireballs over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">6</c> seconds at the position of the mouse cursor. Fireballs deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">135~~0.04~~</c> damage to enemies and heal allied Heroes for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">300~~0.04~~</c> Health.<n/><n/><c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds after dropping all fireballs, Alexstrasza lands at the position of the mouse cursor.",
+            "fullText": "After 1.25 seconds, take to the sky and drop 5 fireballs over 6 seconds at the position of the mouse cursor. Fireballs deal 135 damage to enemies and heal allied Heroes for 300 Health.  2 seconds after dropping all fireballs, Alexstrasza lands at the position of the mouse cursor.",
             "abilityType": "Heroic",
             "isQuest": false,
             "upgradesAbilityType": false,
@@ -2004,7 +2004,7 @@
             "name": "Dragon Scales",
             "icon": "storm_ui_icon_alexstrasza_dragon_scales.png",
             "shortText": "Gain Armor while disabled",
-            "fullText": "Gain <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">50</c> Armor while Stunned, Rooted, or Silenced, and for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds after. Can only trigger once every <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">10</c> seconds.",
+            "fullText": "Gain 50 Armor while Stunned, Rooted, or Silenced, and for 2 seconds after. Can only trigger once every 10 seconds.",
             "abilityType": "Passive",
             "isQuest": false,
             "upgradesAbilityType": false,
@@ -2019,7 +2019,7 @@
             "icon": "storm_ui_icon_alexstrasza_pacify.png",
             "cooldownText": "Cooldown: 60 seconds",
             "shortText": "Slow an enemy Hero and reduce their damage",
-            "fullText": "Activate to Slow and reduce an enemy Hero's damage by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">50%</c> for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> seconds.<n/><n/>Healing a Stunned, Rooted, or Silenced ally reduces Pacify's cooldown by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30</c> seconds.",
+            "fullText": "Activate to Slow and reduce an enemy Hero's damage by 50% for 3 seconds.  Healing a Stunned, Rooted, or Silenced ally reduces Pacify's cooldown by 30 seconds.",
             "abilityType": "Active",
             "isQuest": false,
             "upgradesAbilityType": false,
@@ -2034,7 +2034,7 @@
             "icon": "storm_ui_icon_alexstrasza_life_unbound.png",
             "cooldownText": "Cooldown: 90 seconds",
             "shortText": "Heal an ally and damage enemies",
-            "fullText": "Activate to heal an allied Hero for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15%</c> of their maximum Health and deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">200~~0.04~~</c> damage to nearby enemies.<n/><n/>Healing a Stunned, Rooted, or Silenced ally reduces Life Unbound's cooldown by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30</c> seconds.<n/><n/><c val=\"ffff8a\">Cannot be used on Alexstrasza.</c>",
+            "fullText": "Activate to heal an allied Hero for 15% of their maximum Health and deal 200 damage to nearby enemies.  Healing a Stunned, Rooted, or Silenced ally reduces Life Unbound's cooldown by 30 seconds.  Cannot be used on Alexstrasza.",
             "abilityType": "Active",
             "isQuest": false,
             "upgradesAbilityType": false,
@@ -2050,7 +2050,7 @@
             "name": "Tough Love",
             "icon": "storm_ui_icon_alexstrasza_gift_of_life.png",
             "shortText": "Gift of Life grants Armor",
-            "fullText": "Gift of Life grants its target <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">10</c> Armor for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2.5</c> seconds, increased to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30</c> while Alexstrasza is above <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">75%</c> Health.",
+            "fullText": "Gift of Life grants its target 10 Armor for 2.5 seconds, increased to 30 while Alexstrasza is above 75% Health.",
             "abilityType": "Q",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -2067,7 +2067,7 @@
             "name": "Overprotective",
             "icon": "storm_ui_icon_alexstrasza_abundance.png",
             "shortText": "Abundance grants Shields",
-            "fullText": "Heroes healed by Abundance gain a Shield for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">6</c> seconds equal to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">70%</c> of the amount healed.",
+            "fullText": "Heroes healed by Abundance gain a Shield for 6 seconds equal to 70% of the amount healed.",
             "abilityType": "W",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -2084,7 +2084,7 @@
             "name": "Draconic Discipline",
             "icon": "storm_ui_icon_alexstrasza_dragon_queen.png",
             "shortText": "Increase Dragonqueen duration",
-            "fullText": "Increase Dragonqueen's duration by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">6</c> seconds, and Basic Attack healing by<c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\"> 50%</c>.",
+            "fullText": "Increase Dragonqueen's duration by 6 seconds, and Basic Attack healing by 50%.",
             "abilityType": "Trait",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -2104,7 +2104,7 @@
             "name": "Ritual of Life",
             "icon": "storm_ui_icon_alexstrasza_life_binder.png",
             "shortText": "Life-Binder activates multiple times",
-            "fullText": "Life-Binder activates <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> times over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">6</c> seconds.",
+            "fullText": "Life-Binder activates 3 times over 6 seconds.",
             "abilityType": "Heroic",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -2124,7 +2124,7 @@
             "name": "On Ruby Wings",
             "icon": "storm_ui_icon_alexstrasza_cleansing_flame.png",
             "shortText": "Cleansing Flame can activate Dragonqueen",
-            "fullText": "Healing or damaging Heroes <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">8</c> or more times with Cleansing Flame activates Dragonqueen for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15</c> seconds upon landing.",
+            "fullText": "Healing or damaging Heroes 8 or more times with Cleansing Flame activates Dragonqueen for 15 seconds upon landing.",
             "abilityType": "Heroic",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -2164,7 +2164,7 @@
             "icon": "storm_ui_icon_alexstrasza_blessing_of_the_red.png",
             "cooldownText": "Cooldown: 40 seconds",
             "shortText": "Grant bonus Health to an ally",
-            "fullText": "Activate to grant an allied Hero <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">500</c> bonus maximum Health until they die.<n/><n/>Cannot be used on Alexstrasza, or on a Hero who already has Blessing of the Red.",
+            "fullText": "Activate to grant an allied Hero 500 bonus maximum Health until they die.  Cannot be used on Alexstrasza, or on a Hero who already has Blessing of the Red.",
             "abilityType": "Active",
             "isQuest": false,
             "upgradesAbilityType": false,
@@ -2229,7 +2229,7 @@
                 "icon": "storm_ui_icon_alexstrasza_breath_of_life.png",
                 "cooldownText": "Cooldown: 3 seconds",
                 "shortText": "Heal an allied Hero",
-                "fullText": "Heal an allied Hero for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">20%</c> of Alexstrasza's current Health.",
+                "fullText": "Heal an allied Hero for 20% of Alexstrasza's current Health.",
                 "abilityType": "Q"
               },
               {
@@ -2240,7 +2240,7 @@
                 "icon": "storm_ui_icon_alexstrasza_preservation.png",
                 "cooldownText": "Cooldown: 16 seconds",
                 "shortText": "Heal allied Heroes in an area",
-                "fullText": "Plant a seed of healing that blooms after <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> seconds, healing nearby allied Heroes for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30%</c> of their maximum Health.",
+                "fullText": "Plant a seed of healing that blooms after 3 seconds, healing nearby allied Heroes for 30% of their maximum Health.",
                 "abilityType": "W"
               },
               {
@@ -2251,7 +2251,7 @@
                 "icon": "storm_ui_icon_alexstrasza_wing_buffet.png",
                 "cooldownText": "Cooldown: 4 seconds",
                 "shortText": "Damage, Knockback, and Slow enemies",
-                "fullText": "Deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">150~~0.04~~</c> damage to enemies in an area, knocking them back and Slowing them by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">50%</c> for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> seconds.",
+                "fullText": "Deal 150 damage to enemies in an area, knocking them back and Slowing them by 50% for 3 seconds.",
                 "abilityType": "E"
               }
             ],
@@ -2262,10 +2262,10 @@
                 "buttonId": "AlexstraszaLifebinder",
                 "name": "Life-Binder",
                 "icon": "storm_ui_icon_alexstrasza_life_binder.png",
-                "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 50</s>",
+                "energyText": "Mana: 50",
                 "cooldownText": "Cooldown: 50 seconds",
                 "shortText": "Link Alexstrasza's Health with an ally",
-                "fullText": "Bind Alexstrasza's life force with an allied Hero. Both her and her target are healed for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">480~~0.04~~</c> Health over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds. Afterwards, the Hero with a lower percentage of Health is healed to the same Health percentage as the other Hero.<n/><n/><c val=\"D65CFF\" hlt-name=\"#ColorViolet\">Dragonqueen:</c> Cast range increased by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">45%</c>.",
+                "fullText": "Bind Alexstrasza's life force with an allied Hero. Both her and her target are healed for 480 Health over 2 seconds. Afterwards, the Hero with a lower percentage of Health is healed to the same Health percentage as the other Hero.  Dragonqueen: Cast range increased by 45%.",
                 "abilityType": "Heroic"
               },
               {
@@ -2274,10 +2274,10 @@
                 "buttonId": "AlexstraszaCleansingFlameDragonqueen",
                 "name": "Cleansing Flame",
                 "icon": "storm_ui_icon_alexstrasza_cleansing_flame.png",
-                "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 100</s>",
+                "energyText": "Mana: 100",
                 "cooldownText": "Cooldown: 100 seconds",
                 "shortText": "Rain healing and damaging fire from the sky",
-                "fullText": "Take to the sky and drop <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">5</c> fireballs over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">6</c> seconds at the position of the mouse cursor. Fireballs deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">135~~0.04~~</c> damage to enemies and heal allied Heroes for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">300~~0.04~~</c> Health.<n/><n/><c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds after dropping all fireballs, Alexstrasza lands at the position of the mouse cursor.",
+                "fullText": "Take to the sky and drop 5 fireballs over 6 seconds at the position of the mouse cursor. Fireballs deal 135 damage to enemies and heal allied Heroes for 300 Health.  2 seconds after dropping all fireballs, Alexstrasza lands at the position of the mouse cursor.",
                 "abilityType": "Heroic"
               }
             ],
@@ -2289,7 +2289,7 @@
                 "name": "Dragonqueen",
                 "icon": "storm_ui_icon_alexstrasza_dragon_queen.png",
                 "shortText": "Transform into a dragon aspect with empowered Abilities",
-                "fullText": "Alexstrasza has transformed into a powerful dragon aspect, gaining <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">500~~0.04~~</c> Health, resistance to disabling effects, and empowered Basic Attacks and Abilities.",
+                "fullText": "Alexstrasza has transformed into a powerful dragon aspect, gaining 500 Health, resistance to disabling effects, and empowered Basic Attacks and Abilities.",
                 "abilityType": "Trait"
               }
             ],
@@ -2301,7 +2301,7 @@
                 "name": "Summon Mount",
                 "icon": "storm_ui_icon_generic_mount.png",
                 "cooldownText": "Cooldown: 4 seconds",
-                "fullText": "After Channeling for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1</c> second, gain <s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">30%</s> Movement Speed.",
+                "fullText": "After Channeling for 1 second, gain 30% Movement Speed.",
                 "abilityType": "Z"
               }
             ],
@@ -2312,7 +2312,7 @@
                 "buttonId": "Hearthstone",
                 "name": "Hearthstone",
                 "icon": "storm_ui_icon_miscrune_1.png",
-                "fullText": "After Channeling for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">6</c> seconds, teleport back to the Hall of Storms, instantly restoring <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1125</c> Health and <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">150</c> Mana.",
+                "fullText": "After Channeling for 6 seconds, teleport back to the Hall of Storms, instantly restoring 1125 Health and 150 Mana.",
                 "abilityType": "B"
               }
             ]

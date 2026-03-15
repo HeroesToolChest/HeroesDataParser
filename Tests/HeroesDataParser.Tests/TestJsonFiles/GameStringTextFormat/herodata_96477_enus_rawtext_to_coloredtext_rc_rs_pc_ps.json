@@ -7,9 +7,9 @@
     "localizedText": "Copy",
     "gameStringText": {
       "locale": "ENUS",
-      "textType": "RawText",
+      "textType": "ColoredText",
       "replaceFontConstantVars": true,
-      "replaceFontStyles": true,
+      "replaceFontStylesVars": true,
       "preserveFontStyleConstantVars": true,
       "preserveFontStyleVars": true
     },
@@ -145,7 +145,7 @@
             },
             "cooldownText": "Charge Cooldown: 10 seconds",
             "shortText": "Spawn a mine",
-            "fullText": "Spawn a mine that becomes active after a short time. Deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">153~~0.04~~</c> damage and reveals the enemy for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">4</c> seconds. Lasts <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">90</c> seconds.<n/><n/>Stores up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> charges.",
+            "fullText": "Spawn a mine that becomes active after a short time. Deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">153</c> damage and reveals the enemy for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">4</c> seconds. Lasts <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">90</c> seconds.<n/><n/>Stores up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> charges.",
             "abilityType": "W"
           }
         ],
@@ -182,7 +182,7 @@
             "icon": "storm_ui_icon_abathur_spawnlocust.png",
             "cooldownText": "Cooldown: 15 seconds",
             "shortText": "Spawn locusts that attack down the nearest lane",
-            "fullText": "Spawns a Locust to attack down the nearest lane every <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15</c> seconds. Locusts last for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">16</c> seconds, have <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">350~~0.04~~</c> health and deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">58~~0.04~~</c> damage with each Basic Attack, dealing <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">25%</c> bonus damage to enemy Structures.",
+            "fullText": "Spawns a Locust to attack down the nearest lane every <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15</c> seconds. Locusts last for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">16</c> seconds, have <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">350</c> health and deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">58</c> damage with each Basic Attack, dealing <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">25%</c> bonus damage to enemy Structures.",
             "abilityType": "Trait"
           }
         ],
@@ -510,7 +510,7 @@
             "name": "Soma Transference",
             "icon": "storm_ui_icon_abathur_spikeburst.png",
             "shortText": "Spike Burst heals for each Hero hit",
-            "fullText": "Symbiote's Spike Burst heals the host for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">64~~0.04~~</c> Health per enemy Hero hit.",
+            "fullText": "Symbiote's Spike Burst heals the host for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">64</c> Health per enemy Hero hit.",
             "abilityType": "W",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -583,7 +583,7 @@
             "name": "Volatile Mutation",
             "icon": "storm_ui_icon_abathur_volatilemutation.png",
             "shortText": "Heroic summons radiate damage",
-            "fullText": "Ultimate Evolution clones and Monstrosities deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">137~~0.04~~</c> damage to nearby enemies every <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> seconds and when they die. Enemy Heroes hit heal the clone or Monstrosity for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100%</c> of the damage dealt.",
+            "fullText": "Ultimate Evolution clones and Monstrosities deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">137</c> damage to nearby enemies every <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> seconds and when they die. Enemy Heroes hit heal the clone or Monstrosity for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100%</c> of the damage dealt.",
             "abilityType": "Heroic",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -727,7 +727,7 @@
                 },
                 "cooldownText": "Charge Cooldown: 3 seconds",
                 "shortText": "Shoots a spike that deals damage to the first enemy it contacts.",
-                "fullText": "Shoots a spike towards target area that deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">119~~0.04~~</c> damage to the first enemy it contacts.",
+                "fullText": "Shoots a spike towards target area that deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">119</c> damage to the first enemy it contacts.",
                 "abilityType": "Q"
               },
               {
@@ -738,7 +738,7 @@
                 "icon": "storm_ui_icon_abathur_spikeburst.png",
                 "cooldownText": "Cooldown: 6 seconds",
                 "shortText": "Damage nearby enemies",
-                "fullText": "Deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">120~~0.04~~</c> damage to nearby enemies.",
+                "fullText": "Deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">120</c> damage to nearby enemies.",
                 "abilityType": "W"
               },
               {
@@ -748,7 +748,7 @@
                 "name": "Carapace",
                 "icon": "storm_ui_icon_abathur_carapace.png",
                 "cooldownText": "Cooldown: 6 seconds",
-                "fullText": "Shields the assisted ally for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">150~~0.04~~</c>. Allied Heroes are healed for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">22~~0.04~~</c> Health per second while the Shield is active. Lasts for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">6</c> seconds.",
+                "fullText": "Shields the assisted ally for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">150</c>. Allied Heroes are healed for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">22</c> Health per second while the Shield is active. Lasts for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">6</c> seconds.",
                 "abilityType": "E"
               }
             ],
@@ -893,7 +893,7 @@
             "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 55</s>",
             "cooldownText": "Cooldown: 8 seconds",
             "shortText": "Damage and silence enemies in an area",
-            "fullText": "After a <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">0.5</c> second delay, enemies in front of Alarak take <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">165~~0.04~~</c> damage and are silenced for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.5</c> seconds. ",
+            "fullText": "After a <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">0.5</c> second delay, enemies in front of Alarak take <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">165</c> damage and are silenced for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.5</c> seconds. ",
             "abilityType": "Q"
           },
           {
@@ -905,7 +905,7 @@
             "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 30</s>",
             "cooldownText": "Cooldown: 12 seconds",
             "shortText": "Push enemies towards a location",
-            "fullText": "<c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">Vector Targeting</c><n/>Create a force, pushing Alarak and all enemies hit from the targeted point towards the targeted direction. Deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">48~~0.04~~</c> damage to enemies.",
+            "fullText": "<c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">Vector Targeting</c><n/>Create a force, pushing Alarak and all enemies hit from the targeted point towards the targeted direction. Deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">48</c> damage to enemies.",
             "abilityType": "W"
           },
           {
@@ -917,7 +917,7 @@
             "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 25</s>",
             "cooldownText": "Cooldown: 6 seconds",
             "shortText": "Damage enemies in a line",
-            "fullText": "Deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">62~~0.04~~</c> damage to an enemy and an additional <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100%</c> damage to enemies between Alarak and the target. Restore <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">75~~0.04~~</c> health for each Hero hit.",
+            "fullText": "Deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">62</c> damage to an enemy and an additional <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100%</c> damage to enemies between Alarak and the target. Restore <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">75</c> health for each Hero hit.",
             "abilityType": "E"
           }
         ],
@@ -932,7 +932,7 @@
             "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 60</s>",
             "cooldownText": "Cooldown: 45 seconds",
             "shortText": "Channel to charge a long distance",
-            "fullText": "After channeling, Alarak charges forward dealing <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">200~~0.04~~</c> damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.5</c> seconds.<n/><n/>Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling.",
+            "fullText": "After channeling, Alarak charges forward dealing <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">200</c> damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.5</c> seconds.<n/><n/>Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling.",
             "abilityType": "Heroic"
           },
           {
@@ -944,7 +944,7 @@
             "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 50</s>",
             "cooldownText": "Cooldown: 30 seconds",
             "shortText": "Prevents damage to deal damage in a large area",
-            "fullText": "Alarak targets an area and channels for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1</c> second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">275~~0.04~~</c> damage.",
+            "fullText": "Alarak targets an area and channels for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1</c> second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">275</c> damage.",
             "abilityType": "Heroic"
           }
         ],
@@ -996,7 +996,7 @@
               "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 50</s>",
               "cooldownText": "Cooldown: 30 seconds",
               "shortText": "Deal increased ability damage to Heroes",
-              "fullText": "Alarak targets an area and channels for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1</c> second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">275~~0.04~~</c> damage.<n/><n/><s val=\"cbe8ff-ffffff\" hlt-name=\"StandardTooltipHeader\">Sadism</s><n/><n/>Alarak's Ability damage and self-healing are increased by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100%</c> against enemy Heroes.<n/><n/>Takedowns increase Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3%</c>, up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30%</c>. Sadism gained from Takedowns is lost on death.",
+              "fullText": "Alarak targets an area and channels for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1</c> second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">275</c> damage.<n/><n/><s val=\"cbe8ff-ffffff\" hlt-name=\"StandardTooltipHeader\">Sadism</s><n/><n/>Alarak's Ability damage and self-healing are increased by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100%</c> against enemy Heroes.<n/><n/>Takedowns increase Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3%</c>, up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30%</c>. Sadism gained from Takedowns is lost on death.",
               "abilityType": "Trait"
             }
           ]
@@ -1026,7 +1026,7 @@
               "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 60</s>",
               "cooldownText": "Cooldown: 45 seconds",
               "shortText": "Deal increased ability damage to Heroes",
-              "fullText": "After channeling, Alarak charges forward dealing <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">200~~0.04~~</c> damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.5</c> seconds.<n/><n/>Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling.<n/><n/><s val=\"cbe8ff-ffffff\" hlt-name=\"StandardTooltipHeader\">Sadism</s><n/><n/>Alarak's Ability damage and self-healing are increased by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100%</c> against enemy Heroes.<n/><n/>Takedowns increase Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3%</c>, up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30%</c>. Sadism gained from Takedowns is lost on death.",
+              "fullText": "After channeling, Alarak charges forward dealing <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">200</c> damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.5</c> seconds.<n/><n/>Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling.<n/><n/><s val=\"cbe8ff-ffffff\" hlt-name=\"StandardTooltipHeader\">Sadism</s><n/><n/>Alarak's Ability damage and self-healing are increased by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100%</c> against enemy Heroes.<n/><n/>Takedowns increase Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3%</c>, up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30%</c>. Sadism gained from Takedowns is lost on death.",
               "abilityType": "Trait"
             }
           ]
@@ -1085,7 +1085,7 @@
               "icon": "storm_ui_icon_alarak_lightningsurge.png",
               "toggleCooldown": 0.125,
               "shortText": "Damage enemies in a line",
-              "fullText": "Deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">62~~0.04~~</c> damage to an enemy and an additional <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100%</c> damage to enemies between Alarak and the target. Restore <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">75~~0.04~~</c> health for each Hero hit.",
+              "fullText": "Deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">62</c> damage to an enemy and an additional <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">100%</c> damage to enemies between Alarak and the target. Restore <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">75</c> health for each Hero hit.",
               "abilityType": "E"
             }
           ]
@@ -1249,7 +1249,7 @@
             "name": "Show of Force",
             "icon": "storm_ui_icon_alarak_sadism.png",
             "shortText": "Ability combos deal bonus damage, grant Sadism",
-            "fullText": "Heroes hit with <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> of Alarak's Abilities within <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds take an additional <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">61~~0.04~~</c> damage and increase Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2%</c>, stacking up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">20%</c>. <n/><n/>Sadism gained from Show of Force is lost on death.",
+            "fullText": "Heroes hit with <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> of Alarak's Abilities within <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds take an additional <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">61</c> damage and increase Sadism by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2%</c>, stacking up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">20%</c>. <n/><n/>Sadism gained from Show of Force is lost on death.",
             "abilityType": "Trait",
             "isQuest": false,
             "upgradesAbilityType": true,
@@ -1326,7 +1326,7 @@
             "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 60</s>",
             "cooldownText": "Cooldown: 45 seconds",
             "shortText": "Channel to charge a long distance",
-            "fullText": "After channeling, Alarak charges forward dealing <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">200~~0.04~~</c> damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.5</c> seconds.<n/><n/>Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling.",
+            "fullText": "After channeling, Alarak charges forward dealing <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">200</c> damage to all enemies in his path. Distance is increased based on the amount of time channeled, up to <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.5</c> seconds.<n/><n/>Issuing a Move order while this is channeling will cancel it at no cost. Taking damage will interrupt the channeling.",
             "abilityType": "Heroic",
             "isQuest": false,
             "upgradesAbilityType": false,
@@ -1342,7 +1342,7 @@
             "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 50</s>",
             "cooldownText": "Cooldown: 30 seconds",
             "shortText": "Prevents damage to deal damage in a large area",
-            "fullText": "Alarak targets an area and channels for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1</c> second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">275~~0.04~~</c> damage.",
+            "fullText": "Alarak targets an area and channels for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1</c> second, becoming Protected and Unstoppable. After, if he took damage from an enemy Hero, he sends a shockwave that deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">275</c> damage.",
             "abilityType": "Heroic",
             "isQuest": false,
             "upgradesAbilityType": false,
@@ -1661,7 +1661,7 @@
             "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 50</s>",
             "cooldownText": "Cooldown: 2 seconds",
             "shortText": "Launch a fireball that ignites enemies and can Slow them",
-            "fullText": "Launch a fireball, Burning enemies hit for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">75~~0.04~~</c> damage over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">5.5</c> seconds.<n/><n/>Hitting enemies that are already Burning deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">125~~0.04~~</c> bonus damage upon impact, Slows them by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">40%</c> decaying over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds, and refunds the Mana cost.<n/><n/><c val=\"D65CFF\" hlt-name=\"#ColorViolet\">Dragonqueen: Wing Buffet</c><n/>Damage and Knockback enemies in an arc.",
+            "fullText": "Launch a fireball, Burning enemies hit for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">75</c> damage over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">5.5</c> seconds.<n/><n/>Hitting enemies that are already Burning deals <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">125</c> bonus damage upon impact, Slows them by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">40%</c> decaying over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds, and refunds the Mana cost.<n/><n/><c val=\"D65CFF\" hlt-name=\"#ColorViolet\">Dragonqueen: Wing Buffet</c><n/>Damage and Knockback enemies in an arc.",
             "abilityType": "E"
           }
         ],
@@ -1675,7 +1675,7 @@
             "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 50</s>",
             "cooldownText": "Cooldown: 50 seconds",
             "shortText": "Link Alexstrasza's Health with an ally",
-            "fullText": "Bind Alexstrasza's life force with an allied Hero. Both her and her target are healed for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">480~~0.04~~</c> Health over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds. Afterwards, the Hero with a lower percentage of Health is healed to the same Health percentage as the other Hero.<n/><n/><c val=\"D65CFF\" hlt-name=\"#ColorViolet\">Dragonqueen:</c> Cast range increased by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">45%</c>.",
+            "fullText": "Bind Alexstrasza's life force with an allied Hero. Both her and her target are healed for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">480</c> Health over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds. Afterwards, the Hero with a lower percentage of Health is healed to the same Health percentage as the other Hero.<n/><n/><c val=\"D65CFF\" hlt-name=\"#ColorViolet\">Dragonqueen:</c> Cast range increased by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">45%</c>.",
             "abilityType": "Heroic"
           },
           {
@@ -1687,7 +1687,7 @@
             "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 100</s>",
             "cooldownText": "Cooldown: 100 seconds",
             "shortText": "Rain healing and damaging fire from the sky",
-            "fullText": "After <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.25</c> seconds, take to the sky and drop <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">5</c> fireballs over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">6</c> seconds at the position of the mouse cursor. Fireballs deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">135~~0.04~~</c> damage to enemies and heal allied Heroes for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">300~~0.04~~</c> Health.<n/><n/><c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds after dropping all fireballs, Alexstrasza lands at the position of the mouse cursor.",
+            "fullText": "After <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.25</c> seconds, take to the sky and drop <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">5</c> fireballs over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">6</c> seconds at the position of the mouse cursor. Fireballs deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">135</c> damage to enemies and heal allied Heroes for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">300</c> Health.<n/><n/><c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds after dropping all fireballs, Alexstrasza lands at the position of the mouse cursor.",
             "abilityType": "Heroic"
           }
         ],
@@ -1700,7 +1700,7 @@
             "icon": "storm_ui_icon_alexstrasza_dragon_queen.png",
             "cooldownText": "Cooldown: 150 seconds",
             "shortText": "Transform into a dragon aspect with empowered Abilities",
-            "fullText": "After <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.25</c> seconds, transform into a dragon and gain <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">500~~0.04~~</c> Health.<n/><n/>While Dragonqueen is active, Alexstrasza's Abilities are empowered, and her Basic Attacks deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">143~~0.04~~</c> damage and heal allied Heroes for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">43~~0.04~~</c> in an arc in front of her. Additionally, the duration of incoming Stuns, Roots, and Slows, is reduced by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">50%</c>.<n/><n/>Lasts <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15</c> seconds.",
+            "fullText": "After <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.25</c> seconds, transform into a dragon and gain <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">500</c> Health.<n/><n/>While Dragonqueen is active, Alexstrasza's Abilities are empowered, and her Basic Attacks deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">143</c> damage and heal allied Heroes for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">43</c> in an arc in front of her. Additionally, the duration of incoming Stuns, Roots, and Slows, is reduced by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">50%</c>.<n/><n/>Lasts <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15</c> seconds.",
             "abilityType": "Trait"
           }
         ],
@@ -1753,7 +1753,7 @@
               "icon": "storm_ui_icon_alexstrasza_life_unbound.png",
               "cooldownText": "Cooldown: 90 seconds",
               "shortText": "Heal an ally and damage enemies",
-              "fullText": "Activate to heal an allied Hero for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15%</c> of their maximum Health and deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">200~~0.04~~</c> damage to nearby enemies.<n/><n/>Healing a Stunned, Rooted, or Silenced ally reduces Life Unbound's cooldown by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30</c> seconds.<n/><n/><c val=\"ffff8a\">Cannot be used on Alexstrasza.</c>",
+              "fullText": "Activate to heal an allied Hero for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15%</c> of their maximum Health and deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">200</c> damage to nearby enemies.<n/><n/>Healing a Stunned, Rooted, or Silenced ally reduces Life Unbound's cooldown by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30</c> seconds.<n/><n/><c val=\"ffff8a\">Cannot be used on Alexstrasza.</c>",
               "abilityType": "Active"
             }
           ]
@@ -1972,7 +1972,7 @@
             "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 50</s>",
             "cooldownText": "Cooldown: 50 seconds",
             "shortText": "Link Alexstrasza's Health with an ally",
-            "fullText": "Bind Alexstrasza's life force with an allied Hero. Both her and her target are healed for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">480~~0.04~~</c> Health over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds. Afterwards, the Hero with a lower percentage of Health is healed to the same Health percentage as the other Hero.<n/><n/><c val=\"D65CFF\" hlt-name=\"#ColorViolet\">Dragonqueen:</c> Cast range increased by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">45%</c>.",
+            "fullText": "Bind Alexstrasza's life force with an allied Hero. Both her and her target are healed for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">480</c> Health over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds. Afterwards, the Hero with a lower percentage of Health is healed to the same Health percentage as the other Hero.<n/><n/><c val=\"D65CFF\" hlt-name=\"#ColorViolet\">Dragonqueen:</c> Cast range increased by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">45%</c>.",
             "abilityType": "Heroic",
             "isQuest": false,
             "upgradesAbilityType": false,
@@ -1988,7 +1988,7 @@
             "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 100</s>",
             "cooldownText": "Cooldown: 100 seconds",
             "shortText": "Rain healing and damaging fire from the sky",
-            "fullText": "After <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.25</c> seconds, take to the sky and drop <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">5</c> fireballs over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">6</c> seconds at the position of the mouse cursor. Fireballs deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">135~~0.04~~</c> damage to enemies and heal allied Heroes for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">300~~0.04~~</c> Health.<n/><n/><c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds after dropping all fireballs, Alexstrasza lands at the position of the mouse cursor.",
+            "fullText": "After <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">1.25</c> seconds, take to the sky and drop <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">5</c> fireballs over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">6</c> seconds at the position of the mouse cursor. Fireballs deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">135</c> damage to enemies and heal allied Heroes for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">300</c> Health.<n/><n/><c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds after dropping all fireballs, Alexstrasza lands at the position of the mouse cursor.",
             "abilityType": "Heroic",
             "isQuest": false,
             "upgradesAbilityType": false,
@@ -2034,7 +2034,7 @@
             "icon": "storm_ui_icon_alexstrasza_life_unbound.png",
             "cooldownText": "Cooldown: 90 seconds",
             "shortText": "Heal an ally and damage enemies",
-            "fullText": "Activate to heal an allied Hero for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15%</c> of their maximum Health and deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">200~~0.04~~</c> damage to nearby enemies.<n/><n/>Healing a Stunned, Rooted, or Silenced ally reduces Life Unbound's cooldown by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30</c> seconds.<n/><n/><c val=\"ffff8a\">Cannot be used on Alexstrasza.</c>",
+            "fullText": "Activate to heal an allied Hero for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">15%</c> of their maximum Health and deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">200</c> damage to nearby enemies.<n/><n/>Healing a Stunned, Rooted, or Silenced ally reduces Life Unbound's cooldown by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">30</c> seconds.<n/><n/><c val=\"ffff8a\">Cannot be used on Alexstrasza.</c>",
             "abilityType": "Active",
             "isQuest": false,
             "upgradesAbilityType": false,
@@ -2251,7 +2251,7 @@
                 "icon": "storm_ui_icon_alexstrasza_wing_buffet.png",
                 "cooldownText": "Cooldown: 4 seconds",
                 "shortText": "Damage, Knockback, and Slow enemies",
-                "fullText": "Deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">150~~0.04~~</c> damage to enemies in an area, knocking them back and Slowing them by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">50%</c> for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> seconds.",
+                "fullText": "Deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">150</c> damage to enemies in an area, knocking them back and Slowing them by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">50%</c> for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">3</c> seconds.",
                 "abilityType": "E"
               }
             ],
@@ -2265,7 +2265,7 @@
                 "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 50</s>",
                 "cooldownText": "Cooldown: 50 seconds",
                 "shortText": "Link Alexstrasza's Health with an ally",
-                "fullText": "Bind Alexstrasza's life force with an allied Hero. Both her and her target are healed for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">480~~0.04~~</c> Health over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds. Afterwards, the Hero with a lower percentage of Health is healed to the same Health percentage as the other Hero.<n/><n/><c val=\"D65CFF\" hlt-name=\"#ColorViolet\">Dragonqueen:</c> Cast range increased by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">45%</c>.",
+                "fullText": "Bind Alexstrasza's life force with an allied Hero. Both her and her target are healed for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">480</c> Health over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds. Afterwards, the Hero with a lower percentage of Health is healed to the same Health percentage as the other Hero.<n/><n/><c val=\"D65CFF\" hlt-name=\"#ColorViolet\">Dragonqueen:</c> Cast range increased by <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">45%</c>.",
                 "abilityType": "Heroic"
               },
               {
@@ -2277,7 +2277,7 @@
                 "energyText": "<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 100</s>",
                 "cooldownText": "Cooldown: 100 seconds",
                 "shortText": "Rain healing and damaging fire from the sky",
-                "fullText": "Take to the sky and drop <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">5</c> fireballs over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">6</c> seconds at the position of the mouse cursor. Fireballs deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">135~~0.04~~</c> damage to enemies and heal allied Heroes for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">300~~0.04~~</c> Health.<n/><n/><c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds after dropping all fireballs, Alexstrasza lands at the position of the mouse cursor.",
+                "fullText": "Take to the sky and drop <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">5</c> fireballs over <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">6</c> seconds at the position of the mouse cursor. Fireballs deal <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">135</c> damage to enemies and heal allied Heroes for <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">300</c> Health.<n/><n/><c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">2</c> seconds after dropping all fireballs, Alexstrasza lands at the position of the mouse cursor.",
                 "abilityType": "Heroic"
               }
             ],
@@ -2289,7 +2289,7 @@
                 "name": "Dragonqueen",
                 "icon": "storm_ui_icon_alexstrasza_dragon_queen.png",
                 "shortText": "Transform into a dragon aspect with empowered Abilities",
-                "fullText": "Alexstrasza has transformed into a powerful dragon aspect, gaining <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">500~~0.04~~</c> Health, resistance to disabling effects, and empowered Basic Attacks and Abilities.",
+                "fullText": "Alexstrasza has transformed into a powerful dragon aspect, gaining <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">500</c> Health, resistance to disabling effects, and empowered Basic Attacks and Abilities.",
                 "abilityType": "Trait"
               }
             ],

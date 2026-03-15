@@ -1,6 +1,6 @@
 ﻿namespace HeroesDataParser.Options;
 
-public class GameStringTextUpdateOptions
+public class GameStringTextFormatOptions
 {
     public string FilePath { get; set; } = string.Empty;
 
@@ -16,9 +16,6 @@ public class GameStringTextUpdateOptions
 
     public string OutputFilePath => Path.Combine(OutputDirectory, Path.GetFileName(FilePath));
 
-    //public bool ReplaceFontStyles => ;
-
-    public bool PreserveFontStylesVars => !(GameStringTextHltStyleRemoveMode != GameStringTextHltRemoveMode.None);
-
-    public bool PreserveFontStyleConstantVars => !(GameStringTextHltConstantRemoveMode != GameStringTextHltRemoveMode.None);
+    // is a new file being created (as opposed to updating the existing file)
+    public bool IsNewFile { get; set; }
 }

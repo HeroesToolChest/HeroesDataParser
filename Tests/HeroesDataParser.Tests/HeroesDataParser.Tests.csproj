@@ -49,7 +49,7 @@
     <None Update="TestXmlFiles\*.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestJsonFiles\*.json">
+    <None Update="TestJsonFiles\**\*.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestLayoutFiles\*.StormLayout">
@@ -58,10 +58,6 @@
     <None Update="TestS2MAFiles\*.s2ma">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Infrastructure\Commands\GameStringText\" />
   </ItemGroup>
   
 </Project>

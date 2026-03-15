@@ -13,7 +13,7 @@ public class JsonSerializerOptionService : IJsonSerializerOptionService
         _options = options.Value;
         _gameStringSerializerService = gameStringSerializerService;
 
-        GeneralJsonSerializerOptions = GetGeneralJsonSerializerOptions();
+        GeneralJsonSerializerOptions = JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions();
     }
 
     public JsonSerializerOptions GeneralJsonSerializerOptions { get; }
@@ -21,26 +21,6 @@ public class JsonSerializerOptionService : IJsonSerializerOptionService
     public JsonSerializerOptions JsonSerializerDataOptions => GetJsonSerializerDataOptions();
 
     public JsonSerializerOptions JsonSerializerGameStringOptions => GetJsonSerializerGameStringOptions();
-
-    private static JsonSerializerOptions GetGeneralJsonSerializerOptions()
-    {
-        return new JsonSerializerOptions()
-        {
-            WriteIndented = true,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-            Converters =
-            {
-                new JsonStringEnumConverter(),
-                new DoubleRoundingConverter(),
-                new LinkIdConverter(),
-                new AbilityLinkIdConverter(),
-                new TalentLinkIdConverter(),
-                new HeroesDataVersionConverter(),
-            },
-        };
-    }
 
     private JsonSerializerOptions GetJsonSerializerDataOptions()
     {

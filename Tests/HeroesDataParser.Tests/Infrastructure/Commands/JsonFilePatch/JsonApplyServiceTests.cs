@@ -1,6 +1,4 @@
-﻿using HeroesDataParser.Options.JsonFilePatchOptions;
-
-namespace HeroesDataParser.Infrastructure.JsonFilePatchCommands.Tests;
+﻿namespace HeroesDataParser.Infrastructure.Commands.JsonFilePatch.Tests;
 
 [TestClass]
 public class JsonApplyServiceTests
@@ -56,22 +54,7 @@ public class JsonApplyServiceTests
             OutputFilePath = outputFilePath,
         });
 
-        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(new JsonSerializerOptions()
-        {
-            WriteIndented = true,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-            Converters =
-            {
-                new JsonStringEnumConverter(),
-                new DoubleRoundingConverter(),
-                new LinkIdConverter(),
-                new AbilityLinkIdConverter(),
-                new TalentLinkIdConverter(),
-                new HeroesDataVersionConverter(),
-            },
-        });
+        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
 
         JsonApplyService jsonApplyService = new(_logger, _options, _console, _jsonSerializerOptionService);
 
@@ -101,22 +84,7 @@ public class JsonApplyServiceTests
             DeletePatchFile = false,
         });
 
-        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(new JsonSerializerOptions()
-        {
-            WriteIndented = true,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-            Converters =
-            {
-                new JsonStringEnumConverter(),
-                new DoubleRoundingConverter(),
-                new LinkIdConverter(),
-                new AbilityLinkIdConverter(),
-                new TalentLinkIdConverter(),
-                new HeroesDataVersionConverter(),
-            },
-        });
+        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
 
         JsonApplyService jsonApplyService = new(_logger, _options, _console, _jsonSerializerOptionService);
 
@@ -157,22 +125,7 @@ public class JsonApplyServiceTests
             DeletePatchFile = true,
         });
 
-        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(new JsonSerializerOptions()
-        {
-            WriteIndented = true,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-            Converters =
-            {
-                new JsonStringEnumConverter(),
-                new DoubleRoundingConverter(),
-                new LinkIdConverter(),
-                new AbilityLinkIdConverter(),
-                new TalentLinkIdConverter(),
-                new HeroesDataVersionConverter(),
-            },
-        });
+        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
 
         JsonApplyService jsonApplyService = new(_logger, _options, _console, _jsonSerializerOptionService);
 

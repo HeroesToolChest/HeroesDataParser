@@ -1,0 +1,18 @@
+{
+  "meta": {
+    "heroesVersion": "2.55.15.96477",
+    "hdpVersion": "5.0.0",
+    "itemsType": "other",
+    "dataType": "HeroData",
+    "localizedText": "Copy",
+    "gameStringText": {
+      "locale": "ENUS",
+      "textType": "PlainText",
+      "replaceFontConstantVars": false,
+      "replaceFontStylesVars": false,
+      "preserveFontStyleConstantVars": false,
+      "preserveFontStyleVars": false
+    },
+    "totalItems": 3
+  }
+}

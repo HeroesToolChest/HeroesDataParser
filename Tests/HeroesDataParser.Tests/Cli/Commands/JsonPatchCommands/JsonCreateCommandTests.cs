@@ -1,5 +1,4 @@
-﻿using HeroesDataParser.Options.JsonFilePatchOptions;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace HeroesDataParser.Cli.Commands.JsonPatchCommands.Tests;
 

@@ -8,6 +8,7 @@
     "gameStringText": {
       "locale": "ENUS",
       "textType": "PlainText",
+      "replaceFontConstantVars": true,
       "replaceFontStyles": true,
       "preserveFontStyleConstantVars": true,
       "preserveFontStyleVars": true

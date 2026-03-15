@@ -1,6 +1,6 @@
 ﻿using Heroes.Element;
 
-namespace HeroesDataParser.Infrastructure.JsonFilePatchCommands;
+namespace HeroesDataParser.Infrastructure.Commands.JsonFilePatch;
 
 public class JsonApplyService : IJsonApplyService
 {
@@ -22,7 +22,7 @@ public class JsonApplyService : IJsonApplyService
         _console = console;
         _jsonSerializerOptionService = jsonSerializerOptionService;
         _jsonSerializerOptions = new(_jsonSerializerOptionService.GeneralJsonSerializerOptions);
-        _jsonSerializerOptions.Converters.Add(new GameStringTextConverter(gameStringTextType: GameStringTextType.RawText));
+        _jsonSerializerOptions.Converters.Add(new GameStringTextConverter(new GameStringTextConverterOptions() { GameStringTextType = GameStringTextType.RawText }));
         _jsonSerializerOptions.Converters.Add(new GameStringItemDictionaryConverter());
     }
 
@@ -34,50 +34,43 @@ public class JsonApplyService : IJsonApplyService
         if (patch is null)
             return;
 
-        JsonNode? jsonNode = await GetJsonNode();
-        if (jsonNode is null)
+        JsonDocument? originalDocument = await GetOriginalAsJsonDocument();
+        if (originalDocument is null)
             return;
 
-        ItemsType? itemsType = GetItemsType(jsonNode);
+        ItemsType? itemsType = GetItemsType(originalDocument);
         if (itemsType is null)
             return;
 
-        PatchResult result = patch.Apply(jsonNode);
-
-        if (!result.IsSuccess)
+        JsonDocument? patchedDocument = patch.Apply(originalDocument);
+        if (patchedDocument is null)
         {
-            _logger.LogError("Failed to apply JSON patch: {ErrorMessage}", result.Error);
-            _console.MarkupLine($"[red]Failed to apply JSON patch: {result.Error}[/]");
+            _logger.LogError("Failed to apply JSON patch, result is null");
+            _console.MarkupLine("[red]Failed to apply JSON patch, result is null[/]");
             return;
         }
 
-        await ApplyPatch(itemsType.Value, result);
+        await ProcessPatchResult(itemsType.Value, patchedDocument);
 
         DeletePatchFile();
     }
 
-    private async Task CreateReserializedData(PatchResult result)
+    private async Task CreateReserializedData(JsonDocument jsonDocument)
     {
-        MetaDataProperties? metaDataProperties = result.Result?[0].Deserialize<MetaDataProperties>(_jsonSerializerOptions);
-        if (metaDataProperties is null)
-        {
-            _logger.LogError("Failed to deserialize MetaDataProperties from JSON patch result");
-            _console.MarkupLine("[red]Failed to deserialize MetaDataProperties from JSON patch result[/]");
-            return;
-        }
+        MetaDataProperties metaDataProperties = jsonDocument.RootElement.GetProperty(ElementConstants.RootMetaPropertyName).Deserialize<MetaDataProperties>(_jsonSerializerOptions)!;
 
         SortedDictionary<string, object> itemObjects = new(StringComparer.OrdinalIgnoreCase);
-        Type elementType = await GetElementType();
+        Type elementType = DataDocument.Load(jsonDocument).ElementType;
 
-        foreach (KeyValuePair<string, JsonNode?> property in result.Result![1]!.AsObject())
+        foreach (JsonProperty property in jsonDocument.RootElement.GetProperty(ElementConstants.ItemsPropertyName).EnumerateObject())
         {
             object? @object = property.Value.Deserialize(elementType, _jsonSerializerOptions);
             if (@object is null)
                 continue;
 
-            ((IElementObjectSetter)@object).SetId(property.Key);
+            ((IElementObjectSetter)@object).SetId(property.Name);
 
-            itemObjects.Add(property.Key, @object);
+            itemObjects.Add(property.Name, @object);
         }
 
         RootJsonDataElement rootJsonElement = new()
@@ -94,9 +87,9 @@ public class JsonApplyService : IJsonApplyService
         DisplaySuccess();
     }
 
-    private async Task CreateReserializedGameString(PatchResult result)
+    private async Task CreateReserializedGameString(JsonDocument jsonDocument)
     {
-        RootJsonGameStringElement? rootJsonGameStringElement = result.Result?.AsObject().Deserialize<RootJsonGameStringElement>(_jsonSerializerOptions);
+        RootJsonGameStringElement? rootJsonGameStringElement = jsonDocument.RootElement.Deserialize<RootJsonGameStringElement>(_jsonSerializerOptions);
 
         CreateDirectory();
 
@@ -133,20 +126,12 @@ public class JsonApplyService : IJsonApplyService
         return jsonPatch;
     }
 
-    private async Task<JsonNode?> GetJsonNode()
+    private async Task<JsonDocument?> GetOriginalAsJsonDocument()
     {
         using FileStream jsonFileStream = File.OpenRead(_options.JsonFilePath);
         try
         {
-            JsonNode? jsonNode = await JsonNode.ParseAsync(jsonFileStream);
-            if (jsonNode is null)
-            {
-                _logger.LogError("Failed to parse JSON file from {JsonFilePath}", _options.JsonFilePath);
-                _console.MarkupLine($"[red]Failed to parse JSON file from {_options.JsonFilePath}[/]");
-                return null;
-            }
-
-            return jsonNode;
+            return await JsonDocument.ParseAsync(jsonFileStream);
         }
         catch (JsonException ex)
         {
@@ -156,35 +141,36 @@ public class JsonApplyService : IJsonApplyService
         }
     }
 
-    private ItemsType? GetItemsType(JsonNode jsonNode)
+    private ItemsType? GetItemsType(JsonDocument jsonDocument)
     {
-        if (!jsonNode.AsObject().TryGetPropertyValue("meta", out JsonNode? metaJsonNode) || metaJsonNode is null ||
-            !metaJsonNode.AsObject().TryGetPropertyValue("itemsType", out JsonNode? itemsTypeNode) || itemsTypeNode is null)
+        if (!jsonDocument.RootElement.TryGetProperty(ElementConstants.RootMetaPropertyName, out JsonElement metaJsonElement))
         {
-            _logger.LogError("Could not find 'itemsType' property in JSON");
-            _console.MarkupLine("[red]Could not find 'itemsType' property in JSON[/]");
+            _logger.LogError("Missing '{PropertyName}' property in JSON", ElementConstants.RootMetaPropertyName);
+            _console.MarkupLine($"[red]Missing '{ElementConstants.RootMetaPropertyName}' property in JSON[/]");
             return null;
         }
 
-        if (!Enum.TryParse(itemsTypeNode.GetValue<string>(), out ItemsType itemsType))
+        MetaProperties metaProperties = metaJsonElement.Deserialize<MetaProperties>(_jsonSerializerOptions)!;
+
+        if (metaProperties.ItemsType != ItemsType.Data && metaProperties.ItemsType != ItemsType.GameStrings)
         {
-            _logger.LogError("Not a valid 'itemsType' value in JSON: {ItemsTypeValue}", itemsTypeNode.GetValue<string>());
-            _console.MarkupInterpolated($"[red]Not a valid 'itemsType' value in JSON: {itemsTypeNode.GetValue<string>()}");
+            _logger.LogError("Not a valid '{PropertyName}' value in JSON: {ItemsType}", ElementConstants.ItemsTypePropertyName, metaProperties.ItemsType);
+            _console.MarkupInterpolated($"[red]Not a valid '{ElementConstants.ItemsTypePropertyName}' value in JSON: {metaProperties.ItemsType}[/]");
             return null;
         }
 
-        return itemsType;
+        return metaProperties.ItemsType;
     }
 
-    private async Task ApplyPatch(ItemsType itemsType, PatchResult result)
+    private async Task ProcessPatchResult(ItemsType itemsType, JsonDocument jsonDocument)
     {
         if (itemsType == ItemsType.Data)
         {
-            await CreateReserializedData(result);
+            await CreateReserializedData(jsonDocument);
         }
         else if (itemsType == ItemsType.GameStrings)
         {
-            await CreateReserializedGameString(result);
+            await CreateReserializedGameString(jsonDocument);
         }
         else
         {
@@ -205,19 +191,10 @@ public class JsonApplyService : IJsonApplyService
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Failed to delete JSON patch fi le at {PatchFilePath}", _options.JsonPatchFilePath);
+                _logger.LogError(ex, "Failed to delete JSON patch file at {PatchFilePath}", _options.JsonPatchFilePath);
                 _console.MarkupLine($"[red]Failed to delete JSON patch file at {_options.JsonPatchFilePath}[/]");
             }
         }
-    }
-
-    private async Task<Type> GetElementType()
-    {
-        using FileStream jsonFileStream = File.OpenRead(_options.JsonFilePath);
-        using JsonDocument jsonDocument = await JsonDocument.ParseAsync(jsonFileStream);
-        using IElementDocument elementDocument = DataDocument.Load(jsonDocument);
-
-        return elementDocument.GetElementType;
     }
 
     private void DisplayJsonFailed()

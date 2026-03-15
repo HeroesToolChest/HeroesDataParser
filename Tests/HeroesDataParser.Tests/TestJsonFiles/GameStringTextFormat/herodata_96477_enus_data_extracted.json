@@ -1,0 +1,12 @@
+{
+  "meta": {
+    "heroesVersion": "2.55.15.96477",
+    "hdpVersion": "5.0.0",
+    "itemsType": "Data",
+    "dataType": "HeroData",
+    "localizedText": "Extract",
+    "totalItems": 3
+  },
+  "items": {
+  }
+}
