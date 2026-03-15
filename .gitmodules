@@ -1,0 +1,3 @@
+[submodule "Heroes.Element"]
+	path = Heroes.Element
+	url = https://github.com/HeroesToolChest/Heroes.Element.git

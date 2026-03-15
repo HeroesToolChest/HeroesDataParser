@@ -58,7 +58,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\Heroes.Element\Heroes.Element\Heroes.Element.csproj" />
+	  <ProjectReference Include="..\Heroes.Element\Heroes.Element\Heroes.Element.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

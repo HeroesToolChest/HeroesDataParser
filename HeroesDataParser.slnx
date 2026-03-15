@@ -5,7 +5,7 @@
   <Folder Name="/Tests/">
     <Project Path="Tests/HeroesDataParser.Tests/HeroesDataParser.Tests.csproj" />
   </Folder>
-  <Project Path="../Heroes.Element/Heroes.Element/Heroes.Element.csproj" />
+  <Project Path="Heroes.Element/Heroes.Element/Heroes.Element.csproj" />
   <Project Path="HeroesDataParser.Benchmarks/HeroesDataParser.Benchmarks.csproj" />
   <Project Path="HeroesDataParser/HeroesDataParser.csproj" />
 </Solution>
