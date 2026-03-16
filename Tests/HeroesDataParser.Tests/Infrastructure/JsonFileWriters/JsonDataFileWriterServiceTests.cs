@@ -78,7 +78,7 @@ public class JsonDataFileWriterServiceTests
         _ = _resultSummaryService.Received(1).JsonDataFilesWritten;
         _ = _resultSummaryService.Received(1).JsonDataFilesTotal;
         File.Exists(expectedFilePath).Should().BeTrue();
-        File.ReadAllText(expectedFilePath).Should().Be(
+        File.ReadAllText(expectedFilePath).ReplaceLineEndings("\n").Should().Be(
         """
         {
           "meta": {
@@ -163,7 +163,7 @@ public class JsonDataFileWriterServiceTests
             }
           }
         }
-        """);
+        """.ReplaceLineEndings("\n"));
     }
 
     [TestMethod]
@@ -253,7 +253,7 @@ public class JsonDataFileWriterServiceTests
         _ = _resultSummaryService.Received(1).JsonDataFilesWritten;
         _ = _resultSummaryService.Received(1).JsonDataFilesTotal;
         File.Exists(expectedFilePath).Should().BeTrue();
-        File.ReadAllText(expectedFilePath).Should().Be(
+        File.ReadAllText(expectedFilePath).ReplaceLineEndings("\n").Should().Be(
         """
         [
           {
@@ -262,7 +262,7 @@ public class JsonDataFileWriterServiceTests
             "value": "Blackheart's Bay"
           }
         ]
-        """);
+        """.ReplaceLineEndings("\n"));
     }
 
     [TestMethod]
@@ -480,7 +480,7 @@ public class JsonDataFileWriterServiceTests
         _ = _resultSummaryService.Received(1).JsonDataFilesWritten;
         _ = _resultSummaryService.Received(1).JsonDataFilesTotal;
         File.Exists(expectedFilePath).Should().BeTrue();
-        File.ReadAllText(expectedFilePath).Should().Be(
+        File.ReadAllText(expectedFilePath).ReplaceLineEndings("\n").Should().Be(
         """
         {
           "meta": {
@@ -529,7 +529,7 @@ public class JsonDataFileWriterServiceTests
             }
           }
         }
-        """);
+        """.ReplaceLineEndings("\n"));
     }
 
     [TestMethod]
@@ -583,7 +583,7 @@ public class JsonDataFileWriterServiceTests
         _ = _resultSummaryService.Received(1).JsonDataFilesWritten;
         _ = _resultSummaryService.Received(1).JsonDataFilesTotal;
         File.Exists(expectedFilePath).Should().BeTrue();
-        File.ReadAllText(expectedFilePath).Should().Be(
+        File.ReadAllText(expectedFilePath).ReplaceLineEndings("\n").Should().Be(
         """
         {
           "meta": {
@@ -622,7 +622,7 @@ public class JsonDataFileWriterServiceTests
             }
           }
         }
-        """);
+        """.ReplaceLineEndings("\n"));
     }
 
     [TestMethod]
@@ -676,7 +676,7 @@ public class JsonDataFileWriterServiceTests
         _ = _resultSummaryService.Received(1).JsonDataFilesWritten;
         _ = _resultSummaryService.Received(1).JsonDataFilesTotal;
         File.Exists(expectedFilePath).Should().BeTrue();
-        File.ReadAllText(expectedFilePath).Should().Be(
+        File.ReadAllText(expectedFilePath).ReplaceLineEndings("\n").Should().Be(
         """
         {
           "meta": {
@@ -725,14 +725,14 @@ public class JsonDataFileWriterServiceTests
             }
           }
         }
-        """);
+        """.ReplaceLineEndings("\n"));
     }
 
     private static void AssertMapNormal(string expectedNormalFilePath)
     {
         File.Exists(expectedNormalFilePath).Should().BeTrue();
 
-        File.ReadAllText(expectedNormalFilePath).Should().Be(
+        File.ReadAllText(expectedNormalFilePath).ReplaceLineEndings("\n").Should().Be(
         """
         {
           "meta": {
@@ -781,14 +781,14 @@ public class JsonDataFileWriterServiceTests
             }
           }
         }
-        """);
+        """.ReplaceLineEndings("\n"));
     }
 
     private static void AssertMapPatch(string expectedPatchFilePath)
     {
         File.Exists(expectedPatchFilePath).Should().BeTrue();
 
-        File.ReadAllText(expectedPatchFilePath).Should().Be(
+        File.ReadAllText(expectedPatchFilePath).ReplaceLineEndings("\n").Should().Be(
         """
         [
           {
@@ -812,6 +812,6 @@ public class JsonDataFileWriterServiceTests
             "value": "storm_ui_ingame_targetinfopanel_unit_bb_doodad_chest.png"
           }
         ]
-        """);
+        """.ReplaceLineEndings("\n"));
     }
 }

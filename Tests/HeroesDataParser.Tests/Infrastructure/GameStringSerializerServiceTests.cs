@@ -37,7 +37,7 @@ public class GameStringSerializerServiceTests
         });
 
         // assert
-        string json = System.Text.Encoding.UTF8.GetString(result);
+        string json = System.Text.Encoding.UTF8.GetString(result).ReplaceLineEndings("\n");
 
         json.Should().Be(
         """
@@ -57,7 +57,7 @@ public class GameStringSerializerServiceTests
           },
           "items": {}
         }
-        """);
+        """.ReplaceLineEndings("\n"));
     }
 
     [TestMethod]
@@ -97,7 +97,7 @@ public class GameStringSerializerServiceTests
         });
 
         // assert
-        string json = System.Text.Encoding.UTF8.GetString(result);
+        string json = System.Text.Encoding.UTF8.GetString(result).ReplaceLineEndings("\n"); ;
 
         json.Should().Be(
         """
@@ -123,7 +123,7 @@ public class GameStringSerializerServiceTests
             }
           }
         }
-        """);
+        """.ReplaceLineEndings("\n"));
     }
 
     [TestMethod]

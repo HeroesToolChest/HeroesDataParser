@@ -127,9 +127,12 @@ public class MapParser : DataParser<Map>
         // mpq file
         if (!HeroesXmlLoader.FileExists(stormMap.ReplayPreviewImagePath, stormMap.S2MAFilePath))
         {
-            string baseAssetPath = Path.Join("base.stormassets", Path.GetFileName(stormMap.ReplayPreviewImagePath));
+            string replayPreviewImageFileName = Path.GetFileName(stormMap.ReplayPreviewImagePath);
 
-            if (!HeroesXmlLoader.FileExists(baseAssetPath, stormMap.S2MAFilePath))
+            string baseAssetPath = Path.Combine("base.stormassets", replayPreviewImageFileName);
+            string mpqBaseAssetPath = string.Join('\\', "base.stormassets", replayPreviewImageFileName);
+
+            if (!HeroesXmlLoader.FileExists(mpqBaseAssetPath, stormMap.S2MAFilePath))
             {
                 _logger.LogWarning("Could not find replay preview image {ReplayPreviewImagePath} in mpq {S2MAFilePath} or base.stormassets", stormMap.ReplayPreviewImagePath, stormMap.S2MAFilePath);
                 return;

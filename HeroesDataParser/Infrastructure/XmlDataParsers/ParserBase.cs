@@ -109,9 +109,10 @@ public abstract class ParserBase
             return string.Empty;
 
         Span<char> pathSpan = stackalloc char[filePath.Length];
+        filePath.CopyTo(pathSpan);
 
-        int size = Path.GetFileName(filePath).ToLowerInvariant(pathSpan);
+        PathHelper.NormalizePath(pathSpan);
 
-        return Path.ChangeExtension(pathSpan[..size].ToString(), fileExtension);
+        return Path.ChangeExtension(Path.GetFileName(pathSpan).ToString(), fileExtension);
     }
 }

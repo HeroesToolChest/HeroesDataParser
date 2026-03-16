@@ -64,8 +64,8 @@ public class JsonApplyServiceTests
         // assert
         _console.Output.Should().Contain("JSON patch applied successfully");
 
-        string patchedText = File.ReadAllText(outputFilePath);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "announcerdata_96477_enus_patched_map.json"));
+        string patchedText = File.ReadAllText(outputFilePath).ReplaceLineEndings("\n");
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "announcerdata_96477_enus_patched_map.json")).ReplaceLineEndings("\n");
 
         patchedText.Should().BeEquivalentTo(comparedToText);
     }
@@ -94,8 +94,8 @@ public class JsonApplyServiceTests
         // assert
         _console.Output.Should().Contain("JSON patch applied successfully");
 
-        string patchedText = File.ReadAllText(outputFilePath);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "gamestrings_96477_enus_patched_map.json"));
+        string patchedText = File.ReadAllText(outputFilePath).ReplaceLineEndings("\n");
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "gamestrings_96477_enus_patched_map.json")).ReplaceLineEndings("\n");
 
         patchedText.Should().BeEquivalentTo(comparedToText);
 

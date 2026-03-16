@@ -118,8 +118,8 @@ public class GameStringTextFormatServiceTests
         string newOutputFile = Path.Combine(outputFileDirectory, inputFileName);
         File.Exists(newOutputFile).Should().BeTrue();
 
-        string newFileContent = File.ReadAllText(newOutputFile);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "herodata_96477_enus_rawtext_to_colortextscaling_rs.json"));
+        string newFileContent = File.ReadAllText(newOutputFile).ReplaceLineEndings("\n");
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "herodata_96477_enus_rawtext_to_colortextscaling_rs.json")).ReplaceLineEndings("\n");
 
         newFileContent.Should().BeEquivalentTo(comparedToText);
     }
@@ -154,8 +154,8 @@ public class GameStringTextFormatServiceTests
         string newOutputFile = Path.Combine(outputFileDirectory, inputFileName);
         File.Exists(newOutputFile).Should().BeTrue();
 
-        string newFileContent = File.ReadAllText(newOutputFile);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "herodata_96477_enus_rawtext_to_coloredtext_rc_rs_pc_ps.json"));
+        string newFileContent = File.ReadAllText(newOutputFile).ReplaceLineEndings("\n");
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "herodata_96477_enus_rawtext_to_coloredtext_rc_rs_pc_ps.json")).ReplaceLineEndings("\n");
 
         newFileContent.Should().BeEquivalentTo(comparedToText);
     }
@@ -190,8 +190,8 @@ public class GameStringTextFormatServiceTests
         string newOutputFile = Path.Combine(outputFileDirectory, inputFileName);
         File.Exists(newOutputFile).Should().BeTrue();
 
-        string newFileContent = File.ReadAllText(newOutputFile);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "herodata_96477_enus_rawtext_to_plaintext.json"));
+        string newFileContent = File.ReadAllText(newOutputFile).ReplaceLineEndings("\n");
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "herodata_96477_enus_rawtext_to_plaintext.json")).ReplaceLineEndings("\n");
 
         newFileContent.Should().BeEquivalentTo(comparedToText);
     }
@@ -226,8 +226,8 @@ public class GameStringTextFormatServiceTests
         string newOutputFile = Path.Combine(outputFileDirectory, inputFileName);
         File.Exists(newOutputFile).Should().BeTrue();
 
-        string newFileContent = File.ReadAllText(newOutputFile);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "herodata_96477_enus_rawtext_to_plaintext_rc_rs.json"));
+        string newFileContent = File.ReadAllText(newOutputFile).ReplaceLineEndings("\n");
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "herodata_96477_enus_rawtext_to_plaintext_rc_rs.json")).ReplaceLineEndings("\n");
 
         newFileContent.Should().BeEquivalentTo(comparedToText);
     }
@@ -262,8 +262,8 @@ public class GameStringTextFormatServiceTests
         string newOutputFile = Path.Combine(outputFileDirectory, inputFileName);
         File.Exists(newOutputFile).Should().BeTrue();
 
-        string newFileContent = File.ReadAllText(newOutputFile);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "herodata_96477_enus_plaintext_to_coloredtext_rc_rs.json"));
+        string newFileContent = File.ReadAllText(newOutputFile).ReplaceLineEndings("\n");
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "herodata_96477_enus_plaintext_to_coloredtext_rc_rs.json")).ReplaceLineEndings("\n");
 
         newFileContent.Should().BeEquivalentTo(comparedToText);
     }
@@ -299,8 +299,8 @@ public class GameStringTextFormatServiceTests
         string newOutputFile = Path.Combine(outputFileDirectory, inputFileName);
         File.Exists(newOutputFile).Should().BeTrue();
 
-        string newFileContent = File.ReadAllText(newOutputFile);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "herodata_96477_enus_rawtext_to_coloredtext_rs.json"));
+        string newFileContent = File.ReadAllText(newOutputFile).ReplaceLineEndings("\n");
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "herodata_96477_enus_rawtext_to_coloredtext_rs.json")).ReplaceLineEndings("\n");
 
         newFileContent.Should().BeEquivalentTo(comparedToText);
     }
@@ -336,8 +336,8 @@ public class GameStringTextFormatServiceTests
         string newOutputFile = Path.Combine(outputFileDirectory, inputFileName);
         File.Exists(newOutputFile).Should().BeTrue();
 
-        string newFileContent = File.ReadAllText(newOutputFile);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "original_herodata_96477_enus_plaintext_self.json"));
+        string newFileContent = File.ReadAllText(newOutputFile).ReplaceLineEndings("\n");
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "original_herodata_96477_enus_plaintext_self.json")).ReplaceLineEndings("\n");
 
         newFileContent.Should().BeEquivalentTo(comparedToText);
     }
@@ -371,8 +371,8 @@ public class GameStringTextFormatServiceTests
         string newOutputFile = Path.Combine(outputFileDirectory, inputFileName);
         File.Exists(newOutputFile).Should().BeTrue();
 
-        string newFileContent = File.ReadAllText(newOutputFile);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "gamestrings_96477_enus_rawtext_to_plaintext_rc_rs_pc_ps.json"));
+        string newFileContent = File.ReadAllText(newOutputFile).ReplaceLineEndings("\n");
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "gamestrings_96477_enus_rawtext_to_plaintext_rc_rs_pc_ps.json")).ReplaceLineEndings("\n");
 
         newFileContent.Should().BeEquivalentTo(comparedToText);
     }
@@ -407,8 +407,8 @@ public class GameStringTextFormatServiceTests
         string newOutputFile = Path.Combine(outputFileDirectory, inputFileName);
         File.Exists(newOutputFile).Should().BeTrue();
 
-        string newFileContent = File.ReadAllText(newOutputFile);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "gamestrings_96477_enus_rawtext_to_colortextscaling.json"));
+        string newFileContent = File.ReadAllText(newOutputFile).ReplaceLineEndings("\n");
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "gamestrings_96477_enus_rawtext_to_colortextscaling.json")).ReplaceLineEndings("\n");
 
         newFileContent.Should().BeEquivalentTo(comparedToText);
     }
@@ -443,8 +443,8 @@ public class GameStringTextFormatServiceTests
         string newOutputFile = Path.Combine(outputFileDirectory, inputFileName);
         File.Exists(newOutputFile).Should().BeTrue();
 
-        string newFileContent = File.ReadAllText(newOutputFile);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "original_gamestrings_96477_enus_plaintextscalingnewlines_rc_rs_self.json"));
+        string newFileContent = File.ReadAllText(newOutputFile).ReplaceLineEndings("\n");
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "original_gamestrings_96477_enus_plaintextscalingnewlines_rc_rs_self.json")).ReplaceLineEndings("\n");
 
         newFileContent.Should().BeEquivalentTo(comparedToText);
     }

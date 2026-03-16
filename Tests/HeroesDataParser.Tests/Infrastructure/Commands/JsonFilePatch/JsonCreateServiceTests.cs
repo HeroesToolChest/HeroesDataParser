@@ -107,8 +107,8 @@ public class JsonCreateServiceTests
 
         File.Exists(outputFilePath).Should().BeTrue();
 
-        string patchText = File.ReadAllText(outputFilePath);
-        string compareText = File.ReadAllText(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json"));
+        string patchText = File.ReadAllText(outputFilePath).ReplaceLineEndings("\n");
+        string compareText = File.ReadAllText(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json")).ReplaceLineEndings("\n");
         patchText.Should().Be(compareText);
     }
 }

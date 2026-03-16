@@ -48,10 +48,10 @@ public class MatchAwardParserTests
         matchAward.EndOfMatchTooltipText!.RawText.Should().Be("~TooltipAmount~ XP Contributed");
         matchAward.GameLink.Should().Be("EndOfMatchAwardMostXPContributionBoolean");
         matchAward.MVPScreenImage.Should().Be("storm_ui_mvp_experienced_%color%.png");
-        matchAward.MVPScreenImagePath!.FilePath.Should().Be("Assets\\Textures\\storm_ui_mvp_icons_rewards_experienced.dds");
+        matchAward.MVPScreenImagePath!.FilePath.Should().Be(Path.Combine("Assets", "Textures", "storm_ui_mvp_icons_rewards_experienced.dds"));
         matchAward.ScoreScreenImage.Should().Be("storm_ui_scorescreen_mvp_experienced_%team%.png");
-        matchAward.ScoreScreenImageBluePath!.FilePath.Should().Be("Assets\\Textures\\storm_ui_scorescreen_mvp_experienced_blue.dds");
-        matchAward.ScoreScreenImageRedPath!.FilePath.Should().Be("Assets\\Textures\\storm_ui_scorescreen_mvp_experienced_red.dds");
+        matchAward.ScoreScreenImageBluePath!.FilePath.Should().Be(Path.Combine("Assets", "Textures", "storm_ui_scorescreen_mvp_experienced_blue.dds"));
+        matchAward.ScoreScreenImageRedPath!.FilePath.Should().Be(Path.Combine("Assets", "Textures", "storm_ui_scorescreen_mvp_experienced_red.dds"));
     }
 
     [TestMethod]
@@ -68,7 +68,7 @@ public class MatchAwardParserTests
         matchAward.Id.Should().Be("HighestKillStreak");
         matchAward.GameLink.Should().Be("EndOfMatchAwardHighestKillStreakBoolean");
         matchAward.MVPScreenImage.Should().Be("storm_ui_mvp_dominator_%color%.png");
-        matchAward.MVPScreenImagePath!.FilePath.Should().Be("Assets\\Textures\\storm_ui_mvp_icons_rewards_dominator.dds");
+        matchAward.MVPScreenImagePath!.FilePath.Should().Be(Path.Combine("Assets", "Textures", "storm_ui_mvp_icons_rewards_dominator.dds"));
     }
 
     [TestMethod]
