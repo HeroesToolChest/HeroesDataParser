@@ -97,7 +97,7 @@ public class GameStringSerializerServiceTests
         });
 
         // assert
-        string json = System.Text.Encoding.UTF8.GetString(result).ReplaceLineEndings("\n"); ;
+        string json = System.Text.Encoding.UTF8.GetString(result).ReplaceLineEndings("\n");
 
         json.Should().Be(
         """
