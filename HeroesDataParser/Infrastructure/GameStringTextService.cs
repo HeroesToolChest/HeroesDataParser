@@ -99,7 +99,7 @@ public class GameStringTextService : IGameStringTextService
         else
             return stormGameString.Value;
 #else
-        return _heroesData.GetStormGameString(id.AsSpan());
+        return HeroesData.GetStormGameString(id.AsSpan());
 #endif
     }
 
