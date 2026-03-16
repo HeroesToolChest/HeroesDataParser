@@ -6,6 +6,8 @@
     <Project Path="Tests/HeroesDataParser.Tests/HeroesDataParser.Tests.csproj" />
   </Folder>
   <Project Path="Heroes.Element/Heroes.Element/Heroes.Element.csproj" />
+  <Project Path="Heroes.XmlData/CascLib/CascLib/CascLib.csproj" />
+  <Project Path="Heroes.XmlData/Heroes.XmlData/Heroes.XmlData.csproj" />
   <Project Path="HeroesDataParser.Benchmarks/HeroesDataParser.Benchmarks.csproj" />
   <Project Path="HeroesDataParser/HeroesDataParser.csproj" />
 </Solution>

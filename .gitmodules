@@ -1,3 +1,6 @@
 [submodule "Heroes.Element"]
 	path = Heroes.Element
 	url = https://github.com/HeroesToolChest/Heroes.Element.git
+[submodule "Heroes.XmlData"]
+	path = Heroes.XmlData
+	url = https://github.com/HeroesToolChest/Heroes.XmlData.git
