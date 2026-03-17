@@ -115,7 +115,7 @@ public class RootCommand : AsyncCommand<RootSettings>
         {
             foreach (ExtractDataOptions option in Enum.GetValues<ExtractDataOptions>())
             {
-                if (option == ExtractDataOptions.None)
+                if (option == ExtractDataOptions.None || option == ExtractDataOptions.All)
                     continue;
 
                 _options.Extractors[option] = new ExtractorOptions()
