@@ -78,7 +78,7 @@ public class JsonDataFileWriterServiceTests
         _ = _resultSummaryService.Received(1).JsonDataFilesWritten;
         _ = _resultSummaryService.Received(1).JsonDataFilesTotal;
         File.Exists(expectedFilePath).Should().BeTrue();
-        File.ReadAllText(expectedFilePath).ReplaceLineEndings("\n").Should().Be(
+        File.ReadAllText(expectedFilePath).Should().Be(
         """
         {
           "meta": {
@@ -253,7 +253,7 @@ public class JsonDataFileWriterServiceTests
         _ = _resultSummaryService.Received(1).JsonDataFilesWritten;
         _ = _resultSummaryService.Received(1).JsonDataFilesTotal;
         File.Exists(expectedFilePath).Should().BeTrue();
-        File.ReadAllText(expectedFilePath).ReplaceLineEndings("\n").Should().Be(
+        File.ReadAllText(expectedFilePath).Should().Be(
         """
         [
           {
@@ -480,7 +480,7 @@ public class JsonDataFileWriterServiceTests
         _ = _resultSummaryService.Received(1).JsonDataFilesWritten;
         _ = _resultSummaryService.Received(1).JsonDataFilesTotal;
         File.Exists(expectedFilePath).Should().BeTrue();
-        File.ReadAllText(expectedFilePath).ReplaceLineEndings("\n").Should().Be(
+        File.ReadAllText(expectedFilePath).Should().Be(
         """
         {
           "meta": {
@@ -583,7 +583,7 @@ public class JsonDataFileWriterServiceTests
         _ = _resultSummaryService.Received(1).JsonDataFilesWritten;
         _ = _resultSummaryService.Received(1).JsonDataFilesTotal;
         File.Exists(expectedFilePath).Should().BeTrue();
-        File.ReadAllText(expectedFilePath).ReplaceLineEndings("\n").Should().Be(
+        File.ReadAllText(expectedFilePath).Should().Be(
         """
         {
           "meta": {
@@ -676,7 +676,7 @@ public class JsonDataFileWriterServiceTests
         _ = _resultSummaryService.Received(1).JsonDataFilesWritten;
         _ = _resultSummaryService.Received(1).JsonDataFilesTotal;
         File.Exists(expectedFilePath).Should().BeTrue();
-        File.ReadAllText(expectedFilePath).ReplaceLineEndings("\n").Should().Be(
+        File.ReadAllText(expectedFilePath).Should().Be(
         """
         {
           "meta": {
@@ -732,7 +732,7 @@ public class JsonDataFileWriterServiceTests
     {
         File.Exists(expectedNormalFilePath).Should().BeTrue();
 
-        File.ReadAllText(expectedNormalFilePath).ReplaceLineEndings("\n").Should().Be(
+        File.ReadAllText(expectedNormalFilePath).Should().Be(
         """
         {
           "meta": {
@@ -788,7 +788,7 @@ public class JsonDataFileWriterServiceTests
     {
         File.Exists(expectedPatchFilePath).Should().BeTrue();
 
-        File.ReadAllText(expectedPatchFilePath).ReplaceLineEndings("\n").Should().Be(
+        File.ReadAllText(expectedPatchFilePath).Should().Be(
         """
         [
           {

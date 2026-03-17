@@ -23,21 +23,10 @@ public class GameStringSerializerServiceTests
         GameStringSerializerService service = new(_logger);
 
         // act
-        byte[] result = service.SerializeGameStrings(metaProperties, new JsonSerializerOptions
-        {
-            WriteIndented = true,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-            Converters =
-            {
-                new JsonStringEnumConverter(),
-                new HeroesDataVersionConverter(),
-            },
-        });
+        byte[] result = service.SerializeGameStrings(metaProperties, JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
 
         // assert
-        string json = System.Text.Encoding.UTF8.GetString(result).ReplaceLineEndings("\n");
+        string json = System.Text.Encoding.UTF8.GetString(result);
 
         json.Should().Be(
         """
@@ -80,24 +69,15 @@ public class GameStringSerializerServiceTests
             HdpVersion = "5.0.0",
         };
 
+        JsonSerializerOptions jsonSerializerOptions = JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions();
+        jsonSerializerOptions.Converters.Add(new GameStringTextConverter(new GameStringTextConverterOptions() { GameStringTextType = GameStringTextType.RawText }));
+        jsonSerializerOptions.Converters.Add(new GameStringItemDictionaryConverter());
+
         // act
-        byte[] result = service.SerializeGameStrings(metaProperties, new JsonSerializerOptions
-        {
-            WriteIndented = true,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-            Converters =
-            {
-                new JsonStringEnumConverter(),
-                new GameStringTextConverter(new GameStringTextConverterOptions() { GameStringTextType = GameStringTextType.RawText }),
-                new HeroesDataVersionConverter(),
-                new GameStringItemDictionaryConverter(),
-            },
-        });
+        byte[] result = service.SerializeGameStrings(metaProperties, jsonSerializerOptions);
 
         // assert
-        string json = System.Text.Encoding.UTF8.GetString(result).ReplaceLineEndings("\n");
+        string json = System.Text.Encoding.UTF8.GetString(result);
 
         json.Should().Be(
         """
@@ -146,21 +126,11 @@ public class GameStringSerializerServiceTests
             HdpVersion = "5.0.0",
         };
 
+        JsonSerializerOptions jsonSerializerOptions = JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions();
+        jsonSerializerOptions.Converters.Add(new GameStringTextConverter(new GameStringTextConverterOptions() { GameStringTextType = GameStringTextType.RawText }));
+
         // act
-        service.SerializeGameStrings(metaProperties, new JsonSerializerOptions
-        {
-            WriteIndented = true,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-            Converters =
-            {
-                new JsonStringEnumConverter(),
-                new GameStringTextConverter(new GameStringTextConverterOptions() { GameStringTextType = GameStringTextType.RawText }),
-                new HeroesDataVersionConverter(),
-                new GameStringItemDictionaryConverter(),
-            },
-        });
+        service.SerializeGameStrings(metaProperties, jsonSerializerOptions);
 
         // assert
         service.DataGameStringItemDictionary.Should().NotBeEmpty();

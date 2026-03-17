@@ -10,6 +10,7 @@ public static class JsonGeneralSerializerOptions
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+            NewLine = "\n",
             Converters =
             {
                 new JsonStringEnumConverter(),

@@ -23,7 +23,5 @@ global using Microsoft.Extensions.Options;
 global using NSubstitute;
 global using Spectre.Console.Cli.Testing;
 global using Spectre.Console.Testing;
-global using System.Text.Encodings.Web;
 global using System.Text.Json;
-global using System.Text.Json.Serialization;
 global using System.Xml.Linq;
