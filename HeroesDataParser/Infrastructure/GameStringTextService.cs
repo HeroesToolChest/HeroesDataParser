@@ -105,18 +105,18 @@ public class GameStringTextService : IGameStringTextService
 
     private GameStringText ParseGameStringText(StormGameString stormGameString)
     {
-        GameStringText tooltipDescription = HeroesData.ParseGameString(stormGameString, gameStringLocale: _options.CurrentLocale, extractFontValues: ShouldExtractFontValues);
-        ExtractFontValues(tooltipDescription);
+        GameStringText gameStringText = HeroesData.ParseGameString(stormGameString, gameStringLocale: _options.CurrentLocale, extractFontValues: ShouldExtractFontValues);
+        ExtractFontValues(gameStringText);
 
-        return tooltipDescription;
+        return gameStringText;
     }
 
     private GameStringText ParseGameStringText(string gamestring)
     {
-        GameStringText tooltipDescription = HeroesData.ParseGameString(gamestring, gameStringLocale: _options.CurrentLocale, extractFontValues: ShouldExtractFontValues);
-        ExtractFontValues(tooltipDescription);
+        GameStringText gameStringText = HeroesData.ParseGameString(gamestring, gameStringLocale: _options.CurrentLocale, extractFontValues: ShouldExtractFontValues);
+        ExtractFontValues(gameStringText);
 
-        return tooltipDescription;
+        return gameStringText;
     }
 
     // extract the font values out and save them so we don't have to perform the "lookup" from heroesdata every time
