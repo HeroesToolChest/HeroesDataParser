@@ -66,7 +66,7 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
                     continue;
                 }
 
-                _logger.LogInformation("Selected parsing configuration file {SelectedFilePath} for {FilePrefixName}", selectedFilePath, filePrefixName);
+                _logger.LogDebug("Selected parsing configuration file {SelectedFilePath} for {FilePrefixName}", selectedFilePath, filePrefixName);
 
                 _selectedCustomDataFilePaths.Add(selectedFilePath);
             }

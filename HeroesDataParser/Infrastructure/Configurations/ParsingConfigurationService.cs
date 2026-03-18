@@ -115,7 +115,7 @@ public class ParsingConfigurationService : ConfigurationServiceBase, IParsingCon
             return;
         }
 
-        _logger.LogInformation("Selected parsing configuration file: {SelectedFilePath}", SelectedFilePath);
+        _logger.LogDebug("Selected parsing configuration file: {SelectedFilePath}", SelectedFilePath);
 
         LoadFile(SelectedFilePath);
     }

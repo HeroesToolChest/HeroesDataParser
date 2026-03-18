@@ -28,6 +28,6 @@ public class GameStringSerializerService : IGameStringSerializerService
     public void ClearStoredGameStrings()
     {
         DataGameStringItemDictionary.Clear();
-        _logger.LogInformation("Cleared all serialized game string data.");
+        _logger.LogDebug("Cleared all serialized game string data.");
     }
 }
