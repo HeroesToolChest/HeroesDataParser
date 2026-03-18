@@ -76,10 +76,20 @@ public class RootCommand : AsyncCommand<RootSettings>
         if (settings.StormLocales.Length > 0)
             _options.Localizations.Clear();
 
-        foreach (string locale in settings.StormLocales)
+        if (settings.StormLocales.Any(x => x.Equals("all", StringComparison.OrdinalIgnoreCase)))
         {
-            if (Enum.TryParse(locale, true, out StormLocale stormLocale))
+            foreach (StormLocale stormLocale in Enum.GetValues<StormLocale>())
+            {
                 _options.Localizations.Add(stormLocale);
+            }
+        }
+        else
+        {
+            foreach (string locale in settings.StormLocales)
+            {
+                if (Enum.TryParse(locale, true, out StormLocale stormLocale))
+                    _options.Localizations.Add(stormLocale);
+            }
         }
 
         _options.GameStringText.Type = settings.GameStringTextType;

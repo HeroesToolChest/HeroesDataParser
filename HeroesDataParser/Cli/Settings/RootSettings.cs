@@ -111,6 +111,9 @@ public class RootSettings : CommandSettings
 
         foreach (string locale in StormLocales)
         {
+            if (locale.Equals("all", StringComparison.OrdinalIgnoreCase))
+                continue;
+
             if (!Enum.TryParse(locale, true, out StormLocale _))
                 return ValidationResult.Error($"--localization has an invalid locale: {locale}");
         }
