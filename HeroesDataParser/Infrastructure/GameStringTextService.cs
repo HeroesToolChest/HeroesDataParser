@@ -134,7 +134,7 @@ public class GameStringTextService : IGameStringTextService
 
     private void ExtractFontConstants(GameStringText gameStringText)
     {
-        List<string> fontStyleConstantValues = [.. gameStringText.FontStyleConstantValues!];
+        List<string> fontStyleConstantValues = [.. gameStringText.FontConstantValues!];
 
         foreach (string item in fontStyleConstantValues)
         {
