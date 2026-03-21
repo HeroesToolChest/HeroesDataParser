@@ -31,6 +31,7 @@ public class JsonApplyCommand : AsyncCommand<JsonApplySettings>
         _options.OutputFilePath = GetOutputFilePath(outputDirectory);
         _options.AllowOverwrite = settings.Overwrite;
         _options.DeletePatchFile = settings.DeletePatchFile;
+        _options.JsonIndent = !settings.DisableJsonIndent;
 
         if (!_options.AllowOverwrite)
         {

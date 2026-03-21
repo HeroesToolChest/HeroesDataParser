@@ -106,6 +106,7 @@ public class RootCommand : AsyncCommand<RootSettings>
         _options.AllowEmptyMapSpecificPatchFiles = settings.AllowEmptyMapSpecificPatchFiles;
         _options.AllowEmptyMapSpecificDirectories = settings.AllowEmptyMapSpecificDirectories;
         _options.ShowLoadedCustomConfigFiles = settings.ShowLoadedCustomConfigFiles;
+        _options.JsonIndent = !settings.DisableJsonIndent;
         _options.Threads = settings.Threads;
     }
 

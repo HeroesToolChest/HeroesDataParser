@@ -52,6 +52,7 @@ public class JsonApplyServiceTests
             JsonFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
             JsonPatchFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json"),
             OutputFilePath = outputFilePath,
+            JsonIndent = true,
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
@@ -82,6 +83,7 @@ public class JsonApplyServiceTests
             JsonPatchFilePath = patchFilePath,
             OutputFilePath = outputFilePath,
             DeletePatchFile = false,
+            JsonIndent = true,
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());

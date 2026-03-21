@@ -69,6 +69,11 @@ public class RootSettings : CommandSettings
     [Description("Display the loaded custom config files")]
     public bool ShowLoadedCustomConfigFiles { get; init; }
 
+    [CommandOption("--no-indent")]
+    [Description("Disable indentation in the output JSON files")]
+    [DefaultValue(false)]
+    public bool DisableJsonIndent { get; init; }
+
     [CommandOption("-t|--threads <NUMBER>")]
     [Description("The number of threads to use for data parsing and image writing (defaults to max number of processors)")]
     [DefaultValue(-1)]

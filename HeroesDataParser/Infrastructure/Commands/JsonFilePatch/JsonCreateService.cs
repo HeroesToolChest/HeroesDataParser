@@ -19,7 +19,7 @@ public class JsonCreateService : IJsonCreateService
 
         _jsonSerializerOptions = new()
         {
-            WriteIndented = true,
+            WriteIndented = _options.JsonIndent,
             NewLine = "\n",
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
         };

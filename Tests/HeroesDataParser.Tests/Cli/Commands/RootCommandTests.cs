@@ -394,6 +394,7 @@ public class RootCommandTests
         rootOptions.AllowEmptyMapSpecificPatchFiles.Should().BeFalse();
         rootOptions.AllowEmptyMapSpecificDirectories.Should().BeFalse();
         rootOptions.ShowLoadedCustomConfigFiles.Should().BeFalse();
+        rootOptions.JsonIndent.Should().BeTrue();
     }
 
     [TestMethod]
@@ -731,6 +732,32 @@ public class RootCommandTests
         await AssertCommandSuccessful(result);
 
         rootOptions.ShowLoadedCustomConfigFiles.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public async Task RootCommand_NoIndentArgument_ExecutesSuccessfully()
+    {
+        // arrange
+        RootOptions rootOptions = new();
+        _options.Value.Returns(rootOptions);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<RootCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            "game",
+            "--storage-path", "TestXmlFiles",
+            "--no-indent",
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        await AssertCommandSuccessful(result);
+
+        rootOptions.JsonIndent.Should().BeFalse();
     }
 
     [TestMethod]

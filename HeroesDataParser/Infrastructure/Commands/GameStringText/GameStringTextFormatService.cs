@@ -179,6 +179,7 @@ public class GameStringTextFormatService : IGameStringTextUpdateService
 
     private void SetSerializationOptions()
     {
+        _jsonSerializerOptions.WriteIndented = _options.JsonIndent;
         _jsonSerializerOptions.Converters.Add(new GameStringTextConverter(new GameStringTextConverterOptions()
         {
             GameStringTextType = _options.GameStringTextType,

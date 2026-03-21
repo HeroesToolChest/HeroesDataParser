@@ -18,4 +18,6 @@ public class GameStringTextFormatOptions
 
     // is a new file being created (as opposed to updating the existing file)
     public bool IsNewFile { get; set; }
+
+    public bool JsonIndent { get; set; }
 }

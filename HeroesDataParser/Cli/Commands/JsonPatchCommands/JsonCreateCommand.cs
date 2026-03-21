@@ -30,6 +30,7 @@ public class JsonCreateCommand : AsyncCommand<JsonCreateSettings>
 
         _options.OutputFilePath = GetOutputFilePath(outputDirectory);
         _options.AllowOverwrite = settings.Overwrite;
+        _options.JsonIndent = !settings.DisableJsonIndent;
 
         if (!_options.AllowOverwrite)
         {

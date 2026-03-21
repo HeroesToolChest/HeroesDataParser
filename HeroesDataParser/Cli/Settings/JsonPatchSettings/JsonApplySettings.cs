@@ -26,6 +26,11 @@ public class JsonApplySettings : JsonPatchSettings
     [DefaultValue(false)]
     public bool DeletePatchFile { get; init; }
 
+    [CommandOption("--no-indent")]
+    [Description("Disable indentation in the output JSON files")]
+    [DefaultValue(false)]
+    public bool DisableJsonIndent { get; init; }
+
     public override ValidationResult Validate()
     {
         if (!FilePath.Exists)

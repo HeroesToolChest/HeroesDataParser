@@ -96,6 +96,7 @@ public class JsonCreateServiceTests
             NewJsonFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus_patched_map.json"),
             OutputFilePath = outputFilePath,
             AllowOverwrite = true,
+            JsonIndent = true,
         });
         JsonCreateService jsonCreateService = new(_logger, _options, _console);
 

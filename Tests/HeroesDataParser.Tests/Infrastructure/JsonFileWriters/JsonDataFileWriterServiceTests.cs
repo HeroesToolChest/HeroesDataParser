@@ -49,6 +49,7 @@ public class JsonDataFileWriterServiceTests
                 IsPtr = false,
             },
             AppVersion = "5.0.0",
+            JsonIndent = true,
         };
 
         _options.Value.Returns(rootOptions);
@@ -167,6 +168,68 @@ public class JsonDataFileWriterServiceTests
     }
 
     [TestMethod]
+    public async Task Write_HasItemsNoIndent_CreatesJsonFileWithNoIndent()
+    {
+        // arrange
+        RootOptions rootOptions = new()
+        {
+            OutputDirectory = Path.Combine("tests", nameof(Write_HasItemsNoIndent_CreatesJsonFileWithNoIndent)),
+            LocalizedText = LocalizedTextOption.None,
+            CurrentLocale = StormLocale.ENUS,
+            GameStringText = new GameStringTextOptions
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontStylesVars = false,
+                ReplaceFontConstantVars = false,
+                PreserveFontStyleConstantVars = false,
+                PreserveFontStyleVars = false,
+            },
+            HeroesVersion = new HeroesVersionOptions
+            {
+                Major = 2,
+                Minor = 23,
+                Revision = 2345,
+                Build = 34566,
+                IsPtr = false,
+            },
+            AppVersion = "5.0.0",
+            JsonIndent = false,
+        };
+
+        _options.Value.Returns(rootOptions);
+
+        JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _extractedGameStringsService); // create real instance
+        JsonDataFileWriterService service = new(_logger, _options, _console, _serializedDataStoreService, jsonSerializerOptionService, _resultSummaryService);
+
+        SortedDictionary<string, Hero> heroesByElementId = [];
+        heroesByElementId.Add("hero1", new Hero("hero1") { UnitId = "hero1" });
+        heroesByElementId.Add("hero2", new Hero("hero2")
+        {
+            UnitId = "hero2",
+            Armor = new Dictionary<ArmorSet, UnitArmor>()
+            {
+                { ArmorSet.Hero, new UnitArmor { BasicArmor = 10, AbilityArmor = 5, SplashArmor = 2 } },
+            },
+            SummonedUnitIds = new HashSet<string> { "summonedUnit1", "summonedUnit2" },
+        });
+
+        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "data", $"herodata_{rootOptions.BuildNumber}_enus.json");
+
+        // act
+        await service.Write(heroesByElementId);
+
+        // assert
+        _serializedDataStoreService.ReceivedWithAnyArgs(1).AddSerializedData(default!, default!);
+        _ = _resultSummaryService.Received(1).JsonDataFilesWritten;
+        _ = _resultSummaryService.Received(1).JsonDataFilesTotal;
+        File.Exists(expectedFilePath).Should().BeTrue();
+        File.ReadAllText(expectedFilePath).Should().Be(
+        """
+        {"meta":{"heroesVersion":"2.23.2345.34566","hdpVersion":"5.0.0","itemsType":"Data","dataType":"HeroData","localizedText":"None","gameStringText":{"locale":"ENUS","textType":"RawText","replaceFontConstantVars":false,"replaceFontStylesVars":false,"preserveFontStyleConstantVars":false,"preserveFontStyleVars":false},"totalItems":2},"items":{"hero1":{"unitId":"hero1","franchise":"Starcraft","isMelee":false,"gender":"Male","radius":0,"innerRadius":0,"sight":0,"speed":0,"roles":[],"ratings":{"complexity":1,"damage":1,"survivability":1,"utility":1},"portraits":{"heroSelect":"","leaderboard":"","loading":"","partyPanel":"","target":"","draftScreen":"","partyFrames":[]}},"hero2":{"unitId":"hero2","franchise":"Starcraft","isMelee":false,"gender":"Male","radius":0,"innerRadius":0,"sight":0,"speed":0,"roles":[],"ratings":{"complexity":1,"damage":1,"survivability":1,"utility":1},"portraits":{"heroSelect":"","leaderboard":"","loading":"","partyPanel":"","target":"","draftScreen":"","partyFrames":[]},"armor":{"Hero":{"basic":10,"ability":5,"splash":2}},"summonedUnitIds":["summonedUnit1","summonedUnit2"]}}}
+        """);
+    }
+
+    [TestMethod]
     public async Task Write_NoItems_NoFilesCreated()
     {
         // arrange
@@ -221,6 +284,7 @@ public class JsonDataFileWriterServiceTests
             },
             AppVersion = "5.0.0",
             AllowEmptyMapSpecificPatchFiles = true,
+            JsonIndent = true,
         };
 
         _options.Value.Returns(rootOptions);
@@ -356,6 +420,7 @@ public class JsonDataFileWriterServiceTests
                 IsPtr = false,
             },
             AppVersion = "5.0.0",
+            JsonIndent = true,
         };
 
         _options.Value.Returns(rootOptions);
@@ -456,6 +521,7 @@ public class JsonDataFileWriterServiceTests
                 IsPtr = true,
             },
             AppVersion = "5.0.0",
+            JsonIndent = true,
         };
 
         _options.Value.Returns(rootOptions);
@@ -558,6 +624,7 @@ public class JsonDataFileWriterServiceTests
                 IsPtr = true,
             },
             AppVersion = "5.0.0",
+            JsonIndent = true,
         };
 
         _options.Value.Returns(rootOptions);
@@ -651,6 +718,7 @@ public class JsonDataFileWriterServiceTests
                 IsPtr = true,
             },
             AppVersion = "5.0.0",
+            JsonIndent = true,
         };
 
         _options.Value.Returns(rootOptions);

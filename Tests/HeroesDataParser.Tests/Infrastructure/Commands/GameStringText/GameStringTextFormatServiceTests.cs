@@ -103,6 +103,7 @@ public class GameStringTextFormatServiceTests
             FilePath = Path.Combine("TestJsonFiles", "GameStringTextFormat", inputFileName),
             OutputDirectory = outputFileDirectory,
             IsNewFile = true,
+            JsonIndent = true,
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
@@ -139,6 +140,7 @@ public class GameStringTextFormatServiceTests
             FilePath = Path.Combine("TestJsonFiles", "GameStringTextFormat", inputFileName),
             OutputDirectory = outputFileDirectory,
             IsNewFile = true,
+            JsonIndent = true,
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
@@ -175,6 +177,7 @@ public class GameStringTextFormatServiceTests
             FilePath = Path.Combine("TestJsonFiles", "GameStringTextFormat", inputFileName),
             OutputDirectory = outputFileDirectory,
             IsNewFile = true,
+            JsonIndent = true,
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
@@ -211,6 +214,7 @@ public class GameStringTextFormatServiceTests
             FilePath = Path.Combine("TestJsonFiles", "GameStringTextFormat", inputFileName),
             OutputDirectory = outputFileDirectory,
             IsNewFile = true,
+            JsonIndent = true,
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
@@ -247,6 +251,7 @@ public class GameStringTextFormatServiceTests
             FilePath = Path.Combine("TestJsonFiles", "GameStringTextFormat", inputFileName),
             OutputDirectory = outputFileDirectory,
             IsNewFile = true,
+            JsonIndent = true,
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
@@ -284,6 +289,7 @@ public class GameStringTextFormatServiceTests
             FilePath = Path.Combine("TestJsonFiles", "GameStringTextFormat", inputFileName),
             OutputDirectory = outputFileDirectory,
             IsNewFile = true,
+            JsonIndent = true,
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
@@ -321,6 +327,7 @@ public class GameStringTextFormatServiceTests
             FilePath = Path.Combine("TestJsonFiles", "GameStringTextFormat", inputFileName),
             OutputDirectory = outputFileDirectory,
             IsNewFile = false,
+            JsonIndent = true,
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
@@ -356,6 +363,7 @@ public class GameStringTextFormatServiceTests
             FilePath = Path.Combine("TestJsonFiles", "GameStringTextFormat", inputFileName),
             OutputDirectory = outputFileDirectory,
             IsNewFile = true,
+            JsonIndent = true,
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
@@ -392,6 +400,7 @@ public class GameStringTextFormatServiceTests
             FilePath = Path.Combine("TestJsonFiles", "GameStringTextFormat", inputFileName),
             OutputDirectory = outputFileDirectory,
             IsNewFile = true,
+            JsonIndent = true,
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
@@ -428,6 +437,7 @@ public class GameStringTextFormatServiceTests
             FilePath = Path.Combine("TestJsonFiles", "GameStringTextFormat", inputFileName),
             OutputDirectory = outputFileDirectory,
             IsNewFile = false,
+            JsonIndent = true,
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());

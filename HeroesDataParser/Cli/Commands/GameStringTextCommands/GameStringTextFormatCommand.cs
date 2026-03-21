@@ -32,6 +32,7 @@ public class GameStringTextFormatCommand : AsyncCommand<GameStringTextFormatSett
             _options.OutputDirectory = settings.OutputDirectory.FullName;
 
         _options.AllowOverwrite = settings.Overwrite;
+        _options.JsonIndent = !settings.DisableJsonIndent;
 
         if (File.Exists(_options.OutputFilePath))
         {

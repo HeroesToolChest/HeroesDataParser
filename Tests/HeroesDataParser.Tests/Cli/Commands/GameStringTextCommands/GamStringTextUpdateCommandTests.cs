@@ -183,6 +183,7 @@ public class GamStringTextUpdateCommandTests
         gameStringTextUpdateOptions.AllowOverwrite.Should().BeTrue();
         gameStringTextUpdateOptions.GameStringTextHltConstantRemoveMode.Should().Be(GameStringTextHltRemoveMode.None);
         gameStringTextUpdateOptions.GameStringTextHltStyleRemoveMode.Should().Be(GameStringTextHltRemoveMode.None);
+        gameStringTextUpdateOptions.JsonIndent.Should().BeTrue();
     }
 
     [TestMethod]
@@ -247,6 +248,32 @@ public class GamStringTextUpdateCommandTests
         gameStringTextUpdateOptions.AllowOverwrite.Should().BeFalse();
         gameStringTextUpdateOptions.GameStringTextHltConstantRemoveMode.Should().Be(GameStringTextHltRemoveMode.Remove);
         gameStringTextUpdateOptions.GameStringTextHltStyleRemoveMode.Should().Be(GameStringTextHltRemoveMode.RemoveAndUndo);
+    }
+
+    [TestMethod]
+    public async Task GameStringTextUpdateCommand_NoIndentArgument_ReturnsSuccess()
+    {
+        // arrange
+        GameStringTextFormatOptions gameStringTextUpdateOptions = new();
+        _options.Value.Returns(gameStringTextUpdateOptions);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<GameStringTextFormatCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            Path.Combine("TestJsonFiles", "herodata_96477_enus_rawtext.json"), "1",
+            "--no-indent",
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        await AssertCommandSuccessful(result);
+
+        gameStringTextUpdateOptions.JsonIndent.Should().BeFalse();
     }
 
     private ServiceCollection GetServiceCollection()

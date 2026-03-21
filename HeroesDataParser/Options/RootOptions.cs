@@ -26,6 +26,8 @@ public class RootOptions
 
     public bool ShowLoadedCustomConfigFiles { get; set; }
 
+    public bool JsonIndent { get; set; }
+
     public int Threads { get; set; }
 
     public HiddenOptions Hidden { get; set; } = new();

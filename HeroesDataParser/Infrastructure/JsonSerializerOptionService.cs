@@ -27,8 +27,10 @@ public class JsonSerializerOptionService : IJsonSerializerOptionService
         if (_jsonSerializerDataOptions is not null)
             return _jsonSerializerDataOptions;
 
-        _jsonSerializerDataOptions = new(GeneralJsonSerializerOptions);
-
+        _jsonSerializerDataOptions = new(GeneralJsonSerializerOptions)
+        {
+            WriteIndented = _options.JsonIndent,
+        };
         _jsonSerializerDataOptions.Converters.Add(new GameStringTextConverter(new GameStringTextConverterOptions() { GameStringTextType = _options.GameStringText.Type }));
         _jsonSerializerDataOptions.TypeInfoResolver = new HeroesElementResolver()
         {
@@ -48,7 +50,7 @@ public class JsonSerializerOptionService : IJsonSerializerOptionService
 
         _jsonSerializerGameStringOptions = new JsonSerializerOptions()
         {
-            WriteIndented = true,
+            WriteIndented = _options.JsonIndent,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,

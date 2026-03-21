@@ -21,7 +21,10 @@ public class JsonApplyService : IJsonApplyService
         _options = options.Value;
         _console = console;
         _jsonSerializerOptionService = jsonSerializerOptionService;
-        _jsonSerializerOptions = new(_jsonSerializerOptionService.GeneralJsonSerializerOptions);
+        _jsonSerializerOptions = new(_jsonSerializerOptionService.GeneralJsonSerializerOptions)
+        {
+            WriteIndented = _options.JsonIndent,
+        };
         _jsonSerializerOptions.Converters.Add(new GameStringTextConverter(new GameStringTextConverterOptions() { GameStringTextType = GameStringTextType.RawText }));
         _jsonSerializerOptions.Converters.Add(new GameStringItemDictionaryConverter());
     }

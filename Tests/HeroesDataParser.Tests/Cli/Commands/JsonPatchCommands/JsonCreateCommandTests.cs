@@ -147,6 +147,7 @@ public class JsonCreateCommandTests
         jsonCreateOptions.NewJsonFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json")));
         jsonCreateOptions.OutputFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json")));
         jsonCreateOptions.AllowOverwrite.Should().BeTrue();
+        jsonCreateOptions.JsonIndent.Should().BeTrue();
     }
 
     [TestMethod]
@@ -177,6 +178,34 @@ public class JsonCreateCommandTests
         jsonCreateOptions.NewJsonFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json")));
         jsonCreateOptions.OutputFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestXmlFiles", "announcerdata_96477_enus.patch.json")));
         jsonCreateOptions.AllowOverwrite.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public async Task JsonApplyCommand_NoIndentArgument_ReturnsSuccess()
+    {
+        // arrange
+        JsonCreateOptions jsonCreateOptions = new();
+        _options.Value.Returns(jsonCreateOptions);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<JsonCreateCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json"),
+            "-o", "TestXmlFiles",
+            "--no-indent",
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        await AssertCommandSuccessful(result);
+
+        jsonCreateOptions.JsonIndent.Should().BeFalse();
     }
 
     private ServiceCollection GetServiceCollection()
