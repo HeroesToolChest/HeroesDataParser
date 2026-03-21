@@ -26,7 +26,12 @@ public class RewardPortraitParser : StoreItemParserBase<RewardPortrait>
             collectionObject.IconSlot = iconSlotData.Value.GetInt();
 
         if (stormElement.DataValues.TryGetElementDataAt("IconFile", out StormElementData? iconFileData))
-            collectionObject.TextureSheet.Image = Path.ChangeExtension(iconFileData.Value.GetString(), StaticImageFileExtension);
+        {
+            string filePath = iconFileData.Value.GetString();
+
+            collectionObject.TextureSheet.ImagePath = filePath;
+            collectionObject.TextureSheet.Image = Path.ChangeExtension(filePath, StaticImageFileExtension);
+        }
 
         if (stormElement.DataValues.TryGetElementDataAt("IconCols", out StormElementData? iconColsData))
             collectionObject.TextureSheet.Columns = iconColsData.Value.GetInt();

@@ -32,7 +32,7 @@ public abstract class ParserBase
     /// <summary>
     /// Gets the image output file name for the given file path.
     /// </summary>
-    /// <param name="filePath">Path should start with Assets\Textures\.</param>
+    /// <param name="filePath">Path should (probably) start with Assets\Textures\.</param>
     /// <returns>The filename in lowercase and as a .png.</returns>
     protected string GetStaticImageOutputFileName(string? filePath)
     {
@@ -43,7 +43,7 @@ public abstract class ParserBase
     /// Gets the static image file path for the given assets texture path.
     /// </summary>
     /// <param name="assetsTexturePath">Path should start with Assets\Textures\.</param>
-    /// <returns>An <see cref="ImageFilePath"/> if the texture exists; otherwise, null.</returns>
+    /// <returns>An <see cref="ImageFilePath"/> if the texture exists; otherwise, <see langword="null"/>.</returns>
     protected ImageFilePath? GetStaticImageFilePath(string? assetsTexturePath)
     {
         return GetImageFilePath(assetsTexturePath, StaticImageFileExtension);
@@ -53,7 +53,7 @@ public abstract class ParserBase
     /// Gets the animated image file path for the given assets texture path.
     /// </summary>
     /// <param name="assetsTexturePath">Path should start with Assets\Textures\.</param>
-    /// <returns>An <see cref="ImageFilePath"/> if the texture exists; otherwise, null.</returns>
+    /// <returns>An <see cref="ImageFilePath"/> if the texture exists; otherwise, <see langword="null"/>.</returns>
     protected ImageFilePath? GetAnimatedImageFilePath(string? assetsTexturePath)
     {
         return Options.Hidden.AnimatedImageType switch

@@ -23,7 +23,7 @@ public class TypeDescriptionParser : DataParser<TypeDescription>
                 string texture = textureSheetData.Value.GetString();
 
                 SetTextureSheetProperties(elementObject, texture);
-                SetRewardIcon(elementObject, elementObject.TextureSheet.Image);
+                SetRewardIcon(elementObject, elementObject.TextureSheet.ImagePath);
             }
         }
 
@@ -69,7 +69,7 @@ public class TypeDescriptionParser : DataParser<TypeDescription>
             return;
 
         if (textureSheetElement.DataValues.TryGetElementDataAt("Image", out StormElementData? imageData))
-            elementObject.TextureSheet.Image = imageData.Value.GetString();
+            elementObject.TextureSheet.ImagePath = imageData.Value.GetString();
 
         if (textureSheetElement.DataValues.TryGetElementDataAt("Rows", out StormElementData? rowsData))
             elementObject.TextureSheet.Rows = rowsData.Value.GetInt();

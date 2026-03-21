@@ -39,7 +39,7 @@ public class EmoticonParserTests
         emoticon.HeroId.Should().Be("Greymane");
         emoticon.Description!.RawText.Should().Be("greymane rofl");
         emoticon.Animation.Should().BeNull();
-        emoticon.TextureSheet.Image.Should().Be("Assets\\Textures\\storm_emoji_greymane_sheet.dds");
+        emoticon.TextureSheet.ImagePath.Should().Be("Assets\\Textures\\storm_emoji_greymane_sheet.dds");
         emoticon.TextureSheet.Columns.Should().Be(4);
         emoticon.TextureSheet.Rows.Should().Be(3);
         emoticon.Image.Should().Be("storm_emoji_greymane_sheet_5.png");
@@ -89,7 +89,7 @@ public class EmoticonParserTests
         emoticon.TextureSheet.Should().NotBeNull();
         emoticon.TextureSheet.Columns.Should().Be(4);
         emoticon.TextureSheet.Rows.Should().Be(7);
-        emoticon.TextureSheet.Image.Should().Be("Assets\\Textures\\storm_emoji_cat_gleam_anim_sheet.dds");
+        emoticon.TextureSheet.ImagePath.Should().Be("Assets\\Textures\\storm_emoji_cat_gleam_anim_sheet.dds");
         emoticon.Image.Should().Be("storm_emoji_cat_gleam_anim_sheet.apng");
         emoticon.Index.Should().Be(0);
         emoticon.Width.Should().BeNull();

@@ -39,7 +39,7 @@ public class TypeDescriptionParserTests
         typeDescription.IconSlot.Should().Be(37);
         typeDescription.TextureSheet.Columns.Should().Be(5);
         typeDescription.TextureSheet.Rows.Should().Be(12);
-        typeDescription.TextureSheet.Image.Should().Be("Assets\\Textures\\storm_ui_heroes_rewardicons_sheet.dds");
+        typeDescription.TextureSheet.ImagePath.Should().Be("Assets\\Textures\\storm_ui_heroes_rewardicons_sheet.dds");
         typeDescription.LargeIcon.Should().Be("storm_ui_profile_hero_progression_icon_epicsummerlootchest.png");
         typeDescription.LargeIconPath!.FilePath.Should().Be(Path.Combine("Assets", "Textures", "storm_ui_profile_hero_progression_icon_epicsummerlootchest.dds"));
         typeDescription.RewardIcon.Should().Be("storm_ui_heroes_reward_icon_lootchestsummer2018epic.png");

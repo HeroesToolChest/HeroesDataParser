@@ -92,8 +92,6 @@ public class EmoticonParser : DataParser<Emoticon>
 
     private void SetImageProperties(Emoticon elementObject, StormElement stormElement)
     {
-        string? texture = null;
-
         int index = 0;
         int count = 0;
         int durationPerFrame = 0;
@@ -104,7 +102,6 @@ public class EmoticonParser : DataParser<Emoticon>
             if (imageData.TryGetElementDataAt("TextureSheet", out StormElementData? textureSheetData))
             {
                 SetTextureSheetProperties(elementObject, textureSheetData.Value.GetString());
-                texture = elementObject.TextureSheet.Image;
             }
 
             if (imageData.TryGetElementDataAt("Index", out StormElementData? indexData))
@@ -123,7 +120,7 @@ public class EmoticonParser : DataParser<Emoticon>
             {
                 elementObject.Animation = new()
                 {
-                    Texture = GetStaticImageOutputFileName(texture),
+                    Texture = GetStaticImageOutputFileName(elementObject.TextureSheet.ImagePath),
                     Frames = count,
                     Duration = durationPerFrame,
                     Columns = elementObject.TextureSheet.Columns,
@@ -137,7 +134,7 @@ public class EmoticonParser : DataParser<Emoticon>
                 elementObject.Width = width;
             }
 
-            SetImageFilePath(elementObject, texture);
+            SetImageFilePath(elementObject, elementObject.TextureSheet.ImagePath);
         }
     }
 
@@ -149,7 +146,7 @@ public class EmoticonParser : DataParser<Emoticon>
             return;
 
         if (textureSheetElement.DataValues.TryGetElementDataAt("Image", out StormElementData? imageData))
-            elementObject.TextureSheet.Image = imageData.Value.GetString();
+            elementObject.TextureSheet.ImagePath = imageData.Value.GetString();
 
         if (textureSheetElement.DataValues.TryGetElementDataAt("Rows", out StormElementData? rowsData))
             elementObject.TextureSheet.Rows = rowsData.Value.GetInt();
