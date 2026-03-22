@@ -31,7 +31,7 @@ public class ParsingConfigurationServiceTests
             },
         });
 
-        var fileInfo = CreateFileInfo("parsing.json");
+        var fileInfo = CreateFileInfo(Path.Combine("config", "parsing.json"));
         fileInfo.CreateReadStream().Returns(new MemoryStream(Encoding.UTF8.GetBytes(
             """
             {
@@ -75,7 +75,7 @@ public class ParsingConfigurationServiceTests
             },
         });
 
-        var fileInfo = CreateFileInfo("parsing.json");
+        var fileInfo = CreateFileInfo(Path.Combine("config", "parsing", "parsing.json"));
         fileInfo.CreateReadStream().Returns(new MemoryStream(Encoding.UTF8.GetBytes(
             """
             {
@@ -150,20 +150,22 @@ public class ParsingConfigurationServiceTests
             },
         });
 
+        string directory = Path.Combine("config-files", "parsing");
+
         IDirectoryContents directoryContents = Substitute.For<IDirectoryContents>();
         directoryContents.Exists.Returns(true);
 
         directoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
         {
-            CreateFileInfo("parsing_11111.json"),
-            CreateFileInfo("parsing_22222.json"),
-            CreateFileInfo("parsing_33333.json"),
-            CreateFileInfo("parsing.json"),
+            CreateFileInfo(Path.Combine(directory, "parsing_11111.json")),
+            CreateFileInfo(Path.Combine(directory, "parsing_22222.json")),
+            CreateFileInfo(Path.Combine(directory, "parsing_33333.json")),
+            CreateFileInfo(Path.Combine(directory, "parsing.json")),
         }.GetEnumerator());
 
         _fileProvider.GetDirectoryContents(Arg.Any<string>()).Returns(directoryContents);
 
-        var fileInfo = CreateFileInfo("parsing_11111.json");
+        var fileInfo = CreateFileInfo(Path.Combine(directory, "parsing_11111.json"));
         fileInfo.CreateReadStream().Returns(new MemoryStream(Encoding.UTF8.GetBytes("""{}""")));
         _fileProvider.GetFileInfo(Arg.Any<string>()).Returns(x => fileInfo);
 
@@ -189,20 +191,22 @@ public class ParsingConfigurationServiceTests
             },
         });
 
+        string directory = Path.Combine("config-files", "parsing");
+
         IDirectoryContents directoryContents = Substitute.For<IDirectoryContents>();
         directoryContents.Exists.Returns(true);
 
         directoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
         {
-            CreateFileInfo("parsing_11111.json"),
-            CreateFileInfo("parsing_22222.json"),
-            CreateFileInfo("parsing_33333.json"),
-            CreateFileInfo("parsing.json"),
+            CreateFileInfo(Path.Combine(directory, "parsing_11111.json")),
+            CreateFileInfo(Path.Combine(directory, "parsing_22222.json")),
+            CreateFileInfo(Path.Combine(directory, "parsing_33333.json")),
+            CreateFileInfo(Path.Combine(directory, "parsing.json")),
         }.GetEnumerator());
 
         _fileProvider.GetDirectoryContents(Arg.Any<string>()).Returns(directoryContents);
 
-        var fileInfo = CreateFileInfo("parsing.json");
+        var fileInfo = CreateFileInfo(Path.Combine(directory, "parsing.json"));
         fileInfo.CreateReadStream().Returns(new MemoryStream(Encoding.UTF8.GetBytes("""{}""")));
         _fileProvider.GetFileInfo(Arg.Any<string>()).Returns(x => fileInfo);
 
@@ -228,20 +232,22 @@ public class ParsingConfigurationServiceTests
             },
         });
 
+        string directory = Path.Combine("config-files", "parsing");
+
         IDirectoryContents directoryContents = Substitute.For<IDirectoryContents>();
         directoryContents.Exists.Returns(true);
 
         directoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
         {
-            CreateFileInfo("parsing_11111.json"),
-            CreateFileInfo("parsing_22222.json"),
-            CreateFileInfo("parsing_33333.json"),
-            CreateFileInfo("parsing.json"),
+            CreateFileInfo(Path.Combine(directory, "parsing_11111.json")),
+            CreateFileInfo(Path.Combine(directory, "parsing_22222.json")),
+            CreateFileInfo(Path.Combine(directory, "parsing_33333.json")),
+            CreateFileInfo(Path.Combine(directory, "parsing.json")),
         }.GetEnumerator());
 
         _fileProvider.GetDirectoryContents(Arg.Any<string>()).Returns(directoryContents);
 
-        var fileInfo = CreateFileInfo("parsing_22222.json");
+        var fileInfo = CreateFileInfo(Path.Combine(directory, "parsing_22222.json"));
         fileInfo.CreateReadStream().Returns(new MemoryStream(Encoding.UTF8.GetBytes("""{}""")));
         _fileProvider.GetFileInfo(Arg.Any<string>()).Returns(x => fileInfo);
 
@@ -267,20 +273,22 @@ public class ParsingConfigurationServiceTests
             },
         });
 
+        string directory = Path.Combine("config-files", "parsing");
+
         IDirectoryContents directoryContents = Substitute.For<IDirectoryContents>();
         directoryContents.Exists.Returns(true);
 
         directoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
         {
-            CreateFileInfo("parsing_11111.json"),
-            CreateFileInfo("parsing_22222.json"),
-            CreateFileInfo("parsing_33333.json"),
-            CreateFileInfo("parsing.json"),
+            CreateFileInfo(Path.Combine(directory, "parsing_11111.json")),
+            CreateFileInfo(Path.Combine(directory, "parsing_22222.json")),
+            CreateFileInfo(Path.Combine(directory, "parsing_33333.json")),
+            CreateFileInfo(Path.Combine(directory, "parsing.json")),
         }.GetEnumerator());
 
         _fileProvider.GetDirectoryContents(Arg.Any<string>()).Returns(directoryContents);
 
-        var fileInfo = CreateFileInfo("parsing_22222.json");
+        var fileInfo = CreateFileInfo(Path.Combine(directory, "parsing_22222.json"));
         fileInfo.CreateReadStream().Returns(new MemoryStream(Encoding.UTF8.GetBytes("""{}""")));
         _fileProvider.GetFileInfo(Arg.Any<string>()).Returns(x => fileInfo);
 
@@ -337,20 +345,22 @@ public class ParsingConfigurationServiceTests
             },
         });
 
+        string directory = Path.Combine("config-files", "parsing");
+
         IDirectoryContents directoryContents = Substitute.For<IDirectoryContents>();
         directoryContents.Exists.Returns(true);
 
         directoryContents.GetEnumerator().Returns(x => new List<IFileInfo>
         {
-            CreateFileInfo("parsing_11111.json"),
-            CreateFileInfo("parsing_22222.json"),
-            CreateFileInfo("parsing_33333.json"),
-            CreateFileInfo("parsing.json"),
+            CreateFileInfo(Path.Combine(directory, "parsing_11111.json")),
+            CreateFileInfo(Path.Combine(directory, "parsing_22222.json")),
+            CreateFileInfo(Path.Combine(directory, "parsing_33333.json")),
+            CreateFileInfo(Path.Combine(directory, "parsing.json")),
         }.GetEnumerator());
 
         _fileProvider.GetDirectoryContents(Arg.Any<string>()).Returns(directoryContents);
 
-        var fileInfo = CreateFileInfo("parsing.json");
+        var fileInfo = CreateFileInfo(Path.Combine(directory, "parsing.json"));
         fileInfo.CreateReadStream().Returns(new MemoryStream(Encoding.UTF8.GetBytes("""{}""")));
         _fileProvider.GetFileInfo(Arg.Any<string>()).Returns(x => fileInfo);
 
@@ -394,12 +404,12 @@ public class ParsingConfigurationServiceTests
         result.Should().BeNull();
     }
 
-    private static IFileInfo CreateFileInfo(string name)
+    private static IFileInfo CreateFileInfo(string filePath)
     {
         IFileInfo fileInfo = Substitute.For<IFileInfo>();
         fileInfo.Exists.Returns(true);
-        fileInfo.Name.Returns(name);
-
+        fileInfo.Name.Returns(Path.GetFileName(filePath));
+        fileInfo.PhysicalPath.Returns(filePath);
         return fileInfo;
     }
 }

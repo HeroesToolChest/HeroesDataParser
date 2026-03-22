@@ -13,6 +13,6 @@ internal static class SerilogLogging
 
     public static Action<LoggerSinkConfiguration> LoggerConfigure()
     {
-        return x => x.File(new CompactJsonFormatter(), Path.Join(LogDirectory, $"{LogPrefix}{StartDateTime:yyyyMMdd_HHmmss}.txt"), retainedFileCountLimit: RetainedFileCountLimit, fileSizeLimitBytes: 1024 * 1024 * 64);
+        return x => x.File(new CompactJsonFormatter(), Path.Combine(AppContext.BaseDirectory, LogDirectory, $"{LogPrefix}{StartDateTime:yyyyMMdd_HHmmss}.txt"), retainedFileCountLimit: RetainedFileCountLimit, fileSizeLimitBytes: 1024 * 1024 * 64);
     }
 }

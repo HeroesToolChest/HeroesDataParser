@@ -10,14 +10,14 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
     private readonly ILogger<CustomConfigurationService> _logger;
     private readonly IFileProvider _fileProvider;
 
-    private readonly string _customConfigurationDirectory = Path.Join("config-files", "custom");
+    private readonly string _customConfigurationDirectory = Path.Combine("config-files", "custom");
 
     private readonly List<string> _selectedCustomDataFilePaths = [];
 
     // key: extractor name
     // key: file prefix name
     // key: build number
-    // value: relative file path
+    // value: file path
     private readonly Dictionary<string, SortedDictionary<string, SortedDictionary<int, string>>> _customElementByExtractorName = new(StringComparer.OrdinalIgnoreCase);
 
     public CustomConfigurationService(ILogger<CustomConfigurationService> logger, IOptions<RootOptions> options, IFileProvider fileProvider)
@@ -47,7 +47,10 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
         // load the extractor name directories
         LoadExtractorConfigurations(directoryContents);
 
-        _logger.LogDebug("Custom configuration files loaded: {@Files}", _customElementByExtractorName);
+        if (_customElementByExtractorName.Count == 0)
+            _logger.LogDebug("No custom configuration files loaded");
+        else
+            _logger.LogDebug("Custom configuration files loaded: {@Files}", _customElementByExtractorName);
     }
 
     protected override void ProcessFiles()
@@ -62,11 +65,11 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
 
                 if (string.IsNullOrWhiteSpace(selectedFilePath))
                 {
-                    _logger.LogWarning("No parsing configuration file found for {FilePrefixName}", filePrefixName);
+                    _logger.LogWarning("No custom configuration file found for {FilePrefixName}", filePrefixName);
                     continue;
                 }
 
-                _logger.LogDebug("Selected parsing configuration file {SelectedFilePath} for {FilePrefixName}", selectedFilePath, filePrefixName);
+                _logger.LogDebug("Selected custom configuration file {SelectedFilePath} for {FilePrefixName}", selectedFilePath, filePrefixName);
 
                 _selectedCustomDataFilePaths.Add(selectedFilePath);
             }
@@ -77,25 +80,26 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
     {
         foreach (IFileInfo fileInfo in directoryContents)
         {
-            Dictionary<string, string> relativeFilePathByDefaultFileName = new(StringComparer.OrdinalIgnoreCase);
+            Dictionary<string, string> filePathByDefaultFileName = new(StringComparer.OrdinalIgnoreCase);
 
             // we are looking for a directory so anything else then no
             if (!fileInfo.Exists || fileInfo.PhysicalPath is null || !fileInfo.IsDirectory)
                 continue;
 
+            bool valid = Enum.TryParse(fileInfo.Name, true, out ExtractDataOptions extractorName);
+
             // check if the directory name is in the extractors list
-            if (Enum.TryParse(fileInfo.Name, true, out ExtractDataOptions extractorName) && !Options.Extractors.ContainsKey(extractorName))
+            if (!valid || (valid && !Options.Extractors.ContainsKey(extractorName)))
                 continue;
 
-            string directoryPath = Path.Join(_customConfigurationDirectory, fileInfo.Name);
-            IDirectoryContents extractorDirectoryContents = _fileProvider.GetDirectoryContents(directoryPath);
+            IDirectoryContents extractorDirectoryContents = _fileProvider.GetDirectoryContents(Path.GetRelativePath(AppContext.BaseDirectory, fileInfo.PhysicalPath));
 
             // load the files in the extractor directories
-            LoadCustomDataFiles(extractorDirectoryContents, directoryPath, fileInfo.Name, relativeFilePathByDefaultFileName);
+            LoadCustomDataFiles(extractorDirectoryContents, fileInfo.PhysicalPath, fileInfo.Name, filePathByDefaultFileName);
         }
     }
 
-    private void LoadCustomDataFiles(IDirectoryContents directoryContents, string currentRelativeDirectoryPath, string extractorName, Dictionary<string, string> relativeFilePathByDefaultFileName, int currentDepth = 0)
+    private void LoadCustomDataFiles(IDirectoryContents directoryContents, string directoryPath, string extractorName, Dictionary<string, string> filePathByDefaultFileName, int currentDepth = 0)
     {
         currentDepth++;
 
@@ -107,8 +111,7 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
             // check directory depth, dont check any more inner directories
             if (currentDepth < _maxDepth && fileInfo.IsDirectory)
             {
-                string directoryPath = Path.Join(currentRelativeDirectoryPath, fileInfo.Name);
-                LoadCustomDataFiles(_fileProvider.GetDirectoryContents(directoryPath), directoryPath, extractorName, relativeFilePathByDefaultFileName, currentDepth);
+                LoadCustomDataFiles(_fileProvider.GetDirectoryContents(Path.GetRelativePath(AppContext.BaseDirectory, fileInfo.PhysicalPath)), directoryPath, extractorName, filePathByDefaultFileName, currentDepth);
             }
 
             // ...with the custom data extension
@@ -118,12 +121,10 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
             ReadOnlySpan<char> filePathSpan = Path.GetFileNameWithoutExtension(fileInfo.Name.AsSpan());
             int index = filePathSpan.LastIndexOf('_');
 
-            string relativeFilePath = Path.Join(currentRelativeDirectoryPath, fileInfo.Name);
-
             // check for default file (no build number suffix)
             if (index < 1)
             {
-                relativeFilePathByDefaultFileName[filePathSpan.ToString()] = relativeFilePath;
+                filePathByDefaultFileName[filePathSpan.ToString()] = fileInfo.PhysicalPath;
                 continue;
             }
 
@@ -137,13 +138,13 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
             {
                 if (customElementsByFileNamePrefix.TryGetValue(fileNamePrefix, out var relativePathsByBuild))
                 {
-                    relativePathsByBuild[build] = relativeFilePath;
+                    relativePathsByBuild[build] = fileInfo.PhysicalPath;
                 }
                 else
                 {
                     customElementsByFileNamePrefix[fileNamePrefix] = new SortedDictionary<int, string>
                     {
-                        [build] = relativeFilePath,
+                        [build] = fileInfo.PhysicalPath,
                     };
                 }
             }
@@ -153,23 +154,23 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
                 {
                     [fileNamePrefix] = new SortedDictionary<int, string>
                     {
-                        [build] = relativeFilePath,
+                        [build] = fileInfo.PhysicalPath,
                     },
                 };
             }
         }
 
         // add in the default file (no build number suffix)
-        foreach (var defaultFile in relativeFilePathByDefaultFileName)
+        foreach (var defaultFile in filePathByDefaultFileName)
         {
             if (_customElementByExtractorName.TryGetValue(extractorName, out var customElementsByFileNamePrefix))
             {
-                if (customElementsByFileNamePrefix.TryGetValue(defaultFile.Key, out var relativePathsByBuild))
+                if (customElementsByFileNamePrefix.TryGetValue(defaultFile.Key, out var filePathsByBuild))
                 {
-                    if (relativePathsByBuild.Keys.Count > 0)
-                        relativePathsByBuild[relativePathsByBuild.Keys.Max() + 1] = defaultFile.Value;
+                    if (filePathsByBuild.Keys.Count > 0)
+                        filePathsByBuild[filePathsByBuild.Keys.Max() + 1] = defaultFile.Value;
                     else
-                        relativePathsByBuild[0] = defaultFile.Value;
+                        filePathsByBuild[0] = defaultFile.Value;
                 }
                 else
                 {

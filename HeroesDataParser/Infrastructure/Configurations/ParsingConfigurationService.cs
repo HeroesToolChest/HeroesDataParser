@@ -8,12 +8,12 @@ public class ParsingConfigurationService : ConfigurationServiceBase, IParsingCon
     private const string _parsingConfigExtension = ".json";
     private const string _parsingConfigFileName = $"{_parsingConfigFileNameNoExt}{_parsingConfigExtension}";
 
-    private readonly string _parsingConfigurationDirectory = Path.Join("config-files", "parsing");
+    private readonly string _parsingConfigurationDirectory = Path.Combine("config-files", "parsing");
 
     private readonly ILogger<ParsingConfigurationService> _logger;
     private readonly IFileProvider _fileProvider;
 
-    private readonly SortedDictionary<int, string> _relativeFilePathsByBuild = [];
+    private readonly SortedDictionary<int, string> _filePathsByBuild = [];
     private readonly Dictionary<string, ParsingDataObjectType> _parsingDataObjectTypeByDOT = [];
 
     private readonly JsonDocumentOptions _jsonDocumentOptions = new()
@@ -88,26 +88,26 @@ public class ParsingConfigurationService : ConfigurationServiceBase, IParsingCon
 
             if (int.TryParse(filePathSpan[buildIndex..], out int buildNumber))
             {
-                _relativeFilePathsByBuild.Add(buildNumber, Path.Join(_parsingConfigurationDirectory, fileInfo.Name));
+                _filePathsByBuild.Add(buildNumber, fileInfo.PhysicalPath);
             }
         }
 
         // add in the default file
-        IFileInfo defaultFile = _fileProvider.GetFileInfo(Path.Join(_parsingConfigurationDirectory, _parsingConfigFileName));
+        IFileInfo defaultFile = _fileProvider.GetFileInfo(Path.Combine(_parsingConfigurationDirectory, _parsingConfigFileName));
         if (defaultFile.Exists)
         {
-            if (_relativeFilePathsByBuild.Keys.Count > 0)
-                _relativeFilePathsByBuild.Add(_relativeFilePathsByBuild.Keys.Max() + 1, Path.Join(_parsingConfigurationDirectory, _parsingConfigFileName));
+            if (_filePathsByBuild.Keys.Count > 0)
+                _filePathsByBuild.Add(_filePathsByBuild.Keys.Max() + 1, defaultFile.PhysicalPath!);
             else
-                _relativeFilePathsByBuild.Add(0, Path.Join(_parsingConfigurationDirectory, _parsingConfigFileName));
+                _filePathsByBuild.Add(0, defaultFile.PhysicalPath!);
         }
 
-        _logger.LogDebug("Parsing configuration files loaded: {@Files}", _relativeFilePathsByBuild);
+        _logger.LogDebug("Parsing configuration files loaded: {@Files}", _filePathsByBuild);
     }
 
     protected override void ProcessFiles()
     {
-        SelectedFilePath = GetSelectedFilePath(_relativeFilePathsByBuild);
+        SelectedFilePath = GetSelectedFilePath(_filePathsByBuild);
 
         if (string.IsNullOrWhiteSpace(SelectedFilePath))
         {
@@ -122,7 +122,7 @@ public class ParsingConfigurationService : ConfigurationServiceBase, IParsingCon
 
     private void LoadFile(string selectedFilePath)
     {
-        using Stream fileStream = _fileProvider.GetFileInfo(selectedFilePath).CreateReadStream();
+        using Stream fileStream = _fileProvider.GetFileInfo(Path.GetRelativePath(AppContext.BaseDirectory, selectedFilePath)).CreateReadStream();
         using JsonDocument jsonDocument = JsonDocument.Parse(fileStream, _jsonDocumentOptions);
 
         JsonElement root = jsonDocument.RootElement;
@@ -162,7 +162,7 @@ public class ParsingConfigurationService : ConfigurationServiceBase, IParsingCon
             }
         }
 
-        _logger.LogInformation("Number of parsing configuration loaded: {Count}", _parsingDataObjectTypeByDOT.Count);
-        _logger.LogDebug("Parsing configuration loaded: {@ParsingDataObjectTypeByDOT}", _parsingDataObjectTypeByDOT);
+        _logger.LogInformation("Number of parsing configuration(s) loaded: {Count}", _parsingDataObjectTypeByDOT.Count);
+        _logger.LogDebug("Parsing configuration(s) loaded: {@ParsingDataObjectTypeByDOT}", _parsingDataObjectTypeByDOT);
     }
 }

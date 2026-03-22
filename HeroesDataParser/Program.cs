@@ -7,8 +7,8 @@ Console.OutputEncoding = Encoding.UTF8;
 SetAppCulture();
 
 IConfigurationRoot configuration = new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
-    .AddJsonFile("appsettings.release.json", optional: true, reloadOnChange: false)
+    .AddJsonFile(Path.Combine(AppContext.BaseDirectory, "appsettings.json"), optional: false, reloadOnChange: false)
+    .AddJsonFile(Path.Combine(AppContext.BaseDirectory, "appsettings.release.json"), optional: true, reloadOnChange: false)
     .Build();
 
 Log.Logger = new LoggerConfiguration()
@@ -113,7 +113,7 @@ static void SetAppCulture()
 
 static void RunLogRententionPolicy()
 {
-    FileInfo[] allLogFiles = new DirectoryInfo(SerilogLogging.LogDirectory)
+    FileInfo[] allLogFiles = new DirectoryInfo(Path.Combine(AppContext.BaseDirectory, SerilogLogging.LogDirectory))
        .GetFiles($"{SerilogLogging.LogPrefix}*.txt");
 
     Log.Information($"Log Retention: Found {allLogFiles.Length} log files. Keeping latest {SerilogLogging.RetainedFileCountLimit} log files");

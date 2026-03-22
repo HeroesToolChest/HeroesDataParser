@@ -220,7 +220,10 @@ public class ConfigurationLoaderService : IConfigurationLoaderService
     private void LoadParsingConfiguration()
     {
         _parsingConfigurationService.Load();
-        _console.MarkupLine($"Loaded {Path.GetFileName(_parsingConfigurationService.SelectedFilePath)}");
+        if (!string.IsNullOrWhiteSpace(_parsingConfigurationService.SelectedFilePath))
+            _console.MarkupLine($"Loaded {Path.GetFileName(_parsingConfigurationService.SelectedFilePath)}");
+        else
+            _console.MarkupLine("No parsing configuration file loaded");
     }
 
     private void LoadCustomConfigurationService()

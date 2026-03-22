@@ -225,18 +225,18 @@ public class HeroesXmlLoaderService : IHeroesXmlLoaderService
 
         ManualModLoader manualModLoader = new("hdp");
 
-        foreach (string relativeFilePath in files)
+        foreach (string filePath in files)
         {
-            if (!Path.Exists(relativeFilePath))
+            if (!Path.Exists(filePath))
             {
-                _logger.LogWarning("Custom configuration file {RelativeFilePath} does not exist", relativeFilePath);
+                _logger.LogWarning("Custom configuration file {FilePath} does not exist", filePath);
                 continue;
             }
 
-            XDocument xDoc = XDocument.Load(relativeFilePath);
+            XDocument xDoc = XDocument.Load(filePath);
             if (xDoc.Root is null)
             {
-                _logger.LogWarning("Custom configuration file {RelativeFilePath} root does not exist", relativeFilePath);
+                _logger.LogWarning("Custom configuration file {FilePath} root does not exist", filePath);
                 continue;
             }
 
