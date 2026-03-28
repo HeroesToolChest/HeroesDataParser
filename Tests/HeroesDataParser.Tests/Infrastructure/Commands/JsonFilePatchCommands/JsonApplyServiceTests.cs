@@ -1,4 +1,4 @@
-﻿namespace HeroesDataParser.Infrastructure.Commands.JsonFilePatch.Tests;
+﻿namespace HeroesDataParser.Infrastructure.Commands.JsonFilePatchCommands.Tests;
 
 [TestClass]
 public class JsonApplyServiceTests

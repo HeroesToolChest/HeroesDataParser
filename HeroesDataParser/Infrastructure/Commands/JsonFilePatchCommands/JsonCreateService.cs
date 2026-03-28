@@ -1,4 +1,4 @@
-﻿namespace HeroesDataParser.Infrastructure.Commands.JsonFilePatch;
+﻿namespace HeroesDataParser.Infrastructure.Commands.JsonFilePatchCommands;
 
 public class JsonCreateService : IJsonCreateService
 {
@@ -58,7 +58,7 @@ public class JsonCreateService : IJsonCreateService
         await JsonSerializer.SerializeAsync(fileStream, patch, _jsonSerializerOptions);
 
         _logger.LogInformation("JSON patch created successfully at {OutputFilePath}", _options.OutputFilePath);
-        _console.MarkupLine($"[green]JSON patch created successfully at {_options.OutputFilePath}[/]");
+        _console.MarkupLine($"JSON patch created successfully at {_options.OutputFilePath}");
     }
 
     private void CreateDirectory()

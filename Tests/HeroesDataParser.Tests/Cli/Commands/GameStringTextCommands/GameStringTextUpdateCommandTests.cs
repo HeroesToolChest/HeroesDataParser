@@ -3,13 +3,13 @@
 namespace HeroesDataParser.Cli.Commands.GameStringTextCommands.Tests;
 
 [TestClass]
-public class GamStringTextUpdateCommandTests
+public class GameStringTextUpdateCommandTests
 {
     private readonly ILogger<GameStringTextFormatCommand> _logger;
     private readonly IOptions<GameStringTextFormatOptions> _options;
     private readonly IGameStringTextUpdateService _gameStringTextUpdateService;
 
-    public GamStringTextUpdateCommandTests()
+    public GameStringTextUpdateCommandTests()
     {
         _logger = Substitute.For<ILogger<GameStringTextFormatCommand>>();
         _options = Substitute.For<IOptions<GameStringTextFormatOptions>>();

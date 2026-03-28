@@ -12,7 +12,7 @@ public static class AppVersion
         if (assemblyVersion is not null)
             _appVersion = $"{assemblyVersion.Major}.{assemblyVersion.Minor}.{assemblyVersion.Build}";
         else
-            _appVersion = "Unknown Version";
+            _appVersion = "0.0.0";
     }
 
     public static string GetAppVersion() => _appVersion;

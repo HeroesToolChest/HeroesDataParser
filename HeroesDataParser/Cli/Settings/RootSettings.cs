@@ -80,7 +80,7 @@ public class RootSettings : CommandSettings
     public int Threads { get; init; }
 
     [CommandOption("-o|--output-path <PATH>")]
-    [Description("The path of the output directory (defaults to current directory)")]
+    [Description("The path of the output directory (defaults to the current directory)")]
     public DirectoryInfo? OutputDirectory { get; init; }
 
     [CommandOption("--heroes-version")]
@@ -120,7 +120,7 @@ public class RootSettings : CommandSettings
                 continue;
 
             if (!Enum.TryParse(locale, true, out StormLocale _))
-                return ValidationResult.Error($"--localization has an invalid locale: {locale}");
+                return ValidationResult.Error($"--localization has an invalid locale '{locale}'");
         }
 
         if (GameStringPreserveConstantVars && !GameStringReplaceConstantVars)
@@ -157,10 +157,10 @@ public class RootSettings : CommandSettings
         ReadOnlySpan<char> value = extractor[keyPair[1]]; // images
 
         if (!Enum.TryParse<ExtractDataOptions>(key, true, out _))
-            return ValidationResult.Error($"--extractor has an invalid extractor: {key}");
+            return ValidationResult.Error($"--extractor has an invalid extractor '{key}'");
 
         if (!value.IsEmpty && !value.Equals("i", StringComparison.OrdinalIgnoreCase) && !value.Equals("images", StringComparison.OrdinalIgnoreCase))
-            return ValidationResult.Error($"--extractor has an invalid extractor option: {value}");
+            return ValidationResult.Error($"--extractor has an invalid extractor option '{value}'");
 
         return ValidationResult.Success();
     }

@@ -1,6 +1,6 @@
 ﻿using Heroes.Element;
 
-namespace HeroesDataParser.Infrastructure.Commands.GameStringText;
+namespace HeroesDataParser.Infrastructure.Commands.GameStringTextCommands;
 
 public class GameStringTextFormatService : IGameStringTextUpdateService
 {
@@ -53,12 +53,12 @@ public class GameStringTextFormatService : IGameStringTextUpdateService
                 if (_options.IsNewFile)
                 {
                     _logger.LogInformation("New formatted data file created at {OutputFilePath}", _options.OutputFilePath);
-                    _console.MarkupInterpolated($"[green]New formatted data file created at {_options.OutputFilePath}[/]");
+                    _console.MarkupInterpolated($"New formatted data file created at {_options.OutputFilePath}");
                 }
                 else
                 {
                     _logger.LogInformation("Updated formatted data file at {OutputFilePath}", _options.OutputFilePath);
-                    _console.MarkupInterpolated($"[green]Updated formatted data file at {_options.OutputFilePath}[/]");
+                    _console.MarkupInterpolated($"Updated formatted data file at {_options.OutputFilePath}");
                 }
             }
             else if (itemsType == ItemsType.GameStrings)
@@ -77,12 +77,12 @@ public class GameStringTextFormatService : IGameStringTextUpdateService
                 if (_options.IsNewFile)
                 {
                     _logger.LogInformation("New formatted gamestring file created at {OutputFilePath}", _options.OutputFilePath);
-                    _console.MarkupInterpolated($"[green]New formatted gamestring file created at {_options.OutputFilePath}[/]");
+                    _console.MarkupInterpolated($"New formatted gamestring file created at {_options.OutputFilePath}");
                 }
                 else
                 {
                     _logger.LogInformation("Updated formatted gamestring file at {OutputFilePath}", _options.OutputFilePath);
-                    _console.MarkupInterpolated($"[green]Updated formatted gamestring file at {_options.OutputFilePath}[/]");
+                    _console.MarkupInterpolated($"Updated formatted gamestring file at {_options.OutputFilePath}");
                 }
             }
             else

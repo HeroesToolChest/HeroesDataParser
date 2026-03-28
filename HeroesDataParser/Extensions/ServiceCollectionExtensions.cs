@@ -19,6 +19,7 @@ public static class ServiceCollectionExtensions
             services.Configure<JsonApplyOptions>(configuration.GetSection(nameof(JsonApplyOptions)));
             services.Configure<JsonCreateOptions>(configuration.GetSection(nameof(JsonCreateOptions)));
             services.Configure<GameStringTextFormatOptions>(configuration.GetSection(nameof(GameStringTextFormatOptions)));
+            services.Configure<JsonSchemaExportDataOptions>(configuration.GetSection(nameof(JsonSchemaExportDataOptions)));
 
             services.AddLogging(logging =>
             {
@@ -181,6 +182,7 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IJsonApplyService, JsonApplyService>();
             services.AddSingleton<IJsonCreateService, JsonCreateService>();
             services.AddSingleton<IGameStringTextUpdateService, GameStringTextFormatService>();
+            services.AddSingleton<IJsonSchemaExporterService, JsonSchemaExporterService>();
 
             return services;
         }

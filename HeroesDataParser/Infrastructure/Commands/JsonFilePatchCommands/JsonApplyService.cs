@@ -1,6 +1,6 @@
 ﻿using Heroes.Element;
 
-namespace HeroesDataParser.Infrastructure.Commands.JsonFilePatch;
+namespace HeroesDataParser.Infrastructure.Commands.JsonFilePatchCommands;
 
 public class JsonApplyService : IJsonApplyService
 {
@@ -190,7 +190,7 @@ public class JsonApplyService : IJsonApplyService
             {
                 File.Delete(_options.JsonPatchFilePath);
                 _logger.LogInformation("Deleted JSON patch file at {PatchFilePath}", _options.JsonPatchFilePath);
-                _console.MarkupLine($"[green]Deleted JSON patch file at {_options.JsonPatchFilePath}[/]");
+                _console.MarkupLine($"Deleted JSON patch file at {_options.JsonPatchFilePath}");
             }
             catch (Exception ex)
             {
@@ -208,7 +208,7 @@ public class JsonApplyService : IJsonApplyService
     private void DisplaySuccess()
     {
         _logger.LogInformation("JSON patch applied successfully. Output saved to {OutputFilePath}", _options.OutputFilePath);
-        _console.MarkupLine($"[green]JSON patch applied successfully. Output saved to {_options.OutputFilePath}[/]");
+        _console.MarkupLine($"JSON patch applied successfully. Output saved to {_options.OutputFilePath}");
     }
 
     private void CreateDirectory()

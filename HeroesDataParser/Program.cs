@@ -53,11 +53,11 @@ try
         config.ValidateExamples();
 #endif
         config.AddCommand<CASCExtractCommand>("casc-extract")
-            .WithDescription("Extract the data files from a 'Heroes of the Storm' directory or from online");
+            .WithDescription("Extract data files from a 'Heroes of the Storm' directory or from online");
 
         config.AddBranch<JsonPatchSettings>("json-patch", jsonPatch =>
         {
-            jsonPatch.SetDescription("Perform json patching");
+            jsonPatch.SetDescription("Json-patching operations");
 
             jsonPatch.AddCommand<JsonApplyCommand>("apply")
                 .WithDescription("Patch a JSON file with a JSON patch file");
@@ -68,10 +68,25 @@ try
 
         config.AddBranch<GameStringTextSettings>("gamestring-text", gamestringText =>
         {
-            gamestringText.SetDescription("Perform gamestring text formatting");
+            gamestringText.SetDescription("Gamestring text operations");
 
             gamestringText.AddCommand<GameStringTextFormatCommand>("format")
                 .WithDescription("Format the gamestring text in a JSON file");
+        });
+
+        config.AddBranch<JsonSchemaSettings>("schema", schema =>
+        {
+            schema.SetDescription("Json schema operations");
+
+            schema.AddBranch<JsonSchemaExportSettings>("export", export =>
+            {
+                export.SetDescription("Json schema export operations");
+                export.AddCommand<JsonSchemaExportDataCommand>("data")
+                    .WithDescription("Export the JSON schema for the data files");
+
+                export.AddCommand<JsonSchemaExportGameStringCommand>("gamestring")
+                    .WithDescription("Export the JSON schema for the gamestring files");
+            });
         });
     });
 

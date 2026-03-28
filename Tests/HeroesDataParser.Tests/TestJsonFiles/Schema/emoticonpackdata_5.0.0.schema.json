@@ -1,0 +1,204 @@
+{
+  "type": "object",
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "heroesVersion": {
+          "type": "string"
+        },
+        "hdpVersion": {
+          "type": "string"
+        },
+        "itemsType": {
+          "enum": [
+            "Other",
+            "Data",
+            "GameStrings"
+          ]
+        },
+        "dataType": {
+          "enum": [
+            "Unknown",
+            "GameStrings",
+            "HeroData",
+            "UnitData",
+            "AnnouncerData",
+            "BannerData",
+            "BoostData",
+            "BundleData",
+            "EmoticonData",
+            "EmoticonPackData",
+            "LootChestData",
+            "MapData",
+            "MatchAwardData",
+            "MountData",
+            "PortraitPackData",
+            "RewardPortraitData",
+            "SkinData",
+            "SprayData",
+            "TypeDescriptionData",
+            "VeterancyData",
+            "VoiceLineData"
+          ]
+        },
+        "mapName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "localizedText": {
+          "enum": [
+            "None",
+            "Extract",
+            "Copy"
+          ]
+        },
+        "gameStringText": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "locale": {
+              "enum": [
+                "ENUS",
+                "DEDE",
+                "ESES",
+                "ESMX",
+                "FRFR",
+                "ITIT",
+                "KOKR",
+                "PLPL",
+                "PTBR",
+                "RURU",
+                "ZHCN",
+                "ZHTW"
+              ]
+            },
+            "textType": {
+              "enum": [
+                "RawText",
+                "PlainText",
+                "PlainTextWithNewlines",
+                "PlainTextWithScaling",
+                "PlainTextWithScalingWithNewlines",
+                "ColoredText",
+                "ColoredTextWithScaling",
+                null
+              ]
+            },
+            "replaceFontConstantVars": {
+              "type": "boolean"
+            },
+            "replaceFontStylesVars": {
+              "type": "boolean"
+            },
+            "preserveFontStyleConstantVars": {
+              "type": "boolean"
+            },
+            "preserveFontStyleVars": {
+              "type": "boolean"
+            }
+          }
+        },
+        "totalItems": {
+          "type": "integer"
+        }
+      }
+    },
+    "items": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "sortName": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "hyperlinkId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "franchise": {
+            "enum": [
+              "Classic",
+              "Diablo",
+              "Overwatch",
+              "Starcraft",
+              "Warcraft",
+              "Nexus",
+              "Unknown",
+              null
+            ]
+          },
+          "rarity": {
+            "enum": [
+              "Unknown",
+              "None",
+              "Common",
+              "Rare",
+              "Epic",
+              "Legendary",
+              null
+            ]
+          },
+          "releaseDate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          },
+          "category": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "event": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "emoticonIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "searchText": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "infoText": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
