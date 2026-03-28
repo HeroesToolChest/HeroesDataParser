@@ -84,8 +84,8 @@ try
                 export.AddCommand<JsonSchemaExportDataCommand>("data")
                     .WithDescription("Export the JSON schema for the data files");
 
-                export.AddCommand<JsonSchemaExportGameStringCommand>("gamestring")
-                    .WithDescription("Export the JSON schema for the gamestring files");
+                export.AddCommand<JsonSchemaExportGameStringCommand>("gamestrings")
+                    .WithDescription("Export the JSON schema for the gamestrings file");
             });
         });
     });

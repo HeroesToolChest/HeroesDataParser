@@ -19,7 +19,7 @@ public static class ServiceCollectionExtensions
             services.Configure<JsonApplyOptions>(configuration.GetSection(nameof(JsonApplyOptions)));
             services.Configure<JsonCreateOptions>(configuration.GetSection(nameof(JsonCreateOptions)));
             services.Configure<GameStringTextFormatOptions>(configuration.GetSection(nameof(GameStringTextFormatOptions)));
-            services.Configure<JsonSchemaExportDataOptions>(configuration.GetSection(nameof(JsonSchemaExportDataOptions)));
+            services.Configure<JsonSchemaExportOptions>(configuration.GetSection(nameof(JsonSchemaExportOptions)));
 
             services.AddLogging(logging =>
             {

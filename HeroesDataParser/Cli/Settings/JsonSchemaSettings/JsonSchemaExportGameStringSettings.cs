@@ -4,8 +4,8 @@ namespace HeroesDataParser.Cli.Settings.JsonSchemaSettings;
 
 public class JsonSchemaExportGameStringSettings : JsonSchemaExportSettings
 {
-    [CommandOption("--output-path <PATH>")]
-    [Description("The path of the output directory where the schema file will be created (defaults to the current directory)")]
+    [CommandOption("-o|--output-path <PATH>")]
+    [Description("The path of the output directory (defaults to current directory)")]
     public DirectoryInfo? OutputDirectory { get; init; }
 
     [CommandOption("--overwrite")]

@@ -3,12 +3,12 @@
 public class JsonSchemaExportDataCommand : AsyncCommand<JsonSchemaExportDataSettings>
 {
     private readonly ILogger<JsonSchemaExportDataCommand> _logger;
-    private readonly JsonSchemaExportDataOptions _options;
+    private readonly JsonSchemaExportOptions _options;
     private readonly IJsonSchemaExporterService _jsonSchemaExporterService;
 
     public JsonSchemaExportDataCommand(
         ILogger<JsonSchemaExportDataCommand> logger,
-        IOptions<JsonSchemaExportDataOptions> options,
+        IOptions<JsonSchemaExportOptions> options,
         IJsonSchemaExporterService jsonSchemaExporterService)
     {
         _logger = logger;

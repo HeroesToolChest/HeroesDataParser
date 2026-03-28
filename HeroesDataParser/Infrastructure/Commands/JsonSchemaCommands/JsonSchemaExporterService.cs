@@ -5,7 +5,7 @@ namespace HeroesDataParser.Infrastructure.Commands.JsonSchemaCommands;
 public class JsonSchemaExporterService : IJsonSchemaExporterService
 {
     private readonly ILogger<JsonSchemaExporterService> _logger;
-    private readonly JsonSchemaExportDataOptions _options;
+    private readonly JsonSchemaExportOptions _options;
     private readonly IAnsiConsole _console;
     private readonly IJsonSerializerOptionService _jsonSerializerOptionService;
 
@@ -14,7 +14,7 @@ public class JsonSchemaExporterService : IJsonSchemaExporterService
 
     public JsonSchemaExporterService(
         ILogger<JsonSchemaExporterService> logger,
-        IOptions<JsonSchemaExportDataOptions> options,
+        IOptions<JsonSchemaExportOptions> options,
         IAnsiConsole console,
         IJsonSerializerOptionService jsonSerializerOptionService)
     {
@@ -41,43 +41,48 @@ public class JsonSchemaExporterService : IJsonSchemaExporterService
     public async Task ExportDataSchema()
     {
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.Hero))
-            CreateSchemaFile<Hero>();
+            CreateDataSchemaFile<Hero>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.Unit))
-            CreateSchemaFile<Unit>();
+            CreateDataSchemaFile<Unit>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.MatchAward))
-            CreateSchemaFile<MatchAward>();
+            CreateDataSchemaFile<MatchAward>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.Skin))
-            CreateSchemaFile<Skin>();
+            CreateDataSchemaFile<Skin>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.Mount))
-            CreateSchemaFile<Mount>();
+            CreateDataSchemaFile<Mount>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.Banner))
-            CreateSchemaFile<Banner>();
+            CreateDataSchemaFile<Banner>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.Spray))
-            CreateSchemaFile<Spray>();
+            CreateDataSchemaFile<Spray>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.Announcer))
-            CreateSchemaFile<Announcer>();
+            CreateDataSchemaFile<Announcer>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.VoiceLine))
-            CreateSchemaFile<VoiceLine>();
+            CreateDataSchemaFile<VoiceLine>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.PortraitPack))
-            CreateSchemaFile<PortraitPack>();
+            CreateDataSchemaFile<PortraitPack>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.RewardPortrait))
-            CreateSchemaFile<RewardPortrait>();
+            CreateDataSchemaFile<RewardPortrait>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.Emoticon))
-            CreateSchemaFile<Emoticon>();
+            CreateDataSchemaFile<Emoticon>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.EmoticonPack))
-            CreateSchemaFile<EmoticonPack>();
+            CreateDataSchemaFile<EmoticonPack>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.Veterancy))
-            CreateSchemaFile<Veterancy>();
+            CreateDataSchemaFile<Veterancy>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.Bundle))
-            CreateSchemaFile<Bundle>();
+            CreateDataSchemaFile<Bundle>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.Boost))
-            CreateSchemaFile<Boost>();
+            CreateDataSchemaFile<Boost>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.LootChest))
-            CreateSchemaFile<LootChest>();
+            CreateDataSchemaFile<LootChest>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.TypeDescription))
-            CreateSchemaFile<TypeDescription>();
+            CreateDataSchemaFile<TypeDescription>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.Map))
-            CreateSchemaFile<Map>();
+            CreateDataSchemaFile<Map>();
+    }
+
+    public async Task ExportGameStringSchema()
+    {
+        CreateGameStringSchemaFile();
     }
 
     private static (Type KeyType, Type ValueType)? GetDictionaryTypes(Type type)
@@ -286,13 +291,25 @@ public class JsonSchemaExporterService : IJsonSchemaExporterService
         };
     }
 
-    private void CreateSchemaFile<T>()
+    private void CreateGameStringSchemaFile()
+    {
+        JsonNode schema = _jsonSerializerOptions.GetJsonSchemaAsNode(typeof(RootJsonGameStringElement), _jsonSchemaExporterOptions);
+
+        CreateSchemaFile(schema, "gamestrings", "gamestrings");
+    }
+
+    private void CreateDataSchemaFile<T>()
         where T : IElementObject
     {
         JsonNode schema = _jsonSerializerOptions.GetJsonSchemaAsNode(typeof(RootDataElement<T>), _jsonSchemaExporterOptions);
         string dataTypeName = typeof(T).Name.ToLowerInvariant();
 
-        string outputFilePath = Path.Combine(_options.OutputDirectory, $"{dataTypeName}data_{_options.Version}.schema.json");
+        CreateSchemaFile(schema, dataTypeName, $"{dataTypeName}data");
+    }
+
+    private void CreateSchemaFile(JsonNode schema, string dataTypeName, string fileNamePrefix)
+    {
+        string outputFilePath = Path.Combine(_options.OutputDirectory, $"{fileNamePrefix}_{_options.Version}.schema.json");
 
         if (File.Exists(outputFilePath) && !_options.AllowOverwrite)
         {

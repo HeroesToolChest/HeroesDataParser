@@ -1,0 +1,125 @@
+{
+  "type": "object",
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "heroesVersion": {
+          "type": "string"
+        },
+        "hdpVersion": {
+          "type": "string"
+        },
+        "itemsType": {
+          "enum": [
+            "Other",
+            "Data",
+            "GameStrings"
+          ]
+        },
+        "dataTypes": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "Unknown",
+              "GameStrings",
+              "HeroData",
+              "UnitData",
+              "AnnouncerData",
+              "BannerData",
+              "BoostData",
+              "BundleData",
+              "EmoticonData",
+              "EmoticonPackData",
+              "LootChestData",
+              "MapData",
+              "MatchAwardData",
+              "MountData",
+              "PortraitPackData",
+              "RewardPortraitData",
+              "SkinData",
+              "SprayData",
+              "TypeDescriptionData",
+              "VeterancyData",
+              "VoiceLineData"
+            ]
+          }
+        },
+        "mapName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "gameStringText": {
+          "type": "object",
+          "properties": {
+            "locale": {
+              "enum": [
+                "ENUS",
+                "DEDE",
+                "ESES",
+                "ESMX",
+                "FRFR",
+                "ITIT",
+                "KOKR",
+                "PLPL",
+                "PTBR",
+                "RURU",
+                "ZHCN",
+                "ZHTW"
+              ]
+            },
+            "textType": {
+              "enum": [
+                "RawText",
+                "PlainText",
+                "PlainTextWithNewlines",
+                "PlainTextWithScaling",
+                "PlainTextWithScalingWithNewlines",
+                "ColoredText",
+                "ColoredTextWithScaling",
+                null
+              ]
+            },
+            "replaceFontConstantVars": {
+              "type": "boolean"
+            },
+            "replaceFontStylesVars": {
+              "type": "boolean"
+            },
+            "preserveFontStyleConstantVars": {
+              "type": "boolean"
+            },
+            "preserveFontStyleVars": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "items": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "keyValuePairs": {
+              "type": "object"
+            },
+            "keyArrayPairs": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

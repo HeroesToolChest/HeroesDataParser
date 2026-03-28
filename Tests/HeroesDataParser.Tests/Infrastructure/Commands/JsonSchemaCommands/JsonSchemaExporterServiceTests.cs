@@ -4,14 +4,14 @@
 public class JsonSchemaExporterServiceTests
 {
     private readonly ILogger<JsonSchemaExporterService> _logger;
-    private readonly IOptions<JsonSchemaExportDataOptions> _options;
+    private readonly IOptions<JsonSchemaExportOptions> _options;
     private readonly TestConsole _console;
     private readonly IJsonSerializerOptionService _jsonSerializerOptionService;
 
     public JsonSchemaExporterServiceTests()
     {
         _logger = Substitute.For<ILogger<JsonSchemaExporterService>>();
-        _options = Substitute.For<IOptions<JsonSchemaExportDataOptions>>();
+        _options = Substitute.For<IOptions<JsonSchemaExportOptions>>();
         _console = new TestConsole();
         _jsonSerializerOptionService = Substitute.For<IJsonSerializerOptionService>();
     }
@@ -20,7 +20,7 @@ public class JsonSchemaExporterServiceTests
     public async Task ExportDataSchema_FileExistsNoOverwrite_ReturnError()
     {
         // arrange
-        _options.Value.Returns(new JsonSchemaExportDataOptions
+        _options.Value.Returns(new JsonSchemaExportOptions
         {
             OutputDirectory = Path.Combine("TestJsonFiles", "Schema"),
             AllowOverwrite = false,
@@ -64,7 +64,7 @@ public class JsonSchemaExporterServiceTests
         // arrange
         string outputFileDirectory = Path.Combine("TestOutput", nameof(ExportDataSchema_DataType_ReturnJsonSchema));
 
-        _options.Value.Returns(new JsonSchemaExportDataOptions
+        _options.Value.Returns(new JsonSchemaExportOptions
         {
             OutputDirectory = outputFileDirectory,
             AllowOverwrite = true,
@@ -81,6 +81,71 @@ public class JsonSchemaExporterServiceTests
         await service.ExportDataSchema();
 
         // assert
+        AssertSchemaFile(dataType, outputFileDirectory);
+    }
+
+    [TestMethod]
+    public async Task ExportDataSchema_MultipleDataType_ReturnJsonSchema()
+    {
+        // arrange
+        string outputFileDirectory = Path.Combine("TestOutput", nameof(ExportDataSchema_MultipleDataType_ReturnJsonSchema));
+
+        _options.Value.Returns(new JsonSchemaExportOptions
+        {
+            OutputDirectory = outputFileDirectory,
+            AllowOverwrite = true,
+            JsonIndent = true,
+            ExtractDataOptions = ExtractDataOptions.Hero | ExtractDataOptions.Unit | ExtractDataOptions.Announcer,
+            Version = "5.0.0",
+        });
+
+        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
+
+        JsonSchemaExporterService service = new(_logger, _options, _console, _jsonSerializerOptionService);
+
+        // act
+        await service.ExportDataSchema();
+
+        // assert
+        AssertSchemaFile(ExtractDataOptions.Hero, outputFileDirectory);
+        AssertSchemaFile(ExtractDataOptions.Unit, outputFileDirectory);
+        AssertSchemaFile(ExtractDataOptions.Announcer, outputFileDirectory);
+    }
+
+    [TestMethod]
+    public async Task ExportGameStringSchema_GameStrings_ReturnJsonSchema()
+    {
+        // arrange
+        string outputFileDirectory = Path.Combine("TestOutput", nameof(ExportGameStringSchema_GameStrings_ReturnJsonSchema));
+
+        _options.Value.Returns(new JsonSchemaExportOptions
+        {
+            OutputDirectory = outputFileDirectory,
+            AllowOverwrite = true,
+            JsonIndent = true,
+            Version = "5.0.0",
+        });
+
+        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
+
+        JsonSchemaExporterService service = new(_logger, _options, _console, _jsonSerializerOptionService);
+
+        // act
+        await service.ExportGameStringSchema();
+
+        // assert
+        _console.Output.Should().Contain($"Exported 'gamestrings' JSON schema");
+
+        string newOutputFile = Path.Combine(outputFileDirectory, "gamestrings_5.0.0.schema.json");
+        File.Exists(newOutputFile).Should().BeTrue();
+
+        string newFileContent = File.ReadAllText(newOutputFile);
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "Schema", "gamestrings_5.0.0.schema.json"));
+        newFileContent.Should().BeEquivalentTo(comparedToText);
+    }
+
+    private void AssertSchemaFile(ExtractDataOptions dataType, string outputFileDirectory)
+    {
         string dataTypeName = dataType.ToString().ToLower();
         _console.Output.Should().Contain($"Exported '{dataTypeName}' JSON schema");
 
