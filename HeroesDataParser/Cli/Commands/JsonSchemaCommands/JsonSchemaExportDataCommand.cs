@@ -21,7 +21,7 @@ public class JsonSchemaExportDataCommand : AsyncCommand<JsonSchemaExportDataSett
         _logger.LogInformation("Starting {CommandName}", nameof(JsonSchemaExportDataCommand));
 
         if (settings.OutputDirectory is null)
-            _options.OutputDirectory = ".";
+            _options.OutputDirectory = Path.Combine(Path.GetFullPath("."), "schema");
         else
             _options.OutputDirectory = settings.OutputDirectory.FullName;
 

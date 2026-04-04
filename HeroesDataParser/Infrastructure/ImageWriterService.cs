@@ -5,8 +5,6 @@ namespace HeroesDataParser.Infrastructure;
 
 public class ImageWriterService : IImageWriterService
 {
-    private const string _imageDirectory = "images";
-
     private readonly ILogger<ImageWriterService> _logger;
     private readonly RootOptions _options;
     private readonly IAnsiConsole _console;
@@ -65,7 +63,7 @@ public class ImageWriterService : IImageWriterService
                 foreach (IGrouping<string, ImageWriterFile> imagePathsBySubDirectoryGroup in imagePathsBySubDirectoryGroups)
                 {
                     // Create a progress task for each sub-directory
-                    progressTasks.Add((ctx.AddTask(Path.Join(_imageDirectory, imagePathsBySubDirectoryGroup.Key), maxValue: imagePathsBySubDirectoryGroup.Count()), imagePathsBySubDirectoryGroup));
+                    progressTasks.Add((ctx.AddTask(Path.Join(Constants.ImagesDirectory, imagePathsBySubDirectoryGroup.Key), maxValue: imagePathsBySubDirectoryGroup.Count()), imagePathsBySubDirectoryGroup));
                 }
 
                 await RunImageWriter(progressTasks);
@@ -96,7 +94,7 @@ public class ImageWriterService : IImageWriterService
         {
             progressTask.ProgressTask.StartTask();
 
-            string directoryPath = Path.Combine(_options.OutputDirectory, _imageDirectory, progressTask.ImagePathsBySubDirectory.Key);
+            string directoryPath = Path.Combine(_options.OutputDirectory, Constants.ImagesDirectory, progressTask.ImagePathsBySubDirectory.Key);
             Directory.CreateDirectory(directoryPath);
 
             await Parallel.ForEachAsync(progressTask.ImagePathsBySubDirectory, parallelOptions, async (imageWriterFile, cts) =>

@@ -88,6 +88,22 @@ try
                     .WithDescription("Export the JSON schema for the gamestrings file");
             });
         });
+
+        config.AddBranch<PortraitSettings>("portrait", portrait =>
+        {
+            portrait.SetDescription("Reward portrait data operations");
+            portrait.AddCommand<PortraitInfoCommand>("info")
+                .WithDescription("Display information about the reward portraits data file");
+
+            portrait.AddCommand<PortraitBattleNetCacheCommand>("battlenet-cache")
+                .WithDescription("Copy .wafl files from the Battle.net cache directory (or a custom directory) to the output directory");
+
+            portrait.AddCommand<PortraitExtractCommand>("extract")
+                .WithDescription("Extract reward portraits from the texture sheets");
+
+            portrait.AddCommand<PortraitExtractAutoCommand>("extract-auto")
+                .WithDescription("Automatically extract reward portraits from the texture sheets");
+        });
     });
 
     exitCode = await app.RunAsync(args);

@@ -11,4 +11,7 @@ public static class Constants
     public const string MapDirectory = "maps";
     public const string JsonDataDirectory = "data";
     public const string JsonGameStringsDirectory = "gamestrings";
+    public const string ImagesDirectory = "images";
+    public const string ConfigFilesDirectory = "config-files";
+    public const string PortraitRewardsDirectory = "portraitrewards";
 }

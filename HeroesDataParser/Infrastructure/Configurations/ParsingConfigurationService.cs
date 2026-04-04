@@ -8,7 +8,7 @@ public class ParsingConfigurationService : ConfigurationServiceBase, IParsingCon
     private const string _parsingConfigExtension = ".json";
     private const string _parsingConfigFileName = $"{_parsingConfigFileNameNoExt}{_parsingConfigExtension}";
 
-    private readonly string _parsingConfigurationDirectory = Path.Combine("config-files", "parsing");
+    private readonly string _parsingConfigurationDirectory = Path.Combine(Constants.ConfigFilesDirectory, "parsing");
 
     private readonly ILogger<ParsingConfigurationService> _logger;
     private readonly IFileProvider _fileProvider;

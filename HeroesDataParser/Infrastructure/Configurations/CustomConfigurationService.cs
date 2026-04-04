@@ -10,7 +10,7 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
     private readonly ILogger<CustomConfigurationService> _logger;
     private readonly IFileProvider _fileProvider;
 
-    private readonly string _customConfigurationDirectory = Path.Combine("config-files", "custom");
+    private readonly string _customConfigurationDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom");
 
     private readonly List<string> _selectedCustomDataFilePaths = [];
 

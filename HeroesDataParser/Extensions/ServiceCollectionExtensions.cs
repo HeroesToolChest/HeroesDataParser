@@ -20,6 +20,10 @@ public static class ServiceCollectionExtensions
             services.Configure<JsonCreateOptions>(configuration.GetSection(nameof(JsonCreateOptions)));
             services.Configure<GameStringTextFormatOptions>(configuration.GetSection(nameof(GameStringTextFormatOptions)));
             services.Configure<JsonSchemaExportOptions>(configuration.GetSection(nameof(JsonSchemaExportOptions)));
+            services.Configure<PortraitInfoOptions>(configuration.GetSection(nameof(PortraitInfoOptions)));
+            services.Configure<PortraitBattleNetCacheOptions>(configuration.GetSection(nameof(PortraitBattleNetCacheOptions)));
+            services.Configure<PortraitExtractAutoOptions>(configuration.GetSection(nameof(PortraitExtractAutoOptions)));
+            services.Configure<PortraitExtractOptions>(configuration.GetSection(nameof(PortraitExtractOptions)));
 
             services.AddLogging(logging =>
             {
@@ -183,6 +187,10 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IJsonCreateService, JsonCreateService>();
             services.AddSingleton<IGameStringTextUpdateService, GameStringTextFormatService>();
             services.AddSingleton<IJsonSchemaExporterService, JsonSchemaExporterService>();
+            services.AddSingleton<IPortraitInfoService, PortraitInfoService>();
+            services.AddSingleton<IPortraitBattleNetCacheService, PortraitBattleNetCacheService>();
+            services.AddSingleton<IPortraitExtractAutoService, PortraitExtractAutoService>();
+            services.AddSingleton<IPortraitExtractService, PortraitExtractService>();
 
             return services;
         }

@@ -33,7 +33,7 @@ public class CustomConfigurationServiceTests
             },
         });
 
-        string customDirectory = Path.Combine("config-files", "custom");
+        string customDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom");
 
         IDirectoryContents customDirectoryContents = Substitute.For<IDirectoryContents>();
         customDirectoryContents.Exists.Returns(true);
@@ -45,7 +45,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(customDirectory, "hero"), true),
         }.GetEnumerator());
 
-        string heroDirectory = Path.Combine("config-files", "custom", "hero");
+        string heroDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "hero");
 
         IDirectoryContents heroDirectoryContents = Substitute.For<IDirectoryContents>();
         heroDirectoryContents.Exists.Returns(true);
@@ -62,7 +62,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(heroDirectory, "someDirectory"), true),
         }.GetEnumerator());
 
-        string announcerDirectory = Path.Combine("config-files", "custom", "announcer");
+        string announcerDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "announcer");
 
         IDirectoryContents announcerDirectoryContents = Substitute.For<IDirectoryContents>();
         announcerDirectoryContents.Exists.Returns(true);
@@ -108,7 +108,7 @@ public class CustomConfigurationServiceTests
             },
         });
 
-        string customDirectory = Path.Combine("config-files", "custom");
+        string customDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom");
 
         IDirectoryContents customDirectoryContents = Substitute.For<IDirectoryContents>();
         customDirectoryContents.Exists.Returns(true);
@@ -117,7 +117,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(customDirectory, "hero"), true),
         }.GetEnumerator());
 
-        string heroDirectory = Path.Combine("config-files", "custom", "hero");
+        string heroDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "hero");
 
         IDirectoryContents heroDirectoryContents = Substitute.For<IDirectoryContents>();
         heroDirectoryContents.Exists.Returns(true);
@@ -163,7 +163,7 @@ public class CustomConfigurationServiceTests
             },
         });
 
-        string customDirectory = Path.Combine("config-files", "custom");
+        string customDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom");
 
         IDirectoryContents customDirectoryContents = Substitute.For<IDirectoryContents>();
         customDirectoryContents.Exists.Returns(true);
@@ -174,7 +174,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(customDirectory, "announcer"), true),
         }.GetEnumerator());
 
-        string heroDirectory = Path.Combine("config-files", "custom", "hero");
+        string heroDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "hero");
 
         IDirectoryContents heroDirectoryContents = Substitute.For<IDirectoryContents>();
         heroDirectoryContents.Exists.Returns(true);
@@ -191,7 +191,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(heroDirectory, "someDirectory"), true),
         }.GetEnumerator());
 
-        string announcerDirectory = Path.Combine("config-files", "custom", "announcer");
+        string announcerDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "announcer");
 
         IDirectoryContents announcerDirectoryContents = Substitute.For<IDirectoryContents>();
         announcerDirectoryContents.Exists.Returns(true);
@@ -238,7 +238,7 @@ public class CustomConfigurationServiceTests
             },
         });
 
-        string customDirectory = Path.Combine("config-files", "custom");
+        string customDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom");
 
         IDirectoryContents customDirectoryContents = Substitute.For<IDirectoryContents>();
         customDirectoryContents.Exists.Returns(true);
@@ -247,9 +247,9 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(customDirectory, "hero"), true),
         }.GetEnumerator());
 
-        string directory = Path.Combine("config-files", "custom");
+        string directory = Path.Combine(Constants.ConfigFilesDirectory, "custom");
 
-        string heroDirectory = Path.Combine("config-files", "custom", "hero");
+        string heroDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "hero");
 
         IDirectoryContents heroDirectoryContents = Substitute.For<IDirectoryContents>();
         heroDirectoryContents.Exists.Returns(true);
@@ -295,7 +295,7 @@ public class CustomConfigurationServiceTests
             },
         });
 
-        string customDirectory = Path.Combine("config-files", "custom");
+        string customDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom");
 
         IDirectoryContents customDirectoryContents = Substitute.For<IDirectoryContents>();
         customDirectoryContents.Exists.Returns(true);
@@ -304,7 +304,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(customDirectory, "hero"), true),
         }.GetEnumerator());
 
-        string heroDirectory = Path.Combine("config-files", "custom", "hero");
+        string heroDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "hero");
 
         IDirectoryContents heroDirectoryContents = Substitute.For<IDirectoryContents>();
         heroDirectoryContents.Exists.Returns(true);
@@ -349,7 +349,7 @@ public class CustomConfigurationServiceTests
             },
         });
 
-        string customDirectory = Path.Combine("config-files", "custom");
+        string customDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom");
 
         IDirectoryContents customDirectoryContents = Substitute.For<IDirectoryContents>();
         customDirectoryContents.Exists.Returns(true);
@@ -358,7 +358,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(customDirectory, "hero"), true),
         }.GetEnumerator());
 
-        string heroDirectory = Path.Combine("config-files", "custom", "hero");
+        string heroDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "hero");
 
         IDirectoryContents heroDirectoryContents = Substitute.For<IDirectoryContents>();
         heroDirectoryContents.Exists.Returns(true);
@@ -407,7 +407,7 @@ public class CustomConfigurationServiceTests
             },
         });
 
-        string customDirectory = Path.Combine("config-files", "custom");
+        string customDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom");
 
         IDirectoryContents customDirectoryContents = Substitute.For<IDirectoryContents>();
         customDirectoryContents.Exists.Returns(true);
@@ -416,7 +416,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(customDirectory, "hero"), true),
         }.GetEnumerator());
 
-        string heroDirectory = Path.Combine("config-files", "custom", "hero");
+        string heroDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "hero");
 
         IDirectoryContents heroDirectoryContents = Substitute.For<IDirectoryContents>();
         heroDirectoryContents.Exists.Returns(true);
@@ -450,7 +450,7 @@ public class CustomConfigurationServiceTests
             Extractors = { },
         });
 
-        string customDirectory = Path.Combine("config-files", "custom");
+        string customDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom");
 
         IDirectoryContents customDirectoryContents = Substitute.For<IDirectoryContents>();
         customDirectoryContents.Exists.Returns(true);
@@ -459,7 +459,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(customDirectory, "hero"), true),
         }.GetEnumerator());
 
-        string heroDirectory = Path.Combine("config-files", "custom", "hero");
+        string heroDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "hero");
 
         IDirectoryContents heroDirectoryContents = Substitute.For<IDirectoryContents>();
         heroDirectoryContents.Exists.Returns(true);
@@ -503,7 +503,7 @@ public class CustomConfigurationServiceTests
             },
         });
 
-        string customDirectory = Path.Combine("config-files", "custom");
+        string customDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom");
 
         IDirectoryContents customDirectoryContents = Substitute.For<IDirectoryContents>();
         customDirectoryContents.Exists.Returns(true);
@@ -512,7 +512,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(customDirectory, "hero"), true),
         }.GetEnumerator());
 
-        string heroDirectory = Path.Combine("config-files", "custom", "hero");
+        string heroDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "hero");
 
         IDirectoryContents heroDirectoryContents = Substitute.For<IDirectoryContents>();
         heroDirectoryContents.Exists.Returns(true);
@@ -559,7 +559,7 @@ public class CustomConfigurationServiceTests
             },
         });
 
-        string customDirectory = Path.Combine("config-files", "custom");
+        string customDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom");
 
         IDirectoryContents customDirectoryContents = Substitute.For<IDirectoryContents>();
         customDirectoryContents.Exists.Returns(true);
@@ -570,7 +570,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(customDirectory, "announcer"), true),
         }.GetEnumerator());
 
-        string heroDirectory = Path.Combine("config-files", "custom", "hero");
+        string heroDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "hero");
 
         IDirectoryContents heroDirectoryContents = Substitute.For<IDirectoryContents>();
         heroDirectoryContents.Exists.Returns(true);
@@ -586,7 +586,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(heroDirectory, "Amazon"), true),
         }.GetEnumerator());
 
-        string alarakDirectory = Path.Combine("config-files", "custom", "hero", "Alarak");
+        string alarakDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "hero", "Alarak");
 
         IDirectoryContents alarakDirectoryContents = Substitute.For<IDirectoryContents>();
         alarakDirectoryContents.Exists.Returns(true);
@@ -597,7 +597,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(alarakDirectory, "Alarak_13455.xml")),
         }.GetEnumerator());
 
-        string amazonDirectory = Path.Combine("config-files", "custom", "hero", "Amazon");
+        string amazonDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "hero", "Amazon");
 
         IDirectoryContents amazonDirectoryContents = Substitute.For<IDirectoryContents>();
         amazonDirectoryContents.Exists.Returns(true);
@@ -607,7 +607,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(amazonDirectory, "Amazon_12455.xml")),
         }.GetEnumerator());
 
-        string announcerDirectory = Path.Combine("config-files", "custom", "announcer");
+        string announcerDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "announcer");
 
         IDirectoryContents announcerDirectoryContents = Substitute.For<IDirectoryContents>();
         announcerDirectoryContents.Exists.Returns(true);
@@ -618,7 +618,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(announcerDirectory, "Folder2"), true),
         }.GetEnumerator());
 
-        string folder1Directory = Path.Combine("config-files", "custom", "announcer", "Folder1");
+        string folder1Directory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "announcer", "Folder1");
 
         IDirectoryContents folder1DirectoryContents = Substitute.For<IDirectoryContents>();
         folder1DirectoryContents.Exists.Returns(true);
@@ -627,7 +627,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(folder1Directory, "SomeFile.xml")),
         }.GetEnumerator());
 
-        string folder2Directory = Path.Combine("config-files", "custom", "announcer", "Folder2");
+        string folder2Directory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "announcer", "Folder2");
 
         IDirectoryContents folder2DirectoryContents = Substitute.For<IDirectoryContents>();
         folder2DirectoryContents.Exists.Returns(true);
@@ -681,7 +681,7 @@ public class CustomConfigurationServiceTests
             },
         });
 
-        string customDirectory = Path.Combine("config-files", "custom");
+        string customDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom");
 
         IDirectoryContents customDirectoryContents = Substitute.For<IDirectoryContents>();
         customDirectoryContents.Exists.Returns(true);
@@ -690,7 +690,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(customDirectory, "hero"), true),
         }.GetEnumerator());
 
-        string heroDirectory = Path.Combine("config-files", "custom", "hero");
+        string heroDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "hero");
 
         IDirectoryContents heroDirectoryContents = Substitute.For<IDirectoryContents>();
         heroDirectoryContents.Exists.Returns(true);
@@ -699,7 +699,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(heroDirectory, "Alarak"), true),
         }.GetEnumerator());
 
-        string alarakDirectory = Path.Combine("config-files", "custom", "hero", "Alarak");
+        string alarakDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "hero", "Alarak");
 
         IDirectoryContents alarakDirectoryContents = Substitute.For<IDirectoryContents>();
         alarakDirectoryContents.Exists.Returns(true);
@@ -710,7 +710,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(alarakDirectory, "InnerDirectory1"), true),
         }.GetEnumerator());
 
-        string innerDirectory1 = Path.Combine("config-files", "custom", "hero", "Alarak", "InnerDirectory1");
+        string innerDirectory1 = Path.Combine(Constants.ConfigFilesDirectory, "custom", "hero", "Alarak", "InnerDirectory1");
 
         IDirectoryContents innerDirectory1Contents = Substitute.For<IDirectoryContents>();
         innerDirectory1Contents.Exists.Returns(true);
@@ -719,7 +719,7 @@ public class CustomConfigurationServiceTests
            CreateFileInfo(Path.Combine(innerDirectory1, "InnerDirectory2"), true),
         }.GetEnumerator());
 
-        string innerDirectory2 = Path.Combine("config-files", "custom", "hero", "Alarak", "InnerDirectory1", "InnerDirectory2");
+        string innerDirectory2 = Path.Combine(Constants.ConfigFilesDirectory, "custom", "hero", "Alarak", "InnerDirectory1", "InnerDirectory2");
 
         IDirectoryContents innerDirectory2Contents = Substitute.For<IDirectoryContents>();
         innerDirectory2Contents.Exists.Returns(true);

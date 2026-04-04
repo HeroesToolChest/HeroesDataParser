@@ -22,7 +22,7 @@ public class JsonSchemaExportGameStringCommand : AsyncCommand<JsonSchemaExportGa
 
         string outputDirectory;
         if (settings.OutputDirectory is null)
-            outputDirectory = ".";
+            _options.OutputDirectory = Path.Combine(Path.GetFullPath("."), "schema");
         else
             outputDirectory = settings.OutputDirectory.FullName;
 

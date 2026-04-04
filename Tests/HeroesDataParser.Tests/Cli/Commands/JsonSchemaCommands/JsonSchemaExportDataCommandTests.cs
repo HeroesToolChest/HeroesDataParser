@@ -157,7 +157,7 @@ public class JsonSchemaExportDataCommandTests
         // assert
         await AssertCommandSuccessful(result);
 
-        jsonSchemaExportOptions.OutputDirectory.Should().Be(".");
+        jsonSchemaExportOptions.OutputDirectory.Should().Be(Path.Combine(Path.GetFullPath("."), "schema"));
         jsonSchemaExportOptions.AllowOverwrite.Should().BeTrue();
         jsonSchemaExportOptions.ExtractDataOptions.Should().HaveFlag(ExtractDataOptions.Unit);
         jsonSchemaExportOptions.JsonIndent.Should().BeTrue();
@@ -215,7 +215,7 @@ public class JsonSchemaExportDataCommandTests
         // assert
         await AssertCommandSuccessful(result);
 
-        jsonSchemaExportOptions.OutputDirectory.Should().Be(".");
+        jsonSchemaExportOptions.OutputDirectory.Should().Be(Path.Combine(Path.GetFullPath("."), "schema"));
         jsonSchemaExportOptions.AllowOverwrite.Should().BeFalse();
         jsonSchemaExportOptions.JsonIndent.Should().BeFalse();
     }
