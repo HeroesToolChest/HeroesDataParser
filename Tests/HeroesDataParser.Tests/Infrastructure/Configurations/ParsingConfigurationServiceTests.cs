@@ -150,7 +150,7 @@ public class ParsingConfigurationServiceTests
             },
         });
 
-        string directory = Path.Combine("Constants.ConfigFilesDirectory", "parsing");
+        string directory = Path.Combine(Constants.ConfigFilesDirectory, "parsing");
 
         IDirectoryContents directoryContents = Substitute.For<IDirectoryContents>();
         directoryContents.Exists.Returns(true);
@@ -191,7 +191,7 @@ public class ParsingConfigurationServiceTests
             },
         });
 
-        string directory = Path.Combine("Constants.ConfigFilesDirectory", "parsing");
+        string directory = Path.Combine(Constants.ConfigFilesDirectory, "parsing");
 
         IDirectoryContents directoryContents = Substitute.For<IDirectoryContents>();
         directoryContents.Exists.Returns(true);
@@ -232,7 +232,7 @@ public class ParsingConfigurationServiceTests
             },
         });
 
-        string directory = Path.Combine("Constants.ConfigFilesDirectory", "parsing");
+        string directory = Path.Combine(Constants.ConfigFilesDirectory, "parsing");
 
         IDirectoryContents directoryContents = Substitute.For<IDirectoryContents>();
         directoryContents.Exists.Returns(true);
@@ -273,7 +273,7 @@ public class ParsingConfigurationServiceTests
             },
         });
 
-        string directory = Path.Combine("Constants.ConfigFilesDirectory", "parsing");
+        string directory = Path.Combine(Constants.ConfigFilesDirectory, "parsing");
 
         IDirectoryContents directoryContents = Substitute.For<IDirectoryContents>();
         directoryContents.Exists.Returns(true);
@@ -345,7 +345,7 @@ public class ParsingConfigurationServiceTests
             },
         });
 
-        string directory = Path.Combine("Constants.ConfigFilesDirectory", "parsing");
+        string directory = Path.Combine(Constants.ConfigFilesDirectory, "parsing");
 
         IDirectoryContents directoryContents = Substitute.For<IDirectoryContents>();
         directoryContents.Exists.Returns(true);
