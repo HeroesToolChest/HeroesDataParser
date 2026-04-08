@@ -80,7 +80,7 @@ public class PortraitExtractAutoService : PortraitExtractBase, IPortraitExtractA
             Table table = new();
             table.AddColumn("Image");
             table.AddColumn("Zero Slot Portrait Id");
-            table.AddColumn("One Slot Portrait d");
+            table.AddColumn("One Slot Portrait Id");
             table.AddColumn("File (not found)");
 
             foreach (KeyValuePair<string, PortraitExtract> item in notFoundFileFromXml)
@@ -102,16 +102,7 @@ public class PortraitExtractAutoService : PortraitExtractBase, IPortraitExtractA
         {
             Console.WriteLine();
 
-            if (textureSheetImageData.Count - count < 0)
-            {
-                Console.WriteLine($"[yellow]The following {Math.Abs(textureSheetImageData.Count - count)} texture sheet(s) were found in the cache but the associated texture sheet image name was not found in the reward portrait data file[/]");
-
-                foreach (string item in imagesExtracted.Except(textureSheetImageData))
-                {
-                    Console.WriteLine(item);
-                }
-            }
-            else if (textureSheetImageData.Count - portraitsByTextureSheetImageXml.Count > 0)
+            if (textureSheetImageData.Count - portraitsByTextureSheetImageXml.Count > 0)
             {
                 Console.MarkupLineInterpolated($"[yellow]The following {textureSheetImageData.Count - portraitsByTextureSheetImageXml.Count} texture sheet(s) are in the reward data json file and not in the auto-extraction xml file (need to be added)[/]");
 

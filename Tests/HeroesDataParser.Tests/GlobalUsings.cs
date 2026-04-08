@@ -16,6 +16,7 @@ global using HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
 global using HeroesDataParser.Options;
 global using HeroesDataParser.Options.JsonFilePatchOptions;
 global using HeroesDataParser.Options.JsonSchemaExportOptions;
+global using HeroesDataParser.Options.PortraitOptions;
 global using HeroesDataParser.Tests.TestHelpers;
 global using Json.Patch;
 global using Microsoft.Extensions.Logging;

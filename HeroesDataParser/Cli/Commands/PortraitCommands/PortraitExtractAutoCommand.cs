@@ -24,9 +24,14 @@ public class PortraitExtractAutoCommand : Command<PortraitExtractAutoSettings>
         _logger.LogInformation("Starting {CommandName}", nameof(PortraitExtractAutoCommand));
 
         if (settings.CacheDirectoryPath is null)
-            PortraitCommandHelpers.SetBattleNetCacheDirectory(_console, _options);
+        {
+            if (!PortraitCommandHelpers.SetBattleNetCacheDirectory(_console, _options))
+                return 1;
+        }
         else
+        {
             _options.BattleNetCacheDirectory = settings.CacheDirectoryPath.FullName;
+        }
 
         if (settings.XmlConfigFilePath is not null)
             _options.XmlConfigFilePath = settings.XmlConfigFilePath.FullName;

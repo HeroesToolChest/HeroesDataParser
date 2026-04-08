@@ -6,6 +6,8 @@ namespace HeroesDataParser.Infrastructure.Commands.PortraitCommands;
 
 public class PortraitBattleNetCacheService : PortraitBase, IPortraitBattleNetCacheService
 {
+    private const string _waflExtension = ".wafl";
+
     private readonly PortraitBattleNetCacheOptions _options;
 
     public PortraitBattleNetCacheService(ILogger<PortraitBattleNetCacheService> logger, IOptions<PortraitBattleNetCacheOptions> options, IAnsiConsole console)
@@ -16,9 +18,15 @@ public class PortraitBattleNetCacheService : PortraitBase, IPortraitBattleNetCac
 
     public void CopyWaflFiles()
     {
-        Console.WriteLine("Getting .wafl files from blizzard cache...");
+        Console.WriteLine($"Getting {_waflExtension} files from blizzard cache...");
 
-        string[] waflFiles = Directory.GetFiles(_options.BattleNetCacheDirectory, "*.wafl", SearchOption.AllDirectories);
+        string[] waflFiles = Directory.GetFiles(_options.BattleNetCacheDirectory, $"*{_waflExtension}", SearchOption.AllDirectories);
+
+        if (waflFiles.Length == 0)
+        {
+            Console.MarkupLineInterpolated($"[yellow]No {_waflExtension} files found in the specified directory[/]");
+            return;
+        }
 
         Directory.CreateDirectory(_options.OutputDirectory);
 
@@ -41,16 +49,29 @@ public class PortraitBattleNetCacheService : PortraitBase, IPortraitBattleNetCac
                 {
                     using DDSImage image = new(waflFile);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    Console.WriteLine($"{waflFile} is not a valid image file");
+                    Logger.LogError(ex, "Failed to process {WaflFile}", waflFile);
+                    Console.MarkupLineInterpolated($"[yellow]{waflFile} is not a valid image file[/]");
+
                     continue;
                 }
 
                 fileExtension = "dds";
             }
 
-            File.Copy(waflFile, Path.Combine(_options.OutputDirectory, Path.ChangeExtension(Path.GetFileName(waflFile), fileExtension)), true);
+            try
+            {
+                File.Copy(waflFile, Path.Combine(_options.OutputDirectory, Path.ChangeExtension(Path.GetFileName(waflFile), fileExtension)), true);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, "Failed to copy {WaflFile}", waflFile);
+                Console.MarkupLineInterpolated($"[yellow]Failed to copy {waflFile}: {ex.Message}[/]");
+
+                continue;
+            }
+
             count++;
         }
 
@@ -59,7 +80,7 @@ public class PortraitBattleNetCacheService : PortraitBase, IPortraitBattleNetCac
         if (count >= waflFiles.Length)
             Console.WriteLine("All files copied successfully");
         else
-            Console.MarkupLine("[yellow]Some files were not copied successfully[/]");
+            Console.MarkupLineInterpolated($"[yellow]{count} out of {waflFiles.Length} were copied successfully[/]");
     }
 
     private static bool TryDetectFormat(string path, [NotNullWhen(true)] out IImageFormat? imageFormat)

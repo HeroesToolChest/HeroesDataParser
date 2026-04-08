@@ -2,24 +2,26 @@
 
 public static class PortraitCommandHelpers
 {
-    public static void SetBattleNetCacheDirectory(IAnsiConsole console, PortraitCacheOptions options)
+    public static bool SetBattleNetCacheDirectory(IAnsiConsole console, PortraitCacheOptions options)
     {
         string programDataPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
 
         if (string.IsNullOrWhiteSpace(programDataPath))
         {
-            console.WriteLine("Could not find the common application data folder");
-            return;
+            console.MarkupLine("[red]Could not find the common application data folder[/]");
+            return false;
         }
 
         string cachePath = Path.Combine(programDataPath, "Blizzard Entertainment", "Battle.net", "Cache");
 
         if (!Directory.Exists(cachePath))
         {
-            console.WriteLine("Could not find the Battle.net cache directory");
-            return;
+            console.MarkupLine("[red]Could not find the Battle.net cache directory[/]");
+            return false;
         }
 
         options.BattleNetCacheDirectory = cachePath;
+
+        return true;
     }
 }

@@ -139,8 +139,8 @@ public class JsonSchemaExporterServiceTests
         string newOutputFile = Path.Combine(outputFileDirectory, "gamestrings_5.0.0.schema.json");
         File.Exists(newOutputFile).Should().BeTrue();
 
-        string newFileContent = File.ReadAllText(newOutputFile);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "Schema", "gamestrings_5.0.0.schema.json"));
+        string newFileContent = File.ReadAllText(newOutputFile).ReplaceLineEndings("\n");
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "Schema", "gamestrings_5.0.0.schema.json")).ReplaceLineEndings("\n");
         newFileContent.Should().BeEquivalentTo(comparedToText);
     }
 
@@ -152,8 +152,8 @@ public class JsonSchemaExporterServiceTests
         string newOutputFile = Path.Combine(outputFileDirectory, $"{dataTypeName}data_5.0.0.schema.json");
         File.Exists(newOutputFile).Should().BeTrue();
 
-        string newFileContent = File.ReadAllText(newOutputFile);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "Schema", $"{dataTypeName}data_5.0.0.schema.json"));
+        string newFileContent = File.ReadAllText(newOutputFile).ReplaceLineEndings("\n");
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "Schema", $"{dataTypeName}data_5.0.0.schema.json")).ReplaceLineEndings("\n");
         newFileContent.Should().BeEquivalentTo(comparedToText);
     }
 }

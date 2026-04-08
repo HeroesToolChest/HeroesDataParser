@@ -31,11 +31,11 @@ public class PortraitExtractAutoSettings : PortraitSettings
 
         if (CacheDirectoryPath is not null)
         {
-            if (!CacheDirectoryPath.Exists)
-                return ValidationResult.Error("The provided --battlenet-cache directory does not exist");
-
             if (File.Exists(CacheDirectoryPath.FullName))
                 return ValidationResult.Error("The provided --battlenet-cache is an existing file and not a directory");
+
+            if (!CacheDirectoryPath.Exists)
+                return ValidationResult.Error("The provided --battlenet-cache directory does not exist");
         }
 
         if (XmlConfigFilePath is not null && !XmlConfigFilePath.Exists)

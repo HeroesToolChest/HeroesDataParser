@@ -20,9 +20,14 @@ public class PortraitBattleNetCacheCommand : Command<PortraitBattleNetCacheSetti
         _logger.LogInformation("Starting {CommandName}", nameof(PortraitBattleNetCacheCommand));
 
         if (settings.CacheDirectoryPath is null)
-            PortraitCommandHelpers.SetBattleNetCacheDirectory(_console, _options);
+        {
+            if (!PortraitCommandHelpers.SetBattleNetCacheDirectory(_console, _options))
+                return 1;
+        }
         else
+        {
             _options.BattleNetCacheDirectory = settings.CacheDirectoryPath.FullName;
+        }
 
         string outputDirectory;
         if (settings.OutputDirectory is null)

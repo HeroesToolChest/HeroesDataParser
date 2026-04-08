@@ -53,9 +53,12 @@ public class PortraitInfoService : PortraitBase, IPortraitInfoService
         if (rewardPortraitWithImage.Count > 0)
             Console.WriteLine($"There are {rewardPortraitWithImage.Count} texture sheet image file names in the reward portrait data json file");
         else
-            Console.MarkupLineInterpolated($"[yellow]{rewardPortraitWithImage.Count} texture sheet image files in the reward portrait data json file[/]");
+            Console.MarkupLineInterpolated($"[yellow]There are {rewardPortraitWithImage.Count} texture sheet image files in the reward portrait data json file[/]");
 
         Logger.LogInformation("{Count} texture sheet image files in the reward portrait data json file", rewardPortraitWithImage.Count);
+
+        if (rewardPortraitWithImage.Count < 1)
+            return;
 
         foreach (RewardPortrait item in rewardPortraitWithImage)
         {
@@ -89,9 +92,18 @@ public class PortraitInfoService : PortraitBase, IPortraitInfoService
         }
 
         if (rewardPortraitsWithIconSlot.Count > 0)
-            Console.WriteLine($"All the {rewardPortraitsWithIconSlot.Count} texture sheet image file names that have icon slot {_options.ShowIconSlotFileNames}");
+        {
+            Console.WriteLine($"All the {rewardPortraitsWithIconSlot.Count} texture sheet image file names that have icon slot {_options.ShowIconSlotFileNames}:");
+        }
+        else if (rewardPortraitsWithIconSlot.Count > 0)
+        {
+            Console.MarkupLineInterpolated($"[yellow]All the {rewardPortraitsWithIconSlot.Count} texture sheet image file names that have icon slot {_options.ShowIconSlotFileNames}:[/]");
+        }
         else
-            Console.MarkupLineInterpolated($"[yellow]All the {rewardPortraitsWithIconSlot.Count} texture sheet image file names that have icon slot {_options.ShowIconSlotFileNames}[/]");
+        {
+            Console.MarkupLineInterpolated($"[yellow]There are no texture sheet image file names that have icon slot {_options.ShowIconSlotFileNames}[/]");
+            return;
+        }
 
         Table tableWithSlots = new();
         tableWithSlots.AddColumn("Name");

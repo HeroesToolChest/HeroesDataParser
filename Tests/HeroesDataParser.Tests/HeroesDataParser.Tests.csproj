@@ -36,13 +36,10 @@
   </ItemGroup>
   
   <ItemGroup>
-    <None Update="TestImages\*.dds">
+    <None Update="TestConfigFiles\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TestImages\*.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="TestImages\*.png">
+    <None Update="TestImages\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestXmlFiles\*.xml">
@@ -55,6 +52,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TestS2MAFiles\*.s2ma">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Update="TestConfigFiles\portrait-extract.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

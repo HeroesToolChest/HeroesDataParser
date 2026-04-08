@@ -12,7 +12,7 @@ public class PortraitExtractSettings : PortraitSettings
     [Description("The texture sheet image name from the reward portrait data json file")]
     public string? TextureSheetImage { get; init; }
 
-    [CommandOption("-t|--cache-texture-sheet-image <FILEPATH>")]
+    [CommandOption("-c|--cache-texture-sheet-image <FILEPATH>")]
     [Description("The path of the texture sheet image file to extract the portrait images from")]
     public FileInfo? CacheTextureSheetImage { get; init; }
 

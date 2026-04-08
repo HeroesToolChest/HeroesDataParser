@@ -25,6 +25,9 @@ public abstract class PortraitBase
 
         Logger.LogDebug("{Count} images in {TextureSheetImageName}", associatedPortraits.Count, textureSheetImage);
 
+        if (associatedPortraits.Count < 1)
+            return 0;
+
         Table table = new();
         table.AddColumn("Slot", x => x.RightAligned());
         table.AddColumn("Name");
