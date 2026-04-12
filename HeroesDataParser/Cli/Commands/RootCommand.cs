@@ -102,6 +102,7 @@ public class RootCommand : AsyncCommand<RootSettings>
             _options.GameStringText.ReplaceFontStylesVars = true;
 
         _options.LocalizedText = settings.LocalizedTextOption;
+        _options.DisableMapSpecificJson = settings.DisableMapSpecificJson;
         _options.MapSpecificWriterJsonOutputType = settings.MapSpecificWriterJsonOutputType;
         _options.AllowEmptyMapSpecificPatchFiles = settings.AllowEmptyMapSpecificPatchFiles;
         _options.AllowEmptyMapSpecificDirectories = settings.AllowEmptyMapSpecificDirectories;

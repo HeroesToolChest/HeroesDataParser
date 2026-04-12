@@ -52,6 +52,10 @@ public class RootSettings : CommandSettings
     [DefaultValue(LocalizedTextOption.None)]
     public LocalizedTextOption LocalizedTextOption { get; init; }
 
+    [CommandOption("--no-map-specific")]
+    [Description("Disable the map specific JSON file creation when 'map' extractor is specified")]
+    public bool DisableMapSpecificJson { get; init; }
+
     [CommandOption("--map-specific-json-output <TYPE>")]
     [Description("Specifies how to handle the map specific JSON file creation")]
     [DefaultValue(MapSpecificWriterJsonOutputType.Patch)]

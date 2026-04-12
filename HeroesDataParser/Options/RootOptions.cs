@@ -30,6 +30,8 @@ public class RootOptions
 
     public int Threads { get; set; }
 
+    public bool DisableMapSpecificJson { get; set; }
+
     public HiddenOptions Hidden { get; set; } = new();
 
     // properties below here a set/overridden during runtime

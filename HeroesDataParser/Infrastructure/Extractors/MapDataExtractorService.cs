@@ -28,7 +28,7 @@ public class MapDataExtractorService : IMapDataExtractorService
         _resultSummaryService = resultSummaryService;
     }
 
-    public async Task<SortedDictionary<string, Map>> Extract(Func<Map, Task> elementParsersForMap)
+    public async Task<SortedDictionary<string, Map>> Extract(Func<Map, Task> dataParsers)
     {
         _stopwatch.Restart();
 
@@ -77,11 +77,17 @@ public class MapDataExtractorService : IMapDataExtractorService
                 {
                     parsedMaps.Add(mapTitle, map);
 
-                    _logger.LogInformation("Running element processors for {MapId}", mapTitle);
+                    if (_options.DisableMapSpecificJson)
+                    {
+                        _logger.LogWarning("Map specific JSON generation is disabled, skipping data processors for {MapId}", mapTitle);
+                        continue;
+                    }
 
-                    await elementParsersForMap.Invoke(map);
+                    _logger.LogInformation("Running data processors for {MapId}", mapTitle);
 
-                    _logger.LogInformation("Completed element processors for {MapId}", mapTitle);
+                    await dataParsers.Invoke(map);
+
+                    _logger.LogInformation("Completed data processors for {MapId}", mapTitle);
                 }
                 else
                 {

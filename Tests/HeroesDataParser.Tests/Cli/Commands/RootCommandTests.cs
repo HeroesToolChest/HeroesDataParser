@@ -394,11 +394,12 @@ public class RootCommandTests
         rootOptions.AllowEmptyMapSpecificPatchFiles.Should().BeFalse();
         rootOptions.AllowEmptyMapSpecificDirectories.Should().BeFalse();
         rootOptions.ShowLoadedCustomConfigFiles.Should().BeFalse();
+        rootOptions.DisableMapSpecificJson.Should().BeFalse();
         rootOptions.JsonIndent.Should().BeTrue();
     }
 
     [TestMethod]
-    public async Task RootCommand_WithOnlineArgument_ExecutesSuccessfully()
+    public async Task RootCommand_WithOnlineOption_ExecutesSuccessfully()
     {
         // arrange
         RootOptions rootOptions = new();
@@ -429,7 +430,7 @@ public class RootCommandTests
     }
 
     [TestMethod]
-    public async Task RootCommand_WithOutputArgument_ExecutesSuccessfully()
+    public async Task RootCommand_WithOutputOption_ExecutesSuccessfully()
     {
         // arrange
         RootOptions rootOptions = new();
@@ -461,7 +462,7 @@ public class RootCommandTests
     }
 
     [TestMethod]
-    public async Task RootCommand_WithHeroesVersionArgument_ExecutesSuccessfully()
+    public async Task RootCommand_WithHeroesVersionOption_ExecutesSuccessfully()
     {
         // arrange
         RootOptions rootOptions = new();
@@ -497,7 +498,7 @@ public class RootCommandTests
     }
 
     [TestMethod]
-    public async Task RootCommand_WithExtractorArguments_ExecutesSuccessfully()
+    public async Task RootCommand_WithExtractorOptions_ExecutesSuccessfully()
     {
         // arrange
         RootOptions rootOptions = new();
@@ -528,7 +529,7 @@ public class RootCommandTests
     }
 
     [TestMethod]
-    public async Task RootCommand_WithExtractorArgumentAsAll_ExecutesSuccessfully()
+    public async Task RootCommand_WithExtractorOptionAsAll_ExecutesSuccessfully()
     {
         // arrange
         RootOptions rootOptions = new();
@@ -561,7 +562,7 @@ public class RootCommandTests
     }
 
     [TestMethod]
-    public async Task RootCommand_WithLocalizationArguments_ExecutesSuccessfully()
+    public async Task RootCommand_WithLocalizationOptions_ExecutesSuccessfully()
     {
         // arrange
         RootOptions rootOptions = new();
@@ -589,7 +590,7 @@ public class RootCommandTests
     }
 
     [TestMethod]
-    public async Task RootCommand_WithLocalizationAllArgument_ExecutesSuccessfully()
+    public async Task RootCommand_WithLocalizationAllOptions_ExecutesSuccessfully()
     {
         // arrange
         RootOptions rootOptions = new();
@@ -619,7 +620,7 @@ public class RootCommandTests
     }
 
     [TestMethod]
-    public async Task RootCommand_WithGameStringTextArguments_ExecutesSuccessfully()
+    public async Task RootCommand_WithGameStringTextOptions_ExecutesSuccessfully()
     {
         // arrange
         RootOptions rootOptions = new();
@@ -653,7 +654,7 @@ public class RootCommandTests
     }
 
     [TestMethod]
-    public async Task RootCommand_LocalizedTextArgument_ExecutesSuccessfully()
+    public async Task RootCommand_LocalizedTextOption_ExecutesSuccessfully()
     {
         // arrange
         RootOptions rootOptions = new();
@@ -679,7 +680,7 @@ public class RootCommandTests
     }
 
     [TestMethod]
-    public async Task RootCommand_MapSpecificArguments_ExecutesSuccessfully()
+    public async Task RootCommand_MapSpecificOptions_ExecutesSuccessfully()
     {
         // arrange
         RootOptions rootOptions = new();
@@ -709,7 +710,7 @@ public class RootCommandTests
     }
 
     [TestMethod]
-    public async Task RootCommand_CustomConfigArgument_ExecutesSuccessfully()
+    public async Task RootCommand_CustomConfigOption_ExecutesSuccessfully()
     {
         // arrange
         RootOptions rootOptions = new();
@@ -735,7 +736,7 @@ public class RootCommandTests
     }
 
     [TestMethod]
-    public async Task RootCommand_NoIndentArgument_ExecutesSuccessfully()
+    public async Task RootCommand_NoIndentOption_ExecutesSuccessfully()
     {
         // arrange
         RootOptions rootOptions = new();
@@ -761,7 +762,7 @@ public class RootCommandTests
     }
 
     [TestMethod]
-    public async Task RootCommand_ThreadsArgument_ExecutesSuccessfully()
+    public async Task RootCommand_ThreadsOption_ExecutesSuccessfully()
     {
         // arrange
         RootOptions rootOptions = new();
@@ -784,6 +785,32 @@ public class RootCommandTests
         await AssertCommandSuccessful(result);
 
         rootOptions.Threads.Should().Be(4);
+    }
+
+    [TestMethod]
+    public async Task RootCommand_DisableMapSpecificOption_ExecutesSuccessfully()
+    {
+        // arrange
+        RootOptions rootOptions = new();
+        _options.Value.Returns(rootOptions);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<RootCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            "game",
+            "--storage-path", "TestXmlFiles",
+            "--no-map-specific",
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        await AssertCommandSuccessful(result);
+
+        rootOptions.DisableMapSpecificJson.Should().BeTrue();
     }
 
     private ServiceCollection GetServiceCollection()
