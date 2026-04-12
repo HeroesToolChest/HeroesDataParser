@@ -17,7 +17,7 @@ public class RootSettings : CommandSettings
     public bool IsPtr { get; init; }
 
     [CommandOption("-e|--extractor <EXTRACTOR>")]
-    [Description("Extractors to enable, add ':images' to enabled image extraction (can be specified multiple times)")]
+    [Description("Extractors to enable, add ':i|:images' to enabled image extraction (can be specified multiple times)")]
     [DefaultValue("Hero")]
     public string[] Extractors { get; init; } = [];
 
