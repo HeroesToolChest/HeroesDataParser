@@ -2,7 +2,7 @@
 
 public class XmlDataParserProcessor : IXmlDataParserProcessor
 {
-    private readonly IKeyedServiceProvider _keyedServiceProvider;
+    private readonly IServiceProvider _serviceProvider;
     private readonly IDataExtractorService _dataExtractorService;
     private readonly IJsonDataFileWriterProcessor _jsonDataFileWriterProcessor;
     private readonly IImageParserProcessor _imageParserProcessor;
@@ -10,12 +10,12 @@ public class XmlDataParserProcessor : IXmlDataParserProcessor
     private readonly Dictionary<ExtractDataOptions, Action<Map?>> _elementTypeByExtractDataOption;
 
     public XmlDataParserProcessor(
-        IKeyedServiceProvider keyedServiceProvider,
+        IServiceProvider serviceProvider,
         IDataExtractorService dataExtractorService,
         IJsonDataFileWriterProcessor jsonDataFileWriterProcessor,
         IImageParserProcessor imageParserProcessor)
     {
-        _keyedServiceProvider = keyedServiceProvider;
+        _serviceProvider = serviceProvider;
         _dataExtractorService = dataExtractorService;
         _jsonDataFileWriterProcessor = jsonDataFileWriterProcessor;
         _imageParserProcessor = imageParserProcessor;
@@ -72,6 +72,6 @@ public class XmlDataParserProcessor : IXmlDataParserProcessor
     private IDataParser<TElementObject> GetParser<TElementObject>()
         where TElementObject : IElementObject
     {
-        return _keyedServiceProvider.GetRequiredKeyedService<IDataParser<TElementObject>>(typeof(TElementObject));
+        return _serviceProvider.GetRequiredKeyedService<IDataParser<TElementObject>>(typeof(TElementObject));
     }
 }

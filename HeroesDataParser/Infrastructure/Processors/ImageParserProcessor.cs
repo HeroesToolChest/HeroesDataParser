@@ -4,18 +4,18 @@ public class ImageParserProcessor : IImageParserProcessor
 {
     private readonly ILogger<ImageParserProcessor> _logger;
     private readonly RootOptions _options;
-    private readonly IKeyedServiceProvider _keyedServiceProvider;
+    private readonly IServiceProvider _serviceProvider;
     private readonly IImageWriterService _imageWriterService;
 
     public ImageParserProcessor(
         ILogger<ImageParserProcessor> logger,
         IOptions<RootOptions> options,
-        IKeyedServiceProvider keyedServiceProvider,
+        IServiceProvider serviceProvider,
         IImageWriterService imageWriterService)
     {
         _logger = logger;
         _options = options.Value;
-        _keyedServiceProvider = keyedServiceProvider;
+        _serviceProvider = serviceProvider;
         _imageWriterService = imageWriterService;
     }
 
@@ -23,7 +23,7 @@ public class ImageParserProcessor : IImageParserProcessor
     public void SaveImages<TElementObject>(SortedDictionary<string, TElementObject> itemsToSerialize)
         where TElementObject : IElementObject
     {
-        IEnumerable<IImageParser<TElementObject>> imageParsers = _keyedServiceProvider.GetKeyedServices<IImageParser<TElementObject>>(typeof(TElementObject));
+        IEnumerable<IImageParser<TElementObject>> imageParsers = _serviceProvider.GetKeyedServices<IImageParser<TElementObject>>(typeof(TElementObject));
 
         if (!imageParsers.Any())
         {
