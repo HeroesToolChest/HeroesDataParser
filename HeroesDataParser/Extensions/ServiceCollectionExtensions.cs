@@ -77,10 +77,7 @@ public static class ServiceCollectionExtensions
 
             services.AddSingleton<IPreLoaderService, PreLoaderService>();
             services.AddSingleton<IMainService, MainService>();
-            services.AddSingleton<IMainLocalePreProcess, MainLocalePreProcess>();
-            services.AddSingleton<IMainLocaleProcess, MainLocaleProcess>();
-            services.AddSingleton<IProcessorService, ProcessorService>();
-            services.AddSingleton<IMapProcessorService, MapProcessorService>();
+
             services.AddSingleton<IResultSummaryService, ResultSummaryService>();
             services.AddSingleton<IPostCleanupService, PostCleanupService>();
 
@@ -93,6 +90,17 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IImageWriterService, ImageWriterService>();
 
             services.AddSingleton<IGameStringSerializerService, GameStringSerializerService>();
+
+            // processors
+            services.AddSingleton<IMainLocalePreProcessor, MainLocalePreProcessor>();
+            services.AddSingleton<IMainLocaleProcessor, MainLocaleProcessor>();
+            services.AddSingleton<IProcessorService, ProcessorService>();
+            services.AddSingleton<IMapProcessorService, MapProcessorService>();
+            services.AddSingleton<IXmlDataParserProcessor, XmlDataParserProcessor>();
+            services.AddSingleton<IXmlMapDataParserProcessor, XmlMapDataParserProcessor>();
+            services.AddSingleton<IJsonDataFileWriterProcessor, JsonDataFileWriterProcessor>();
+            services.AddSingleton<IJsonGameStringFileWriterProcessor, JsonGameStringFileWriterProcessor>();
+            services.AddSingleton<IImageParserProcessor, ImageParserProcessor>();
 
             return services;
         }
@@ -127,24 +135,24 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IAbilityParser, AbilityParser>();
             services.AddSingleton<ITalentParser, TalentParser>();
 
-            services.AddSingleton<IDataParser<Announcer>, AnnouncerParser>();
-            services.AddSingleton<IDataParser<Banner>, BannerParser>();
-            services.AddSingleton<IDataParser<Boost>, BoostParser>();
-            services.AddSingleton<IDataParser<Bundle>, BundleParser>();
-            services.AddSingleton<IDataParser<Emoticon>, EmoticonParser>();
-            services.AddSingleton<IDataParser<EmoticonPack>, EmoticonPackParser>();
-            services.AddSingleton<IDataParser<Hero>, HeroParser>();
-            services.AddSingleton<IDataParser<LootChest>, LootChestParser>();
-            services.AddSingleton<IDataParser<Mount>, MountParser>();
-            services.AddSingleton<IDataParser<MatchAward>, MatchAwardParser>();
-            services.AddSingleton<IDataParser<PortraitPack>, PortraitPackParser>();
-            services.AddSingleton<IDataParser<RewardPortrait>, RewardPortraitParser>();
-            services.AddSingleton<IDataParser<Skin>, SkinParser>();
-            services.AddSingleton<IDataParser<Spray>, SprayParser>();
-            services.AddSingleton<IDataParser<TypeDescription>, TypeDescriptionParser>();
-            services.AddSingleton<IDataParser<Unit>, UnitParser>();
-            services.AddSingleton<IDataParser<Veterancy>, VeterancyParser>();
-            services.AddSingleton<IDataParser<VoiceLine>, VoiceLineParser>();
+            services.AddKeyedSingleton<IDataParser<Announcer>, AnnouncerParser>(typeof(Announcer));
+            services.AddKeyedSingleton<IDataParser<Banner>, BannerParser>(typeof(Banner));
+            services.AddKeyedSingleton<IDataParser<Boost>, BoostParser>(typeof(Boost));
+            services.AddKeyedSingleton<IDataParser<Bundle>, BundleParser>(typeof(Bundle));
+            services.AddKeyedSingleton<IDataParser<Emoticon>, EmoticonParser>(typeof(Emoticon));
+            services.AddKeyedSingleton<IDataParser<EmoticonPack>, EmoticonPackParser>(typeof(EmoticonPack));
+            services.AddKeyedSingleton<IDataParser<Hero>, HeroParser>(typeof(Hero));
+            services.AddKeyedSingleton<IDataParser<LootChest>, LootChestParser>(typeof(LootChest));
+            services.AddKeyedSingleton<IDataParser<Mount>, MountParser>(typeof(Mount));
+            services.AddKeyedSingleton<IDataParser<MatchAward>, MatchAwardParser>(typeof(MatchAward));
+            services.AddKeyedSingleton<IDataParser<PortraitPack>, PortraitPackParser>(typeof(PortraitPack));
+            services.AddKeyedSingleton<IDataParser<RewardPortrait>, RewardPortraitParser>(typeof(RewardPortrait));
+            services.AddKeyedSingleton<IDataParser<Skin>, SkinParser>(typeof(Skin));
+            services.AddKeyedSingleton<IDataParser<Spray>, SprayParser>(typeof(Spray));
+            services.AddKeyedSingleton<IDataParser<TypeDescription>, TypeDescriptionParser>(typeof(TypeDescription));
+            services.AddKeyedSingleton<IDataParser<Unit>, UnitParser>(typeof(Unit));
+            services.AddKeyedSingleton<IDataParser<Veterancy>, VeterancyParser>(typeof(Veterancy));
+            services.AddKeyedSingleton<IDataParser<VoiceLine>, VoiceLineParser>(typeof(VoiceLine));
 
             services.AddSingleton<IDataParser<Map>, MapParser>();
 
@@ -157,25 +165,25 @@ public static class ServiceCollectionExtensions
         private IServiceCollection AddImageWriters()
         {
             // add all image writers
-            services.AddSingleton<IImageParser<Announcer>, AnnouncerImageParser>();
-            services.AddSingleton<IImageParser<Bundle>, BundleImageParser>();
-            services.AddSingleton<IImageParser<Emoticon>, EmoticonImageParser>();
-            services.AddSingleton<IImageParser<MatchAward>, MatchAwardImageParser>();
-            services.AddSingleton<IImageParser<Spray>, SprayImageParser>();
-            services.AddSingleton<IImageParser<TypeDescription>, TypeDescriptionImageParser>();
-            services.AddSingleton<IImageParser<VoiceLine>, VoiceLineImageParser>();
+            services.AddKeyedSingleton<IImageParser<Announcer>, AnnouncerImageParser>(typeof(Announcer));
+            services.AddKeyedSingleton<IImageParser<Bundle>, BundleImageParser>(typeof(Bundle));
+            services.AddKeyedSingleton<IImageParser<Emoticon>, EmoticonImageParser>(typeof(Emoticon));
+            services.AddKeyedSingleton<IImageParser<MatchAward>, MatchAwardImageParser>(typeof(MatchAward));
+            services.AddKeyedSingleton<IImageParser<Spray>, SprayImageParser>(typeof(Spray));
+            services.AddKeyedSingleton<IImageParser<TypeDescription>, TypeDescriptionImageParser>(typeof(TypeDescription));
+            services.AddKeyedSingleton<IImageParser<VoiceLine>, VoiceLineImageParser>(typeof(VoiceLine));
 
-            services.AddSingleton<IImageParser<Map>, ReplayPreviewImageParser>();
-            services.AddSingleton<IImageParser<Map>, LoadingScreenImageParser>();
-            services.AddSingleton<IImageParser<Map>, MapObjectiveIconImageParser>();
+            services.AddKeyedSingleton<IImageParser<Map>, ReplayPreviewImageParser>(typeof(Map));
+            services.AddKeyedSingleton<IImageParser<Map>, LoadingScreenImageParser>(typeof(Map));
+            services.AddKeyedSingleton<IImageParser<Map>, MapObjectiveIconImageParser>(typeof(Map));
 
-            services.AddSingleton<IImageParser<Hero>, HeroTalentImageParser>();
-            services.AddSingleton<IImageParser<Hero>, HeroAbilityImageParser>();
-            services.AddSingleton<IImageParser<Hero>, HeroAbilityTalentImageParser>();
-            services.AddSingleton<IImageParser<Hero>, HeroPortraitImageParser>();
-            services.AddSingleton<IImageParser<Unit>, UnitPortraitImageParser>();
-            services.AddSingleton<IImageParser<Unit>, UnitAbilityImageParser>();
-            services.AddSingleton<IImageParser<Unit>, UnitAbilityTalentImageParser>();
+            services.AddKeyedSingleton<IImageParser<Hero>, HeroTalentImageParser>(typeof(Hero));
+            services.AddKeyedSingleton<IImageParser<Hero>, HeroAbilityImageParser>(typeof(Hero));
+            services.AddKeyedSingleton<IImageParser<Hero>, HeroAbilityTalentImageParser>(typeof(Hero));
+            services.AddKeyedSingleton<IImageParser<Hero>, HeroPortraitImageParser>(typeof(Hero));
+            services.AddKeyedSingleton<IImageParser<Unit>, UnitPortraitImageParser>(typeof(Unit));
+            services.AddKeyedSingleton<IImageParser<Unit>, UnitAbilityImageParser>(typeof(Unit));
+            services.AddKeyedSingleton<IImageParser<Unit>, UnitAbilityTalentImageParser>(typeof(Unit));
 
             return services;
         }

@@ -1,180 +1,43 @@
-﻿using Serilog.Context;
-
-namespace HeroesDataParser.Infrastructure.Processors;
+﻿namespace HeroesDataParser.Infrastructure.Processors;
 
 public class ProcessorService : IProcessorService
 {
-    private readonly ILogger<ProcessorService> _logger;
     private readonly RootOptions _options;
-    private readonly IServiceProvider _serviceProvider;
-    private readonly IDataExtractorService _dataExtractorService;
-    private readonly IJsonDataFileWriterService _jsonDataFileWriterService;
-    private readonly IJsonGameStringFileWriterService _jsonGameStringFileWriterService;
-    private readonly IImageWriterService _imageWriterService;
-
-    private readonly Dictionary<ExtractDataOptions, Action<Map?>> _processElementByExtractDataOption;
-
-    private readonly List<Func<Task>> _dataWriterTasks = [];
+    private readonly IXmlDataParserProcessor _xmlDataParserProcessor;
+    private readonly IJsonGameStringFileWriterProcessor _jsonGameStringFileWriterProcessor;
 
     public ProcessorService(
-        ILogger<ProcessorService> logger,
         IOptions<RootOptions> options,
-        IServiceProvider serviceProvider,
-        IDataExtractorService dataExtractorService,
-        IJsonDataFileWriterService jsonFileWriterService,
-        IJsonGameStringFileWriterService jsonGameStringFileWriterService,
-        IImageWriterService imageWriterService)
+        IXmlDataParserProcessor xmlDataParserProcessor,
+        IJsonGameStringFileWriterProcessor jsonGameStringFileWriterProcessor)
     {
-        _logger = logger;
         _options = options.Value;
-        _serviceProvider = serviceProvider;
-        _dataExtractorService = dataExtractorService;
-        _jsonDataFileWriterService = jsonFileWriterService;
-        _jsonGameStringFileWriterService = jsonGameStringFileWriterService;
-        _imageWriterService = imageWriterService;
-
-        _processElementByExtractDataOption = GetElementProcessors();
+        _xmlDataParserProcessor = xmlDataParserProcessor;
+        _jsonGameStringFileWriterProcessor = jsonGameStringFileWriterProcessor;
     }
 
     public async Task Start()
     {
-        _logger.LogDebug("Available element processors {@ActionProcessors}", _processElementByExtractDataOption.Keys);
-
-        await RunElementProcessors(_processElementByExtractDataOption);
+        await RunDataParsers();
     }
 
-    public async Task StartForMap(Map map)
+    public async Task StartForMapSpecific(Map map)
     {
-        _logger.LogDebug("Available element processors {@ActionProcessors} for Map {MapId}", _processElementByExtractDataOption.Keys, map.Id);
-
-        await RunElementProcessors(_processElementByExtractDataOption, map);
+        await RunDataParsers(map);
     }
 
-    private async Task RunElementProcessors(Dictionary<ExtractDataOptions, Action<Map?>> processors, Map? map = null)
+    private async Task RunDataParsers(Map? map = null)
     {
-        foreach (KeyValuePair<ExtractDataOptions, Action<Map?>> processor in processors)
+        IEnumerable<ExtractDataOptions> associatedExtractDataParsers = _xmlDataParserProcessor.GetAssociatedExtractDataParsers();
+
+        foreach (ExtractDataOptions option in associatedExtractDataParsers)
         {
-            if (_options.ExtractDataOptions.HasFlag(processor.Key))
-            {
-                processor.Value(map);
-            }
-            else
-            {
-                _logger.LogTrace("Element processor {Processor} was not run, was not selected in options", processor.Key);
-            }
+            if (_options.ExtractDataOptions.HasFlag(option))
+                _xmlDataParserProcessor.ExecuteDataParser(option, map);
         }
 
-        // write out the files (data and gamestrings)
-        await WriteDataFiles();
-        await WriteGameStringFile(map?.Id);
+        // write out the files (data and then gamestrings)
+        await _xmlDataParserProcessor.ExecuteJsonDataFileWriteTasks();
+        await _jsonGameStringFileWriterProcessor.WriteGameStringFile(map?.Id);
     }
-
-    private void ProcessElementObject<TElementObject, TParser>(Map? map = null)
-        where TElementObject : IElementObject
-        where TParser : IDataParser<TElementObject>
-    {
-        string typeOfElementObjectName = typeof(TElementObject).Name;
-        string typeOfParserName = typeof(TParser).Name;
-
-        using (LogContext.PushProperty("ElementType", typeOfElementObjectName))
-        using (LogContext.PushProperty("Parser", typeOfParserName))
-        {
-            _logger.LogInformation("Start action processor for {HeroesCollectionObject} using parser {Parser}", typeOfElementObjectName, typeOfParserName);
-
-            var dataParser = _serviceProvider.GetRequiredService<IDataParser<TElementObject>>();
-            SortedDictionary<string, TElementObject> itemsToSerialize = _dataExtractorService.Extract<TElementObject, TParser>((TParser)dataParser, map);
-
-            // delay until after all data extraction is done (done for each map group)
-            _dataWriterTasks.Add(() => WriteToJson(itemsToSerialize, map));
-
-            SaveImages(itemsToSerialize);
-
-            _logger.LogInformation("Action processor complete for {HeroesCollectionObject} using parser {Parser}", typeOfElementObjectName, typeOfParserName);
-        }
-    }
-
-    private async Task WriteToJson<TElementObject>(SortedDictionary<string, TElementObject> itemsToSerialize, Map? map)
-        where TElementObject : IElementObject
-    {
-        if (map is null)
-            await _jsonDataFileWriterService.Write(itemsToSerialize);
-        else
-            await _jsonDataFileWriterService.WriteToMaps(map.Id, itemsToSerialize);
-    }
-
-    // parses and save the images for after data extraction/serialization
-    private void SaveImages<TElementObject>(SortedDictionary<string, TElementObject> itemsToSerialize)
-        where TElementObject : IElementObject
-    {
-        IEnumerable<IImageParser<TElementObject>> imageParsers = _serviceProvider.GetServices<IImageParser<TElementObject>>();
-
-        if (!imageParsers.Any())
-        {
-            _logger.LogInformation("No image writers found for {ElementType}", typeof(TElementObject).Name);
-            return;
-        }
-
-        foreach (IImageParser<TElementObject> imageParser in imageParsers)
-        {
-            if (_options.ExtractImageOptions.HasFlag(imageParser.ExtractImageOption))
-            {
-                _imageWriterService.Save(imageParser.GetImages(itemsToSerialize));
-            }
-        }
-    }
-
-    private async Task WriteDataFiles()
-    {
-        _logger.LogInformation("Waiting for data file write tasks to complete...");
-
-        foreach (Func<Task> task in _dataWriterTasks)
-        {
-            await task();
-        }
-
-        _dataWriterTasks.Clear();
-
-        _logger.LogInformation("All data file write tasks complete.");
-    }
-
-    private async Task WriteGameStringFile(string? mapName)
-    {
-        if (_options.LocalizedText == LocalizedTextOption.None)
-        {
-            _logger.LogInformation("LocalizedText option is set to {LocalizedTextOption}. Skipping writing gamestring file(s).", _options.LocalizedText);
-            return;
-        }
-
-        if (!string.IsNullOrWhiteSpace(mapName))
-        {
-            // write out the gamestring file for the extracted gamestrings from json serialization
-            await _jsonGameStringFileWriterService.WriteMapSpecific(mapName);
-        }
-        else
-        {
-            await _jsonGameStringFileWriterService.WriteBase();
-        }
-    }
-
-    private Dictionary<ExtractDataOptions, Action<Map?>> GetElementProcessors() => new()
-    {
-        { ExtractDataOptions.Announcer, ProcessElementObject<Announcer, AnnouncerParser> },
-        { ExtractDataOptions.Banner, ProcessElementObject<Banner, BannerParser> },
-        { ExtractDataOptions.Bundle, ProcessElementObject<Bundle, BundleParser> },
-        { ExtractDataOptions.Boost, ProcessElementObject<Boost, BoostParser> },
-        { ExtractDataOptions.Emoticon, ProcessElementObject<Emoticon, EmoticonParser> },
-        { ExtractDataOptions.EmoticonPack, ProcessElementObject<EmoticonPack, EmoticonPackParser> },
-        { ExtractDataOptions.Hero, ProcessElementObject<Hero, HeroParser> },
-        { ExtractDataOptions.LootChest, ProcessElementObject<LootChest, LootChestParser> },
-        { ExtractDataOptions.Mount, ProcessElementObject<Mount, MountParser> },
-        { ExtractDataOptions.MatchAward, ProcessElementObject<MatchAward, MatchAwardParser> },
-        { ExtractDataOptions.PortraitPack, ProcessElementObject<PortraitPack, PortraitPackParser> },
-        { ExtractDataOptions.RewardPortrait, ProcessElementObject<RewardPortrait, RewardPortraitParser> },
-        { ExtractDataOptions.Skin, ProcessElementObject<Skin, SkinParser> },
-        { ExtractDataOptions.Spray, ProcessElementObject<Spray, SprayParser> },
-        { ExtractDataOptions.TypeDescription, ProcessElementObject<TypeDescription, TypeDescriptionParser> },
-        { ExtractDataOptions.Unit, ProcessElementObject<Unit, UnitParser> },
-        { ExtractDataOptions.Veterancy, ProcessElementObject<Veterancy, VeterancyParser> },
-        { ExtractDataOptions.VoiceLine, ProcessElementObject<VoiceLine, VoiceLineParser> },
-    };
 }

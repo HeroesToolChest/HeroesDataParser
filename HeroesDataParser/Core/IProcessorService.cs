@@ -4,5 +4,5 @@ public interface IProcessorService
 {
     Task Start();
 
-    Task StartForMap(Map map);
+    Task StartForMapSpecific(Map map);
 }

@@ -36,7 +36,7 @@ public class ImageWriterService : IImageWriterService
     {
         if (_outputImagePaths.Count < 1)
         {
-            _logger.LogInformation("No images to write");
+            _logger.LogInformation("There are no images to write");
             return;
         }
 

@@ -1,6 +1,6 @@
 ﻿namespace HeroesDataParser.Core;
 
-public interface IMainLocaleProcess
+public interface IMainLocaleProcessor
 {
     Task Run(StormLocale locale);
 }

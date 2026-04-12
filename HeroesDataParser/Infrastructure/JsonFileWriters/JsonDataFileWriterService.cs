@@ -23,7 +23,7 @@ public class JsonDataFileWriterService : JsonFileWriterBase, IJsonDataFileWriter
     }
 
     // write to the maps sub directory
-    public async Task WriteToMaps<TElement>(string mapDirectory, SortedDictionary<string, TElement> elementsById)
+    public async Task WriteToMapSpecific<TElement>(string mapDirectory, SortedDictionary<string, TElement> elementsById)
         where TElement : IElementObject
     {
         if (Options.MapSpecificWriterJsonOutputType == MapSpecificWriterJsonOutputType.None)

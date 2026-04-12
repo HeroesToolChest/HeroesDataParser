@@ -5,8 +5,8 @@ public class MainService : IMainService
     private readonly ILogger<MainService> _logger;
     private readonly RootOptions _options;
     private readonly IAnsiConsole _console;
-    private readonly IMainLocalePreProcess _mainLocalePreProcess;
-    private readonly IMainLocaleProcess _mainLocaleProcess;
+    private readonly IMainLocalePreProcessor _mainLocalePreProcess;
+    private readonly IMainLocaleProcessor _mainLocaleProcess;
     private readonly IImageWriterService _imageWriterService;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
@@ -16,8 +16,8 @@ public class MainService : IMainService
         ILogger<MainService> logger,
         IOptions<RootOptions> options,
         IAnsiConsole console,
-        IMainLocalePreProcess mainLocalePreProcess,
-        IMainLocaleProcess mainLocaleProcess,
+        IMainLocalePreProcessor mainLocalePreProcess,
+        IMainLocaleProcessor mainLocaleProcess,
         IImageWriterService imageWriterService,
         IHeroesXmlLoaderService heroesXmlLoaderService)
     {

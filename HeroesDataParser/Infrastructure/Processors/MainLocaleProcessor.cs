@@ -1,14 +1,14 @@
-﻿namespace HeroesDataParser.Infrastructure;
+﻿namespace HeroesDataParser.Infrastructure.Processors;
 
-public class MainLocaleProcess : IMainLocaleProcess
+public class MainLocaleProcessor : IMainLocaleProcessor
 {
-    private readonly ILogger<MainLocaleProcess> _logger;
+    private readonly ILogger<MainLocaleProcessor> _logger;
     private readonly RootOptions _options;
     private readonly IProcessorService _processorService;
     private readonly IMapProcessorService _mapProcessorService;
 
-    public MainLocaleProcess(
-        ILogger<MainLocaleProcess> logger,
+    public MainLocaleProcessor(
+        ILogger<MainLocaleProcessor> logger,
         IOptions<RootOptions> options,
         IProcessorService processorService,
         IMapProcessorService mapProcessorService)

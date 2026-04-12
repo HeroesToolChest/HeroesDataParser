@@ -1,6 +1,6 @@
 ﻿namespace HeroesDataParser.Core;
 
-public interface IMainLocalePreProcess
+public interface IMainLocalePreProcessor
 {
     void Run();
 }

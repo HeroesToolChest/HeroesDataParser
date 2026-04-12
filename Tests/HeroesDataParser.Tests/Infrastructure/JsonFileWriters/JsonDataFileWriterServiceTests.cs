@@ -258,12 +258,12 @@ public class JsonDataFileWriterServiceTests
     }
 
     [TestMethod]
-    public async Task WriteToMaps_HasItemsWithNoDiffFound_CreatesJsonFile()
+    public async Task WriteToMapSpecific_HasItemsWithNoDiffFound_CreatesJsonFile()
     {
         // arrange
         RootOptions rootOptions = new()
         {
-            OutputDirectory = Path.Combine("tests", nameof(WriteToMaps_HasItemsWithNoDiffFound_CreatesJsonFile)),
+            OutputDirectory = Path.Combine("tests", nameof(WriteToMapSpecific_HasItemsWithNoDiffFound_CreatesJsonFile)),
             CurrentLocale = StormLocale.ENUS,
             MapSpecificWriterJsonOutputType = MapSpecificWriterJsonOutputType.Patch,
             GameStringText = new GameStringTextOptions
@@ -310,7 +310,7 @@ public class JsonDataFileWriterServiceTests
         JsonDataFileWriterService service = new(_logger, _options, _console, _serializedDataStoreService, jsonSerializerOptionService, _resultSummaryService);
 
         // act
-        await service.WriteToMaps("map name!_yes?", heroesByElementId);
+        await service.WriteToMapSpecific("map name!_yes?", heroesByElementId);
 
         // assert
         _serializedDataStoreService.DidNotReceiveWithAnyArgs().AddSerializedData(default!, default!);
@@ -330,12 +330,12 @@ public class JsonDataFileWriterServiceTests
     }
 
     [TestMethod]
-    public async Task WriteToMaps_HasItemsWithNoDiffFound_NoJsonFileCreated()
+    public async Task WriteToMapSpecific_HasItemsWithNoDiffFound_NoJsonFileCreated()
     {
         // arrange
         RootOptions rootOptions = new()
         {
-            OutputDirectory = Path.Combine("tests", nameof(WriteToMaps_HasItemsWithNoDiffFound_NoJsonFileCreated)),
+            OutputDirectory = Path.Combine("tests", nameof(WriteToMapSpecific_HasItemsWithNoDiffFound_NoJsonFileCreated)),
             CurrentLocale = StormLocale.ENUS,
             MapSpecificWriterJsonOutputType = MapSpecificWriterJsonOutputType.Patch,
             GameStringText = new GameStringTextOptions
@@ -381,7 +381,7 @@ public class JsonDataFileWriterServiceTests
         JsonDataFileWriterService service = new(_logger, _options, _console, _serializedDataStoreService, jsonSerializerOptionService, _resultSummaryService);
 
         // act
-        await service.WriteToMaps("map name!_yes?", heroesByElementId);
+        await service.WriteToMapSpecific("map name!_yes?", heroesByElementId);
 
         // assert
         _serializedDataStoreService.DidNotReceiveWithAnyArgs().AddSerializedData(default!, default!);
@@ -395,12 +395,12 @@ public class JsonDataFileWriterServiceTests
     [DataRow(MapSpecificWriterJsonOutputType.Patch)]
     [DataRow(MapSpecificWriterJsonOutputType.Normal | MapSpecificWriterJsonOutputType.Patch)]
     [DataRow(MapSpecificWriterJsonOutputType.None)]
-    public async Task WriteToMaps_HasItemsWithPatchWasFound_CreatesJsonFile(MapSpecificWriterJsonOutputType mapWriterJsonOutputType)
+    public async Task WriteToMapSpecific_HasItemsWithPatchWasFound_CreatesJsonFile(MapSpecificWriterJsonOutputType mapWriterJsonOutputType)
     {
         // arrange
         RootOptions rootOptions = new()
         {
-            OutputDirectory = Path.Combine("tests", $"{nameof(WriteToMaps_HasItemsWithPatchWasFound_CreatesJsonFile)}_{mapWriterJsonOutputType}"),
+            OutputDirectory = Path.Combine("tests", $"{nameof(WriteToMapSpecific_HasItemsWithPatchWasFound_CreatesJsonFile)}_{mapWriterJsonOutputType}"),
             CurrentLocale = StormLocale.ENUS,
             MapSpecificWriterJsonOutputType = mapWriterJsonOutputType,
             GameStringText = new GameStringTextOptions
@@ -463,7 +463,7 @@ public class JsonDataFileWriterServiceTests
         JsonDataFileWriterService service = new(_logger, _options, _console, _serializedDataStoreService, jsonSerializerOptionService, _resultSummaryService);
 
         // act
-        await service.WriteToMaps("map name!_yes?", heroesByElementId);
+        await service.WriteToMapSpecific("map name!_yes?", heroesByElementId);
 
         // assert
         _serializedDataStoreService.DidNotReceiveWithAnyArgs().AddSerializedData(default!, default!);

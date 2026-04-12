@@ -1,11 +1,11 @@
-﻿namespace HeroesDataParser.Infrastructure;
+﻿namespace HeroesDataParser.Infrastructure.Processors;
 
-public class MainLocalePreProcess : IMainLocalePreProcess
+public class MainLocalePreProcessor : IMainLocalePreProcessor
 {
     private readonly ISerializedDataStoreService _serializedDataStoreService;
     private readonly IGameStringSerializerService _gameStringSerializerService;
 
-    public MainLocalePreProcess(
+    public MainLocalePreProcessor(
         ISerializedDataStoreService serializedDataStoreService,
         IGameStringSerializerService gameStringSerializerService)
     {
