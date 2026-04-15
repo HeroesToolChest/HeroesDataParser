@@ -94,7 +94,7 @@ windows (powershell): .\HeroesDataParser -h
 macOS or Linux: ./HeroesDataParser -h
 ```
 
-Output of the -h option
+Output of the `-h` option
 ```
 USAGE:
     heroesdataparser <storage-type> [OPTIONS] [COMMAND]
@@ -147,11 +147,219 @@ dotnet heroesdataparser.dll game --storage-path 'D:\Heroes of the Storm' -e hero
 ### Storage Type
 Specify either `mods`, `game`, or `online` to indicate the type of storage to load from.
 
-`mods` - Already extracted `Heroes of the Storm` game data with `mods` as it's root directory  
-`game` - `Heroes of the Storm` installation game directory  
+`mods` - Already extracted `Heroes of the Storm` game data with `mods` as it's root directory (see [casc-extract](#casc-extract) command)  
+`game` - The `Heroes of the Storm` installation 
 `online` - To download the gamedata from the live or ptr servers
 
 ## Options
+### -p, --storage-path
+If the `storage-type` argument is set to `game` or `mods`, then this option is required to specify the path of the `Heroes of the Storm` directory or an already extracted `mods` directory.
+
+***
+
+### --download-ptr 
+If the `storage-type` argument is set to `online`, then this option can be used to specify whether to download from the ptr server instead of live.
+
+***
+
+### -e, --extractor
+The extractors to enable for data and image extraction. Can be specified multiple times to enable multiple extractors. Default is `hero`.
+
+Data JSON files will be created in the `data` subdirectory and image files will be created in the `images` subdirectory of the output directory.
+
+Enabling the extractor `map` will also create map specific JSON files in the `maps` subdirectory of the `data` subdirectory for each other extractor, unless the [--no-map-specific](#--no-map-specific) option is enabled.
+
+`all` - extracts all data files  
+`hero` - extracts hero data  
+`unit` - extracts unit data  
+`matchaward` - extracts match awards  
+`skin` - extracts hero skins  
+`mount` - extracts mounts  
+`banner` - extracts banners  
+`spray` - extracts sprays  
+`announcer` - extracts announcers  
+`voiceline` - extracts voicelines  
+`portraitpack` - extracts portrait packs  
+`rewardportrait` - extracts reward portraits  
+`emoticon` - extracts emojis  
+`emoticonpack` - extracts emoji packs  
+`veterancy` - extracts veterancy data  
+`bundle` - extracts bundles  
+`boost` - extracts boosts  
+`lootchest` - extract loot chests  
+`typedescription` - extracts type description data  
+`map` - extracts map data
+
+To extract images, if available for the data type, add `:i` or `:images` to the extractor name (e.g. `hero:i` or `hero:images`).
+
+Example selecting multiple data extractors along with spray images
+```powershell
+-e hero -e spray:i -e emoticon
+```
+
+Notes:
+- Images for hero and unit include the portraits, ability, and talent icons
+- Static image files are extracted in `.png` format
+- Animated image files are extracted in `.apng` format
+  - Sprays and emoticons are the only ones with animated images
+
+***
+
+### -l, --localization
+Specifies the gamestring localization to parse. Can be specified multiple times to select multiple localizations. Default is `enUS`.
+
+`all` - selects all locales  
+`enUS` - English (Default)  
+`deDE` - German  
+`esES` - Spanish (EU)  
+`esMX` - Spanish (AL)  
+`frFR` - French  
+`itIT` - Italian  
+`koKR` - Korean  
+`plPL` - Polish  
+`ptBR` - Portuguese  
+`ruRU` - Russian  
+`zhCN` - Chinese  
+`zhTW` - Chinese (TW)  
+
+Example selecting multiple locales.
+```
+-l enus -l dede -l kokr
+```
+
+***
+
+### -g, --gamestring-text
+Specifies the format of the strings that are parsed from the gamestring files. Default is `RawText`.
+ - Default is `0` (`RawText`) and is the recommended choice as it can be formatted to a different format later or to a custom format
+ - `5` (`ColoredText`) is the other recommended choice, as it is the ingame format
+
+Some of these may require additional parsing for a readable output. Visit the [wiki page](https://github.com/koliva8245/HeroesDataParser/wiki/Parsing-Descriptions) for parsing tips.
+
+`0` - `RawText` (Default)  
+The raw output of the gamestring. Contains the colored tags `<c>` (constant) or `<s>` (style), scaling data `~~x~~`, and newlines `<n/>`. It can also contain error tags `##ERROR##`.
+
+Example:  
+```
+Fires a laser that deals <c val=\"#TooltipNumbers\">200~~0.04~~</c> damage.<n/>Does not affect minions.
+```
+
+`1` - `PlainText`   
+Plain text without any colored tags, scaling info, or newlines. Newlines are replaced with a single space.
+
+Example:  
+```
+Fires a laser that deals 200 damage. Does not affect minions.
+```
+
+`2` - `PlainTextWithNewlines`    
+Same as `PlainText` but contains newlines.
+
+Example:  
+```
+Fires a laser that deals 200 damage.<n/>Does not affect minions.
+```
+
+`3` - `PlainTextWithScaling`    
+Same as `PlainText` but contains the scaling info `(+x% per level)`.
+
+Example:  
+```
+Fires a laser that deals 200 (+4% per level) damage. Does not affect minions.
+```
+
+`4` - `PlainTextWithScalingWithNewlines`    
+Same as `PlainTextWithScaling` but contains the newlines.
+
+Example:  
+```
+Fires a laser that deals 200 (+4% per level) damage.<n/>Does not affect minions.
+```
+
+`5` - `ColoredText`    
+Contains the color tags and newlines, when parsed this is what appears ingame for text and tooltips.
+
+Example:  
+```
+Fires a laser that deals <c val=\"#TooltipNumbers\">200</c> damage.<n/>Does not affect minions.
+```
+
+`6` - `ColoredTextWithScaling`    
+Same as `ColoredText` but contains the scaling info with a custom constant tag.
+
+Example:  
+```
+Fires a laser that deals <c val=\"#TooltipNumbers\">200</c><c val=\"#ColorGray\"> (+4% per level)</c> damage.<n/>Does not affect minions.
+```
+
+***
+
+### --gs-replace-constant-vars 
+For all the constant tags `<c>` in a gamestring, the variable in the `val` attribute value will be replaced with the color text hex value.
+
+For example, `<c val=\"#TooltipNumbers\">200</c>` would be changed to `<c val=\"bfd4fd\">200</c>`.
+
+***
+
+### --gs-replace-style-vars
+For all the style tags `<s>` in a gamestring, the variable in the `val` attribute value will be replaced with the color text hex value.
+
+For example, `<s val=\"StandardTooltipDetails\">Mana: 50</s>` would be changed to `<s val=\"bfd4fd\">Mana: 50</s>`.
+
+***
+
+### --gs-preserve-constant-vars
+`--gs-replace-constant-vars` is required to enable this option.
+
+For all the constant tags `<c>` in a gamestring, the replaced variable will be preserved in a custom `hlt-name` attribute in the tag.
+
+For example, `<c val=\"#TooltipNumbers\">200</c>` would be changed to `<c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">200</c>`.
+
+***
+
+### --gs-preserve-style-vars
+`--gs-replace-style-vars` is required to enable this option.
+
+For all the style tags `<s>` in a gamestring, the replaced variable will be preserved in a custom `hlt-name` attribute in the tag.
+
+For example, `<s val=\"StandardTooltipDetails\">Mana: 50</s>` would be changed to `<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 50</s>`.
+
+***
+
+### --localized-text
+Can be set to `None`, `Extract`, or `Copy`. Default is `None`.
+
+`None` - Gamestrings will be in the data JSON files.
+
+`Extract` - Gamestrings will NOT be in the data JSON files and instead the gamestrings will be saved in a created gamestrings JSON file.
+
+`Copy` - Gamestrings will be in both the data JSON files and a created gamestrings JSON file. 
+
+The gamestrings JSON file will be created in the `gamestrings` subdirectory of the output directory.
+
+***
+
+### --no-map-specific
+This option is for when `map` extractor is enabled.
+
+Normally if the `map` extractor is enabled, then map specific JSON files will be created in the `maps` subdirectories of the `data` and `gamestrings` subdirectories for each map. 
+Enabling this option will disable the creation of these map specific JSON files.
+
+***
+
+### --map-specific-json-output
+This option is for when `map` extractor is enabled. This option affects only the map specific json files.
+
+Can be set to `Normal`, `Patch`, or `All`. Default is `Patch`.
+
+`Normal` - The full json files are created.
+
+`Patch` - JSON patch files are created.
+
+`All` - Both the full json files and JSON patch files are created.
+
+For the patch files, the original or base files are the JSON files in the `data` or `gamestrings` subdirectories. 
+The map patch files contain the differences between the base files and the map specific files, so the full map specific JSON files can be recreated by applying the patch files to the base files.
 
 ## Commands
 ### casc-extract
@@ -187,7 +395,7 @@ Use the `-f, --filter` option to specify file extensions (with or without leadin
 The output directory structure of the extracted files will mirror the directory structure in the casc storage. 
 If `-o, --output-path` is not specified, then the extracted files will be in the `mods` directory in the current directory, otherwise the `mods` directory will be a subdirectory of the specified output directory.
 
-A `hdp.info` json file will be created in the `mods` directory with information about the extraction.
+A `hdp.info` JSON file will be created in the `mods` directory with information about the extraction.
 This file is used for the root command when `mods` is specified for the `storage-type` argument.
 
 Example command on Windows that specifies two directories (`thefirelords.stormmod` and `tracer.stormmod`) and filters by `xml` and `txt` file extensions:
