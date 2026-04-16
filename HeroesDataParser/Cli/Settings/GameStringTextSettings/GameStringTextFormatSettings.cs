@@ -9,7 +9,7 @@ public class GameStringTextFormatSettings : GameStringTextSettings
     public FileInfo FilePath { get; init; } = null!;
 
     [CommandArgument(1, "<type>")]
-    [Description("The format of the gamestrings to update to")]
+    [Description("The target format for the gamestrings")]
     public GameStringTextType GameStringTextType { get; init; }
 
     [CommandOption("--hlt-constant-mode <MODE>")]
