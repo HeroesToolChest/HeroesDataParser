@@ -17,16 +17,13 @@ public class JsonCreateService : IJsonCreateService
         _options = options.Value;
         _console = console;
 
-        _jsonSerializerOptions = new()
-        {
-            WriteIndented = _options.JsonIndent,
-            NewLine = "\n",
-            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-        };
+        _jsonSerializerOptions = new();
     }
 
     public async Task CreateJsonPatch()
     {
+        SetSerializationOptions();
+
         _logger.LogInformation("Creating JSON patch from {OldJsonFilePath} to {NewJsonFilePath}", _options.OldJsonFilePath, _options.NewJsonFilePath);
 
         using FileStream startStream = File.OpenRead(_options.OldJsonFilePath);
@@ -66,5 +63,12 @@ public class JsonCreateService : IJsonCreateService
         string? directoryName = Path.GetDirectoryName(_options.OutputFilePath);
         if (!string.IsNullOrEmpty(directoryName))
             Directory.CreateDirectory(directoryName);
+    }
+
+    private void SetSerializationOptions()
+    {
+        _jsonSerializerOptions.WriteIndented = _options.JsonIndent;
+        _jsonSerializerOptions.NewLine = "\n";
+        _jsonSerializerOptions.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
     }
 }

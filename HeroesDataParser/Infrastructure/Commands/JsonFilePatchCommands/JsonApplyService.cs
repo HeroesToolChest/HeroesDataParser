@@ -21,16 +21,13 @@ public class JsonApplyService : IJsonApplyService
         _options = options.Value;
         _console = console;
         _jsonSerializerOptionService = jsonSerializerOptionService;
-        _jsonSerializerOptions = new(_jsonSerializerOptionService.GeneralJsonSerializerOptions)
-        {
-            WriteIndented = _options.JsonIndent,
-        };
-        _jsonSerializerOptions.Converters.Add(new GameStringTextConverter(new GameStringTextConverterOptions() { GameStringTextType = GameStringTextType.RawText }));
-        _jsonSerializerOptions.Converters.Add(new GameStringItemDictionaryConverter());
+        _jsonSerializerOptions = new(_jsonSerializerOptionService.GeneralJsonSerializerOptions);
     }
 
     public async Task ApplyJsonPatch()
     {
+        SetSerializationOptions();
+
         _logger.LogInformation("Applying JSON patch from {PatchFilePath} to {JsonFilePath}", _options.JsonPatchFilePath, _options.JsonFilePath);
 
         JsonPatch? patch = await GetPatchFile();
@@ -216,5 +213,12 @@ public class JsonApplyService : IJsonApplyService
         string? directoryName = Path.GetDirectoryName(_options.OutputFilePath);
         if (!string.IsNullOrEmpty(directoryName))
             Directory.CreateDirectory(directoryName);
+    }
+
+    private void SetSerializationOptions()
+    {
+        _jsonSerializerOptions.WriteIndented = _options.JsonIndent;
+        _jsonSerializerOptions.Converters.Add(new GameStringTextConverter(new GameStringTextConverterOptions() { GameStringTextType = GameStringTextType.RawText }));
+        _jsonSerializerOptions.Converters.Add(new GameStringItemDictionaryConverter());
     }
 }

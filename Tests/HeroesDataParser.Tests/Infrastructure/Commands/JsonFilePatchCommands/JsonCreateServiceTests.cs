@@ -85,9 +85,9 @@ public class JsonCreateServiceTests
     }
 
     [TestMethod]
-    public async Task CreateJsonPatch_HasDiffernces_CreatesPatchFile()
+    public async Task CreateJsonPatch_HasDifferences_CreatesPatchFile()
     {
-        string outputFilePath = Path.Combine("TestOutput", nameof(CreateJsonPatch_HasDiffernces_CreatesPatchFile), "announcerdata_96477_enus_patched_map.patch.json");
+        string outputFilePath = Path.Combine("TestOutput", nameof(CreateJsonPatch_HasDifferences_CreatesPatchFile), "announcerdata_96477_enus_patched_map.patch.json");
 
         // arrange
         _options.Value.Returns(new JsonCreateOptions()
