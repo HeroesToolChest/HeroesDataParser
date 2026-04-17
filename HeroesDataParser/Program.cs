@@ -53,39 +53,39 @@ try
         config.ValidateExamples();
 #endif
         config.AddCommand<CASCExtractCommand>("casc-extract")
-            .WithDescription("Extract data files from a 'Heroes of the Storm' directory or from online");
+            .WithDescription("Extract data files from a Heroes of the Storm directory or from online");
 
         config.AddBranch<JsonPatchSettings>("json-patch", jsonPatch =>
         {
-            jsonPatch.SetDescription("Json-patching operations");
+            jsonPatch.SetDescription("JSON patching operations");
 
             jsonPatch.AddCommand<JsonApplyCommand>("apply")
                 .WithDescription("Patch a JSON file with a JSON patch file");
 
             jsonPatch.AddCommand<JsonCreateCommand>("create")
-                .WithDescription("Create a new JSON patch file from two JSON files");
+                .WithDescription("Create a JSON patch file from two JSON files");
         });
 
         config.AddBranch<GameStringTextSettings>("gamestring-text", gamestringText =>
         {
-            gamestringText.SetDescription("Gamestring text operations");
+            gamestringText.SetDescription("Gamestring text formatting and conversion operations");
 
             gamestringText.AddCommand<GameStringTextFormatCommand>("format")
-                .WithDescription("Format the gamestring text in a JSON file");
+                .WithDescription("Format gamestring text in a data or gamestring file");
         });
 
         config.AddBranch<JsonSchemaSettings>("schema", schema =>
         {
-            schema.SetDescription("Json schema operations");
+            schema.SetDescription("JSON schema operations");
 
             schema.AddBranch<JsonSchemaExportSettings>("export", export =>
             {
-                export.SetDescription("Json schema export operations");
+                export.SetDescription("JSON schema export operations");
                 export.AddCommand<JsonSchemaExportDataCommand>("data")
-                    .WithDescription("Export the JSON schema for the data files");
+                    .WithDescription("Export JSON schema for data files");
 
                 export.AddCommand<JsonSchemaExportGameStringCommand>("gamestrings")
-                    .WithDescription("Export the JSON schema for the gamestrings file");
+                    .WithDescription("Export JSON schema for the gamestrings file");
             });
         });
 
@@ -93,16 +93,16 @@ try
         {
             portrait.SetDescription("Reward portrait data operations");
             portrait.AddCommand<PortraitInfoCommand>("info")
-                .WithDescription("Display information about the reward portraits data file");
+                .WithDescription("Display information about a reward portraits data file");
 
             portrait.AddCommand<PortraitBattleNetCacheCommand>("battlenet-cache")
-                .WithDescription("Copy .wafl files from the Battle.net cache directory (or a custom directory) to the output directory");
+                .WithDescription("Copy .wafl files from the Battle.net cache directory or a custom directory to the output directory");
 
             portrait.AddCommand<PortraitExtractCommand>("extract")
-                .WithDescription("Extract reward portraits from the texture sheets");
+                .WithDescription("Extract reward portraits from texture sheets");
 
             portrait.AddCommand<PortraitExtractAutoCommand>("extract-auto")
-                .WithDescription("Automatically extract reward portraits from the texture sheets");
+                .WithDescription("Automatically extract reward portraits from texture sheet");
         });
     });
 
