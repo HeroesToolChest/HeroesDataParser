@@ -5,19 +5,19 @@ namespace HeroesDataParser.Cli.Settings;
 public class CASCExtractSettings : CommandSettings
 {
     [CommandArgument(0, "<storage-type>")]
-    [Description("The type of storage to load from ('game' or 'online')")]
+    [Description("Storage type to load from (game or online)")]
     public StorageType StorageType { get; init; }
 
     [CommandOption("-p|--storage-path <PATH>")]
-    [Description("The path of 'Heroes of the Storm' directory")]
+    [Description("Path to the Heroes of the Storm directory")]
     public DirectoryInfo? StorageDirectory { get; init; }
 
     [CommandOption("--download-ptr")]
-    [Description("Download from the ptr server instead of live ('online' storage-type only)")]
+    [Description("Download from the PTR server instead of live (online storage-type only)")]
     public bool IsPtr { get; init; }
 
     [CommandOption("-d|--directory <PATH>")]
-    [Description("The directory and it's subdirectories to be extracted, path must start with 'mods' (can be specified multiple times)")]
+    [Description("Directory and its subdirectories to extract, path must start with mods (can be specified multiple times)")]
     [DefaultValue(new[] { "mods" })]
     public string[] Directories { get; init; } = [];
 
@@ -27,12 +27,12 @@ public class CASCExtractSettings : CommandSettings
     public string[] Filters { get; init; } = [];
 
     [CommandOption("-t|--threads <NUMBER>")]
-    [Description("The number of threads to use for file extraction (defaults to max number of processors)")]
+    [Description("Number of threads for file extraction (defaults to max processors)")]
     [DefaultValue(-1)]
     public int Threads { get; init; }
 
     [CommandOption("-o|--output-path <PATH>")]
-    [Description("The path of the output directory (defaults to current directory)")]
+    [Description("Output directory for extracted files (defaults to current directory)")]
     public DirectoryInfo? OutputDirectory { get; init; }
 
     public override ValidationResult Validate()

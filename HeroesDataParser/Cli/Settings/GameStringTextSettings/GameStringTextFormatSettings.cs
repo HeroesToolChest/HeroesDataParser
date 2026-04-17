@@ -5,34 +5,34 @@ namespace HeroesDataParser.Cli.Settings.GameStringTextSettings;
 public class GameStringTextFormatSettings : GameStringTextSettings
 {
     [CommandArgument(0, "<file-path>")]
-    [Description("The path of the data or gamestring file")]
+    [Description("Path to the data or gamestring file")]
     public FileInfo FilePath { get; init; } = null!;
 
     [CommandArgument(1, "<type>")]
-    [Description("The target format for the gamestrings")]
+    [Description("Target format for the gamestrings")]
     public GameStringTextType GameStringTextType { get; init; }
 
     [CommandOption("--hlt-constant-mode <MODE>")]
-    [Description("The mode for removing 'hlt-name' attributes from constant tags")]
+    [Description("Mode for removing hlt-name attributes from constant tags")]
     [DefaultValue(GameStringTextHltRemoveMode.None)]
     public GameStringTextHltRemoveMode HltConstantRemoveMode { get; init; }
 
     [CommandOption("--hlt-style-mode <MODE>")]
-    [Description("The mode for removing 'hlt-name' attributes from style tags")]
+    [Description("Mode for removing hlt-name attributes from style tags")]
     [DefaultValue(GameStringTextHltRemoveMode.None)]
     public GameStringTextHltRemoveMode HltStyleRemoveMode { get; init; }
 
     [CommandOption("-o|--output-path <PATH>")]
-    [Description("The path of the output directory where the new file will be created (defaults to the file directory)")]
+    [Description("Output directory for the created file (defaults to the input file's directory)")]
     public DirectoryInfo? OutputDirectory { get; init; }
 
     [CommandOption("--overwrite")]
-    [Description("Allow the created file to override an existing file")]
+    [Description("Allow the created file to overwrite an existing file")]
     [DefaultValue(false)]
     public bool Overwrite { get; init; }
 
     [CommandOption("--no-indent")]
-    [Description("Disable indentation in the output JSON files")]
+    [Description("Disable indentation in output JSON files")]
     [DefaultValue(false)]
     public bool DisableJsonIndent { get; init; }
 

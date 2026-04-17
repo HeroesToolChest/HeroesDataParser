@@ -5,20 +5,20 @@ namespace HeroesDataParser.Cli.Settings.JsonSchemaSettings;
 public class JsonSchemaExportDataSettings : JsonSchemaExportSettings
 {
     [CommandOption("-e|--extractor <EXTRACTOR>")]
-    [Description("Extractor types to extract the json schema (can be specified multiple times)")]
+    [Description("Extractor types for the JSON schema export (can be specified multiple times)")]
     public string[] Extractors { get; init; } = [];
 
     [CommandOption("-o|--output-path <PATH>")]
-    [Description("The path of the output directory (defaults to current directory)")]
+    [Description("Output directory for the created files (defaults to current directory)")]
     public DirectoryInfo? OutputDirectory { get; init; }
 
     [CommandOption("--overwrite")]
-    [Description("Allow the created files to override existing files in the output directory")]
+    [Description("Allow created files to overwrite existing files")]
     [DefaultValue(false)]
     public bool Overwrite { get; init; }
 
     [CommandOption("--no-indent")]
-    [Description("Disable indentation in the output JSON files")]
+    [Description("Disable indentation in output JSON files")]
     [DefaultValue(false)]
     public bool DisableJsonIndent { get; init; }
 

@@ -5,19 +5,19 @@ namespace HeroesDataParser.Cli.Settings.JsonPatchSettings;
 public class JsonApplySettings : JsonPatchSettings
 {
     [CommandArgument(0, "<file-path>")]
-    [Description("The path of the original json file")]
+    [Description("Path to the original JSON file")]
     public FileInfo FilePath { get; init; } = null!;
 
     [CommandArgument(1, "<patch-file-path>")]
-    [Description("The path of the json patch file")]
+    [Description("Path to the JSON patch file")]
     public FileInfo PatchFilePath { get; init; } = null!;
 
     [CommandOption("-o|--output-path <PATH>")]
-    [Description("The path of the output directory where the new file will be created (defaults to the patch file directory)")]
+    [Description("Output directory for the created file (defaults to the patch file's directory)")]
     public DirectoryInfo? OutputDirectory { get; init; }
 
     [CommandOption("--overwrite")]
-    [Description("Allow the created file to override an existing file")]
+    [Description("Allow the created file to overwrite an existing file")]
     [DefaultValue(false)]
     public bool Overwrite { get; init; }
 
@@ -27,7 +27,7 @@ public class JsonApplySettings : JsonPatchSettings
     public bool DeletePatchFile { get; init; }
 
     [CommandOption("--no-indent")]
-    [Description("Disable indentation in the output JSON files")]
+    [Description("Disable indentation in output JSON files")]
     [DefaultValue(false)]
     public bool DisableJsonIndent { get; init; }
 

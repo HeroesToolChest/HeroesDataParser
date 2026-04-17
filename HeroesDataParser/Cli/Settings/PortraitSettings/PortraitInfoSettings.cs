@@ -5,19 +5,19 @@ namespace HeroesDataParser.Cli.Settings.PortraitSettings;
 public class PortraitInfoSettings : PortraitSettings
 {
     [CommandArgument(0, "<rewardportrait-file-path>")]
-    [Description("The path of the rewardportrait data json file")]
+    [Description("Path to the rewardportrait data JSON file")]
     public FileInfo FilePath { get; init; } = null!;
 
     [CommandOption("-t|--texture-sheets")]
-    [Description("Display all the reward portrait texture sheet file names")]
+    [Description("Display all reward portrait texture sheet file names")]
     public bool TextureSheets { get; init; }
 
     [CommandOption("-s|--icon-slot <SLOT>")]
-    [Description("Display all the given icon slot names along with the texture sheet image file name")]
+    [Description("Display all icon slot names along with the texture sheet image file name for the given slot")]
     public int? IconSlot { get; init; }
 
     [CommandOption("-i|--texture-sheet-image <IMAGE>")]
-    [Description("Display all the reward portrait names along with their icon slot associated with the specified texture sheet image file name")]
+    [Description("Display all reward portrait names and their icon slots for the specified texture sheet image")]
     public string? TextureSheetImage { get; init; }
 
     public override ValidationResult Validate()

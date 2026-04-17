@@ -5,11 +5,11 @@ namespace HeroesDataParser.Cli.Settings.PortraitSettings;
 public class PortraitBattleNetCacheSettings : PortraitSettings
 {
     [CommandOption("-c|--battlenet-cache")]
-    [Description("The path of the battle.net cache directory")]
+    [Description("Path to the Battle.net cache directory")]
     public DirectoryInfo? CacheDirectoryPath { get; init; }
 
     [CommandOption("-o|--output-path <PATH>")]
-    [Description("The path of the output directory for the copied texture sheets (defaults to the current directory)")]
+    [Description("Output directory for copied texture sheets (defaults to current directory)")]
     public DirectoryInfo? OutputDirectory { get; init; }
 
     public override ValidationResult Validate()

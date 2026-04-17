@@ -5,38 +5,38 @@ namespace HeroesDataParser.Cli.Settings;
 public class RootSettings : CommandSettings
 {
     [CommandArgument(0, "<storage-type>")]
-    [Description("The type of storage to load from ('mods', 'game', or 'online')")]
+    [Description("Storage type to load from (mods, game, or online)")]
     public StorageType StorageType { get; init; }
 
     [CommandOption("-p|--storage-path <PATH>")]
-    [Description("The path of 'Heroes of the Storm' directory or an already extracted 'mods' directory")]
+    [Description("Path to the Heroes of the Storm directory or an already extracted mods directory")]
     public DirectoryInfo? StorageDirectory { get; init; }
 
     [CommandOption("--download-ptr")]
-    [Description("Download from the ptr server instead of live ('online' storage-type only)")]
+    [Description("Download from the PTR server instead of live (online storage-type only)")]
     public bool IsPtr { get; init; }
 
     [CommandOption("-e|--extractor <EXTRACTOR>")]
-    [Description("Extractors to enable, add ':i|:images' to enabled image extraction (can be specified multiple times)")]
+    [Description("Extractors to enable, add :i or :images to enable image extraction (can be specified multiple times)")]
     [DefaultValue("Hero")]
     public string[] Extractors { get; init; } = [];
 
     [CommandOption("-l|--localization <LOCALE>")]
     [DefaultValue("enUS")]
-    [Description("Localizations for gamestrings to process (can be specified multiple times)")]
+    [Description("Locales for gamestrings to process (can be specified multiple times)")]
     public string[] StormLocales { get; init; } = [];
 
     [CommandOption("-g|--gamestring-text <FORMAT>")]
-    [Description("The format of the gamestrings")]
+    [Description("Format of the gamestrings")]
     [DefaultValue(GameStringTextType.RawText)]
     public GameStringTextType GameStringTextType { get; init; }
 
     [CommandOption("--gs-replace-constant-vars")]
-    [Description("Replace constant variables in gamestrings with the color text hex values")]
+    [Description("Replace constant variables in gamestrings with color hex values")]
     public bool GameStringReplaceConstantVars { get; init; }
 
     [CommandOption("--gs-replace-style-vars")]
-    [Description("Replace font variables in gamestrings with the color text hex values")]
+    [Description("Replace font style variables in gamestrings with color hex values")]
     public bool GameStringReplaceStyleVars { get; init; }
 
     [CommandOption("--gs-preserve-constant-vars")]
@@ -48,47 +48,47 @@ public class RootSettings : CommandSettings
     public bool GameStringPreserveStyleVars { get; init; }
 
     [CommandOption("--localized-text <OPTION>")]
-    [Description("Specifies how to handle gamestring properties during JSON serialization")]
+    [Description("How to handle gamestring properties during JSON serialization")]
     [DefaultValue(LocalizedTextOption.None)]
     public LocalizedTextOption LocalizedTextOption { get; init; }
 
     [CommandOption("--no-map-specific")]
-    [Description("Disable the map specific JSON file creation when 'map' extractor is specified")]
+    [Description("Disable map-specific JSON file creation when map extractor is specified")]
     public bool DisableMapSpecificJson { get; init; }
 
     [CommandOption("--map-specific-json-output <TYPE>")]
-    [Description("Specifies how to handle the map specific JSON file creation")]
+    [Description("How to handle map-specific JSON file creation")]
     [DefaultValue(MapSpecificWriterJsonOutputType.Patch)]
     public MapSpecificWriterJsonOutputType MapSpecificWriterJsonOutputType { get; init; }
 
     [CommandOption("--map-specific-empty-patch")]
-    [Description("Allows map specific patch files without any item changes to be created")]
+    [Description("Allow map-specific patch files without item changes to be created")]
     public bool AllowEmptyMapSpecificPatchFiles { get; init; }
 
     [CommandOption("--map-specific-empty-directories")]
-    [Description("Allows map specific empty directories to be created")]
+    [Description("Allow empty map-specific directories to be created")]
     public bool AllowEmptyMapSpecificDirectories { get; init; }
 
     [CommandOption("--custom-configs")]
-    [Description("Display the loaded custom config files")]
+    [Description("Display loaded custom config files")]
     public bool ShowLoadedCustomConfigFiles { get; init; }
 
     [CommandOption("--no-indent")]
-    [Description("Disable indentation in the output JSON files")]
+    [Description("Disable indentation in output JSON files")]
     [DefaultValue(false)]
     public bool DisableJsonIndent { get; init; }
 
     [CommandOption("-t|--threads <NUMBER>")]
-    [Description("The number of threads to use for data parsing and image writing (defaults to max number of processors)")]
+    [Description("Number of threads for data parsing and image writing (defaults to max processors)")]
     [DefaultValue(-1)]
     public int Threads { get; init; }
 
     [CommandOption("-o|--output-path <PATH>")]
-    [Description("The path of the output directory (defaults to the current directory)")]
+    [Description("Output directory for created files (defaults to current directory)")]
     public DirectoryInfo? OutputDirectory { get; init; }
 
     [CommandOption("--heroes-version")]
-    [Description("Manually set the 'Heroes of the Storm' version in the format of major.minor.revision.build<_ptr> (e.g. 1.2.3.4 or 1.2.3.4_ptr)")]
+    [Description("Manually set the Heroes of the Storm version as major.minor.revision.build[[_ptr]] (e.g. 1.2.3.4 or 1.2.3.4_ptr)")]
     public string? HeroesVersion { get; init; }
 
     public override ValidationResult Validate()

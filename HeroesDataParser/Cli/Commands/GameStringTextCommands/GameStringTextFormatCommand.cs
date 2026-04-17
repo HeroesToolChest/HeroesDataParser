@@ -28,7 +28,9 @@ public class GameStringTextFormatCommand : AsyncCommand<GameStringTextFormatSett
         _options.GameStringTextHltConstantRemoveMode = settings.HltConstantRemoveMode;
         _options.GameStringTextHltStyleRemoveMode = settings.HltStyleRemoveMode;
 
-        if (settings.OutputDirectory is not null)
+        if (settings.OutputDirectory is null)
+            _options.OutputDirectory = settings.FilePath.DirectoryName ?? ".";
+        else
             _options.OutputDirectory = settings.OutputDirectory.FullName;
 
         _options.AllowOverwrite = settings.Overwrite;
