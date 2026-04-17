@@ -179,7 +179,7 @@ public class GameStringTextUpdateCommandTests
 
         gameStringTextUpdateOptions.FilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "herodata_96477_enus_rawtext.json")));
         gameStringTextUpdateOptions.GameStringTextType.Should().Be(GameStringTextType.PlainText);
-        gameStringTextUpdateOptions.OutputDirectory.Should().Be(".");
+        gameStringTextUpdateOptions.OutputDirectory.Should().Be(Path.Combine(Path.GetFullPath("."), "TestJsonFiles"));
         gameStringTextUpdateOptions.AllowOverwrite.Should().BeTrue();
         gameStringTextUpdateOptions.GameStringTextHltConstantRemoveMode.Should().Be(GameStringTextHltRemoveMode.None);
         gameStringTextUpdateOptions.GameStringTextHltStyleRemoveMode.Should().Be(GameStringTextHltRemoveMode.None);
@@ -266,6 +266,7 @@ public class GameStringTextUpdateCommandTests
         CommandAppResult result = await app.RunAsync(
         [
             Path.Combine("TestJsonFiles", "herodata_96477_enus_rawtext.json"), "1",
+            "--overwrite",
             "--no-indent",
         ],
         TestContext.CancellationToken);
