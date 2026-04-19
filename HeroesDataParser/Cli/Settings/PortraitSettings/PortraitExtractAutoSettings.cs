@@ -8,7 +8,7 @@ public class PortraitExtractAutoSettings : PortraitSettings
     [Description("Path to the rewardportrait data JSON file")]
     public FileInfo FilePath { get; init; } = null!;
 
-    [CommandOption("-c|--battlenet-cache")]
+    [CommandOption("-c|--battlenet-cache <PATH>")]
     [Description("Path to the Battle.net cache directory")]
     public DirectoryInfo? CacheDirectoryPath { get; init; }
 

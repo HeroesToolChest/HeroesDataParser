@@ -102,7 +102,7 @@ try
                 .WithDescription("Extract reward portraits from texture sheets");
 
             portrait.AddCommand<PortraitExtractAutoCommand>("extract-auto")
-                .WithDescription("Automatically extract reward portraits from texture sheet");
+                .WithDescription("Automatically extract reward portraits from texture sheets");
         });
     });
 

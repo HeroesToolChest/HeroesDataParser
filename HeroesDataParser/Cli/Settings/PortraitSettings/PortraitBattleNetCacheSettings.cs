@@ -4,7 +4,7 @@ namespace HeroesDataParser.Cli.Settings.PortraitSettings;
 
 public class PortraitBattleNetCacheSettings : PortraitSettings
 {
-    [CommandOption("-c|--battlenet-cache")]
+    [CommandOption("-c|--battlenet-cache <PATH>")]
     [Description("Path to the Battle.net cache directory")]
     public DirectoryInfo? CacheDirectoryPath { get; init; }
 
