@@ -27,10 +27,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="JsonPatch.Net" Version="5.0.2" />
-		<PackageReference Include="Microsoft.Extensions.Compliance.Redaction" Version="10.4.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.5" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
-		<PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.4.0" />
+		<PackageReference Include="Microsoft.Extensions.Compliance.Redaction" Version="10.5.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.6" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.6" />
+		<PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.5.0" />
 		<PackageReference Include="Pfim" Version="0.11.4" />
 		<PackageReference Include="Polly.Core" Version="8.6.6" />
 		<PackageReference Include="Polly.Extensions" Version="8.6.6" />
@@ -41,7 +41,7 @@
 		<PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
 		<PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
-		<PackageReference Include="Spectre.Console" Version="0.55.0" />
+		<PackageReference Include="Spectre.Console" Version="0.55.2" />
 		<PackageReference Include="Spectre.Console.Analyzer" Version="1.0.1-preview.0.1">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
