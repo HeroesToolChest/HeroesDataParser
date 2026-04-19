@@ -141,7 +141,7 @@ public class MapParser : DataParser<Map>
             map.ReplayPreviewImage = GetImagePathWithAppender(baseAssetPath, map.Id);
             map.ReplayPreviewImagePath = new RelativeFilePath()
             {
-                FilePath = baseAssetPath,
+                FilePath = mpqBaseAssetPath,
                 MpqFilePath = stormMap.S2MAFilePath,
             };
 
