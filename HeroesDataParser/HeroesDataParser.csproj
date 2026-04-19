@@ -26,6 +26,8 @@
   </PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Heroes.Element" Version="1.0.0-alpha.1" />
+		<PackageReference Include="Heroes.XmlData" Version="1.0.0-alpha.3" />
 		<PackageReference Include="JsonPatch.Net" Version="5.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Compliance.Redaction" Version="10.5.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.6" />
@@ -51,12 +53,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\Heroes.Element\Heroes.Element\Heroes.Element.csproj" />
-	  <ProjectReference Include="..\Heroes.XmlData\CascLib\CascLib\CascLib.csproj" />
-	  <ProjectReference Include="..\Heroes.XmlData\Heroes.XmlData\Heroes.XmlData.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
