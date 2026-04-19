@@ -313,17 +313,55 @@ public class GameStringTextFormatServiceTests
 
     // self update to self, nothing should change
     [TestMethod]
-    public async Task FormatGameStringText_DataPlaintTextTo_PT_CR_SR_UpdatedFile()
+    public async Task FormatGameStringText_DataPlaintTextTo_PT_CR_SR_RemoveAndUndo_UpdatedFile()
     {
         // arrange
         string inputFileName = "original_herodata_96477_enus_plaintext_self.json";
-        string outputFileDirectory = Path.Combine("TestOutput", nameof(FormatGameStringText_DataPlaintTextTo_PT_CR_SR_UpdatedFile));
+        string outputFileDirectory = Path.Combine("TestOutput", nameof(FormatGameStringText_DataPlaintTextTo_PT_CR_SR_RemoveAndUndo_UpdatedFile));
 
         _options.Value.Returns(new GameStringTextFormatOptions()
         {
             GameStringTextType = GameStringTextType.PlainText,
             GameStringTextHltConstantRemoveMode = GameStringTextHltRemoveMode.RemoveAndUndo,
             GameStringTextHltStyleRemoveMode = GameStringTextHltRemoveMode.RemoveAndUndo,
+            FilePath = Path.Combine("TestJsonFiles", "GameStringTextFormat", inputFileName),
+            OutputDirectory = outputFileDirectory,
+            IsNewFile = false,
+            JsonIndent = true,
+        });
+
+        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
+
+        GameStringTextFormatService gameStringTextFormatService = new(_logger, _options, _console, _jsonSerializerOptionService);
+
+        // act
+        await gameStringTextFormatService.FormatGameStringText();
+
+        // assert
+        _console.Output.Should().Contain("Updated formatted data file at");
+
+        string newOutputFile = Path.Combine(outputFileDirectory, inputFileName);
+        File.Exists(newOutputFile).Should().BeTrue();
+
+        string newFileContent = File.ReadAllText(newOutputFile);
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "original_herodata_96477_enus_plaintext_self.json")).ReplaceLineEndings("\n");
+
+        newFileContent.Should().BeEquivalentTo(comparedToText);
+    }
+
+    // self update to self, nothing should change
+    [TestMethod]
+    public async Task FormatGameStringText_DataPlaintTextTo_PT_CR_SR_None_UpdatedFile()
+    {
+        // arrange
+        string inputFileName = "original_herodata_96477_enus_plaintext_self.json";
+        string outputFileDirectory = Path.Combine("TestOutput", nameof(FormatGameStringText_DataPlaintTextTo_PT_CR_SR_None_UpdatedFile));
+
+        _options.Value.Returns(new GameStringTextFormatOptions()
+        {
+            GameStringTextType = GameStringTextType.PlainText,
+            GameStringTextHltConstantRemoveMode = GameStringTextHltRemoveMode.None,
+            GameStringTextHltStyleRemoveMode = GameStringTextHltRemoveMode.None,
             FilePath = Path.Combine("TestJsonFiles", "GameStringTextFormat", inputFileName),
             OutputDirectory = outputFileDirectory,
             IsNewFile = false,
@@ -381,6 +419,79 @@ public class GameStringTextFormatServiceTests
 
         string newFileContent = File.ReadAllText(newOutputFile);
         string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "gamestrings_96477_enus_rawtext_to_plaintext_rc_rs_pc_ps.json")).ReplaceLineEndings("\n");
+
+        newFileContent.Should().BeEquivalentTo(comparedToText);
+    }
+
+    // no change in constant/styles
+    [TestMethod]
+    public async Task FormatGameStringText_GameStringPlaintTextAllFalse_ReturnNewFile()
+    {
+        // arrange
+        string inputFileName = "original_gamestrings_96477_enus_rawtext_all_false.json";
+        string outputFileDirectory = Path.Combine("TestOutput", nameof(FormatGameStringText_GameStringPlaintTextAllFalse_ReturnNewFile));
+        _options.Value.Returns(new GameStringTextFormatOptions()
+        {
+            GameStringTextType = GameStringTextType.PlainText,
+            GameStringTextHltConstantRemoveMode = GameStringTextHltRemoveMode.None,
+            GameStringTextHltStyleRemoveMode = GameStringTextHltRemoveMode.None,
+            FilePath = Path.Combine("TestJsonFiles", "GameStringTextFormat", inputFileName),
+            OutputDirectory = outputFileDirectory,
+            IsNewFile = true,
+            JsonIndent = true,
+        });
+
+        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
+
+        GameStringTextFormatService gameStringTextFormatService = new(_logger, _options, _console, _jsonSerializerOptionService);
+
+        // act
+        await gameStringTextFormatService.FormatGameStringText();
+
+        // assert
+        _console.Output.Should().Contain("New formatted gamestring file created at");
+
+        string newOutputFile = Path.Combine(outputFileDirectory, inputFileName);
+        File.Exists(newOutputFile).Should().BeTrue();
+
+        string newFileContent = File.ReadAllText(newOutputFile);
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "gamestrings_96477_enus_rawtext_to_plaint_all_false.json")).ReplaceLineEndings("\n");
+
+        newFileContent.Should().BeEquivalentTo(comparedToText);
+    }
+
+    [TestMethod]
+    public async Task FormatGameStringText_GameStringColoredTextScalingToPlainTextSame_ReturnNewFile()
+    {
+        // arrange
+        string inputFileName = "original_gamestrings_96477_enus_coloredtextscaling_rc.json";
+        string outputFileDirectory = Path.Combine("TestOutput", nameof(FormatGameStringText_GameStringColoredTextScalingToPlainTextSame_ReturnNewFile));
+        _options.Value.Returns(new GameStringTextFormatOptions()
+        {
+            GameStringTextType = GameStringTextType.PlainText,
+            GameStringTextHltConstantRemoveMode = GameStringTextHltRemoveMode.None,
+            GameStringTextHltStyleRemoveMode = GameStringTextHltRemoveMode.None,
+            FilePath = Path.Combine("TestJsonFiles", "GameStringTextFormat", inputFileName),
+            OutputDirectory = outputFileDirectory,
+            IsNewFile = true,
+            JsonIndent = true,
+        });
+
+        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
+
+        GameStringTextFormatService gameStringTextFormatService = new(_logger, _options, _console, _jsonSerializerOptionService);
+
+        // act
+        await gameStringTextFormatService.FormatGameStringText();
+
+        // assert
+        _console.Output.Should().Contain("New formatted gamestring file created at");
+
+        string newOutputFile = Path.Combine(outputFileDirectory, inputFileName);
+        File.Exists(newOutputFile).Should().BeTrue();
+
+        string newFileContent = File.ReadAllText(newOutputFile);
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "GameStringTextFormat", "gamestrings_96477_enus_colortextscaling_to_plaintext_same.json")).ReplaceLineEndings("\n");
 
         newFileContent.Should().BeEquivalentTo(comparedToText);
     }

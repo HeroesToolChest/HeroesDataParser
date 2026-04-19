@@ -105,10 +105,18 @@ public class GameStringTextFormatService : IGameStringTextUpdateService
             return null;
 
         metaDataProperties.GameStringTextProperties!.GameStringTextType = _options.GameStringTextType;
-        metaDataProperties.GameStringTextProperties.ReplaceFontConstantVars = _options.GameStringTextHltConstantRemoveMode != GameStringTextHltRemoveMode.RemoveAndUndo;
-        metaDataProperties.GameStringTextProperties.ReplaceFontStylesVars = _options.GameStringTextHltStyleRemoveMode != GameStringTextHltRemoveMode.RemoveAndUndo;
-        metaDataProperties.GameStringTextProperties.PreserveFontStyleConstantVars = _options.GameStringTextHltConstantRemoveMode != GameStringTextHltRemoveMode.Remove && _options.GameStringTextHltConstantRemoveMode != GameStringTextHltRemoveMode.RemoveAndUndo;
-        metaDataProperties.GameStringTextProperties.PreserveFontStyleVars = _options.GameStringTextHltStyleRemoveMode != GameStringTextHltRemoveMode.Remove && _options.GameStringTextHltStyleRemoveMode != GameStringTextHltRemoveMode.RemoveAndUndo;
+
+        if (_options.GameStringTextHltConstantRemoveMode != GameStringTextHltRemoveMode.None)
+        {
+            metaDataProperties.GameStringTextProperties.ReplaceFontConstantVars = GetReplaceFontConstantVarsValue();
+            metaDataProperties.GameStringTextProperties.PreserveFontStyleConstantVars = GetPreserveFontStyleConstantVarsValue();
+        }
+
+        if (_options.GameStringTextHltStyleRemoveMode != GameStringTextHltRemoveMode.None)
+        {
+            metaDataProperties.GameStringTextProperties.ReplaceFontStylesVars = GetReplaceFontStylesVarsValue();
+            metaDataProperties.GameStringTextProperties.PreserveFontStyleVars = GetPreserveFontStyleVars();
+        }
 
         SortedDictionary<string, object> itemObjects = new(StringComparer.OrdinalIgnoreCase);
         Type elementType = DataDocument.Load(jsonDocument).ElementType;
@@ -136,13 +144,32 @@ public class GameStringTextFormatService : IGameStringTextUpdateService
         RootJsonGameStringElement? rootJsonGameStringElement = jsonDocument.RootElement.Deserialize<RootJsonGameStringElement>(_jsonSerializerOptions)!;
 
         rootJsonGameStringElement.MetaGameStringProperties.GameStringTextProperties!.GameStringTextType = _options.GameStringTextType;
-        rootJsonGameStringElement.MetaGameStringProperties.GameStringTextProperties.ReplaceFontConstantVars = _options.GameStringTextHltConstantRemoveMode != GameStringTextHltRemoveMode.RemoveAndUndo;
-        rootJsonGameStringElement.MetaGameStringProperties.GameStringTextProperties.ReplaceFontStylesVars = _options.GameStringTextHltStyleRemoveMode != GameStringTextHltRemoveMode.RemoveAndUndo;
-        rootJsonGameStringElement.MetaGameStringProperties.GameStringTextProperties.PreserveFontStyleConstantVars = _options.GameStringTextHltConstantRemoveMode != GameStringTextHltRemoveMode.Remove && _options.GameStringTextHltConstantRemoveMode != GameStringTextHltRemoveMode.RemoveAndUndo;
-        rootJsonGameStringElement.MetaGameStringProperties.GameStringTextProperties.PreserveFontStyleVars = _options.GameStringTextHltStyleRemoveMode != GameStringTextHltRemoveMode.Remove && _options.GameStringTextHltStyleRemoveMode != GameStringTextHltRemoveMode.RemoveAndUndo;
+
+        if (_options.GameStringTextHltConstantRemoveMode != GameStringTextHltRemoveMode.None)
+        {
+            rootJsonGameStringElement.MetaGameStringProperties.GameStringTextProperties.ReplaceFontConstantVars = GetReplaceFontConstantVarsValue();
+            rootJsonGameStringElement.MetaGameStringProperties.GameStringTextProperties.PreserveFontStyleConstantVars = GetPreserveFontStyleConstantVarsValue();
+        }
+
+        if (_options.GameStringTextHltStyleRemoveMode != GameStringTextHltRemoveMode.None)
+        {
+            rootJsonGameStringElement.MetaGameStringProperties.GameStringTextProperties.ReplaceFontStylesVars = GetReplaceFontStylesVarsValue();
+            rootJsonGameStringElement.MetaGameStringProperties.GameStringTextProperties.PreserveFontStyleVars = GetPreserveFontStyleVars();
+        }
 
         return rootJsonGameStringElement;
     }
+
+    private bool GetReplaceFontConstantVarsValue()
+    {
+        return _options.GameStringTextHltConstantRemoveMode == GameStringTextHltRemoveMode.Remove;
+    }
+
+    private bool GetReplaceFontStylesVarsValue() => _options.GameStringTextHltStyleRemoveMode == GameStringTextHltRemoveMode.Remove;
+
+    private bool GetPreserveFontStyleConstantVarsValue() => _options.GameStringTextHltConstantRemoveMode != GameStringTextHltRemoveMode.Remove && _options.GameStringTextHltConstantRemoveMode != GameStringTextHltRemoveMode.RemoveAndUndo;
+
+    private bool GetPreserveFontStyleVars() => _options.GameStringTextHltStyleRemoveMode != GameStringTextHltRemoveMode.Remove && _options.GameStringTextHltStyleRemoveMode != GameStringTextHltRemoveMode.RemoveAndUndo;
 
     private ItemsType? GetItemsType(JsonDocument jsonDocument)
     {
