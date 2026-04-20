@@ -237,8 +237,10 @@ Notes:
 ### -l, --localization
 Specifies the gamestring localization to parse. Can be specified multiple times to select multiple localizations. Default is `enUS`.
 
+All enabled extractors will run for each specified localization.
+
 `all` - selects all locales  
-`enUS` - English 
+`enUS` - English   
 `deDE` - German  
 `esES` - Spanish (EU)  
 `esMX` - Spanish (AL)  
