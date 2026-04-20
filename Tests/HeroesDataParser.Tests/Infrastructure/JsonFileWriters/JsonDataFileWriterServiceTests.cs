@@ -29,7 +29,7 @@ public class JsonDataFileWriterServiceTests
         // arrange
         RootOptions rootOptions = new()
         {
-            OutputDirectory = Path.Combine("tests", nameof(Write_HasItems_CreatesJsonFile)),
+            OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(Write_HasItems_CreatesJsonFile)),
             LocalizedText = LocalizedTextOption.None,
             CurrentLocale = StormLocale.ENUS,
             GameStringText = new GameStringTextOptions
@@ -173,7 +173,7 @@ public class JsonDataFileWriterServiceTests
         // arrange
         RootOptions rootOptions = new()
         {
-            OutputDirectory = Path.Combine("tests", nameof(Write_HasItemsNoIndent_CreatesJsonFileWithNoIndent)),
+            OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(Write_HasItemsNoIndent_CreatesJsonFileWithNoIndent)),
             LocalizedText = LocalizedTextOption.None,
             CurrentLocale = StormLocale.ENUS,
             GameStringText = new GameStringTextOptions
@@ -235,7 +235,7 @@ public class JsonDataFileWriterServiceTests
         // arrange
         RootOptions rootOptions = new()
         {
-            OutputDirectory = Path.Combine("tests", nameof(Write_NoItems_NoFilesCreated)),
+            OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(Write_NoItems_NoFilesCreated)),
         };
 
         JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _extractedGameStringsService); // create real instance
@@ -263,7 +263,7 @@ public class JsonDataFileWriterServiceTests
         // arrange
         RootOptions rootOptions = new()
         {
-            OutputDirectory = Path.Combine("tests", nameof(WriteToMapSpecific_HasItemsWithNoDiffFound_CreatesJsonFile)),
+            OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(WriteToMapSpecific_HasItemsWithNoDiffFound_CreatesJsonFile)),
             CurrentLocale = StormLocale.ENUS,
             MapSpecificWriterJsonOutputType = MapSpecificWriterJsonOutputType.Patch,
             GameStringText = new GameStringTextOptions
@@ -335,7 +335,7 @@ public class JsonDataFileWriterServiceTests
         // arrange
         RootOptions rootOptions = new()
         {
-            OutputDirectory = Path.Combine("tests", nameof(WriteToMapSpecific_HasItemsWithNoDiffFound_NoJsonFileCreated)),
+            OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(WriteToMapSpecific_HasItemsWithNoDiffFound_NoJsonFileCreated)),
             CurrentLocale = StormLocale.ENUS,
             MapSpecificWriterJsonOutputType = MapSpecificWriterJsonOutputType.Patch,
             GameStringText = new GameStringTextOptions
@@ -400,7 +400,7 @@ public class JsonDataFileWriterServiceTests
         // arrange
         RootOptions rootOptions = new()
         {
-            OutputDirectory = Path.Combine("tests", $"{nameof(WriteToMapSpecific_HasItemsWithPatchWasFound_CreatesJsonFile)}_{mapWriterJsonOutputType}"),
+            OutputDirectory = Path.Combine(TestConstants.TestDirectory, $"{nameof(WriteToMapSpecific_HasItemsWithPatchWasFound_CreatesJsonFile)}_{mapWriterJsonOutputType}"),
             CurrentLocale = StormLocale.ENUS,
             MapSpecificWriterJsonOutputType = mapWriterJsonOutputType,
             GameStringText = new GameStringTextOptions
@@ -501,7 +501,7 @@ public class JsonDataFileWriterServiceTests
         // arrange
         RootOptions rootOptions = new()
         {
-            OutputDirectory = Path.Combine("tests", nameof(Write_LocalizedTextNone_CreatesWithGamestrings)),
+            OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(Write_LocalizedTextNone_CreatesWithGamestrings)),
             LocalizedText = LocalizedTextOption.None,
             CurrentLocale = StormLocale.DEDE,
             GameStringText = new GameStringTextOptions
@@ -599,13 +599,14 @@ public class JsonDataFileWriterServiceTests
     }
 
     [TestMethod]
-    public async Task Write_LocalizedTextExtract_CreatesWithoutGamestrings()
+    public async Task Write_LocalizedTextExtractNoFirstRun_CreatesWithoutGamestrings()
     {
         // arrange
         RootOptions rootOptions = new()
         {
-            OutputDirectory = Path.Combine("tests", nameof(Write_LocalizedTextExtract_CreatesWithoutGamestrings)),
+            OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(Write_LocalizedTextExtractNoFirstRun_CreatesWithoutGamestrings)),
             LocalizedText = LocalizedTextOption.Extract,
+            IsLocalizedExtractFirstRun = false,
             CurrentLocale = StormLocale.DEDE,
             GameStringText = new GameStringTextOptions
             {
@@ -640,7 +641,62 @@ public class JsonDataFileWriterServiceTests
             Description = new GameStringText("Hero description"),
         });
 
-        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "data", $"herodata_{rootOptions.BuildNumber}_dede.json");
+        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "data", $"herodata_{rootOptions.BuildNumber}.json");
+
+        // act
+        await service.Write(heroesByElementId);
+
+        // assert
+        _serializedDataStoreService.DidNotReceiveWithAnyArgs().AddSerializedData(default!, default!);
+        _ = _resultSummaryService.DidNotReceive().JsonDataFilesWritten;
+        _ = _resultSummaryService.DidNotReceive().JsonDataFilesTotal;
+        File.Exists(expectedFilePath).Should().BeFalse();
+    }
+
+    [TestMethod]
+    public async Task Write_LocalizedTextExtractFirstRun_CreatesWithoutGamestrings()
+    {
+        // arrange
+        RootOptions rootOptions = new()
+        {
+            OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(Write_LocalizedTextExtractFirstRun_CreatesWithoutGamestrings)),
+            LocalizedText = LocalizedTextOption.Extract,
+            IsLocalizedExtractFirstRun = true,
+            CurrentLocale = StormLocale.DEDE,
+            GameStringText = new GameStringTextOptions
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontStylesVars = false,
+                ReplaceFontConstantVars = false,
+                PreserveFontStyleConstantVars = false,
+                PreserveFontStyleVars = false,
+            },
+            HeroesVersion = new HeroesVersionOptions
+            {
+                Major = 2,
+                Minor = 23,
+                Revision = 2345,
+                Build = 34566,
+                IsPtr = true,
+            },
+            AppVersion = "5.0.0",
+            JsonIndent = true,
+        };
+
+        _options.Value.Returns(rootOptions);
+        _extractedGameStringsService.DataGameStringItemDictionary.Returns([]);
+
+        JsonSerializerOptionService jsonSerializerOptionService = new(new OptionsWrapper<RootOptions>(rootOptions), _extractedGameStringsService); // create real instance
+        JsonDataFileWriterService service = new(_logger, _options, _console, _serializedDataStoreService, jsonSerializerOptionService, _resultSummaryService);
+
+        SortedDictionary<string, Hero> heroesByElementId = [];
+        heroesByElementId.Add("hero1", new Hero("hero1")
+        {
+            UnitId = "hero1",
+            Description = new GameStringText("Hero description"),
+        });
+
+        string expectedFilePath = Path.Combine(rootOptions.OutputDirectory, "data", $"herodata_{rootOptions.BuildNumber}.json");
 
         // act
         await service.Write(heroesByElementId);
@@ -693,13 +749,16 @@ public class JsonDataFileWriterServiceTests
     }
 
     [TestMethod]
-    public async Task Write_LocalizedTextCopy_CreatesWithGamestrings()
+    [DataRow(false)]
+    [DataRow(true)]
+    public async Task Write_LocalizedTextCopy_CreatesWithGamestrings(bool isLocalizedExtractFirstRun)
     {
         // arrange
         RootOptions rootOptions = new()
         {
-            OutputDirectory = Path.Combine("tests", nameof(Write_LocalizedTextCopy_CreatesWithGamestrings)),
+            OutputDirectory = Path.Combine(TestConstants.TestDirectory, $"{nameof(Write_LocalizedTextCopy_CreatesWithGamestrings)}_{isLocalizedExtractFirstRun}"),
             LocalizedText = LocalizedTextOption.Copy,
+            IsLocalizedExtractFirstRun = isLocalizedExtractFirstRun,
             CurrentLocale = StormLocale.DEDE,
             GameStringText = new GameStringTextOptions
             {

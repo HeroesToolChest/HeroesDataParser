@@ -45,7 +45,7 @@ public class JsonApplyServiceTests
     public async Task ApplyJsonPatch_ValidJsonDataPatchFile_NewPatchedFileCreated()
     {
         // arrange
-        string outputFilePath = Path.Combine("TestOutput", nameof(ApplyJsonPatch_ValidJsonDataPatchFile_NewPatchedFileCreated), "announcerdata_96477_enus.json");
+        string outputFilePath = Path.Combine(TestConstants.TestDirectory, nameof(ApplyJsonPatch_ValidJsonDataPatchFile_NewPatchedFileCreated), "announcerdata_96477_enus.json");
 
         _options.Value.Returns(new JsonApplyOptions()
         {
@@ -75,7 +75,7 @@ public class JsonApplyServiceTests
     public async Task ApplyJsonPatch_ValidJsonGameStringPatchFile_NewPatchedFileCreated()
     {
         // arrange
-        string outputFilePath = Path.Combine("TestOutput", nameof(ApplyJsonPatch_ValidJsonGameStringPatchFile_NewPatchedFileCreated), "gamestrings_96477_enus.json");
+        string outputFilePath = Path.Combine(TestConstants.TestDirectory, nameof(ApplyJsonPatch_ValidJsonGameStringPatchFile_NewPatchedFileCreated), "gamestrings_96477_enus.json");
         string patchFilePath = Path.Combine("TestJsonFiles", "gamestrings_96477_enus.patch.json");
         _options.Value.Returns(new JsonApplyOptions()
         {
@@ -108,7 +108,7 @@ public class JsonApplyServiceTests
     public async Task ApplyJsonPatch_DeletePatchFile_PatchFileDeleted()
     {
         // arrange
-        string testOuputDirectory = Path.Combine("TestOutput", nameof(ApplyJsonPatch_DeletePatchFile_PatchFileDeleted));
+        string testOuputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ApplyJsonPatch_DeletePatchFile_PatchFileDeleted));
         string clonedPatchFilePath = Path.Combine(testOuputDirectory, "gamestrings_96477_enus.patch.json");
         string outputFilePath = Path.Combine(testOuputDirectory, "gamestrings_96477_enus.json");
 

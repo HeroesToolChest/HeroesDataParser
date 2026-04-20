@@ -62,7 +62,7 @@ public class JsonSchemaExporterServiceTests
     public async Task ExportDataSchema_DataType_ReturnJsonSchema(ExtractDataOptions dataType)
     {
         // arrange
-        string outputFileDirectory = Path.Combine("TestOutput", nameof(ExportDataSchema_DataType_ReturnJsonSchema));
+        string outputFileDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ExportDataSchema_DataType_ReturnJsonSchema));
 
         _options.Value.Returns(new JsonSchemaExportOptions
         {
@@ -88,7 +88,7 @@ public class JsonSchemaExporterServiceTests
     public async Task ExportDataSchema_MultipleDataType_ReturnJsonSchema()
     {
         // arrange
-        string outputFileDirectory = Path.Combine("TestOutput", nameof(ExportDataSchema_MultipleDataType_ReturnJsonSchema));
+        string outputFileDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ExportDataSchema_MultipleDataType_ReturnJsonSchema));
 
         _options.Value.Returns(new JsonSchemaExportOptions
         {
@@ -116,7 +116,7 @@ public class JsonSchemaExporterServiceTests
     public async Task ExportGameStringSchema_GameStrings_ReturnJsonSchema()
     {
         // arrange
-        string outputFileDirectory = Path.Combine("TestOutput", nameof(ExportGameStringSchema_GameStrings_ReturnJsonSchema));
+        string outputFileDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ExportGameStringSchema_GameStrings_ReturnJsonSchema));
 
         _options.Value.Returns(new JsonSchemaExportOptions
         {

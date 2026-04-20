@@ -2,5 +2,5 @@
 
 public interface IMainLocaleProcessor
 {
-    Task Run(StormLocale locale);
+    Task Run();
 }

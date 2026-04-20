@@ -26,7 +26,7 @@ public class GameStringTextFormatServiceTests
             GameStringTextHltConstantRemoveMode = GameStringTextHltRemoveMode.None,
             GameStringTextHltStyleRemoveMode = GameStringTextHltRemoveMode.None,
             FilePath = Path.Combine("TestJsonFiles", "invalid_patch.json"),
-            OutputDirectory = "TestOutput",
+            OutputDirectory = TestConstants.TestDirectory,
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
@@ -50,7 +50,7 @@ public class GameStringTextFormatServiceTests
             GameStringTextHltConstantRemoveMode = GameStringTextHltRemoveMode.None,
             GameStringTextHltStyleRemoveMode = GameStringTextHltRemoveMode.None,
             FilePath = Path.Combine("TestJsonFiles", "invalid_items_type.json"),
-            OutputDirectory = "TestOutput",
+            OutputDirectory = TestConstants.TestDirectory,
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
@@ -74,7 +74,7 @@ public class GameStringTextFormatServiceTests
             GameStringTextHltConstantRemoveMode = GameStringTextHltRemoveMode.None,
             GameStringTextHltStyleRemoveMode = GameStringTextHltRemoveMode.None,
             FilePath = Path.Combine("TestJsonFiles", "GameStringTextFormat", "herodata_96477_enus_data_extracted.json"),
-            OutputDirectory = "TestOutput",
+            OutputDirectory = TestConstants.TestDirectory,
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
@@ -93,7 +93,7 @@ public class GameStringTextFormatServiceTests
     {
         // arrange
         string inputFileName = "original_herodata_96477_enus_rawtext_rc_rs_pc_ps.json";
-        string outputFileDirectory = Path.Combine("TestOutput", nameof(FormatGameStringText_DataRawTo_CTS_CRU_SR_ReturnNewFile));
+        string outputFileDirectory = Path.Combine(TestConstants.TestDirectory, nameof(FormatGameStringText_DataRawTo_CTS_CRU_SR_ReturnNewFile));
 
         _options.Value.Returns(new GameStringTextFormatOptions()
         {
@@ -130,7 +130,7 @@ public class GameStringTextFormatServiceTests
     {
         // arrange
         string inputFileName = "original_herodata_96477_enus_rawtext_rc_rs_pc_ps.json";
-        string outputFileDirectory = Path.Combine("TestOutput", nameof(FormatGameStringText_DataRawTo_CT_ReturnNewFile));
+        string outputFileDirectory = Path.Combine(TestConstants.TestDirectory, nameof(FormatGameStringText_DataRawTo_CT_ReturnNewFile));
 
         _options.Value.Returns(new GameStringTextFormatOptions()
         {
@@ -167,7 +167,7 @@ public class GameStringTextFormatServiceTests
     {
         // arrange
         string inputFileName = "original_herodata_96477_enus_rawtext_rc_rs_pc_ps.json";
-        string outputFileDirectory = Path.Combine("TestOutput", nameof(FormatGameStringText_DataRawTo_PT_CRU_SRU_ReturnNewFile));
+        string outputFileDirectory = Path.Combine(TestConstants.TestDirectory, nameof(FormatGameStringText_DataRawTo_PT_CRU_SRU_ReturnNewFile));
 
         _options.Value.Returns(new GameStringTextFormatOptions()
         {
@@ -204,7 +204,7 @@ public class GameStringTextFormatServiceTests
     {
         // arrange
         string inputFileName = "original_herodata_96477_enus_rawtext_rc_rs_pc_ps.json";
-        string outputFileDirectory = Path.Combine("TestOutput", nameof(FormatGameStringText_DataRawTo_PT_CR_SR_ReturnNewFile));
+        string outputFileDirectory = Path.Combine(TestConstants.TestDirectory, nameof(FormatGameStringText_DataRawTo_PT_CR_SR_ReturnNewFile));
 
         _options.Value.Returns(new GameStringTextFormatOptions()
         {
@@ -241,7 +241,7 @@ public class GameStringTextFormatServiceTests
     {
         // arrange
         string inputFileName = "original_herodata_96477_enus_plaintext.json";
-        string outputFileDirectory = Path.Combine("TestOutput", nameof(FormatGameStringText_DataPlaintTextTo_CT_CR_SR_ReturnNewFile));
+        string outputFileDirectory = Path.Combine(TestConstants.TestDirectory, nameof(FormatGameStringText_DataPlaintTextTo_CT_CR_SR_ReturnNewFile));
 
         _options.Value.Returns(new GameStringTextFormatOptions()
         {
@@ -279,7 +279,7 @@ public class GameStringTextFormatServiceTests
     {
         // arrange
         string inputFileName = "original_herodata_96477_enus_rawtext.json";
-        string outputFileDirectory = Path.Combine("TestOutput", nameof(FormatGameStringText_DataPlaintTextTo_SR_ReturnNewFile));
+        string outputFileDirectory = Path.Combine(TestConstants.TestDirectory, nameof(FormatGameStringText_DataPlaintTextTo_SR_ReturnNewFile));
 
         _options.Value.Returns(new GameStringTextFormatOptions()
         {
@@ -317,7 +317,7 @@ public class GameStringTextFormatServiceTests
     {
         // arrange
         string inputFileName = "original_herodata_96477_enus_plaintext_self.json";
-        string outputFileDirectory = Path.Combine("TestOutput", nameof(FormatGameStringText_DataPlaintTextTo_PT_CR_SR_RemoveAndUndo_UpdatedFile));
+        string outputFileDirectory = Path.Combine(TestConstants.TestDirectory, nameof(FormatGameStringText_DataPlaintTextTo_PT_CR_SR_RemoveAndUndo_UpdatedFile));
 
         _options.Value.Returns(new GameStringTextFormatOptions()
         {
@@ -355,7 +355,7 @@ public class GameStringTextFormatServiceTests
     {
         // arrange
         string inputFileName = "original_herodata_96477_enus_plaintext_self.json";
-        string outputFileDirectory = Path.Combine("TestOutput", nameof(FormatGameStringText_DataPlaintTextTo_PT_CR_SR_None_UpdatedFile));
+        string outputFileDirectory = Path.Combine(TestConstants.TestDirectory, nameof(FormatGameStringText_DataPlaintTextTo_PT_CR_SR_None_UpdatedFile));
 
         _options.Value.Returns(new GameStringTextFormatOptions()
         {
@@ -392,7 +392,7 @@ public class GameStringTextFormatServiceTests
     {
         // arrange
         string inputFileName = "original_gamestrings_96477_enus_rawtext.json";
-        string outputFileDirectory = Path.Combine("TestOutput", nameof(FormatGameStringText_GameStringPlaintTextTo_PT_SR_ReturnNewFile));
+        string outputFileDirectory = Path.Combine(TestConstants.TestDirectory, nameof(FormatGameStringText_GameStringPlaintTextTo_PT_SR_ReturnNewFile));
         _options.Value.Returns(new GameStringTextFormatOptions()
         {
             GameStringTextType = GameStringTextType.PlainText,
@@ -429,7 +429,7 @@ public class GameStringTextFormatServiceTests
     {
         // arrange
         string inputFileName = "original_gamestrings_96477_enus_rawtext_all_false.json";
-        string outputFileDirectory = Path.Combine("TestOutput", nameof(FormatGameStringText_GameStringPlaintTextAllFalse_ReturnNewFile));
+        string outputFileDirectory = Path.Combine(TestConstants.TestDirectory, nameof(FormatGameStringText_GameStringPlaintTextAllFalse_ReturnNewFile));
         _options.Value.Returns(new GameStringTextFormatOptions()
         {
             GameStringTextType = GameStringTextType.PlainText,
@@ -465,7 +465,7 @@ public class GameStringTextFormatServiceTests
     {
         // arrange
         string inputFileName = "original_gamestrings_96477_enus_coloredtextscaling_rc.json";
-        string outputFileDirectory = Path.Combine("TestOutput", nameof(FormatGameStringText_GameStringColoredTextScalingToPlainTextSame_ReturnNewFile));
+        string outputFileDirectory = Path.Combine(TestConstants.TestDirectory, nameof(FormatGameStringText_GameStringColoredTextScalingToPlainTextSame_ReturnNewFile));
         _options.Value.Returns(new GameStringTextFormatOptions()
         {
             GameStringTextType = GameStringTextType.PlainText,
@@ -501,7 +501,7 @@ public class GameStringTextFormatServiceTests
     {
         // arrange
         string inputFileName = "original_gamestrings_96477_enus_rawtext.json";
-        string outputFileDirectory = Path.Combine("TestOutput", nameof(FormatGameStringText_GameStringPlaintTextTo_CTS_ReturnNewFile));
+        string outputFileDirectory = Path.Combine(TestConstants.TestDirectory, nameof(FormatGameStringText_GameStringPlaintTextTo_CTS_ReturnNewFile));
 
         _options.Value.Returns(new GameStringTextFormatOptions()
         {
@@ -539,7 +539,7 @@ public class GameStringTextFormatServiceTests
     {
         // arrange
         string inputFileName = "original_gamestrings_96477_enus_plaintextscalingnewlines_rc_rs_self.json";
-        string outputFileDirectory = Path.Combine("TestOutput", nameof(FormatGameStringText_GameStringPlainTextScalingNewlineTo_PTSN_CR_SR_UpdatedFile));
+        string outputFileDirectory = Path.Combine(TestConstants.TestDirectory, nameof(FormatGameStringText_GameStringPlainTextScalingNewlineTo_PTSN_CR_SR_UpdatedFile));
         _options.Value.Returns(new GameStringTextFormatOptions()
         {
             GameStringTextType = GameStringTextType.PlainTextWithScalingWithNewlines,

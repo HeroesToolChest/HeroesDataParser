@@ -49,10 +49,12 @@ public abstract class JsonFileWriterBase
 
     protected abstract void IncrementFilesWritten();
 
-    protected string GetFileName(string fileSuffixName, bool isPatch)
+    protected string GetFileName(string fileSuffixName, bool isPatch, bool isGameStrings)
     {
         string patchSuffix = isPatch ? ".patch" : string.Empty;
-        return $"{fileSuffixName}_{Options.BuildNumber ?? 0}_{Options.CurrentLocale}{patchSuffix}.json".ToLowerInvariant();
+        string localeSuffix = isGameStrings || Options.LocalizedText != LocalizedTextOption.Extract ? $"_{Options.CurrentLocale}" : string.Empty;
+
+        return $"{fileSuffixName}_{Options.BuildNumber ?? 0}{localeSuffix}{patchSuffix}.json".ToLowerInvariant();
     }
 
     protected string GetFilePath(string innerDirectory, string fileName)
@@ -63,19 +65,19 @@ public abstract class JsonFileWriterBase
         return Path.Combine(directory, fileName);
     }
 
-    protected async Task WriteSubMapJsonFile(string innerDirectory, string mapName, DataType dataType, byte[] bytes)
+    protected async Task WriteSubMapJsonFile(string innerDirectory, string mapName, DataType dataType, byte[] bytes, bool isGameStrings)
     {
         if (Options.MapSpecificWriterJsonOutputType.HasFlag(MapSpecificWriterJsonOutputType.Normal))
-            await WriteNormalMap(innerDirectory, mapName, dataType, bytes);
+            await WriteNormalMap(innerDirectory, mapName, dataType, bytes, isGameStrings);
 
         if (Options.MapSpecificWriterJsonOutputType.HasFlag(MapSpecificWriterJsonOutputType.Patch))
-            await WriteMapPatch(innerDirectory, mapName, dataType, bytes);
+            await WriteMapPatch(innerDirectory, mapName, dataType, bytes, isGameStrings);
     }
 
     // the normal json file without a map loaded
-    protected async Task WriteBaseJsonFile(string innerDirectory, DataType dataType, byte[] bytes)
+    protected async Task WriteBaseJsonFile(string innerDirectory, DataType dataType, byte[] bytes, bool isGameStrings)
     {
-        string fileName = GetFileName(dataType.ToString(), false);
+        string fileName = GetFileName(dataType.ToString(), false, isGameStrings);
         string filePath = GetFilePath(innerDirectory, fileName);
 
         await WriteBaseJsonFile(innerDirectory, filePath, fileName, dataType, bytes);
@@ -83,7 +85,7 @@ public abstract class JsonFileWriterBase
 
     protected async Task WriteBaseJsonFile(string innerDirectory, string filePath, string fileName, DataType dataType, byte[] bytes)
     {
-        Logger.LogInformation("Writing to {FilePath}", filePath);
+        Logger.LogDebug("Writing to {FilePath}", filePath);
 
         try
         {
@@ -106,22 +108,22 @@ public abstract class JsonFileWriterBase
         Console.WriteLine();
     }
 
-    protected async Task WriteMapPatch(string innerDirectory, string mapName, DataType dataType, byte[] bytes)
+    protected async Task WriteMapPatch(string innerDirectory, string mapName, DataType dataType, byte[] bytes, bool isGameStrings)
     {
-        string fileName = GetFileName(dataType.ToString(), true);
+        string fileName = GetFileName(dataType.ToString(), true, isGameStrings);
         string filePath = GetFilePath(innerDirectory, fileName);
 
-        Logger.LogInformation("Writing json patch file {FilePath} for map {MapName}", filePath, mapName);
+        Logger.LogDebug("Writing json patch file {FilePath} for map {MapName}", filePath, mapName);
 
         await WritePatchJsonFile(innerDirectory, mapName, dataType, fileName, filePath, bytes);
     }
 
-    protected async Task WriteNormalMap(string innerDirectory, string mapName, DataType dataType, byte[] bytes)
+    protected async Task WriteNormalMap(string innerDirectory, string mapName, DataType dataType, byte[] bytes, bool isGameStrings)
     {
-        string fileName = GetFileName(dataType.ToString(), false);
+        string fileName = GetFileName(dataType.ToString(), false, isGameStrings);
         string filePath = GetFilePath(innerDirectory, fileName);
 
-        Logger.LogInformation("Writing normal json file {FilePath} for map {MapName}", filePath, mapName);
+        Logger.LogDebug("Writing normal json file {FilePath} for map {MapName}", filePath, mapName);
 
         try
         {

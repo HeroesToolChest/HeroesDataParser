@@ -102,11 +102,21 @@ public class JsonDataFileWriterService : JsonFileWriterBase, IJsonDataFileWriter
             Items = elementsById,
         };
 
+        // serializing triggers the custom TypeInfoResolver which handles the saving of the gamestrings
         byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(rootDataElement, JsonSerializerOptionService.JsonSerializerDataOptions);
 
+        // this must be done after the serialization
+        if (!ShouldWrite())
+            return;
+
         if (isMap)
-            await WriteSubMapJsonFile(innerDirectory, mapName!, dataType, bytes);
+            await WriteSubMapJsonFile(innerDirectory, mapName!, dataType, bytes, false);
         else
-            await WriteBaseJsonFile(innerDirectory, dataType, bytes);
+            await WriteBaseJsonFile(innerDirectory, dataType, bytes, false);
+    }
+
+    private bool ShouldWrite()
+    {
+        return Options.LocalizedText != LocalizedTextOption.Extract || Options.IsLocalizedExtractFirstRun;
     }
 }

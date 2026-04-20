@@ -28,7 +28,7 @@ public class MainLocaleProcessorTests
         MainLocaleProcessor processor = new(_logger, _options, _processorService, _mapProcessorService);
 
         // act
-        await processor.Run(StormLocale.ENUS);
+        await processor.Run();
 
         // assert
         await _processorService.Received(1).Start();
@@ -47,7 +47,7 @@ public class MainLocaleProcessorTests
         MainLocaleProcessor processor = new(_logger, _options, _processorService, _mapProcessorService);
 
         // act
-        await processor.Run(StormLocale.ENUS);
+        await processor.Run();
 
         // assert
         await _processorService.Received(1).Start();
@@ -66,7 +66,7 @@ public class MainLocaleProcessorTests
         MainLocaleProcessor processor = new(_logger, _options, _processorService, _mapProcessorService);
 
         // act
-        await processor.Run(StormLocale.ENUS);
+        await processor.Run();
 
         // assert
         await _processorService.Received(1).Start();
@@ -85,7 +85,7 @@ public class MainLocaleProcessorTests
         MainLocaleProcessor processor = new(_logger, _options, _processorService, _mapProcessorService);
 
         // act
-        await processor.Run(StormLocale.ENUS);
+        await processor.Run();
 
         // assert
         await _processorService.Received(1).Start();

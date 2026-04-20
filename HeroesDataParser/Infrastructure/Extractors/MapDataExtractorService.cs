@@ -36,7 +36,7 @@ public class MapDataExtractorService : IMapDataExtractorService
         int currentFontStyleCount = _heroesXmlLoaderService.HeroesXmlLoader.GetCountOfFontStyleFiles();
         int currentGameStringCount = _heroesXmlLoaderService.HeroesXmlLoader.GetCountOfGameStringsFiles();
 
-        _logger.LogInformation("Starting data extractor for data object type {DataObjectType}", _mapDataParser.DataObjectType);
+        _logger.LogDebug("Starting data extractor for data object type {DataObjectType}", _mapDataParser.DataObjectType);
 
         SortedDictionary<string, Map> parsedMaps = new(StringComparer.Ordinal);
 
@@ -83,11 +83,11 @@ public class MapDataExtractorService : IMapDataExtractorService
                         continue;
                     }
 
-                    _logger.LogInformation("Running data processors for {MapId}", mapTitle);
+                    _logger.LogDebug("Running data processors for {MapId}", mapTitle);
 
                     await dataParsers.Invoke(map);
 
-                    _logger.LogInformation("Completed data processors for {MapId}", mapTitle);
+                    _logger.LogDebug("Completed data processors for {MapId}", mapTitle);
                 }
                 else
                 {
@@ -100,7 +100,7 @@ public class MapDataExtractorService : IMapDataExtractorService
         _heroesXmlLoaderService.HeroesXmlLoader.UnloadMapMod();
 
         _stopwatch.Stop();
-        _logger.LogInformation("Map data extractor complete for data object type {DataObjectType}", _mapDataParser.DataObjectType);
+        _logger.LogDebug("Map data extractor complete for data object type {DataObjectType}", _mapDataParser.DataObjectType);
 
         if (totalCount < 1)
         {

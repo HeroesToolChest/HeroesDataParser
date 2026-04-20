@@ -29,7 +29,7 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
         Span<char> buffer = stackalloc char[mapName!.Length];
         int length = NormalizeMapDirectoryName(buffer, mapName);
 
-        await WriteSubMapJsonFile(Path.Join(Constants.JsonGameStringsDirectory, Constants.MapDirectory, buffer[..length]), mapName, DataType.GameStrings, bytes);
+        await WriteSubMapJsonFile(Path.Join(Constants.JsonGameStringsDirectory, Constants.MapDirectory, buffer[..length]), mapName, DataType.GameStrings, bytes, true);
 
         // after writing, clear the extracted gamestrings
         if (Options.MapSpecificWriterJsonOutputType != MapSpecificWriterJsonOutputType.None)
@@ -48,7 +48,7 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
         // add to store service, so the map specific writer can create a patch with the base gamestrings if needed
         SerializedDataStoreService.AddSerializedData(DataType.GameStrings, bytes);
 
-        await WriteBaseJsonFile(Constants.JsonGameStringsDirectory, DataType.GameStrings, bytes);
+        await WriteBaseJsonFile(Constants.JsonGameStringsDirectory, DataType.GameStrings, bytes, true);
 
         // after writing, clear the extracted gamestrings
         _gameStringSerializerService.ClearStoredGameStrings();
@@ -63,7 +63,7 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
         // get the current extracted gamestrings (should only be for mapdata)
         byte[] bytes = _gameStringSerializerService.SerializeGameStrings(rootGameStrings.Meta, JsonSerializerOptionService.JsonSerializerGameStringOptions);
 
-        string fileName = GetFileName($"{DataType.GameStrings}_{DataType.MapData}", false);
+        string fileName = GetFileName($"{DataType.GameStrings}_{DataType.MapData}", false, true);
         string filePath = GetFilePath(Constants.JsonGameStringsDirectory, fileName);
 
         await WriteBaseJsonFile(Constants.JsonGameStringsDirectory, filePath, fileName, DataType.GameStrings, bytes);

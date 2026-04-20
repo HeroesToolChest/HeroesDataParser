@@ -50,7 +50,7 @@ public class DataExtractorService : IDataExtractorService
     {
         _stopwatch.Restart();
 
-        _logger.LogInformation("Starting data extractor for data object type {DataObjectType}", parser.DataObjectType);
+        _logger.LogDebug("Starting data extractor for data object type {DataObjectType}", parser.DataObjectType);
         _console.Write($"Parsing '{nameOfElement}' data...");
 
         IEnumerable<string> itemIds = _heroesXmlLoaderService.HeroesXmlLoader.HeroesData.GetStormElementIds(parser.DataObjectType, StormCacheType.All);
@@ -90,7 +90,7 @@ public class DataExtractorService : IDataExtractorService
         });
 
         _stopwatch.Stop();
-        _logger.LogInformation("Data extractor complete for data object type {DataObjectType}", parser.DataObjectType);
+        _logger.LogDebug("Data extractor complete for data object type {DataObjectType}", parser.DataObjectType);
 
         return totalCount;
     }

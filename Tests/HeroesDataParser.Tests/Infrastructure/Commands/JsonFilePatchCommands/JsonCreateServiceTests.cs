@@ -18,7 +18,7 @@ public class JsonCreateServiceTests
     public async Task CreateJsonPatch_OldFileIsNull_ReturnsError()
     {
         // arrange
-        string outputDirectory = Path.Combine("TestOutput", nameof(CreateJsonPatch_OldFileIsNull_ReturnsError));
+        string outputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(CreateJsonPatch_OldFileIsNull_ReturnsError));
         Directory.CreateDirectory(outputDirectory);
 
         using (StreamWriter streamWriter = File.CreateText(Path.Combine(outputDirectory, "null_json.json")))
@@ -44,7 +44,7 @@ public class JsonCreateServiceTests
     public async Task CreateJsonPatch_NewFileIsNull_ReturnsError()
     {
         // arrange
-        string outputDirectory = Path.Combine("TestOutput", nameof(CreateJsonPatch_NewFileIsNull_ReturnsError));
+        string outputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(CreateJsonPatch_NewFileIsNull_ReturnsError));
         Directory.CreateDirectory(outputDirectory);
 
         using (StreamWriter streamWriter = File.CreateText(Path.Combine(outputDirectory, "null_json.json")))
@@ -87,7 +87,7 @@ public class JsonCreateServiceTests
     [TestMethod]
     public async Task CreateJsonPatch_HasDifferences_CreatesPatchFile()
     {
-        string outputFilePath = Path.Combine("TestOutput", nameof(CreateJsonPatch_HasDifferences_CreatesPatchFile), "announcerdata_96477_enus_patched_map.patch.json");
+        string outputFilePath = Path.Combine(TestConstants.TestDirectory, nameof(CreateJsonPatch_HasDifferences_CreatesPatchFile), "announcerdata_96477_enus_patched_map.patch.json");
 
         // arrange
         _options.Value.Returns(new JsonCreateOptions()

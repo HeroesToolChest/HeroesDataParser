@@ -19,15 +19,15 @@ public class MainLocaleProcessor : IMainLocaleProcessor
         _mapProcessorService = mapProcessorService;
     }
 
-    public async Task Run(StormLocale locale)
+    public async Task Run()
     {
-        _logger.LogInformation("Starting processor service for {Locale}", locale);
+        _logger.LogDebug("Starting processor service for {Locale}", _options.CurrentLocale);
 
         await _processorService.Start();
 
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.Map))
         {
-            _logger.LogInformation("Starting map processor service for {Locale}", locale);
+            _logger.LogDebug("Starting map processor service for {Locale}", _options.CurrentLocale);
             await _mapProcessorService.Start();
         }
     }

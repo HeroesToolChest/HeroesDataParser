@@ -37,6 +37,8 @@ public class RootOptions
     // properties below here a set/overridden during runtime
     public StormLocale CurrentLocale { get; set; } = StormLocale.ENUS;
 
+    public bool IsLocalizedExtractFirstRun { get; set; } = false;
+
     public string AppVersion { get; set; } = string.Empty;
 
     public ExtractDataOptions ExtractDataOptions { get; set; }

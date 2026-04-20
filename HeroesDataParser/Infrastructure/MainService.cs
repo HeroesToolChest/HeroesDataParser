@@ -34,20 +34,25 @@ public class MainService : IMainService
     {
         int count = 1;
 
+        if (_options.LocalizedText == LocalizedTextOption.Extract)
+            _options.IsLocalizedExtractFirstRun = true;
+
         foreach (StormLocale locale in _options.Localizations)
         {
             _mainLocalePreProcess.Run();
 
             _options.CurrentLocale = locale;
-            _logger.LogInformation("Localization: {Locale}", locale);
+            _logger.LogDebug("Localization: {Locale}", locale);
             _console.Write(new Rule($"[[ [greenyellow]Locale: {locale}[/] ... [paleturquoise1]{count} of {_options.Localizations.Count}[/] ]]")
             {
                 Justification = Justify.Left,
             });
 
-            LoadGameStrings(locale);
+            LoadGameStrings();
 
-            await _mainLocaleProcess.Run(locale);
+            await _mainLocaleProcess.Run();
+
+            _options.IsLocalizedExtractFirstRun = false;
 
             count++;
         }
@@ -56,16 +61,16 @@ public class MainService : IMainService
         await _imageWriterService.Write();
     }
 
-    private void LoadGameStrings(StormLocale locale)
+    private void LoadGameStrings()
     {
-        _logger.LogInformation("Loading gamestrings...");
+        _logger.LogDebug("Loading gamestrings...");
         _console.Write("Loading gamestrings...");
 
         _stopwatch.Start();
-        _heroesXmlLoaderService.HeroesXmlLoader.LoadGameStrings(locale);
+        _heroesXmlLoaderService.HeroesXmlLoader.LoadGameStrings(_options.CurrentLocale);
         _stopwatch.Stop();
 
-        _logger.LogInformation("GameStrings {Locale} loaded", locale);
+        _logger.LogDebug("GameStrings {Locale} loaded", _options.CurrentLocale);
         _console.WriteLine($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfGameStringsFiles()} text files (in {_stopwatch.Elapsed.TotalSeconds:0}s {_stopwatch.Elapsed.Milliseconds:0}ms)");
     }
 }

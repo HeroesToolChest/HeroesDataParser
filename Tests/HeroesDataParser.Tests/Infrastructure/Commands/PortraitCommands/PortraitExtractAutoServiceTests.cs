@@ -22,7 +22,7 @@ public class PortraitExtractAutoServiceTests
         {
             BattleNetCacheDirectory = "TestJsonFiles",
             XmlConfigFilePath = Path.Combine("TestConfigFiles", "portrait-extract-empty.xml"),
-            OutputDirectory = Path.Combine("TestOutput", nameof(Extract_NoTextureSheets_ReturnsDisplay)),
+            OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(Extract_NoTextureSheets_ReturnsDisplay)),
         });
 
         PortraitExtractAutoService service = new(_logger, _options, _console);
@@ -43,7 +43,7 @@ public class PortraitExtractAutoServiceTests
             BattleNetCacheDirectory = Path.Combine("TestImages", "PortraitsCache"),
             RewardPortraitDataFilePath = Path.Combine("TestJsonFiles", "rewardportraitdata_96477_enus.json"),
             XmlConfigFilePath = Path.Combine("TestConfigFiles", "portrait-extract-found.xml"),
-            OutputDirectory = Path.Combine("TestOutput", nameof(Extract_TextureSheets_ExtractsPortraits)),
+            OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(Extract_TextureSheets_ExtractsPortraits)),
         });
 
         PortraitExtractAutoService service = new(_logger, _options, _console);
@@ -62,7 +62,7 @@ public class PortraitExtractAutoServiceTests
         _console.Output.Should().Contain("auto-extraction xml file (need to be added)");
         _console.Output.Should().Contain("ui_heroes_portraits_sheet9.png");
 
-        Directory.GetFiles(Path.Combine("TestOutput", nameof(Extract_TextureSheets_ExtractsPortraits)), "*.png").Should().HaveCount(36);
+        Directory.GetFiles(Path.Combine(TestConstants.TestDirectory, nameof(Extract_TextureSheets_ExtractsPortraits)), "*.png").Should().HaveCount(36);
     }
 
     [TestMethod]
@@ -74,7 +74,7 @@ public class PortraitExtractAutoServiceTests
             BattleNetCacheDirectory = Path.Combine("TestImages", "PortraitsCache"),
             RewardPortraitDataFilePath = Path.Combine("TestJsonFiles", "rewardportraitdata_96477_enus.json"),
             XmlConfigFilePath = Path.Combine("TestConfigFiles", "portrait-extract.xml"),
-            OutputDirectory = Path.Combine("TestOutput", nameof(Extract_TextureSheetsPartialFind_ExtractsPortraits)),
+            OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(Extract_TextureSheetsPartialFind_ExtractsPortraits)),
         });
 
         PortraitExtractAutoService service = new(_logger, _options, _console);
@@ -94,7 +94,7 @@ public class PortraitExtractAutoServiceTests
         _console.Output.Should().Contain("auto-extraction xml file (need to be added)");
         _console.Output.Should().Contain("ui_heroes_portraits_sheet9.png");
 
-        Directory.GetFiles(Path.Combine("TestOutput", nameof(Extract_TextureSheetsPartialFind_ExtractsPortraits)), "*.png").Should().HaveCount(36);
+        Directory.GetFiles(Path.Combine(TestConstants.TestDirectory, nameof(Extract_TextureSheetsPartialFind_ExtractsPortraits)), "*.png").Should().HaveCount(36);
     }
 
     [TestMethod]
@@ -106,7 +106,7 @@ public class PortraitExtractAutoServiceTests
             BattleNetCacheDirectory = Path.Combine("TestImages", "PortraitsCache"),
             RewardPortraitDataFilePath = Path.Combine("TestJsonFiles", "rewardportraitdata_96477_enus_1.json"),
             XmlConfigFilePath = Path.Combine("TestConfigFiles", "portrait-extract-found.xml"),
-            OutputDirectory = Path.Combine("TestOutput", nameof(Extract_RewardPortraitsAllFound_ExtractsPortraits)),
+            OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(Extract_RewardPortraitsAllFound_ExtractsPortraits)),
         });
 
         PortraitExtractAutoService service = new(_logger, _options, _console);
@@ -124,6 +124,6 @@ public class PortraitExtractAutoServiceTests
         _console.Output.Should().Contain("1 out of 1 texture sheets were found in the cache");
         _console.Output.Should().Contain("All texture sheets in the reward data json file were found in the cache");
 
-        Directory.GetFiles(Path.Combine("TestOutput", nameof(Extract_RewardPortraitsAllFound_ExtractsPortraits)), "*.png").Should().ContainSingle();
+        Directory.GetFiles(Path.Combine(TestConstants.TestDirectory, nameof(Extract_RewardPortraitsAllFound_ExtractsPortraits)), "*.png").Should().ContainSingle();
     }
 }
