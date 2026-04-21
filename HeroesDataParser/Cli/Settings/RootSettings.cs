@@ -48,7 +48,7 @@ public class RootSettings : CommandSettings
     public bool GameStringPreserveStyleVars { get; init; }
 
     [CommandOption("--localized-text <OPTION>")]
-    [Description("How to handle gamestring properties during JSON serialization")]
+    [Description("How to handle gamestring properties")]
     [DefaultValue(LocalizedTextOption.None)]
     public LocalizedTextOption LocalizedTextOption { get; init; }
 
