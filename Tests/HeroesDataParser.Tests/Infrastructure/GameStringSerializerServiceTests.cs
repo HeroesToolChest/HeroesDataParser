@@ -40,7 +40,7 @@ public class GameStringSerializerServiceTests
               "locale": "ENUS",
               "replaceFontConstantVars": false,
               "replaceFontStylesVars": false,
-              "preserveFontStyleConstantVars": false,
+              "preserveFontConstantVars": false,
               "preserveFontStyleVars": false
             }
           },
@@ -91,7 +91,7 @@ public class GameStringSerializerServiceTests
               "locale": "ENUS",
               "replaceFontConstantVars": false,
               "replaceFontStylesVars": false,
-              "preserveFontStyleConstantVars": false,
+              "preserveFontConstantVars": false,
               "preserveFontStyleVars": false
             }
           },

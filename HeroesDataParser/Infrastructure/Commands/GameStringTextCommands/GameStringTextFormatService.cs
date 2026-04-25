@@ -109,7 +109,7 @@ public class GameStringTextFormatService : IGameStringTextUpdateService
         if (_options.GameStringTextHltConstantRemoveMode != GameStringTextHltRemoveMode.None)
         {
             metaDataProperties.GameStringTextProperties.ReplaceFontConstantVars = GetReplaceFontConstantVarsValue();
-            metaDataProperties.GameStringTextProperties.PreserveFontStyleConstantVars = GetPreserveFontStyleConstantVarsValue();
+            metaDataProperties.GameStringTextProperties.PreserveFontConstantVars = GetPreserveFontConstantVarsValue();
         }
 
         if (_options.GameStringTextHltStyleRemoveMode != GameStringTextHltRemoveMode.None)
@@ -148,7 +148,7 @@ public class GameStringTextFormatService : IGameStringTextUpdateService
         if (_options.GameStringTextHltConstantRemoveMode != GameStringTextHltRemoveMode.None)
         {
             rootJsonGameStringElement.MetaGameStringProperties.GameStringTextProperties.ReplaceFontConstantVars = GetReplaceFontConstantVarsValue();
-            rootJsonGameStringElement.MetaGameStringProperties.GameStringTextProperties.PreserveFontStyleConstantVars = GetPreserveFontStyleConstantVarsValue();
+            rootJsonGameStringElement.MetaGameStringProperties.GameStringTextProperties.PreserveFontConstantVars = GetPreserveFontConstantVarsValue();
         }
 
         if (_options.GameStringTextHltStyleRemoveMode != GameStringTextHltRemoveMode.None)
@@ -167,7 +167,7 @@ public class GameStringTextFormatService : IGameStringTextUpdateService
 
     private bool GetReplaceFontStylesVarsValue() => _options.GameStringTextHltStyleRemoveMode == GameStringTextHltRemoveMode.Remove;
 
-    private bool GetPreserveFontStyleConstantVarsValue() => _options.GameStringTextHltConstantRemoveMode != GameStringTextHltRemoveMode.Remove && _options.GameStringTextHltConstantRemoveMode != GameStringTextHltRemoveMode.RemoveAndUndo;
+    private bool GetPreserveFontConstantVarsValue() => _options.GameStringTextHltConstantRemoveMode != GameStringTextHltRemoveMode.Remove && _options.GameStringTextHltConstantRemoveMode != GameStringTextHltRemoveMode.RemoveAndUndo;
 
     private bool GetPreserveFontStyleVars() => _options.GameStringTextHltStyleRemoveMode != GameStringTextHltRemoveMode.Remove && _options.GameStringTextHltStyleRemoveMode != GameStringTextHltRemoveMode.RemoveAndUndo;
 
@@ -185,7 +185,7 @@ public class GameStringTextFormatService : IGameStringTextUpdateService
         if (metaProperties.ItemsType != ItemsType.Data && metaProperties.ItemsType != ItemsType.GameStrings)
         {
             _logger.LogError("Not a valid '{PropertyName}' value in JSON: {ItemsType}", ElementConstants.ItemsTypePropertyName, metaProperties.ItemsType);
-            _console.MarkupInterpolated($"[red]Not a valid '{ElementConstants.ItemsTypePropertyName}' value in JSON: {metaProperties.ItemsType}[/]");
+            _console.MarkupLineInterpolated($"[red]Not a valid '{ElementConstants.ItemsTypePropertyName}' value in JSON: {metaProperties.ItemsType}[/]");
             return null;
         }
 
@@ -228,6 +228,6 @@ public class GameStringTextFormatService : IGameStringTextUpdateService
     {
         Directory.CreateDirectory(_options.OutputDirectory);
 
-        return File.Create(Path.Combine(_options.OutputDirectory, Path.GetFileName(_options.FilePath)));
+        return File.Create(_options.OutputFilePath);
     }
 }

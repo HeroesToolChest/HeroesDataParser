@@ -7,7 +7,7 @@ public class GameStringTextOptions
     public bool ReplaceFontConstantVars { get; set; }
 
     // should be false if ReplaceFontConstantsVars is false
-    public bool PreserveFontStyleConstantVars { get; set; }
+    public bool PreserveFontConstantVars { get; set; }
 
     public bool ReplaceFontStylesVars { get; set; }
 

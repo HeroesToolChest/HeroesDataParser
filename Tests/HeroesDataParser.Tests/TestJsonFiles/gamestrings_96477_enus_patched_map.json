@@ -13,7 +13,7 @@
       "textType": "RawText",
       "replaceFontConstantVars": false,
       "replaceFontStylesVars": false,
-      "preserveFontStyleConstantVars": false,
+      "preserveFontConstantVars": false,
       "preserveFontStyleVars": false
     }
   },

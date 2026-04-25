@@ -11,7 +11,7 @@
       "textType": "PlainTextWithScalingWithNewlines",
       "replaceFontConstantVars": true,
       "replaceFontStylesVars": true,
-      "preserveFontStyleConstantVars": false,
+      "preserveFontConstantVars": false,
       "preserveFontStyleVars": false
     }
   },

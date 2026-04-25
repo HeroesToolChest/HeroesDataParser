@@ -39,7 +39,7 @@ public class JsonGameStringFileWriterServiceTests
                 Type = GameStringTextType.RawText,
                 ReplaceFontStylesVars = false,
                 ReplaceFontConstantVars = false,
-                PreserveFontStyleConstantVars = false,
+                PreserveFontConstantVars = false,
                 PreserveFontStyleVars = false,
             },
             HeroesVersion = new HeroesVersionOptions
@@ -99,7 +99,7 @@ public class JsonGameStringFileWriterServiceTests
                 Type = GameStringTextType.RawText,
                 ReplaceFontStylesVars = false,
                 ReplaceFontConstantVars = false,
-                PreserveFontStyleConstantVars = false,
+                PreserveFontConstantVars = false,
                 PreserveFontStyleVars = false,
             },
             HeroesVersion = new HeroesVersionOptions
@@ -226,7 +226,7 @@ public class JsonGameStringFileWriterServiceTests
                 Type = GameStringTextType.RawText,
                 ReplaceFontStylesVars = false,
                 ReplaceFontConstantVars = false,
-                PreserveFontStyleConstantVars = false,
+                PreserveFontConstantVars = false,
                 PreserveFontStyleVars = false,
             },
             HeroesVersion = new HeroesVersionOptions
@@ -274,7 +274,7 @@ public class JsonGameStringFileWriterServiceTests
                 Type = GameStringTextType.RawText,
                 ReplaceFontStylesVars = false,
                 ReplaceFontConstantVars = false,
-                PreserveFontStyleConstantVars = false,
+                PreserveFontConstantVars = false,
                 PreserveFontStyleVars = false,
             },
             HeroesVersion = new HeroesVersionOptions
@@ -322,7 +322,7 @@ public class JsonGameStringFileWriterServiceTests
                 Type = GameStringTextType.RawText,
                 ReplaceFontStylesVars = false,
                 ReplaceFontConstantVars = false,
-                PreserveFontStyleConstantVars = false,
+                PreserveFontConstantVars = false,
                 PreserveFontStyleVars = false,
             },
             HeroesVersion = new HeroesVersionOptions
@@ -370,7 +370,7 @@ public class JsonGameStringFileWriterServiceTests
                 Type = GameStringTextType.RawText,
                 ReplaceFontStylesVars = false,
                 ReplaceFontConstantVars = false,
-                PreserveFontStyleConstantVars = false,
+                PreserveFontConstantVars = false,
                 PreserveFontStyleVars = false,
             },
             HeroesVersion = new HeroesVersionOptions

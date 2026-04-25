@@ -10,7 +10,7 @@
       "textType": "PlainText",
       "replaceFontConstantVars": true,
       "replaceFontStyles": true,
-      "preserveFontStyleConstantVars": true,
+      "preserveFontConstantVars": true,
       "preserveFontStyleVars": true
     },
     "totalItems": 3

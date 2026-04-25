@@ -1,4 +1,4 @@
-﻿namespace HeroesDataParser.Options;
+﻿namespace HeroesDataParser.Options.GameStringTextFileOptions;
 
 public class GameStringTextFormatOptions
 {

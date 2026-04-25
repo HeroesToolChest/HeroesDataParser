@@ -95,7 +95,7 @@ public class RootCommand : AsyncCommand<RootSettings>
         _options.GameStringText.Type = settings.GameStringTextType;
         _options.GameStringText.ReplaceFontConstantVars = settings.GameStringReplaceConstantVars;
         _options.GameStringText.ReplaceFontStylesVars = settings.GameStringReplaceStyleVars;
-        _options.GameStringText.PreserveFontStyleConstantVars = settings.GameStringPreserveConstantVars;
+        _options.GameStringText.PreserveFontConstantVars = settings.GameStringPreserveConstantVars;
         _options.GameStringText.PreserveFontStyleVars = settings.GameStringPreserveStyleVars;
 
         if (settings.GameStringPreserveConstantVars || settings.GameStringPreserveStyleVars)

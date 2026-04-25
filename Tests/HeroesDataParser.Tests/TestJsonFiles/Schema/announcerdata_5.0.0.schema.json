@@ -95,7 +95,7 @@
             "replaceFontStylesVars": {
               "type": "boolean"
             },
-            "preserveFontStyleConstantVars": {
+            "preserveFontConstantVars": {
               "type": "boolean"
             },
             "preserveFontStyleVars": {

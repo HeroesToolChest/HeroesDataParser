@@ -140,7 +140,7 @@ public class GameStringTextService : IGameStringTextService
         {
             if (ValByStyleConstantName.TryGetValue(item, out string? existingValue))
             {
-                gameStringText.AddFontValueReplacement(item, existingValue, FontTagType.Constant, _options.GameStringText.PreserveFontStyleConstantVars);
+                gameStringText.AddFontValueReplacement(item, existingValue, FontTagType.Constant, _options.GameStringText.PreserveFontConstantVars);
                 continue;
             }
 
@@ -150,7 +150,7 @@ public class GameStringTextService : IGameStringTextService
 
             ValByStyleConstantName[item] = styleConstantElement.Val;
 
-            gameStringText.AddFontValueReplacement(item, styleConstantElement.Val, FontTagType.Constant, _options.GameStringText.PreserveFontStyleConstantVars);
+            gameStringText.AddFontValueReplacement(item, styleConstantElement.Val, FontTagType.Constant, _options.GameStringText.PreserveFontConstantVars);
         }
     }
 

@@ -387,7 +387,7 @@ public class RootCommandTests
         rootOptions.OutputDirectory.Should().Be(".");
         rootOptions.GameStringText.Type.Should().Be(GameStringTextType.RawText);
         rootOptions.GameStringText.ReplaceFontStylesVars.Should().BeFalse();
-        rootOptions.GameStringText.PreserveFontStyleConstantVars.Should().BeFalse();
+        rootOptions.GameStringText.PreserveFontConstantVars.Should().BeFalse();
         rootOptions.GameStringText.PreserveFontStyleVars.Should().BeFalse();
         rootOptions.LocalizedText.Should().Be(LocalizedTextOption.None);
         rootOptions.MapSpecificWriterJsonOutputType.Should().Be(MapSpecificWriterJsonOutputType.Patch);
@@ -649,7 +649,7 @@ public class RootCommandTests
         rootOptions.GameStringText.Type.Should().Be(GameStringTextType.PlainTextWithScalingWithNewlines);
         rootOptions.GameStringText.ReplaceFontConstantVars.Should().BeTrue();
         rootOptions.GameStringText.ReplaceFontStylesVars.Should().BeTrue();
-        rootOptions.GameStringText.PreserveFontStyleConstantVars.Should().BeTrue();
+        rootOptions.GameStringText.PreserveFontConstantVars.Should().BeTrue();
         rootOptions.GameStringText.PreserveFontStyleVars.Should().BeTrue();
     }
 

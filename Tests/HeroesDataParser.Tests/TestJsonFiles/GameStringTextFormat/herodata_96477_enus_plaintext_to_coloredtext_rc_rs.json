@@ -10,7 +10,7 @@
       "textType": "ColoredText",
       "replaceFontConstantVars": true,
       "replaceFontStylesVars": true,
-      "preserveFontStyleConstantVars": false,
+      "preserveFontConstantVars": false,
       "preserveFontStyleVars": false
     },
     "totalItems": 3

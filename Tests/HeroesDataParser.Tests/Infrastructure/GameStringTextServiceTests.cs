@@ -127,7 +127,7 @@ public class GameStringTextServiceTests
                 Type = GameStringTextType.RawText,
                 ReplaceFontStylesVars = true,
                 ReplaceFontConstantVars = true,
-                PreserveFontStyleConstantVars = true,
+                PreserveFontConstantVars = true,
                 PreserveFontStyleVars = true,
             },
         });

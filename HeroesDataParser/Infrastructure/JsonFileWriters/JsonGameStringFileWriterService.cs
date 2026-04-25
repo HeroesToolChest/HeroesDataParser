@@ -95,7 +95,7 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
                     Locale = Options.CurrentLocale,
                     GameStringTextType = Options.GameStringText.Type,
                     ReplaceFontConstantVars = Options.GameStringText.ReplaceFontConstantVars,
-                    PreserveFontStyleConstantVars = Options.GameStringText.PreserveFontStyleConstantVars,
+                    PreserveFontConstantVars = Options.GameStringText.PreserveFontConstantVars,
                     ReplaceFontStylesVars = Options.GameStringText.ReplaceFontStylesVars,
                     PreserveFontStyleVars = Options.GameStringText.PreserveFontStyleVars,
                 },

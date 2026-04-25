@@ -11,7 +11,7 @@
       "textType": "RawText",
       "replaceFontConstantVars": true,
       "replaceFontStylesVars": true,
-      "preserveFontStyleConstantVars": true,
+      "preserveFontConstantVars": true,
       "preserveFontStyleVars": true
     }
   },
