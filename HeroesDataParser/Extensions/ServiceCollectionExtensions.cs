@@ -199,6 +199,7 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IPortraitBattleNetCacheService, PortraitBattleNetCacheService>();
             services.AddSingleton<IPortraitExtractAutoService, PortraitExtractAutoService>();
             services.AddSingleton<IPortraitExtractService, PortraitExtractService>();
+            services.AddSingleton<ILocalizedTextImportService, LocalizedTextImportService>();
 
             return services;
         }

@@ -34,7 +34,7 @@ try
         options.AppVersion = AppVersion.GetAppVersion();
 
         if (!options.GameStringText.ReplaceFontConstantVars)
-            options.GameStringText.PreserveFontStyleConstantVars = false;
+            options.GameStringText.PreserveFontConstantVars = false;
 
         if (!options.GameStringText.ReplaceFontStylesVars)
             options.GameStringText.PreserveFontStyleVars = false;
@@ -72,6 +72,17 @@ try
 
             gamestringText.AddCommand<GameStringTextFormatCommand>("format")
                 .WithDescription("Format gamestring text in a data or gamestring file");
+        });
+
+        config.AddBranch<LocalizedTextSettings>("localized-text", localizedText =>
+        {
+            localizedText.SetDescription("Localized text operations");
+
+            localizedText.AddCommand<LocalizedTextImportCommand>("import")
+                .WithDescription("Copy over gamestrings from a gamestrings file to a data file");
+
+            localizedText.AddCommand<LocalizedTextExportCommand>("export")
+                .WithDescription("Copy over or extract gamestrings from a data file");
         });
 
         config.AddBranch<JsonSchemaSettings>("schema", schema =>

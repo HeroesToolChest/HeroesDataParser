@@ -47,7 +47,7 @@ public class JsonApplyService : IJsonApplyService
         {
             _logger.LogError("Failed to apply JSON patch, result is null");
             _console.MarkupLine("[red]Failed to apply JSON patch, result is null[/]");
-            return;
+            Environment.Exit(1);
         }
 
         await ProcessPatchResult(itemsType.Value, patchedDocument);
