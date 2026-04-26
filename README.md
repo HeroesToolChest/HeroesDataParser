@@ -114,7 +114,7 @@ OPTIONS:
         --gs-replace-style-vars                         Replace font style variables in gamestrings with color hex values
         --gs-preserve-constant-vars                     Preserve constant variables in gamestrings
         --gs-preserve-style-vars                        Preserve style variables in gamestrings
-        --localized-text <OPTION>            None       How to handle gamestring properties during JSON serialization
+        --localized-text <OPTION>            None       How to handle gamestring properties
         --no-map-specific                               Disable map-specific JSON file creation when map extractor is specified
         --map-specific-json-output <TYPE>    Patch      How to handle map-specific JSON file creation
         --map-specific-empty-patch                      Allow map-specific patch files without item changes to be created
@@ -163,6 +163,7 @@ The extractors to enable for data and image extraction. Can be specified multipl
 Data JSON files will be created in the `data` subdirectory and image files will be created in the `images` subdirectory of the output directory.
 
 Enabling the extractor `map` will run all other enabled extractors for each found map, unless the [`--no-map-specific`](#--no-map-specific) option is enabled.
+
 Map specific JSON files will be created in the `maps` subdirectory of the `data` subdirectory which by default will be JSON patch files. To change this, set the [`--map-specific-json-output`](#--map-specific-json-output) option.
 
 `all` - extracts all data files  
@@ -389,6 +390,8 @@ Can be set to `Normal`, `Patch`, or `All`. Default is `Patch`.
 For the patch files, the original or base files are the JSON files in the `data` or `gamestrings` subdirectories. 
 The map patch files contain the differences between the base files and the map-specific files, so the full map-specific JSON files can be recreated by applying the patch files to the base files.
 
+The command [`json-patch apply`](#json-patch-apply) can be used to apply the patch files.
+
 ## Commands
 ### casc-extract
 ```
@@ -592,6 +595,32 @@ Example command:
 ```
 schema export gamestrings
 ```
+
+***
+
+### localized-text import
+```
+DESCRIPTION:
+Copy over gamestrings from a gamestrings file to a data file
+
+USAGE:
+    heroesdataparser localized-text import <data-file-path> <gamestring-file-path> [OPTIONS]
+
+ARGUMENTS:
+    <data-file-path>          Path to the data file
+    <gamestring-file-path>    Path to the gamestrings file
+
+OPTIONS:
+    -h, --help                  Prints help information
+    -o, --output-path <PATH>    Output directory for the created file (defaults to the input data file's directory)
+        --overwrite             Allow the created file to overwrite an existing file
+        --no-indent             Disable indentation in output JSON files
+```
+The data file does not need to contain the gamestring properties. If it already contains the gamestring properties, they will be overwritten.
+
+The `heroesVersion` and `hdpVersion` properties must match between the data file and the gamestring file.
+
+The gamestring file's `dataTypes` property must contain the data file's `dataType`.
 
 ***
 
