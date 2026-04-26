@@ -104,8 +104,7 @@ public class LocalizedTextImportService : ILocalizedTextImportService
 
         jsonSerializerOptions.Converters.Add(new GameStringTextConverter(new GameStringTextConverterOptions()
         {
-            StormLocale = elementDocument.GameStringDocument!.MetaGameStringProperties.GameStringTextProperties!.Locale,
-            GameStringTextType = elementDocument.GameStringDocument.MetaGameStringProperties.GameStringTextProperties.GameStringTextType!.Value,
+            GameStringTextType = elementDocument.GameStringDocument!.MetaGameStringProperties.GameStringTextProperties.GameStringTextType!.Value,
             RemoveHltForConstantTags = GameStringTextHltRemoveMode.None,
             RemoveHltForStyleTags = GameStringTextHltRemoveMode.None,
         }));
