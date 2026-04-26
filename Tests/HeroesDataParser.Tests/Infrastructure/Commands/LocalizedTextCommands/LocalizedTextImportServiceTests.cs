@@ -208,6 +208,101 @@ public class LocalizedTextImportServiceTests
     }
 
     [TestMethod]
+    public async Task ImportGameStrings_MapDataWithNewDEDE_ReturnsNewFile()
+    {
+        // arrange
+        _options.Value.Returns(new LocalizedTextImportOptions()
+        {
+            DataFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "mapdata_96881_full.json"),
+            GameStringsFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "gamestrings_mapdata_96881_dede.json"),
+            OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ImportGameStrings_MapDataWithNewDEDE_ReturnsNewFile)),
+            IsNewFile = true,
+            JsonIndent = true,
+        });
+
+        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
+
+        LocalizedTextImportService localizedTextImportService = new(_logger, _options, _console, _jsonSerializerOptionService);
+
+        // act
+        await localizedTextImportService.ImportGameStrings();
+
+        // assert
+        _console.Output.Should().Contain("New data file created at");
+
+        File.Exists(_options.Value.OutputFilePath).Should().BeTrue();
+
+        string newFileContent = File.ReadAllText(_options.Value.OutputFilePath);
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "LocalizedTextImport", "mapdata_96881_dede_full.json"));
+
+        newFileContent.Should().BeEquivalentTo(comparedToText);
+    }
+
+    // original is colored with scaling, imported gamestring file is raw text
+    [TestMethod]
+    public async Task ImportGameStrings_HeroDataColoredTextImportRawText_ReturnsNewFile()
+    {
+        // arrange
+        _options.Value.Returns(new LocalizedTextImportOptions()
+        {
+            DataFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_96881_enus_colorwithscaling.json"),
+            GameStringsFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "gamestrings_96881_enus.json"),
+            OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ImportGameStrings_HeroDataColoredTextImportRawText_ReturnsNewFile)),
+            IsNewFile = true,
+            JsonIndent = true,
+        });
+
+        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
+
+        LocalizedTextImportService localizedTextImportService = new(_logger, _options, _console, _jsonSerializerOptionService);
+
+        // act
+        await localizedTextImportService.ImportGameStrings();
+
+        // assert
+        _console.Output.Should().Contain("New data file created at");
+
+        File.Exists(_options.Value.OutputFilePath).Should().BeTrue();
+
+        string newFileContent = File.ReadAllText(_options.Value.OutputFilePath);
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_96881_full.json"));
+
+        newFileContent.Should().BeEquivalentTo(comparedToText);
+    }
+
+    // original is raw text, imported gamestring file is colored with scaling
+    [TestMethod]
+    public async Task ImportGameStrings_HeroDataRawTextImportColoredTextScaling_ReturnsNewFile()
+    {
+        // arrange
+        _options.Value.Returns(new LocalizedTextImportOptions()
+        {
+            DataFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_96881_full.json"),
+            GameStringsFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "gamestrings_96881_enus_coloredwithscaling.json"),
+            OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ImportGameStrings_HeroDataRawTextImportColoredTextScaling_ReturnsNewFile)),
+            IsNewFile = true,
+            JsonIndent = true,
+        });
+
+        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
+
+        LocalizedTextImportService localizedTextImportService = new(_logger, _options, _console, _jsonSerializerOptionService);
+
+        // act
+        await localizedTextImportService.ImportGameStrings();
+
+        // assert
+        _console.Output.Should().Contain("New data file created at");
+
+        File.Exists(_options.Value.OutputFilePath).Should().BeTrue();
+
+        string newFileContent = File.ReadAllText(_options.Value.OutputFilePath);
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_96881_enus_colorwithscaling.json"));
+
+        newFileContent.Should().BeEquivalentTo(comparedToText);
+    }
+
+    [TestMethod]
     public async Task ImportGameStrings_IsNotIndented_ReturnsNewFileAsNotIndented()
     {
         // arrange
