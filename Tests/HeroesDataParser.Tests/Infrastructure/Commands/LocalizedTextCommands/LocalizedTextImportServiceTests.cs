@@ -61,6 +61,29 @@ public class LocalizedTextImportServiceTests
     }
 
     [TestMethod]
+    public async Task ImportGameStrings_DataTypeNotInGameStringsFile_DoesNotComplete()
+    {
+        // arrange
+        _options.Value.Returns(new LocalizedTextImportOptions()
+        {
+            DataFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            GameStringsFilePath = Path.Combine("TestJsonFiles", "gamestrings_96477_no_data_types_.json"),
+            OutputDirectory = TestConstants.TestDirectory,
+        });
+
+        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
+
+        LocalizedTextImportService localizedTextImportService = new(_logger, _options, _console, _jsonSerializerOptionService);
+
+        // act
+        await localizedTextImportService.ImportGameStrings();
+
+        // assert
+        _console.Output.Should().Contain("he data types in the gamestrings file does not contain the data type");
+    }
+
+
+    [TestMethod]
     public async Task ImportGameStrings_HeroesData_ReturnsNewFile()
     {
         // arrange

@@ -81,6 +81,14 @@ public class LocalizedTextImportService : ILocalizedTextImportService
             return null;
         }
 
+        if (!elementDocument.IsMatchedDataType)
+        {
+            _logger.LogError("The data types in the gamestrings file does not contain the data type of the data file. Data file data type: {DataFileDataType}, Gamestrings file data types: {@GameStringsFileDataTypes}", elementDocument.MetaDataProperties.DataType, gameStringDocument.MetaGameStringProperties.DataTypes);
+            _console.MarkupLineInterpolated($"[red]The data types in the gamestrings file does not contain the data type of the data file. Data file data type: {elementDocument.MetaDataProperties.DataType}, Gamestrings file data types: {string.Join(", ", gameStringDocument.MetaGameStringProperties.DataTypes)}[/]");
+
+            return null;
+        }
+
         RootJsonDataElement rootJsonDataElement = GetRootJsonDataElement(elementDocument);
         JsonSerializerOptions jsonSerializerOptions = GetJsonSerializerOptions(elementDocument);
 

@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "heroesVersion": "2.55.15.96477",
+    "hdpVersion": "5.0.0",
+    "itemsType": "GameStrings",
+    "dataTypes": [
+    ],
+    "gameStringText": {
+      "locale": "ENUS",
+      "textType": "RawText",
+      "replaceFontConstantVars": false,
+      "replaceFontStylesVars": false,
+      "preserveFontConstantVars": false,
+      "preserveFontStyleVars": false
+    }
+  },
+  "items": {
+  }
+}
