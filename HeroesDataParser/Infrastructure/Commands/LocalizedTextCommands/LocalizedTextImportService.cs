@@ -42,8 +42,9 @@ public class LocalizedTextImportService : ILocalizedTextImportService
             itemObjects.Add(elementObject.Id, elementObject);
         }
 
-        MetaDataProperties updatedMetaProperties = elementDocument.MetaProperties;
+        MetaDataProperties updatedMetaProperties = elementDocument.MetaDataProperties;
         updatedMetaProperties.LocalizedText = LocalizedTextOption.None;
+        updatedMetaProperties.GameStringTextProperties = elementDocument.GameStringDocument!.MetaGameStringProperties.GameStringTextProperties;
 
         return new RootJsonDataElement()
         {
@@ -64,18 +65,18 @@ public class LocalizedTextImportService : ILocalizedTextImportService
 
         using IElementDocument elementDocument = DataDocument.Load(dataJsonDocument, gameStringDocument);
 
-        if (elementDocument.MismatchedHdpVersion)
+        if (!elementDocument.IsMatchedHdpVersion)
         {
-            _logger.LogError("The HDP version of the data file does not match the version in the gamestrings file. Data file HDP version: {DataFileHdpVersion}, Gamestrings file HDP version: {GameStringsFileHdpVersion}", elementDocument.MetaProperties.HdpVersion, gameStringDocument.MetaGameStringProperties.HdpVersion);
-            _console.MarkupLineInterpolated($"[red]The HDP version of the data file does not match the version in the gamestrings file. Data file HDP version: {elementDocument.MetaProperties.HdpVersion}, Gamestrings file HDP version: {gameStringDocument.MetaGameStringProperties.HdpVersion}[/]");
+            _logger.LogError("The HDP version of the data file does not match the version in the gamestrings file. Data file HDP version: {DataFileHdpVersion}, Gamestrings file HDP version: {GameStringsFileHdpVersion}", elementDocument.MetaDataProperties.HdpVersion, gameStringDocument.MetaGameStringProperties.HdpVersion);
+            _console.MarkupLineInterpolated($"[red]The HDP version of the data file does not match the version in the gamestrings file. Data file HDP version: {elementDocument.MetaDataProperties.HdpVersion}, Gamestrings file HDP version: {gameStringDocument.MetaGameStringProperties.HdpVersion}[/]");
 
             return null;
         }
 
-        if (elementDocument.MismatchedHeroesVersion)
+        if (!elementDocument.IsMatchedHeroesVersion)
         {
-            _logger.LogError("The Heroes of the Storm version of the data file does not match the version in the gamestrings file. Data file Heroes version: {DataFileHeroesVersion}, Gamestrings file Heroes version: {GameStringsFileHeroesVersion}", elementDocument.MetaProperties.HeroesVersion, gameStringDocument.MetaGameStringProperties.HeroesVersion);
-            _console.MarkupLineInterpolated($"[red]The Heroes of the Storm version of the data file does not match the version in the gamestrings file. Data file Heroes version: {elementDocument.MetaProperties.HeroesVersion}, Gamestrings file Heroes version: {gameStringDocument.MetaGameStringProperties.HeroesVersion}[/]");
+            _logger.LogError("The Heroes of the Storm version of the data file does not match the version in the gamestrings file. Data file Heroes version: {DataFileHeroesVersion}, Gamestrings file Heroes version: {GameStringsFileHeroesVersion}", elementDocument.MetaDataProperties.HeroesVersion, gameStringDocument.MetaGameStringProperties.HeroesVersion);
+            _console.MarkupLineInterpolated($"[red]The Heroes of the Storm version of the data file does not match the version in the gamestrings file. Data file Heroes version: {elementDocument.MetaDataProperties.HeroesVersion}, Gamestrings file Heroes version: {gameStringDocument.MetaGameStringProperties.HeroesVersion}[/]");
 
             return null;
         }
@@ -95,8 +96,8 @@ public class LocalizedTextImportService : ILocalizedTextImportService
 
         jsonSerializerOptions.Converters.Add(new GameStringTextConverter(new GameStringTextConverterOptions()
         {
-            StormLocale = elementDocument.MetaProperties.GameStringTextProperties!.Locale,
-            GameStringTextType = elementDocument.MetaProperties.GameStringTextProperties.GameStringTextType!.Value,
+            StormLocale = elementDocument.GameStringDocument!.MetaGameStringProperties.GameStringTextProperties!.Locale,
+            GameStringTextType = elementDocument.GameStringDocument.MetaGameStringProperties.GameStringTextProperties.GameStringTextType!.Value,
             RemoveHltForConstantTags = GameStringTextHltRemoveMode.None,
             RemoveHltForStyleTags = GameStringTextHltRemoveMode.None,
         }));
