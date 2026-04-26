@@ -23,12 +23,12 @@ public class LocalizedTextImportService : ILocalizedTextImportService
 
     public async Task ImportGameStrings()
     {
-        (RootJsonDataElement RootJsonDataElement, JsonSerializerOptions JsonSerializerOptions)? elementDocument = await GetElementDocument();
+        RootJsonDataElement? rootJsonDataElement = await GetElementDocument();
 
-        if (elementDocument is null)
+        if (rootJsonDataElement is null)
             return;
 
-        await CreateOutputFile(elementDocument.Value.RootJsonDataElement, elementDocument.Value.JsonSerializerOptions);
+        await CreateOutputFile(rootJsonDataElement);
     }
 
     private static RootJsonDataElement GetRootJsonDataElement(IElementDocument elementDocument)
@@ -53,7 +53,7 @@ public class LocalizedTextImportService : ILocalizedTextImportService
         };
     }
 
-    private async Task<(RootJsonDataElement RootJsonDataElement, JsonSerializerOptions JsonSerializerOptions)?> GetElementDocument()
+    private async Task<RootJsonDataElement?> GetElementDocument()
     {
         using FileStream dataFileStream = File.OpenRead(_options.DataFilePath);
         using JsonDocument dataJsonDocument = await JsonDocument.ParseAsync(dataFileStream);
@@ -89,13 +89,29 @@ public class LocalizedTextImportService : ILocalizedTextImportService
             return null;
         }
 
-        RootJsonDataElement rootJsonDataElement = GetRootJsonDataElement(elementDocument);
-        JsonSerializerOptions jsonSerializerOptions = GetJsonSerializerOptions(elementDocument);
-
-        return (rootJsonDataElement, jsonSerializerOptions);
+        return GetRootJsonDataElement(elementDocument);
     }
 
-    private JsonSerializerOptions GetJsonSerializerOptions(IElementDocument elementDocument)
+    private async Task CreateOutputFile(RootJsonDataElement rootJsonDataElement)
+    {
+        Directory.CreateDirectory(_options.OutputDirectory);
+        using FileStream stream = File.Create(_options.OutputFilePath);
+
+        await JsonSerializer.SerializeAsync(stream, rootJsonDataElement, GetJsonSerializerOptions());
+
+        if (_options.IsNewFile)
+        {
+            _logger.LogInformation("New data file created at {OutputFilePath}", _options.OutputFilePath);
+            _console.MarkupInterpolated($"New data file created at {_options.OutputFilePath}");
+        }
+        else
+        {
+            _logger.LogInformation("Updated data file at {OutputFilePath}", _options.OutputFilePath);
+            _console.MarkupInterpolated($"Updated data file at {_options.OutputFilePath}");
+        }
+    }
+
+    private JsonSerializerOptions GetJsonSerializerOptions()
     {
         JsonSerializerOptions jsonSerializerOptions = new(_jsonSerializerOptionService.GeneralJsonSerializerOptions)
         {
@@ -119,24 +135,5 @@ public class LocalizedTextImportService : ILocalizedTextImportService
         };
 
         return jsonSerializerOptions;
-    }
-
-    private async Task CreateOutputFile(RootJsonDataElement rootJsonDataElement, JsonSerializerOptions jsonSerializerOptions)
-    {
-        Directory.CreateDirectory(_options.OutputDirectory);
-        using FileStream stream = File.Create(_options.OutputFilePath);
-
-        await JsonSerializer.SerializeAsync(stream, rootJsonDataElement, jsonSerializerOptions);
-
-        if (_options.IsNewFile)
-        {
-            _logger.LogInformation("New data file created at {OutputFilePath}", _options.OutputFilePath);
-            _console.MarkupInterpolated($"New data file created at {_options.OutputFilePath}");
-        }
-        else
-        {
-            _logger.LogInformation("Updated data file at {OutputFilePath}", _options.OutputFilePath);
-            _console.MarkupInterpolated($"Updated data file at {_options.OutputFilePath}");
-        }
     }
 }
