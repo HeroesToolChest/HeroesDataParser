@@ -604,7 +604,7 @@ DESCRIPTION:
 Copy over gamestrings from a gamestrings file to a data file
 
 USAGE:
-    heroesdataparser localized-text import <data-file-path> <gamestring-file-path> [OPTIONS]
+    heroesdataparser localized-text import <data-file-path> <gamestrings-file-path> [OPTIONS]
 
 ARGUMENTS:
     <data-file-path>          Path to the data file
@@ -618,9 +618,13 @@ OPTIONS:
 ```
 The data file does not need to contain the gamestring properties. If it already contains the gamestring properties, they will be overwritten.
 
-The `heroesVersion` and `hdpVersion` properties must match between the data file and the gamestring file.
+The `heroesVersion`, `hdpVersion`, and `mapName` properties must match between the data file and the gamestring file.
 
 The gamestring file's `dataTypes` property must contain the data file's `dataType`.
+
+> [!NOTE]
+> The created file will have the same name as the input data file.
+> If the file name contains the locale (e.g., `enus`) but the gamestring file has a different locale, the file name will remain unchanged.
 
 ***
 
@@ -670,7 +674,7 @@ If the `-c, --battlenet-cache` option is not specified, then an attempt will be 
 The file extensions of the files are automatically converted into its proper image format (`.dds`, `.png`, `.jpg`, etc).
 
 > [!NOTE]
-> This copies ALL .wafl files, which Starcraft II uses as well
+> This copies ALL .wafl files, which Starcraft II uses as well.
 
 Example command:
 ```
