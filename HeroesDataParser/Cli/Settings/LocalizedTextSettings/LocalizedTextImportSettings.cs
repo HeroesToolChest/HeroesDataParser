@@ -8,7 +8,7 @@ public class LocalizedTextImportSettings : LocalizedTextSettings
     [Description("Path to the data file")]
     public FileInfo DataFilePath { get; init; } = null!;
 
-    [CommandArgument(1, "<gamestring-file-path>")]
+    [CommandArgument(1, "<gamestrings-file-path>")]
     [Description("Path to the gamestrings file")]
     public FileInfo GameStringsFilePath { get; init; } = null!;
 

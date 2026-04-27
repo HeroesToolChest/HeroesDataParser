@@ -79,9 +79,30 @@ public class LocalizedTextImportServiceTests
         await localizedTextImportService.ImportGameStrings();
 
         // assert
-        _console.Output.Should().Contain("he data types in the gamestrings file does not contain the data type");
+        _console.Output.Should().Contain("the data types in the gamestrings file does not contain the data type");
     }
 
+    [TestMethod]
+    public async Task ImportGameStrings_MismatchedMapName_DoesNotComplete()
+    {
+        // arrange
+        _options.Value.Returns(new LocalizedTextImportOptions()
+        {
+            DataFilePath = Path.Combine("TestJsonFiles", "matchawarddata_96881_enus_boe.json"),
+            GameStringsFilePath = Path.Combine("TestJsonFiles", "gamestrings_96881_enus_alterac_pass.json"),
+            OutputDirectory = TestConstants.TestDirectory,
+        });
+
+        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
+
+        LocalizedTextImportService localizedTextImportService = new(_logger, _options, _console, _jsonSerializerOptionService);
+
+        // act
+        await localizedTextImportService.ImportGameStrings();
+
+        // assert
+        _console.Output.Should().Contain("The map name of the data file does not match the map name");
+    }
 
     [TestMethod]
     public async Task ImportGameStrings_HeroesData_ReturnsNewFile()
@@ -172,6 +193,37 @@ public class LocalizedTextImportServiceTests
 
         string newFileContent = File.ReadAllText(_options.Value.OutputFilePath);
         string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "LocalizedTextImport", "matchawarddata_96881_full.json"));
+
+        newFileContent.Should().BeEquivalentTo(comparedToText);
+    }
+
+    [TestMethod]
+    public async Task ImportGameStrings_MatchAwardDataMapBOE_ReturnsNewFile()
+    {
+        // arrange
+        _options.Value.Returns(new LocalizedTextImportOptions()
+        {
+            DataFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "matchawarddata_96881_boe.json"),
+            GameStringsFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "gamestrings_96881_enus_boe.json"),
+            OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ImportGameStrings_MatchAwardDataMapBOE_ReturnsNewFile)),
+            IsNewFile = true,
+            JsonIndent = true,
+        });
+
+        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
+
+        LocalizedTextImportService localizedTextImportService = new(_logger, _options, _console, _jsonSerializerOptionService);
+
+        // act
+        await localizedTextImportService.ImportGameStrings();
+
+        // assert
+        _console.Output.Should().Contain("New data file created at");
+
+        File.Exists(_options.Value.OutputFilePath).Should().BeTrue();
+
+        string newFileContent = File.ReadAllText(_options.Value.OutputFilePath);
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "LocalizedTextImport", "matchawarddata_96881_enus_boe_full.json"));
 
         newFileContent.Should().BeEquivalentTo(comparedToText);
     }
@@ -333,7 +385,7 @@ public class LocalizedTextImportServiceTests
         newFileContent.Should().BeEquivalentTo(comparedToText);
     }
 
-    // just tests the new file, no acutally file is updated
+    // just tests the new file, no actually file is updated
     [TestMethod]
     public async Task ImportGameStrings_NotNewFile_FileIsUpdated()
     {
