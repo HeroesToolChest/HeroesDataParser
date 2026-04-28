@@ -1,4 +1,6 @@
-﻿namespace HeroesDataParser.Infrastructure.JsonFileWriters;
+﻿using HeroesDataParser.Helpers;
+
+namespace HeroesDataParser.Infrastructure.JsonFileWriters;
 
 public abstract class JsonFileWriterBase
 {
@@ -32,17 +34,7 @@ public abstract class JsonFileWriterBase
 
     protected static int NormalizeMapDirectoryName(Span<char> buffer, string mapDirectory)
     {
-        int index = 0;
-
-        foreach (char c in mapDirectory)
-        {
-            if (char.IsWhiteSpace(c))
-                buffer[index++] = '_';
-            else if (!char.IsPunctuation(c))
-                buffer[index++] = char.ToLowerInvariant(c);
-        }
-
-        return index;
+        return MapName.NormalizeMapDirectoryName(buffer, mapDirectory);
     }
 
     protected abstract void IncrementFilesTotal();

@@ -31,7 +31,7 @@ public class PortraitInfoService : PortraitBase, IPortraitInfoService
 
         if (!string.IsNullOrWhiteSpace(_options.TextureSheetImageName))
         {
-            if (rewardPortraitDataDocument.MetaDataProperties.LocalizedText == LocalizedTextOption.Extract)
+            if (rewardPortraitDataDocument.Meta.LocalizedText == LocalizedTextOption.Extract)
                 Console.MarkupLineInterpolated($"[yellow]Localized text is set to 'Extract', the displayed information may not be complete.[/]");
 
             DisplayPortraitsFromTextureSheetImage(rewardPortraits, _options.TextureSheetImageName);
@@ -123,7 +123,7 @@ public class PortraitInfoService : PortraitBase, IPortraitInfoService
 
     private void LocalizedTextWarning(RewardPortraitDataDocument rewardPortraitDataDocument)
     {
-        if (rewardPortraitDataDocument.MetaDataProperties.LocalizedText == LocalizedTextOption.Extract)
+        if (rewardPortraitDataDocument.Meta.LocalizedText == LocalizedTextOption.Extract)
         {
             Logger.LogWarning("Localized text is set to 'Extract'");
             Console.MarkupLineInterpolated($"[yellow]Localized text is set to 'Extract', the displayed information may not be complete.[/]");

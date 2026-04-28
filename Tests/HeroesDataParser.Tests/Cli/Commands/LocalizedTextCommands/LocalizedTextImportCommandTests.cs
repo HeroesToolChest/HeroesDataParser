@@ -33,7 +33,7 @@ public class LocalizedTextImportCommandTests
 
         // assert
         result.ExitCode.Should().Be(-1);
-        result.Output.Should().Contain("required argument 'gamestring-file-path'");
+        result.Output.Should().Contain("required argument 'gamestrings-file-path'");
     }
 
     [TestMethod]

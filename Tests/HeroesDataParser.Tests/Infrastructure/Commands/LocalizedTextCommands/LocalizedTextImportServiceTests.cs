@@ -79,7 +79,7 @@ public class LocalizedTextImportServiceTests
         await localizedTextImportService.ImportGameStrings();
 
         // assert
-        _console.Output.Should().Contain("the data types in the gamestrings file does not contain the data type");
+        _console.Output.Should().Contain("data types in the gamestrings file does not contain the data type");
     }
 
     [TestMethod]
