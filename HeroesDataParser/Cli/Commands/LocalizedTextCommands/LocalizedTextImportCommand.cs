@@ -41,10 +41,10 @@ public class LocalizedTextImportCommand : AsyncCommand<LocalizedTextImportSettin
                 _console.MarkupLine($"[red]Output file already exists: {_options.OutputFilePath}[/]");
                 return 1;
             }
-            else
-            {
-                _options.IsNewFile = true;
-            }
+        }
+        else
+        {
+            _options.IsNewFile = true;
         }
 
         await _localizedTextImportService.ImportGameStrings();

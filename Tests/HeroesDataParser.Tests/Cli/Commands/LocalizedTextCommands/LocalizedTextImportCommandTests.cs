@@ -209,6 +209,61 @@ public class LocalizedTextImportCommandTests
         localizedTextImportOptions.JsonIndent.Should().BeFalse();
     }
 
+    [TestMethod]
+    public async Task LocalizedTextImportCommand_OutputFileDoesNotExist_IsNewFileIsTrue()
+    {
+        // arrange
+        LocalizedTextImportOptions localizedTextImportOptions = new();
+        _options.Value.Returns(localizedTextImportOptions);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<LocalizedTextImportCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            Path.Combine("TestJsonFiles", "herodata_96477_enus_rawtext.json"),
+            Path.Combine("TestJsonFiles", "herodata_96477_enus_rawtext.json"),
+            "-o", "TestXmlFiles",
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        await AssertCommandSuccessful(result);
+
+        localizedTextImportOptions.IsNewFile.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public async Task LocalizedTextImportCommand_OutputFileAlreadyExists_IsNewFileIsFalse()
+    {
+        // arrange
+        LocalizedTextImportOptions localizedTextImportOptions = new();
+        _options.Value.Returns(localizedTextImportOptions);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<LocalizedTextImportCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            Path.Combine("TestJsonFiles", "herodata_96477_enus_rawtext.json"),
+            Path.Combine("TestJsonFiles", "herodata_96477_enus_rawtext.json"),
+            "--output-path", "TestJsonFiles",
+            "--overwrite",
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        await AssertCommandSuccessful(result);
+
+        localizedTextImportOptions.IsNewFile.Should().BeFalse();
+    }
+
     private ServiceCollection GetServiceCollection()
     {
         ServiceCollection services = new();

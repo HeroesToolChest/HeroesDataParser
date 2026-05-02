@@ -152,6 +152,7 @@ public class GameStringTextUpdateCommandTests
         // assert
         result.ExitCode.Should().Be(1);
         result.Output.Should().Contain("Output file already exists");
+        gameStringTextUpdateOptions.IsNewFile.Should().BeFalse();
     }
 
     [TestMethod]
@@ -184,6 +185,7 @@ public class GameStringTextUpdateCommandTests
         gameStringTextUpdateOptions.GameStringTextHltConstantRemoveMode.Should().Be(GameStringTextHltRemoveMode.None);
         gameStringTextUpdateOptions.GameStringTextHltStyleRemoveMode.Should().Be(GameStringTextHltRemoveMode.None);
         gameStringTextUpdateOptions.JsonIndent.Should().BeTrue();
+        gameStringTextUpdateOptions.IsNewFile.Should().BeFalse();
     }
 
     [TestMethod]
@@ -215,6 +217,7 @@ public class GameStringTextUpdateCommandTests
         gameStringTextUpdateOptions.AllowOverwrite.Should().BeFalse();
         gameStringTextUpdateOptions.GameStringTextHltConstantRemoveMode.Should().Be(GameStringTextHltRemoveMode.None);
         gameStringTextUpdateOptions.GameStringTextHltStyleRemoveMode.Should().Be(GameStringTextHltRemoveMode.None);
+        gameStringTextUpdateOptions.IsNewFile.Should().BeTrue();
     }
 
     [TestMethod]
@@ -248,6 +251,7 @@ public class GameStringTextUpdateCommandTests
         gameStringTextUpdateOptions.AllowOverwrite.Should().BeFalse();
         gameStringTextUpdateOptions.GameStringTextHltConstantRemoveMode.Should().Be(GameStringTextHltRemoveMode.Remove);
         gameStringTextUpdateOptions.GameStringTextHltStyleRemoveMode.Should().Be(GameStringTextHltRemoveMode.RemoveAndUndo);
+        gameStringTextUpdateOptions.IsNewFile.Should().BeTrue();
     }
 
     [TestMethod]
@@ -275,6 +279,7 @@ public class GameStringTextUpdateCommandTests
         await AssertCommandSuccessful(result);
 
         gameStringTextUpdateOptions.JsonIndent.Should().BeFalse();
+        gameStringTextUpdateOptions.IsNewFile.Should().BeFalse();
     }
 
     private ServiceCollection GetServiceCollection()
