@@ -16,10 +16,13 @@ public class JsonSerializerOptionService : IJsonSerializerOptionService
         GeneralJsonSerializerOptions = JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions();
     }
 
+    // general use, not option dependent
     public JsonSerializerOptions GeneralJsonSerializerOptions { get; }
 
+    // uses root options
     public JsonSerializerOptions JsonSerializerDataOptions => GetJsonSerializerDataOptions();
 
+    // uses root options
     public JsonSerializerOptions JsonSerializerGameStringOptions => GetJsonSerializerGameStringOptions();
 
     private JsonSerializerOptions GetJsonSerializerDataOptions()

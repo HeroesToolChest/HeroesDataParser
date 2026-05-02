@@ -9,10 +9,14 @@
     "gameStringText": {
       "locale": "ENUS",
       "textType": "PlainText",
-      "replaceFontConstantVars": true,
-      "replaceFontStylesVars": false,
-      "preserveFontConstantVars": false,
-      "preserveFontStyleVars": false
+      "constantVars": {
+        "replaced": true,
+        "preserved": false
+      },
+      "styleVars": {
+        "replaced": false,
+        "preserved": false
+      }
     }
   },
   "items": {

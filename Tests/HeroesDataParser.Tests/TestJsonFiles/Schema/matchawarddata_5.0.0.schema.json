@@ -122,85 +122,55 @@
       "additionalProperties": {
         "type": "object",
         "properties": {
-          "name": {
+          "gameLink": {
             "type": [
               "string",
               "null"
             ]
           },
-          "sortName": {
+          "tag": {
             "type": [
               "string",
               "null"
             ]
           },
-          "hyperlinkId": {
+          "scoreScreenName": {
             "type": [
               "string",
               "null"
             ]
           },
-          "attributeId": {
+          "scoreScreenDescription": {
             "type": [
               "string",
               "null"
             ]
           },
-          "franchise": {
-            "enum": [
-              "Classic",
-              "Diablo",
-              "Overwatch",
-              "Starcraft",
-              "Warcraft",
-              "Nexus",
-              "Unknown",
-              null
-            ]
-          },
-          "rarity": {
-            "enum": [
-              "Unknown",
-              "None",
-              "Common",
-              "Rare",
-              "Epic",
-              "Legendary",
-              null
-            ]
-          },
-          "releaseDate": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "date"
-          },
-          "category": {
+          "endOfMatchName": {
             "type": [
               "string",
               "null"
             ]
           },
-          "event": {
+          "endOfMatchDescription": {
             "type": [
               "string",
               "null"
             ]
           },
-          "searchText": {
+          "endOfMatchTooltipText": {
             "type": [
               "string",
               "null"
             ]
           },
-          "description": {
+          "mvpScreenIcon": {
             "type": [
               "string",
               "null"
             ]
           },
-          "infoText": {
+          "scoreScreenIcon": {
             "type": [
               "string",
               "null"

@@ -48,7 +48,7 @@ public class RootSettings : CommandSettings
     public bool GameStringPreserveStyleVars { get; init; }
 
     [CommandOption("--localized-text <OPTION>")]
-    [Description("How to handle gamestring properties")]
+    [Description("Action for gamestring property extraction")]
     [DefaultValue(LocalizedTextOption.None)]
     public LocalizedTextOption LocalizedTextOption { get; init; }
 
@@ -57,7 +57,7 @@ public class RootSettings : CommandSettings
     public bool DisableMapSpecificJson { get; init; }
 
     [CommandOption("--map-specific-json-output <TYPE>")]
-    [Description("How to handle map-specific JSON file creation")]
+    [Description("Action to handle map-specific JSON file creation")]
     [DefaultValue(MapSpecificWriterJsonOutputType.Patch)]
     public MapSpecificWriterJsonOutputType MapSpecificWriterJsonOutputType { get; init; }
 

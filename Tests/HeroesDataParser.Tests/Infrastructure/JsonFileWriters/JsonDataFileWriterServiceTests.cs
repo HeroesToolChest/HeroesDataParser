@@ -91,10 +91,14 @@ public class JsonDataFileWriterServiceTests
             "gameStringText": {
               "locale": "ENUS",
               "textType": "RawText",
-              "replaceFontConstantVars": false,
-              "replaceFontStylesVars": false,
-              "preserveFontConstantVars": false,
-              "preserveFontStyleVars": false
+              "constantVars": {
+                "replaced": false,
+                "preserved": false
+              },
+              "styleVars": {
+                "replaced": false,
+                "preserved": false
+              }
             },
             "totalItems": 2
           },
@@ -225,7 +229,7 @@ public class JsonDataFileWriterServiceTests
         File.Exists(expectedFilePath).Should().BeTrue();
         File.ReadAllText(expectedFilePath).Should().Be(
         """
-        {"meta":{"heroesVersion":"2.23.2345.34566","hdpVersion":"5.0.0","itemsType":"Data","dataType":"HeroData","localizedText":"None","gameStringText":{"locale":"ENUS","textType":"RawText","replaceFontConstantVars":false,"replaceFontStylesVars":false,"preserveFontConstantVars":false,"preserveFontStyleVars":false},"totalItems":2},"items":{"hero1":{"unitId":"hero1","franchise":"Starcraft","isMelee":false,"gender":"Male","radius":0,"innerRadius":0,"sight":0,"speed":0,"roles":[],"ratings":{"complexity":1,"damage":1,"survivability":1,"utility":1},"portraits":{"heroSelect":"","leaderboard":"","loading":"","partyPanel":"","target":"","draftScreen":"","partyFrames":[]}},"hero2":{"unitId":"hero2","franchise":"Starcraft","isMelee":false,"gender":"Male","radius":0,"innerRadius":0,"sight":0,"speed":0,"roles":[],"ratings":{"complexity":1,"damage":1,"survivability":1,"utility":1},"portraits":{"heroSelect":"","leaderboard":"","loading":"","partyPanel":"","target":"","draftScreen":"","partyFrames":[]},"armor":{"Hero":{"basic":10,"ability":5,"splash":2}},"summonedUnitIds":["summonedUnit1","summonedUnit2"]}}}
+        {"meta":{"heroesVersion":"2.23.2345.34566","hdpVersion":"5.0.0","itemsType":"Data","dataType":"HeroData","localizedText":"None","gameStringText":{"locale":"ENUS","textType":"RawText","constantVars":{"replaced":false,"preserved":false},"styleVars":{"replaced":false,"preserved":false}},"totalItems":2},"items":{"hero1":{"unitId":"hero1","franchise":"Starcraft","isMelee":false,"gender":"Male","radius":0,"innerRadius":0,"sight":0,"speed":0,"roles":[],"ratings":{"complexity":1,"damage":1,"survivability":1,"utility":1},"portraits":{"heroSelect":"","leaderboard":"","loading":"","partyPanel":"","target":"","draftScreen":"","partyFrames":[]}},"hero2":{"unitId":"hero2","franchise":"Starcraft","isMelee":false,"gender":"Male","radius":0,"innerRadius":0,"sight":0,"speed":0,"roles":[],"ratings":{"complexity":1,"damage":1,"survivability":1,"utility":1},"portraits":{"heroSelect":"","leaderboard":"","loading":"","partyPanel":"","target":"","draftScreen":"","partyFrames":[]},"armor":{"Hero":{"basic":10,"ability":5,"splash":2}},"summonedUnitIds":["summonedUnit1","summonedUnit2"]}}}
         """);
     }
 
@@ -558,10 +562,14 @@ public class JsonDataFileWriterServiceTests
             "gameStringText": {
               "locale": "DEDE",
               "textType": "RawText",
-              "replaceFontConstantVars": false,
-              "replaceFontStylesVars": false,
-              "preserveFontConstantVars": false,
-              "preserveFontStyleVars": false
+              "constantVars": {
+                "replaced": false,
+                "preserved": false
+              },
+              "styleVars": {
+                "replaced": false,
+                "preserved": false
+              }
             },
             "totalItems": 1
           },
@@ -714,7 +722,7 @@ public class JsonDataFileWriterServiceTests
             "hdpVersion": "5.0.0",
             "itemsType": "Data",
             "dataType": "HeroData",
-            "localizedText": "Extract",
+            "localizedText": "Extracted",
             "totalItems": 1
           },
           "items": {
@@ -811,14 +819,18 @@ public class JsonDataFileWriterServiceTests
             "hdpVersion": "5.0.0",
             "itemsType": "Data",
             "dataType": "HeroData",
-            "localizedText": "Copy",
+            "localizedText": "None",
             "gameStringText": {
               "locale": "DEDE",
               "textType": "RawText",
-              "replaceFontConstantVars": false,
-              "replaceFontStylesVars": false,
-              "preserveFontConstantVars": false,
-              "preserveFontStyleVars": false
+              "constantVars": {
+                "replaced": false,
+                "preserved": false
+              },
+              "styleVars": {
+                "replaced": false,
+                "preserved": false
+              }
             },
             "totalItems": 1
           },
@@ -872,10 +884,14 @@ public class JsonDataFileWriterServiceTests
             "gameStringText": {
               "locale": "ENUS",
               "textType": "RawText",
-              "replaceFontConstantVars": false,
-              "replaceFontStylesVars": false,
-              "preserveFontConstantVars": false,
-              "preserveFontStyleVars": false
+              "constantVars": {
+                "replaced": false,
+                "preserved": false
+              },
+              "styleVars": {
+                "replaced": false,
+                "preserved": false
+              }
             },
             "totalItems": 1
           },

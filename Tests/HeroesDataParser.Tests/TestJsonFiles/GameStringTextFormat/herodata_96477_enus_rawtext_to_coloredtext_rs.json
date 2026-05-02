@@ -8,10 +8,14 @@
     "gameStringText": {
       "locale": "ENUS",
       "textType": "ColoredText",
-      "replaceFontConstantVars": false,
-      "replaceFontStylesVars": true,
-      "preserveFontConstantVars": false,
-      "preserveFontStyleVars": false
+      "constantVars": {
+        "replaced": false,
+        "preserved": false
+      },
+      "styleVars": {
+        "replaced": true,
+        "preserved": false
+      }
     },
     "totalItems": 3
   },

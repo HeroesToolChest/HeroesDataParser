@@ -108,14 +108,14 @@ public class GameStringTextFormatService : IGameStringTextUpdateService
 
         if (_options.GameStringTextHltConstantRemoveMode != GameStringTextHltRemoveMode.None)
         {
-            metaDataProperties.GameStringTextProperties.ReplaceFontConstantVars = GetReplaceFontConstantVarsValue();
-            metaDataProperties.GameStringTextProperties.PreserveFontConstantVars = GetPreserveFontConstantVarsValue();
+            metaDataProperties.GameStringTextProperties.ConstantVars.Replaced = GetReplaceFontConstantVarsValue();
+            metaDataProperties.GameStringTextProperties.ConstantVars.Preserved = GetPreserveFontConstantVarsValue();
         }
 
         if (_options.GameStringTextHltStyleRemoveMode != GameStringTextHltRemoveMode.None)
         {
-            metaDataProperties.GameStringTextProperties.ReplaceFontStylesVars = GetReplaceFontStylesVarsValue();
-            metaDataProperties.GameStringTextProperties.PreserveFontStyleVars = GetPreserveFontStyleVars();
+            metaDataProperties.GameStringTextProperties.StyleVars.Replaced = GetReplaceFontStylesVarsValue();
+            metaDataProperties.GameStringTextProperties.StyleVars.Preserved = GetPreserveFontStyleVars();
         }
 
         SortedDictionary<string, object> itemObjects = new(StringComparer.OrdinalIgnoreCase);
@@ -147,14 +147,14 @@ public class GameStringTextFormatService : IGameStringTextUpdateService
 
         if (_options.GameStringTextHltConstantRemoveMode != GameStringTextHltRemoveMode.None)
         {
-            rootJsonGameStringElement.MetaGameStringProperties.GameStringTextProperties.ReplaceFontConstantVars = GetReplaceFontConstantVarsValue();
-            rootJsonGameStringElement.MetaGameStringProperties.GameStringTextProperties.PreserveFontConstantVars = GetPreserveFontConstantVarsValue();
+            rootJsonGameStringElement.MetaGameStringProperties.GameStringTextProperties.ConstantVars.Replaced = GetReplaceFontConstantVarsValue();
+            rootJsonGameStringElement.MetaGameStringProperties.GameStringTextProperties.ConstantVars.Preserved = GetPreserveFontConstantVarsValue();
         }
 
         if (_options.GameStringTextHltStyleRemoveMode != GameStringTextHltRemoveMode.None)
         {
-            rootJsonGameStringElement.MetaGameStringProperties.GameStringTextProperties.ReplaceFontStylesVars = GetReplaceFontStylesVarsValue();
-            rootJsonGameStringElement.MetaGameStringProperties.GameStringTextProperties.PreserveFontStyleVars = GetPreserveFontStyleVars();
+            rootJsonGameStringElement.MetaGameStringProperties.GameStringTextProperties.StyleVars.Replaced = GetReplaceFontStylesVarsValue();
+            rootJsonGameStringElement.MetaGameStringProperties.GameStringTextProperties.StyleVars.Preserved = GetPreserveFontStyleVars();
         }
 
         return rootJsonGameStringElement;
@@ -194,7 +194,7 @@ public class GameStringTextFormatService : IGameStringTextUpdateService
 
     private bool ValidateLocalizedText(MetaDataProperties metaDataProperties)
     {
-        if (metaDataProperties.LocalizedText == LocalizedTextOption.Extract)
+        if (metaDataProperties.LocalizedText == LocalizedText.Extracted)
         {
             _logger.LogInformation("'{PropertyName}' value in JSON is '{LocalizedTextOption}'", ElementConstants.LocalizedTextPropertyName, LocalizedTextOption.Extract);
             _console.MarkupLine($"'{ElementConstants.LocalizedTextPropertyName}' value in JSON is '{LocalizedTextOption.Extract}', no gamestrings to update");

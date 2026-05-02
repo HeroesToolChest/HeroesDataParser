@@ -38,10 +38,14 @@ public class GameStringSerializerServiceTests
             "dataTypes": [],
             "gameStringText": {
               "locale": "ENUS",
-              "replaceFontConstantVars": false,
-              "replaceFontStylesVars": false,
-              "preserveFontConstantVars": false,
-              "preserveFontStyleVars": false
+              "constantVars": {
+                "replaced": false,
+                "preserved": false
+              },
+              "styleVars": {
+                "replaced": false,
+                "preserved": false
+              }
             }
           },
           "items": {}
@@ -89,10 +93,14 @@ public class GameStringSerializerServiceTests
             "dataTypes": [],
             "gameStringText": {
               "locale": "ENUS",
-              "replaceFontConstantVars": false,
-              "replaceFontStylesVars": false,
-              "preserveFontConstantVars": false,
-              "preserveFontStyleVars": false
+              "constantVars": {
+                "replaced": false,
+                "preserved": false
+              },
+              "styleVars": {
+                "replaced": false,
+                "preserved": false
+              }
             }
           },
           "items": {

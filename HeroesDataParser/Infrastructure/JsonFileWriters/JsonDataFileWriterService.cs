@@ -85,17 +85,23 @@ public class JsonDataFileWriterService : JsonFileWriterBase, IJsonDataFileWriter
                 ItemsType = ItemsType.Data,
                 DataType = dataType,
                 MapName = mapName,
-                LocalizedText = Options.LocalizedText,
+                LocalizedText = Options.LocalizedText == LocalizedTextOption.Extract ? LocalizedText.Extracted : LocalizedText.None,
                 HeroesVersion = Options.HeroesVersion.GetAsHeroesDataVersion(),
                 HdpVersion = Options.AppVersion,
                 GameStringTextProperties = Options.LocalizedText == LocalizedTextOption.Extract ? null : new()
                 {
                     Locale = Options.CurrentLocale,
                     GameStringTextType = Options.GameStringText.Type,
-                    ReplaceFontConstantVars = Options.GameStringText.ReplaceFontConstantVars,
-                    PreserveFontConstantVars = Options.GameStringText.PreserveFontConstantVars,
-                    ReplaceFontStylesVars = Options.GameStringText.ReplaceFontStylesVars,
-                    PreserveFontStyleVars = Options.GameStringText.PreserveFontStyleVars,
+                    ConstantVars =
+                    {
+                        Replaced = Options.GameStringText.ReplaceFontConstantVars,
+                        Preserved = Options.GameStringText.PreserveFontConstantVars,
+                    },
+                    StyleVars =
+                    {
+                        Replaced = Options.GameStringText.ReplaceFontStylesVars,
+                        Preserved = Options.GameStringText.PreserveFontStyleVars,
+                    },
                 },
                 TotalItems = elementsById.Count,
             },

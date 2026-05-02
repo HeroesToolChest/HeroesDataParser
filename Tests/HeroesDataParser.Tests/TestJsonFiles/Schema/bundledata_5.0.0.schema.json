@@ -51,8 +51,7 @@
         "localizedText": {
           "enum": [
             "None",
-            "Extract",
-            "Copy"
+            "Extracted"
           ]
         },
         "gameStringText": {
@@ -89,17 +88,27 @@
                 null
               ]
             },
-            "replaceFontConstantVars": {
-              "type": "boolean"
+            "constantVars": {
+              "type": "object",
+              "properties": {
+                "replaced": {
+                  "type": "boolean"
+                },
+                "preserved": {
+                  "type": "boolean"
+                }
+              }
             },
-            "replaceFontStylesVars": {
-              "type": "boolean"
-            },
-            "preserveFontConstantVars": {
-              "type": "boolean"
-            },
-            "preserveFontStyleVars": {
-              "type": "boolean"
+            "styleVars": {
+              "type": "object",
+              "properties": {
+                "replaced": {
+                  "type": "boolean"
+                },
+                "preserved": {
+                  "type": "boolean"
+                }
+              }
             }
           }
         },

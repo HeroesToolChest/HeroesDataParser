@@ -92,10 +92,16 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
             {
                 Locale = Options.CurrentLocale,
                 GameStringTextType = Options.GameStringText.Type,
-                ReplaceFontConstantVars = Options.GameStringText.ReplaceFontConstantVars,
-                PreserveFontConstantVars = Options.GameStringText.PreserveFontConstantVars,
-                ReplaceFontStylesVars = Options.GameStringText.ReplaceFontStylesVars,
-                PreserveFontStyleVars = Options.GameStringText.PreserveFontStyleVars,
+                ConstantVars =
+                {
+                    Replaced = Options.GameStringText.ReplaceFontConstantVars,
+                    Preserved = Options.GameStringText.PreserveFontConstantVars,
+                },
+                StyleVars =
+                {
+                    Replaced = Options.GameStringText.ReplaceFontStylesVars,
+                    Preserved = Options.GameStringText.PreserveFontStyleVars,
+                },
             },
         };
     }

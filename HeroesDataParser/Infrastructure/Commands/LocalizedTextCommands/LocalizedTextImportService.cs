@@ -43,7 +43,7 @@ public class LocalizedTextImportService : ILocalizedTextImportService
         }
 
         MetaDataProperties updatedMetaProperties = elementDocument.Meta;
-        updatedMetaProperties.LocalizedText = LocalizedTextOption.None;
+        updatedMetaProperties.LocalizedText = LocalizedText.None;
         updatedMetaProperties.GameStringTextProperties = elementDocument.GameStringDocument!.Meta.GameStringTextProperties;
 
         return new RootJsonDataElement()

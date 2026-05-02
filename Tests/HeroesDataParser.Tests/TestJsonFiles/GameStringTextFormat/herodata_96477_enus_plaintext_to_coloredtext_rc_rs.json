@@ -4,14 +4,18 @@
     "hdpVersion": "5.0.0",
     "itemsType": "Data",
     "dataType": "HeroData",
-    "localizedText": "Copy",
+    "localizedText": "None",
     "gameStringText": {
       "locale": "ENUS",
       "textType": "ColoredText",
-      "replaceFontConstantVars": true,
-      "replaceFontStylesVars": true,
-      "preserveFontConstantVars": false,
-      "preserveFontStyleVars": false
+      "constantVars": {
+        "replaced": true,
+        "preserved": false
+      },
+      "styleVars": {
+        "replaced": true,
+        "preserved": false
+      }
     },
     "totalItems": 3
   },
