@@ -127,12 +127,7 @@ public class LocalizedTextImportServiceTests
         // assert
         _console.Output.Should().Contain("New data file created at");
 
-        File.Exists(_options.Value.OutputFilePath).Should().BeTrue();
-
-        string newFileContent = File.ReadAllText(_options.Value.OutputFilePath);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_96881_full.json"));
-
-        newFileContent.Should().BeEquivalentTo(comparedToText);
+        FileCompare.ShouldBeEqual(_options.Value.OutputFilePath, Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_96881_full.json"));
     }
 
     [TestMethod]
@@ -160,10 +155,7 @@ public class LocalizedTextImportServiceTests
 
         File.Exists(_options.Value.OutputFilePath).Should().BeTrue();
 
-        string newFileContent = File.ReadAllText(_options.Value.OutputFilePath);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "LocalizedTextImport", "emoticondata_96881_full.json"));
-
-        newFileContent.Should().BeEquivalentTo(comparedToText);
+        FileCompare.ShouldBeEqual(_options.Value.OutputFilePath, Path.Combine("TestJsonFiles", "LocalizedTextImport", "emoticondata_96881_full.json"));
     }
 
     [TestMethod]
@@ -189,12 +181,7 @@ public class LocalizedTextImportServiceTests
         // assert
         _console.Output.Should().Contain("New data file created at");
 
-        File.Exists(_options.Value.OutputFilePath).Should().BeTrue();
-
-        string newFileContent = File.ReadAllText(_options.Value.OutputFilePath);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "LocalizedTextImport", "matchawarddata_96881_full.json"));
-
-        newFileContent.Should().BeEquivalentTo(comparedToText);
+        FileCompare.ShouldBeEqual(_options.Value.OutputFilePath, Path.Combine("TestJsonFiles", "LocalizedTextImport", "matchawarddata_96881_full.json"));
     }
 
     [TestMethod]
@@ -220,12 +207,7 @@ public class LocalizedTextImportServiceTests
         // assert
         _console.Output.Should().Contain("New data file created at");
 
-        File.Exists(_options.Value.OutputFilePath).Should().BeTrue();
-
-        string newFileContent = File.ReadAllText(_options.Value.OutputFilePath);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "LocalizedTextImport", "matchawarddata_96881_enus_boe_full.json"));
-
-        newFileContent.Should().BeEquivalentTo(comparedToText);
+        FileCompare.ShouldBeEqual(_options.Value.OutputFilePath, Path.Combine("TestJsonFiles", "LocalizedTextImport", "matchawarddata_96881_enus_boe_full.json"));
     }
 
     [TestMethod]
@@ -251,12 +233,7 @@ public class LocalizedTextImportServiceTests
         // assert
         _console.Output.Should().Contain("New data file created at");
 
-        File.Exists(_options.Value.OutputFilePath).Should().BeTrue();
-
-        string newFileContent = File.ReadAllText(_options.Value.OutputFilePath);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "LocalizedTextImport", "mapdata_96881_full.json"));
-
-        newFileContent.Should().BeEquivalentTo(comparedToText);
+        FileCompare.ShouldBeEqual(_options.Value.OutputFilePath, Path.Combine("TestJsonFiles", "LocalizedTextImport", "mapdata_96881_full.json"));
     }
 
     [TestMethod]
@@ -282,12 +259,7 @@ public class LocalizedTextImportServiceTests
         // assert
         _console.Output.Should().Contain("New data file created at");
 
-        File.Exists(_options.Value.OutputFilePath).Should().BeTrue();
-
-        string newFileContent = File.ReadAllText(_options.Value.OutputFilePath);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "LocalizedTextImport", "mapdata_96881_dede_full.json"));
-
-        newFileContent.Should().BeEquivalentTo(comparedToText);
+        FileCompare.ShouldBeEqual(_options.Value.OutputFilePath, Path.Combine("TestJsonFiles", "LocalizedTextImport", "mapdata_96881_dede_full.json"));
     }
 
     // original is colored with scaling, imported gamestring file is raw text
@@ -314,12 +286,7 @@ public class LocalizedTextImportServiceTests
         // assert
         _console.Output.Should().Contain("New data file created at");
 
-        File.Exists(_options.Value.OutputFilePath).Should().BeTrue();
-
-        string newFileContent = File.ReadAllText(_options.Value.OutputFilePath);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_96881_full.json"));
-
-        newFileContent.Should().BeEquivalentTo(comparedToText);
+        FileCompare.ShouldBeEqual(_options.Value.OutputFilePath, Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_96881_full.json"));
     }
 
     // original is raw text, imported gamestring file is colored with scaling
@@ -346,12 +313,7 @@ public class LocalizedTextImportServiceTests
         // assert
         _console.Output.Should().Contain("New data file created at");
 
-        File.Exists(_options.Value.OutputFilePath).Should().BeTrue();
-
-        string newFileContent = File.ReadAllText(_options.Value.OutputFilePath);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_96881_enus_colorwithscaling.json"));
-
-        newFileContent.Should().BeEquivalentTo(comparedToText);
+        FileCompare.ShouldBeEqual(_options.Value.OutputFilePath, Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_96881_enus_colorwithscaling.json"));
     }
 
     [TestMethod]
@@ -377,12 +339,7 @@ public class LocalizedTextImportServiceTests
         // assert
         _console.Output.Should().Contain("New data file created at");
 
-        File.Exists(_options.Value.OutputFilePath).Should().BeTrue();
-
-        string newFileContent = File.ReadAllText(_options.Value.OutputFilePath);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "LocalizedTextImport", "mapdata_96881_enus_full_noindent.json"));
-
-        newFileContent.Should().BeEquivalentTo(comparedToText);
+        FileCompare.ShouldBeEqual(_options.Value.OutputFilePath, Path.Combine("TestJsonFiles", "LocalizedTextImport", "mapdata_96881_enus_full_noindent.json"));
     }
 
     // just tests the new file, no actually file is updated
@@ -409,11 +366,6 @@ public class LocalizedTextImportServiceTests
         // assert
         _console.Output.Should().Contain("Updated data file at");
 
-        File.Exists(_options.Value.OutputFilePath).Should().BeTrue();
-
-        string newFileContent = File.ReadAllText(_options.Value.OutputFilePath);
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "LocalizedTextImport", "mapdata_96881_full.json"));
-
-        newFileContent.Should().BeEquivalentTo(comparedToText);
+        FileCompare.ShouldBeEqual(_options.Value.OutputFilePath, Path.Combine("TestJsonFiles", "LocalizedTextImport", "mapdata_96881_full.json"));
     }
 }

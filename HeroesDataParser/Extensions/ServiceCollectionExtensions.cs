@@ -200,6 +200,7 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IPortraitExtractAutoService, PortraitExtractAutoService>();
             services.AddSingleton<IPortraitExtractService, PortraitExtractService>();
             services.AddSingleton<ILocalizedTextImportService, LocalizedTextImportService>();
+            services.AddSingleton<ILocalizedTextExportService, LocalizedTextExportService>();
 
             return services;
         }

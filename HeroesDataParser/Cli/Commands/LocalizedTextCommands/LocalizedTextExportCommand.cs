@@ -5,15 +5,18 @@ public class LocalizedTextExportCommand : AsyncCommand<LocalizedTextExportSettin
     private readonly ILogger<LocalizedTextExportCommand> _logger;
     private readonly LocalizedTextExportOptions _options;
     private readonly IAnsiConsole _console;
+    private readonly ILocalizedTextExportService _localizedTextExportService;
 
     public LocalizedTextExportCommand(
         ILogger<LocalizedTextExportCommand> logger,
         IOptions<LocalizedTextExportOptions> options,
-        IAnsiConsole console)
+        IAnsiConsole console,
+        ILocalizedTextExportService localizedTextExportService)
     {
         _logger = logger;
         _options = options.Value;
         _console = console;
+        _localizedTextExportService = localizedTextExportService;
     }
 
     protected override async Task<int> ExecuteAsync(CommandContext context, LocalizedTextExportSettings settings, CancellationToken cancellationToken)
@@ -21,6 +24,8 @@ public class LocalizedTextExportCommand : AsyncCommand<LocalizedTextExportSettin
         _logger.LogInformation("Starting {CommandName}", nameof(LocalizedTextExportCommand));
 
         _options.DataFilePath = settings.DataFilePath.FullName;
+        _options.GameStringFilePath = settings.GameStringFilePath?.FullName;
+        _options.ExtractType = settings.ExtractType;
         _options.AllowOverwrite = settings.Overwrite;
         _options.JsonIndent = !settings.DisableJsonIndent;
 
@@ -29,7 +34,8 @@ public class LocalizedTextExportCommand : AsyncCommand<LocalizedTextExportSettin
         else
             _options.OutputDirectory = settings.OutputDirectory.FullName;
 
-        await Task.CompletedTask;
+        await _localizedTextExportService.ExportGameStrings();
+
         return 0;
     }
 }

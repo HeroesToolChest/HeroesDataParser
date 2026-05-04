@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "heroesVersion": "2.55.15.96477",
+    "hdpVersion": "5.0.0",
+    "itemsType": "GameStrings",
+    "dataTypes": [
+      "AnnouncerData"
+    ],
+    "gameStringText": {
+      "locale": "ENUS",
+      "textType": "RawText",
+      "constantVars": {
+        "replaced": false,
+        "preserved": false
+      },
+      "styleVars": {
+        "replaced": false,
+        "preserved": false
+      }
+    }
+  },
+  "items": {
+    "announcer": {
+      "name": {
+        "AbathurA": "Abathur Announcer",
+        "Adjutant": "Adjutant Announcer",
+        "AlarakA": "Alarak Announcer",
+        "AlexstraszaA": "Alexstrasza Announcer",
+        "AnduinA": "Anduin Announcer",
+        "Angel": "Ilarian Announcer",
+        "AnubarakA": "Anub'arak Announcer",
+        "ArthasA": "Arthas Announcer",
+        "AthenaA": "Athena Announcer",
+        "BarbarianA": "Sonya Announcer",
+        "Blackheart": "Blackheart Announcer",
+        "BlazeA": "Blaze Announcer",
+        "BrightwingA": "Brightwing Announcer",
+        "ButcherA": "Butcher Announcer",
+        "CloakenA": "Cloaken Announcer",
+        "Cook": "Cook Announcer",
+        "CowboyA": "MC Tombstone Announcer",
+        "DeathwingA": "Deathwing Announcer",
+        "DeckardA": "Deckard Announcer",
+        "Demon": "Beleth Announcer",
+        "DemonHunterA": "Valla Announcer",
+        "DiabloA": "Diablo Announcer",
+        "DrekTharA": "Drek'Thar Announcer",
+        "DVaAnnouncer": "D.Va Announcer",
+        "ETCA": "E.T.C. Announcer",
+        "FalstadA": "Falstad Announcer",
+        "FenixA": "Fenix Announcer",
+        "GardensDayAnnouncer": "Queen Nightshade Announcer",
+        "GardensNightAnnouncer": "Spore Queen Announcer",
+        "GarroshA": "Garrosh Announcer",
+        "GazloweA": "Gazlowe Announcer",
+        "GenjiAnnouncer": "Genji Announcer",
+        "HanzoA": "Hanzo Announcer",
+        "HoggerAnnouncer": "Hogger Announcer",
+        "IllidanA": "Illidan Announcer",
+        "ImperiusA": "Imperius Announcer",
+        "JainaA": "Jaina Announcer",
+        "JohannaA": "Johanna Announcer",
+        "JunkratA": "Junkrat Announcer",
+        "KelthuzadA": "Kel'Thuzad Announcer",
+        "KidA": "\"The Kid\" Announcer",
+        "LadyofThorns": "Lady of Thorns Announcer",
+        "LiLiA": "Li Li Announcer",
+        "MaievA": "Maiev Announcer",
+        "MalfurionA": "Malfurion Announcer",
+        "MalGanisA": "Mal'Ganis Announcer",
+        "MeiOWA": "Mei Announcer",
+        "MephistoA": "Mephisto Announcer",
+        "MiraA": "Mira Han Announcer",
+        "MuradinA": "Muradin Announcer",
+        "MurkyA": "Murky Announcer",
+        "Necromancer": "Grave Keeper Announcer",
+        "NexusHunterA": "Qhira Announcer",
+        "NoAnnouncerPack": "Default Announcer",
+        "OrpheaA": "Orphea Announcer",
+        "Quality": "Loot Box - Quality",
+        "RandomAnnouncerPack": "Random Announcer Pack",
+        "RavenLord": "Raven Lord Announcer",
+        "RehgarA": "Rehgar Announcer",
+        "RingAnnouncer": "El Guapo Announcer",
+        "SiegeTankA": "Sgt. Hammer Announcer",
+        "SnakeGod": "Ka Announcer",
+        "SpiderQueen": "Neithis Announcer",
+        "StitchesA": "Stitches Announcer",
+        "TassadarA": "Tassadar Announcer",
+        "TychusA": "Tychus Announcer",
+        "TyraelA": "Tyrael Announcer",
+        "TyraelMechaA": "Mecha Tyrael Announcer",
+        "VanndarA": "Vanndar Announcer",
+        "WhitemaneA": "Whitemane Announcer",
+        "WitchDoctorA": "Nazeebo Announcer",
+        "YrelA": "Yrel Announcer",
+        "ZeratulA": "Zeratul Announcer"
+      }
+    }
+  }
+}
