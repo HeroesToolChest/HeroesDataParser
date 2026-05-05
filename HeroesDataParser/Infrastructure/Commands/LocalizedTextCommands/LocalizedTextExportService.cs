@@ -111,10 +111,15 @@ public class LocalizedTextExportService : ILocalizedTextExportService
             rootJsonDataElement.MetaDataProperties.GameStringTextProperties = null;
         }
 
+        byte[] bytes = JsonSerializer.SerializeToUtf8Bytes(rootJsonDataElement, GetDataJsonSerializerOptions());
+
+        // if the extract type is copy, we don't need to write a data file as it stays the same
+        if (_options.ExtractType == ExtractType.Copy)
+            return;
+
         Directory.CreateDirectory(_options.OutputDirectory);
         using FileStream stream = File.Create(_options.OutputDataFilePath);
-
-        await JsonSerializer.SerializeAsync(stream, rootJsonDataElement, GetDataJsonSerializerOptions());
+        await stream.WriteAsync(bytes);
 
         if (_options.IsNewDataFile)
         {
@@ -164,6 +169,7 @@ public class LocalizedTextExportService : ILocalizedTextExportService
 
         byte[] bytes = _gameStringSerializerService.SerializeGameStrings(metaGameStringProperties, GetGameStringJsonSerializerOptions());
 
+        Directory.CreateDirectory(_options.OutputDirectory);
         using FileStream stream = File.Create(outputFilePath);
         await stream.WriteAsync(bytes);
 
