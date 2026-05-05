@@ -114,9 +114,9 @@ OPTIONS:
         --gs-replace-style-vars                         Replace font style variables in gamestrings with color hex values
         --gs-preserve-constant-vars                     Preserve constant variables in gamestrings
         --gs-preserve-style-vars                        Preserve style variables in gamestrings
-        --localized-text <OPTION>            None       How to handle gamestring properties
+        --localized-text <OPTION>            None       Action for gamestring property extraction
         --no-map-specific                               Disable map-specific JSON file creation when map extractor is specified
-        --map-specific-json-output <TYPE>    Patch      How to handle map-specific JSON file creation
+        --map-specific-json-output <TYPE>    Patch      Action to handle map-specific JSON file creation
         --map-specific-empty-patch                      Allow map-specific patch files without item changes to be created
         --map-specific-empty-directories                Allow empty map-specific directories to be created
         --custom-configs                                Display loaded custom config files
@@ -526,10 +526,11 @@ For options `--hlt-constant-mode` and `--hlt-style-mode`, the modes are as follo
 
 Overwriting an existing file with the created file is not allowed by default, enable the `--overwrite` option to allow overwriting or specify a different output directory with the `-o, --output-path` option.
 
-Although it is allowed to format _from_ and _to_ any gamestring format types, some conversions are not reversible or may not produce the expected result. 
-For example, if a file with gamestrings in `RawText` format is converted to `PlainText`, the gamestrings cannot be converted back to `RawText` since the necessary information (such as color tags and scaling data) is lost during the conversion.
-Likewise, converting from `ColoredText` to `ColoredTextWithScaling` will not add scaling data since that information is not present in the `ColoredText` format.
-This command is therefore best used to convert from `RawText` to any other format.
+> [!NOTE]
+> Although it is allowed to format _from_ and _to_ any gamestring format types, some conversions are not reversible or may not produce the expected result. 
+> For example, if a file with gamestrings in `RawText` format is converted to `PlainText`, the gamestrings cannot be converted back to `RawText` since the necessary information (such as color tags and scaling data) is lost during the conversion.
+> Likewise, converting from `ColoredText` to `ColoredTextWithScaling` will not add scaling data since that information is not present in the `ColoredText` format.
+> This command is therefore best used to convert from `RawText` to any other format.
 
 Example command of gamestrings file of `RawText` format being converted to `PlainText` format:
 ```
@@ -625,6 +626,53 @@ The gamestring file's `dataTypes` property must contain the data file's `dataTyp
 > [!NOTE]
 > The created file will have the same name as the input data file.
 > If the file name contains the locale (e.g., `enus`) but the gamestring file has a different locale, the file name will remain unchanged.
+
+Example command of importing gamestrings from a gamestrings file to a data file:
+```
+localized-text import "path\to\herodata_96477.json" "path\to\gamestrings_96477_enus.json" -o "path\to\output\directory"
+```
+
+***
+
+### localized-text export
+```
+DESCRIPTION:
+Copy over or extract gamestrings from a data file
+
+USAGE:
+    heroesdataparser localized-text export <data-file-path> <extract-type> [OPTIONS]
+
+ARGUMENTS:
+    <data-file-path>    Path to the data file
+    <extract-type>      Action to perform on gamestring properties
+
+OPTIONS:
+    -h, --help                            Prints help information
+    -g, --gamestrings-file-path <PATH>    Path to the gamestrings file
+    -o, --output-path <PATH>              Output directory for the created files (defaults to the input data file's directory)
+        --overwrite                       Allow the created files to overwrite existing files
+        --no-indent                       Disable indentation in output JSON files
+```
+For argument `<extract-type>`, the options are as follows:
+
+`0` - `Copy` - Gamestring properties will be copied to a gamestrings file but will remain in the data file..  
+`1` - `Extract` - Gamestring properties will be extracted to a gamestrings file and removed from the data file.  
+`2` - `Remove` - Gamestring properties will be removed from the data file but will NOT be saved to a gamestrings file.
+
+If option `-g, --gamestrings-file-path` is not specified, a new gamestrings file will be created. If it is specified, then the gamestrings file will be updated with the gamestrings from the data file.
+
+If option `-g, --gamestrings-file-path` is specified, the `heroesVersion`, `hdpVersion`, `mapName`, and `gameStringText` properties must match between the data file and the gamestrings file.
+Also, the `dataTypes` property of the gamestrings file must NOT already contain the `dataType` of the data file.
+
+Example command of extracting the gamestrings from the data file, two files will be created at the output directory:
+```
+localized-text export "path\to\herodata_96477_enus.json" extract -o "path\to\output\directory"
+```
+
+Example command of copying the gamestrings from the data file to an existing gamestrings file, the gamestrings file will be updated:
+```
+localized-text export "path\to\spraydata_96881_enus.json" copy -g "path\to\gamestrings_96881_enus.json" --overwrite
+```
 
 ***
 
