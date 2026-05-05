@@ -262,8 +262,10 @@ Example selecting multiple locales.
 ***
 
 ### -g, --gamestring-text
-Specifies the format of the strings that are parsed from the gamestring files. Default is `RawText`.  
-`RawText` is the recommended choice as it can be converted to a different format later (see [`gamestring-text format`](#gamestring-text-format) command) or be converted with a custom parser.  
+Specifies the format of the strings that are parsed from the gamestring files. Default is `RawText`.
+
+`RawText` is the recommended choice as it can be converted to a different format later (see [`gamestring-text format`](#gamestring-text-format) command) or be converted with a custom parser.
+
 `ColoredText` is the other recommended choice, as it is the ingame format.
 
 Some of these may require additional parsing for a friendly readable output. Visit the [wiki page](https://github.com/HeroesToolChest/HeroesDataParser/wiki/Parsing-GameStrings) for parsing tips.
