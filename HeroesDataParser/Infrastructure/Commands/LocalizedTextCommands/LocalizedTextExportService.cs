@@ -177,7 +177,7 @@ public class LocalizedTextExportService : ILocalizedTextExportService
 
         using GameStringDocument gameStringDocument = GameStringDocument.Load(gameStringJsonDocument);
 
-        if (ShouldSkipFileWrite(outputFilePath, true))
+        if (ShouldSkipFileWrite(outputFilePath, false))
             return null;
 
         if (!IsValidateGameStringFile(meta, gameStringDocument.Meta))
@@ -392,15 +392,15 @@ public class LocalizedTextExportService : ILocalizedTextExportService
 
         if (metaDataProperties.GameStringTextProperties is null)
         {
-            _logger.LogError("GameStringText properties is missing in the data file.");
-            _console.MarkupLine("[red]GameStringText properties is missing in the data file.[/]");
+            _logger.LogError("gameStringText properties is missing in the data file.");
+            _console.MarkupLine("[red]'gameStringText' properties is missing in the data file.[/]");
             return false;
         }
 
         if (!metaDataProperties.GameStringTextProperties.Equals(metaGameStringProperties.GameStringTextProperties))
         {
-            _logger.LogError("The GameStringText properties of the data file does not match the GameStringText properties in the gamestrings file.");
-            _console.MarkupLine("[red]The GameStringText properties of the data file does not match the GameStringText properties in the gamestrings file.[/]");
+            _logger.LogError("The gameStringText properties of the data file does not match the gameStringText properties in the gamestrings file.");
+            _console.MarkupLine("[red]The 'gameStringText' properties of the data file does not match the 'gameStringText' properties in the gamestrings file.[/]");
             return false;
         }
 
