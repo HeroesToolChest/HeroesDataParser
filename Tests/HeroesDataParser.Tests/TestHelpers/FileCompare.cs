@@ -6,13 +6,9 @@ public static class FileCompare
     {
         File.Exists(createdFilePath).Should().BeTrue();
 
-        string newFileContent = File.ReadAllText(createdFilePath);
-        string comparedToText = File.ReadAllText(testAgainstFilePath);
+        string newFileContent = File.ReadAllText(createdFilePath).ReplaceLineEndings("\n");
+        string comparedToText = File.ReadAllText(testAgainstFilePath).ReplaceLineEndings("\n");
 
-        newFileContent.Should().BeEquivalentTo(comparedToText);
-
-        string expected = File.ReadAllText(createdFilePath);
-        string actual = File.ReadAllText(testAgainstFilePath);
-        expected.Should().Be(actual);
+        newFileContent.Should().Be(comparedToText);
     }
 }
