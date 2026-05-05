@@ -370,6 +370,8 @@ The gamestrings JSON file will be created in the `gamestrings` subdirectory of t
 
 If set to `Extract` or `Copy` and the `map` extractor is enabled, the map gamestrings will get its own gamestrings JSON file. The map-specific gamestrings JSON files will be created in the `maps` subdirectory of the `gamestrings` subdirectory.
 
+Also see [localized-text import](#localized-text-import) and [localized-text export](#localized-text-export) commands.
+
 ***
 
 ### --no-map-specific
@@ -639,7 +641,7 @@ localized-text import "path\to\herodata_96477.json" "path\to\gamestrings_96477_e
 ### localized-text export
 ```
 DESCRIPTION:
-Copy over or extract gamestrings from a data file
+Copy over or extract gamestrings from a data file to a gamestrings file
 
 USAGE:
     heroesdataparser localized-text export <data-file-path> <extract-type> [OPTIONS]
@@ -655,7 +657,7 @@ OPTIONS:
         --overwrite                       Allow the created files to overwrite existing files
         --no-indent                       Disable indentation in output JSON files
 ```
-For argument `<extract-type>`, the options are as follows:
+For argument `<extract-type>`, the types are as follows:
 
 `0` - `Copy` - Gamestring properties will be copied to a gamestrings file but will remain in the data file..  
 `1` - `Extract` - Gamestring properties will be extracted to a gamestrings file and removed from the data file.  
