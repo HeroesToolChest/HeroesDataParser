@@ -82,7 +82,7 @@ try
                 .WithDescription("Copy over gamestrings from a gamestrings file to a data file");
 
             localizedText.AddCommand<LocalizedTextExportCommand>("export")
-                .WithDescription("Copy over or extract gamestrings from a data file");
+                .WithDescription("Copy over or extract gamestrings from a data file to a gamestrings file");
         });
 
         config.AddBranch<JsonSchemaSettings>("schema", schema =>
