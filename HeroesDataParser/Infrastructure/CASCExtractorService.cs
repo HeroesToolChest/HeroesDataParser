@@ -316,7 +316,7 @@ public class CASCExtractorService : ICASCExtractorService
 
     private void DisplayFileFilters()
     {
-        if (_options.FileFilters.Length == 1)
+        if (_options.FileFilters.Length == 1 && _options.FileFilters[0] == "*")
         {
             _logger.LogInformation("No filters applied, extracting all files");
             _console.MarkupLine("[aqua]Filters: * (extracting all files)[/]");
