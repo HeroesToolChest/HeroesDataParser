@@ -123,12 +123,14 @@ OPTIONS:
         --no-indent                                     Disable indentation in output JSON files
     -t, --threads <NUMBER>                   -1         Number of threads for data parsing and image writing (defaults to max processors)
     -o, --output-path <PATH>                            Output directory for created files (defaults to current directory)
-        --heroes-version                                Manually set the Heroes of the Storm version as major.minor.revision.build[_ptr] (e.g. 1.2.3.4 or 1.2.3.4_ptr)
+        --set-heroes-version <VERSION>                  Manually set the Heroes of the Storm version as major.minor.revision.build[_ptr] (e.g. 1.2.3.4 or 1.2.3.4_ptr)
+        --heroes-version                                Display the Heroes of the Storm version
 
 COMMANDS:
     casc-extract <storage-type>    Extract data files from a Heroes of the Storm directory or from online
     json-patch                     JSON patching operations
     gamestring-text                Gamestring text formatting and conversion operations
+    localized-text                 Localized text operations
     schema                         JSON schema operations
     portrait                       Reward portrait data operations
 ```
