@@ -152,6 +152,8 @@ Specify either `mods`, `game`, or `online` to indicate the type of storage to lo
 ### -s, --storage-path
 If the `storage-type` argument is set to `game` or `mods`, then this option is required to specify the path of the `Heroes of the Storm` directory or an already extracted `mods` directory. This option is not used with the `online` storage type.
 
+If on `Linux` or `macOS` and providing an extracted `mods` directory, ensure that all directories and files are in lowercase characters.
+
 See the [`casc-extract`](#casc-extract) command for more information about extracting the data files.
 
 ***
@@ -415,14 +417,14 @@ ARGUMENTS:
 OPTIONS:
                                  DEFAULT
     -h, --help                              Prints help information
-    -p, --storage-path <PATH>               Path to the Heroes of the Storm directory
+    -s, --storage-path <PATH>               Path to the Heroes of the Storm directory
         --download-ptr                      Download from the PTR server instead of live (online storage-type only)
     -d, --directory <PATH>       mods       Directory and its subdirectories to extract, path must start with mods (can be specified multiple times)
     -f, --filter <EXT>           *          Filter files by extension (can be specified multiple times)
     -t, --threads <NUMBER>       -1         Number of threads for file extraction (defaults to max processors)
     -o, --output-path <PATH>                Output directory for extracted files (defaults to current directory)
 ```
-`-p, --storage-path` is required if the `storage-type` argument is set to `game`.
+`-s, --storage-path` is required if the `storage-type` argument is set to `game`.
 
 If the `storage-type` argument is set to `online`, the `--download-ptr` option can be used to specify whether to download from the PTR server instead of live.
 
@@ -435,6 +437,8 @@ If `-o, --output-path` is not specified, then the extracted files will be in the
 
 A `hdp.info` JSON file will be created in the `mods` directory with information about the extraction.
 This file is used for the root command when `mods` is specified for the `storage-type` argument.
+
+All directories and files that are extracted will be in lowercase characters.
 
 Example command on Windows that specifies two directories (`thefirelords.stormmod` and `tracer.stormmod`) and filters by `xml` and `txt` file extensions:
 ```
