@@ -30,8 +30,8 @@
 		<PackageReference Include="Heroes.XmlData" Version="1.0.0-alpha.3" />
 		<PackageReference Include="JsonPatch.Net" Version="5.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Compliance.Redaction" Version="10.5.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.6" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.6" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.7" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.7" />
 		<PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.5.0" />
 		<PackageReference Include="Pfim" Version="0.11.4" />
 		<PackageReference Include="Polly.Core" Version="8.6.6" />
