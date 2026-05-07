@@ -3,4 +3,6 @@
 public interface IConfigurationLoaderService
 {
     LoadedConfiguration LoadConfiguration();
+
+    string GetHeroesVersion();
 }

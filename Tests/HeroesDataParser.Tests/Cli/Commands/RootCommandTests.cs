@@ -114,7 +114,7 @@ public class RootCommandTests
         CommandAppResult result = app.Run(
         [
             "game",
-            "-p", "aaa",
+            "-s", "aaa",
         ]);
 
         // assert
@@ -159,7 +159,7 @@ public class RootCommandTests
         [
             "game",
             "--storage-path", "TestXmlFiles",
-            "--heroes-version", $"{heroesVersion}"
+            "--set-heroes-version", $"{heroesVersion}"
         ]);
 
         // assert
@@ -477,7 +477,7 @@ public class RootCommandTests
         [
             "game",
             "--storage-path", "TestXmlFiles",
-            "--heroes-version", "1.2.3.4_ptr",
+            "--set-heroes-version", "1.2.3.4_ptr",
         ],
         TestContext.CancellationToken);
 
@@ -811,6 +811,65 @@ public class RootCommandTests
         await AssertCommandSuccessful(result);
 
         rootOptions.DisableMapSpecificJson.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public async Task RootCommand_WithShowHeroesVersionOption_PrintsVersionAndReturnsSuccess()
+    {
+        // arrange
+        RootOptions rootOptions = new();
+        _options.Value.Returns(rootOptions);
+        _preLoaderService.GetHeroesVersion().Returns("2.55.3.90045");
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<RootCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            "game",
+            "--storage-path", "TestXmlFiles",
+            "--heroes-version",
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        result.ExitCode.Should().Be(0);
+        result.Output.Should().Contain("2.55.3.90045");
+        await _preLoaderService.DidNotReceive().Load();
+        await _mainService.DidNotReceive().Start();
+        _postCleanupService.DidNotReceive().Start();
+        _resultSummaryService.DidNotReceive().PrintSummary();
+    }
+
+    [TestMethod]
+    public async Task RootCommand_WithShowHeroesVersionOptionOnly_BypassesStoragePathValidationAndReturnsSuccess()
+    {
+        // arrange
+        RootOptions rootOptions = new();
+        _options.Value.Returns(rootOptions);
+        _preLoaderService.GetHeroesVersion().Returns("2.55.3.90045");
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<RootCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            "online",
+            "--heroes-version",
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        result.ExitCode.Should().Be(0);
+        result.Output.Should().Contain("2.55.3.90045");
+        await _preLoaderService.DidNotReceive().Load();
+        await _mainService.DidNotReceive().Start();
+        _postCleanupService.DidNotReceive().Start();
+        _resultSummaryService.DidNotReceive().PrintSummary();
     }
 
     private ServiceCollection GetServiceCollection()

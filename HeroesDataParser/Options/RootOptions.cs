@@ -32,6 +32,8 @@ public class RootOptions
 
     public bool DisableMapSpecificJson { get; set; }
 
+    public bool ShowHeroesVersion { get; set; }
+
     public HiddenOptions Hidden { get; set; } = new();
 
     // properties below here a set/overridden during runtime

@@ -75,7 +75,6 @@ public class RootSettings : CommandSettings
 
     [CommandOption("--no-indent")]
     [Description("Disable indentation in output JSON files")]
-    [DefaultValue(false)]
     public bool DisableJsonIndent { get; init; }
 
     [CommandOption("-t|--threads <NUMBER>")]
@@ -87,9 +86,13 @@ public class RootSettings : CommandSettings
     [Description("Output directory for created files (defaults to current directory)")]
     public DirectoryInfo? OutputDirectory { get; init; }
 
-    [CommandOption("--heroes-version")]
+    [CommandOption("--set-heroes-version <VERSION>")]
     [Description("Manually set the Heroes of the Storm version as major.minor.revision.build[[_ptr]] (e.g. 1.2.3.4 or 1.2.3.4_ptr)")]
-    public string? HeroesVersion { get; init; }
+    public string? SetHeroesVersion { get; init; }
+
+    [CommandOption("--heroes-version")]
+    [Description("Display the Heroes of the Storm version")]
+    public bool ShowHeroesVersion { get; init; }
 
     public override ValidationResult Validate()
     {
@@ -108,8 +111,11 @@ public class RootSettings : CommandSettings
         if (IsPtr && StorageType != StorageType.Online)
             return ValidationResult.Error("--ptr is only valid when storage-type is 'online'");
 
-        if (!string.IsNullOrWhiteSpace(HeroesVersion) && !HeroesDataVersion.TryParse(HeroesVersion, out _))
-            return ValidationResult.Error("--heroes-version is not in the correct format");
+        if (ShowHeroesVersion)
+            return ValidationResult.Success();
+
+        if (!string.IsNullOrWhiteSpace(SetHeroesVersion) && !HeroesDataVersion.TryParse(SetHeroesVersion, out _))
+            return ValidationResult.Error("--set-heroes-version is not in the correct format");
 
         foreach (string extractor in Extractors)
         {

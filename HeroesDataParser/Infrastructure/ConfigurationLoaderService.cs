@@ -49,6 +49,16 @@ public class ConfigurationLoaderService : IConfigurationLoaderService
         return loadedConfiguration;
     }
 
+    public string GetHeroesVersion()
+    {
+        HeroesDataVersion? heroesDataVersion = GetHeroesDataVersion(new LoadedConfiguration());
+
+        if (heroesDataVersion is null)
+            return "unknown";
+        else
+            return heroesDataVersion.GetAsVersionString();
+    }
+
     private static string? GetExtractorSubPath(ReadOnlySpan<char> directoryPath)
     {
         Span<Range> paths = stackalloc Range[4];

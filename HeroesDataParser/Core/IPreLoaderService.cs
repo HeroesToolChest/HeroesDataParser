@@ -3,4 +3,6 @@
 public interface IPreLoaderService
 {
     Task Load();
+
+    string GetHeroesVersion();
 }

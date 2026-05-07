@@ -19,4 +19,9 @@ public class PreLoaderService : IPreLoaderService
 
         await _heroesXmlLoaderService.Load(loadedConfiguration);
     }
+
+    public string GetHeroesVersion()
+    {
+        return _configurationLoaderService.GetHeroesVersion();
+    }
 }

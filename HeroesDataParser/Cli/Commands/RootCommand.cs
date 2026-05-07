@@ -34,6 +34,12 @@ public class RootCommand : AsyncCommand<RootSettings>
 
         SetOptions(settings);
 
+        if (_options.ShowHeroesVersion)
+        {
+            _console.WriteLine(_preLoaderService.GetHeroesVersion());
+            return 0;
+        }
+
         _console.MarkupLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         _console.MarkupLine($"[bold]{Constants.AppName} v{AppVersion.GetAppVersion()}[/]");
         _console.MarkupLine("  --[link]https://github.com/HeroesToolChest/HeroesDataParser[/]");
@@ -55,10 +61,12 @@ public class RootCommand : AsyncCommand<RootSettings>
         _options.StorageLoad.Path = settings.StorageDirectory?.FullName;
         _options.StorageLoad.Ptr = settings.IsPtr;
 
+        _options.ShowHeroesVersion = settings.ShowHeroesVersion;
+
         if (settings.OutputDirectory is not null)
             _options.OutputDirectory = settings.OutputDirectory.FullName;
 
-        if (!string.IsNullOrWhiteSpace(settings.HeroesVersion) && HeroesDataVersion.TryParse(settings.HeroesVersion, out HeroesDataVersion? heroesDataVersion))
+        if (!string.IsNullOrWhiteSpace(settings.SetHeroesVersion) && HeroesDataVersion.TryParse(settings.SetHeroesVersion, out HeroesDataVersion? heroesDataVersion))
         {
             HeroesVersionOptions heroesVersionOptions = _options.HeroesVersion;
             heroesVersionOptions.Major = heroesDataVersion.Major;
