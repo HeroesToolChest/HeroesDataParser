@@ -8,7 +8,7 @@ public class CASCExtractSettings : CommandSettings
     [Description("Storage type to load from (game or online)")]
     public StorageType StorageType { get; init; }
 
-    [CommandOption("-p|--storage-path <PATH>")]
+    [CommandOption("-s|--storage-path <PATH>")]
     [Description("Path to the Heroes of the Storm directory")]
     public DirectoryInfo? StorageDirectory { get; init; }
 

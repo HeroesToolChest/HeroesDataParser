@@ -102,7 +102,7 @@ public class CASCExtractCommandTests
         CommandAppResult result = app.Run(
         [
             "game",
-            "-p", "aaa"
+            "-s", "aaa"
         ]);
 
         // assert
@@ -122,7 +122,7 @@ public class CASCExtractCommandTests
         [
             "game",
             "--download-ptr",
-            "-p", "TestXmlFiles"
+            "-s", "TestXmlFiles"
         ]);
 
         // assert
@@ -144,7 +144,7 @@ public class CASCExtractCommandTests
         CommandAppResult result = app.Run(
         [
             "game",
-            "-p", "TestXmlFiles",
+            "-s", "TestXmlFiles",
             "-d", "mods",
             "-d", $"{directory}"
         ]);
@@ -187,7 +187,7 @@ public class CASCExtractCommandTests
         CommandAppResult result = app.Run(
         [
             "game",
-            "-p", "TestXmlFiles",
+            "-s", "TestXmlFiles",
             "-d", "mods",
             "-o", Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json")
         ]);
@@ -213,7 +213,7 @@ public class CASCExtractCommandTests
         CommandAppResult result = await app.RunAsync(
         [
             "game",
-            "-p", "TestXmlFiles",
+            "-s", "TestXmlFiles",
             "-d", "mods",
             "-o", "TestXmlFiles"
         ],
