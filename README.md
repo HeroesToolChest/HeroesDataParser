@@ -528,7 +528,7 @@ OPTIONS:
         --overwrite                              Allow the created file to overwrite an existing file
         --no-indent                              Disable indentation in output JSON files
 ```
-For the argument `<type>`, the options are the same as the [`-g, --gamestring-text`](#g---gamestring-text) option in the root command.
+For the argument `<type>`, the options are the same as the [`-g, --gamestring-text`](#-g---gamestring-text) option in the root command.
 
 For options `--hlt-constant-mode` and `--hlt-style-mode`, the modes are as follows:
 
