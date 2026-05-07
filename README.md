@@ -105,7 +105,7 @@ OPTIONS:
                                              DEFAULT
     -h, --help                                          Prints help information
     -v, --version                                       Prints version information
-    -p, --storage-path <PATH>                           Path to the Heroes of the Storm directory or an already extracted mods directory
+    -s, --storage-path <PATH>                           Path to the Heroes of the Storm directory or an already extracted mods directory
         --download-ptr                                  Download from the PTR server instead of live (online storage-type only)
     -e, --extractor <EXTRACTOR>              Hero       Extractors to enable, add :i or :images to enable image extraction (can be specified multiple times)
     -l, --localization <LOCALE>              enUS       Locales for gamestrings to process (can be specified multiple times)
@@ -147,8 +147,10 @@ Specify either `mods`, `game`, or `online` to indicate the type of storage to lo
 `online` - Download the game data from the live or PTR servers
 
 ## Options
-### -p, --storage-path
+### -s, --storage-path
 If the `storage-type` argument is set to `game` or `mods`, then this option is required to specify the path of the `Heroes of the Storm` directory or an already extracted `mods` directory. This option is not used with the `online` storage type.
+
+See the [`casc-extract`](#casc-extract) command for more information about extracting the data files.
 
 ***
 
