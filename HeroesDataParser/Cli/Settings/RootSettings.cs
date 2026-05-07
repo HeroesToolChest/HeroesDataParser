@@ -8,7 +8,7 @@ public class RootSettings : CommandSettings
     [Description("Storage type to load from (mods, game, or online)")]
     public StorageType StorageType { get; init; }
 
-    [CommandOption("-p|--storage-path <PATH>")]
+    [CommandOption("-s|--storage-path <PATH>")]
     [Description("Path to the Heroes of the Storm directory or an already extracted mods directory")]
     public DirectoryInfo? StorageDirectory { get; init; }
 
