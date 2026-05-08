@@ -166,6 +166,8 @@ If the `storage-type` argument is set to `online`, this option downloads from th
 ### -e, --extractor
 The extractors to enable for data and image extraction. Can be specified multiple times to enable multiple extractors. Default is `hero`.
 
+To extract images, if available for the data type, add `:i` or `:images` to the extractor name (e.g. `hero:i` or `hero:images`).
+
 Data JSON files will be created in the `data` subdirectory and image files will be created in the `images` subdirectory of the output directory.
 
 Enabling the extractor `map` will run all other enabled extractors for each found map, unless the [`--no-map-specific`](#--no-map-specific) option is enabled.
@@ -192,8 +194,6 @@ Map specific JSON files will be created in the `maps` subdirectory of the `data`
 `lootchest` - extracts loot chests  
 `typedescription` - extracts type description data  
 `map` - extracts map data
-
-To extract images, if available for the data type, add `:i` or `:images` to the extractor name (e.g. `hero:i` or `hero:images`).
 
 Example selecting multiple data extractors along with spray images:
 ```
