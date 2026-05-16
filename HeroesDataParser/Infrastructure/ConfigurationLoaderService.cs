@@ -107,25 +107,29 @@ public class ConfigurationLoaderService : IConfigurationLoaderService
         HeroesDataVersion? heroesDataVersion;
         if (_options.StorageLoad.Type == StorageType.Game)
         {
-            _console.MarkupLine("[aqua]Storage: 'Heroes of the Storm' directory[/]");
+            if (!_options.ShowHeroesVersion)
+                _console.MarkupLine("[aqua]Storage: 'Heroes of the Storm' directory[/]");
 
             heroesDataVersion = GetGameVersion(loadedConfiguration);
         }
         else if (_options.StorageLoad.Type == StorageType.Mods)
         {
-            _console.MarkupLine("[aqua]Storage: 'mods' directory[/]");
+            if (!_options.ShowHeroesVersion)
+                _console.MarkupLine("[aqua]Storage: 'mods' directory[/]");
 
             heroesDataVersion = GetModsVersion(loadedConfiguration);
         }
         else if (_options.StorageLoad.Type == StorageType.Online)
         {
-            _console.MarkupLine("[aqua]Storage: Online[/]");
+            if (!_options.ShowHeroesVersion)
+                _console.MarkupLine("[aqua]Storage: Online[/]");
 
             heroesDataVersion = GetOnlineVersion(loadedConfiguration);
         }
         else
         {
-            _console.MarkupLine("[aqua]Storage: Unknown, default to Online[/]");
+            if (!_options.ShowHeroesVersion)
+                _console.MarkupLine("[aqua]Storage: Unknown, default to Online[/]");
 
             _options.StorageLoad.Type = StorageType.Online;
             heroesDataVersion = GetOnlineVersion(loadedConfiguration);
