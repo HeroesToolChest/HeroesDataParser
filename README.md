@@ -802,5 +802,7 @@ To build and compile the code, it is recommended to use the latest version of [V
 
 Another option is to use the dotnet CLI tools from the latest [.NET SDK](https://dotnet.microsoft.com/download).
 
+
+A [SixLabors License](https://licensing.sixlabors.com/) is required to build the code. Put the license file in the root directory of the repository.
 ## License
 [MIT license](/LICENSE)
