@@ -10,8 +10,10 @@ jobs:
       main-project: HeroesDataParser/HeroesDataParser.csproj
       artifact-name-prefix: HeroesDataParser
       is-tool: true
+      sixlabors-license: true
     secrets:
       es-username: ${{ secrets.ES_USERNAME }}
       es-password: ${{ secrets.ES_PASSWORD }}
       es-credential-id: ${{ secrets.ES_CREDENTIAL_ID }}
-      es-totp-secret: ${{ secrets.ES_TOTP_SECRET }}    
+      es-totp-secret: ${{ secrets.ES_TOTP_SECRET }} 
+      sixlabors-license-key: ${{ secrets.SIXLABORS_LICENSE_KEY }}   
