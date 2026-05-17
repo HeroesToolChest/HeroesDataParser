@@ -1,5 +1,6 @@
 ﻿using Pfim;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Formats.Gif;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Formats.Png;
@@ -279,7 +280,6 @@ public sealed class DDSImage : IDisposable
         where T : unmanaged, IPixel<T>
     {
         int gifFrameDelay = frameDelay / 10;
-        GifDisposalMethod gifDisposalMethod = GifDisposalMethod.RestoreToBackground;
 
         // Load full base image
         using Image<T> image = Image.LoadPixelData<T>(_ddsImageFile.Data, _ddsImageFile.Width, _ddsImageFile.Height);
@@ -292,7 +292,7 @@ public sealed class DDSImage : IDisposable
 
         GifFrameMetadata firstFrameMetadata = gif.Frames.RootFrame.Metadata.GetGifMetadata();
         firstFrameMetadata.FrameDelay = gifFrameDelay;
-        firstFrameMetadata.DisposalMethod = gifDisposalMethod;
+        firstFrameMetadata.DisposalMode = FrameDisposalMode.RestoreToBackground;
 
         int calcWidth = image.Width / innerSize.Width;
 
@@ -306,7 +306,7 @@ public sealed class DDSImage : IDisposable
 
             GifFrameMetadata gifFrameMetadata = imagePart.Frames.RootFrame.Metadata.GetGifMetadata();
             gifFrameMetadata.FrameDelay = gifFrameDelay;
-            gifFrameMetadata.DisposalMethod = gifDisposalMethod;
+            gifFrameMetadata.DisposalMode = FrameDisposalMode.RestoreToBackground;
 
             gif.Frames.AddFrame(imagePart.Frames.RootFrame);
         }
@@ -318,8 +318,6 @@ public sealed class DDSImage : IDisposable
         where T : unmanaged, IPixel<T>
     {
         Rational apngFrameDelay = new((uint)frameDelay, 1000, false);
-        PngDisposalMethod pngDisposalMethod = PngDisposalMethod.RestoreToBackground;
-        PngBlendMethod pngBlendMethod = PngBlendMethod.Source;
 
         // Load full base image
         using Image<T> image = Image.LoadPixelData<T>(_ddsImageFile.Data, _ddsImageFile.Width, _ddsImageFile.Height);
@@ -332,8 +330,8 @@ public sealed class DDSImage : IDisposable
 
         PngFrameMetadata firstFrameMetadata = apng.Frames.RootFrame.Metadata.GetPngMetadata();
         firstFrameMetadata.FrameDelay = apngFrameDelay;
-        firstFrameMetadata.DisposalMethod = pngDisposalMethod;
-        firstFrameMetadata.BlendMethod = pngBlendMethod;
+        firstFrameMetadata.DisposalMode = FrameDisposalMode.RestoreToBackground;
+        firstFrameMetadata.BlendMode = FrameBlendMode.Source;
 
         int calcWidth = image.Width / innerSize.Width;
 
@@ -347,8 +345,8 @@ public sealed class DDSImage : IDisposable
 
             PngFrameMetadata pngFrameMetadata = imagePart.Frames.RootFrame.Metadata.GetPngMetadata();
             pngFrameMetadata.FrameDelay = apngFrameDelay;
-            pngFrameMetadata.DisposalMethod = pngDisposalMethod;
-            pngFrameMetadata.BlendMethod = pngBlendMethod;
+            pngFrameMetadata.DisposalMode = FrameDisposalMode.RestoreToBackground;
+            pngFrameMetadata.BlendMode = FrameBlendMode.Source;
 
             apng.Frames.AddFrame(imagePart.Frames.RootFrame);
         }
