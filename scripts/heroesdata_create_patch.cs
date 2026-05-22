@@ -15,15 +15,16 @@ const string GameStringsDirectory = "gamestrings";
 const string PatchJsonExtension = ".patch.json";
 const string PrevDirectory = "prev"; // temp directory for patching up
 
-if (args.Length < 3)
+if (args.Length < 4)
 {
-    Console.Error.WriteLine("Usage: <output_directory> <heroesdata_directory> <new_version_name>");
+    Console.Error.WriteLine("Usage: <output_directory> <heroesdata_directory> <new_version_name> <use_tool>");
     return 1;
 }
 
 string outputDirectory = args[0];
 string heroesdataDirectory = args[1]; // heroesdata directory in heroes-data2 repository
 string newVersionName = args[2]; // e.g 2.55.16.96881
+bool useTool = args[3] == "true" || args[3] == "True" || args[3] == "1"; // whether to use the hdp global tool or not
 
 string outputDataDirectory = Path.Combine(outputDirectory, DataDirectory);
 string outputDataMapsDirectory = Path.Combine(outputDirectory, DataDirectory, MapsDirectory);
@@ -442,14 +443,14 @@ static string StripEndPatch(ReadOnlySpan<char> fileName)
     return fileName.ToString();
 }
 
-static async Task<string> ExecuteHDP(string arguments)
+async Task<string> ExecuteHDP(string arguments)
 {
     Process process = new()
     {
         StartInfo = new ProcessStartInfo
         {
-            FileName = "./HeroesDataParser",
-            Arguments = arguments,
+            FileName = useTool ? "dotnet" : "./HeroesDataParser",
+            Arguments = useTool ? $"heroes-data-parser {arguments}" : arguments,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,

@@ -9,9 +9,9 @@ using System.Text.Json.Nodes;
 
 const string VersionFile = ".version.json";
 
-if (args.Length < 5)
+if (args.Length < 6)
 {
-    Console.Error.WriteLine("Usage: <installed_heroes_directory> <output_directory> <heroesdata_directory> <heroesimages_directory> <json_create>");
+    Console.Error.WriteLine("Usage: <installed_heroes_directory> <output_directory> <heroesdata_directory> <heroesimages_directory> <json_create> <use_tool>");
     return 1;
 }
 
@@ -20,7 +20,7 @@ string outputDirectory = args[1]; // Output directory for the new generated file
 string heroesdataDirectory = args[2]; // the subdirectory in the heroes-data2 repo
 string heroesimagesDirectory = args[3]; // the heroes-images repo
 string jsonCreate = args[4]; // 'full' or 'patch'; what are we creating
-//bool isPtr = args[5] == "true" || args[5] == "True" || args[5] == "1"; // is ptr or not
+bool useTool = args[5] == "true" || args[5] == "True" || args[5] == "1"; // whether to use the hdp global tool or not
 
 if (!Directory.Exists(installedHeroesDirectory))
 {
@@ -120,14 +120,14 @@ Console.WriteLine($"- date: {versionJsonNode["date"]!.GetValue<string>()}");
 Console.WriteLine($"Hdp auto done.");
 return 0;
 
-static async Task<string> ExecuteHDP(string arguments)
+async Task<string> ExecuteHDP(string arguments)
 {
     Process process = new()
     {
         StartInfo = new ProcessStartInfo
         {
-            FileName = "./HeroesDataParser",
-            Arguments = arguments,
+            FileName = useTool ? "dotnet" : "./HeroesDataParser",
+            Arguments = useTool ? $"heroes-data-parser {arguments}" : arguments,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,
@@ -138,14 +138,14 @@ static async Task<string> ExecuteHDP(string arguments)
     return await ProcessCommand(process);
 }
 
-static async Task ExecuteHDPNoCapture(string arguments)
+async Task ExecuteHDPNoCapture(string arguments)
 {
     Process process = new()
     {
         StartInfo = new ProcessStartInfo
         {
-            FileName = "./HeroesDataParser",
-            Arguments = arguments,
+            FileName = useTool ? "dotnet" : "./HeroesDataParser",
+            Arguments = useTool ? $"heroes-data-parser {arguments}" : arguments,
             RedirectStandardOutput = false,
             RedirectStandardError = false,
             UseShellExecute = false,
