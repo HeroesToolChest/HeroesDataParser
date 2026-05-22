@@ -9,19 +9,23 @@ using System.Text.Json.Nodes;
 
 const string VersionFile = ".version.json";
 
-if (args.Length < 5)
+if (args.Length < 7)
 {
-    Console.Error.WriteLine("Usage: <installed_heroes_directory> <output_directory> <heroesdata_directory> <json_create> <use_tool>");
+    Console.Error.WriteLine("Usage: <installed_heroes_directory> <output_directory> <heroesdata_directory> <json_create> <use_ptr> <use_tool> <hdp_root_options>");
     return 1;
 }
 
-string installedHeroesDirectory = args[0]; // Heroes of the Storm installation directory
+string installedHeroesDirectory = args[0]; // 'online' or a Heroes of the Storm installation directory
 string outputDirectory = args[1]; // Output directory for the new generated files from HPD
 string heroesdataDirectory = args[2]; // the subdirectory in the heroes-data2 repo
 string jsonCreate = args[3]; // 'full' or 'patch'; what are we creating
-bool useTool = args[4] == "true" || args[4] == "True" || args[4] == "1"; // whether to use the hdp global tool or not
+bool usePtr = args[4] == "true" || args[4] == "True" || args[4] == "1"; // download from ptr server instead of live
+bool useTool = args[5] == "true" || args[5] == "True" || args[5] == "1"; // whether to use the hdp global tool or not
+string hdpRootOptions = args[6]; // overrides hdp root options (no -o)
 
-if (!Directory.Exists(installedHeroesDirectory))
+bool isOnline = installedHeroesDirectory.Equals("online", StringComparison.CurrentCultureIgnoreCase);
+
+if (!isOnline && !Directory.Exists(installedHeroesDirectory))
 {
     Console.WriteLine("Error: The specified Heroes of the Storm installation directory does not exist.");
     return 1;
@@ -41,7 +45,13 @@ if (jsonCreate != "full" && jsonCreate != "patch")
 
 // get the Heroes of the Storm version using HDP
 Console.Write("Heroes of the Storm version: ");
-string hotsVersion = await ExecuteHDP($"game -s \"{installedHeroesDirectory}\" --heroes-version");
+
+string hotsVersion;
+if (isOnline)
+    hotsVersion = await ExecuteHDP($"online --heroes-version{(usePtr ? " --download-ptr" : string.Empty)}");
+else
+    hotsVersion = await ExecuteHDP($"game -s \"{installedHeroesDirectory}\" --heroes-version");
+
 hotsVersion = hotsVersion.TrimEnd('\r', '\n');
 
 if (hotsVersion == "unknown")
@@ -82,9 +92,17 @@ Console.WriteLine($"Created heroesdata version directory: {heroesdataVersionDire
 
 Console.WriteLine();
 
-// create everything
-//await ExecuteHDPNoCapture($"game -s \"{installedHeroesDirectory}\" -e all:i -l all --gs-replace-constant-vars --gs-replace-style-vars --gs-preserve-constant-vars --gs-preserve-style-vars --localized-text extract -o \"{outputHeroesVersionDirectory}\"");
-await ExecuteHDPNoCapture($"game -s \"{installedHeroesDirectory}\" -e announcer -e map -l enus -l dede --gs-replace-constant-vars --gs-replace-style-vars --gs-preserve-constant-vars --gs-preserve-style-vars --localized-text extract -o \"{outputHeroesVersionDirectory}\"");
+// execution of root hdp command for data extraction
+string otherOptions;
+if (!string.IsNullOrWhiteSpace(hdpRootOptions))
+    otherOptions = $"{hdpRootOptions} -o \"{outputHeroesVersionDirectory}\"";
+else
+    otherOptions = $"-e announcer -e all -l all --gs-replace-constant-vars --gs-replace-style-vars --gs-preserve-constant-vars --gs-preserve-style-vars --localized-text extract -o \"{outputHeroesVersionDirectory}\"";
+
+if (isOnline)
+    await ExecuteHDPNoCapture($"online{(usePtr ? " --download-ptr" : string.Empty)} {otherOptions}");
+else
+    await ExecuteHDPNoCapture($"game -s \"{installedHeroesDirectory}\" {otherOptions}");
 
 if (jsonCreate == "full")
     await ExecuteHeroesDataCreateFull($"{outputHeroesVersionDirectory} {heroesdataDirectory} {hotsVersion}");
