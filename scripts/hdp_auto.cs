@@ -9,18 +9,17 @@ using System.Text.Json.Nodes;
 
 const string VersionFile = ".version.json";
 
-if (args.Length < 6)
+if (args.Length < 5)
 {
-    Console.Error.WriteLine("Usage: <installed_heroes_directory> <output_directory> <heroesdata_directory> <heroesimages_directory> <json_create> <use_tool>");
+    Console.Error.WriteLine("Usage: <installed_heroes_directory> <output_directory> <heroesdata_directory> <json_create> <use_tool>");
     return 1;
 }
 
 string installedHeroesDirectory = args[0]; // Heroes of the Storm installation directory
 string outputDirectory = args[1]; // Output directory for the new generated files from HPD
 string heroesdataDirectory = args[2]; // the subdirectory in the heroes-data2 repo
-string heroesimagesDirectory = args[3]; // the heroes-images repo
-string jsonCreate = args[4]; // 'full' or 'patch'; what are we creating
-bool useTool = args[5] == "true" || args[5] == "True" || args[5] == "1"; // whether to use the hdp global tool or not
+string jsonCreate = args[3]; // 'full' or 'patch'; what are we creating
+bool useTool = args[4] == "true" || args[4] == "True" || args[4] == "1"; // whether to use the hdp global tool or not
 
 if (!Directory.Exists(installedHeroesDirectory))
 {
@@ -31,12 +30,6 @@ if (!Directory.Exists(installedHeroesDirectory))
 if (!Directory.Exists(heroesdataDirectory))
 {
     Console.WriteLine("Error: The specified heroesdata directory does not exist.");
-    return 1;
-}
-
-if (!Directory.Exists(heroesimagesDirectory))
-{
-    Console.WriteLine("Error: The specified heroes-images directory does not exist.");
     return 1;
 }
 
