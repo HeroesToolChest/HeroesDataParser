@@ -9,19 +9,20 @@ using System.Text.Json.Nodes;
 
 const string VersionFile = ".version.json";
 
-if (args.Length < 7)
+if (args.Length < 8)
 {
-    Console.Error.WriteLine("Usage: <installed_heroes_directory> <output_directory> <heroesdata_directory> <json_create> <use_ptr> <use_tool> <hdp_root_options>");
+    Console.Error.WriteLine("Usage: <installed_heroes_directory> <output_directory> <heroesdata_directory> <heroesimages_directory> <json_create> <use_ptr> <use_tool> <hdp_root_options>");
     return 1;
 }
 
 string installedHeroesDirectory = args[0]; // 'online' or a Heroes of the Storm installation directory
 string outputDirectory = args[1]; // Output directory for the new generated files from HPD
-string heroesdataDirectory = args[2]; // the subdirectory in the heroes-data2 repo
-string jsonCreate = args[3]; // 'full' or 'patch'; what are we creating
-bool usePtr = args[4] == "true" || args[4] == "True" || args[4] == "1"; // download from ptr server instead of live
-bool useTool = args[5] == "true" || args[5] == "True" || args[5] == "1"; // whether to use the hdp global tool or not
-string hdpRootOptions = args[6]; // overrides hdp root options (no -o)
+string heroesdataDirectory = args[2]; // the subdirectory in the heroes-data2 repo (heroesdata)
+string heroesimagesDirectory = args[3]; // the subdirectory for heroes-images repo (heroesimages)
+string jsonCreate = args[4]; // 'full' or 'patch'; what are we creating
+bool usePtr = args[5] == "true" || args[5] == "True" || args[5] == "1"; // download from ptr server instead of live
+bool useTool = args[6] == "true" || args[6] == "True" || args[6] == "1"; // whether to use the hdp global tool or not
+string hdpRootOptions = args[7]; // overrides hdp root options (no -o)
 
 bool isOnline = installedHeroesDirectory.Equals("online", StringComparison.CurrentCultureIgnoreCase);
 
@@ -34,6 +35,12 @@ if (!isOnline && !Directory.Exists(installedHeroesDirectory))
 if (!Directory.Exists(heroesdataDirectory))
 {
     Console.WriteLine("Error: The specified heroesdata directory does not exist.");
+    return 1;
+}
+
+if (!Directory.Exists(heroesimagesDirectory))
+{
+    Console.WriteLine("Error: The specified heroesimages directory does not exist.");
     return 1;
 }
 
@@ -97,7 +104,7 @@ string otherOptions;
 if (!string.IsNullOrWhiteSpace(hdpRootOptions))
     otherOptions = $"{hdpRootOptions} -o \"{outputHeroesVersionDirectory}\"";
 else
-    otherOptions = $"-e announcer -e all -l all --gs-replace-constant-vars --gs-replace-style-vars --gs-preserve-constant-vars --gs-preserve-style-vars --localized-text extract -o \"{outputHeroesVersionDirectory}\"";
+    otherOptions = $"-e all -l all --gs-replace-constant-vars --gs-replace-style-vars --gs-preserve-constant-vars --gs-preserve-style-vars --localized-text extract -o \"{outputHeroesVersionDirectory}\"";
 
 if (isOnline)
     await ExecuteHDPNoCapture($"online{(usePtr ? " --download-ptr" : string.Empty)} {otherOptions}");
@@ -127,6 +134,11 @@ Console.WriteLine($"Updated version file: {versionFile}");
 Console.WriteLine($"- latest: {versionJsonNode["latest"]!.GetValue<string>()}");
 Console.WriteLine($"- latest full: {versionJsonNode["latest-full"]!.GetValue<string>()}");
 Console.WriteLine($"- date: {versionJsonNode["date"]!.GetValue<string>()}");
+
+// copy the images to the heroesimages repo
+Console.WriteLine($"Copying images to heroesimages repo...");
+MoveDirectory(Path.Combine(outputHeroesVersionDirectory, "images"), heroesimagesDirectory); 
+Console.WriteLine($"Copied images to: {heroesimagesDirectory}");   
 
 Console.WriteLine($"Hdp auto done.");
 return 0;
@@ -221,4 +233,23 @@ static async Task<string> ProcessCommand(Process process)
     Console.Write(output);
 
     return output;
+}
+
+static void MoveDirectory(string source, string destination)
+{
+    Directory.CreateDirectory(destination);
+
+    foreach (string file in Directory.GetFiles(source))
+    {
+        string destFile = Path.Combine(destination, Path.GetFileName(file));
+        File.Move(file, destFile, overwrite: true);
+    }
+
+    foreach (string dir in Directory.GetDirectories(source))
+    {
+        string destDir = Path.Combine(destination, Path.GetFileName(dir));
+        MoveDirectory(dir, destDir);
+    }
+
+    Directory.Delete(source);
 }
