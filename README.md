@@ -442,7 +442,7 @@ All directories and files that are extracted will be in lowercase characters.
 
 Example command on Windows that specifies two directories (`thefirelords.stormmod` and `tracer.stormmod`) and filters by `xml` and `txt` file extensions:
 ```
-casc-extract game -p "E:\Games\Heroes of the Storm" -d "mods\heromods\thefirelords.stormmod" -d "mods\heromods\tracer.stormmod" -f xml -f txt 
+casc-extract game -s "E:\Games\Heroes of the Storm" -d "mods\heromods\thefirelords.stormmod" -d "mods\heromods\tracer.stormmod" -f xml -f txt 
 ```
 
 Example command on Linux that specifies the same two directories and filters by the same file extensions but with `online` storage type:
