@@ -110,7 +110,7 @@ public class MapDataExtractorService : IMapDataExtractorService
             return parsedMaps;
         }
 
-        _console.Markup("[lightskyblue1]Finished parsing map data[/]...");
+        _console.Markup("Finished parsing map data...");
 
         _resultSummaryService.AddSummaryDataItem("MapData", parsedMaps.Count, totalCount, stormLocale: _options.CurrentLocale);
 

@@ -46,7 +46,7 @@ public class ImageWriterService : IImageWriterService
             return;
         }
 
-        _console.MarkupLine($"[lightskyblue1]Creating image files[/]...");
+        _console.MarkupLine("Creating image files...");
 
         var imagePathsBySubDirectoryGroups = _outputImagePaths.GroupBy(x => x.SubDirectoryPath);
         List<(ProgressTask ProgressTask, IGrouping<string, ImageWriterFile> ImagePathsBySubDirectory)> progressTasks = [];
