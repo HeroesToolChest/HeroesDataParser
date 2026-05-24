@@ -145,8 +145,8 @@ public abstract class JsonFileWriterBase
     private static TextPath GetFilePath(string filePath)
     {
         return new TextPath(filePath)
-            .SeparatorColor(Color.SpringGreen1)
-            .StemColor(Color.SteelBlue1_1)
+            .SeparatorColor(Color.SpringGreen3)
+            .StemColor(Color.SteelBlue1)
             .LeafColor(Color.Orange1);
     }
 

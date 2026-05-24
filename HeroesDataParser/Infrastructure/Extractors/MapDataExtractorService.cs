@@ -53,7 +53,7 @@ public class MapDataExtractorService : IMapDataExtractorService
 
             using (LogContext.PushProperty("MapId", mapTitle))
             {
-                _console.MarkupLineInterpolated($"[darkseagreen2_1]{(_options.StorageLoad.Type == StorageType.Online ? "Downloading" : "Loading")} '{mapTitle}' mod[/]...");
+                _console.MarkupLineInterpolated($"[DarkSeaGreen2]{(_options.StorageLoad.Type == StorageType.Online ? "Downloading" : "Loading")} '{mapTitle}' mod[/]...");
 
                 _heroesXmlLoaderService.HeroesXmlLoader.LoadMapMod(mapTitle);
 
