@@ -43,7 +43,7 @@ public class MainService : IMainService
 
             _options.CurrentLocale = locale;
             _logger.LogDebug("Localization: {Locale}", locale);
-            _console.Write(new Rule($"[[ [greenyellow]Locale: {locale}[/] ... [paleturquoise1]{count} of {_options.Localizations.Count}[/] ]]")
+            _console.Write(new Rule($"[[ [DarkSeaGreen3_1]Locale: {locale}[/] ... [LightSkyBlue3_1]{count} of {_options.Localizations.Count}[/] ]]")
             {
                 Justification = Justify.Left,
             });
