@@ -118,19 +118,19 @@ public class ResultSummaryService : IResultSummaryService
         renderables.Add(new Markup($"{Environment.NewLine}Files Written:"));
 
         if (JsonDataFilesWritten < JsonDataFilesTotal)
-            renderables.Add(new Markup($"  [SteelBlue1_1]data[/]: [[[yellow]:warning:  {JsonDataFilesWritten}/{JsonDataFilesTotal}[/]]]"));
+            renderables.Add(new Markup($"  [SteelBlue1]data[/]: [[[yellow]:warning:  {JsonDataFilesWritten}/{JsonDataFilesTotal}[/]]]"));
         else
-            renderables.Add(new Markup($"  [SteelBlue1_1]data[/]: [[[green]{JsonDataFilesWritten}/{JsonDataFilesTotal}[/]]]"));
+            renderables.Add(new Markup($"  [SteelBlue1]data[/]: [[[green]{JsonDataFilesWritten}/{JsonDataFilesTotal}[/]]]"));
 
         if (GameStringFilesWritten < GameStringFilesTotal)
-            renderables.Add(new Markup($"  [SteelBlue1_1]gamestrings[/]: [[[yellow]:warning:  {GameStringFilesWritten}/{GameStringFilesTotal}[/]]]"));
+            renderables.Add(new Markup($"  [SteelBlue1]gamestrings[/]: [[[yellow]:warning:  {GameStringFilesWritten}/{GameStringFilesTotal}[/]]]"));
         else
-            renderables.Add(new Markup($"  [SteelBlue1_1]gamestrings[/]: [[[green]{GameStringFilesWritten}/{GameStringFilesTotal}[/]]]"));
+            renderables.Add(new Markup($"  [SteelBlue1]gamestrings[/]: [[[green]{GameStringFilesWritten}/{GameStringFilesTotal}[/]]]"));
 
         if (ImageFilesWritten < ImageFilesTotal)
-            renderables.Add(new Markup($"  [SteelBlue1_1]images[/]: [[[yellow]:warning:  {ImageFilesWritten}/{ImageFilesTotal}[/]]]"));
+            renderables.Add(new Markup($"  [SteelBlue1]images[/]: [[[yellow]:warning:  {ImageFilesWritten}/{ImageFilesTotal}[/]]]"));
         else
-            renderables.Add(new Markup($"  [SteelBlue1_1]images[/]: [[[green]{ImageFilesWritten}/{ImageFilesTotal}[/]]]"));
+            renderables.Add(new Markup($"  [SteelBlue1]images[/]: [[[green]{ImageFilesWritten}/{ImageFilesTotal}[/]]]"));
     }
 
     private Grid DataPrintSummary(IEnumerable<SummaryDataItem> warningDataItems)
