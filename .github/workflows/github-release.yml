@@ -10,7 +10,7 @@ jobs:
     with:
       title: 'Heroes Data Parser'
       app-name: HeroesDataParser
-      artificats-workflow: build.yml
+      artifacts-workflow: build.yml
       github-release-env: Github Release
       github-release-url: https://github.com/HeroesToolChest/HeroesDataParser/releases
     secrets:
