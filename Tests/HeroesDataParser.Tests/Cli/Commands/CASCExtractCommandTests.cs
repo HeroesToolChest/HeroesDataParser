@@ -227,6 +227,7 @@ public class CASCExtractCommandTests
         cascExtractOptions.StorageLoad.Ptr.Should().BeFalse();
         cascExtractOptions.Directories.Should().ContainSingle().And.Contain("mods");
         cascExtractOptions.FileFilters.Should().ContainSingle().And.Contain("*");
+        cascExtractOptions.IncludeMapDocumentInfoFile.Should().BeTrue();
         cascExtractOptions.Threads.Should().Be(-1);
         cascExtractOptions.OutputDirectory.Should().Be(Path.GetFullPath("TestXmlFiles"));
     }
@@ -261,6 +262,7 @@ public class CASCExtractCommandTests
         cascExtractOptions.StorageLoad.Ptr.Should().BeTrue();
         cascExtractOptions.Directories.Should().ContainSingle().And.Contain("mods");
         cascExtractOptions.FileFilters.Should().ContainSingle().And.Contain("*");
+        cascExtractOptions.IncludeMapDocumentInfoFile.Should().BeTrue();
         cascExtractOptions.Threads.Should().Be(-1);
         cascExtractOptions.OutputDirectory.Should().Be(Path.GetFullPath("TestXmlFiles"));
     }
@@ -297,8 +299,152 @@ public class CASCExtractCommandTests
         cascExtractOptions.StorageLoad.Ptr.Should().BeTrue();
         cascExtractOptions.Directories.Should().HaveCount(3).And.Contain("mods", Path.Combine("mods", "someother"), Path.Combine("mods", "someotherdir"));
         cascExtractOptions.FileFilters.Should().ContainSingle().And.Contain("*");
+        cascExtractOptions.IncludeMapDocumentInfoFile.Should().BeTrue();
         cascExtractOptions.Threads.Should().Be(-1);
         cascExtractOptions.OutputDirectory.Should().Be(Path.GetFullPath("TestXmlFiles"));
+    }
+
+    [TestMethod]
+    public async Task CASCExtractCommand_HdpFilter_ExecutesSuccessfully()
+    {
+        // arrange
+        CASCExtractOptions cascExtractOptions = new();
+        _options.Value.Returns(cascExtractOptions);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<CASCExtractCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            "online",
+            "-d", "mods",
+            "-f", "[hdp]",
+            "-o", "TestXmlFiles"
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        await AssertCommandSuccessful(result);
+
+        cascExtractOptions.FileFilters.Should().BeEquivalentTo([".xml", ".txt", ".s2mv", ".s2ma", ".stormstyle", ".stormlayout"]);
+        cascExtractOptions.IncludeMapDocumentInfoFile.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public async Task CASCExtractCommand_HdpFilterWithAdditionalFilters_ExecutesSuccessfully()
+    {
+        // arrange
+        CASCExtractOptions cascExtractOptions = new();
+        _options.Value.Returns(cascExtractOptions);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<CASCExtractCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            "online",
+            "-d", "mods",
+            "-f", "[hdp]",
+            "-f", "dds",
+            "-o", "TestXmlFiles"
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        await AssertCommandSuccessful(result);
+
+        cascExtractOptions.FileFilters.Should().BeEquivalentTo([".xml", ".txt", ".s2mv", ".s2ma", ".stormstyle", ".stormlayout", ".dds"]);
+        cascExtractOptions.IncludeMapDocumentInfoFile.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public async Task CASCExtractCommand_CustomFilter_ExecutesSuccessfully()
+    {
+        // arrange
+        CASCExtractOptions cascExtractOptions = new();
+        _options.Value.Returns(cascExtractOptions);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<CASCExtractCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            "online",
+            "-d", "mods",
+            "-f", "xml",
+            "-f", ".txt",
+            "-o", "TestXmlFiles"
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        await AssertCommandSuccessful(result);
+
+        cascExtractOptions.FileFilters.Should().BeEquivalentTo([".xml", ".txt"]);
+        cascExtractOptions.IncludeMapDocumentInfoFile.Should().BeFalse();
+    }
+
+    [TestMethod]
+    public async Task CASCExtractCommand_CustomThreads_ExecutesSuccessfully()
+    {
+        // arrange
+        CASCExtractOptions cascExtractOptions = new();
+        _options.Value.Returns(cascExtractOptions);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<CASCExtractCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            "online",
+            "-d", "mods",
+            "--threads", "4",
+            "-o", "TestXmlFiles"
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        await AssertCommandSuccessful(result);
+
+        cascExtractOptions.Threads.Should().Be(4);
+    }
+
+    [TestMethod]
+    public async Task CASCExtractCommand_NoOutputDirectory_DefaultsToCurrentDirectory()
+    {
+        // arrange
+        CASCExtractOptions cascExtractOptions = new();
+        _options.Value.Returns(cascExtractOptions);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<CASCExtractCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            "online",
+            "-d", "mods",
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        await AssertCommandSuccessful(result);
+
+        cascExtractOptions.OutputDirectory.Should().Be(".");
     }
 
     private ServiceCollection GetServiceCollection()

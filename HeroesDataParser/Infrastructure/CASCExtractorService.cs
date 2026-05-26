@@ -115,7 +115,7 @@ public class CASCExtractorService : ICASCExtractorService
             }
 
             IEnumerable<string> enumeratedFiles = EnumerateDirectory(folder)
-                .Where(x => _options.FileFilters.Contains("*") || _options.FileFilters.Any(filter => Path.GetExtension(x.Name.AsSpan()).Equals(filter, StringComparison.OrdinalIgnoreCase)))
+                .Where(x => _options.FileFilters.Contains("*") || _options.FileFilters.Any(filter => Path.GetExtension(x.Name.AsSpan()).Equals(filter, StringComparison.OrdinalIgnoreCase)) || (_options.IncludeMapDocumentInfoFile && x.Name.Equals("documentinfo", StringComparison.OrdinalIgnoreCase)))
                 .Select(x => NormalizePath(x.FullName))
                 .OrderBy(x => x);
 
@@ -245,13 +245,19 @@ public class CASCExtractorService : ICASCExtractorService
         int success = (int)progressTask.Value;
 
         if (success < totalFiles)
-            _console.MarkupLineInterpolated($"[yellow]Failed to extract {totalFiles - success} file(s)[/]");
+        {
+            int failedCount = totalFiles - success;
+
+            _console.MarkupLineInterpolated($"[yellow]Failed to extract {failedCount} file(s)[/]");
+            _logger.LogWarning("Failed to extract {FailedCount} file(s)", failedCount);
+        }
 
         if (totalFiles > 0)
             await CreateInfoFile();
 
         _console.MarkupLineInterpolated($"Extraction completed in {_stopwatch.Elapsed.TotalSeconds:0.####} seconds");
         _logger.LogInformation("Extraction completed in {ElapsedSeconds} seconds", _stopwatch.Elapsed.TotalSeconds);
+        _logger.LogInformation("Total files extracted: {TotalFiles}", totalFiles);
     }
 
     private void DisplayHeroesVersion(CASCConfig cascConfig)
@@ -295,9 +301,9 @@ public class CASCExtractorService : ICASCExtractorService
         if (_logger.IsEnabled(LogLevel.Information))
             _logger.LogInformation("Root directory(s) for extraction: {RootDirectories}", string.Join(", ", _options.Directories));
 
-        if (_options.Directories.Length == 1)
+        if (_options.Directories.Count == 1)
         {
-            _console.MarkupLineInterpolated($"[aqua]Root Directory: {_options.Directories[0]}[/]");
+            _console.MarkupLineInterpolated($"[aqua]Root Directory: {_options.Directories.First()}[/]");
         }
         else
         {
@@ -316,7 +322,7 @@ public class CASCExtractorService : ICASCExtractorService
 
     private void DisplayFileFilters()
     {
-        if (_options.FileFilters.Length == 1 && _options.FileFilters[0] == "*")
+        if (_options.FileFilters.Count == 1 && _options.FileFilters.First() == "*")
         {
             _logger.LogInformation("No filters applied, extracting all files");
             _console.MarkupLine("[aqua]Filters: * (extracting all files)[/]");

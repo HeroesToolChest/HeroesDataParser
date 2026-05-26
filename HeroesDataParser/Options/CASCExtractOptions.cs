@@ -6,9 +6,12 @@ public class CASCExtractOptions
 
     public StorageLoadOptions StorageLoad { get; set; } = new();
 
-    public string[] Directories { get; set; } = [];
+    public HashSet<string> Directories { get; set; } = [];
 
-    public string[] FileFilters { get; set; } = [];
+    public HashSet<string> FileFilters { get; set; } = [];
+
+    // for filters, this file does not have a file extension and is needed for maps
+    public bool IncludeMapDocumentInfoFile { get; set; }
 
     public int Threads { get; set; }
 
