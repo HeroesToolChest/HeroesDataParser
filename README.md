@@ -431,8 +431,8 @@ If the `storage-type` argument is set to `online`, the `--download-ptr` option c
 Use the `-d, --directory` option to specify the directories to be extracted from the CASC storage. Ensure the provided directory paths use the correct path separators for the operating system being used.
 
 Use the `-f, --filter` option to specify file extensions (with or without leading period) to filter by during extraction.
-Set `[hdp]` to filter for `xml`, `txt`, `s2mv`, `s2ma`, `stormstyle`, and `stormlayout`.
-Set `dds` to include the image files.
+Specify `[hdp]` to filter for `xml`, `txt`, `s2mv`, `s2ma`, `stormstyle`, and `stormlayout`.
+Specify `dds` to include the image files.
 
 The output directory structure of the extracted files will mirror the directory structure in the CASC storage.
 If `-o, --output-path` is not specified, then the extracted files will be in the `mods` directory in the current directory, otherwise the `mods` directory will be created as a subdirectory of the specified output path.
