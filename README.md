@@ -426,19 +426,21 @@ OPTIONS:
 ```
 `-s, --storage-path` is required if the `storage-type` argument is set to `game`.
 
-If the `storage-type` argument is set to `online`, the `--download-ptr` option can be used to specify whether to download from the PTR server instead of live.
+If the `storage-type` argument is set to `online`, the `--download-ptr` option can be used to specify whether to download from the PTR server instead of the live server.
 
 Use the `-d, --directory` option to specify the directories to be extracted from the CASC storage. Ensure the provided directory paths use the correct path separators for the operating system being used.
 
 Use the `-f, --filter` option to specify file extensions (with or without leading period) to filter by during extraction.
+Set `[hdp]` to filter for `xml`, `txt`, `s2mv`, `s2ma`, `stormstyle`, and `stormlayout`.
+Set `dds` to include the image files.
 
 The output directory structure of the extracted files will mirror the directory structure in the CASC storage.
-If `-o, --output-path` is not specified, then the extracted files will be in the `mods` directory in the current directory, otherwise the `mods` directory will be a subdirectory of the specified output directory.
+If `-o, --output-path` is not specified, then the extracted files will be in the `mods` directory in the current directory, otherwise the `mods` directory will be created as a subdirectory of the specified output path.
 
 A `hdp.info` JSON file will be created in the `mods` directory with information about the extraction.
 This file is used for the root command when `mods` is specified for the `storage-type` argument.
 
-All directories and files that are extracted will be in lowercase characters.
+All extracted directory and file names will be in lowercase.
 
 Example command on Windows that specifies two directories (`thefirelords.stormmod` and `tracer.stormmod`) and filters by `xml` and `txt` file extensions:
 ```
@@ -448,6 +450,11 @@ casc-extract game -s "E:\Games\Heroes of the Storm" -d "mods\heromods\thefirelor
 Example command on Linux that specifies the same two directories and filters by the same file extensions but with `online` storage type:
 ```
 casc-extract online -d "mods/heromods/thefirelords.stormmod" -d "mods/heromods/tracer.stormmod" -f xml -f txt 
+```
+
+Example command that filters by `[hdp]` and `dds`. The extracted files can be used by the root command:
+```
+casc-extract game -s "E:\Games\Heroes of the Storm" -f [hdp] -f dds 
 ```
 
 ***
