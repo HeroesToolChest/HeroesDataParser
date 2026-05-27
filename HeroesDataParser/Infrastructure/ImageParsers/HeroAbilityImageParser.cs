@@ -14,5 +14,6 @@ public class HeroAbilityImageParser : HeroAbilityTalentImageParser
     protected override void SetImages(Hero element)
     {
         SetAbilityImages(element);
+        SetHeroUnitAbilityImages(element);
     }
 }

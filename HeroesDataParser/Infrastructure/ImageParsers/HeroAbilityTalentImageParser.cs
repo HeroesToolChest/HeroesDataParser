@@ -14,6 +14,7 @@ public class HeroAbilityTalentImageParser : ImageParserBase<Hero>
     protected override void SetImages(Hero element)
     {
         SetAbilityImages(element);
+        SetHeroUnitAbilityImages(element);
         SetTalentImages(element);
     }
 
@@ -33,6 +34,29 @@ public class HeroAbilityTalentImageParser : ImageParserBase<Hero>
                 {
                     await ProcessStaticImage(abilityIcon, abilityIconPath, directoryPath);
                 });
+            }
+        }
+    }
+
+    protected void SetHeroUnitAbilityImages(Hero element)
+    {
+        foreach (var heroUnit in element.HeroUnits)
+        {
+            foreach (ICollection<Ability> abilityList in heroUnit.Value.Abilities.Values)
+            {
+                foreach (Ability ability in abilityList)
+                {
+                    string? abilityIcon = ability.Icon;
+                    RelativeFilePath? abilityIconPath = ability.IconPath;
+
+                    if (string.IsNullOrWhiteSpace(abilityIcon) || string.IsNullOrWhiteSpace(abilityIconPath?.FilePath))
+                        return;
+
+                    AddToFiles(abilityIcon, element.Id, async (directoryPath) =>
+                    {
+                        await ProcessStaticImage(abilityIcon, abilityIconPath, directoryPath);
+                    });
+                }
             }
         }
     }
