@@ -289,6 +289,12 @@ class HdpJsonFile
     [JsonPropertyName("json")]
     public string Json { get; set; } = string.Empty;
 
+    [JsonPropertyName("depends-on")]
+    public string DependsOn { get; set; } = string.Empty;
+
+    [JsonPropertyName("root-version")]
+    public string RootVersion { get; set; } = string.Empty;
+    
     [JsonPropertyName("extracted")]
     public bool Extracted { get; set; }
 
