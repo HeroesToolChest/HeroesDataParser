@@ -28,7 +28,7 @@ public class JsonGameStringFileWriterServiceTests
     public async Task WriteMapSpecific_JsonOutputTypeIsNormal_CreatesJsonFile()
     {
         // arrange
-        string mapName = "this! is a_map";
+        Map map = new("this! is a_map");
 
         RootOptions rootOptions = new()
         {
@@ -73,7 +73,7 @@ public class JsonGameStringFileWriterServiceTests
         JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
 
         // act
-        await jsonGameStringFileWriterService.WriteMapSpecific(mapName);
+        await jsonGameStringFileWriterService.WriteMapSpecific(map);
 
         // assert
         _ = _resultSummaryService.Received(1).GameStringFilesWritten;
@@ -88,7 +88,7 @@ public class JsonGameStringFileWriterServiceTests
     public async Task WriteMapSpecific_JsonOutputTypeIsPatch_CreatesJsonFile()
     {
         // arrange
-        string mapName = "this! is a_map";
+        Map map = new("this! is a_map");
 
         RootOptions rootOptions = new()
         {
@@ -128,7 +128,7 @@ public class JsonGameStringFileWriterServiceTests
         JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
 
         // act
-        await jsonGameStringFileWriterService.WriteMapSpecific(mapName);
+        await jsonGameStringFileWriterService.WriteMapSpecific(map);
 
         // assert
         _ = _resultSummaryService.Received(1).GameStringFilesWritten;
@@ -166,7 +166,7 @@ public class JsonGameStringFileWriterServiceTests
         JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
 
         // act
-        await jsonGameStringFileWriterService.WriteMapSpecific("mapName");
+        await jsonGameStringFileWriterService.WriteMapSpecific(new Map("mapName"));
 
         // assert
         _ = _resultSummaryService.DidNotReceive().GameStringFilesWritten;
@@ -205,7 +205,7 @@ public class JsonGameStringFileWriterServiceTests
         JsonGameStringFileWriterService jsonGameStringFileWriterService = new(_logger, _options, _console, _gameStringSerializerService, _serializedDataStoreService, _jsonSerializerOptionService, _resultSummaryService);
 
         // act
-        await jsonGameStringFileWriterService.WriteMapSpecific("mapName");
+        await jsonGameStringFileWriterService.WriteMapSpecific(new Map("mapName"));
 
         // assert
         _ = _resultSummaryService.Received(1).GameStringFilesWritten;

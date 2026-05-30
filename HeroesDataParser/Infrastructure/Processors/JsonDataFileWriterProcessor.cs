@@ -19,7 +19,7 @@ public class JsonDataFileWriterProcessor : IJsonDataFileWriterProcessor
         if (map is null)
             _writerTasks.Add(() => _jsonDataFileWriterService.Write(itemsToSerialize));
         else
-            _writerTasks.Add(() => _jsonDataFileWriterService.WriteToMapSpecific(map.Id, itemsToSerialize));
+            _writerTasks.Add(() => _jsonDataFileWriterService.WriteToMapSpecific(map, itemsToSerialize));
     }
 
     public async Task ExecuteJsonDataFileWriteTasks()

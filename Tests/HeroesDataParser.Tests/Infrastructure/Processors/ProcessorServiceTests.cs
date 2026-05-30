@@ -121,7 +121,7 @@ public class ProcessorServiceTests
         _xmlDataParserProcessor.Received(1).ExecuteDataParser(ExtractDataOptions.Spray, map);
 
         await _xmlDataParserProcessor.Received(1).ExecuteJsonDataFileWriteTasks();
-        await _jsonGameStringFileWriterProcessor.Received(1).WriteGameStringFile(map.Id);
+        await _jsonGameStringFileWriterProcessor.Received(1).WriteGameStringFile(map);
     }
 
     [TestMethod]
@@ -149,7 +149,7 @@ public class ProcessorServiceTests
         _xmlDataParserProcessor.DidNotReceive().ExecuteDataParser(Arg.Any<ExtractDataOptions>(), Arg.Any<Map?>());
 
         await _xmlDataParserProcessor.Received(1).ExecuteJsonDataFileWriteTasks();
-        await _jsonGameStringFileWriterProcessor.Received(1).WriteGameStringFile(map.Id);
+        await _jsonGameStringFileWriterProcessor.Received(1).WriteGameStringFile(map);
     }
 
     [TestMethod]
@@ -233,7 +233,7 @@ public class ProcessorServiceTests
         await service.StartForMapSpecific(map);
 
         // assert
-        await _jsonGameStringFileWriterProcessor.Received(1).WriteGameStringFile(map.Id);
+        await _jsonGameStringFileWriterProcessor.Received(1).WriteGameStringFile(map);
         map.Id.Should().Be("MapId1");
     }
 
@@ -262,7 +262,7 @@ public class ProcessorServiceTests
             return Task.CompletedTask;
         });
 
-        _jsonGameStringFileWriterProcessor.WriteGameStringFile(Arg.Any<string?>()).Returns(x =>
+        _jsonGameStringFileWriterProcessor.WriteGameStringFile(Arg.Any<Map?>()).Returns(x =>
         {
             callOrder.Add(nameof(IJsonGameStringFileWriterProcessor.WriteGameStringFile));
             return Task.CompletedTask;

@@ -122,6 +122,9 @@
       "additionalProperties": {
         "type": "object",
         "properties": {
+          "normalizedId": {
+            "type": "string"
+          },
           "name": {
             "type": [
               "string",

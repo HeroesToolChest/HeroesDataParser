@@ -2,7 +2,7 @@
 
 public interface IJsonGameStringFileWriterService
 {
-    Task WriteMapSpecific(string mapName);
+    Task WriteMapSpecific(Map map);
 
     Task WriteBase();
 

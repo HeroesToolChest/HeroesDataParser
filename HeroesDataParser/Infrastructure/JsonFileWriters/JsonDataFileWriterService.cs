@@ -23,7 +23,7 @@ public class JsonDataFileWriterService : JsonFileWriterBase, IJsonDataFileWriter
     }
 
     // write to the maps sub directory
-    public async Task WriteToMapSpecific<TElement>(string mapDirectory, SortedDictionary<string, TElement> elementsById)
+    public async Task WriteToMapSpecific<TElement>(Map map, SortedDictionary<string, TElement> elementsById)
         where TElement : IElementObject
     {
         if (Options.MapSpecificWriterJsonOutputType == MapSpecificWriterJsonOutputType.None)
@@ -35,10 +35,7 @@ public class JsonDataFileWriterService : JsonFileWriterBase, IJsonDataFileWriter
         if (!IsSerializationRequired(elementsById.Count))
             return;
 
-        Span<char> buffer = stackalloc char[mapDirectory.Length];
-        int length = NormalizeMapDirectoryName(buffer, mapDirectory);
-
-        await WriteTo(elementsById, Path.Join(Constants.JsonDataDirectory, Constants.MapDirectory, buffer[..length]), mapDirectory);
+        await WriteTo(elementsById, Path.Join(Constants.JsonDataDirectory, Constants.MapDirectory, map.NormalizedId), map.Id);
     }
 
     protected override void IncrementFilesTotal()

@@ -2,7 +2,7 @@
 
 public interface IJsonGameStringFileWriterProcessor
 {
-    Task WriteGameStringFile(string? mapName);
+    Task WriteGameStringFile(Map? map);
 
     Task WriteMapGameStringFile();
 }

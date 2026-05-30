@@ -21,6 +21,7 @@
   },
   "items": {
     "Alterac Pass": {
+      "normalizedId": "alterac_pass",
       "name": "Alteracpass",
       "mapId": "AlteracPass",
       "mapLink": "AlteracPass",
@@ -76,6 +77,7 @@
       ]
     },
     "Battlefield of Eternity": {
+      "normalizedId": "battlefield_of_eternity",
       "name": "Schlachtfeld der Ewigkeit",
       "mapId": "BattlefieldOfEternity",
       "mapLink": "BoE",
@@ -122,6 +124,7 @@
       ]
     },
     "Blackheart's Bay": {
+      "normalizedId": "blackhearts_bay",
       "name": "Schwarzherzbucht",
       "mapId": "BlackheartsBay",
       "mapLink": "BlackHeartsBay",
@@ -168,6 +171,7 @@
       ]
     },
     "Blackheart's Revenge": {
+      "normalizedId": "blackhearts_revenge",
       "name": "Schwarzherz' Rache",
       "mapId": "DockEscort",
       "mapLink": "BlackHeartsSimple",
@@ -209,6 +213,7 @@
       ]
     },
     "Braxis Holdout": {
+      "normalizedId": "braxis_holdout",
       "name": "Endstation Braxis",
       "mapId": "BraxisHoldout",
       "mapLink": "BraxisHoldout",
@@ -252,6 +257,7 @@
       ]
     },
     "Braxis Outpost": {
+      "normalizedId": "braxis_outpost",
       "name": "Außenposten Braxis",
       "mapId": "BraxisOutpost",
       "mapLink": "BraxisOutpost",
@@ -295,6 +301,7 @@
       ]
     },
     "Checkpoint: Hanamura": {
+      "normalizedId": "checkpoint_hanamura",
       "name": "Checkpoint: Hanamura",
       "mapId": "HanamuraPayloadPush",
       "mapLink": "HanamuraPayloadPush",
@@ -328,6 +335,7 @@
       ]
     },
     "Cursed Hollow": {
+      "normalizedId": "cursed_hollow",
       "name": "Verfluchtes Tal",
       "mapId": "CursedHollow",
       "mapLink": "CursedHollow",
@@ -374,6 +382,7 @@
       ]
     },
     "Deadman's Stand": {
+      "normalizedId": "deadmans_stand",
       "name": "Verteidigung von Deadman's Port",
       "mapId": "DeadmansHoldout",
       "mapLink": "DMSN",
@@ -389,6 +398,7 @@
       ]
     },
     "Deadman's Stand (Heroic)": {
+      "normalizedId": "deadmans_stand_heroic",
       "name": "Verteidigung von Deadman's Port (Heroisch)",
       "mapId": "DeadmansHoldout",
       "mapLink": "DMSH",
@@ -404,6 +414,7 @@
       ]
     },
     "Dragon Shire": {
+      "normalizedId": "dragon_shire",
       "name": "Drachengärten",
       "mapId": "DragonShire",
       "mapLink": "DragonShire",
@@ -450,6 +461,7 @@
       ]
     },
     "Escape From Braxis": {
+      "normalizedId": "escape_from_braxis",
       "name": "Flucht von Braxis",
       "mapId": "",
       "mapLink": "EFB",
@@ -466,6 +478,7 @@
       ]
     },
     "Escape From Braxis (Heroic)": {
+      "normalizedId": "escape_from_braxis_heroic",
       "name": "Flucht von Braxis (Heroisch)",
       "mapId": "",
       "mapLink": "EFBH",
@@ -482,6 +495,7 @@
       ]
     },
     "Garden Arena": {
+      "normalizedId": "garden_arena",
       "name": "Gartenarena",
       "mapId": "ArenaModeGardenTerror",
       "mapLink": "GardenSimple",
@@ -517,6 +531,7 @@
       ]
     },
     "Garden of Terror": {
+      "normalizedId": "garden_of_terror",
       "name": "Garten der Ängste",
       "mapId": "HauntedWoods",
       "mapLink": "GardenOfTerror",
@@ -563,6 +578,7 @@
       ]
     },
     "Garden of Terror Classic": {
+      "normalizedId": "garden_of_terror_classic",
       "name": "Garden of Terror Classic",
       "mapId": "HauntedWoods",
       "mapLink": "GardenOfTerror2",
@@ -609,6 +625,7 @@
       ]
     },
     "Hanamura Temple": {
+      "normalizedId": "hanamura_temple",
       "name": "Tempel von Hanamura",
       "mapId": "Hanamura",
       "mapLink": "Hanamura",
@@ -652,6 +669,7 @@
       ]
     },
     "Haunted Mines": {
+      "normalizedId": "haunted_mines",
       "name": "Geisterminen",
       "mapId": "HauntedMines",
       "mapLink": "HauntedMines",
@@ -698,6 +716,7 @@
       ]
     },
     "Industrial District": {
+      "normalizedId": "industrial_district",
       "name": "Industriebezirk",
       "mapId": "IndustrialDistrict",
       "mapLink": "IndustrialDistrict",
@@ -741,6 +760,7 @@
       ]
     },
     "Infernal Shrines": {
+      "normalizedId": "infernal_shrines",
       "name": "Höllenschreine",
       "mapId": "Shrines",
       "mapLink": "Shrines",
@@ -787,6 +807,7 @@
       ]
     },
     "Lost Cavern": {
+      "normalizedId": "lost_cavern",
       "name": "Vergessene Höhle",
       "mapId": "LostCavern",
       "mapLink": "LostCavern",
@@ -830,6 +851,7 @@
       ]
     },
     "Lunar Rocket Racing": {
+      "normalizedId": "lunar_rocket_racing",
       "name": "Mondfest-Raketenrennen",
       "mapId": "LunarFestival",
       "mapLink": "LunarFestival",
@@ -873,6 +895,7 @@
       ]
     },
     "Pull Party": {
+      "normalizedId": "pull_party",
       "name": "Ich glaub, es hakt",
       "mapId": "",
       "mapLink": "PullParty",
@@ -907,6 +930,7 @@
       ]
     },
     "Punisher Arena": {
+      "normalizedId": "punisher_arena",
       "name": "Bestraferarena",
       "mapId": "ArenaModePunisher",
       "mapLink": "ShrinesSimple",
@@ -942,6 +966,7 @@
       ]
     },
     "Sandbox (Cursed Hollow)": {
+      "normalizedId": "sandbox_cursed_hollow",
       "name": "Sandbox (Verfluchtes Tal)",
       "mapId": "CursedHollowSandbox",
       "mapLink": "CursedHollow",
@@ -988,6 +1013,7 @@
       ]
     },
     "Sandbox (Volskaya Foundry)": {
+      "normalizedId": "sandbox_volskaya_foundry",
       "name": "Sandbox (Volskaya-Fertigung)",
       "mapId": "Volskaya",
       "mapLink": "VolskayaSandbox",
@@ -1031,6 +1057,7 @@
       ]
     },
     "Silver City": {
+      "normalizedId": "silver_city",
       "name": "Silberne Stadt",
       "mapId": "SilverCity",
       "mapLink": "SilverCity",
@@ -1074,6 +1101,7 @@
       ]
     },
     "Sky Temple": {
+      "normalizedId": "sky_temple",
       "name": "Tempel des Himmels",
       "mapId": "ControlPoints",
       "mapLink": "SkyTemple",
@@ -1120,6 +1148,7 @@
       ]
     },
     "Snow Brawl": {
+      "normalizedId": "snow_brawl",
       "name": "Schneeballschlacht",
       "mapId": "CursedHollow",
       "mapLink": "SnowBrawl",
@@ -1163,6 +1192,7 @@
       ]
     },
     "Temple Arena": {
+      "normalizedId": "temple_arena",
       "name": "Tempelarena",
       "mapId": "ArenaModeSkyTemple",
       "mapLink": "SkyTempleSimple",
@@ -1198,6 +1228,7 @@
       ]
     },
     "Tomb of the Spider Queen": {
+      "normalizedId": "tomb_of_the_spider_queen",
       "name": "Grabkammer der Spinnenkönigin",
       "mapId": "Crypts",
       "mapLink": "TombSpiderQueen",
@@ -1244,6 +1275,7 @@
       ]
     },
     "Towers of Doom": {
+      "normalizedId": "towers_of_doom",
       "name": "Türme des Unheils",
       "mapId": "TowersOfDoom",
       "mapLink": "TowersOfDoom",
@@ -1287,6 +1319,7 @@
       ]
     },
     "Trial Grounds": {
+      "normalizedId": "trial_grounds",
       "name": "Stiftung Waffentest",
       "mapId": "TrialGrounds",
       "mapLink": "TrialGrounds",
@@ -1330,6 +1363,7 @@
       ]
     },
     "Volskaya Foundry": {
+      "normalizedId": "volskaya_foundry",
       "name": "Volskaya-Fertigung",
       "mapId": "Volskaya",
       "mapLink": "Volskaya",
@@ -1373,6 +1407,7 @@
       ]
     },
     "Warhead Junction": {
+      "normalizedId": "warhead_junction",
       "name": "Sprengkopfmanufaktur",
       "mapId": "Warhead Junction",
       "mapLink": "WarheadJunction",

@@ -13,7 +13,7 @@ public class JsonGameStringFileWriterProcessor : IJsonGameStringFileWriterProces
         _jsonGameStringFileWriterService = jsonGameStringFileWriterService;
     }
 
-    public async Task WriteGameStringFile(string? mapName)
+    public async Task WriteGameStringFile(Map? map)
     {
         if (_options.LocalizedText == LocalizedTextOption.None)
         {
@@ -22,10 +22,10 @@ public class JsonGameStringFileWriterProcessor : IJsonGameStringFileWriterProces
             return;
         }
 
-        if (!string.IsNullOrWhiteSpace(mapName))
+        if (map is not null)
         {
             // write out the gamestring file for the extracted gamestrings from json serialization
-            await _jsonGameStringFileWriterService.WriteMapSpecific(mapName);
+            await _jsonGameStringFileWriterService.WriteMapSpecific(map);
         }
         else
         {

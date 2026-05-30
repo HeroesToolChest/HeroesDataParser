@@ -314,7 +314,7 @@ public class JsonDataFileWriterServiceTests
         JsonDataFileWriterService service = new(_logger, _options, _console, _serializedDataStoreService, jsonSerializerOptionService, _resultSummaryService);
 
         // act
-        await service.WriteToMapSpecific("map name!_yes?", heroesByElementId);
+        await service.WriteToMapSpecific(new Map("map name!_yes?"), heroesByElementId);
 
         // assert
         _serializedDataStoreService.DidNotReceiveWithAnyArgs().AddSerializedData(default!, default!);
@@ -385,7 +385,7 @@ public class JsonDataFileWriterServiceTests
         JsonDataFileWriterService service = new(_logger, _options, _console, _serializedDataStoreService, jsonSerializerOptionService, _resultSummaryService);
 
         // act
-        await service.WriteToMapSpecific("map name!_yes?", heroesByElementId);
+        await service.WriteToMapSpecific(new Map("map name!_yes?"), heroesByElementId);
 
         // assert
         _serializedDataStoreService.DidNotReceiveWithAnyArgs().AddSerializedData(default!, default!);
@@ -467,7 +467,7 @@ public class JsonDataFileWriterServiceTests
         JsonDataFileWriterService service = new(_logger, _options, _console, _serializedDataStoreService, jsonSerializerOptionService, _resultSummaryService);
 
         // act
-        await service.WriteToMapSpecific("map name!_yes?", heroesByElementId);
+        await service.WriteToMapSpecific(new Map("map name!_yes?"), heroesByElementId);
 
         // assert
         _serializedDataStoreService.DidNotReceiveWithAnyArgs().AddSerializedData(default!, default!);

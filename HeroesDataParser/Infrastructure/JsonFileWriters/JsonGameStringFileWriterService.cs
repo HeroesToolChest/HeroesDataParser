@@ -18,18 +18,15 @@ public class JsonGameStringFileWriterService : JsonFileWriterBase, IJsonGameStri
     }
 
     // writes the map specific gamestrings to a json file in the maps sub directory
-    public async Task WriteMapSpecific(string mapName)
+    public async Task WriteMapSpecific(Map map)
     {
         SortedSet<DataType> dataTypes = [.. SerializedDataStoreService.GetDataTypesFromData().Where(x => !x.Equals(DataType.GameStrings))];
-        MetaGameStringProperties meta = GetMeta(dataTypes, mapName);
+        MetaGameStringProperties meta = GetMeta(dataTypes, map.Id);
 
         // get the current extracted gamestrings
         byte[] bytes = _gameStringSerializerService.SerializeGameStrings(meta, JsonSerializerOptionService.JsonSerializerGameStringOptions);
 
-        Span<char> buffer = stackalloc char[mapName!.Length];
-        int length = NormalizeMapDirectoryName(buffer, mapName);
-
-        await WriteSubMapJsonFile(Path.Join(Constants.JsonGameStringsDirectory, Constants.MapDirectory, buffer[..length]), mapName, DataType.GameStrings, bytes, true);
+        await WriteSubMapJsonFile(Path.Join(Constants.JsonGameStringsDirectory, Constants.MapDirectory, map.NormalizedId), map.Id, DataType.GameStrings, bytes, true);
 
         // after writing, clear the extracted gamestrings
         if (Options.MapSpecificWriterJsonOutputType != MapSpecificWriterJsonOutputType.None)

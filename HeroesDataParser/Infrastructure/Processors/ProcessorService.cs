@@ -38,6 +38,6 @@ public class ProcessorService : IProcessorService
 
         // write out the files (data and then gamestrings)
         await _xmlDataParserProcessor.ExecuteJsonDataFileWriteTasks();
-        await _jsonGameStringFileWriterProcessor.WriteGameStringFile(map?.Id);
+        await _jsonGameStringFileWriterProcessor.WriteGameStringFile(map);
     }
 }

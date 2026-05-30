@@ -32,7 +32,7 @@ public class JsonGameStringFileWriterProcessorTests
 
         // assert
         await _jsonGameStringFileWriterService.DidNotReceive().WriteBase();
-        await _jsonGameStringFileWriterService.DidNotReceive().WriteMapSpecific(Arg.Any<string>());
+        await _jsonGameStringFileWriterService.DidNotReceive().WriteMapSpecific(Arg.Any<Map>());
     }
 
     [TestMethod]
@@ -49,10 +49,10 @@ public class JsonGameStringFileWriterProcessorTests
         JsonGameStringFileWriterProcessor processor = new(_logger, _options, _jsonGameStringFileWriterService);
 
         // act
-        await processor.WriteGameStringFile("TestMap");
+        await processor.WriteGameStringFile(new Map("TestMap"));
 
         // assert
-        await _jsonGameStringFileWriterService.Received(1).WriteMapSpecific("TestMap");
+        await _jsonGameStringFileWriterService.Received(1).WriteMapSpecific(new Map("TestMap"));
         await _jsonGameStringFileWriterService.DidNotReceive().WriteBase();
     }
 
@@ -74,49 +74,7 @@ public class JsonGameStringFileWriterProcessorTests
 
         // assert
         await _jsonGameStringFileWriterService.Received(1).WriteBase();
-        await _jsonGameStringFileWriterService.DidNotReceive().WriteMapSpecific(Arg.Any<string>());
-    }
-
-    [TestMethod]
-    public async Task WriteGameStringFile_WithEmptyMapName_CallsWriteBase()
-    {
-        // arrange
-        RootOptions rootOptions = new()
-        {
-            LocalizedText = LocalizedTextOption.Copy,
-        };
-
-        _options.Value.Returns(rootOptions);
-
-        JsonGameStringFileWriterProcessor processor = new(_logger, _options, _jsonGameStringFileWriterService);
-
-        // act
-        await processor.WriteGameStringFile(string.Empty);
-
-        // assert
-        await _jsonGameStringFileWriterService.Received(1).WriteBase();
-        await _jsonGameStringFileWriterService.DidNotReceive().WriteMapSpecific(Arg.Any<string>());
-    }
-
-    [TestMethod]
-    public async Task WriteGameStringFile_WithWhitespaceMapName_CallsWriteBase()
-    {
-        // arrange
-        RootOptions rootOptions = new()
-        {
-            LocalizedText = LocalizedTextOption.Extract,
-        };
-
-        _options.Value.Returns(rootOptions);
-
-        JsonGameStringFileWriterProcessor processor = new(_logger, _options, _jsonGameStringFileWriterService);
-
-        // act
-        await processor.WriteGameStringFile("   ");
-
-        // assert
-        await _jsonGameStringFileWriterService.Received(1).WriteBase();
-        await _jsonGameStringFileWriterService.DidNotReceive().WriteMapSpecific(Arg.Any<string>());
+        await _jsonGameStringFileWriterService.DidNotReceive().WriteMapSpecific(Arg.Any<Map>());
     }
 
     [TestMethod]

@@ -23,7 +23,7 @@ public class JsonDataFileWriterProcessorTests
 
         // assert
         await _jsonDataFileWriterService.DidNotReceive().Write(Arg.Any<SortedDictionary<string, Announcer>>());
-        await _jsonDataFileWriterService.DidNotReceive().WriteToMapSpecific(Arg.Any<string>(), Arg.Any<SortedDictionary<string, Announcer>>());
+        await _jsonDataFileWriterService.DidNotReceive().WriteToMapSpecific(Arg.Any<Map>(), Arg.Any<SortedDictionary<string, Announcer>>());
     }
 
     [TestMethod]
@@ -44,7 +44,7 @@ public class JsonDataFileWriterProcessorTests
 
         // assert
         await _jsonDataFileWriterService.Received(1).Write(items);
-        await _jsonDataFileWriterService.DidNotReceive().WriteToMapSpecific(Arg.Any<string>(), Arg.Any<SortedDictionary<string, Announcer>>());
+        await _jsonDataFileWriterService.DidNotReceive().WriteToMapSpecific(Arg.Any<Map>(), Arg.Any<SortedDictionary<string, Announcer>>());
     }
 
     [TestMethod]
@@ -67,7 +67,7 @@ public class JsonDataFileWriterProcessorTests
 
         // assert
         await _jsonDataFileWriterService.DidNotReceive().Write(Arg.Any<SortedDictionary<string, Announcer>>());
-        await _jsonDataFileWriterService.Received(1).WriteToMapSpecific("mapId", items);
+        await _jsonDataFileWriterService.Received(1).WriteToMapSpecific(map, items);
     }
 
     [TestMethod]
@@ -96,7 +96,7 @@ public class JsonDataFileWriterProcessorTests
 
         // assert
         await _jsonDataFileWriterService.Received(1).Write(items1);
-        await _jsonDataFileWriterService.Received(1).WriteToMapSpecific("mapId", items2);
+        await _jsonDataFileWriterService.Received(1).WriteToMapSpecific(map, items2);
     }
 
     [TestMethod]

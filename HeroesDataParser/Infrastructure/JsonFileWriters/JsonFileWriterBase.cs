@@ -1,6 +1,4 @@
-﻿using HeroesDataParser.Helpers;
-
-namespace HeroesDataParser.Infrastructure.JsonFileWriters;
+﻿namespace HeroesDataParser.Infrastructure.JsonFileWriters;
 
 public abstract class JsonFileWriterBase
 {
@@ -31,11 +29,6 @@ public abstract class JsonFileWriterBase
     protected IJsonSerializerOptionService JsonSerializerOptionService { get; }
 
     protected IResultSummaryService ResultSummaryService { get; }
-
-    protected static int NormalizeMapDirectoryName(Span<char> buffer, string mapDirectory)
-    {
-        return MapName.NormalizeMapDirectoryName(buffer, mapDirectory);
-    }
 
     protected abstract void IncrementFilesTotal();
 
