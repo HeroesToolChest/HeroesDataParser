@@ -547,8 +547,10 @@ Overwriting an existing file with the created file is not allowed by default, en
 
 > [!NOTE]
 > Although it is allowed to format _from_ and _to_ any gamestring format types, some conversions are not reversible or may not produce the expected result. 
+> 
 > For example, if a file with gamestrings in `RawText` format is converted to `PlainText`, the gamestrings cannot be converted back to `RawText` since the necessary information (such as color tags and scaling data) is lost during the conversion.
 > Likewise, converting from `ColoredText` to `ColoredTextWithScaling` will not add scaling data since that information is not present in the `ColoredText` format.
+> 
 > This command is therefore best used to convert from `RawText` to any other format.
 
 Example command of gamestrings file of `RawText` format being converted to `PlainText` format:
@@ -636,7 +638,7 @@ OPTIONS:
         --overwrite             Allow the created file to overwrite an existing file
         --no-indent             Disable indentation in output JSON files
 ```
-The data file does not need to contain the gamestring properties. If it already contains the gamestring properties, they will be overwritten.
+If the data file already contains the gamestring properties, they will be overwritten.
 
 The `heroesVersion`, `hdpVersion`, and `mapName` properties must match between the data file and the gamestring file.
 
