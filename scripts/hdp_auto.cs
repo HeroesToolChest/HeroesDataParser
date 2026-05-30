@@ -104,7 +104,7 @@ string otherOptions;
 if (!string.IsNullOrWhiteSpace(hdpRootOptions))
     otherOptions = $"{hdpRootOptions} -o \"{outputHeroesVersionDirectory}\"";
 else
-    otherOptions = $"-e all -l all --gs-replace-constant-vars --gs-replace-style-vars --gs-preserve-constant-vars --gs-preserve-style-vars --localized-text extract -o \"{outputHeroesVersionDirectory}\"";
+    otherOptions = $"-e all:i -l all --gs-replace-constant-vars --gs-replace-style-vars --gs-preserve-constant-vars --gs-preserve-style-vars --localized-text extract -o \"{outputHeroesVersionDirectory}\"";
 
 if (isOnline)
     await ExecuteHDPNoCapture($"online{(usePtr ? " --download-ptr" : string.Empty)} {otherOptions}");
