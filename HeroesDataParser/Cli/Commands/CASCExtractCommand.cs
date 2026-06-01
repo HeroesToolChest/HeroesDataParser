@@ -2,7 +2,8 @@
 
 public class CASCExtractCommand : AsyncCommand<CASCExtractSettings>
 {
-    private static readonly string[] _specialFilters = ["*", "[hdp]"];
+    private const string _hdpFilter = ":hdp:";
+    private static readonly string[] _specialFilters = ["*", _hdpFilter];
 
     private readonly ILogger<CASCExtractCommand> _logger;
     private readonly CASCExtractOptions _options;
@@ -32,28 +33,26 @@ public class CASCExtractCommand : AsyncCommand<CASCExtractSettings>
         _options.StorageLoad.Path = settings.StorageDirectory?.FullName;
         _options.StorageLoad.Ptr = settings.IsPtr;
 
-        foreach (string directory in settings.Directories)
+        if (settings.Filters.Contains("*"))
         {
-            if (directory.StartsWith(Path.DirectorySeparatorChar) || directory.StartsWith(Path.AltDirectorySeparatorChar))
-            {
-                _options.Directories.Add(directory.AsSpan()
-                    .TrimStart(Path.DirectorySeparatorChar)
-                    .TrimStart(Path.AltDirectorySeparatorChar)
-                    .ToString());
-            }
-            else
-            {
-                _options.Directories.Add(directory);
-            }
+            _options.FileFilters = ["*"];
+        }
+        else if (settings.Filters.Any(x => x.Contains(_hdpFilter)))
+        {
+            _options.FileFilters = [
+                "**/gamestrings.txt",
+                "**/buildid.txt",
+                "**/assets.txt",
+                "**/*.xml",
+                "**/*.s2mv",
+                "**/*.s2ma",
+                "**/*.stormstyle",
+                "**/*.stormlayout",
+                "**/documentinfo"
+            ];
         }
 
-        if (settings.Filters.Any(x => x.Contains('*')))
-            _options.FileFilters = ["*"];
-        else if (settings.Filters.Any(x => x.Contains("[hdp]")))
-            _options.FileFilters = [".xml", ".txt", ".s2mv", ".s2ma", ".stormstyle", ".stormlayout"];
-
-        _options.FileFilters.UnionWith(settings.Filters.Except(_specialFilters).Select(x => x.StartsWith('.') ? x : $".{x}"));
-        _options.IncludeMapDocumentInfoFile = _options.FileFilters.Contains("*") || _options.FileFilters.Any(x => x.Equals(".s2ma", StringComparison.OrdinalIgnoreCase));
+        _options.FileFilters.UnionWith(settings.Filters.Except(_specialFilters).Select(x => x.Replace('\\', '/')));
         _options.Threads = settings.Threads;
 
         if (settings.OutputDirectory is not null)

@@ -16,13 +16,8 @@ public class CASCExtractSettings : CommandSettings
     [Description("Download from the PTR server instead of live (online storage-type only)")]
     public bool IsPtr { get; init; }
 
-    [CommandOption("-d|--directory <PATH>")]
-    [Description("Directory and its subdirectories to extract, path must start with mods (can be specified multiple times)")]
-    [DefaultValue(new[] { "mods" })]
-    public string[] Directories { get; init; } = [];
-
-    [CommandOption("-f|--filter <Ext>")]
-    [Description("Filter files by extension (can be specified multiple times)")]
+    [CommandOption("-f|--filter <PATTERN>")]
+    [Description("Glob pattern to filter file paths for extraction, e.g. '*.xml' (can be specified multiple times")]
     [DefaultValue(new[] { "*" })]
     public string[] Filters { get; init; } = [];
 
@@ -54,23 +49,6 @@ public class CASCExtractSettings : CommandSettings
 
         if (IsPtr && StorageType != StorageType.Online)
             return ValidationResult.Error("--ptr is only valid when storage-type is 'online'");
-
-        foreach (string directory in Directories)
-        {
-            if (File.Exists(directory))
-                return ValidationResult.Error($"--directory {directory} must be a directory path, not an existing file");
-
-            ReadOnlySpan<char> rootSegment = directory.AsSpan()
-                .TrimStart(Path.DirectorySeparatorChar)
-                .TrimStart(Path.AltDirectorySeparatorChar);
-
-            int separatorIndex = rootSegment.IndexOfAny(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-            if (separatorIndex >= 0)
-                rootSegment = rootSegment[..separatorIndex];
-
-            if (!rootSegment.Equals("mods", StringComparison.OrdinalIgnoreCase))
-                return ValidationResult.Error($"--directory {directory} first directory must be 'mods'");
-        }
 
         if (Threads == 0 || Threads < -1)
             return ValidationResult.Error("--threads must be -1 or a positive integer");

@@ -1,4 +1,5 @@
 ﻿using CASCLib;
+using Microsoft.Extensions.FileSystemGlobbing;
 using Polly;
 using Polly.Registry;
 
@@ -6,6 +7,8 @@ namespace HeroesDataParser.Infrastructure;
 
 public class CASCExtractorService : ICASCExtractorService
 {
+    private const string _rootDirectory = "mods";
+
     private readonly ILogger<CASCExtractorService> _logger;
     private readonly CASCExtractOptions _options;
     private readonly IAnsiConsole _console;
@@ -91,37 +94,40 @@ public class CASCExtractorService : ICASCExtractorService
 
     private HashSet<string> GetFiles(HeroesXmlLoader heroesXmlLoader)
     {
+        _console.WriteLine("Gettings files for extraction...");
+
         HashSet<string> files = new(StringComparer.OrdinalIgnoreCase);
 
-        foreach (string rootDirectory in _options.Directories)
+        CASCFolder folder = null!;
+
+        try
         {
-            CASCFolder folder = null!;
-
-            try
-            {
-                folder = heroesXmlLoader.GetCASCFolder(rootDirectory);
-            }
-            catch (DirectoryNotFoundException)
-            {
-                _logger.LogError("Root directory not found in storage: {RootDirectory}", rootDirectory);
-                _console.MarkupLineInterpolated($"[red]Error: Root directory not found in storage: {rootDirectory}[/]");
-                continue;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "An error occurred during extraction of root directory: {RootDirectory}", rootDirectory);
-                _console.MarkupLineInterpolated($"[red]An error occurred during extraction of root directory: {rootDirectory}: {ex.Message}[/]");
-                continue;
-            }
-
-            IEnumerable<string> enumeratedFiles = EnumerateDirectory(folder)
-                .Where(x => _options.FileFilters.Contains("*") || _options.FileFilters.Any(filter => Path.GetExtension(x.Name.AsSpan()).Equals(filter, StringComparison.OrdinalIgnoreCase)) || (_options.IncludeMapDocumentInfoFile && x.Name.Equals("documentinfo", StringComparison.OrdinalIgnoreCase)))
-                .Select(x => NormalizePath(x.FullName))
-                .OrderBy(x => x);
-
-            foreach (string file in enumeratedFiles)
-                files.Add(file);
+            folder = heroesXmlLoader.GetCASCFolder(_rootDirectory);
         }
+        catch (DirectoryNotFoundException)
+        {
+            _logger.LogError("Root directory not found in storage: {RootDirectory}", _rootDirectory);
+            _console.MarkupLineInterpolated($"[red]Error: Root directory not found in storage: {_rootDirectory}[/]");
+            return files;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An error occurred during extraction of root directory: {RootDirectory}", _rootDirectory);
+            _console.MarkupLineInterpolated($"[red]An error occurred during extraction of root directory: {_rootDirectory}: {ex.Message}[/]");
+            return files;
+        }
+
+        Matcher matcher = new(StringComparison.OrdinalIgnoreCase);
+        matcher.AddIncludePatterns(_options.FileFilters);
+
+        IEnumerable<string> enumeratedFiles = EnumerateDirectory(folder)
+            .Select(x => x.FullName.Replace('\\', '/'))
+            .Where(filePath => matcher.Match(filePath).HasMatches);
+
+        foreach (string file in enumeratedFiles)
+            files.Add(file);
+
+        _console.WriteLine($"Total files to extract: {files.Count}");
 
         return files;
     }
@@ -168,7 +174,6 @@ public class CASCExtractorService : ICASCExtractorService
 
                 DisplayHeroesVersion(cascConfig);
                 DisplayStorageType();
-                DisplayOutputDirectory();
                 DisplayFileFilters();
 
                 _stopwatch.Start();
@@ -296,30 +301,6 @@ public class CASCExtractorService : ICASCExtractorService
         }
     }
 
-    private void DisplayOutputDirectory()
-    {
-        if (_logger.IsEnabled(LogLevel.Information))
-            _logger.LogInformation("Root directory(s) for extraction: {RootDirectories}", string.Join(", ", _options.Directories));
-
-        if (_options.Directories.Count == 1)
-        {
-            _console.MarkupLineInterpolated($"[aqua]Root Directory: {_options.Directories.First()}[/]");
-        }
-        else
-        {
-            _console.MarkupLineInterpolated($"[aqua]Root Directory(s)[/]");
-            foreach (string rootDirectory in _options.Directories)
-            {
-                _console.MarkupLineInterpolated($"  [aqua]{rootDirectory}[/]");
-            }
-        }
-
-        string fullOutputDirectory = Path.GetFullPath(_options.OutputDirectory);
-
-        _logger.LogInformation("Output directory: {OutputDirectory}", fullOutputDirectory);
-        _console.MarkupLineInterpolated($"[aqua]Output Directory: {fullOutputDirectory}[/]");
-    }
-
     private void DisplayFileFilters()
     {
         if (_options.FileFilters.Count == 1 && _options.FileFilters.First() == "*")
@@ -349,7 +330,7 @@ public class CASCExtractorService : ICASCExtractorService
 
     private async Task<bool> CreateFile(HeroesXmlLoader heroesXmlLoader, string filePath, CancellationToken cancellationToken = default)
     {
-        string outputFilePath = NormalizePath(Path.Combine(_options.OutputDirectory, filePath));
+        string outputFilePath = Path.Combine(_options.OutputDirectory, NormalizePath(filePath));
 
         string fullOutputRoot = Path.GetFullPath(_options.OutputDirectory);
         string fullOutputFile = Path.GetFullPath(outputFilePath);
