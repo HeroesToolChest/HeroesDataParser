@@ -28,7 +28,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Heroes.Element" Version="1.0.0-alpha.3" />
-		<PackageReference Include="Heroes.XmlData" Version="1.0.0-alpha.4" />
+		<PackageReference Include="Heroes.XmlData" Version="1.0.0-alpha.5" />
 		<PackageReference Include="JsonPatch.Net" Version="5.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Compliance.Redaction" Version="10.6.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.8" />
