@@ -4,6 +4,8 @@ namespace HeroesDataParser.Cli.Settings;
 
 public class CASCExtractSettings : CommandSettings
 {
+    public const string AllIncludePattern = "**/*";
+
     [CommandArgument(0, "<storage-type>")]
     [Description("Storage type to load from (game or online)")]
     public StorageType StorageType { get; init; }
@@ -16,10 +18,14 @@ public class CASCExtractSettings : CommandSettings
     [Description("Download from the PTR server instead of live (online storage-type only)")]
     public bool IsPtr { get; init; }
 
-    [CommandOption("-f|--filter <PATTERN>")]
-    [Description("Glob pattern to filter file paths for extraction, e.g. '*.xml' (can be specified multiple times")]
-    [DefaultValue(new[] { "*" })]
-    public string[] Filters { get; init; } = [];
+    [CommandOption("-i|--include-filter <PATTERN>")]
+    [Description("Glob pattern to include file paths for extraction (can be specified multiple times)")]
+    [DefaultValue(new[] { AllIncludePattern })]
+    public string[] IncludeFilters { get; init; } = [];
+
+    [CommandOption("-e|--exclude-filter <PATTERN>")]
+    [Description("Glob pattern to exclude file paths from extraction (can be specified multiple times)")]
+    public string[] ExcludeFilters { get; init; } = [];
 
     [CommandOption("-t|--threads <NUMBER>")]
     [Description("Number of threads for file extraction (defaults to max processors)")]

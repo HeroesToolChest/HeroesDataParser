@@ -3,7 +3,7 @@
 public class CASCExtractCommand : AsyncCommand<CASCExtractSettings>
 {
     private const string _hdpFilter = ":hdp:";
-    private static readonly string[] _specialFilters = ["*", _hdpFilter];
+    private static readonly string[] _specialFilters = [CASCExtractSettings.AllIncludePattern, _hdpFilter];
 
     private readonly ILogger<CASCExtractCommand> _logger;
     private readonly CASCExtractOptions _options;
@@ -33,13 +33,13 @@ public class CASCExtractCommand : AsyncCommand<CASCExtractSettings>
         _options.StorageLoad.Path = settings.StorageDirectory?.FullName;
         _options.StorageLoad.Ptr = settings.IsPtr;
 
-        if (settings.Filters.Contains("*"))
+        if (settings.IncludeFilters.Contains(CASCExtractSettings.AllIncludePattern))
         {
-            _options.FileFilters = ["*"];
+            _options.IncludeFilters = [CASCExtractSettings.AllIncludePattern];
         }
-        else if (settings.Filters.Any(x => x.Contains(_hdpFilter)))
+        else if (settings.IncludeFilters.Any(x => x.Contains(_hdpFilter)))
         {
-            _options.FileFilters = [
+            _options.IncludeFilters = [
                 "**/gamestrings.txt",
                 "**/buildid.txt",
                 "**/assets.txt",
@@ -52,7 +52,9 @@ public class CASCExtractCommand : AsyncCommand<CASCExtractSettings>
             ];
         }
 
-        _options.FileFilters.UnionWith(settings.Filters.Except(_specialFilters).Select(x => x.Replace('\\', '/')));
+        _options.IncludeFilters.UnionWith(settings.IncludeFilters.Except(_specialFilters).Select(x => x.Replace('\\', '/')));
+        _options.ExcludeFilters = new HashSet<string>(settings.ExcludeFilters, StringComparer.OrdinalIgnoreCase);
+
         _options.Threads = settings.Threads;
 
         if (settings.OutputDirectory is not null)

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using HeroesDataParser.Cli.Settings;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HeroesDataParser.Cli.Commands.Tests;
 
@@ -201,7 +202,8 @@ public class CASCExtractCommandTests
         cascExtractOptions.StorageLoad.Type.Should().Be(StorageType.Game);
         cascExtractOptions.StorageLoad.Path.Should().Be(Path.GetFullPath("TestXmlFiles"));
         cascExtractOptions.StorageLoad.Ptr.Should().BeFalse();
-        cascExtractOptions.FileFilters.Should().ContainSingle().And.Contain("*");
+        cascExtractOptions.IncludeFilters.Should().ContainSingle().And.Contain(CASCExtractSettings.AllIncludePattern);
+        cascExtractOptions.ExcludeFilters.Should().BeEmpty();
         cascExtractOptions.Threads.Should().Be(-1);
         cascExtractOptions.OutputDirectory.Should().Be(Path.GetFullPath("TestXmlFiles"));
     }
@@ -234,42 +236,7 @@ public class CASCExtractCommandTests
         cascExtractOptions.StorageLoad.Type.Should().Be(StorageType.Online);
         cascExtractOptions.StorageLoad.Path.Should().BeNull();
         cascExtractOptions.StorageLoad.Ptr.Should().BeTrue();
-        cascExtractOptions.FileFilters.Should().ContainSingle().And.Contain("*");
-        cascExtractOptions.Threads.Should().Be(-1);
-        cascExtractOptions.OutputDirectory.Should().Be(Path.GetFullPath("TestXmlFiles"));
-    }
-
-    [TestMethod]
-    public async Task CASCExtractCommand_MultipleDirectories_ExecutesSuccessfully()
-    {
-        // arrange
-        CASCExtractOptions cascExtractOptions = new();
-        _options.Value.Returns(cascExtractOptions);
-
-        TypeRegistrar registrar = new(GetServiceCollection());
-
-        CommandAppTester app = new(registrar);
-        app.SetDefaultCommand<CASCExtractCommand>();
-
-        // act
-        CommandAppResult result = await app.RunAsync(
-        [
-            "online",
-            "--download-ptr",
-            "-d", "mods",
-            "-d", $"{Path.Combine("mods", "someother")}",
-            "-d", $"{Path.DirectorySeparatorChar}{Path.Combine("mods", "someotherdir")}",
-            "-o", "TestXmlFiles"
-        ],
-        TestContext.CancellationToken);
-
-        // assert
-        await AssertCommandSuccessful(result);
-
-        cascExtractOptions.StorageLoad.Type.Should().Be(StorageType.Online);
-        cascExtractOptions.StorageLoad.Path.Should().BeNull();
-        cascExtractOptions.StorageLoad.Ptr.Should().BeTrue();
-        cascExtractOptions.FileFilters.Should().ContainSingle().And.Contain("*");
+        cascExtractOptions.IncludeFilters.Should().ContainSingle().And.Contain(CASCExtractSettings.AllIncludePattern);
         cascExtractOptions.Threads.Should().Be(-1);
         cascExtractOptions.OutputDirectory.Should().Be(Path.GetFullPath("TestXmlFiles"));
     }
@@ -291,7 +258,7 @@ public class CASCExtractCommandTests
         [
             "online",
             "-d", "mods",
-            "-f", ":hdp:",
+            "-i", ":hdp:",
             "-o", "TestXmlFiles"
         ],
         TestContext.CancellationToken);
@@ -299,17 +266,18 @@ public class CASCExtractCommandTests
         // assert
         await AssertCommandSuccessful(result);
 
-        cascExtractOptions.FileFilters.Should().BeEquivalentTo([
+        cascExtractOptions.IncludeFilters.Should().BeEquivalentTo([
                 "**/gamestrings.txt",
                 "**/buildid.txt",
                 "**/assets.txt",
-                "*.xml",
-                "*.s2mv",
-                "*.s2ma",
-                "*.stormstyle",
-                "*.stormlayout",
-                "documentinfo"
+                "**/*.xml",
+                "**/*.s2mv",
+                "**/*.s2ma",
+                "**/*.stormstyle",
+                "**/*.stormlayout",
+                "**/documentinfo"
             ]);
+        cascExtractOptions.ExcludeFilters.Should().BeEmpty();
     }
 
     [TestMethod]
@@ -329,9 +297,12 @@ public class CASCExtractCommandTests
         [
             "online",
             "-d", "mods",
-            "-f", ":hdp:",
-            "-f", "*.dds",
-            "-f", "*.xml",
+            "-i", ":hdp:",
+            "-i", "**/*.dds",
+            "-i", "**/*.xml",
+            "-e", "**/buildid.txt",
+            "-e", "some.txt",
+            "-e", "some.txt",
             "-o", "TestXmlFiles"
         ],
         TestContext.CancellationToken);
@@ -339,22 +310,23 @@ public class CASCExtractCommandTests
         // assert
         await AssertCommandSuccessful(result);
 
-        cascExtractOptions.FileFilters.Should().BeEquivalentTo([
+        cascExtractOptions.IncludeFilters.Should().BeEquivalentTo([
                 "**/gamestrings.txt",
                 "**/buildid.txt",
                 "**/assets.txt",
-                "*.xml",
-                "*.s2mv",
-                "*.s2ma",
-                "*.stormstyle",
-                "*.stormlayout",
-                "documentinfo",
-                "*.dds"
+                "**/*.xml",
+                "**/*.s2mv",
+                "**/*.s2ma",
+                "**/*.stormstyle",
+                "**/*.stormlayout",
+                "**/documentinfo",
+                "**/*.dds"
             ]);
+        cascExtractOptions.ExcludeFilters.Should().BeEquivalentTo(["**/buildid.txt", "some.txt"]);
     }
 
     [TestMethod]
-    public async Task CASCExtractCommand_CustomFilter_ExecutesSuccessfully()
+    public async Task CASCExtractCommand_CustomIncludeFilter_ExecutesSuccessfully()
     {
         // arrange
         CASCExtractOptions cascExtractOptions = new();
@@ -370,11 +342,11 @@ public class CASCExtractCommandTests
         [
             "online",
             "-d", "mods",
-            "-f", "xml",
-            "-f", ".txt",
-            "-f", ".txt",
-            "-f", "folder/**/*",
-            "-f", "folder\\folder\\**\\file.txt",
+            "-i", "xml",
+            "-i", ".txt",
+            "-i", ".txt",
+            "-i", "folder/**/*",
+            "-i", "folder\\folder\\**\\file.txt",
             "-o", "TestXmlFiles"
         ],
         TestContext.CancellationToken);
@@ -382,7 +354,7 @@ public class CASCExtractCommandTests
         // assert
         await AssertCommandSuccessful(result);
 
-        cascExtractOptions.FileFilters.Should().BeEquivalentTo(["xml", ".txt", "folder/**/*", "folder/folder/**/file.txt"]);
+        cascExtractOptions.IncludeFilters.Should().BeEquivalentTo(["xml", ".txt", "folder/**/*", "folder/folder/**/file.txt"]);
     }
 
     [TestMethod]

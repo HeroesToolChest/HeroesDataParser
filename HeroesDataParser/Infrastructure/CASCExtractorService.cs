@@ -118,7 +118,8 @@ public class CASCExtractorService : ICASCExtractorService
         }
 
         Matcher matcher = new(StringComparison.OrdinalIgnoreCase);
-        matcher.AddIncludePatterns(_options.FileFilters);
+        matcher.AddIncludePatterns(_options.IncludeFilters);
+        matcher.AddExcludePatterns(_options.ExcludeFilters);
 
         IEnumerable<string> enumeratedFiles = EnumerateDirectory(folder)
             .Select(x => x.FullName.Replace('\\', '/'))
@@ -303,7 +304,7 @@ public class CASCExtractorService : ICASCExtractorService
 
     private void DisplayFileFilters()
     {
-        if (_options.FileFilters.Count == 1 && _options.FileFilters.First() == "*")
+        if (_options.IncludeFilters.Count == 1 && _options.IncludeFilters.First() == "*")
         {
             _logger.LogInformation("No filters applied, extracting all files");
             _console.MarkupLine("[aqua]Filters: * (extracting all files)[/]");
@@ -311,8 +312,8 @@ public class CASCExtractorService : ICASCExtractorService
         else
         {
             if (_logger.IsEnabled(LogLevel.Information))
-                _logger.LogInformation("Applying filters: {FileFilters}", string.Join(", ", _options.FileFilters));
-            _console.MarkupLineInterpolated($"[aqua]Filters: {string.Join(", ", _options.FileFilters)}[/]");
+                _logger.LogInformation("Applying filters: {FileFilters}", string.Join(", ", _options.IncludeFilters));
+            _console.MarkupLineInterpolated($"[aqua]Filters: {string.Join(", ", _options.IncludeFilters)}[/]");
         }
     }
 

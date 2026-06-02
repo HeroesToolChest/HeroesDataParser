@@ -6,7 +6,9 @@ public class CASCExtractOptions
 
     public StorageLoadOptions StorageLoad { get; set; } = new();
 
-    public HashSet<string> FileFilters { get; set; } = [];
+    public HashSet<string> IncludeFilters { get; set; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+    public HashSet<string> ExcludeFilters { get; set; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
     public int Threads { get; set; }
 
