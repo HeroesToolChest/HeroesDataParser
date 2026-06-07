@@ -9,7 +9,7 @@ public class HeroPortraitImageParser : ImageParserBase<Hero>
 
     public override ExtractImageOptions ExtractImageOption => ExtractImageOptions.HeroPortrait;
 
-    protected override string SubDirectory => "heroportraits";
+    protected override string Subdirectory => "heroportraits";
 
     protected override void SetImages(Hero element)
     {

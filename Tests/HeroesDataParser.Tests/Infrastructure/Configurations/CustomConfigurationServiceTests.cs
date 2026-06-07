@@ -29,7 +29,7 @@ public class CustomConfigurationServiceTests
             Extractors =
             {
                 { ExtractDataOptions.Hero, new ExtractorOptions() },
-                { ExtractDataOptions.Announcer, new ExtractorOptions() },
+                { ExtractDataOptions.AnnouncerPack, new ExtractorOptions() },
             },
         });
 
@@ -41,7 +41,7 @@ public class CustomConfigurationServiceTests
         {
             CreateFileInfo(customDirectory, true),
             CreateFileInfo(Path.Combine(customDirectory, "someotherfile.xml")),
-            CreateFileInfo(Path.Combine(customDirectory, "announcer"), true),
+            CreateFileInfo(Path.Combine(customDirectory, "announcerpack"), true),
             CreateFileInfo(Path.Combine(customDirectory, "hero"), true),
         }.GetEnumerator());
 
@@ -62,7 +62,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(heroDirectory, "someDirectory"), true),
         }.GetEnumerator());
 
-        string announcerDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "announcer");
+        string announcerDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "announcerpack");
 
         IDirectoryContents announcerDirectoryContents = Substitute.For<IDirectoryContents>();
         announcerDirectoryContents.Exists.Returns(true);
@@ -85,7 +85,7 @@ public class CustomConfigurationServiceTests
         selectedPaths.Should().HaveCount(4)
             .And.ContainInConsecutiveOrder(
                 [
-                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "announcer", "SomeFile.xml"),
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "announcerpack", "SomeFile.xml"),
                     Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Abathur.xml"),
                     Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Alarak_12455.xml"),
                     Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Ana.xml"),
@@ -159,7 +159,7 @@ public class CustomConfigurationServiceTests
             Extractors =
             {
                 { ExtractDataOptions.Hero, new ExtractorOptions() },
-                { ExtractDataOptions.Announcer, new ExtractorOptions() },
+                { ExtractDataOptions.AnnouncerPack, new ExtractorOptions() },
             },
         });
 
@@ -171,7 +171,7 @@ public class CustomConfigurationServiceTests
         {
             CreateFileInfo(Path.Combine(customDirectory, "hero"), true),
             CreateFileInfo(Path.Combine(customDirectory, "someotherfile.xml"), false),
-            CreateFileInfo(Path.Combine(customDirectory, "announcer"), true),
+            CreateFileInfo(Path.Combine(customDirectory, "announcerpack"), true),
         }.GetEnumerator());
 
         string heroDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "hero");
@@ -191,7 +191,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(heroDirectory, "someDirectory"), true),
         }.GetEnumerator());
 
-        string announcerDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "announcer");
+        string announcerDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "announcerpack");
 
         IDirectoryContents announcerDirectoryContents = Substitute.For<IDirectoryContents>();
         announcerDirectoryContents.Exists.Returns(true);
@@ -217,7 +217,7 @@ public class CustomConfigurationServiceTests
                     Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Abathur.xml"),
                     Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Alarak.xml"),
                     Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Ana.xml"),
-                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "announcer", "SomeFile.xml"),
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "announcerpack", "SomeFile.xml"),
                 ]);
     }
 
@@ -234,7 +234,7 @@ public class CustomConfigurationServiceTests
             Extractors =
             {
                 { ExtractDataOptions.Hero, new ExtractorOptions() },
-                { ExtractDataOptions.Announcer, new ExtractorOptions() },
+                { ExtractDataOptions.AnnouncerPack, new ExtractorOptions() },
             },
         });
 
@@ -291,7 +291,7 @@ public class CustomConfigurationServiceTests
             Extractors =
             {
                 { ExtractDataOptions.Hero, new ExtractorOptions() },
-                { ExtractDataOptions.Announcer, new ExtractorOptions() },
+                { ExtractDataOptions.AnnouncerPack, new ExtractorOptions() },
             },
         });
 
@@ -555,7 +555,7 @@ public class CustomConfigurationServiceTests
             Extractors =
             {
                 { ExtractDataOptions.Hero, new ExtractorOptions() },
-                { ExtractDataOptions.Announcer, new ExtractorOptions() },
+                { ExtractDataOptions.AnnouncerPack, new ExtractorOptions() },
             },
         });
 
@@ -567,7 +567,7 @@ public class CustomConfigurationServiceTests
         {
             CreateFileInfo(Path.Combine(customDirectory, "hero"), true),
             CreateFileInfo(Path.Combine(customDirectory, "someotherfile.xml"), false),
-            CreateFileInfo(Path.Combine(customDirectory, "announcer"), true),
+            CreateFileInfo(Path.Combine(customDirectory, "announcerpack"), true),
         }.GetEnumerator());
 
         string heroDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "hero");
@@ -607,7 +607,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(amazonDirectory, "Amazon_12455.xml")),
         }.GetEnumerator());
 
-        string announcerDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "announcer");
+        string announcerDirectory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "announcerpack");
 
         IDirectoryContents announcerDirectoryContents = Substitute.For<IDirectoryContents>();
         announcerDirectoryContents.Exists.Returns(true);
@@ -618,7 +618,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(announcerDirectory, "Folder2"), true),
         }.GetEnumerator());
 
-        string folder1Directory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "announcer", "Folder1");
+        string folder1Directory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "announcerpack", "Folder1");
 
         IDirectoryContents folder1DirectoryContents = Substitute.For<IDirectoryContents>();
         folder1DirectoryContents.Exists.Returns(true);
@@ -627,7 +627,7 @@ public class CustomConfigurationServiceTests
             CreateFileInfo(Path.Combine(folder1Directory, "SomeFile.xml")),
         }.GetEnumerator());
 
-        string folder2Directory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "announcer", "Folder2");
+        string folder2Directory = Path.Combine(Constants.ConfigFilesDirectory, "custom", "announcerpack", "Folder2");
 
         IDirectoryContents folder2DirectoryContents = Substitute.For<IDirectoryContents>();
         folder2DirectoryContents.Exists.Returns(true);
@@ -660,8 +660,8 @@ public class CustomConfigurationServiceTests
                     Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Alarak", "Alarak_12455.xml"),
                     Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Amazon", "Amazon_12455.xml"),
                     Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Ana.xml"),
-                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "announcer", "Folder2", "Announcer2_23333.xml"),
-                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "announcer", "Folder1", "SomeFile.xml"),
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "announcerpack", "Folder2", "Announcer2_23333.xml"),
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "announcerpack", "Folder1", "SomeFile.xml"),
                 ]);
     }
 

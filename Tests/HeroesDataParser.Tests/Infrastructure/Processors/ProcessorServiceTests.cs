@@ -196,7 +196,7 @@ public class ProcessorServiceTests
             ExtractDataOptions.Hero,
             ExtractDataOptions.Skin,
             ExtractDataOptions.Banner,
-            ExtractDataOptions.Announcer,
+            ExtractDataOptions.AnnouncerPack,
         ]);
 
         ProcessorService service = new(_options, _xmlDataParserProcessor, _jsonGameStringFileWriterProcessor);
@@ -206,7 +206,7 @@ public class ProcessorServiceTests
 
         // assert
         _xmlDataParserProcessor.DidNotReceive().ExecuteDataParser(ExtractDataOptions.Hero, Arg.Any<Map?>());
-        _xmlDataParserProcessor.DidNotReceive().ExecuteDataParser(ExtractDataOptions.Announcer, Arg.Any<Map?>());
+        _xmlDataParserProcessor.DidNotReceive().ExecuteDataParser(ExtractDataOptions.AnnouncerPack, Arg.Any<Map?>());
         _xmlDataParserProcessor.Received(1).ExecuteDataParser(ExtractDataOptions.Skin, null);
         _xmlDataParserProcessor.Received(1).ExecuteDataParser(ExtractDataOptions.Banner, null);
 

@@ -20,8 +20,8 @@ public class ImageParserProcessorTests
             .AddKeyedSingleton<IImageParser<Map>, LoadingScreenImageParser>(typeof(Map))
             .AddSingleton<ILogger<ReplayPreviewImageParser>, ILogger<ReplayPreviewImageParser>>(sp => Substitute.For<ILogger<ReplayPreviewImageParser>>())
             .AddSingleton<ILogger<LoadingScreenImageParser>, ILogger<LoadingScreenImageParser>>(sp => Substitute.For<ILogger<LoadingScreenImageParser>>())
-            .AddKeyedSingleton<IImageParser<Announcer>, AnnouncerImageParser>(typeof(Announcer))
-            .AddSingleton<ILogger<AnnouncerImageParser>, ILogger<AnnouncerImageParser>>(sp => Substitute.For<ILogger<AnnouncerImageParser>>())
+            .AddKeyedSingleton<IImageParser<AnnouncerPack>, AnnouncerPackImageParser>(typeof(AnnouncerPack))
+            .AddSingleton<ILogger<AnnouncerPackImageParser>, ILogger<AnnouncerPackImageParser>>(sp => Substitute.For<ILogger<AnnouncerPackImageParser>>())
             .AddSingleton<IHeroesXmlLoaderService, IHeroesXmlLoaderService>(sp => Substitute.For<IHeroesXmlLoaderService>())
             .BuildServiceProvider();
         _imageWriterService = Substitute.For<IImageWriterService>();
@@ -81,9 +81,9 @@ public class ImageParserProcessorTests
 
         ImageParserProcessor processor = new(_logger, _options, _keyedServiceProvider, _imageWriterService);
 
-        SortedDictionary<string, Announcer> items = new()
+        SortedDictionary<string, AnnouncerPack> items = new()
         {
-            { "item1", new Announcer("item1") },
+            { "item1", new AnnouncerPack("item1") },
         };
 
         // act

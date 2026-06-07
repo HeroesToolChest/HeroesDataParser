@@ -11,7 +11,7 @@ public class MatchAwardImageParser : ImageParserBase<MatchAward>
 
     public override ExtractImageOptions ExtractImageOption => ExtractImageOptions.VoiceLine;
 
-    protected override string SubDirectory => "matchawards";
+    protected override string Subdirectory => "matchawards";
 
     protected override void SetImages(MatchAward element)
     {

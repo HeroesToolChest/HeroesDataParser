@@ -9,7 +9,7 @@ public class VoiceLineImageParser : ImageParserBase<VoiceLine>
 
     public override ExtractImageOptions ExtractImageOption => ExtractImageOptions.VoiceLine;
 
-    protected override string SubDirectory => "voicelines";
+    protected override string Subdirectory => "voicelines";
 
     protected override void SetImages(VoiceLine element)
     {

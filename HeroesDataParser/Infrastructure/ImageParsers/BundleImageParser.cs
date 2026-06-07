@@ -9,7 +9,7 @@ public class BundleImageParser : ImageParserBase<Bundle>
 
     public override ExtractImageOptions ExtractImageOption => ExtractImageOptions.Bundle;
 
-    protected override string SubDirectory => "bundles";
+    protected override string Subdirectory => "bundles";
 
     protected override void SetImages(Bundle element)
     {

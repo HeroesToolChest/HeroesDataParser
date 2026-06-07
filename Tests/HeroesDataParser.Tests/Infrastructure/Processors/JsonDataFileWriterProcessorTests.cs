@@ -22,8 +22,8 @@ public class JsonDataFileWriterProcessorTests
         await processor.ExecuteJsonDataFileWriteTasks();
 
         // assert
-        await _jsonDataFileWriterService.DidNotReceive().Write(Arg.Any<SortedDictionary<string, Announcer>>());
-        await _jsonDataFileWriterService.DidNotReceive().WriteToMapSpecific(Arg.Any<Map>(), Arg.Any<SortedDictionary<string, Announcer>>());
+        await _jsonDataFileWriterService.DidNotReceive().Write(Arg.Any<SortedDictionary<string, AnnouncerPack>>());
+        await _jsonDataFileWriterService.DidNotReceive().WriteToMapSpecific(Arg.Any<Map>(), Arg.Any<SortedDictionary<string, AnnouncerPack>>());
     }
 
     [TestMethod]
@@ -32,9 +32,9 @@ public class JsonDataFileWriterProcessorTests
         // arrange
         JsonDataFileWriterProcessor processor = new(_logger, _jsonDataFileWriterService);
 
-        SortedDictionary<string, Announcer> items = new()
+        SortedDictionary<string, AnnouncerPack> items = new()
         {
-            { "announcer1", new Announcer("announcer1") },
+            { "announcer1", new AnnouncerPack("announcer1") },
         };
 
         processor.SaveJsonDataFileWrite(items, null);
@@ -44,7 +44,7 @@ public class JsonDataFileWriterProcessorTests
 
         // assert
         await _jsonDataFileWriterService.Received(1).Write(items);
-        await _jsonDataFileWriterService.DidNotReceive().WriteToMapSpecific(Arg.Any<Map>(), Arg.Any<SortedDictionary<string, Announcer>>());
+        await _jsonDataFileWriterService.DidNotReceive().WriteToMapSpecific(Arg.Any<Map>(), Arg.Any<SortedDictionary<string, AnnouncerPack>>());
     }
 
     [TestMethod]
@@ -55,9 +55,9 @@ public class JsonDataFileWriterProcessorTests
 
         Map map = new("mapId");
 
-        SortedDictionary<string, Announcer> items = new()
+        SortedDictionary<string, AnnouncerPack> items = new()
         {
-            { "announcer1", new Announcer("announcer1") },
+            { "announcer1", new AnnouncerPack("announcer1") },
         };
 
         processor.SaveJsonDataFileWrite(items, map);
@@ -66,7 +66,7 @@ public class JsonDataFileWriterProcessorTests
         await processor.ExecuteJsonDataFileWriteTasks();
 
         // assert
-        await _jsonDataFileWriterService.DidNotReceive().Write(Arg.Any<SortedDictionary<string, Announcer>>());
+        await _jsonDataFileWriterService.DidNotReceive().Write(Arg.Any<SortedDictionary<string, AnnouncerPack>>());
         await _jsonDataFileWriterService.Received(1).WriteToMapSpecific(map, items);
     }
 
@@ -78,14 +78,14 @@ public class JsonDataFileWriterProcessorTests
 
         Map map = new("mapId");
 
-        SortedDictionary<string, Announcer> items1 = new()
+        SortedDictionary<string, AnnouncerPack> items1 = new()
         {
-            { "announcer1", new Announcer("announcer1") },
+            { "announcer1", new AnnouncerPack("announcer1") },
         };
 
-        SortedDictionary<string, Announcer> items2 = new()
+        SortedDictionary<string, AnnouncerPack> items2 = new()
         {
-            { "announcer2", new Announcer("announcer2") },
+            { "announcer2", new AnnouncerPack("announcer2") },
         };
 
         processor.SaveJsonDataFileWrite(items1, null);
@@ -105,9 +105,9 @@ public class JsonDataFileWriterProcessorTests
         // arrange
         JsonDataFileWriterProcessor processor = new(_logger, _jsonDataFileWriterService);
 
-        SortedDictionary<string, Announcer> items = new()
+        SortedDictionary<string, AnnouncerPack> items = new()
         {
-            { "announcer1", new Announcer("announcer1") },
+            { "announcer1", new AnnouncerPack("announcer1") },
         };
 
         processor.SaveJsonDataFileWrite(items, null);
@@ -120,6 +120,6 @@ public class JsonDataFileWriterProcessorTests
         await processor.ExecuteJsonDataFileWriteTasks();
 
         // assert - should not call Write again since tasks were cleared
-        await _jsonDataFileWriterService.DidNotReceive().Write(Arg.Any<SortedDictionary<string, Announcer>>());
+        await _jsonDataFileWriterService.DidNotReceive().Write(Arg.Any<SortedDictionary<string, AnnouncerPack>>());
     }
 }

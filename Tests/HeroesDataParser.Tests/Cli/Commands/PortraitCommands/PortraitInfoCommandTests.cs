@@ -46,7 +46,7 @@ public class PortraitInfoCommandTests
         // act
         CommandAppResult result = app.Run(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             "-s", "-1",
         ]);
 
@@ -70,14 +70,14 @@ public class PortraitInfoCommandTests
         // act
         CommandAppResult result = await app.RunAsync(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
         ],
         TestContext.CancellationToken);
 
         // assert
         AssertCommandSuccessful(result);
 
-        portraitInfoOptions.RewardPortraitDataFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json")));
+        portraitInfoOptions.RewardPortraitDataFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json")));
         portraitInfoOptions.ShowTextureSheetsFileNames.Should().BeFalse();
         portraitInfoOptions.ShowIconSlotFileNames.Should().BeNull();
         portraitInfoOptions.TextureSheetImageName.Should().BeNull();
@@ -98,7 +98,7 @@ public class PortraitInfoCommandTests
         // act
         CommandAppResult result = await app.RunAsync(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             "-t",
         ],
         TestContext.CancellationToken);
@@ -124,7 +124,7 @@ public class PortraitInfoCommandTests
         // act
         CommandAppResult result = await app.RunAsync(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             "-s", "3",
         ],
         TestContext.CancellationToken);
@@ -150,7 +150,7 @@ public class PortraitInfoCommandTests
         // act
         CommandAppResult result = await app.RunAsync(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             "-i", "texturesheet_image",
         ],
         TestContext.CancellationToken);

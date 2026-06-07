@@ -9,7 +9,7 @@ public class ReplayPreviewImageParser : ImageParserBase<Map>
 
     public override ExtractImageOptions ExtractImageOption => ExtractImageOptions.ReplayPreview;
 
-    protected override string SubDirectory => "replaypreviews";
+    protected override string Subdirectory => "replaypreviews";
 
     protected override void SetImages(Map element)
     {

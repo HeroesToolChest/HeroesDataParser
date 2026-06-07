@@ -1,15 +1,15 @@
 ﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
-public class AnnouncerParser : LoadoutItemParserBase<Announcer>
+public class AnnouncerPackParser : LoadoutItemParserBase<AnnouncerPack>
 {
-    public AnnouncerParser(ILogger<AnnouncerParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IGameStringTextService gameStringTextService)
+    public AnnouncerPackParser(ILogger<AnnouncerPackParser> logger, IOptions<RootOptions> options, IHeroesXmlLoaderService heroesXmlLoaderService, IGameStringTextService gameStringTextService)
         : base(logger, options, heroesXmlLoaderService, gameStringTextService)
     {
     }
 
     public override string DataObjectType => "AnnouncerPack";
 
-    protected override void SetAdditionalProperties(Announcer collectionObject, StormElement stormElement)
+    protected override void SetAdditionalProperties(AnnouncerPack collectionObject, StormElement stormElement)
     {
         if (stormElement.DataValues.TryGetElementDataAt("gender", out StormElementData? genderData))
             collectionObject.Gender = genderData.Value.GetString();

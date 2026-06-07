@@ -66,7 +66,7 @@ public class LocalizedTextImportServiceTests
         // arrange
         _options.Value.Returns(new LocalizedTextImportOptions()
         {
-            DataFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            DataFilePath = Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             GameStringsFilePath = Path.Combine("TestJsonFiles", "gamestrings_96477_no_data_types_.json"),
             OutputDirectory = TestConstants.TestDirectory,
         });
@@ -110,8 +110,8 @@ public class LocalizedTextImportServiceTests
         // arrange
         _options.Value.Returns(new LocalizedTextImportOptions()
         {
-            DataFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_96881.json"),
-            GameStringsFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "gamestrings_96881_enus.json"),
+            DataFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_97039.json"),
+            GameStringsFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "gamestrings_97039_enus.json"),
             OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ImportGameStrings_HeroesData_ReturnsNewFile)),
             IsNewFile = true,
             JsonIndent = true,
@@ -127,7 +127,7 @@ public class LocalizedTextImportServiceTests
         // assert
         _console.Output.Should().Contain("New data file created at");
 
-        FileCompare.ShouldBeEqual(_options.Value.OutputFilePath, Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_96881_full.json"));
+        FileCompare.ShouldBeEqual(_options.Value.OutputFilePath, Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_97039_full.json"));
     }
 
     [TestMethod]
@@ -218,7 +218,7 @@ public class LocalizedTextImportServiceTests
         {
             DataFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "mapdata_96881.json"),
             GameStringsFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "gamestrings_mapdata_96881_enus.json"),
-            OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ImportGameStrings_MatchAwardData_ReturnsNewFile)),
+            OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ImportGameStrings_MapData_ReturnsNewFile)),
             IsNewFile = true,
             JsonIndent = true,
         });
@@ -269,8 +269,8 @@ public class LocalizedTextImportServiceTests
         // arrange
         _options.Value.Returns(new LocalizedTextImportOptions()
         {
-            DataFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_96881_enus_colorwithscaling.json"),
-            GameStringsFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "gamestrings_96881_enus.json"),
+            DataFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_97039_enus_colorwithscaling.json"),
+            GameStringsFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "gamestrings_97039_enus.json"),
             OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ImportGameStrings_HeroDataColoredTextImportRawText_ReturnsNewFile)),
             IsNewFile = true,
             JsonIndent = true,
@@ -286,7 +286,7 @@ public class LocalizedTextImportServiceTests
         // assert
         _console.Output.Should().Contain("New data file created at");
 
-        FileCompare.ShouldBeEqual(_options.Value.OutputFilePath, Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_96881_full.json"));
+        FileCompare.ShouldBeEqual(_options.Value.OutputFilePath, Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_97039_full.json"));
     }
 
     // original is raw text, imported gamestring file is colored with scaling
@@ -296,8 +296,8 @@ public class LocalizedTextImportServiceTests
         // arrange
         _options.Value.Returns(new LocalizedTextImportOptions()
         {
-            DataFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_96881_full.json"),
-            GameStringsFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "gamestrings_96881_enus_coloredwithscaling.json"),
+            DataFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_97039_full.json"),
+            GameStringsFilePath = Path.Combine("TestJsonFiles", "LocalizedTextImport", "gamestrings_97039_enus_coloredwithscaling.json"),
             OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ImportGameStrings_HeroDataRawTextImportColoredTextScaling_ReturnsNewFile)),
             IsNewFile = true,
             JsonIndent = true,
@@ -313,7 +313,7 @@ public class LocalizedTextImportServiceTests
         // assert
         _console.Output.Should().Contain("New data file created at");
 
-        FileCompare.ShouldBeEqual(_options.Value.OutputFilePath, Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_96881_enus_colorwithscaling.json"));
+        FileCompare.ShouldBeEqual(_options.Value.OutputFilePath, Path.Combine("TestJsonFiles", "LocalizedTextImport", "herodata_97039_enus_colorwithscaling.json"));
     }
 
     [TestMethod]

@@ -9,7 +9,7 @@ public class SprayImageParser : ImageParserBase<Spray>
 
     public override ExtractImageOptions ExtractImageOption => ExtractImageOptions.Spray;
 
-    protected override string SubDirectory => "sprays";
+    protected override string Subdirectory => "sprays";
 
     protected override void SetImages(Spray element)
     {

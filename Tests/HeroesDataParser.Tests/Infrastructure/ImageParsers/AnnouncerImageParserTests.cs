@@ -3,14 +3,14 @@
 [TestClass]
 public class AnnouncerImageParserTests : ImageWriterBase
 {
-    private readonly ILogger<AnnouncerImageParser> _logger;
+    private readonly ILogger<AnnouncerPackImageParser> _logger;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
 
     private readonly HeroesXmlLoader _heroesXmlLoader;
 
     public AnnouncerImageParserTests()
     {
-        _logger = Substitute.For<ILogger<AnnouncerImageParser>>();
+        _logger = Substitute.For<ILogger<AnnouncerPackImageParser>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
 
         _heroesXmlLoader = TestHeroesXmlLoader.GetArrangedHeroesXmlLoader();
@@ -21,10 +21,10 @@ public class AnnouncerImageParserTests : ImageWriterBase
     public void GetImages_HasImages_GetImagePaths()
     {
         // arrange
-        AnnouncerImageParser announcerImageParser = new(_logger, _heroesXmlLoaderService);
+        AnnouncerPackImageParser announcerImageParser = new(_logger, _heroesXmlLoaderService);
 
-        SortedDictionary<string, Announcer> elementsById = [];
-        Announcer announcer = new("id1")
+        SortedDictionary<string, AnnouncerPack> elementsById = [];
+        AnnouncerPack announcer = new("id1")
         {
             Image = "announcer1.png",
         };
@@ -54,11 +54,11 @@ public class AnnouncerImageParserTests : ImageWriterBase
     public async Task ProcessImageFile_FileExists_ImagesAreCreated()
     {
         // arrange
-        string outputImageDirectory = Path.Combine(OutputBaseDirectory, OutputImageDirectory, nameof(Announcer));
+        string outputImageDirectory = Path.Combine(OutputBaseDirectory, OutputImageDirectory, nameof(AnnouncerPack));
         Directory.CreateDirectory(outputImageDirectory);
 
-        SortedDictionary<string, Announcer> elementsById = [];
-        Announcer announcer = new("id1")
+        SortedDictionary<string, AnnouncerPack> elementsById = [];
+        AnnouncerPack announcer = new("id1")
         {
             Image = "storm_ui_announcer_adjutant.png",
         };
@@ -70,7 +70,7 @@ public class AnnouncerImageParserTests : ImageWriterBase
 
         elementsById.Add("announcer1", announcer);
 
-        AnnouncerImageParser announcerImageParser = new(_logger, _heroesXmlLoaderService);
+        AnnouncerPackImageParser announcerImageParser = new(_logger, _heroesXmlLoaderService);
         HashSet<ImageWriterFile> imageWriterFiles = announcerImageParser.GetImages(elementsById);
 
         // act

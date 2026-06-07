@@ -49,8 +49,8 @@ public class JsonApplyServiceTests
 
         _options.Value.Returns(new JsonApplyOptions()
         {
-            JsonFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
-            JsonPatchFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json"),
+            JsonFilePath = Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
+            JsonPatchFilePath = Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.patch.json"),
             OutputFilePath = outputFilePath,
             JsonIndent = true,
         });
@@ -66,7 +66,7 @@ public class JsonApplyServiceTests
         _console.Output.Should().Contain("JSON patch applied successfully");
 
         string patchedText = File.ReadAllText(outputFilePath).ReplaceLineEndings("\n");
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "announcerdata_96477_enus_patched_map.json")).ReplaceLineEndings("\n");
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus_patched_map.json")).ReplaceLineEndings("\n");
 
         patchedText.Should().BeEquivalentTo(comparedToText);
     }

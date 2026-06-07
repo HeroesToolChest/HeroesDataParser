@@ -23,7 +23,7 @@
             "GameStrings",
             "HeroData",
             "UnitData",
-            "AnnouncerData",
+            "AnnouncerPackData",
             "BannerData",
             "BoostData",
             "BundleData",
@@ -854,14 +854,11 @@
                   "upgradesAbilityType": {
                     "type": "boolean"
                   },
+                  "hasHotkey": {
+                    "type": "boolean"
+                  },
                   "sort": {
                     "type": "integer"
-                  },
-                  "abilityTalentLinkIds": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
                   },
                   "tooltipAbilityLinkIds": {
                     "type": "array",

@@ -54,8 +54,8 @@ public class JsonSchemaExporterService : IJsonSchemaExporterService
             CreateDataSchemaFile<Banner>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.Spray))
             CreateDataSchemaFile<Spray>();
-        if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.Announcer))
-            CreateDataSchemaFile<Announcer>();
+        if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.AnnouncerPack))
+            CreateDataSchemaFile<AnnouncerPack>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.VoiceLine))
             CreateDataSchemaFile<VoiceLine>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.PortraitPack))

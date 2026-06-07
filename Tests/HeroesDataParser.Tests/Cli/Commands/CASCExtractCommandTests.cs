@@ -166,7 +166,7 @@ public class CASCExtractCommandTests
             "game",
             "-s", "TestXmlFiles",
             "-d", "mods",
-            "-o", Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json")
+            "-o", Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json")
         ]);
 
         // assert

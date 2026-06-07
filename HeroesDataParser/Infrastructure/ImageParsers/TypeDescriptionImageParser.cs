@@ -9,7 +9,7 @@ public class TypeDescriptionImageParser : ImageParserBase<TypeDescription>
 
     public override ExtractImageOptions ExtractImageOption => ExtractImageOptions.TypeDescription;
 
-    protected override string SubDirectory => "typedescriptions";
+    protected override string Subdirectory => "typedescriptions";
 
     protected override void SetImages(TypeDescription element)
     {

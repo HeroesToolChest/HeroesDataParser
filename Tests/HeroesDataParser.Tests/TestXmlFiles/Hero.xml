@@ -4695,4 +4695,56 @@
     <TalentTreeArray Talent="AnduinCensure" Tier="7" Column="3" />
     <TalentTreeArray Talent="AnduinVariansLegacy" Tier="7" Column="4" />
   </CHero>
+  <CHero id="Ana">
+    <TalentTreeArray Talent="AnaBioticGrenadeContactHealing" Tier="1" Column="1" />
+    <TalentTreeArray Talent="AnaSleepingDartSlumberShells" Tier="1" Column="2" />
+    <TalentTreeArray Talent="AnaShrikeVampiricRounds" Tier="1" Column="3" />
+    <TalentTreeArray Talent="AnaBioticGrenadeBioticEnhancements" Tier="2" Column="1" />
+    <TalentTreeArray Talent="AnaOverdose" Tier="2" Column="2" />
+    <TalentTreeArray Talent="AnaDebilitatingDart" Tier="2" Column="3" />
+    <TalentTreeArray Talent="AnaBioticGrenadeAntiHealer" Tier="3" Column="1" />
+    <TalentTreeArray Talent="AnaSleepDartNightTerrors" Tier="3" Column="2" />
+    <TalentTreeArray Talent="AnaMindNumbingAgent" Tier="3" Column="3" />
+    <TalentTreeArray Talent="AnaHeroicAbilityNanaBoost" Tier="4" Column="1" />
+    <TalentTreeArray Talent="AnaHeroicAbilityEyeOfHorus" Tier="4" Column="2" />
+    <TalentTreeArray Talent="AnaHealingDartSpeedSerum" Tier="5" Column="1" />
+    <TalentTreeArray Talent="AnaHealingDartPurifyingDarts" Tier="5" Column="2" />
+    <TalentTreeArray Talent="AnaHealingDartSmellingSalts" Tier="5" Column="3" />
+    <TalentTreeArray Talent="AnaHealingDartSharpshooter" Tier="6" Column="1" />
+    <TalentTreeArray Talent="AnaHealingDartConcentratedDoses" Tier="6" Column="2" />
+    <TalentTreeArray Talent="AnaDetachableBoxMagazine" Tier="6" Column="3" />
+    <TalentTreeArray Talent="AnaNanoInfusion" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="AnaHeroicAbilityNanaBoost" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="AnaEyeOfHorusDeadeye" Tier="7" Column="2">
+      <PrerequisiteTalentArray value="AnaHeroicAbilityEyeOfHorus" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="AnaShrikeArmoredStance" Tier="7" Column="3" />
+    <TalentTreeArray Talent="AnaDynamicOptics" Tier="7" Column="4" />
+  </CHero>
+  <CHero id="Zeratul" parent="LegacyVOHero">
+    <TalentTreeArray Talent="ZeratulMasteryGreaterCleaveCleave" Tier="1" Column="1" />
+    <TalentTreeArray Talent="ZeratulShadowHunter" Tier="1" Column="2" />
+    <TalentTreeArray Talent="ZeratulMoveUnseen" Tier="1" Column="3" />
+    <TalentTreeArray Talent="ZeratulRendingCleave" Tier="2" Column="1" />
+    <TalentTreeArray Talent="ZeratulPsionicStrength" Tier="2" Column="2" />
+    <TalentTreeArray Talent="ZeratulDarknessDescends" Tier="2" Column="3" />
+    <TalentTreeArray Talent="ZeratulWormhole" Tier="3" Column="1" />
+    <TalentTreeArray Talent="ZeratulSeekerInTheDark" Tier="3" Column="2" />
+    <TalentTreeArray Talent="ZeratulWarpSkirmisherTalent" Tier="3" Column="3" />
+    <TalentTreeArray Talent="ZeratulMightOfTheNerazim" Tier="4" Column="1" />
+    <TalentTreeArray Talent="ZeratulHeroicAbilityVoidPrison" Tier="4" Column="2" />
+    <TalentTreeArray Talent="ZeratulShroudofAdun" Tier="5" Column="1" />
+    <TalentTreeArray Talent="ZeratulMendingStrikes" Tier="5" Column="2" />
+    <TalentTreeArray Talent="GenericTalentSpellShield" Tier="5" Column="3" />
+    <TalentTreeArray Talent="ZeratulMasterWarpBlade" Tier="6" Column="1" />
+    <TalentTreeArray Talent="ZeratulVoidSlash" Tier="6" Column="2" />
+    <TalentTreeArray Talent="ZeratulSentencedtoDeath" Tier="6" Column="3" />
+    <TalentTreeArray Talent="ZeratulTwilightFalls" Tier="7" Column="1">
+      <PrerequisiteTalentArray value="ZeratulMightOfTheNerazim" />
+    </TalentTreeArray>
+    <TalentTreeArray Talent="ZeratulUnwaveringPressure" Tier="7" Column="2" />
+    <TalentTreeArray Talent="ZeratulShadowStrideTalent" Tier="7" Column="3" />
+    <TalentTreeArray Talent="ZeratulShadowMending" Tier="7" Column="4" />   
+  </CHero>
 </Hero>

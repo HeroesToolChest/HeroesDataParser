@@ -47,7 +47,7 @@ public class JsonCreateCommandTests
         CommandAppResult result = app.Run(
         [
             Path.Combine("TestJsonFiles", "some-file-that-doesnt-exist.json"),
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus_patched_map.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus_patched_map.json"),
         ]);
 
         // assert
@@ -65,7 +65,7 @@ public class JsonCreateCommandTests
         // act
         CommandAppResult result = app.Run(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             Path.Combine("TestJsonFiles", "some-file-that-doesnt-exist.json"),
         ]);
 
@@ -84,9 +84,9 @@ public class JsonCreateCommandTests
         // act
         CommandAppResult result = app.Run(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus_patched_map.json"),
-            "-o", Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus_patched_map.json"),
+            "-o", Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
         ]);
 
         // assert
@@ -109,8 +109,8 @@ public class JsonCreateCommandTests
         // act
         CommandAppResult result = await app.RunAsync(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.patch.json"),
         ],
         TestContext.CancellationToken);
 
@@ -134,8 +134,8 @@ public class JsonCreateCommandTests
         // act
         CommandAppResult result = await app.RunAsync(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.patch.json"),
             "--overwrite",
         ],
         TestContext.CancellationToken);
@@ -143,9 +143,9 @@ public class JsonCreateCommandTests
         // assert
         await AssertCommandSuccessful(result);
 
-        jsonCreateOptions.OldJsonFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json")));
-        jsonCreateOptions.NewJsonFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json")));
-        jsonCreateOptions.OutputFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json")));
+        jsonCreateOptions.OldJsonFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json")));
+        jsonCreateOptions.NewJsonFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.patch.json")));
+        jsonCreateOptions.OutputFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.patch.json")));
         jsonCreateOptions.AllowOverwrite.Should().BeTrue();
         jsonCreateOptions.JsonIndent.Should().BeTrue();
     }
@@ -165,8 +165,8 @@ public class JsonCreateCommandTests
         // act
         CommandAppResult result = await app.RunAsync(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.patch.json"),
             "-o", "TestXmlFiles",
         ],
         TestContext.CancellationToken);
@@ -174,9 +174,9 @@ public class JsonCreateCommandTests
         // assert
         await AssertCommandSuccessful(result);
 
-        jsonCreateOptions.OldJsonFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json")));
-        jsonCreateOptions.NewJsonFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json")));
-        jsonCreateOptions.OutputFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestXmlFiles", "announcerdata_96477_enus.patch.json")));
+        jsonCreateOptions.OldJsonFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json")));
+        jsonCreateOptions.NewJsonFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.patch.json")));
+        jsonCreateOptions.OutputFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestXmlFiles", "announcerpackdata_96477_enus.patch.json")));
         jsonCreateOptions.AllowOverwrite.Should().BeFalse();
     }
 
@@ -195,8 +195,8 @@ public class JsonCreateCommandTests
         // act
         CommandAppResult result = await app.RunAsync(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.patch.json"),
             "-o", "TestXmlFiles",
             "--no-indent",
         ],

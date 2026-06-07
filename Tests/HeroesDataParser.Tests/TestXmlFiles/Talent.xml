@@ -619,4 +619,44 @@
     <Abil value="DeathwingSkyfall" />
     <Active value="1" />
   </CTalent>
+  <CTalent id="AnaShrikeVampiricRounds">
+    <Face value="AnaShrikeVampiricRounds" />
+    <Abil value="AnaShrike" />
+    <RankArray>
+      <BehaviorArray value="AnaShrikeVampiricRoundsTokenCounter" />
+    </RankArray>
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AnaShrikeVampiricRoundsAddToken" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AnaShrikeVampiricRoundsAdd4Tokens" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Accumulator" />
+        <Entry value="AnaShrikeSelfHealPoisonTraitHealToken" />
+        <Field value="Scale" />
+        <Value value="0.150000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <QuestData StackBehavior="AnaShrikeVampiricRoundsTokenCounter" />
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="ZeratulMightOfTheNerazim">
+    <Face value="ZeratulMightOfTheNerazimPassive" />
+    <Abil value="ZeratulMightOfTheNerazimDummy" />
+    <RankArray>
+      <BehaviorArray value="Ultimate1Unlocked" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
 </Talent>

@@ -43,7 +43,7 @@ public class JsonSchemaExporterServiceTests
     [TestMethod]
     [DataRow(ExtractDataOptions.Hero)]
     [DataRow(ExtractDataOptions.Unit)]
-    [DataRow(ExtractDataOptions.Announcer)]
+    [DataRow(ExtractDataOptions.AnnouncerPack)]
     [DataRow(ExtractDataOptions.Banner)]
     [DataRow(ExtractDataOptions.Boost)]
     [DataRow(ExtractDataOptions.Bundle)]
@@ -95,7 +95,7 @@ public class JsonSchemaExporterServiceTests
             OutputDirectory = outputFileDirectory,
             AllowOverwrite = true,
             JsonIndent = true,
-            ExtractDataOptions = ExtractDataOptions.Hero | ExtractDataOptions.Unit | ExtractDataOptions.Announcer,
+            ExtractDataOptions = ExtractDataOptions.Hero | ExtractDataOptions.Unit | ExtractDataOptions.AnnouncerPack,
             Version = "5.0.0",
         });
 
@@ -109,7 +109,7 @@ public class JsonSchemaExporterServiceTests
         // assert
         AssertSchemaFile(ExtractDataOptions.Hero, outputFileDirectory);
         AssertSchemaFile(ExtractDataOptions.Unit, outputFileDirectory);
-        AssertSchemaFile(ExtractDataOptions.Announcer, outputFileDirectory);
+        AssertSchemaFile(ExtractDataOptions.AnnouncerPack, outputFileDirectory);
     }
 
     [TestMethod]

@@ -202,7 +202,7 @@ public class RootCommandTests
             "--storage-path", "TestXmlFiles",
             "--extractor", "hero",
             "--extractor", "unit",
-            "--extractor", "announcer:aa",
+            "--extractor", "announcerpack:aa",
         ]);
 
         // assert
@@ -514,18 +514,18 @@ public class RootCommandTests
             "game",
             "--storage-path", "TestXmlFiles",
             "-e", "unit",
-            "-e", "announcer:images",
+            "-e", "announcerpack:images",
         ],
         TestContext.CancellationToken);
 
         // assert
         await AssertCommandSuccessful(result);
 
-        rootOptions.Extractors.Should().ContainKeys(ExtractDataOptions.Unit, ExtractDataOptions.Announcer);
+        rootOptions.Extractors.Should().ContainKeys(ExtractDataOptions.Unit, ExtractDataOptions.AnnouncerPack);
         rootOptions.Extractors[ExtractDataOptions.Unit].IsEnabled.Should().BeTrue();
         rootOptions.Extractors[ExtractDataOptions.Unit].Images.Should().BeFalse();
-        rootOptions.Extractors[ExtractDataOptions.Announcer].IsEnabled.Should().BeTrue();
-        rootOptions.Extractors[ExtractDataOptions.Announcer].Images.Should().BeTrue();
+        rootOptions.Extractors[ExtractDataOptions.AnnouncerPack].IsEnabled.Should().BeTrue();
+        rootOptions.Extractors[ExtractDataOptions.AnnouncerPack].Images.Should().BeTrue();
     }
 
     [TestMethod]

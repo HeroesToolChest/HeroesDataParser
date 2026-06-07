@@ -36,6 +36,7 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
         {
             TalentElementId = talentValue,
             Column = int.Parse(columnValue),
+            HasHotkey = true,
         };
 
         SetTalentTier(talent, tierValue);
@@ -136,32 +137,9 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
             talent.IsActive = true;
 
         if (talentDataValues.TryGetElementDataAt("Abil", out StormElementData? abilityData))
-        {
-            talent.AbilityElementId = abilityData.Value.GetString();
-
-            // find the (first) matching ability we have for the hero
-            if (hero.GetAbilityTypeByNameId(talent.AbilityElementId, out AbilityType abilityType))
-            {
-                talent.AbilityType = abilityType;
-            }
-            else
-            {
-                // search through all hero units
-                foreach (Unit heroUnit in hero.HeroUnits.Values)
-                {
-                    if (heroUnit.GetAbilityTypeByNameId(talent.AbilityElementId, out abilityType))
-                    {
-                        talent.AbilityType = abilityType;
-                    }
-                }
-            }
-
-            if (talent.IsActive)
-                SetAbilityData(talent.AbilityElementId, talent);
-
-            if (!talent.IsActive)
-                talent.UpgradesAbilityType = true;
-        }
+            SetAbilElementData(hero, talent, abilityData);
+        else
+            talent.HasHotkey = false;
 
         // if NOT IsActive and UpgradesAbilityId then check for AbilityModificationArray
         if (!talent.IsActive && !talent.UpgradesAbilityType && talentDataValues.TryGetElementDataAt("AbilityModificationArray", out StormElementData? abilityModificationData))
@@ -201,6 +179,7 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
         {
             talent.AbilityType = AbilityType.Passive;
             talent.UpgradesAbilityType = false;
+            talent.HasHotkey = false;
         }
 
         // if it's an IsActive and if the abilityType is still Unknown or Hidden, then set it to an Active abilityType
@@ -209,6 +188,42 @@ public class TalentParser : AbilityTalentParserBase, ITalentParser
 
         if (talent.IsQuest)
             talent.UpgradesAbilityType = false;
+
+        if (talent.AbilityType == AbilityType.Active)
+            talent.HasHotkey = false;
+    }
+
+    private void SetAbilElementData(Hero hero, Talent talent, StormElementData abilityData)
+    {
+        talent.AbilityElementId = abilityData.Value.GetString();
+
+        if (!HeroesData.StormElementExists("Abil", talent.AbilityElementId))
+            return;
+
+        // find the (first) matching ability we have for the hero
+        if (hero.GetAbilityTypeByNameId(talent.AbilityElementId, out AbilityType abilityType))
+        {
+            talent.AbilityType = abilityType;
+        }
+        else
+        {
+            // search through all hero units
+            foreach (Unit heroUnit in hero.HeroUnits.Values)
+            {
+                if (heroUnit.GetAbilityTypeByNameId(talent.AbilityElementId, out abilityType))
+                {
+                    talent.AbilityType = abilityType;
+                }
+            }
+        }
+
+        if (talent.AbilityType == AbilityType.Unknown)
+            talent.HasHotkey = false;
+
+        if (talent.IsActive)
+            SetAbilityData(talent.AbilityElementId, talent);
+        else
+            talent.UpgradesAbilityType = true;
     }
 
     private void SetAbilityData(string abilityId, AbilityTalentBase abilityTalent)

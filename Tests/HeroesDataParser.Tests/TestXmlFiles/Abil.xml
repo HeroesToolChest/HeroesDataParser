@@ -1060,4 +1060,13 @@
     <CursorEffect value="DeathwingSkyfallExplosionSearch" />
     <AbilityCategories index="Reveals" value="1" />
   </CAbilEffectTarget>
+  <CAbilEffectInstant id="ZeratulMightOfTheNerazimDummy">
+    <Effect value="ZeratulMightOfTheNerazimDummySet" />
+    <Cost>
+      <Vital index="Energy" value="30" />
+      <Cooldown Link="Abil/ZeratulMightOfTheNerazim" TimeUse="20" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="ZeratulMightOfTheNerazimPassive" Requirements="Ultimate1Unlocked" />
+    <Flags index="ValidateButtonState" value="0" />
+  </CAbilEffectInstant>
 </Abil>

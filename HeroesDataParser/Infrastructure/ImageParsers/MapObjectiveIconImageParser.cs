@@ -9,7 +9,7 @@ public class MapObjectiveIconImageParser : ImageParserBase<Map>
 
     public override ExtractImageOptions ExtractImageOption => ExtractImageOptions.MapObjectives;
 
-    protected override string SubDirectory => "mapobjectives";
+    protected override string Subdirectory => "mapobjectives";
 
     protected override void SetImages(Map element)
     {

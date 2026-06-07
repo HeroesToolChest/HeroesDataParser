@@ -36,7 +36,7 @@ public class XmlDataParserProcessorTests
         // assert
         result.Should().BeEquivalentTo(new[]
         {
-            ExtractDataOptions.Announcer,
+            ExtractDataOptions.AnnouncerPack,
             ExtractDataOptions.Banner,
             ExtractDataOptions.Bundle,
             ExtractDataOptions.Boost,
@@ -71,19 +71,19 @@ public class XmlDataParserProcessorTests
     public void ExecuteDataParser_AnnouncerOption_ExtractsDataAndSavesJsonAndImages()
     {
         // arrange
-        SortedDictionary<string, Announcer> extractedItems = new()
+        SortedDictionary<string, AnnouncerPack> extractedItems = new()
         {
-            ["Announcer1"] = new Announcer("Announcer1"),
+            ["Announcer1"] = new AnnouncerPack("Announcer1"),
         };
 
-        _dataExtractorService.Extract<Announcer, AnnouncerParser>(Arg.Any<AnnouncerParser>(), Arg.Any<Map?>())
+        _dataExtractorService.Extract<AnnouncerPack, AnnouncerPackParser>(Arg.Any<AnnouncerPackParser>(), Arg.Any<Map?>())
             .Returns(extractedItems);
 
         // act
-        _processor.ExecuteDataParser(ExtractDataOptions.Announcer, null);
+        _processor.ExecuteDataParser(ExtractDataOptions.AnnouncerPack, null);
 
         // assert
-        _dataExtractorService.Received(1).Extract<Announcer, AnnouncerParser>(Arg.Any<AnnouncerParser>(), null);
+        _dataExtractorService.Received(1).Extract<AnnouncerPack, AnnouncerPackParser>(Arg.Any<AnnouncerPackParser>(), null);
 
         _jsonDataFileWriterProcessor.Received(1).SaveJsonDataFileWrite(extractedItems, null);
         _imageParserProcessor.Received(1).SaveImages(extractedItems);
@@ -95,16 +95,16 @@ public class XmlDataParserProcessorTests
         // arrange
         Map map = new("TestMap");
 
-        SortedDictionary<string, Announcer> extractedItems = [];
+        SortedDictionary<string, AnnouncerPack> extractedItems = [];
 
-        _dataExtractorService.Extract<Announcer, AnnouncerParser>(Arg.Any<AnnouncerParser>(), Arg.Any<Map?>())
+        _dataExtractorService.Extract<AnnouncerPack, AnnouncerPackParser>(Arg.Any<AnnouncerPackParser>(), Arg.Any<Map?>())
             .Returns(extractedItems);
 
         // act
-        _processor.ExecuteDataParser(ExtractDataOptions.Announcer, map);
+        _processor.ExecuteDataParser(ExtractDataOptions.AnnouncerPack, map);
 
         // assert
-        _dataExtractorService.Received(1).Extract<Announcer, AnnouncerParser>(Arg.Any<AnnouncerParser>(), map);
+        _dataExtractorService.Received(1).Extract<AnnouncerPack, AnnouncerPackParser>(Arg.Any<AnnouncerPackParser>(), map);
 
         _jsonDataFileWriterProcessor.Received(1).SaveJsonDataFileWrite(extractedItems, map);
         _imageParserProcessor.Received(1).SaveImages(extractedItems);

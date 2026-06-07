@@ -36,7 +36,7 @@ public class ImageWriterServiceTests
             Extractors = new Dictionary<ExtractDataOptions, ExtractorOptions>()
             {
                 {
-                    ExtractDataOptions.Announcer,
+                    ExtractDataOptions.AnnouncerPack,
                     new ExtractorOptions()
                     {
                         IsEnabled = true,

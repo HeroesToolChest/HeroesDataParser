@@ -80,6 +80,7 @@ public class TalentParserTests
         talent.AbilityType.Should().Be(AbilityType.W);
         talent.Tier.Should().Be(TalentTier.Level1);
         talent.TooltipAppendersTalentElementIds.Should().BeEmpty();
+        talent.HasHotkey.Should().BeTrue();
     }
 
     [TestMethod]
@@ -121,6 +122,7 @@ public class TalentParserTests
         talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.W);
         talent.Tier.Should().Be(TalentTier.Level1);
+        talent.HasHotkey.Should().BeTrue();
     }
 
     [TestMethod]
@@ -157,6 +159,7 @@ public class TalentParserTests
         talent.IsActive.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level1);
         talent.UpgradesAbilityType.Should().BeTrue();
+        talent.HasHotkey.Should().BeFalse();
     }
 
     [TestMethod]
@@ -195,6 +198,7 @@ public class TalentParserTests
         talent.IsActive.Should().BeTrue();
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level10);
+        talent.HasHotkey.Should().BeTrue();
     }
 
     [TestMethod]
@@ -254,6 +258,7 @@ public class TalentParserTests
         talent.IsActive.Should().BeTrue();
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level7);
+        talent.HasHotkey.Should().BeFalse();
     }
 
     [TestMethod]
@@ -293,6 +298,8 @@ public class TalentParserTests
         talent.IsActive.Should().BeTrue();
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level16);
+        talent.HasHotkey.Should().BeTrue();
+        talent.UpgradesAbilityType.Should().BeTrue();
     }
 
     [TestMethod]
@@ -328,6 +335,7 @@ public class TalentParserTests
         talent.IsQuest.Should().BeTrue();
         talent.Tier.Should().Be(TalentTier.Level1);
         talent.UpgradesAbilityType.Should().BeFalse();
+        talent.HasHotkey.Should().BeTrue();
     }
 
     [TestMethod]
@@ -356,6 +364,7 @@ public class TalentParserTests
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level13);
         talent.UpgradesAbilityType.Should().BeTrue();
+        talent.HasHotkey.Should().BeFalse();
     }
 
     [TestMethod]
@@ -384,6 +393,7 @@ public class TalentParserTests
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level4);
         talent.UpgradesAbilityType.Should().BeTrue();
+        talent.HasHotkey.Should().BeFalse();
     }
 
     [TestMethod]
@@ -411,6 +421,7 @@ public class TalentParserTests
         talent.IsActive.Should().BeFalse();
         talent.IsQuest.Should().BeFalse();
         talent.Tier.Should().Be(TalentTier.Level16);
+        talent.HasHotkey.Should().BeFalse();
     }
 
     [TestMethod]
@@ -445,6 +456,7 @@ public class TalentParserTests
         talent.TooltipAppendersTalentElementIds.Should().HaveCount(2).And
             .Contain(["GarroshBodyCheckBruteForce", "GarroshArmorUpInnerRage"]);
         talent.UpgradesAbilityType.Should().BeFalse();
+        talent.HasHotkey.Should().BeFalse();
     }
 
     [TestMethod]
@@ -476,6 +488,7 @@ public class TalentParserTests
         talent.Should().NotBeNull();
         talent.LinkId.ToString().Should().Be("GarroshArmorUpInnerRage|GarroshArmorUpInnerRage|Active|Level20");
         talent.UpgradesAbilityType.Should().BeTrue();
+        talent.HasHotkey.Should().BeFalse();
     }
 
     [TestMethod]
@@ -506,6 +519,7 @@ public class TalentParserTests
         talent.ToggleCooldown.Should().BeNull();
         talent.Charges.Should().BeNull();
         talent.CooldownText!.RawText.Should().Be("Charge Cooldown: 30 seconds");
+        talent.HasHotkey.Should().BeFalse();
     }
 
     [TestMethod]
@@ -536,6 +550,7 @@ public class TalentParserTests
         talent.ToggleCooldown.Should().BeNull();
         talent.Charges.Should().BeNull();
         talent.CooldownText.Should().BeNull();
+        talent.HasHotkey.Should().BeFalse();
     }
 
     [TestMethod]
@@ -572,6 +587,8 @@ public class TalentParserTests
         talent.ToggleCooldown.Should().BeNull();
         talent.Charges.Should().BeNull();
         talent.CooldownText.Should().BeNull();
+        talent.HasHotkey.Should().BeTrue();
+        talent.UpgradesAbilityType.Should().BeTrue();
     }
 
     [TestMethod]
@@ -584,12 +601,6 @@ public class TalentParserTests
         StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("1");
 
         Hero hero = new(heroUnit);
-        hero.AddLayoutAbility(new Ability()
-        {
-            AbilityElementId = "AnubarakLegionOfBeetlesToggle",
-            ButtonElementId = AbilityTalentParserBase.NoButtonElementId,
-            AbilityType = AbilityType.Hidden,
-        });
         TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
@@ -598,6 +609,7 @@ public class TalentParserTests
         // assert
         talent.Should().NotBeNull();
         talent.LinkId.ToString().Should().Be("AnubarakCombatStyleLegionOfBeetles|AnubarakLegionOfBeetlesTalent|Trait|Level1");
+        talent.AbilityElementId.Should().Be("AnubarakLegionOfBeetlesToggle");
         talent.Column.Should().Be(2);
         talent.SummonedUnitIds.Should().BeEmpty();
         talent.AbilityType.Should().Be(AbilityType.Trait);
@@ -606,6 +618,8 @@ public class TalentParserTests
         talent.Tier.Should().Be(TalentTier.Level1);
         talent.ToggleCooldown.Should().BeNull();
         talent.Charges.Should().BeNull();
+        talent.HasHotkey.Should().BeFalse();
+        talent.UpgradesAbilityType.Should().BeTrue();
     }
 
     [TestMethod]
@@ -643,6 +657,7 @@ public class TalentParserTests
         talent.Charges.Should().BeNull();
         talent.CooldownText!.RawText.Should().Be("Cooldown: 50 seconds");
         talent.UpgradesAbilityType.Should().BeTrue();
+        talent.HasHotkey.Should().BeFalse();
     }
 
     [TestMethod]
@@ -844,7 +859,9 @@ public class TalentParserTests
         // assert
         talent.Should().NotBeNull();
         talent.LinkId.ToString().Should().Be("VarianTwinBladesOfFury|VarianTwinBladesOfFury|Heroic|Level4");
+        talent.AbilityElementId.Should().Be("VarianTwinBladesofFury");
         talent.UpgradesAbilityType.Should().BeTrue();
+        talent.HasHotkey.Should().BeFalse();
     }
 
     [TestMethod]
@@ -873,6 +890,7 @@ public class TalentParserTests
         talent.Should().NotBeNull();
         talent.LinkId.ToString().Should().Be("VarianLionsFangLionheart|VarianLionsFangLionheart|Q|Level7");
         talent.UpgradesAbilityType.Should().BeTrue();
+        talent.HasHotkey.Should().BeTrue();
     }
 
     [TestMethod]
@@ -966,5 +984,60 @@ public class TalentParserTests
         talent.Should().NotBeNull();
         talent.LinkId.ToString().Should().Be("DeathwingSkyfall|DeathwingSkyfall|E|Level7");
         talent.UpgradesAbilityType.Should().BeFalse();
+        talent.HasHotkey.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public void GetTalent_AnaShrikeVampiricRounds_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Ana";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("2");
+
+        Hero hero = new(heroUnit);
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("AnaShrikeVampiricRounds|AnaShrikeVampiricRounds|Trait|Level1");
+        talent.AbilityElementId.Should().Be("AnaShrike");
+        talent.UpgradesAbilityType.Should().BeFalse();
+        talent.HasHotkey.Should().BeTrue();
+        talent.IsQuest.Should().BeTrue();
+    }
+
+    [TestMethod]
+    public void GetTalent_ZeratulZeratulMightOfTheNerazim_ReturnsTalent()
+    {
+        // arrange
+        string heroUnit = "Zeratul";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Hero", heroUnit)!;
+        StormElementData talentTreeArray = stormElement.DataValues.GetElementDataAt("TalentTreeArray").GetElementDataAt("9");
+
+        Hero hero = new(heroUnit);
+        hero.AddLayoutAbility(new Ability()
+        {
+            AbilityElementId = "ZeratulMightOfTheNerazimDummy",
+            ButtonElementId = "ZeratulMightOfTheNerazimPassive",
+            AbilityType = AbilityType.Heroic,
+        });
+        TalentParser talentParser = new(_talentLogger, _options, _abilityParser, _heroesXmlLoaderService, _gameStringTextService);
+
+        // act
+        Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
+
+        // assert
+        talent.Should().NotBeNull();
+        talent.LinkId.ToString().Should().Be("ZeratulMightOfTheNerazim|ZeratulMightOfTheNerazimPassive|Heroic|Level10");
+        talent.AbilityElementId.Should().Be("ZeratulMightOfTheNerazimDummy");
+        talent.UpgradesAbilityType.Should().BeFalse();
+        talent.HasHotkey.Should().BeTrue();
+        talent.IsQuest.Should().BeFalse();
     }
 }

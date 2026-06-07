@@ -1,10 +1,10 @@
 {
   "meta": {
-    "heroesVersion": "2.55.16.96881",
+    "heroesVersion": "2.55.16.97039",
     "hdpVersion": "5.0.0",
     "itemsType": "GameStrings",
     "dataTypes": [
-      "AnnouncerData"
+      "AnnouncerPackData"
     ],
     "gameStringText": {
       "locale": "ENUS",
@@ -20,7 +20,7 @@
     }
   },
   "items": {
-    "announcer": {
+    "announcerPack": {
       "name": {
         "AbathurA": "Abathur Announcer",
         "Adjutant": "Adjutant Announcer",

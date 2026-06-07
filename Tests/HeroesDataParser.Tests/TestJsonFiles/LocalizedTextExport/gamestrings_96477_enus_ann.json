@@ -4,7 +4,7 @@
     "hdpVersion": "5.0.0",
     "itemsType": "GameStrings",
     "dataTypes": [
-      "AnnouncerData"
+      "AnnouncerPackData"
     ],
     "gameStringText": {
       "locale": "ENUS",
@@ -20,7 +20,7 @@
     }
   },
   "items": {
-    "announcer": {
+    "announcerPack": {
       "name": {
         "AbathurA": "Abathur Announcer",
         "Adjutant": "Adjutant Announcer",

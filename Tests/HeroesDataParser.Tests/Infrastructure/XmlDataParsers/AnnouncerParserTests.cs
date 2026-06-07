@@ -3,7 +3,7 @@
 [TestClass]
 public class AnnouncerParserTests
 {
-    private readonly ILogger<AnnouncerParser> _logger;
+    private readonly ILogger<AnnouncerPackParser> _logger;
     private readonly IOptions<RootOptions> _options;
     private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
     private readonly IGameStringTextService _gameStringTextService;
@@ -12,7 +12,7 @@ public class AnnouncerParserTests
 
     public AnnouncerParserTests()
     {
-        _logger = Substitute.For<ILogger<AnnouncerParser>>();
+        _logger = Substitute.For<ILogger<AnnouncerPackParser>>();
         _options = Substitute.For<IOptions<RootOptions>>();
         _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
         _gameStringTextService = Substitute.For<IGameStringTextService>();
@@ -27,10 +27,10 @@ public class AnnouncerParserTests
         // arrange
         _gameStringTextService.GetGameStringTextFromId("AnnouncerPack/Description/Adjutant").Returns(new GameStringText("adjustant description"));
 
-        AnnouncerParser announcerParser = new(_logger, _options, _heroesXmlLoaderService, _gameStringTextService);
+        AnnouncerPackParser announcerParser = new(_logger, _options, _heroesXmlLoaderService, _gameStringTextService);
 
         // act
-        Announcer? announcer = announcerParser.Parse("Adjutant");
+        AnnouncerPack? announcer = announcerParser.Parse("Adjutant");
 
         // assert
         announcer.Should().NotBeNull();

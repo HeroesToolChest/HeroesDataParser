@@ -44,7 +44,7 @@ public class LocalizedTextExportServiceTests
         // arrange
         _options.Value.Returns(new LocalizedTextExportOptions()
         {
-            DataFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            DataFilePath = Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             OutputDirectory = "TestJsonFiles",
             JsonIndent = true,
             AllowOverwrite = false,
@@ -65,7 +65,7 @@ public class LocalizedTextExportServiceTests
         // arrange
         _options.Value.Returns(new LocalizedTextExportOptions()
         {
-            DataFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            DataFilePath = Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ExportGameStrings_GameStringFileAlreadyExists_DoesNotComplete)),
             JsonIndent = true,
             AllowOverwrite = false,
@@ -91,7 +91,7 @@ public class LocalizedTextExportServiceTests
         // arrange
         _options.Value.Returns(new LocalizedTextExportOptions()
         {
-            DataFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            DataFilePath = Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             GameStringFilePath = Path.Combine("TestJsonFiles", "LocalizedTextExport", "gamestrings_96477_enus_ann.json"),
             OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ExportGameStrings_ProvidedGameStringFileAlreadyExists_DoesNotComplete)),
             JsonIndent = true,
@@ -142,7 +142,7 @@ public class LocalizedTextExportServiceTests
         // arrange
         _options.Value.Returns(new LocalizedTextExportOptions()
         {
-            DataFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            DataFilePath = Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             GameStringFilePath = Path.Combine("TestJsonFiles", "LocalizedTextExport", "gamestrings_96881_enus_ann_hero.json"),
             OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ExportGameStrings_MismatchHeroesVersion_DoesNotComplete)),
             ExtractType = ExtractType.Extract,
@@ -166,7 +166,7 @@ public class LocalizedTextExportServiceTests
         // arrange
         _options.Value.Returns(new LocalizedTextExportOptions()
         {
-            DataFilePath = Path.Combine("TestJsonFiles", "announcerdata_96881_enus.json"),
+            DataFilePath = Path.Combine("TestJsonFiles", "announcerpackdata_96881_enus.json"),
             GameStringFilePath = Path.Combine("TestJsonFiles", "LocalizedTextExport", "gamestrings_96881_enus_alterac_pass.json"),
             OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ExportGameStrings_GameStringsFileAlreadyContainsDataType_DoesNotComplete)),
             ExtractType = ExtractType.Extract,
@@ -310,7 +310,7 @@ public class LocalizedTextExportServiceTests
         // arrange
         _options.Value.Returns(new LocalizedTextExportOptions()
         {
-            DataFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            DataFilePath = Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ExportGameStrings_ExtractTypeRemove_DataFileCreated)),
             ExtractType = ExtractType.Remove,
             JsonIndent = true,
@@ -327,7 +327,7 @@ public class LocalizedTextExportServiceTests
         // assert
         _console.Output.Should().Contain("New data file created");
 
-        FileCompare.ShouldBeEqual(_options.Value.OutputDataFilePath, Path.Combine("TestJsonFiles", "LocalizedTextExport", "announcerdata_96477_enus_extracted.json"));
+        FileCompare.ShouldBeEqual(_options.Value.OutputDataFilePath, Path.Combine("TestJsonFiles", "LocalizedTextExport", "announcerpackdata_96477_enus_extracted.json"));
     }
 
     [TestMethod]
@@ -336,7 +336,7 @@ public class LocalizedTextExportServiceTests
         // arrange
         _options.Value.Returns(new LocalizedTextExportOptions()
         {
-            DataFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            DataFilePath = Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ExportGameStrings_ExtractTypeRemoveFileOverwritten_DataFileUpdated)),
             ExtractType = ExtractType.Remove,
             JsonIndent = true,
@@ -344,7 +344,7 @@ public class LocalizedTextExportServiceTests
         });
 
         Directory.CreateDirectory(_options.Value.OutputDirectory);
-        File.Copy(_options.Value.DataFilePath, Path.Combine(_options.Value.OutputDirectory, "announcerdata_96477_enus.json"));
+        File.Copy(_options.Value.DataFilePath, Path.Combine(_options.Value.OutputDirectory, "announcerpackdata_96477_enus.json"));
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
 
@@ -356,7 +356,7 @@ public class LocalizedTextExportServiceTests
         // assert
         _console.Output.Should().Contain("Updated data file");
 
-        FileCompare.ShouldBeEqual(_options.Value.OutputDataFilePath, Path.Combine("TestJsonFiles", "LocalizedTextExport", "announcerdata_96477_enus_extracted.json"));
+        FileCompare.ShouldBeEqual(_options.Value.OutputDataFilePath, Path.Combine("TestJsonFiles", "LocalizedTextExport", "announcerpackdata_96477_enus_extracted.json"));
     }
 
     [TestMethod]
@@ -365,7 +365,7 @@ public class LocalizedTextExportServiceTests
         // arrange
         _options.Value.Returns(new LocalizedTextExportOptions()
         {
-            DataFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            DataFilePath = Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ExportGameStrings_ExtractTypeExtractWithNewGameStringsFile_DataFileAndGameStringsFileCreated)),
             ExtractType = ExtractType.Extract,
             JsonIndent = true,
@@ -383,7 +383,7 @@ public class LocalizedTextExportServiceTests
         _console.Output.Should().Contain("New data file created");
         _console.Output.Should().Contain("New gamestring file created");
 
-        FileCompare.ShouldBeEqual(_options.Value.OutputDataFilePath, Path.Combine("TestJsonFiles", "LocalizedTextExport", "announcerdata_96477_enus_extracted.json"));
+        FileCompare.ShouldBeEqual(_options.Value.OutputDataFilePath, Path.Combine("TestJsonFiles", "LocalizedTextExport", "announcerpackdata_96477_enus_extracted.json"));
         FileCompare.ShouldBeEqual(Path.Combine(_options.Value.OutputDirectory, "gamestrings_96477_enus.json"), Path.Combine("TestJsonFiles", "LocalizedTextExport", "gamestrings_96477_enus_ann.json"));
     }
 
@@ -393,7 +393,7 @@ public class LocalizedTextExportServiceTests
         // arrange
         _options.Value.Returns(new LocalizedTextExportOptions()
         {
-            DataFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            DataFilePath = Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ExportGameStrings_ExtractTypeExtractWithExistingGameStringsFile_DataFileCreatedAndGameStringsFileUpdated)),
             ExtractType = ExtractType.Extract,
             JsonIndent = true,
@@ -415,7 +415,7 @@ public class LocalizedTextExportServiceTests
         _console.Output.Should().Contain("New data file created");
         _console.Output.Should().Contain("Updated gamestring file");
 
-        FileCompare.ShouldBeEqual(_options.Value.OutputDataFilePath, Path.Combine("TestJsonFiles", "LocalizedTextExport", "announcerdata_96477_enus_extracted.json"));
+        FileCompare.ShouldBeEqual(_options.Value.OutputDataFilePath, Path.Combine("TestJsonFiles", "LocalizedTextExport", "announcerpackdata_96477_enus_extracted.json"));
         FileCompare.ShouldBeEqual(Path.Combine(_options.Value.OutputDirectory, "gamestrings_96477_enus.json"), Path.Combine("TestJsonFiles", "LocalizedTextExport", "gamestrings_96477_enus_ann.json"));
     }
 
@@ -427,7 +427,7 @@ public class LocalizedTextExportServiceTests
 
         _options.Value.Returns(new LocalizedTextExportOptions()
         {
-            DataFilePath = Path.Combine(outputDirectory, "announcerdata_96477_enus.json"),
+            DataFilePath = Path.Combine(outputDirectory, "announcerpackdata_96477_enus.json"),
             OutputDirectory = outputDirectory,
             ExtractType = ExtractType.Copy,
             JsonIndent = true,
@@ -437,7 +437,7 @@ public class LocalizedTextExportServiceTests
         Directory.CreateDirectory(_options.Value.OutputDirectory);
 
         // copy the input data file to the output directory
-        File.Copy(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"), Path.Combine(_options.Value.OutputDirectory, "announcerdata_96477_enus.json"));
+        File.Copy(Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"), Path.Combine(_options.Value.OutputDirectory, "announcerpackdata_96477_enus.json"));
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
 
@@ -450,7 +450,7 @@ public class LocalizedTextExportServiceTests
         _console.Output.Should().NotContain("data file");
         _console.Output.Should().Contain("New gamestring file");
 
-        FileCompare.ShouldBeEqual(_options.Value.OutputDataFilePath, Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"));
+        FileCompare.ShouldBeEqual(_options.Value.OutputDataFilePath, Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"));
         FileCompare.ShouldBeEqual(Path.Combine(_options.Value.OutputDirectory, "gamestrings_96477_enus.json"), Path.Combine("TestJsonFiles", "LocalizedTextExport", "gamestrings_96477_enus_ann.json"));
     }
 
@@ -460,8 +460,8 @@ public class LocalizedTextExportServiceTests
         // arrange
         _options.Value.Returns(new LocalizedTextExportOptions()
         {
-            DataFilePath = Path.Combine("TestJsonFiles", "LocalizedTextExport", "herodata_96881_enus_plaintext_all_true.json"),
-            GameStringFilePath = Path.Combine("TestJsonFiles", "LocalizedTextExport", "gamestrings_96881_enus_plaintext_all_true_ann.json"),
+            DataFilePath = Path.Combine("TestJsonFiles", "LocalizedTextExport", "herodata_97039_enus_plaintext_all_true.json"),
+            GameStringFilePath = Path.Combine("TestJsonFiles", "LocalizedTextExport", "gamestrings_97039_enus_plaintext_all_true_ann.json"),
             OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ExportGameStrings_UpdateGameStringFileWithExtractedGameStrings_DataFileCreatedAndGameStringsFileUpdated)),
             ExtractType = ExtractType.Extract,
             JsonIndent = true,
@@ -479,8 +479,8 @@ public class LocalizedTextExportServiceTests
         _console.Output.Should().Contain("New data file created");
         _console.Output.Should().Contain("New gamestring file");
 
-        FileCompare.ShouldBeEqual(_options.Value.OutputDataFilePath, Path.Combine("TestJsonFiles", "LocalizedTextExport", "herodata_96881_enus_extracted.json"));
-        FileCompare.ShouldBeEqual(Path.Combine(_options.Value.OutputDirectory, "gamestrings_96881_enus_plaintext_all_true_ann.json"), Path.Combine("TestJsonFiles", "LocalizedTextExport", "gamestrings_96881_enus_plaintext_all_true_ann_hero.json"));
+        FileCompare.ShouldBeEqual(_options.Value.OutputDataFilePath, Path.Combine("TestJsonFiles", "LocalizedTextExport", "herodata_97039_enus_extracted.json"));
+        FileCompare.ShouldBeEqual(Path.Combine(_options.Value.OutputDirectory, "gamestrings_97039_enus_plaintext_all_true_ann.json"), Path.Combine("TestJsonFiles", "LocalizedTextExport", "gamestrings_97039_enus_plaintext_all_true_ann_hero.json"));
     }
 
     [TestMethod]
@@ -489,8 +489,8 @@ public class LocalizedTextExportServiceTests
         // arrange
         _options.Value.Returns(new LocalizedTextExportOptions()
         {
-            DataFilePath = Path.Combine("TestJsonFiles", "LocalizedTextExport", "herodata_96881_enus_plaintext_all_true.json"),
-            GameStringFilePath = Path.Combine("TestJsonFiles", "LocalizedTextExport", "gamestrings_96881_enus_plaintext_all_true_ann.json"),
+            DataFilePath = Path.Combine("TestJsonFiles", "LocalizedTextExport", "herodata_97039_enus_plaintext_all_true.json"),
+            GameStringFilePath = Path.Combine("TestJsonFiles", "LocalizedTextExport", "gamestrings_97039_enus_plaintext_all_true_ann.json"),
             OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(ExportGameStrings_UpdateGameStringFileWithCopiedGameStrings_GameStringsFileUpdated)),
             ExtractType = ExtractType.Copy,
             JsonIndent = true,
@@ -508,6 +508,6 @@ public class LocalizedTextExportServiceTests
         _console.Output.Should().NotContain("data file");
         _console.Output.Should().Contain("New gamestring file");
 
-        FileCompare.ShouldBeEqual(Path.Combine(_options.Value.OutputDirectory, "gamestrings_96881_enus_plaintext_all_true_ann.json"), Path.Combine("TestJsonFiles", "LocalizedTextExport", "gamestrings_96881_enus_plaintext_all_true_ann_hero.json"));
+        FileCompare.ShouldBeEqual(Path.Combine(_options.Value.OutputDirectory, "gamestrings_97039_enus_plaintext_all_true_ann.json"), Path.Combine("TestJsonFiles", "LocalizedTextExport", "gamestrings_97039_enus_plaintext_all_true_ann_hero.json"));
     }
 }

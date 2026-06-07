@@ -120,7 +120,7 @@ public class JsonSchemaExportDataCommandTests
         [
             "--extractor", "hero",
             "--extractor", "matchaward",
-            "-e", "announcer",
+            "-e", "announcerpack",
         ],
         TestContext.CancellationToken);
 
@@ -129,7 +129,7 @@ public class JsonSchemaExportDataCommandTests
 
         jsonSchemaExportOptions.ExtractDataOptions.Should().HaveFlag(ExtractDataOptions.Hero);
         jsonSchemaExportOptions.ExtractDataOptions.Should().HaveFlag(ExtractDataOptions.MatchAward);
-        jsonSchemaExportOptions.ExtractDataOptions.Should().HaveFlag(ExtractDataOptions.Announcer);
+        jsonSchemaExportOptions.ExtractDataOptions.Should().HaveFlag(ExtractDataOptions.AnnouncerPack);
         jsonSchemaExportOptions.JsonIndent.Should().BeTrue();
         jsonSchemaExportOptions.Version.Should().NotBe("0.0.0");
     }

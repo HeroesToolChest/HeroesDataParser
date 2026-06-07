@@ -27,7 +27,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Heroes.Element" Version="1.0.0-alpha.3" />
+		<PackageReference Include="Heroes.Element" Version="1.0.0-alpha.4" />
 		<PackageReference Include="Heroes.XmlData" Version="1.0.0-alpha.5" />
 		<PackageReference Include="JsonPatch.Net" Version="5.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Compliance.Redaction" Version="10.6.0" />
@@ -44,7 +44,7 @@
 		<PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
 		<PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
 		<PackageReference Include="SixLabors.ImageSharp" Version="4.0.0" />
-		<PackageReference Include="Spectre.Console" Version="0.55.2" />
+		<PackageReference Include="Spectre.Console" Version="0.56.0" />
 		<PackageReference Include="Spectre.Console.Analyzer" Version="1.0.1-preview.0.1">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

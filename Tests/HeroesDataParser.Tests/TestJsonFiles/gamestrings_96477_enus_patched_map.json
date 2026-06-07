@@ -4,7 +4,7 @@
     "hdpVersion": "5.0.0",
     "itemsType": "GameStrings",
     "dataTypes": [
-      "AnnouncerData",
+      "AnnouncerPackData",
       "BannerData"
     ],
     "mapName": "Blackheart's Revenge",
@@ -22,7 +22,7 @@
     }
   },
   "items": {
-    "announcer": {
+    "announcerPack": {
       "name": {
         "AbathurA": "Abathur Announcer",
         "Adjutant": "Adjutant Announcer",

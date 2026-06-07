@@ -65,7 +65,7 @@ public class PortraitExtractAutoCommandTests
         // act
         CommandAppResult result = app.Run(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             "-c", "nonexistent-directory",
         ]);
 
@@ -84,8 +84,8 @@ public class PortraitExtractAutoCommandTests
         // act
         CommandAppResult result = app.Run(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
-            "-c", Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
+            "-c", Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
         ]);
 
         // assert
@@ -103,7 +103,7 @@ public class PortraitExtractAutoCommandTests
         // act
         CommandAppResult result = app.Run(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             "-x", "nonexistent.xml",
         ]);
 
@@ -122,8 +122,8 @@ public class PortraitExtractAutoCommandTests
         // act
         CommandAppResult result = app.Run(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
-            "-o", Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
+            "-o", Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
         ]);
 
         // assert
@@ -146,7 +146,7 @@ public class PortraitExtractAutoCommandTests
         // act
         CommandAppResult result = await app.RunAsync(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
         ],
         TestContext.CancellationToken);
 
@@ -173,7 +173,7 @@ public class PortraitExtractAutoCommandTests
         // act
         CommandAppResult result = await app.RunAsync(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             "-c", "TestXmlFiles",
         ],
         TestContext.CancellationToken);
@@ -182,7 +182,7 @@ public class PortraitExtractAutoCommandTests
         AssertCommandSuccessful(result);
 
         portraitExtractAutoOptions.BattleNetCacheDirectory.Should().Be(Path.GetFullPath("TestXmlFiles"));
-        portraitExtractAutoOptions.RewardPortraitDataFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json")));
+        portraitExtractAutoOptions.RewardPortraitDataFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json")));
         portraitExtractAutoOptions.XmlConfigFilePath.Should().Be(Path.Combine(Constants.ConfigFilesDirectory, "portrait-extract.xml"));
         portraitExtractAutoOptions.OutputDirectory.Should().Be(Path.Combine(Path.GetFullPath("."), Constants.ImagesDirectory, Constants.PortraitRewardsDirectory));
         portraitExtractAutoOptions.DeleteTextureSheet.Should().BeFalse();
@@ -203,7 +203,7 @@ public class PortraitExtractAutoCommandTests
         // act
         CommandAppResult result = await app.RunAsync(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             "-c", "TestXmlFiles",
             "-o", "TestXmlFiles",
         ],
@@ -231,16 +231,16 @@ public class PortraitExtractAutoCommandTests
         // act
         CommandAppResult result = await app.RunAsync(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             "-c", "TestXmlFiles",
-            "-x", Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            "-x", Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
         ],
         TestContext.CancellationToken);
 
         // assert
         AssertCommandSuccessful(result);
 
-        portraitExtractAutoOptions.XmlConfigFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json")));
+        portraitExtractAutoOptions.XmlConfigFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json")));
     }
 
     [TestMethod]
@@ -258,7 +258,7 @@ public class PortraitExtractAutoCommandTests
         // act
         CommandAppResult result = await app.RunAsync(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             "-c", "TestXmlFiles",
             "--delete-texture-sheet",
         ],

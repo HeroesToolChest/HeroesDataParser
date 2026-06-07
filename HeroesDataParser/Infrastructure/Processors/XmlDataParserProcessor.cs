@@ -22,7 +22,7 @@ public class XmlDataParserProcessor : IXmlDataParserProcessor
 
         _elementTypeByExtractDataOption = new()
         {
-            [ExtractDataOptions.Announcer] = Execute<Announcer, AnnouncerParser>,
+            [ExtractDataOptions.AnnouncerPack] = Execute<AnnouncerPack, AnnouncerPackParser>,
             [ExtractDataOptions.Banner] = Execute<Banner, BannerParser>,
             [ExtractDataOptions.Bundle] = Execute<Bundle, BundleParser>,
             [ExtractDataOptions.Boost] = Execute<Boost, BoostParser>,

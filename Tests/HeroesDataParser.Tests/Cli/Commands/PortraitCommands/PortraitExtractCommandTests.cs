@@ -65,8 +65,8 @@ public class PortraitExtractCommandTests
         // act
         CommandAppResult result = app.Run(
         [
-            Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
-            "-o", Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
+            "-o", Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
         ]);
 
         // assert

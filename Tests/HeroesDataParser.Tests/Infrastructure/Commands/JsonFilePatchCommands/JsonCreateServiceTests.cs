@@ -29,7 +29,7 @@ public class JsonCreateServiceTests
         _options.Value.Returns(new JsonCreateOptions()
         {
             OldJsonFilePath = Path.Combine(outputDirectory, "null_json.json"),
-            NewJsonFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus_patched_map.json"),
+            NewJsonFilePath = Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus_patched_map.json"),
         });
         JsonCreateService jsonCreateService = new(_logger, _options, _console);
 
@@ -54,7 +54,7 @@ public class JsonCreateServiceTests
 
         _options.Value.Returns(new JsonCreateOptions()
         {
-            OldJsonFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            OldJsonFilePath = Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
             NewJsonFilePath = Path.Combine(outputDirectory, "null_json.json"),
         });
         JsonCreateService jsonCreateService = new(_logger, _options, _console);
@@ -72,8 +72,8 @@ public class JsonCreateServiceTests
         // arrange
         _options.Value.Returns(new JsonCreateOptions()
         {
-            OldJsonFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
-            NewJsonFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            OldJsonFilePath = Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
+            NewJsonFilePath = Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
         });
         JsonCreateService jsonCreateService = new(_logger, _options, _console);
 
@@ -87,13 +87,13 @@ public class JsonCreateServiceTests
     [TestMethod]
     public async Task CreateJsonPatch_HasDifferences_CreatesPatchFile()
     {
-        string outputFilePath = Path.Combine(TestConstants.TestDirectory, nameof(CreateJsonPatch_HasDifferences_CreatesPatchFile), "announcerdata_96477_enus_patched_map.patch.json");
+        string outputFilePath = Path.Combine(TestConstants.TestDirectory, nameof(CreateJsonPatch_HasDifferences_CreatesPatchFile), "announcerpackdata_96477_enus_patched_map.patch.json");
 
         // arrange
         _options.Value.Returns(new JsonCreateOptions()
         {
-            OldJsonFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
-            NewJsonFilePath = Path.Combine("TestJsonFiles", "announcerdata_96477_enus_patched_map.json"),
+            OldJsonFilePath = Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
+            NewJsonFilePath = Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus_patched_map.json"),
             OutputFilePath = outputFilePath,
             AllowOverwrite = true,
             JsonIndent = true,
@@ -109,7 +109,7 @@ public class JsonCreateServiceTests
         File.Exists(outputFilePath).Should().BeTrue();
 
         string patchText = File.ReadAllText(outputFilePath).ReplaceLineEndings("\n");
-        string compareText = File.ReadAllText(Path.Combine("TestJsonFiles", "announcerdata_96477_enus.patch.json")).ReplaceLineEndings("\n");
+        string compareText = File.ReadAllText(Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.patch.json")).ReplaceLineEndings("\n");
         patchText.Should().Be(compareText);
     }
 }

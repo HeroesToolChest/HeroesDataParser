@@ -4,14 +4,14 @@
     "hdpVersion": "5.0.0",
     "itemsType": "GameStrings",
     "dataTypes": [
-      "AnnouncerData",
+      "AnnouncerPackData",
       "EmoticonData",
       "MatchAwardData"
     ],
     "mapName": "Battlefield of Eternity"
   },
   "items": {
-    "announcer": {
+    "announcerPack": {
       "name": {
         "AbathurA": "Abathur Announcer",
         "Adjutant": "Adjutant Announcer",

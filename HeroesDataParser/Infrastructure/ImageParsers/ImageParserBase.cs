@@ -18,7 +18,7 @@ public abstract class ImageParserBase<TElement> : IImageParser<TElement>
 
     public abstract ExtractImageOptions ExtractImageOption { get; }
 
-    protected abstract string SubDirectory { get; }
+    protected abstract string Subdirectory { get; }
 
     protected ILogger Logger => _logger;
 
@@ -87,7 +87,7 @@ public abstract class ImageParserBase<TElement> : IImageParser<TElement>
         ImageWriterFile imageWriterFile = new()
         {
             ElementId = elementId,
-            SubDirectoryPath = SubDirectory,
+            SubDirectoryPath = Subdirectory,
             FileName = imageName,
             ProcessImageFile = imageProcesser,
         };

@@ -1,14 +1,28 @@
 {
   "meta": {
-    "heroesVersion": "2.55.15.96477",
+    "heroesVersion": "2.55.16.96881",
     "hdpVersion": "5.0.0",
     "itemsType": "Data",
-    "dataType": "AnnouncerData",
-    "localizedText": "Extracted",
+    "dataType": "AnnouncerPackData",
+    "mapName": "Battlefield of Eternity",
+    "localizedText": "None",
+    "gameStringText": {
+      "locale": "ENUS",
+      "textType": "RawText",
+      "constantVars": {
+        "replaced": false,
+        "preserved": false
+      },
+      "styleVars": {
+        "replaced": false,
+        "preserved": false
+      }
+    },
     "totalItems": 74
   },
   "items": {
     "AbathurA": {
+      "name": "Abathur Announcer",
       "hyperlinkId": "AbathurAnnouncer",
       "attributeId": "AB01",
       "rarity": "Legendary",
@@ -19,6 +33,7 @@
       "image": "storm_ui_announcer_abathur.png"
     },
     "Adjutant": {
+      "name": "Adjutant Announcer",
       "hyperlinkId": "AdjutantAnnouncer",
       "attributeId": "AADJ",
       "rarity": "Legendary",
@@ -29,6 +44,7 @@
       "image": "storm_ui_announcer_adjutant.png"
     },
     "AlarakA": {
+      "name": "Alarak Announcer",
       "hyperlinkId": "AlarakAnnouncer",
       "attributeId": "ALAA",
       "rarity": "Legendary",
@@ -39,6 +55,7 @@
       "image": "storm_ui_announcer_alarak.png"
     },
     "AlexstraszaA": {
+      "name": "Alexstrasza Announcer",
       "hyperlinkId": "AlexstraszaAnnouncer",
       "attributeId": "ALEA",
       "rarity": "Epic",
@@ -49,6 +66,7 @@
       "image": "storm_ui_announcer_alexstrasza.png"
     },
     "AnduinA": {
+      "name": "Anduin Announcer",
       "hyperlinkId": "AnduinAnnouncer",
       "attributeId": "ANDA",
       "rarity": "Epic",
@@ -59,6 +77,7 @@
       "image": "storm_ui_announcer_anduin.png"
     },
     "Angel": {
+      "name": "Ilarian Announcer",
       "hyperlinkId": "IlarianAnnouncer",
       "attributeId": "ANGE",
       "rarity": "Common",
@@ -69,6 +88,7 @@
       "image": "storm_ui_announcer_ilarian.png"
     },
     "AnubarakA": {
+      "name": "Anub'arak Announcer",
       "hyperlinkId": "AnubarakAnnouncer",
       "attributeId": "AN01",
       "rarity": "Epic",
@@ -79,6 +99,7 @@
       "image": "storm_ui_announcer_anubarak.png"
     },
     "ArthasA": {
+      "name": "Arthas Announcer",
       "hyperlinkId": "ArthasAnnouncer",
       "attributeId": "AART",
       "rarity": "Epic",
@@ -89,6 +110,7 @@
       "image": "storm_ui_announcer_arthas.png"
     },
     "AthenaA": {
+      "name": "Athena Announcer",
       "hyperlinkId": "AthenaAnnouncer",
       "attributeId": "AATH",
       "rarity": "Common",
@@ -99,6 +121,7 @@
       "image": "storm_ui_announcer_athena.png"
     },
     "BarbarianA": {
+      "name": "Sonya Announcer",
       "hyperlinkId": "SonyaAnnouncer",
       "attributeId": "BA01",
       "rarity": "Epic",
@@ -109,6 +132,7 @@
       "image": "storm_ui_announcer_sonya.png"
     },
     "Blackheart": {
+      "name": "Blackheart Announcer",
       "hyperlinkId": "BlackheartAnnouncer",
       "attributeId": "BH01",
       "rarity": "Common",
@@ -119,6 +143,7 @@
       "image": "storm_ui_announcer_blackheart.png"
     },
     "BlazeA": {
+      "name": "Blaze Announcer",
       "hyperlinkId": "BlazeAnnouncer",
       "attributeId": "AFIR",
       "rarity": "Epic",
@@ -129,6 +154,7 @@
       "image": "storm_ui_announcer_firebat.png"
     },
     "BrightwingA": {
+      "name": "Brightwing Announcer",
       "hyperlinkId": "BrightwingAnnouncer",
       "attributeId": "BR01",
       "rarity": "Legendary",
@@ -139,6 +165,7 @@
       "image": "storm_ui_announcer_brightwing.png"
     },
     "ButcherA": {
+      "name": "Butcher Announcer",
       "hyperlinkId": "ButcherAnnouncer",
       "attributeId": "BTHR",
       "rarity": "Epic",
@@ -149,6 +176,7 @@
       "image": "storm_ui_announcer_butcher.png"
     },
     "CloakenA": {
+      "name": "Cloaken Announcer",
       "hyperlinkId": "CloakenAnnouncer",
       "attributeId": "ACLO",
       "rarity": "Legendary",
@@ -159,6 +187,7 @@
       "image": "storm_ui_announcer_kevinjohnson.png"
     },
     "Cook": {
+      "name": "Cook Announcer",
       "hyperlinkId": "##heroid##Announcer",
       "attributeId": "COOK",
       "rarity": "Epic",
@@ -168,6 +197,7 @@
       "heroId": "##heroid##"
     },
     "CowboyA": {
+      "name": "MC Tombstone Announcer",
       "hyperlinkId": "McTombstoneAnnouncer",
       "attributeId": "ACwb",
       "rarity": "Common",
@@ -178,6 +208,7 @@
       "image": "storm_ui_announcer_mctombstone.png"
     },
     "DeathwingA": {
+      "name": "Deathwing Announcer",
       "hyperlinkId": "DeathwingAnnouncer",
       "attributeId": "DEA0",
       "rarity": "Legendary",
@@ -188,6 +219,7 @@
       "image": "storm_ui_announcer_deathwing.png"
     },
     "DeckardA": {
+      "name": "Deckard Announcer",
       "hyperlinkId": "DeckardAnnouncer",
       "attributeId": "ADEC",
       "rarity": "Legendary",
@@ -207,6 +239,7 @@
       "heroId": "##heroid##"
     },
     "Demon": {
+      "name": "Beleth Announcer",
       "hyperlinkId": "BelethAnnouncer",
       "attributeId": "DEMO",
       "rarity": "Legendary",
@@ -217,6 +250,7 @@
       "image": "storm_ui_announcer_beleth.png"
     },
     "DemonHunterA": {
+      "name": "Valla Announcer",
       "hyperlinkId": "VallaAnnouncer",
       "attributeId": "DH01",
       "rarity": "Epic",
@@ -227,6 +261,7 @@
       "image": "storm_ui_announcer_valla.png"
     },
     "DiabloA": {
+      "name": "Diablo Announcer",
       "hyperlinkId": "DiabloAnnouncer",
       "attributeId": "DI01",
       "rarity": "Epic",
@@ -237,6 +272,7 @@
       "image": "storm_ui_announcer_diablo.png"
     },
     "DrekTharA": {
+      "name": "Drek'Thar Announcer",
       "hyperlinkId": "DrekTharAnnouncer",
       "attributeId": "ADRE",
       "rarity": "Legendary",
@@ -247,6 +283,7 @@
       "image": "storm_ui_announcer_drekthar.png"
     },
     "DVaAnnouncer": {
+      "name": "D.Va Announcer",
       "hyperlinkId": "DVaAnnouncer",
       "attributeId": "ADVA",
       "rarity": "Legendary",
@@ -257,6 +294,7 @@
       "image": "storm_ui_announcer_dva.png"
     },
     "ETCA": {
+      "name": "E.T.C. Announcer",
       "hyperlinkId": "ETCAnnouncer",
       "attributeId": "LETC",
       "rarity": "Epic",
@@ -267,6 +305,7 @@
       "image": "storm_ui_announcer_etc.png"
     },
     "FalstadA": {
+      "name": "Falstad Announcer",
       "hyperlinkId": "FalstadAnnouncer",
       "attributeId": "FALS",
       "rarity": "Epic",
@@ -277,6 +316,7 @@
       "image": "storm_ui_announcer_falstad.png"
     },
     "FenixA": {
+      "name": "Fenix Announcer",
       "hyperlinkId": "FenixAnnouncer",
       "attributeId": "AFEN",
       "rarity": "Epic",
@@ -287,6 +327,7 @@
       "image": "storm_ui_announcer_fenix.png"
     },
     "GardensDayAnnouncer": {
+      "name": "Queen Nightshade Announcer",
       "hyperlinkId": "QueenNightshadeAnnouncer",
       "attributeId": "SPOA",
       "rarity": "Legendary",
@@ -297,6 +338,7 @@
       "image": "storm_ui_announcer_queen_nightshade.png"
     },
     "GardensNightAnnouncer": {
+      "name": "Spore Queen Announcer",
       "hyperlinkId": "##heroid##Announcer",
       "attributeId": "SPOB",
       "rarity": "Epic",
@@ -306,6 +348,7 @@
       "heroId": "##heroid##"
     },
     "GarroshA": {
+      "name": "Garrosh Announcer",
       "hyperlinkId": "GarroshAnnouncer",
       "attributeId": "AGAR",
       "rarity": "Epic",
@@ -316,6 +359,7 @@
       "image": "storm_ui_announcer_garrosh.png"
     },
     "GazloweA": {
+      "name": "Gazlowe Announcer",
       "hyperlinkId": "GazloweAnnouncer",
       "attributeId": "TINK",
       "rarity": "Epic",
@@ -326,6 +370,7 @@
       "image": "storm_ui_announcer_gazlowe.png"
     },
     "GenjiAnnouncer": {
+      "name": "Genji Announcer",
       "hyperlinkId": "GenjiAnnouncer",
       "attributeId": "AGEN",
       "rarity": "Epic",
@@ -336,6 +381,7 @@
       "image": "storm_ui_announcer_genji.png"
     },
     "HanzoA": {
+      "name": "Hanzo Announcer",
       "hyperlinkId": "HanzoAnnouncer",
       "attributeId": "AHAN",
       "rarity": "Epic",
@@ -346,6 +392,7 @@
       "image": "storm_ui_announcer_hanzo.png"
     },
     "HoggerAnnouncer": {
+      "name": "Hogger Announcer",
       "hyperlinkId": "HoggerAnnouncer",
       "attributeId": "HOGA",
       "rarity": "Epic",
@@ -355,6 +402,7 @@
       "image": "storm_ui_announcer_hogger.png"
     },
     "IllidanA": {
+      "name": "Illidan Announcer",
       "hyperlinkId": "IllidanAnnouncer",
       "attributeId": "ILLI",
       "rarity": "Epic",
@@ -365,6 +413,7 @@
       "image": "storm_ui_announcer_illidan.png"
     },
     "ImperiusA": {
+      "name": "Imperius Announcer",
       "hyperlinkId": "ImperiusAnnouncer",
       "attributeId": "ImpA",
       "rarity": "Legendary",
@@ -375,6 +424,7 @@
       "image": "storm_ui_announcer_imperius.png"
     },
     "JainaA": {
+      "name": "Jaina Announcer",
       "hyperlinkId": "JainaAnnouncer",
       "attributeId": "AJAN",
       "rarity": "Epic",
@@ -385,6 +435,7 @@
       "image": "storm_ui_announcer_jaina.png"
     },
     "JohannaA": {
+      "name": "Johanna Announcer",
       "hyperlinkId": "JohannaAnnouncer",
       "attributeId": "AJOH",
       "rarity": "Epic",
@@ -395,6 +446,7 @@
       "image": "storm_ui_announcer_johanna.png"
     },
     "JunkratA": {
+      "name": "Junkrat Announcer",
       "hyperlinkId": "JunkratAnnouncer",
       "attributeId": "AJUN",
       "rarity": "Legendary",
@@ -405,6 +457,7 @@
       "image": "storm_ui_announcer_junkrat.png"
     },
     "KelthuzadA": {
+      "name": "Kel'Thuzad Announcer",
       "hyperlinkId": "KelThuzadAnnouncer",
       "attributeId": "AKEL",
       "rarity": "Epic",
@@ -415,6 +468,7 @@
       "image": "storm_ui_announcer_kelthuzad.png"
     },
     "KidA": {
+      "name": "\"The Kid\" Announcer",
       "hyperlinkId": "TheKidAnnouncer",
       "attributeId": "AKID",
       "rarity": "Common",
@@ -425,6 +479,7 @@
       "image": "storm_ui_announcer_thekid.png"
     },
     "LadyofThorns": {
+      "name": "Lady of Thorns Announcer",
       "hyperlinkId": "LadyofThornsAnnouncer",
       "attributeId": "ALOT",
       "rarity": "Legendary",
@@ -435,6 +490,7 @@
       "image": "storm_ui_announcer_lady_of_thorns.png"
     },
     "LiLiA": {
+      "name": "Li Li Announcer",
       "hyperlinkId": "LiLiAnnouncer",
       "attributeId": "ALIL",
       "rarity": "Epic",
@@ -445,6 +501,7 @@
       "image": "storm_ui_announcer_lili.png"
     },
     "MaievA": {
+      "name": "Maiev Announcer",
       "hyperlinkId": "MaievAnnouncer",
       "attributeId": "AMAI",
       "rarity": "Epic",
@@ -455,6 +512,7 @@
       "image": "storm_ui_announcer_maiev.png"
     },
     "MalfurionA": {
+      "name": "Malfurion Announcer",
       "hyperlinkId": "MalfurionAnnouncer",
       "attributeId": "AMAL",
       "rarity": "Epic",
@@ -465,6 +523,7 @@
       "image": "storm_ui_announcer_malfurion.png"
     },
     "MalGanisA": {
+      "name": "Mal'Ganis Announcer",
       "hyperlinkId": "MalGanisAnnouncer",
       "attributeId": "AMAG",
       "rarity": "Epic",
@@ -475,6 +534,7 @@
       "image": "storm_ui_announcer_malganis.png"
     },
     "MeiOWA": {
+      "name": "Mei Announcer",
       "hyperlinkId": "MeiOWAnnouncer",
       "attributeId": "MEIA",
       "rarity": "Epic",
@@ -485,6 +545,7 @@
       "image": "storm_ui_announcer_meiow.png"
     },
     "MephistoA": {
+      "name": "Mephisto Announcer",
       "hyperlinkId": "MephistoAnnouncer",
       "attributeId": "AMEP",
       "rarity": "Epic",
@@ -495,6 +556,7 @@
       "image": "storm_ui_announcer_mephisto.png"
     },
     "MiraA": {
+      "name": "Mira Han Announcer",
       "hyperlinkId": "MiraHanAnnouncer",
       "attributeId": "AMIR",
       "rarity": "Legendary",
@@ -505,6 +567,7 @@
       "image": "storm_ui_announcer_mirahan.png"
     },
     "MuradinA": {
+      "name": "Muradin Announcer",
       "hyperlinkId": "MuradinAnnouncer",
       "attributeId": "MURA",
       "rarity": "Epic",
@@ -515,6 +578,7 @@
       "image": "storm_ui_announcer_muradin.png"
     },
     "MurkyA": {
+      "name": "Murky Announcer",
       "hyperlinkId": "MurkyAnnouncer",
       "attributeId": "MUKY",
       "rarity": "Legendary",
@@ -525,6 +589,7 @@
       "image": "storm_ui_announcer_murky.png"
     },
     "Necromancer": {
+      "name": "Grave Keeper Announcer",
       "hyperlinkId": "GraveKeeperAnnouncer",
       "attributeId": "AGRA",
       "rarity": "Legendary",
@@ -535,6 +600,7 @@
       "image": "storm_ui_announcer_gravekeeper.png"
     },
     "NexusHunterA": {
+      "name": "Qhira Announcer",
       "hyperlinkId": "NexusHunterAnnouncer",
       "attributeId": "NXHA",
       "rarity": "Epic",
@@ -545,6 +611,7 @@
       "image": "storm_ui_announcer_nexushunter.png"
     },
     "NoAnnouncerPack": {
+      "name": "Default Announcer",
       "hyperlinkId": "NoAnnouncerPack",
       "attributeId": "NoAP",
       "rarity": "Common",
@@ -554,6 +621,7 @@
       "image": "storm_ui_announcer_default.png"
     },
     "OrpheaA": {
+      "name": "Orphea Announcer",
       "hyperlinkId": "OrpheaAnnouncer",
       "attributeId": "AORP",
       "rarity": "Epic",
@@ -564,6 +632,7 @@
       "image": "storm_ui_announcer_orphea.png"
     },
     "Quality": {
+      "name": "Loot Box - Quality",
       "hyperlinkId": "##heroid##Announcer",
       "attributeId": "LOTQ",
       "rarity": "Epic",
@@ -573,12 +642,14 @@
       "heroId": "##heroid##"
     },
     "RandomAnnouncerPack": {
+      "name": "Random Announcer Pack",
       "hyperlinkId": "RandomAnnouncerPack",
       "attributeId": "Rand",
       "rarity": "Common",
       "releaseDate": "2014-03-13"
     },
     "RavenLord": {
+      "name": "Raven Lord Announcer",
       "hyperlinkId": "RavenLordAnnouncer",
       "attributeId": "ARAV",
       "rarity": "Legendary",
@@ -589,6 +660,7 @@
       "image": "storm_ui_announcer_ravenlord.png"
     },
     "RehgarA": {
+      "name": "Rehgar Announcer",
       "hyperlinkId": "RehgarAnnouncer",
       "attributeId": "AREG",
       "rarity": "Epic",
@@ -599,6 +671,7 @@
       "image": "storm_ui_announcer_rehgar.png"
     },
     "RingAnnouncer": {
+      "name": "El Guapo Announcer",
       "hyperlinkId": "ElGuapoAnnouncer",
       "attributeId": "AELG",
       "rarity": "Common",
@@ -609,6 +682,7 @@
       "image": "storm_ui_announcer_elguapo.png"
     },
     "SiegeTankA": {
+      "name": "Sgt. Hammer Announcer",
       "hyperlinkId": "SgtHammerAnnouncer",
       "attributeId": "ASGT",
       "rarity": "Epic",
@@ -619,6 +693,7 @@
       "image": "storm_ui_announcer_sgthammer.png"
     },
     "SnakeGod": {
+      "name": "Ka Announcer",
       "hyperlinkId": "KaAnnouncer",
       "attributeId": "SNAK",
       "rarity": "Legendary",
@@ -629,6 +704,7 @@
       "image": "storm_ui_announcer_ka.png"
     },
     "SpiderQueen": {
+      "name": "Neithis Announcer",
       "hyperlinkId": "NeithisAnnouncer",
       "attributeId": "SPID",
       "rarity": "Legendary",
@@ -639,6 +715,7 @@
       "image": "storm_ui_announcer_neithis.png"
     },
     "StitchesA": {
+      "name": "Stitches Announcer",
       "hyperlinkId": "StitchesAnnouncer",
       "attributeId": "STIT",
       "rarity": "Epic",
@@ -649,6 +726,7 @@
       "image": "storm_ui_announcer_stitches.png"
     },
     "TassadarA": {
+      "name": "Tassadar Announcer",
       "hyperlinkId": "TassadarAnnouncer",
       "attributeId": "TA01",
       "rarity": "Epic",
@@ -659,6 +737,7 @@
       "image": "storm_ui_announcer_tassadar.png"
     },
     "TychusA": {
+      "name": "Tychus Announcer",
       "hyperlinkId": "TychusAnnouncer",
       "attributeId": "TYCH",
       "rarity": "Epic",
@@ -669,6 +748,7 @@
       "image": "storm_ui_announcer_tychus.png"
     },
     "TyraelA": {
+      "name": "Tyrael Announcer",
       "hyperlinkId": "TyraelAnnouncer",
       "attributeId": "ATYR",
       "rarity": "Epic",
@@ -679,6 +759,7 @@
       "image": "storm_ui_announcer_tyrael.png"
     },
     "TyraelMechaA": {
+      "name": "Mecha Tyrael Announcer",
       "hyperlinkId": "MechaTyraelAnnouncer",
       "attributeId": "AMTY",
       "rarity": "Legendary",
@@ -689,6 +770,7 @@
       "image": "storm_ui_announcer_tyrael_mecha.png"
     },
     "VanndarA": {
+      "name": "Vanndar Announcer",
       "hyperlinkId": "VanndarAnnouncer",
       "attributeId": "AVAN",
       "rarity": "Legendary",
@@ -699,6 +781,7 @@
       "image": "storm_ui_announcer_vanndar.png"
     },
     "WhitemaneA": {
+      "name": "Whitemane Announcer",
       "hyperlinkId": "WhitemaneAnnouncer",
       "attributeId": "AWHI",
       "rarity": "Epic",
@@ -709,6 +792,7 @@
       "image": "storm_ui_announcer_whitemane.png"
     },
     "WitchDoctorA": {
+      "name": "Nazeebo Announcer",
       "hyperlinkId": "NazeeboAnnouncer",
       "attributeId": "WITH",
       "rarity": "Epic",
@@ -719,6 +803,7 @@
       "image": "storm_ui_announcer_nazeebo.png"
     },
     "YrelA": {
+      "name": "Yrel Announcer",
       "hyperlinkId": "YrelAnnouncer",
       "attributeId": "AYRE",
       "rarity": "Epic",
@@ -729,6 +814,7 @@
       "image": "storm_ui_announcer_yrel.png"
     },
     "ZeratulA": {
+      "name": "Zeratul Announcer",
       "hyperlinkId": "ZeratulAnnouncer",
       "attributeId": "ZRTU",
       "rarity": "Epic",

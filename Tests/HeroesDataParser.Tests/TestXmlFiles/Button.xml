@@ -528,4 +528,18 @@
   <CButton id="DeathwingSkyfall" parent="StormButtonParent">
     <Icon value="Assets\Textures\storm_ui_icon_deathwing_skyfall.dds" />
   </CButton>
+  <CButton id="AnaShrikeVampiricRounds" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_ana_shrike.dds" />
+  </CButton>
+  <CButton id="ZeratulMightOfTheNerazimPassive" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_zeratul_mightofnerazim.dds" />
+    <HotkeyAlias value="ZeratulShadowAssault" />
+    <TooltipCooldownOverrideText value="Abil/ZeratulMightOfTheNerazimCooldownOverride" />
+    <TooltipFlags index="ShowHotkey" value="0" />
+    <UseHotkeyLabel value="0" />
+    <TooltipAppender Validator="ZeratulHasTwilightFallsTalent" Face="ZeratulTwilightFalls" />
+    <TooltipVitalOverrideText index="Energy" value="Abil/ZeratulMightoftheNerazimOverride" />
+    <Tooltip value="Button/Tooltip/ZeratulMightOfTheNerazimTalent" />
+    <SimpleDisplayText value="Button/SimpleDisplayText/ZeratulMightOfTheNerazimTalent" />
+  </CButton>
 </Button>

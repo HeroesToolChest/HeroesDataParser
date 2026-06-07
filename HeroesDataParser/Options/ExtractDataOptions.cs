@@ -11,7 +11,7 @@ public enum ExtractDataOptions
     Mount = 1 << 4,
     Banner = 1 << 5,
     Spray = 1 << 6,
-    Announcer = 1 << 7,
+    AnnouncerPack = 1 << 7,
     VoiceLine = 1 << 8,
     PortraitPack = 1 << 9,
     RewardPortrait = 1 << 10,

@@ -9,7 +9,7 @@ public class LoadingScreenImageParser : ImageParserBase<Map>
 
     public override ExtractImageOptions ExtractImageOption => ExtractImageOptions.LoadingScreen;
 
-    protected override string SubDirectory => "loadingscreens";
+    protected override string Subdirectory => "loadingscreens";
 
     protected override void SetImages(Map element)
     {

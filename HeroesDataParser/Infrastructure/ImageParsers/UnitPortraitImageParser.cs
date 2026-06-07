@@ -9,7 +9,7 @@ public class UnitPortraitImageParser : ImageParserBase<Unit>
 
     public override ExtractImageOptions ExtractImageOption => ExtractImageOptions.UnitPortrait;
 
-    protected override string SubDirectory => "unitportraits";
+    protected override string Subdirectory => "unitportraits";
 
     protected override void SetImages(Unit element)
     {

@@ -135,7 +135,7 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IAbilityParser, AbilityParser>();
             services.AddSingleton<ITalentParser, TalentParser>();
 
-            services.AddKeyedSingleton<IDataParser<Announcer>, AnnouncerParser>(typeof(Announcer));
+            services.AddKeyedSingleton<IDataParser<AnnouncerPack>, AnnouncerPackParser>(typeof(AnnouncerPack));
             services.AddKeyedSingleton<IDataParser<Banner>, BannerParser>(typeof(Banner));
             services.AddKeyedSingleton<IDataParser<Boost>, BoostParser>(typeof(Boost));
             services.AddKeyedSingleton<IDataParser<Bundle>, BundleParser>(typeof(Bundle));
@@ -165,7 +165,7 @@ public static class ServiceCollectionExtensions
         private IServiceCollection AddImageWriters()
         {
             // add all image writers
-            services.AddKeyedSingleton<IImageParser<Announcer>, AnnouncerImageParser>(typeof(Announcer));
+            services.AddKeyedSingleton<IImageParser<AnnouncerPack>, AnnouncerPackImageParser>(typeof(AnnouncerPack));
             services.AddKeyedSingleton<IImageParser<Bundle>, BundleImageParser>(typeof(Bundle));
             services.AddKeyedSingleton<IImageParser<Emoticon>, EmoticonImageParser>(typeof(Emoticon));
             services.AddKeyedSingleton<IImageParser<MatchAward>, MatchAwardImageParser>(typeof(MatchAward));

@@ -36,7 +36,7 @@ public class ConfigurationLoaderServiceTests
             },
             Extractors =
             {
-                { ExtractDataOptions.Announcer, new ExtractorOptions() { IsEnabled = false, Images = false } },
+                { ExtractDataOptions.AnnouncerPack, new ExtractorOptions() { IsEnabled = false, Images = false } },
                 { ExtractDataOptions.VoiceLine, new ExtractorOptions() { IsEnabled = true, Images = true } },
                 { ExtractDataOptions.Boost, new ExtractorOptions() { IsEnabled = true, Images = false } },
                 { ExtractDataOptions.Bundle, new ExtractorOptions() { IsEnabled = false, Images = true } },
@@ -85,7 +85,7 @@ public class ConfigurationLoaderServiceTests
             },
             Extractors =
             {
-                { ExtractDataOptions.Announcer, new ExtractorOptions() { IsEnabled = false, Images = false } },
+                { ExtractDataOptions.AnnouncerPack, new ExtractorOptions() { IsEnabled = false, Images = false } },
             },
         });
 

@@ -5,7 +5,7 @@
     "itemsType": "GameStrings",
     "dataTypes": [
       "HeroData",
-      "AnnouncerData"
+      "AnnouncerPackData"
     ],
     "gameStringText": {
       "locale": "ENUS",
@@ -4103,7 +4103,7 @@
         "ZuljinVoodooShuffle|ZuljinVoodooShuffle|Active": "Activate to remove Roots and Slows"
       }
     },
-    "announcer": {
+    "announcerPack": {
       "name": {
         "AbathurA": "Abathur Announcer",
         "Adjutant": "Adjutant Announcer",

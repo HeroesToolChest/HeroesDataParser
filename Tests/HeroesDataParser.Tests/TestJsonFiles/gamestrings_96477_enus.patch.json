@@ -6,7 +6,7 @@
   },
   {
     "op": "add",
-    "path": "/items/announcer/name/CommodoreFord",
+    "path": "/items/announcerPack/name/CommodoreFord",
     "value": "Commodore Ford"
   }
 ]

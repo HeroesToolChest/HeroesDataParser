@@ -9,7 +9,7 @@ public class UnitAbilityImageParser : UnitAbilityTalentImageParser
 
     public override ExtractImageOptions ExtractImageOption => ExtractImageOptions.Ability;
 
-    protected override string SubDirectory => "abilities";
+    protected override string Subdirectory => "abilities";
 
     protected override void SetImages(Unit element)
     {

@@ -1,9 +1,10 @@
 {
   "meta": {
-    "heroesVersion": "2.55.16.96881",
+    "heroesVersion": "2.55.15.96477",
     "hdpVersion": "5.0.0",
     "itemsType": "Data",
-    "dataType": "AnnouncerData",
+    "dataType": "AnnouncerPackData",
+    "mapName": "Blackheart's Revenge",
     "localizedText": "None",
     "gameStringText": {
       "locale": "ENUS",
@@ -17,7 +18,7 @@
         "preserved": false
       }
     },
-    "totalItems": 74
+    "totalItems": 75
   },
   "items": {
     "AbathurA": {
@@ -184,6 +185,16 @@
       "gender": "Male",
       "heroId": "AI",
       "image": "storm_ui_announcer_kevinjohnson.png"
+    },
+    "CommodoreFord": {
+      "name": "Commodore Ford",
+      "hyperlinkId": "##heroid##Announcer",
+      "attributeId": "CF01",
+      "rarity": "Epic",
+      "releaseDate": "2014-03-13",
+      "category": "Default",
+      "gender": "Unknown",
+      "heroId": "##heroid##"
     },
     "Cook": {
       "name": "Cook Announcer",

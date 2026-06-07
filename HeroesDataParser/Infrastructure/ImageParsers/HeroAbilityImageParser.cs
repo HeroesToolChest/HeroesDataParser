@@ -9,7 +9,7 @@ public class HeroAbilityImageParser : HeroAbilityTalentImageParser
 
     public override ExtractImageOptions ExtractImageOption => ExtractImageOptions.Ability;
 
-    protected override string SubDirectory => "abilities";
+    protected override string Subdirectory => "abilities";
 
     protected override void SetImages(Hero element)
     {

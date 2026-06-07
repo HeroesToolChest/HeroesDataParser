@@ -47,7 +47,7 @@ public class PortraitBattleNetCacheCommandTests
         // act
         CommandAppResult result = app.Run(
         [
-            "-c", Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            "-c", Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
         ]);
 
         // assert
@@ -65,7 +65,7 @@ public class PortraitBattleNetCacheCommandTests
         // act
         CommandAppResult result = app.Run(
         [
-            "-o", Path.Combine("TestJsonFiles", "announcerdata_96477_enus.json"),
+            "-o", Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
         ]);
 
         // assert

@@ -3,9 +3,20 @@
     "heroesVersion": "2.55.16.96881",
     "hdpVersion": "5.0.0",
     "itemsType": "Data",
-    "dataType": "AnnouncerData",
-    "mapName": "Battlefield of Eternity",
+    "dataType": "AnnouncerPackData",
     "localizedText": "None",
+    "gameStringText": {
+      "locale": "ENUS",
+      "textType": "RawText",
+      "constantVars": {
+        "replaced": false,
+        "preserved": false
+      },
+      "styleVars": {
+        "replaced": false,
+        "preserved": false
+      }
+    },
     "totalItems": 74
   },
   "items": {

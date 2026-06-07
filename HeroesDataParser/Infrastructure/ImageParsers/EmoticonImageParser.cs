@@ -9,7 +9,7 @@ public class EmoticonImageParser : ImageParserBase<Emoticon>
 
     public override ExtractImageOptions ExtractImageOption => ExtractImageOptions.Emoticon;
 
-    protected override string SubDirectory => "emoticons";
+    protected override string Subdirectory => "emoticons";
 
     protected override void SetImages(Emoticon element)
     {
