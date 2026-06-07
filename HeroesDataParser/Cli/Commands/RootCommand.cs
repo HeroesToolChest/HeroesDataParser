@@ -65,15 +65,24 @@ public class RootCommand : AsyncCommand<RootSettings>
 
         if (settings.OutputDirectory is not null)
             _options.OutputDirectory = settings.OutputDirectory.FullName;
+        else
+            _options.OutputDirectory = ".";
 
         if (!string.IsNullOrWhiteSpace(settings.SetHeroesVersion) && HeroesDataVersion.TryParse(settings.SetHeroesVersion, out HeroesDataVersion? heroesDataVersion))
         {
-            HeroesVersionOptions heroesVersionOptions = _options.HeroesVersion;
-            heroesVersionOptions.Major = heroesDataVersion.Major;
-            heroesVersionOptions.Minor = heroesDataVersion.Minor;
-            heroesVersionOptions.Revision = heroesDataVersion.Revision;
-            heroesVersionOptions.Build = heroesDataVersion.Build;
-            heroesVersionOptions.IsPtr = heroesDataVersion.IsPtr;
+            _options.HeroesVersion.Major = heroesDataVersion.Major;
+            _options.HeroesVersion.Minor = heroesDataVersion.Minor;
+            _options.HeroesVersion.Revision = heroesDataVersion.Revision;
+            _options.HeroesVersion.Build = heroesDataVersion.Build;
+            _options.HeroesVersion.IsPtr = heroesDataVersion.IsPtr;
+        }
+        else
+        {
+            _options.HeroesVersion.Major = -1;
+            _options.HeroesVersion.Minor = -1;
+            _options.HeroesVersion.Revision = -1;
+            _options.HeroesVersion.Build = -1;
+            _options.HeroesVersion.IsPtr = true;
         }
 
         foreach (string extractor in settings.Extractors)
