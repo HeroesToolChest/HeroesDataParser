@@ -13,7 +13,7 @@ Extracts the following:
  - Mounts
  - Banners
  - Sprays (includes images)
- - Announcers (includes images)
+ - Announcer Packs (includes images)
  - Voice Lines (includes images)
  - Portrait Packs
  - Reward Portraits (images involve manual extraction, read [wiki](https://github.com/HeroesToolChest/HeroesDataParser/wiki/Reward-Portrait-Extraction))
@@ -182,7 +182,7 @@ Map specific JSON files will be created in the `maps` subdirectory of the `data`
 `mount` - extracts mounts  
 `banner` - extracts banners  
 `spray` - extracts sprays  
-`announcer` - extracts announcers  
+`announcerpack` - extracts announcer packs  
 `voiceline` - extracts voicelines  
 `portraitpack` - extracts portrait packs  
 `rewardportrait` - extracts reward portraits  
@@ -214,7 +214,7 @@ output-directory/
 ```
 Example of having map extractor along with two other data extractors:
 ```
--e hero -e announcer -e map
+-e hero -e announcerpack -e map
 ```
 The output directory structure:
 ```
@@ -222,12 +222,12 @@ output-directory/
 └── data/
     ├── maps/
     │   ├── blackhearts_revenge/
-    │   │   ├── announcerdata_20000_enus.patch.json
+    │   │   ├── announcerpackdata_20000_enus.patch.json
     │   │   └── herodata_20000_enus.patch.json
     │   ├── lost_cavern/
     │   │   └── herodata_20000_enus.patch.json
     │   ├── ...
-    ├── announcerdata_20000_enus.json
+    ├── announcerpackdata_20000_enus.json
     ├── herodata_20000_enus.json
     └── mapdata_20000_enus.json
 
@@ -481,7 +481,7 @@ The file name of the created (patched) file is based on the patch file name. It 
 
 Example command of applying a patch where the patch file is in a different directory:
 ```
-json-patch apply "path\to\announcerdata_20000_enus.json" "path\to\patch\announcerdata_96477_enus.patch.json"
+json-patch apply "path\to\announcerpackdata_20000_enus.json" "path\to\patch\announcerpackdata_96477_enus.patch.json"
 ```
 
 ***
@@ -494,7 +494,7 @@ Create a JSON patch file from two JSON files
 USAGE:
     heroesdataparser json-patch create <old-file-path> <new-file-path> [OPTIONS]
 
-ARGUMENTS:
+ARGUMENTS:  
     <old-file-path>    Path to the original JSON file
     <new-file-path>    Path to the updated JSON file
 
@@ -508,7 +508,7 @@ The file name of the created patch file is based on the new file name. It will b
 
 Example command of creating JSON patch file where the new file is in a different directory than the old file:
 ```
-json-patch create "path\to\old\announcerdata_20000_enus.json" "path\to\new\announcerdata_20000_enus.json"
+json-patch create "path\to\old\announcerpackdata_20000_enus.json" "path\to\new\announcerpackdata_20000_enus.json"
 ```
 
 ***
@@ -582,9 +582,9 @@ For option `-e, --extractor` at least extractor one is required and the extracto
 
 The data JSON schema files will be created in the `schema` subdirectory of the output directory.
 
-Example command of exporting the hero and announcer data schema:
+Example command of exporting the hero and announcer pack data schema:
 ```
-schema export data -e hero -e announcer
+schema export data -e hero -e announcerpack
 ```
 
 Example command of exporting all the data schemas:
