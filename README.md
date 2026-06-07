@@ -805,6 +805,11 @@ Example command:
 portrait extract-auto "path\to\rewardportraitdata_96477_enus.json" -c "path\to\battlenet\cache"
 ```
 
+## Additional Settings
+`appsettings.json` contains additional settings that cannot be configured through the command line.
+
+Instead of directly modifying `appsettings.json`, create a file named `appsettings.Production.json` to override these settings.
+
 ## Developing
 To build and compile the code, it is recommended to use the latest version of [Visual Studio 2026 or Visual Studio Code](https://visualstudio.microsoft.com/downloads/).
 
