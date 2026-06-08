@@ -10,7 +10,7 @@ public enum ExtractImageOptions
     Ability = 1 << 3,
     AbilityTalent = 1 << 4,
     MatchAward = 1 << 5,
-    Announcer = 1 << 6,
+    AnnouncerPack = 1 << 6,
     Spray = 1 << 7,
     VoiceLine = 1 << 8,
     Emoticon = 1 << 9,

@@ -7,7 +7,7 @@ public class AnnouncerPackImageParser : ImageParserBase<AnnouncerPack>
     {
     }
 
-    public override ExtractImageOptions ExtractImageOption => ExtractImageOptions.Announcer;
+    public override ExtractImageOptions ExtractImageOption => ExtractImageOptions.AnnouncerPack;
 
     protected override string Subdirectory => "announcers";
 
