@@ -162,6 +162,12 @@ async Task CopyOverMapFiles(string outputMapsDirectory, string heroesdataMapsDir
 {
     SortedDictionary<string, object> patchFilesByBattleground = [];
 
+    if (!Directory.Exists(outputMapsDirectory))
+    {
+        Console.WriteLine($"Warning: '{outputMapsDirectory}' does not exist, skipping map files");
+        return;
+    }
+    
     IEnumerable<string> battlegroundDirectories = Directory.EnumerateDirectories(outputMapsDirectory);
 
     // loop through all the map directories in the ouput maps directory

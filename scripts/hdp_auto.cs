@@ -112,9 +112,9 @@ else
     await ExecuteHDPNoCapture($"game -s \"{installedHeroesDirectory}\" {otherOptions}");
 
 if (jsonCreate == "full")
-    await ExecuteHeroesDataCreateFull($"{outputHeroesVersionDirectory} {heroesdataDirectory} {hotsVersion}");
+    await ExecuteHeroesDataCreateFull($"{outputHeroesVersionDirectory} {heroesdataDirectory} {hotsVersion} {args[6]}");
 else if (jsonCreate == "patch")
-    await ExecuteHeroesDataCreatePatch($"{outputHeroesVersionDirectory} {heroesdataDirectory} {hotsVersion}");
+    await ExecuteHeroesDataCreatePatch($"{outputHeroesVersionDirectory} {heroesdataDirectory} {hotsVersion} {args[6]}");
 
 // update the version file with the new version
 versionJsonNode["date"] = DateTimeOffset.UtcNow.ToString("O");
