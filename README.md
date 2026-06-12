@@ -277,7 +277,7 @@ Specifies the format of the strings that are parsed from the gamestring files. D
 Some of these may require additional parsing for a friendly readable output. Visit the [wiki page](https://github.com/HeroesToolChest/HeroesDataParser/wiki/Parsing-GameStrings) for parsing tips.
 
 `0` - `RawText`  
-The raw output of the gamestring. Contains the colored tags `<c>` (constant) or `<s>` (style), scaling data `~~x~~`, and newlines `<n/>`. It can also contain error tags `##ERROR##`.
+The raw output of the gamestring. Contains xml tags, scaling data `~~x~~`, and newlines `<n/>`. It can also contain error tags `##ERROR##`.
 
 Example:  
 ```
@@ -285,7 +285,7 @@ Fires a laser that deals <c val="#TooltipNumbers">200</c><c val="#ColorGray">~~0
 ```
 
 `1` - `PlainText`   
-Plain text without any colored tags, scaling info, or newlines. Newlines are replaced with a single space.
+No xml tags, scaling info, or newlines. Newlines are replaced with a single space.
 
 Example:  
 ```
@@ -317,7 +317,7 @@ Fires a laser that deals 200 (+4% per level) damage.<n/>Does not affect minions.
 ```
 
 `5` - `ColoredText`    
-Contains the color tags and newlines, when parsed this is what appears ingame for text and tooltips.
+Contains xml tags and newlines, when parsed this is what appears ingame for text and tooltips.
 
 Example:  
 ```
@@ -547,7 +547,7 @@ Overwriting an existing file with the created file is not allowed by default, en
 > [!NOTE]
 > Although it is allowed to format _from_ and _to_ any gamestring format types, some conversions are not reversible or may not produce the expected result. 
 > 
-> For example, if a file with gamestrings in `RawText` format is converted to `PlainText`, the gamestrings cannot be converted back to `RawText` since the necessary information (such as color tags and scaling data) is lost during the conversion.
+> For example, if a file with gamestrings in `RawText` format is converted to `PlainText`, the gamestrings cannot be converted back to `RawText` since the necessary information (such as xml tags and scaling data) is lost during the conversion.
 > Likewise, converting from `ColoredText` to `ColoredTextWithScaling` will not add scaling data since that information is not present in the `ColoredText` format.
 > 
 > This command is therefore best used to convert from `RawText` to any other format.
