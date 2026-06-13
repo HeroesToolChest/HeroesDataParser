@@ -16,7 +16,7 @@ public class RewardPortraitParser : StoreItemParserBase<RewardPortrait>
         if (stormElement.DataValues.TryGetElementDataAt("DescriptionUnearned", out StormElementData? descriptionUnearnedData))
             collectionObject.DescriptionUnearned = GameStringTextService.GetGameStringTextFromId(descriptionUnearnedData.Value.GetString());
 
-        if (stormElement.DataValues.TryGetElementDataAt("PortraitPackId", out StormElementData? portraitPackIdData))
+        if (stormElement.DataValues.TryGetElementDataAt("PortraitPack", out StormElementData? portraitPackIdData))
             collectionObject.PortraitPackId = portraitPackIdData.Value.GetString();
 
         if (stormElement.DataValues.TryGetElementDataAt("Hero", out StormElementData? heroIdData))
