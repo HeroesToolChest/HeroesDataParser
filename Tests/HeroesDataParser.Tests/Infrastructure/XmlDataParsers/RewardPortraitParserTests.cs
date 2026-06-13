@@ -47,6 +47,7 @@ public class RewardPortraitParserTests
         rewardPortrait.TextureSheet.Rows.Should().Be(6);
         rewardPortrait.Image.Should().Be("storm_portrait_sylvanasbasic.png");
         rewardPortrait.IconSlot.Should().Be(7);
+        rewardPortrait.PortraitPackId.Should().BeNull();
     }
 
     [TestMethod]
@@ -75,5 +76,6 @@ public class RewardPortraitParserTests
         rewardPortrait.TextureSheet.Rows.Should().Be(6);
         rewardPortrait.Image.Should().Be("storm_portrait_abathurtoys18portrait.png");
         rewardPortrait.IconSlot.Should().Be(15);
+        rewardPortrait.PortraitPackId.Should().Be("AbathurToys18Portrait");
     }
 }
