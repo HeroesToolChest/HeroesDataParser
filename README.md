@@ -29,9 +29,9 @@ Extracts the following:
 Visit the [wiki](https://github.com/HeroesToolChest/HeroesDataParser/wiki) for more information.
 
 ### Other Helpful Repos
-- [Heroes Data](https://github.com/HeroesToolChest/heroes-data2) contains the extracted data files
+- [Heroes Data](https://github.com/HeroesToolChest/heroes-data2) contains the extracted data and schema files
 - [Heroes Images](https://github.com/HeroesToolChest/heroes-images) complements Heroes Data by providing the extracted image files
-- [Heroes Element](https://github.com/HeroesToolChest/Heroes.Element) is a .NET library to parse the extracted JSON files
+- [Heroes Element](https://github.com/HeroesToolChest/Heroes.Element) is a .NET library to read the extracted JSON files
 - [Heroes XmlData](https://github.com/HeroesToolChest/Heroes.XmlData) is a .NET library which is used to parse the Heroes of the Storm CASC storage and extract the raw data files
 
 ## Installation
