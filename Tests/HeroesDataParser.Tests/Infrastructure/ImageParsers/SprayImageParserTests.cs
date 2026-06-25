@@ -29,7 +29,7 @@ public class SprayImageParserTests : ImageWriterBase
             Image = "spray1.png",
         };
 
-        (spray as IImagePath).ImagePath = new RelativeFilePath
+        (spray as IImagePath).ImagePath = new ImagePath
         {
             FilePath = Path.Combine(TestImagesDirectory, "spray1.png"),
         };
@@ -63,7 +63,7 @@ public class SprayImageParserTests : ImageWriterBase
             Image = "classic21_diablo_spray.png",
         };
 
-        (spray as IImagePath).ImagePath = new RelativeFilePath
+        (spray as IImagePath).ImagePath = new ImagePath
         {
             FilePath = Path.Combine(TestImagesDirectory, "classic21_diablo_spray.dds"),
         };
@@ -110,11 +110,11 @@ public class SprayImageParserTests : ImageWriterBase
             },
         };
 
-        (sprayAPNG as IImagePath).ImagePath = new RelativeFilePath
+        (sprayAPNG as IImagePath).ImagePath = new ImagePath
         {
             FilePath = Path.Combine(TestImagesDirectory, "storm_lootspray_animated_craft20_lowbattery.dds"),
         };
-        (sprayGIF as IImagePath).ImagePath = new RelativeFilePath
+        (sprayGIF as IImagePath).ImagePath = new ImagePath
         {
             FilePath = Path.Combine(TestImagesDirectory, "storm_lootspray_animated_craft20_lowbattery.dds"),
         };

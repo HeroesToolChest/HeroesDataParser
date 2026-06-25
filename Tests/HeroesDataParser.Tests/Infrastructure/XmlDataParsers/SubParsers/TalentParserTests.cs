@@ -67,7 +67,7 @@ public class TalentParserTests
         talent.ButtonElementId.Should().Be("AbathurSymbiotePressurizedGlandsTalent");
         talent.Icon.Should().Be("storm_ui_icon_abathur_spikeburst.png");
         talent.IconPath!.FilePath.Should().NotBeNullOrWhiteSpace();
-        talent.IconPath!.MpqFilePath.Should().BeNull();
+        talent.IconPath!.MpqEntryPath.Should().BeNull();
         talent.Name!.RawText.Should().Be("Pressurized Glands");
         talent.Column.Should().Be(1);
         talent.ShortText!.RawText.Should().Be("Increases Spike Burst range and decreases cooldown");

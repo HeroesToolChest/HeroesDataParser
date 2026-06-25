@@ -181,20 +181,20 @@ public class LocalizedTextExportService : ILocalizedTextExportService
         using FileStream gameStringFileStream = File.OpenRead(_options.GameStringFilePath!);
         using JsonDocument gameStringJsonDocument = await JsonDocument.ParseAsync(gameStringFileStream);
 
-        using GameStringDocument gameStringDocument = GameStringDocument.Load(gameStringJsonDocument);
+        using GameStringsDocument gameStringsDocument = GameStringsDocument.Load(gameStringJsonDocument);
 
         if (ShouldSkipFileWrite(outputFilePath, false))
             return null;
 
-        if (!IsValidateGameStringFile(meta, gameStringDocument.Meta))
+        if (!IsValidateGameStringFile(meta, gameStringsDocument.Meta))
             return null;
 
         await dataOutputFileTask.Invoke();
 
-        AddToSerializer(MergeItems(gameStringDocument));
+        AddToSerializer(MergeItems(gameStringsDocument));
 
         // add the "new" data type to the gamestrings meta
-        MetaGameStringProperties metaGameStringProperties = gameStringDocument.Meta;
+        MetaGameStringProperties metaGameStringProperties = gameStringsDocument.Meta;
         metaGameStringProperties.DataTypes.Add(meta.DataType);
 
         return metaGameStringProperties;
@@ -303,9 +303,9 @@ public class LocalizedTextExportService : ILocalizedTextExportService
         return false;
     }
 
-    private GameStringItemDictionary MergeItems(GameStringDocument gameStringDocument)
+    private GameStringItemDictionary MergeItems(GameStringsDocument gameStringsDocument)
     {
-        GameStringItemDictionary currentItems = gameStringDocument.GetItems();
+        GameStringItemDictionary currentItems = gameStringsDocument.GetItems();
         GameStringItemDictionary newItems = _gameStringSerializerService.DataGameStringItemDictionary;
 
         // combine both dictionaries, for duplicate keys, newItems will overwrite currentItems

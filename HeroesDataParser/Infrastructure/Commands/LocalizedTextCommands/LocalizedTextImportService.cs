@@ -44,7 +44,7 @@ public class LocalizedTextImportService : ILocalizedTextImportService
 
         MetaDataProperties updatedMetaProperties = elementDocument.Meta;
         updatedMetaProperties.LocalizedText = LocalizedText.None;
-        updatedMetaProperties.GameStringTextProperties = elementDocument.GameStringDocument!.Meta.GameStringTextProperties;
+        updatedMetaProperties.GameStringTextProperties = elementDocument.GameStringsDocument!.Meta.GameStringTextProperties;
 
         return new RootJsonDataElement()
         {
@@ -61,9 +61,9 @@ public class LocalizedTextImportService : ILocalizedTextImportService
         using FileStream gameStringFileStream = File.OpenRead(_options.GameStringsFilePath);
         using JsonDocument gameStringJsonDocument = await JsonDocument.ParseAsync(gameStringFileStream);
 
-        using GameStringDocument gameStringDocument = GameStringDocument.Load(gameStringJsonDocument);
+        using GameStringsDocument gameStringsDocument = GameStringsDocument.Load(gameStringJsonDocument);
 
-        using IElementDocument elementDocument = DataDocument.Load(dataJsonDocument, gameStringDocument);
+        using IElementDocument elementDocument = DataDocument.Load(dataJsonDocument, gameStringsDocument);
 
         if (!ValidateElementDocument(elementDocument))
             return null;
@@ -75,32 +75,32 @@ public class LocalizedTextImportService : ILocalizedTextImportService
     {
         if (!elementDocument.IsMatchedHdpVersion)
         {
-            _logger.LogError("The HDP version of the data file does not match the version in the gamestrings file. Data file HDP version: {DataFileHdpVersion}, Gamestrings file HDP version: {GameStringsFileHdpVersion}", elementDocument.Meta.HdpVersion, elementDocument.GameStringDocument!.Meta.HdpVersion);
-            _console.MarkupLineInterpolated($"[red]The HDP version of the data file does not match the version in the gamestrings file. Data file HDP version: {elementDocument.Meta.HdpVersion}, Gamestrings file HDP version: {elementDocument.GameStringDocument!.Meta.HdpVersion}[/]");
+            _logger.LogError("The HDP version of the data file does not match the version in the gamestrings file. Data file HDP version: {DataFileHdpVersion}, Gamestrings file HDP version: {GameStringsFileHdpVersion}", elementDocument.Meta.HdpVersion, elementDocument.GameStringsDocument!.Meta.HdpVersion);
+            _console.MarkupLineInterpolated($"[red]The HDP version of the data file does not match the version in the gamestrings file. Data file HDP version: {elementDocument.Meta.HdpVersion}, Gamestrings file HDP version: {elementDocument.GameStringsDocument!.Meta.HdpVersion}[/]");
 
             return false;
         }
 
         if (!elementDocument.IsMatchedHeroesVersion)
         {
-            _logger.LogError("The Heroes of the Storm version of the data file does not match the version in the gamestrings file. Data file Heroes version: {DataFileHeroesVersion}, Gamestrings file Heroes version: {GameStringsFileHeroesVersion}", elementDocument.Meta.HeroesVersion, elementDocument.GameStringDocument!.Meta.HeroesVersion);
-            _console.MarkupLineInterpolated($"[red]The Heroes of the Storm version of the data file does not match the version in the gamestrings file. Data file Heroes version: {elementDocument.Meta.HeroesVersion}, Gamestrings file Heroes version: {elementDocument.GameStringDocument!.Meta.HeroesVersion}[/]");
+            _logger.LogError("The Heroes of the Storm version of the data file does not match the version in the gamestrings file. Data file Heroes version: {DataFileHeroesVersion}, Gamestrings file Heroes version: {GameStringsFileHeroesVersion}", elementDocument.Meta.HeroesVersion, elementDocument.GameStringsDocument!.Meta.HeroesVersion);
+            _console.MarkupLineInterpolated($"[red]The Heroes of the Storm version of the data file does not match the version in the gamestrings file. Data file Heroes version: {elementDocument.Meta.HeroesVersion}, Gamestrings file Heroes version: {elementDocument.GameStringsDocument!.Meta.HeroesVersion}[/]");
 
             return false;
         }
 
         if (!elementDocument.IsMatchedDataType)
         {
-            _logger.LogError("The data types in the gamestrings file does not contain the data type of the data file. Data file data type: {DataFileDataType}, Gamestrings file data types: {@GameStringsFileDataTypes}", elementDocument.Meta.DataType, elementDocument.GameStringDocument!.Meta.DataTypes);
-            _console.MarkupLineInterpolated($"[red]The data types in the gamestrings file does not contain the data type of the data file. Data file data type: {elementDocument.Meta.DataType}, Gamestrings file data types: {string.Join(", ", elementDocument.GameStringDocument!.Meta.DataTypes)}[/]");
+            _logger.LogError("The data types in the gamestrings file does not contain the data type of the data file. Data file data type: {DataFileDataType}, Gamestrings file data types: {@GameStringsFileDataTypes}", elementDocument.Meta.DataType, elementDocument.GameStringsDocument!.Meta.DataTypes);
+            _console.MarkupLineInterpolated($"[red]The data types in the gamestrings file does not contain the data type of the data file. Data file data type: {elementDocument.Meta.DataType}, Gamestrings file data types: {string.Join(", ", elementDocument.GameStringsDocument!.Meta.DataTypes)}[/]");
 
             return false;
         }
 
         if (!elementDocument.IsMatchedMapName)
         {
-            _logger.LogError("The map name of the data file does not match the map name in the gamestrings file. Data file map name: {DataFileMapName}, Gamestrings file map name: {GameStringsFileMapName}", elementDocument.Meta.MapName, elementDocument.GameStringDocument!.Meta.MapName);
-            _console.MarkupLineInterpolated($"[red]The map name of the data file does not match the map name in the gamestrings file. Data file map name: {elementDocument.Meta.MapName ?? "null"}, Gamestrings file map name: {elementDocument.GameStringDocument!.Meta.MapName ?? "null"}[/]");
+            _logger.LogError("The map name of the data file does not match the map name in the gamestrings file. Data file map name: {DataFileMapName}, Gamestrings file map name: {GameStringsFileMapName}", elementDocument.Meta.MapName, elementDocument.GameStringsDocument!.Meta.MapName);
+            _console.MarkupLineInterpolated($"[red]The map name of the data file does not match the map name in the gamestrings file. Data file map name: {elementDocument.Meta.MapName ?? "null"}, Gamestrings file map name: {elementDocument.GameStringsDocument!.Meta.MapName ?? "null"}[/]");
 
             return false;
         }

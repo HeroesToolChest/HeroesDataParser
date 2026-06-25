@@ -35,7 +35,7 @@ public class SprayParser : LoadoutItemParserBase<Spray>
             };
         }
 
-        ImageFilePath? imageFilePath;
+        ImageFileNamePath? imageFilePath;
 
         if (collectionObject.Animation is not null)
             imageFilePath = GetAnimatedImageFilePath(texture);

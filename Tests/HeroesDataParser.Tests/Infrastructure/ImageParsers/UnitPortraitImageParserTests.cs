@@ -29,9 +29,9 @@ public class UnitPortraitImageParserTests : ImageWriterBase
             UnitPortraits = new UnitPortrait()
             {
                 MiniMapIcon = "miniMapIcon1.png",
-                MiniMapIconPath = new RelativeFilePath { FilePath = Path.Combine(TestImagesDirectory, "minimap_icon1.dds") },
+                MiniMapIconPath = new ImagePath { FilePath = Path.Combine(TestImagesDirectory, "minimap_icon1.dds") },
                 TargetInfoPanel = "targetInfoPanel1.png",
-                TargetInfoPanelPath = new RelativeFilePath { FilePath = Path.Combine(TestImagesDirectory, "target_info_panel1.dds") },
+                TargetInfoPanelPath = new ImagePath { FilePath = Path.Combine(TestImagesDirectory, "target_info_panel1.dds") },
             },
         });
 
@@ -67,9 +67,9 @@ public class UnitPortraitImageParserTests : ImageWriterBase
             UnitPortraits = new UnitPortrait()
             {
                 MiniMapIcon = "storm_ui_ingame_targetinfopanel_unit_abathur_toxicnest.png",
-                MiniMapIconPath = new RelativeFilePath { FilePath = Path.Combine(TestImagesDirectory, "storm_ui_ingame_targetinfopanel_unit_abathur_toxicnest.dds") },
+                MiniMapIconPath = new ImagePath { FilePath = Path.Combine(TestImagesDirectory, "storm_ui_ingame_targetinfopanel_unit_abathur_toxicnest.dds") },
                 TargetInfoPanel = "storm_ui_hud_volskaya_minimap_obj_b.png",
-                TargetInfoPanelPath = new RelativeFilePath { FilePath = Path.Combine(TestImagesDirectory, "storm_ui_hud_volskaya_minimap_obj_b.dds") },
+                TargetInfoPanelPath = new ImagePath { FilePath = Path.Combine(TestImagesDirectory, "storm_ui_hud_volskaya_minimap_obj_b.dds") },
             },
         });
 

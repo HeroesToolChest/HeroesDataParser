@@ -216,12 +216,12 @@ public class HeroParserTests
                 argUnit.Id = "HeroAbathur";
                 argUnit.Description = null;
                 argUnit.UnitPortraits.MiniMapIcon = "minimap_icon.png";
-                argUnit.UnitPortraits.MiniMapIconPath = new RelativeFilePath()
+                argUnit.UnitPortraits.MiniMapIconPath = new ImagePath()
                 {
                     FilePath = Path.Join("Assets", "minimap_icon.dds"),
                 };
                 argUnit.UnitPortraits.TargetInfoPanel = "target_info_panel.png";
-                argUnit.UnitPortraits.TargetInfoPanelPath = new RelativeFilePath()
+                argUnit.UnitPortraits.TargetInfoPanelPath = new ImagePath()
                 {
                     FilePath = Path.Join("Assets", "target_info_panel.dds"),
                 };

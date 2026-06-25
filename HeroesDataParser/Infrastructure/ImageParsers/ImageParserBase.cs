@@ -95,12 +95,12 @@ public abstract class ImageParserBase<TElement> : IImageParser<TElement>
         _imageWriterFiles.Add(imageWriterFile);
     }
 
-    private protected void VerifyFileExists(RelativeFilePath relativeFilePath)
+    private protected void VerifyFileExists(ImagePath imagePath)
     {
-        if (!HeroesXmlLoaderService.HeroesXmlLoader.FileExists(relativeFilePath.FilePath, relativeFilePath.MpqFilePath))
+        if (!HeroesXmlLoaderService.HeroesXmlLoader.FileExists(imagePath.FilePath, imagePath.MpqEntryPath))
         {
-            Logger.LogWarning("Unable to to create file because {@ImageWriterPath} does not exist", relativeFilePath);
-            throw new FileNotFoundException("Image file not found.", relativeFilePath.FilePath);
+            Logger.LogWarning("Unable to to create file because {@ImagePath} does not exist", imagePath);
+            throw new FileNotFoundException("Image file not found.", imagePath.FilePath);
         }
     }
 
@@ -108,14 +108,16 @@ public abstract class ImageParserBase<TElement> : IImageParser<TElement>
     /// Processes a static image.
     /// </summary>
     /// <param name="imageName">The file name (no path) of the created image.</param>
-    /// <param name="relativeFilePath">The path that points to the location in CASC or on disk.</param>
+    /// <param name="imagePath">The path that points to the location in CASC or on disk.</param>
     /// <param name="directoryPath">The output directory of the create image (no file name).</param>
     /// <returns>A <see cref="Task"/>.</returns>
-    private protected Task ProcessStaticImage(string imageName, RelativeFilePath relativeFilePath, string directoryPath)
+    private protected Task ProcessStaticImage(string imageName, ImagePath imagePath, string directoryPath)
     {
-        return ProcessImageInternal(imageName, relativeFilePath, directoryPath, (filePath, stream) =>
+        return ProcessImageInternal(imageName, imagePath, directoryPath, (filePath, stream) =>
         {
-            if (relativeFilePath.FilePath.EndsWith(".dds", StringComparison.OrdinalIgnoreCase))
+            string pathToImage = imagePath.IsMpqEntry ? imagePath.MpqEntryPath : imagePath.FilePath;
+
+            if (pathToImage.EndsWith(".dds", StringComparison.OrdinalIgnoreCase))
             {
                 using DDSImage ddsImage = new(stream);
 
@@ -134,13 +136,13 @@ public abstract class ImageParserBase<TElement> : IImageParser<TElement>
     /// Process a general image.
     /// </summary>
     /// <param name="imageName">The file name (no path) of the created image.</param>
-    /// <param name="relativeFilePath">The path that points to the location in CASC or on disk.</param>
+    /// <param name="imagePath">The path that points to the location in CASC or on disk.</param>
     /// <param name="directoryPath">The output directory of the create image (no file name).</param>
     /// <param name="processImage">The function that processes the image with the inputs <paramref name="ddsImage"/> and <paramref name="outputFilePath"/>.</param>
     /// <returns>A <see cref="Task"/>.</returns>
-    private protected Task ProcessImage(string imageName, RelativeFilePath relativeFilePath, string directoryPath, Func<DDSImage, string, Task> processImage)
+    private protected Task ProcessImage(string imageName, ImagePath imagePath, string directoryPath, Func<DDSImage, string, Task> processImage)
     {
-        return ProcessImageInternal(imageName, relativeFilePath, directoryPath, (outputFilePath, stream) =>
+        return ProcessImageInternal(imageName, imagePath, directoryPath, (outputFilePath, stream) =>
         {
             using DDSImage ddsImage = new(stream);
 
@@ -148,15 +150,15 @@ public abstract class ImageParserBase<TElement> : IImageParser<TElement>
         });
     }
 
-    private Task ProcessImageInternal(string imageName, RelativeFilePath relativeFilePath, string directoryPath, Func<string, Stream, Task> processImage)
+    private Task ProcessImageInternal(string imageName, ImagePath imagePath, string directoryPath, Func<string, Stream, Task> processImage)
     {
-        VerifyFileExists(relativeFilePath);
+        VerifyFileExists(imagePath);
 
         string filePath = Path.Combine(directoryPath, imageName);
 
-        using Stream stream = _heroesXmlLoaderService.HeroesXmlLoader.GetFile(relativeFilePath.FilePath, relativeFilePath.MpqFilePath);
+        using Stream stream = _heroesXmlLoaderService.HeroesXmlLoader.GetFile(imagePath.FilePath, imagePath.MpqEntryPath);
 
-        _logger.LogTrace("Writing image file {@RelativeFilePath} to {OutputFilePath}", relativeFilePath, filePath);
+        _logger.LogTrace("Writing image file {@ImagePath} to {OutputFilePath}", imagePath, filePath);
 
         return processImage.Invoke(filePath, stream);
     }

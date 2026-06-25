@@ -29,29 +29,29 @@ public class HeroAbilityImageParserTests : ImageWriterBase
         hero.AddAbility(new Ability()
         {
             Icon = "ability1.png",
-            IconPath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "ability_icon1.dds") },
+            IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "ability_icon1.dds") },
         });
         hero.AddAbility(new Ability()
         {
             Icon = "ability2.png",
-            IconPath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "ability_icon2.dds") },
+            IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "ability_icon2.dds") },
         });
 
         Unit unit = new("unitId1");
         unit.AddAbility(new Ability()
         {
             Icon = "unitAbility1.png",
-            IconPath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "unitAbility_icon1.dds") },
+            IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "unitAbility_icon1.dds") },
         });
         unit.AddAbility(new Ability()
         {
             Icon = "unitAbility2.png",
-            IconPath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "unitAbility_icon2.dds") },
+            IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "unitAbility_icon2.dds") },
         });
         unit.AddAbility(new Ability()
         {
             Icon = "ability1.png",
-            IconPath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "ability_icon1.dds") },
+            IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "ability_icon1.dds") },
         });
 
         hero.HeroUnits.Add(unit.Id, unit);
@@ -99,7 +99,7 @@ public class HeroAbilityImageParserTests : ImageWriterBase
         hero.AddAbility(new Ability()
         {
             Icon = "storm_ui_icon_alexstrasza_dragon_queen.png",
-            IconPath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "storm_ui_icon_alexstrasza_dragon_queen.dds") },
+            IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "storm_ui_icon_alexstrasza_dragon_queen.dds") },
         });
 
         elementsById.Add("hero1", hero);

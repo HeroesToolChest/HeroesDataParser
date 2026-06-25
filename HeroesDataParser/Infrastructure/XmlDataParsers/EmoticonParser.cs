@@ -82,7 +82,7 @@ public class EmoticonParser : DataParser<Emoticon>
             elementObject.SkinId = skinData.Value.GetString();
     }
 
-    private static string GetStaticImageOutputFileName(ImageFilePath imageFilePath, int index)
+    private static string GetStaticImageOutputFileName(ImageFileNamePath imageFilePath, int index)
     {
         ReadOnlySpan<char> fileName = Path.GetFileNameWithoutExtension(imageFilePath.Image);
         ReadOnlySpan<char> extension = Path.GetExtension(imageFilePath.Image);
@@ -157,7 +157,7 @@ public class EmoticonParser : DataParser<Emoticon>
 
     private void SetImageFilePath(Emoticon elementObject, string? texture)
     {
-        ImageFilePath? imageFilePath;
+        ImageFileNamePath? imageFilePath;
 
         if (elementObject.Animation is not null)
             imageFilePath = GetAnimatedImageFilePath(texture);

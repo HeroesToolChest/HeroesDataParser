@@ -34,12 +34,12 @@ public class MapObjectiveIconImageParserTests : ImageWriterBase
                 new MapObjectiveIcon
                 {
                     Image = "objective_icon1.png",
-                    ImagePath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "objective_icon1.dds") },
+                    ImagePath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "objective_icon1.dds") },
                 },
                 new MapObjectiveIcon
                 {
                     Image = "objective_icon2.png",
-                    ImagePath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "objective_icon2.dds") },
+                    ImagePath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "objective_icon2.dds") },
                 },
             ],
         };
@@ -51,7 +51,7 @@ public class MapObjectiveIconImageParserTests : ImageWriterBase
                 new MapObjectiveIcon
                 {
                     Image = "objective_icon3.png",
-                    ImagePath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "objective_icon3.dds") },
+                    ImagePath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "objective_icon3.dds") },
                 },
             ],
         };
@@ -103,12 +103,12 @@ public class MapObjectiveIconImageParserTests : ImageWriterBase
                 new MapObjectiveIcon
                 {
                     Image = "storm_ui_loadscreen_industrial_district_icon_02.png",
-                    ImagePath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "storm_ui_loadscreen_industrial_district_icon_02.dds") },
+                    ImagePath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "storm_ui_loadscreen_industrial_district_icon_02.dds") },
                 },
                 new MapObjectiveIcon
                 {
                     Image = "storm_ui_loadscreen_industrial_district_icon_03.png",
-                    ImagePath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "storm_ui_loadscreen_industrial_district_icon_03.dds") },
+                    ImagePath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "storm_ui_loadscreen_industrial_district_icon_03.dds") },
                 },
             ],
         };

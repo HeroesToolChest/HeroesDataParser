@@ -43,11 +43,11 @@ public class MatchAwardImageParser : ImageParserBase<MatchAward>
         }
     }
 
-    private async Task ProcessScoreScreenImageFile(string scoreScreenImage, RelativeFilePath relativeFilePath, string directoryPath, string color)
+    private async Task ProcessScoreScreenImageFile(string scoreScreenImage, ImagePath imagePath, string directoryPath, string color)
     {
-        VerifyFileExists(relativeFilePath);
+        VerifyFileExists(imagePath);
 
-        using Stream stream = HeroesXmlLoaderService.HeroesXmlLoader.GetFile(relativeFilePath.FilePath, relativeFilePath.MpqFilePath);
+        using Stream stream = HeroesXmlLoaderService.HeroesXmlLoader.GetFile(imagePath.FilePath, imagePath.MpqEntryPath);
         using DDSImage ddsImage = new(stream);
 
         string scoreImagePath = Path.Combine(directoryPath, scoreScreenImage.Replace("%team%", color, StringComparison.OrdinalIgnoreCase));
@@ -55,11 +55,11 @@ public class MatchAwardImageParser : ImageParserBase<MatchAward>
         await ddsImage.Save(scoreImagePath);
     }
 
-    private async Task ProcessMVPImageFile(string mvpScreenImage, RelativeFilePath relativeFilePath, string directoryPath)
+    private async Task ProcessMVPImageFile(string mvpScreenImage, ImagePath imagePath, string directoryPath)
     {
-        VerifyFileExists(relativeFilePath);
+        VerifyFileExists(imagePath);
 
-        using Stream stream = HeroesXmlLoaderService.HeroesXmlLoader.GetFile(relativeFilePath.FilePath, relativeFilePath.MpqFilePath);
+        using Stream stream = HeroesXmlLoaderService.HeroesXmlLoader.GetFile(imagePath.FilePath, imagePath.MpqEntryPath);
         using DDSImage ddsImage = new(stream);
 
         int newWidth = ddsImage.Width / 3;

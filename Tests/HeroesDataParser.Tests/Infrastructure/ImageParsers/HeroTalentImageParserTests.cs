@@ -29,12 +29,12 @@ public class HeroTalentImageParserTests : ImageWriterBase
         hero.AddTalent(new Talent()
         {
             Icon = "talent1.png",
-            IconPath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "talent_icon1.dds") },
+            IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "talent_icon1.dds") },
         });
         hero.AddTalent(new Talent()
         {
             Icon = "talent2.png",
-            IconPath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "talent_icon2.dds") },
+            IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "talent_icon2.dds") },
         });
 
         elementsById.Add("hero1", hero);
@@ -69,7 +69,7 @@ public class HeroTalentImageParserTests : ImageWriterBase
         hero.AddTalent(new Talent()
         {
             Icon = "storm_ui_icon_abathur_toxicnest.png",
-            IconPath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "storm_ui_icon_abathur_toxicnest.dds") },
+            IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "storm_ui_icon_abathur_toxicnest.dds") },
         });
 
         elementsById.Add("hero1", hero);

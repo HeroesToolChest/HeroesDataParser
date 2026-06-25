@@ -29,7 +29,7 @@ public class BundleImageParserTests : ImageWriterBase
             Image = "bundle1.png",
         };
 
-        (bundle as IImagePath).ImagePath = new RelativeFilePath
+        (bundle as IImagePath).ImagePath = new ImagePath
         {
             FilePath = Path.Combine(TestImagesDirectory, "bundle1.png"),
         };
@@ -63,7 +63,7 @@ public class BundleImageParserTests : ImageWriterBase
             Image = "storm_ui_bundle_archangeldiablo.png",
         };
 
-        (bundle as IImagePath).ImagePath = new RelativeFilePath
+        (bundle as IImagePath).ImagePath = new ImagePath
         {
             FilePath = Path.Combine(TestImagesDirectory, "storm_ui_bundle_archangeldiablo.dds"),
         };

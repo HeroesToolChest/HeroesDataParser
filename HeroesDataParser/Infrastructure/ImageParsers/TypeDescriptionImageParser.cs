@@ -27,9 +27,9 @@ public class TypeDescriptionImageParser : ImageParserBase<TypeDescription>
 
         AddToFiles(element.RewardIcon, element.Id, async (outputDirectoryPath) =>
         {
-            RelativeFilePath relativeFilePath = element.RewardIconPath;
+            ImagePath imagePath = element.RewardIconPath;
 
-            await ProcessImage(element.RewardIcon, relativeFilePath, outputDirectoryPath, (ddsImage, outputFilePath) =>
+            await ProcessImage(element.RewardIcon, imagePath, outputDirectoryPath, (ddsImage, outputFilePath) =>
             {
                 int imageWidth = ddsImage.Width / element.TextureSheet.Columns.Value;
                 int imageHeight = ddsImage.Height / element.TextureSheet.Rows.Value;

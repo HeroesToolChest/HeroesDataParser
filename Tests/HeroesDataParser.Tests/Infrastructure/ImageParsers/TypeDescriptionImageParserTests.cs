@@ -27,7 +27,7 @@ public class TypeDescriptionImageParserTests : ImageWriterBase
         TypeDescription typeDescription = new("id1")
         {
             RewardIcon = "typeDescriptionReward1.png",
-            RewardIconPath = new RelativeFilePath
+            RewardIconPath = new ImagePath
             {
                 FilePath = Path.Combine(TestImagesDirectory, "typeDescriptionReward1.png"),
             },
@@ -37,7 +37,7 @@ public class TypeDescriptionImageParserTests : ImageWriterBase
                 Rows = 1,
             },
             LargeIcon = "typeDescriptionLarge1.png",
-            LargeIconPath = new RelativeFilePath
+            LargeIconPath = new ImagePath
             {
                 FilePath = Path.Combine(TestImagesDirectory, "typeDescriptionLarge1.png"),
             },
@@ -75,7 +75,7 @@ public class TypeDescriptionImageParserTests : ImageWriterBase
         TypeDescription typeDescription = new("id1")
         {
             RewardIcon = "storm_ui_heroes_reward_icon_lootchestsummer2018epic.png",
-            RewardIconPath = new RelativeFilePath
+            RewardIconPath = new ImagePath
             {
                 FilePath = Path.Combine(TestImagesDirectory, "storm_ui_heroes_rewardicons_sheet.dds"),
             },
@@ -86,7 +86,7 @@ public class TypeDescriptionImageParserTests : ImageWriterBase
             },
             IconSlot = 37,
             LargeIcon = "storm_ui_profile_hero_progression_icon_epicsummerlootchest.png",
-            LargeIconPath = new RelativeFilePath
+            LargeIconPath = new ImagePath
             {
                 FilePath = Path.Combine(TestImagesDirectory, "storm_ui_profile_hero_progression_icon_epicsummerlootchest.dds"),
             },

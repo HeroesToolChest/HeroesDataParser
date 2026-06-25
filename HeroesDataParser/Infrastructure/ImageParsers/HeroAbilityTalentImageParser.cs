@@ -25,7 +25,7 @@ public class HeroAbilityTalentImageParser : ImageParserBase<Hero>
             foreach (Ability ability in abilityList)
             {
                 string? abilityIcon = ability.Icon;
-                RelativeFilePath? abilityIconPath = ability.IconPath;
+                ImagePath? abilityIconPath = ability.IconPath;
 
                 if (string.IsNullOrWhiteSpace(abilityIcon) || string.IsNullOrWhiteSpace(abilityIconPath?.FilePath))
                     return;
@@ -47,7 +47,7 @@ public class HeroAbilityTalentImageParser : ImageParserBase<Hero>
                 foreach (Ability ability in abilityList)
                 {
                     string? abilityIcon = ability.Icon;
-                    RelativeFilePath? abilityIconPath = ability.IconPath;
+                    ImagePath? abilityIconPath = ability.IconPath;
 
                     if (string.IsNullOrWhiteSpace(abilityIcon) || string.IsNullOrWhiteSpace(abilityIconPath?.FilePath))
                         return;
@@ -68,7 +68,7 @@ public class HeroAbilityTalentImageParser : ImageParserBase<Hero>
             foreach (Talent talent in talentList)
             {
                 string? talentIcon = talent.Icon;
-                RelativeFilePath? talentIconPath = talent.IconPath;
+                ImagePath? talentIconPath = talent.IconPath;
 
                 if (string.IsNullOrWhiteSpace(talentIcon) || string.IsNullOrWhiteSpace(talentIconPath?.FilePath))
                     return;

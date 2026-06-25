@@ -29,7 +29,7 @@ public class AnnouncerImageParserTests : ImageWriterBase
             Image = "announcer1.png",
         };
 
-        (announcer as IImagePath).ImagePath = new RelativeFilePath
+        (announcer as IImagePath).ImagePath = new ImagePath
         {
             FilePath = Path.Combine(TestImagesDirectory, "announcer1.png"),
         };
@@ -63,7 +63,7 @@ public class AnnouncerImageParserTests : ImageWriterBase
             Image = "storm_ui_announcer_adjutant.png",
         };
 
-        (announcer as IImagePath).ImagePath = new RelativeFilePath
+        (announcer as IImagePath).ImagePath = new ImagePath
         {
             FilePath = Path.Combine(TestImagesDirectory, "storm_ui_announcer_adjutant.dds"),
         };

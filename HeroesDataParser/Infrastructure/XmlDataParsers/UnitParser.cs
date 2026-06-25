@@ -126,7 +126,7 @@ public class UnitParser : DataParser<Unit>, IUnitParser
 
         if (actorElement.DataValues.TryGetElementDataAt("GroupIcon", out StormElementData? groupIconData) && groupIconData.TryGetElementDataAt("Image", out StormElementData? groupImageData))
         {
-            ImageFilePath? imageFilePath = GetImageFilePath(groupImageData);
+            ImageFileNamePath? imageFilePath = GetImageFilePath(groupImageData);
             if (imageFilePath is not null)
             {
                 elementObject.UnitPortraits.TargetInfoPanel = imageFilePath.Image;
@@ -136,7 +136,7 @@ public class UnitParser : DataParser<Unit>, IUnitParser
 
         if (actorElement.DataValues.TryGetElementDataAt("MiniMapIcon", out StormElementData? miniMapIconData))
         {
-            ImageFilePath? imageFilePath = GetImageFilePath(miniMapIconData);
+            ImageFileNamePath? imageFilePath = GetImageFilePath(miniMapIconData);
             if (imageFilePath is not null)
             {
                 elementObject.UnitPortraits.MiniMapIcon = imageFilePath.Image;

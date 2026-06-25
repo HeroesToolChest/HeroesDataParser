@@ -43,8 +43,8 @@ public abstract class ParserBase
     /// Gets the static image file path for the given assets texture path.
     /// </summary>
     /// <param name="assetsTexturePath">Path should start with Assets\Textures\.</param>
-    /// <returns>An <see cref="ImageFilePath"/> if the texture exists; otherwise, <see langword="null"/>.</returns>
-    protected ImageFilePath? GetStaticImageFilePath(string? assetsTexturePath)
+    /// <returns>An <see cref="ImageFileNamePath"/> if the texture exists; otherwise, <see langword="null"/>.</returns>
+    protected ImageFileNamePath? GetStaticImageFilePath(string? assetsTexturePath)
     {
         return GetImageFilePath(assetsTexturePath, StaticImageFileExtension);
     }
@@ -53,8 +53,8 @@ public abstract class ParserBase
     /// Gets the animated image file path for the given assets texture path.
     /// </summary>
     /// <param name="assetsTexturePath">Path should start with Assets\Textures\.</param>
-    /// <returns>An <see cref="ImageFilePath"/> if the texture exists; otherwise, <see langword="null"/>.</returns>
-    protected ImageFilePath? GetAnimatedImageFilePath(string? assetsTexturePath)
+    /// <returns>An <see cref="ImageFileNamePath"/> if the texture exists; otherwise, <see langword="null"/>.</returns>
+    protected ImageFileNamePath? GetAnimatedImageFilePath(string? assetsTexturePath)
     {
         return Options.Hidden.AnimatedImageType switch
         {
@@ -64,7 +64,7 @@ public abstract class ParserBase
         };
     }
 
-    protected ImageFilePath? GetImageFilePath(StormElementData data)
+    protected ImageFileNamePath? GetImageFilePath(StormElementData data)
     {
         return GetStaticImageFilePath(data.Value.GetString());
     }
@@ -87,7 +87,7 @@ public abstract class ParserBase
         return HeroesData.GetScalingValue(dataObjectType, id, elementName) ?? 0;
     }
 
-    private ImageFilePath? GetImageFilePath(string? assetsTexturePath, string fileExtension)
+    private ImageFileNamePath? GetImageFilePath(string? assetsTexturePath, string fileExtension)
     {
         StormFile? stormAssetFile = HeroesData.GetStormAssetFile(assetsTexturePath);
         if (stormAssetFile is null)
@@ -95,12 +95,12 @@ public abstract class ParserBase
 
         string image = GetImageOutputFileName(stormAssetFile.StormPath.Path, fileExtension);
 
-        RelativeFilePath imagePath = new()
+        ImagePath imagePath = new()
         {
             FilePath = stormAssetFile.StormPath.Path,
         };
 
-        return new ImageFilePath(image, imagePath);
+        return new ImageFileNamePath(image, imagePath);
     }
 
     private string GetImageOutputFileName(ReadOnlySpan<char> filePath, string fileExtension)

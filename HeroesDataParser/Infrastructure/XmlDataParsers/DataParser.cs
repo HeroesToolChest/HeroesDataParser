@@ -127,7 +127,7 @@ public abstract class DataParser<T> : ParserBase, IDataParser<T>
 
         if (stormElement.DataValues.TryGetElementDataAt("tiletexture", out StormElementData? tileTextureData))
         {
-            ImageFilePath? imageFilePath = GetImageFilePath(tileTextureData);
+            ImageFileNamePath? imageFilePath = GetImageFilePath(tileTextureData);
             if (imageFilePath is not null)
             {
                 imageObject.Image = imageFilePath.Image;

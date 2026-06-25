@@ -35,9 +35,9 @@ public class SprayImageParser : ImageParserBase<Spray>
 
         AddToFiles(element.Image, element.Id, async (outputDirectoryPath) =>
         {
-            RelativeFilePath relativeFilePath = elementImagePath.ImagePath;
+            ImagePath imagePath = elementImagePath.ImagePath;
 
-            await ProcessImage(element.Image, relativeFilePath, outputDirectoryPath, (ddsImage, outputFilePath) =>
+            await ProcessImage(element.Image, imagePath, outputDirectoryPath, (ddsImage, outputFilePath) =>
             {
                 int ddsImageWidth = ddsImage.Width;
 
@@ -66,9 +66,9 @@ public class SprayImageParser : ImageParserBase<Spray>
 
         AddToFiles(element.Animation!.Texture, element.Id, async (outputDirectoryPath) =>
         {
-            RelativeFilePath relativeFilePath = elementImagePath.ImagePath;
+            ImagePath imagePath = elementImagePath.ImagePath;
 
-            await ProcessStaticImage(element.Animation.Texture!, relativeFilePath, outputDirectoryPath);
+            await ProcessStaticImage(element.Animation.Texture!, imagePath, outputDirectoryPath);
         });
     }
 }

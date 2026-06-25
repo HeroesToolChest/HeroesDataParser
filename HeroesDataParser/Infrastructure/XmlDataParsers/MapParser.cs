@@ -85,7 +85,7 @@ public class MapParser : DataParser<Map>
                 if (stormAssetFile is not null)
                 {
                     map.LoadingScreenImage = GetImagePath(stormAssetFile.StormPath.Path);
-                    map.LoadingScreenImagePath = new RelativeFilePath()
+                    map.LoadingScreenImagePath = new ImagePath()
                     {
                         FilePath = stormAssetFile.StormPath.Path,
                     };
@@ -95,10 +95,10 @@ public class MapParser : DataParser<Map>
             {
                 // mpq file
                 map.LoadingScreenImage = GetImagePath(imagePath);
-                map.LoadingScreenImagePath = new RelativeFilePath()
+                map.LoadingScreenImagePath = new ImagePath()
                 {
-                    FilePath = imagePath,
-                    MpqFilePath = stormMap.S2MAFilePath,
+                    FilePath = stormMap.S2MAFilePath,
+                    MpqEntryPath = imagePath,
                 };
             }
         }
@@ -115,7 +115,7 @@ public class MapParser : DataParser<Map>
             if (stormAssetFile is not null)
             {
                 map.ReplayPreviewImage = GetImagePath(stormAssetFile.StormPath.Path);
-                map.ReplayPreviewImagePath = new RelativeFilePath()
+                map.ReplayPreviewImagePath = new ImagePath()
                 {
                     FilePath = stormAssetFile.StormPath.Path,
                 };
@@ -125,34 +125,34 @@ public class MapParser : DataParser<Map>
         }
 
         // mpq file
-        if (!HeroesXmlLoader.FileExists(stormMap.ReplayPreviewImagePath, stormMap.S2MAFilePath))
+        if (!HeroesXmlLoader.FileExists(stormMap.S2MAFilePath, stormMap.ReplayPreviewImagePath))
         {
             string replayPreviewImageFileName = Path.GetFileName(stormMap.ReplayPreviewImagePath);
 
             string baseAssetPath = Path.Combine("base.stormassets", replayPreviewImageFileName);
             string mpqBaseAssetPath = string.Join('\\', "base.stormassets", replayPreviewImageFileName);
 
-            if (!HeroesXmlLoader.FileExists(mpqBaseAssetPath, stormMap.S2MAFilePath))
+            if (!HeroesXmlLoader.FileExists(stormMap.S2MAFilePath, mpqBaseAssetPath))
             {
                 _logger.LogWarning("Could not find replay preview image {ReplayPreviewImagePath} in mpq {S2MAFilePath} or base.stormassets", stormMap.ReplayPreviewImagePath, stormMap.S2MAFilePath);
                 return;
             }
 
             map.ReplayPreviewImage = GetImagePathWithAppender(baseAssetPath, map.Id);
-            map.ReplayPreviewImagePath = new RelativeFilePath()
+            map.ReplayPreviewImagePath = new ImagePath()
             {
-                FilePath = mpqBaseAssetPath,
-                MpqFilePath = stormMap.S2MAFilePath,
+                FilePath = stormMap.S2MAFilePath,
+                MpqEntryPath = mpqBaseAssetPath,
             };
 
             return;
         }
 
         map.ReplayPreviewImage = GetImagePathWithAppender(stormMap.ReplayPreviewImagePath, map.Id);
-        map.ReplayPreviewImagePath = new RelativeFilePath()
+        map.ReplayPreviewImagePath = new ImagePath()
         {
-            FilePath = stormMap.ReplayPreviewImagePath,
-            MpqFilePath = stormMap.S2MAFilePath,
+            FilePath = stormMap.S2MAFilePath,
+            MpqEntryPath = stormMap.ReplayPreviewImagePath,
         };
     }
 
@@ -229,7 +229,7 @@ public class MapParser : DataParser<Map>
                 if (stormAssetFile is not null)
                 {
                     mapIcon.Image = Path.ChangeExtension(Path.GetFileName(stormAssetFile.StormPath.Path), StaticImageFileExtension);
-                    mapIcon.ImagePath = new RelativeFilePath()
+                    mapIcon.ImagePath = new ImagePath()
                     {
                         FilePath = stormAssetFile.StormPath.Path,
                     };

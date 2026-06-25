@@ -28,16 +28,16 @@ public class MatchAwardImageParserTests : ImageWriterBase
         MatchAward matchAward1 = new("id1")
         {
             MVPScreenImage = "mvp_screen1.png",
-            MVPScreenImagePath = new RelativeFilePath
+            MVPScreenImagePath = new ImagePath
             {
                 FilePath = Path.Combine(TestImagesDirectory, "mvp_screen1.dds"),
             },
             ScoreScreenImage = "score_screen1.png",
-            ScoreScreenImageBluePath = new RelativeFilePath
+            ScoreScreenImageBluePath = new ImagePath
             {
                 FilePath = Path.Combine(TestImagesDirectory, "score_screen1_blue.dds"),
             },
-            ScoreScreenImageRedPath = new RelativeFilePath
+            ScoreScreenImageRedPath = new ImagePath
             {
                 FilePath = Path.Combine(TestImagesDirectory, "score_screen1_red.dds"),
             },
@@ -46,12 +46,12 @@ public class MatchAwardImageParserTests : ImageWriterBase
         MatchAward matchAward2 = new("id2")
         {
             MVPScreenImage = "mvp_screen2.png",
-            MVPScreenImagePath = new RelativeFilePath
+            MVPScreenImagePath = new ImagePath
             {
                 FilePath = Path.Combine(TestImagesDirectory, "mvp_screen2.dds"),
             },
             ScoreScreenImage = "score_screen2.png",
-            ScoreScreenImageBluePath = new RelativeFilePath
+            ScoreScreenImageBluePath = new ImagePath
             {
                 FilePath = Path.Combine(TestImagesDirectory, "score_screen2_blue.dds"),
             },
@@ -106,16 +106,16 @@ public class MatchAwardImageParserTests : ImageWriterBase
         MatchAward matchAward1 = new("id1")
         {
             MVPScreenImage = "storm_ui_mvp_icons_rewards_loyaldefender_%color%.png",
-            MVPScreenImagePath = new RelativeFilePath
+            MVPScreenImagePath = new ImagePath
             {
                 FilePath = Path.Combine(TestImagesDirectory, "storm_ui_mvp_icons_rewards_loyaldefender.dds"),
             },
             ScoreScreenImage = "storm_ui_scorescreen_mvp_bulwark_%team%.png",
-            ScoreScreenImageBluePath = new RelativeFilePath
+            ScoreScreenImageBluePath = new ImagePath
             {
                 FilePath = Path.Combine(TestImagesDirectory, "storm_ui_scorescreen_mvp_bulwark_blue.dds"),
             },
-            ScoreScreenImageRedPath = new RelativeFilePath
+            ScoreScreenImageRedPath = new ImagePath
             {
                 FilePath = Path.Combine(TestImagesDirectory, "storm_ui_scorescreen_mvp_bulwark_red.dds"),
             },

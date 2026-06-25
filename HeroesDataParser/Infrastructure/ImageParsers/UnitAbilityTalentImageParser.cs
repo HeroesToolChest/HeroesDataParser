@@ -23,7 +23,7 @@ public class UnitAbilityTalentImageParser : ImageParserBase<Unit>
             foreach (Ability ability in abilityList)
             {
                 string? abilityIcon = ability.Icon;
-                RelativeFilePath? abilityIconPath = ability.IconPath;
+                ImagePath? abilityIconPath = ability.IconPath;
 
                 if (string.IsNullOrWhiteSpace(abilityIcon) || string.IsNullOrWhiteSpace(abilityIconPath?.FilePath))
                     return;

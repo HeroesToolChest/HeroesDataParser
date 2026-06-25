@@ -30,7 +30,7 @@ public class TypeDescriptionParser : DataParser<TypeDescription>
         if (stormElement.DataValues.TryGetElementDataAt("LargeIcon", out StormElementData? largeIconData))
         {
             string texture = largeIconData.Value.GetString();
-            ImageFilePath? imageFilePath = GetStaticImageFilePath(texture);
+            ImageFileNamePath? imageFilePath = GetStaticImageFilePath(texture);
 
             if (imageFilePath is not null)
             {
@@ -47,7 +47,7 @@ public class TypeDescriptionParser : DataParser<TypeDescription>
 
     private void SetRewardIcon(TypeDescription elementObject, string? texture)
     {
-        ImageFilePath? imageFilePath = GetStaticImageFilePath(texture);
+        ImageFileNamePath? imageFilePath = GetStaticImageFilePath(texture);
 
         if (imageFilePath is not null)
         {

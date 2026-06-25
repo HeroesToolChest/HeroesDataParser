@@ -29,12 +29,12 @@ public class UnitAbilityTalentImageParserTests : ImageWriterBase
         unit.AddAbility(new Ability()
         {
             Icon = "ability1.png",
-            IconPath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "ability_icon1.dds") },
+            IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "ability_icon1.dds") },
         });
         unit.AddAbility(new Ability()
         {
             Icon = "ability2.png",
-            IconPath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "ability_icon2.dds") },
+            IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "ability_icon2.dds") },
         });
 
         elementsById.Add("unit1", unit);
@@ -71,7 +71,7 @@ public class UnitAbilityTalentImageParserTests : ImageWriterBase
         unit.AddAbility(new Ability()
         {
             Icon = "storm_temp_war3_btnskeletonarcher.png",
-            IconPath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "storm_temp_war3_btnskeletonarcher.dds") },
+            IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "storm_temp_war3_btnskeletonarcher.dds") },
         });
 
         elementsById.Add("unit1", unit);

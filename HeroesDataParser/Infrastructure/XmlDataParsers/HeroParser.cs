@@ -85,7 +85,7 @@ public class HeroParser : LoadoutItemParserBase<Hero>
 
         if (elementData.TryGetElementDataAt("SelectScreenButtonImage", out StormElementData? selectScreenButtonImageData))
         {
-            ImageFilePath? imageFilePath = GetImageFilePath(selectScreenButtonImageData);
+            ImageFileNamePath? imageFilePath = GetImageFilePath(selectScreenButtonImageData);
             if (imageFilePath is not null)
             {
                 collectionObject.HeroPortraits.HeroSelectPortrait = imageFilePath.Image;
@@ -95,7 +95,7 @@ public class HeroParser : LoadoutItemParserBase<Hero>
 
         if (elementData.TryGetElementDataAt("ScoreScreenImage", out StormElementData? scoreScreenImageData))
         {
-            ImageFilePath? imageFilePath = GetImageFilePath(scoreScreenImageData);
+            ImageFileNamePath? imageFilePath = GetImageFilePath(scoreScreenImageData);
             if (imageFilePath is not null)
             {
                 collectionObject.HeroPortraits.LeaderboardPortrait = imageFilePath.Image;
@@ -105,7 +105,7 @@ public class HeroParser : LoadoutItemParserBase<Hero>
 
         if (elementData.TryGetElementDataAt("LoadingScreenImage", out StormElementData? loadingScreenImageData))
         {
-            ImageFilePath? imageFilePath = GetImageFilePath(loadingScreenImageData);
+            ImageFileNamePath? imageFilePath = GetImageFilePath(loadingScreenImageData);
             if (imageFilePath is not null)
             {
                 collectionObject.HeroPortraits.LoadingScreenPortrait = imageFilePath.Image;
@@ -115,7 +115,7 @@ public class HeroParser : LoadoutItemParserBase<Hero>
 
         if (elementData.TryGetElementDataAt("PartyPanelButtonImage", out StormElementData? partyPanelImageData))
         {
-            ImageFilePath? imageFilePath = GetImageFilePath(partyPanelImageData);
+            ImageFileNamePath? imageFilePath = GetImageFilePath(partyPanelImageData);
             if (imageFilePath is not null)
             {
                 collectionObject.HeroPortraits.PartyPanelPortrait = imageFilePath.Image;
@@ -125,7 +125,7 @@ public class HeroParser : LoadoutItemParserBase<Hero>
 
         if (elementData.TryGetElementDataAt("Portrait", out StormElementData? portraitData))
         {
-            ImageFilePath? imageFilePath = GetImageFilePath(portraitData);
+            ImageFileNamePath? imageFilePath = GetImageFilePath(portraitData);
             if (imageFilePath is not null)
             {
                 collectionObject.HeroPortraits.TargetPortrait = imageFilePath.Image;
@@ -135,7 +135,7 @@ public class HeroParser : LoadoutItemParserBase<Hero>
 
         if (elementData.TryGetElementDataAt("DraftScreenPortrait", out StormElementData? draftScreenPortraitData))
         {
-            ImageFilePath? imageFilePath = GetImageFilePath(draftScreenPortraitData);
+            ImageFileNamePath? imageFilePath = GetImageFilePath(draftScreenPortraitData);
             if (imageFilePath is not null)
             {
                 collectionObject.HeroPortraits.DraftScreen = imageFilePath.Image;
@@ -145,7 +145,7 @@ public class HeroParser : LoadoutItemParserBase<Hero>
 
         if (elementData.TryGetElementDataAt("PartyFrameImage", out StormElementData? partyFrameData))
         {
-            ImageFilePath? imageFilePath = GetImageFilePath(partyFrameData);
+            ImageFileNamePath? imageFilePath = GetImageFilePath(partyFrameData);
             if (imageFilePath is not null)
             {
                 collectionObject.HeroPortraits.PartyFrames.Add(imageFilePath.Image);
@@ -159,7 +159,7 @@ public class HeroParser : LoadoutItemParserBase<Hero>
 
             foreach (string index in hdpParyFrameArrayIndexes)
             {
-                ImageFilePath? imageFilePath = GetImageFilePath(hdpPartyFrameArrayData.GetElementDataAt(index));
+                ImageFileNamePath? imageFilePath = GetImageFilePath(hdpPartyFrameArrayData.GetElementDataAt(index));
                 if (imageFilePath is not null)
                 {
                     collectionObject.HeroPortraits.PartyFrames.Add(imageFilePath.Image);

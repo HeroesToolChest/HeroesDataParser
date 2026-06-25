@@ -27,12 +27,12 @@ public class LoadingScreenImageParserTests : ImageWriterBase
         elementsById.Add("map1", new Map("id1")
         {
             LoadingScreenImage = "loadingscreen1.png",
-            LoadingScreenImagePath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "loadingscreen1.dds") },
+            LoadingScreenImagePath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "loadingscreen1.dds") },
         });
         elementsById.Add("map2", new Map("id2")
         {
             LoadingScreenImage = "loadingscreen2.png",
-            LoadingScreenImagePath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "loadingscreen2.dds") },
+            LoadingScreenImagePath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "loadingscreen2.dds") },
         });
 
         // act
@@ -65,7 +65,7 @@ public class LoadingScreenImageParserTests : ImageWriterBase
         elementsById.Add("map1", new Map("id1")
         {
             LoadingScreenImage = "storm_ui_homescreenbackground_trialgrounds.png",
-            LoadingScreenImagePath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "storm_ui_homescreenbackground_trialgrounds.dds") },
+            LoadingScreenImagePath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "storm_ui_homescreenbackground_trialgrounds.dds") },
         });
 
         LoadingScreenImageParser loadingScreenImageParser = new(_logger, _heroesXmlLoaderService);

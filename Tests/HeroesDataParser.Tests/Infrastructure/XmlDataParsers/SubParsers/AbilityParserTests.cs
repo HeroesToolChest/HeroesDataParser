@@ -266,7 +266,7 @@ public class AbilityParserTests
         ability.AbilityType.Should().Be(AbilityType.Heroic);
         ability.Icon.Should().Be("hud_btn_bg_ability_cancel.png");
         ability.IconPath!.FilePath.Should().NotBeNullOrWhiteSpace();
-        ability.IconPath.MpqFilePath.Should().BeNull();
+        ability.IconPath.MpqEntryPath.Should().BeNull();
         ability.IsActive.Should().BeTrue();
         ability.FullText!.RawText.Should().Be("Cancels the Symbiote ability.");
         ability.ShortText.Should().BeNull();

@@ -57,7 +57,7 @@ public class AbilityTalentParserBase : ParserBase
 
         if (buttonDataValues.TryGetElementDataAt("Icon", out StormElementData? iconData))
         {
-            ImageFilePath? imageFilePath = GetImageFilePath(iconData);
+            ImageFileNamePath? imageFilePath = GetImageFilePath(iconData);
             if (imageFilePath is not null)
             {
                 abilityTalent.Icon = imageFilePath.Image;

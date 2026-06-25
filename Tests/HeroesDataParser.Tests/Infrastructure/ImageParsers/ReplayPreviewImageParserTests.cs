@@ -27,12 +27,12 @@ public class ReplayPreviewImageParserTests : ImageWriterBase
         elementsById.Add("map1", new Map("id1")
         {
             ReplayPreviewImage = "replaypreview1.png",
-            ReplayPreviewImagePath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "replaypreview1.dds") },
+            ReplayPreviewImagePath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "replaypreview1.dds") },
         });
         elementsById.Add("map2", new Map("id2")
         {
             ReplayPreviewImage = "replaypreview2.png",
-            ReplayPreviewImagePath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "replaypreview2.dds") },
+            ReplayPreviewImagePath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "replaypreview2.dds") },
         });
 
         // act
@@ -65,7 +65,7 @@ public class ReplayPreviewImageParserTests : ImageWriterBase
         elementsById.Add("map1", new Map("id1")
         {
             ReplayPreviewImage = "Storm_UI_Gamemode_MapSelect_LostCavern.png",
-            ReplayPreviewImagePath = new RelativeFilePath { FilePath = Path.Join(TestImagesDirectory, "Storm_UI_Gamemode_MapSelect_LostCavern.png") },
+            ReplayPreviewImagePath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "Storm_UI_Gamemode_MapSelect_LostCavern.png") },
         });
 
         ReplayPreviewImageParser replayPreviewImageParser = new(_logger, _heroesXmlLoaderService);

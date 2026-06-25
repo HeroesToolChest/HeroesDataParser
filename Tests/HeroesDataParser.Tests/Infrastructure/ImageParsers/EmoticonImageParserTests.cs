@@ -35,7 +35,7 @@ public class EmoticonImageParserTests : ImageWriterBase
             Width = 2,
         };
 
-        (emoticon as IImagePath).ImagePath = new RelativeFilePath
+        (emoticon as IImagePath).ImagePath = new ImagePath
         {
             FilePath = Path.Combine(TestImagesDirectory, "emoticon1.png"),
         };
@@ -87,11 +87,11 @@ public class EmoticonImageParserTests : ImageWriterBase
             },
         };
 
-        (emoticon as IImagePath).ImagePath = new RelativeFilePath
+        (emoticon as IImagePath).ImagePath = new ImagePath
         {
             FilePath = Path.Combine(TestImagesDirectory, "storm_emoji_greymane_sheet.dds"),
         };
-        (emoticon2 as IImagePath).ImagePath = new RelativeFilePath
+        (emoticon2 as IImagePath).ImagePath = new ImagePath
         {
             FilePath = Path.Combine(TestImagesDirectory, "storm_emoji_greymane_sheet.dds"),
         };
@@ -156,11 +156,11 @@ public class EmoticonImageParserTests : ImageWriterBase
             },
         };
 
-        (emoticonAPNG as IImagePath).ImagePath = new RelativeFilePath
+        (emoticonAPNG as IImagePath).ImagePath = new ImagePath
         {
             FilePath = Path.Combine(TestImagesDirectory, "storm_emoji_cat_gleam_anim_sheet.dds"),
         };
-        (emoticonGif as IImagePath).ImagePath = new RelativeFilePath
+        (emoticonGif as IImagePath).ImagePath = new ImagePath
         {
             FilePath = Path.Combine(TestImagesDirectory, "storm_emoji_cat_gleam_anim_sheet.dds"),
         };
