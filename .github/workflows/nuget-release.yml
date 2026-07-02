@@ -6,7 +6,7 @@ jobs:
   deploy:
     uses: koliva8245/github.workflows/.github/workflows/nuget-release.yml@main
     with:
-      artificats-workflow: build.yml
+      artifacts-workflow: build.yml
       nuget-publish-env: Nuget Publish
       nuget-publish-url: https://www.nuget.org/packages/HeroesDataParser/
     secrets:
