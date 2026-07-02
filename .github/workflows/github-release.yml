@@ -8,7 +8,6 @@ jobs:
     permissions:
       contents: write
     with:
-      title: 'Heroes Data Parser'
       app-name: HeroesDataParser
       artifacts-workflow: build.yml
       github-release-env: Github Release
