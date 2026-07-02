@@ -16,7 +16,7 @@ public class TypeDescriptionParser : DataParser<TypeDescription>
         if (stormElement.DataValues.TryGetElementDataAt("RewardIcon", out StormElementData? rewardIconData))
         {
             if (rewardIconData.TryGetElementDataAt("Index", out StormElementData? indexAttribute))
-                elementObject.IconSlot = indexAttribute.Value.GetInt();
+                elementObject.IconSlot = indexAttribute.Value.GetInt32();
 
             if (rewardIconData.TryGetElementDataAt("TextureSheet", out StormElementData? textureSheetData))
             {
@@ -72,9 +72,9 @@ public class TypeDescriptionParser : DataParser<TypeDescription>
             elementObject.TextureSheet.ImagePath = imageData.Value.GetString();
 
         if (textureSheetElement.DataValues.TryGetElementDataAt("Rows", out StormElementData? rowsData))
-            elementObject.TextureSheet.Rows = rowsData.Value.GetInt();
+            elementObject.TextureSheet.Rows = rowsData.Value.GetInt32();
 
         if (textureSheetElement.DataValues.TryGetElementDataAt("Columns", out StormElementData? columnsData))
-            elementObject.TextureSheet.Columns = columnsData.Value.GetInt();
+            elementObject.TextureSheet.Columns = columnsData.Value.GetInt32();
     }
 }

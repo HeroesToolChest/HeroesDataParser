@@ -218,6 +218,7 @@ public static class TestHeroesXmlLoader
                     "Unit/Name/AbathurSymbiote=Symbiote",
                     "SamuroIllusionMaster=8 seconds",
                     "SamuroImageTransmission=14 seconds",
+                    "GarroshBodyCheckCooldown=<d ref=\"Abil,GarroshArmorUpBodyCheck,Cost.Charge.TimeUse\"/> seconds",
                 ],
                 StormLocale.ENUS)
                 .AddAssetFilePaths(

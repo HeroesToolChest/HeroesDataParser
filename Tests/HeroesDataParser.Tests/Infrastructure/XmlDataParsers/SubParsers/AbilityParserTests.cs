@@ -1330,6 +1330,26 @@ public class AbilityParserTests
         ability.ParentAbilityElementIds.Should().ContainInConsecutiveOrder("WhitemaneInquisition", "WhitemaneInquisitionClemency");
     }
 
+    [TestMethod]
+    public void GetAbility_RagnarosSulfurasSmashCommand_ReturnsAbility()
+    {
+        // arrange
+        string heroUnit = "HeroRagnaros";
+
+        StormElement stormElement = _heroesXmlLoader.HeroesData.GetCompleteStormElement("Unit", heroUnit)!;
+        StormElementData layoutButtons = stormElement.DataValues.GetElementDataAt("CardLayouts").GetElementDataAt("0").GetElementDataAt("LayoutButtons").GetElementDataAt("25");
+
+        AbilityParser abilityParser = new(_logger, _options, _heroesXmlLoaderService, _gameStringTextService);
+
+        // act
+        Ability? ability = abilityParser.GetAbility(layoutButtons);
+
+        // assert
+        ability.Should().NotBeNull();
+        ability.LinkId.ToString().Should().Be("RagnarosSulfurasSmash|RagnarosSulfurasSmash|Heroic");
+        ability.CooldownText!.RawText.Should().Be("Cooldown: 1 second");
+    }
+
     private static void AssertAbathurSymbioteAbility(Ability ability)
     {
         ability.Name!.RawText.Should().Be("Symbiote");

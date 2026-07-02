@@ -222,13 +222,13 @@ public class UnitParser : DataParser<Unit>, IUnitParser
         }
 
         if (elementData.TryGetElementDataAt("KillXp", out StormElementData? killXpData))
-            elementObject.KillXP = killXpData.Value.GetInt();
+            elementObject.KillXP = killXpData.Value.GetInt32();
 
         if (elementData.TryGetElementDataAt("HeroPlaystyleFlags", out StormElementData? heroPlaystyleFlagsData))
         {
             foreach (string flag in heroPlaystyleFlagsData.GetElementDataIndexes())
             {
-                int value = heroPlaystyleFlagsData.GetElementDataAt(flag).Value.GetInt();
+                int value = heroPlaystyleFlagsData.GetElementDataAt(flag).Value.GetInt32();
                 if (value == 1)
                     elementObject.HeroPlayStyles.Add(flag);
                 else if (value == 0)
@@ -240,7 +240,7 @@ public class UnitParser : DataParser<Unit>, IUnitParser
         {
             foreach (string attribute in attributesData.GetElementDataIndexes())
             {
-                int value = attributesData.GetElementDataAt(attribute).Value.GetInt();
+                int value = attributesData.GetElementDataAt(attribute).Value.GetInt32();
                 if (value == 1)
                     elementObject.Attributes.Add(attribute);
                 else if (value == 0)
@@ -364,7 +364,7 @@ public class UnitParser : DataParser<Unit>, IUnitParser
 
                     if (weaponStormElement.DataValues.TryGetElementDataAt("Options", out StormElementData? optionsData))
                     {
-                        if (optionsData.TryGetElementDataAt("Disabled", out StormElementData? disabledData) && disabledData.Value.GetInt() == 1)
+                        if (optionsData.TryGetElementDataAt("Disabled", out StormElementData? disabledData) && disabledData.Value.GetInt32() == 1)
                             unitWeapon.IsDisabled = true;
                     }
 

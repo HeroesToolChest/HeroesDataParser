@@ -23,7 +23,7 @@ public class RewardPortraitParser : StoreItemParserBase<RewardPortrait>
             collectionObject.HeroId = heroIdData.Value.GetString();
 
         if (stormElement.DataValues.TryGetElementDataAt("IconSlot", out StormElementData? iconSlotData))
-            collectionObject.IconSlot = iconSlotData.Value.GetInt();
+            collectionObject.IconSlot = iconSlotData.Value.GetInt32();
 
         if (stormElement.DataValues.TryGetElementDataAt("IconFile", out StormElementData? iconFileData))
         {
@@ -34,10 +34,10 @@ public class RewardPortraitParser : StoreItemParserBase<RewardPortrait>
         }
 
         if (stormElement.DataValues.TryGetElementDataAt("IconCols", out StormElementData? iconColsData))
-            collectionObject.TextureSheet.Columns = iconColsData.Value.GetInt();
+            collectionObject.TextureSheet.Columns = iconColsData.Value.GetInt32();
 
         if (stormElement.DataValues.TryGetElementDataAt("IconRows", out StormElementData? iconRowsData))
-            collectionObject.TextureSheet.Rows = iconRowsData.Value.GetInt();
+            collectionObject.TextureSheet.Rows = iconRowsData.Value.GetInt32();
 
         collectionObject.Image = $"storm_portrait_{collectionObject.Id.ToLowerInvariant()}.{StaticImageFileExtension}";
     }

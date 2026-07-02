@@ -17,10 +17,10 @@ public class SprayParser : LoadoutItemParserBase<Spray>
         string? texture = null;
 
         if (stormElement.DataValues.TryGetElementDataAt("AnimCount", out StormElementData? animCountData))
-            animCount = animCountData.Value.GetInt();
+            animCount = animCountData.Value.GetInt32();
 
         if (stormElement.DataValues.TryGetElementDataAt("AnimDuration", out StormElementData? animDurationData))
-            animDuration = animDurationData.Value.GetInt();
+            animDuration = animDurationData.Value.GetInt32();
 
         if (stormElement.DataValues.TryGetElementDataAt("Texture", out StormElementData? textureData))
             texture = textureData.Value.GetString();

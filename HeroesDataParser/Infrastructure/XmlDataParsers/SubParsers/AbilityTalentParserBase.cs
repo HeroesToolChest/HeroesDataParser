@@ -37,6 +37,49 @@ public class AbilityTalentParserBase : ParserBase
     {
     }
 
+    protected static void SetCustomParentElements(AbilityTalentBase abilityTalent, StormElementData elementData)
+    {
+        if (elementData.TryGetElementDataAt(HdpParentAbilName, out StormElementData? hdpParentAbilNameData))
+        {
+            IEnumerable<string> indexes = hdpParentAbilNameData.GetElementDataIndexes();
+            foreach (string item in indexes)
+            {
+                string value = hdpParentAbilNameData.GetElementDataAt(item).Value.GetString();
+                if (!string.IsNullOrEmpty(value))
+                    abilityTalent.ParentAbilityElementIds.Add(value);
+            }
+        }
+
+        if (elementData.TryGetElementDataAt(HdpParentTalentName, out StormElementData? hdpParentTalentNameData))
+        {
+            IEnumerable<string> indexes = hdpParentTalentNameData.GetElementDataIndexes();
+            foreach (string item in indexes)
+            {
+                string value = hdpParentTalentNameData.GetElementDataAt(item).Value.GetString();
+                if (!string.IsNullOrEmpty(value))
+                    abilityTalent.ParentTalentElementIds.Add(value);
+            }
+        }
+
+        if (elementData.TryGetElementDataAt(HdpParentAbilLinkName, out StormElementData? hdpParentAbilLinkNameIndexData))
+        {
+            IEnumerable<string> indexes = hdpParentAbilLinkNameIndexData.GetElementDataIndexes();
+            foreach (string item in indexes)
+            {
+                SetHdpParentAbilLink(abilityTalent, hdpParentAbilLinkNameIndexData.GetElementDataAt(item));
+            }
+        }
+
+        if (elementData.TryGetElementDataAt(HdpParentTalentLinkName, out StormElementData? hdpParentTalentLinkNameIndexData))
+        {
+            IEnumerable<string> indexes = hdpParentTalentLinkNameIndexData.GetElementDataIndexes();
+            foreach (string item in indexes)
+            {
+                SetHdpParentTalentLink(abilityTalent, hdpParentTalentLinkNameIndexData.GetElementDataAt(item));
+            }
+        }
+    }
+
     protected void SetButtonData(AbilityTalentBase abilityTalent)
     {
         StormElement? buttonElement = HeroesData.GetCompleteStormElement("Button", abilityTalent.ButtonElementId);
@@ -117,42 +160,42 @@ public class AbilityTalentParserBase : ParserBase
 
         if (buttonDataValues.TryGetElementDataAt("TooltipFlags", out StormElementData? tooltipFlagsData))
         {
-            if (tooltipFlagsData.TryGetElementDataAt("ShowName", out StormElementData? showNameData) && showNameData.Value.GetInt() == 0)
+            if (tooltipFlagsData.TryGetElementDataAt("ShowName", out StormElementData? showNameData) && showNameData.Value.GetInt32() == 0)
             {
                 abilityTalent.Name = null;
             }
 
-            if (tooltipFlagsData.TryGetElementDataAt("ShowHotkey", out StormElementData? showHotkeyData) && showHotkeyData.Value.GetInt() == 0)
+            if (tooltipFlagsData.TryGetElementDataAt("ShowHotkey", out StormElementData? showHotkeyData) && showHotkeyData.Value.GetInt32() == 0)
             {
             }
 
-            if (tooltipFlagsData.TryGetElementDataAt("ShowUsage", out StormElementData? showUsageData) && showUsageData.Value.GetInt() == 0)
+            if (tooltipFlagsData.TryGetElementDataAt("ShowUsage", out StormElementData? showUsageData) && showUsageData.Value.GetInt32() == 0)
             {
                 abilityTalent.EnergyText = null;
                 abilityTalent.LifeText = null;
             }
 
-            if (tooltipFlagsData.TryGetElementDataAt("ShowTime", out StormElementData? showTimeData) && showTimeData.Value.GetInt() == 0)
+            if (tooltipFlagsData.TryGetElementDataAt("ShowTime", out StormElementData? showTimeData) && showTimeData.Value.GetInt32() == 0)
             {
             }
 
-            if (tooltipFlagsData.TryGetElementDataAt("ShowCooldown", out StormElementData? showCooldownData) && showCooldownData.Value.GetInt() == 0)
+            if (tooltipFlagsData.TryGetElementDataAt("ShowCooldown", out StormElementData? showCooldownData) && showCooldownData.Value.GetInt32() == 0)
             {
                 abilityTalent.CooldownText = null;
             }
 
-            if (tooltipFlagsData.TryGetElementDataAt("ShowRequirements", out StormElementData? showRequirementsData) && showRequirementsData.Value.GetInt() == 0)
+            if (tooltipFlagsData.TryGetElementDataAt("ShowRequirements", out StormElementData? showRequirementsData) && showRequirementsData.Value.GetInt32() == 0)
             {
             }
 
-            if (tooltipFlagsData.TryGetElementDataAt("ShowAutocast", out StormElementData? showAutocastData) && showAutocastData.Value.GetInt() == 0)
+            if (tooltipFlagsData.TryGetElementDataAt("ShowAutocast", out StormElementData? showAutocastData) && showAutocastData.Value.GetInt32() == 0)
             {
             }
         }
 
         if (buttonDataValues.TryGetElementDataAt("UseHotkeyLabel", out StormElementData? useHotkeyLabelData))
         {
-            if (useHotkeyLabelData.Value.GetInt() == 0)
+            if (useHotkeyLabelData.Value.GetInt32() == 0)
                 abilityTalent.IsActive = false; // ability has no hotkey, not activable
         }
 
@@ -175,9 +218,9 @@ public class AbilityTalentParserBase : ParserBase
 
         if (buttonDataValues.TryGetElementDataAt("hdp-IsActive", out StormElementData? hdpIsActiveData))
         {
-            if (hdpIsActiveData.Value.GetInt() == 1)
+            if (hdpIsActiveData.Value.GetInt32() == 1)
                 abilityTalent.IsActive = true;
-            else if (hdpIsActiveData.Value.GetInt() == 0)
+            else if (hdpIsActiveData.Value.GetInt32() == 0)
                 abilityTalent.IsActive = false;
         }
 
@@ -244,49 +287,6 @@ public class AbilityTalentParserBase : ParserBase
         }
     }
 
-    protected void SetCustomParentElements(AbilityTalentBase abilityTalent, StormElementData elementData)
-    {
-        if (elementData.TryGetElementDataAt(HdpParentAbilName, out StormElementData? hdpParentAbilNameData))
-        {
-            IEnumerable<string> indexes = hdpParentAbilNameData.GetElementDataIndexes();
-            foreach (string item in indexes)
-            {
-                string value = hdpParentAbilNameData.GetElementDataAt(item).Value.GetString();
-                if (!string.IsNullOrEmpty(value))
-                    abilityTalent.ParentAbilityElementIds.Add(value);
-            }
-        }
-
-        if (elementData.TryGetElementDataAt(HdpParentTalentName, out StormElementData? hdpParentTalentNameData))
-        {
-            IEnumerable<string> indexes = hdpParentTalentNameData.GetElementDataIndexes();
-            foreach (string item in indexes)
-            {
-                string value = hdpParentTalentNameData.GetElementDataAt(item).Value.GetString();
-                if (!string.IsNullOrEmpty(value))
-                    abilityTalent.ParentTalentElementIds.Add(value);
-            }
-        }
-
-        if (elementData.TryGetElementDataAt(HdpParentAbilLinkName, out StormElementData? hdpParentAbilLinkNameIndexData))
-        {
-            IEnumerable<string> indexes = hdpParentAbilLinkNameIndexData.GetElementDataIndexes();
-            foreach (string item in indexes)
-            {
-                SetHdpParentAbilLink(abilityTalent, hdpParentAbilLinkNameIndexData.GetElementDataAt(item));
-            }
-        }
-
-        if (elementData.TryGetElementDataAt(HdpParentTalentLinkName, out StormElementData? hdpParentTalentLinkNameIndexData))
-        {
-            IEnumerable<string> indexes = hdpParentTalentLinkNameIndexData.GetElementDataIndexes();
-            foreach (string item in indexes)
-            {
-                SetHdpParentTalentLink(abilityTalent, hdpParentTalentLinkNameIndexData.GetElementDataAt(item));
-            }
-        }
-    }
-
     private static void SetHdpParentAbilLink(AbilityTalentBase abilityTalent, StormElementData hdpParentAbilLinkNameData)
     {
         if (hdpParentAbilLinkNameData.TryGetElementDataAt("abilityId", out StormElementData? abilityIdData) &&
@@ -325,7 +325,7 @@ public class AbilityTalentParserBase : ParserBase
                     abilityTalent.Charges.RecastCooldown = cooldown;
                 }
 
-                if (abilityTalent.CooldownText is null)
+                if (abilityTalent.CooldownText is null || (abilityTalent.Charges is not null && abilityTalent.Charges.IsCountHidden))
                 {
                     if (cooldown == 1)
                     {
@@ -365,16 +365,16 @@ public class AbilityTalentParserBase : ParserBase
             SetChargeLinkData(abilityTalent, linkData);
 
         if (chargeData.TryGetElementDataAt("CountMax", out StormElementData? countMaxData))
-            abilityTalent.Charges.CountMax = countMaxData.Value.GetInt();
+            abilityTalent.Charges.CountMax = countMaxData.Value.GetInt32();
 
         if (chargeData.TryGetElementDataAt("CountStart", out StormElementData? countStartData))
-            abilityTalent.Charges.CountStart = countStartData.Value.GetInt();
+            abilityTalent.Charges.CountStart = countStartData.Value.GetInt32();
 
         if (chargeData.TryGetElementDataAt("CountUse", out StormElementData? countUseData))
-            abilityTalent.Charges.CountUse = countUseData.Value.GetInt();
+            abilityTalent.Charges.CountUse = countUseData.Value.GetInt32();
 
         if (chargeData.TryGetElementDataAt("HideCount", out StormElementData? hideCountData))
-            abilityTalent.Charges.IsCountHidden = hideCountData.Value.GetInt() == 1;
+            abilityTalent.Charges.IsCountHidden = hideCountData.Value.GetInt32() == 1;
 
         if (chargeData.TryGetElementDataAt("TimeUse", out StormElementData? timeUseData))
         {
@@ -522,7 +522,7 @@ public class AbilityTalentParserBase : ParserBase
         {
             if (attributesData.TryGetElementDataAt("Summoned", out StormElementData? summonedData))
             {
-                if (summonedData.Value.GetInt() == 1)
+                if (summonedData.Value.GetInt32() == 1)
                     abilityTalent.SummonedUnitIds.Add(unitId);
             }
         }
@@ -565,19 +565,18 @@ public class AbilityTalentParserBase : ParserBase
             return; // if a talent has no ability element id or is passive, then we don't set the cooldown text
 
         string? cooldownText = GameStringTextService.GetStormGameString(tooltipCooldownOverrideTextData.Value.GetString());
-        if (!string.IsNullOrEmpty(cooldownText))
-        {
-            string? defaultCooldownText = GameStringTextService.GetStormGameString(GameStringConstants.StringCooldownColon);
+        if (string.IsNullOrEmpty(cooldownText))
+            return;
 
-            if (!string.IsNullOrEmpty(defaultCooldownText))
-            {
-                GameStringText cooldownTooltip = GameStringTextService.GetGameStringText(cooldownText);
+        string? defaultCooldownText = GameStringTextService.GetStormGameString(GameStringConstants.StringCooldownColon);
+        if (string.IsNullOrEmpty(defaultCooldownText))
+            return;
 
-                if (!cooldownTooltip.PlainText.StartsWith(defaultCooldownText, StringComparison.OrdinalIgnoreCase))
-                    abilityTalent.CooldownText = GameStringTextService.GetGameStringTextFromGameString($"{defaultCooldownText}{cooldownText}");
-                else
-                    abilityTalent.CooldownText = cooldownTooltip;
-            }
-        }
+        GameStringText cooldownTooltip = GameStringTextService.GetGameStringText(cooldownText);
+
+        if (!cooldownTooltip.PlainText.StartsWith(defaultCooldownText, StringComparison.OrdinalIgnoreCase))
+            abilityTalent.CooldownText = GameStringTextService.GetGameStringTextFromGameString($"{defaultCooldownText}{cooldownText}");
+        else
+            abilityTalent.CooldownText = cooldownTooltip;
     }
 }

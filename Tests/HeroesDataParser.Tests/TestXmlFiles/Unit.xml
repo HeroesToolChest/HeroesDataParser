@@ -1839,4 +1839,41 @@
       <LayoutButtons />
     </CardLayouts>
   </CUnit>
+  <CUnit id="HeroRagnaros" parent="StormHeroMounted">
+    <LifeStart value="2075" />
+    <LifeMax value="2075" />
+    <LifeRegenRate value="4.3242" />
+    <AbilArray Link="RagnarosEmpowerSulfuras" />
+    <AbilArray Link="RagnarosLivingMeteor" />
+    <AbilArray Link="RagnarosLivingMeteorShiftingMeteor" />
+    <AbilArray Link="RagnarosBlastWave" />
+    <AbilArray Link="RagnarosSulfurasSmash" />
+    <AbilArray Link="RagnarosLavaWaveTargetPoint" />
+    <AbilArray Link="RagnarosMoltenCore" />
+    <WeaponArray Link="RagnarosAttackWeapon" />
+    <CardLayouts index="0">
+      <LayoutButtons index="0" Face="RagnarosMoltenCore" Type="AbilCmd" AbilCmd="RagnarosMoltenCore,Execute" Requirements="" Slot="Trait" />
+      <LayoutButtons Face="RagnarosSulfurasSmash" Type="AbilCmd" AbilCmd="RagnarosSulfurasSmash,Execute" Slot="Heroic" />
+      <LayoutButtons Face="RagnarosLavaWaveTargetPoint" Type="AbilCmd" AbilCmd="RagnarosLavaWaveTargetPoint,Execute" Slot="Heroic" />
+      <LayoutButtons Face="LockedHeroicAbility" Type="Passive" Requirements="UltimateNotUnlocked" Slot="Heroic" />
+      <LayoutButtons Face="RagnarosEmpowerSulfurasActive" Type="Passive" Requirements="RagnarosHasEmpowerSulfurasCasterBehavior" Slot="Ability1" />
+      <LayoutButtons Face="RagnarosEmpowerSulfuras" Type="AbilCmd" AbilCmd="RagnarosEmpowerSulfuras,Execute" Slot="Ability1" />
+      <LayoutButtons Face="RagnarosLivingMeteorShiftingMeteorRedirect" Type="AbilCmd" AbilCmd="RagnarosLivingMeteorShiftingMeteor,Execute" Slot="Ability2" />
+      <LayoutButtons Face="RagnarosLivingMeteor" Type="AbilCmd" AbilCmd="RagnarosLivingMeteor,Execute" Slot="Ability2" />
+      <LayoutButtons Face="RagnarosBlastWave" Type="AbilCmd" AbilCmd="RagnarosBlastWave,Execute" Slot="Ability3" />
+    </CardLayouts>
+    <Radius value="1" />
+    <InnerRadius value="0.875" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="RagnarosMountTrailBehavior" />
+    <BehaviorArray Link="RagnarosLivingMeteorMeteorTracker" />
+    <InitializerFunction value="libHMaj_gf_HeroRagnarosIncrementHeroCountFunction" />
+    <DestructionFunction value="libHMaj_gf_HeroRagnarosDecrementHeroCountFunction" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleCaster" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
+    <TauntDuration index="Dance" value="10" />
+  </CUnit>
 </Unit> 

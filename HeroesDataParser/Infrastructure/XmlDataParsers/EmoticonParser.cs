@@ -69,10 +69,10 @@ public class EmoticonParser : DataParser<Emoticon>
         if (stormElement.DataValues.TryGetElementDataAt("Flags", out StormElementData? flagsData))
         {
             if (flagsData.TryGetElementDataAt("CaseSensitive", out StormElementData? caseSensitiveData))
-                elementObject.IsCaseSensitive = caseSensitiveData.Value.GetInt() == 1;
+                elementObject.IsCaseSensitive = caseSensitiveData.Value.GetInt32() == 1;
 
             if (flagsData.TryGetElementDataAt("Hidden", out StormElementData? hiddenData))
-                elementObject.IsHidden = hiddenData.Value.GetInt() == 1;
+                elementObject.IsHidden = hiddenData.Value.GetInt32() == 1;
         }
 
         if (stormElement.DataValues.TryGetElementDataAt("Hero", out StormElementData? heroData))
@@ -105,16 +105,16 @@ public class EmoticonParser : DataParser<Emoticon>
             }
 
             if (imageData.TryGetElementDataAt("Index", out StormElementData? indexData))
-                index = indexData.Value.GetInt();
+                index = indexData.Value.GetInt32();
 
             if (imageData.TryGetElementDataAt("Width", out StormElementData? widthData))
-                width = widthData.Value.GetInt();
+                width = widthData.Value.GetInt32();
 
             if (imageData.TryGetElementDataAt("Count", out StormElementData? countData))
-                count = countData.Value.GetInt();
+                count = countData.Value.GetInt32();
 
             if (imageData.TryGetElementDataAt("DurationPerFrame", out StormElementData? durationPerFrameData))
-                durationPerFrame = durationPerFrameData.Value.GetInt();
+                durationPerFrame = durationPerFrameData.Value.GetInt32();
 
             if (count > 0 && durationPerFrame > 0)
             {
@@ -149,10 +149,10 @@ public class EmoticonParser : DataParser<Emoticon>
             elementObject.TextureSheet.ImagePath = imageData.Value.GetString();
 
         if (textureSheetElement.DataValues.TryGetElementDataAt("Rows", out StormElementData? rowsData))
-            elementObject.TextureSheet.Rows = rowsData.Value.GetInt();
+            elementObject.TextureSheet.Rows = rowsData.Value.GetInt32();
 
         if (textureSheetElement.DataValues.TryGetElementDataAt("Columns", out StormElementData? columnsData))
-            elementObject.TextureSheet.Columns = columnsData.Value.GetInt();
+            elementObject.TextureSheet.Columns = columnsData.Value.GetInt32();
     }
 
     private void SetImageFilePath(Emoticon elementObject, string? texture)

@@ -1069,4 +1069,34 @@
     <CmdButtonArray index="Execute" DefaultButtonFace="ZeratulMightOfTheNerazimPassive" Requirements="Ultimate1Unlocked" />
     <Flags index="ValidateButtonState" value="0" />
   </CAbilEffectInstant>
+  <CAbilEffectTarget id="RagnarosSulfurasSmash">
+    <Effect value="RagnarosSulfurasSmashPersistentSet" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Cost>
+      <Vital index="Energy" value="70" />
+      <Charge>
+        <CountMax value="1" />
+        <CountStart value="1" />
+        <CountUse value="1" />
+        <HideCount value="1" />
+        <Location value="Player" />
+        <TimeUse value="60" />
+      </Charge>
+      <Cooldown Location="Player" TimeUse="1" />
+    </Cost>
+    <Range value="16" />
+    <RangeSlop value="5" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="RagnarosSulfurasSmash" Requirements="Ultimate1Unlocked">
+      <Flags index="AllowMinimap" value="1" />
+    </CmdButtonArray>
+    <CursorEffect value="RagnarosSulfurasSmashSearchArea" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <CastIntroTime value="0.1875" />
+    <Activity value="Abil/RagnarosSulfurasSmash/Activity" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <Arc value="360" />
+    <InterruptCost>
+      <Cooldown Location="Player" Operation="Set" TimeUse="10" />
+    </InterruptCost>
+  </CAbilEffectTarget>
 </Abil>

@@ -34,7 +34,7 @@ public class VeterancyParser : DataParser<Veterancy>
                 StormElementData veterancyLevelData = veterancyLevelArrayData[veterancyLevelArrayIndex];
 
                 if (veterancyLevelData.TryGetElementDataAt("MinVeterancyXP", out StormElementData? minVeterancyXpData))
-                    veterancyLevel.MinimumVeterancyXP = minVeterancyXpData.Value.GetInt();
+                    veterancyLevel.MinimumVeterancyXP = minVeterancyXpData.Value.GetInt32();
 
                 if (veterancyLevelData.TryGetElementDataAt("Modification", out StormElementData? modificationData))
                 {

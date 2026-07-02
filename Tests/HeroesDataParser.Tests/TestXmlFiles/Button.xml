@@ -542,4 +542,9 @@
     <Tooltip value="Button/Tooltip/ZeratulMightOfTheNerazimTalent" />
     <SimpleDisplayText value="Button/SimpleDisplayText/ZeratulMightOfTheNerazimTalent" />
   </CButton>
+  <CButton id="RagnarosSulfurasSmash" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_ragnaros_sulfurassmash.dds" />
+    <TooltipCooldownOverrideText value="Button/CooldownOverride/RagnarosSulfurasSmash" />
+    <TooltipAppender Validator="RagnarosHasSulfurasSmashFlamesOfSulfuron" Face="RagnarosSulfurasSmashFlamesOfSulfuron" />
+  </CButton>
 </Button>
