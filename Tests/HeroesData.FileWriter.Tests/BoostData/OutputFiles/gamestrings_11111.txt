@@ -1,3 +1,0 @@
-boost/name/boost1=boost one
-boost/sortname/boost1=xxBoost1
-boost/sortname/winterBoost=xxwinterBoost

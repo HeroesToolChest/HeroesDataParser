@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Weapon>
+  <CWeapon default="1">
+    <Name value="Weapon/Name/##id##"/>
+    <InfoTooltipPriority value="1"/>
+    <Icon value="Assets\Textures\btn-missing-kaeo.dds"/>
+    <Tip value="Weapon/Tip/##id##"/>
+    <DisplayEffect value="##id##"/>
+    <DisplayAttackCount value="0"/>
+    <MinScanRange value="5"/>
+    <Range value="5"/>
+    <RangeSlop value="1"/>
+    <TeleportResetRange value="500"/>
+    <ArcSlop value="11.25"/>
+    <Period value="0.8332"/>
+    <PeriodMin value="0.0625"/>
+    <PeriodMax value="500.0"/>
+    <DamagePoint value="0.167"/>
+    <Backswing value="0.5"/>
+    <Options index="CanInitiateAttackOrder" value="1"/>
+    <Options index="CanIssueOrdersOnAcquire" value="1"/>
+    <Options index="OnlyFireWhileInAttackOrder" value="1"/>
+    <Options index="OnlyFireAtAttackOrderTarget" value="1"/>
+    <Options index="RequireEnabledAttackAbil" value="1"/>
+    <Options index="LinkedCooldown" value="1"/>
+    <Marker Link="Weapon/##id##"/>
+    <Cost>
+      <Cooldown Link="Weapon/##id##"/>
+    </Cost>
+    <TargetFilters value="Visible;-"/>
+  </CWeapon>
+  <CWeaponLegacy default="1">
+    <LegacyOptions index="FaceTargetWhileInCooldown" value="1"/>
+    <RandomDelayMin value="-0.0625"/>
+    <RandomDelayMax value="0.125"/>
+    <Effect value="##id##"/>
+    <PeriodMin value="0.0625"/>
+    <PeriodMax value="500.0"/>
+  </CWeaponLegacy>
+  <CWeaponLegacy default="1" id="StormHeroWeapon">
+    <Options index="ContinuousScan" value="1" />
+    <Options index="HoldFileInShrubs" value="1" />
+    <LegacyOptions index="Uninterruptible" value="1" />
+    <LegacyOptions index="FaceTargetWhileInCooldown" value="0" />
+    <TargetFilters value="Visible;Self,Player,Ally,Neutral,Missile,Stasis,Dead,Hidden,Invulnerable" />
+    <RandomDelayMin value="0" />
+    <RandomDelayMax value="0" />
+    <RangeSlop value="2.125" />
+    <ArcSlop value="219.9902" />
+    <AllowedMovement value="Slowing" />
+  </CWeaponLegacy>
+  <CWeaponLegacy default="1" id="StormHeroSlowWeapon" parent="StormHeroWeapon">
+    <DamagePoint value="0.25" />
+    <Backswing value="0.25" />
+    <UninterruptibleDelay value="0.125" />
+    <UninterruptibleDuration value="0.1875" />
+  </CWeaponLegacy>
+  <CWeaponLegacy default="1" id="StormHeroFastWeapon" parent="StormHeroWeapon">
+    <DamagePoint value="0.125" />
+    <Backswing value="0.125" />
+    <UninterruptibleDelay value="0.0625" />
+    <UninterruptibleDuration value="0.125" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="HeroAbathur" parent="StormHeroSlowWeapon">
+    <Options index="Melee" value="1" />
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-terran-infantryweaponslevel3.dds" />
+    <DisplayEffect value="AbathurWeaponDamage" />
+    <MinScanRange value="4" />
+    <Range value="1" />
+    <Period value="0.7" />
+    <PreswingBeforeAttack value="0.75" />
+    <Effect value="AbathurWeaponDamageSet" />
+    <PreswingBetweenAttacks value="0.25" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="HeroWeaponAlarak" parent="StormHeroFastWeapon">
+    <Range value="1.5" />
+    <Effect value="AlarakHeroWeaponImpactSet" />
+    <DisplayEffect value="AlarakHeroWeaponDamage" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="ChoHeroWeapon" parent="StormHeroFastWeapon">
+    <Options index="Melee" value="1" />
+    <Icon value="Assets\Textures\storm_temp_war3_btnorcmeleeuptwo.dds" />
+    <DisplayEffect value="ChoHeroWeaponDamage" />
+    <Range value="2" />
+    <MinimumRange value="1" />
+    <Period value="1.1" />
+    <DamagePoint value="0.16" />
+    <PreswingBeforeAttack value="0.125" />
+    <PreswingBetweenAttacks value="0.125" />
+    <Effect value="ChoHeroWeaponLaunchSet" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="ChoShortRangeHeroWeapon" parent="ChoHeroWeapon">
+    <Name value="Weapon/Name/ChogallHeroWeapon" />
+    <Range value="1" />
+    <MinimumRange value="0" />
+    <DamagePoint value="0.1" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="ChoLongRangeHeroWeaponCthunsGift" parent="ChoHeroWeapon">
+    <Name value="Weapon/Name/ChogallHeroWeapon" />
+    <Options index="Disabled" value="1" />
+    <Range value="5" />
+    <MinimumRange value="2" />
+    <DamagePoint value="0.1" />
+    <Effect value="ChoHeroWeaponCThunsGiftLaunchSet" />
+  </CWeaponLegacy>
+  <CWeaponLegacy id="TracerHeroWeapon" parent="StormHeroFastWeapon">
+    <Options index="CanInitiateAttackOrder" value="0" />
+    <Options index="OnlyFireWhileInAttackOrder" value="0" />
+    <Options index="OnlyFireAtAttackOrderTarget" value="0" />
+    <Options index="LinkedCooldown" value="0" />
+    <Options index="HoldFileInShrubs" value="0" />
+    <Options index="ScanValidationDisabled" value="1" />
+    <Options index="ContinuouslyFaceTarget" value="1" />
+    <Options index="AllowBenignTargets" value="1" />
+    <Icon value="Assets\Textures\storm_temp_btn-upgrade-terran-infantryweaponslevel2.dds" />
+    <DisplayEffect value="TracerHeroWeaponDamage" />
+    <ChaseFilters value="-;Player,Ally,Neutral,Enemy" />
+    <Arc value="360" />
+    <Cost>
+      <Vital index="Energy" value="2" />
+    </Cost>
+    <Period value="0.125" />
+    <DamagePoint value="0" />
+    <Backswing value="0" />
+    <Effect value="TracerHeroWeaponInitialSet" />
+    <ScanValidationArray value="TracerTargetHasHeroWeaponTargetBehavior" />
+    <LegacyOptions index="Uninterruptible" value="0" />
+    <LegacyOptions index="NoDeceleration" value="1" />
+    <AllowedMovement value="Moving" />
+    <UninterruptibleDuration value="0" />
+  </CWeaponLegacy>
+</Weapon>

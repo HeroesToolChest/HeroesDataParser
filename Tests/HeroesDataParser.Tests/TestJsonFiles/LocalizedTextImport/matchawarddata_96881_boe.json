@@ -1,0 +1,253 @@
+{
+  "meta": {
+    "heroesVersion": "2.55.16.96881",
+    "hdpVersion": "5.0.0",
+    "itemsType": "Data",
+    "dataType": "MatchAwardData",
+    "mapName": "Battlefield of Eternity",
+    "localizedText": "Extracted",
+    "totalItems": 40
+  },
+  "items": {
+    "ClutchHealer": {
+      "gameLink": "EndOfMatchAwardClutchHealerBoolean",
+      "tag": "AwCH",
+      "mvpScreenIcon": "storm_ui_mvp_clutchhealer_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_clutchhealer_%team%.png"
+    },
+    "GivenToNonwinner": {
+      "gameLink": "EndOfMatchAwardGivenToNonwinner",
+      "tag": "AwNW",
+      "mvpScreenIcon": "storm_ui_mvp_trapper_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_trapper_%team%.png"
+    },
+    "HatTrick": {
+      "gameLink": "EndOfMatchAwardHatTrickBoolean",
+      "tag": "AwHT",
+      "mvpScreenIcon": "storm_ui_mvp_hattrick_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_hattrick_%team%.png"
+    },
+    "HighestKillStreak": {
+      "gameLink": "EndOfMatchAwardHighestKillStreakBoolean",
+      "tag": "AwKS",
+      "mvpScreenIcon": "storm_ui_mvp_dominator_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_skull_%team%.png"
+    },
+    "MostAltarDamage": {
+      "gameLink": "EndOfMatchAwardMostAltarDamageDone",
+      "tag": "AwAD",
+      "mvpScreenIcon": "storm_ui_mvp_cannoneer_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_cannoneer_%team%.png"
+    },
+    "MostCoinsPaid": {
+      "gameLink": "EndOfMatchAwardMostCoinsPaidBoolean",
+      "tag": "AwCP",
+      "mvpScreenIcon": "storm_ui_mvp_moneybags_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_moneybags_%team%.png"
+    },
+    "MostCurseDamageDone": {
+      "gameLink": "EndOfMatchAwardMostCurseDamageDoneBoolean",
+      "tag": "AwCD",
+      "mvpScreenIcon": "storm_ui_mvp_masterofthecurse_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_masterofthecurse_%team%.png"
+    },
+    "MostDamageDoneToZerg": {
+      "gameLink": "EndOfMatchAwardMostDamageDoneToZergBoolean",
+      "tag": "AwZe",
+      "mvpScreenIcon": "storm_ui_mvp_zergcrusher_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_zergcrusher_%team%.png"
+    },
+    "MostDamageTaken": {
+      "gameLink": "EndOfMatchAwardMostDamageTakenBoolean",
+      "tag": "AwDT",
+      "mvpScreenIcon": "storm_ui_mvp_bulwark_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_bulwark_%team%.png"
+    },
+    "MostDamageToMinions": {
+      "gameLink": "EndOfMatchAwardMostDamageToMinionsBoolean",
+      "tag": "AwMi",
+      "mvpScreenIcon": "storm_ui_mvp_guardianslayer_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_guardianslayer_%team%.png"
+    },
+    "MostDamageToPlants": {
+      "gameLink": "EndOfMatchAwardMostDamageToPlantsBoolean",
+      "tag": "AwPl",
+      "mvpScreenIcon": "storm_ui_mvp_gardenterror_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_gardenterror_%team%.png"
+    },
+    "MostDaredevilEscapes": {
+      "gameLink": "EndOfMatchAwardMostDaredevilEscapesBoolean",
+      "tag": "AwDD",
+      "mvpScreenIcon": "storm_ui_mvp_daredevil_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_daredevil_%team%.png"
+    },
+    "MostDragonShrinesCaptured": {
+      "gameLink": "EndOfMatchAwardMostDragonShrinesCapturedBoolean",
+      "tag": "AwDS",
+      "mvpScreenIcon": "storm_ui_mvp_shriner_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_shriner_%team%.png"
+    },
+    "MostEscapes": {
+      "gameLink": "EndOfMatchAwardMostEscapesBoolean",
+      "tag": "AwEs",
+      "mvpScreenIcon": "storm_ui_mvp_escapeartist_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_escapeartist_%team%.png"
+    },
+    "MostGemsTurnedIn": {
+      "gameLink": "EndOfMatchAwardMostGemsTurnedInBoolean",
+      "tag": "AwGT",
+      "mvpScreenIcon": "storm_ui_mvp_jeweler_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_jeweler_%team%.png"
+    },
+    "MostHealing": {
+      "gameLink": "EndOfMatchAwardMostHealingBoolean",
+      "tag": "AwHL",
+      "mvpScreenIcon": "storm_ui_mvp_mainhealer_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_mainhealer_%team%.png"
+    },
+    "MostHeroDamageDone": {
+      "gameLink": "EndOfMatchAwardMostHeroDamageDoneBoolean",
+      "tag": "AwHD",
+      "mvpScreenIcon": "storm_ui_mvp_painbringer_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_painbringer_%team%.png"
+    },
+    "MostImmortalDamage": {
+      "gameLink": "EndOfMatchAwardMostImmortalDamageBoolean",
+      "tag": "AwIm",
+      "mvpScreenIcon": "storm_ui_mvp_immortalslayer_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_immortalslayer_%team%.png"
+    },
+    "MostInterruptedCageUnlocks": {
+      "gameLink": "EndOfMatchAwardMostInterruptedCageUnlocksBoolean",
+      "tag": "AwCU",
+      "mvpScreenIcon": "storm_ui_mvp_loyaldefender_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_loyaldefender_wcav_%team%.png"
+    },
+    "MostKills": {
+      "gameLink": "EndOfMatchAwardMostKillsBoolean",
+      "tag": "AwMK",
+      "mvpScreenIcon": "storm_ui_mvp_finisher_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_finisher_%team%.png"
+    },
+    "MostMercCampsCaptured": {
+      "gameLink": "EndOfMatchAwardMostMercCampsCapturedBoolean",
+      "tag": "AwMe",
+      "mvpScreenIcon": "storm_ui_mvp_headhunter_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_headhunter_%team%.png"
+    },
+    "MostNukeDamageDone": {
+      "gameLink": "EndOfMatchAwardMostNukeDamageDoneBoolean",
+      "tag": "AwND",
+      "mvpScreenIcon": "storm_ui_mvp_dabomb_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_dabomb_%team%.png"
+    },
+    "MostProtection": {
+      "gameLink": "EndOfMatchAwardMostProtectionBoolean",
+      "tag": "AwPr",
+      "mvpScreenIcon": "storm_ui_mvp_protector_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_protector_%team%.png"
+    },
+    "MostRoots": {
+      "gameLink": "EndOfMatchAwardMostRootsBoolean",
+      "tag": "AwRt",
+      "mvpScreenIcon": "storm_ui_mvp_trapper_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_trapper_%team%.png"
+    },
+    "MostSeedsCollected": {
+      "gameLink": "EndOfMatchAwardMostSeedsCollectedBoolean",
+      "tag": "AwSe",
+      "mvpScreenIcon": "storm_ui_mvp_gardenterror_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_gardenterror_%team%.png"
+    },
+    "MostSiegeDamageDone": {
+      "gameLink": "EndOfMatchAwardMostSiegeDamageDoneBoolean",
+      "tag": "AwSD",
+      "mvpScreenIcon": "storm_ui_mvp_siegemaster_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_siegemaster_%team%.png"
+    },
+    "MostSilences": {
+      "gameLink": "EndOfMatchAwardMostSilencesBoolean",
+      "tag": "AwSi",
+      "mvpScreenIcon": "storm_ui_mvp_silencer_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_silencer_%team%.png"
+    },
+    "MostSkullsCollected": {
+      "gameLink": "EndOfMatchAwardMostSkullsCollectedBoolean",
+      "tag": "AwSk",
+      "mvpScreenIcon": "storm_ui_mvp_skullcollector_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_skullcollector_%team%.png"
+    },
+    "MostStuns": {
+      "gameLink": "EndOfMatchAwardMostStunsBoolean",
+      "tag": "AwSt",
+      "mvpScreenIcon": "storm_ui_mvp_stunner_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_stunner_%team%.png"
+    },
+    "MostTeamfightDamageTaken": {
+      "gameLink": "EndOfMatchAwardMostTeamfightDamageTakenBoolean",
+      "tag": "AwGu",
+      "mvpScreenIcon": "storm_ui_mvp_guardian_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_guardian_%team%.png"
+    },
+    "MostTeamfightHealingDone": {
+      "gameLink": "EndOfMatchAwardMostTeamfightHealingDoneBoolean",
+      "tag": "AwCM",
+      "mvpScreenIcon": "storm_ui_mvp_combatmedic_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_combatmedic_%team%.png"
+    },
+    "MostTeamfightHeroDamageDone": {
+      "gameLink": "EndOfMatchAwardMostTeamfightHeroDamageDoneBoolean",
+      "tag": "AwSc",
+      "mvpScreenIcon": "storm_ui_mvp_scrapper_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_scrapper_%team%.png"
+    },
+    "MostTimeInTemple": {
+      "gameLink": "EndOfMatchAwardMostTimeInTempleBoolean",
+      "tag": "AwTT",
+      "mvpScreenIcon": "storm_ui_mvp_templemaster_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_templemaster_%team%.png"
+    },
+    "MostTimeOnPoint": {
+      "gameLink": "EndOfMatchAwardMostTimeOnPointBoolean",
+      "tag": "AwPG",
+      "mvpScreenIcon": "storm_ui_mvp_pointguard_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_pointguard_%team%.png"
+    },
+    "MostTimePushing": {
+      "gameLink": "EndOfMatchAwardMostTimePushingBoolean",
+      "tag": "AwPu",
+      "mvpScreenIcon": "storm_ui_mvp_pusher_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_pusher_%team%.png"
+    },
+    "MostVengeancesPerformed": {
+      "gameLink": "EndOfMatchAwardMostVengeancesPerformedBoolean",
+      "tag": "AwVe",
+      "mvpScreenIcon": "storm_ui_mvp_avenger_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_avenger_%team%.png"
+    },
+    "MostXPContribution": {
+      "gameLink": "EndOfMatchAwardMostXPContributionBoolean",
+      "tag": "AwXP",
+      "mvpScreenIcon": "storm_ui_mvp_experienced_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_experienced_%team%.png"
+    },
+    "MVP": {
+      "gameLink": "EndOfMatchAwardMVPBoolean",
+      "tag": "AwMV",
+      "mvpScreenIcon": "storm_ui_mvp_mvp_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_mvp_%team%.png"
+    },
+    "ZeroDeaths": {
+      "gameLink": "EndOfMatchAward0DeathsBoolean",
+      "tag": "AwZD",
+      "mvpScreenIcon": "storm_ui_mvp_solesurvivor_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_solesurvivor_%team%.png"
+    },
+    "ZeroOutnumberedDeaths": {
+      "gameLink": "EndOfMatchAward0OutnumberedDeathsBoolean",
+      "tag": "AwTP",
+      "mvpScreenIcon": "storm_ui_mvp_teamplayer_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_teamplayer_%team%.png"
+    }
+  }
+}

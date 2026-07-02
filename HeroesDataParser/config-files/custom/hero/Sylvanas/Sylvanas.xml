@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit id="HeroSylvanas" parent="StormHeroMounted">
+    <CardLayouts index="0">
+      <!--<LayoutButtons Face="SylvanasBlackArrowsPassive" Type="Passive" Slot="Trait" />-->
+      <LayoutButtons index="35">
+        <hdp-ParentAbilArray value="SylvanasBlackArrowsActive" />
+      </LayoutButtons>
+    </CardLayouts>
+  </CUnit>
+  <CAbilEffectInstant id="SylvanasMindControlCancel">
+    <ParentAbil value="SylvanasMindControlMissile" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="SylvanasHauntingWaveWindrunnerTalent">
+    <ParentAbil value="" />
+    <hdp-ParentTalentArray value="SylvanasTalentWindrunnerHauntingWave" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="SylvanasHauntingWaveActivateWindrunnerTalent">
+    <ParentAbil value="SylvanasHauntingWaveWindrunnerTalent" /> 
+  </CAbilEffectInstant>
+</Catalog>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="us-ascii"?>
-<Includes>
-  <Catalog path="GameData/JunkratData.xml" />
-  <Catalog path="GameData/JunkratVOData/JunkratAnnouncerVOData.xml" />
-  <Catalog path="GameData/JunkratVOData/JunkratFallenVOData.xml" />
-  <Catalog path="GameData/JunkratSkinData/JunkratBaseData/JunkratBaseData.xml" />
-  <Catalog path="GameData/JunkratSkinData/JunkratBaseData/JunkratVar1Data.xml" />
-</Includes>

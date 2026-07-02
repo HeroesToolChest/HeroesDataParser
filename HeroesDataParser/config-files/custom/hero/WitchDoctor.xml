@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CButton id="WitchDoctorGargantuanStomp" parent="StormButtonParent">
+    <hdp-ParentAbilArray value="WitchDoctorGargantuanStompCommand" />
+  </CButton>
+</Catalog>

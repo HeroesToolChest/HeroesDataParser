@@ -1,0 +1,539 @@
+{
+  "type": "object",
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "heroesVersion": {
+          "type": "string"
+        },
+        "hdpVersion": {
+          "type": "string"
+        },
+        "itemsType": {
+          "enum": [
+            "Other",
+            "Data",
+            "GameStrings"
+          ]
+        },
+        "dataType": {
+          "enum": [
+            "Unknown",
+            "GameStrings",
+            "HeroData",
+            "UnitData",
+            "AnnouncerPackData",
+            "BannerData",
+            "BoostData",
+            "BundleData",
+            "EmoticonData",
+            "EmoticonPackData",
+            "LootChestData",
+            "MapData",
+            "MatchAwardData",
+            "MountData",
+            "PortraitPackData",
+            "RewardPortraitData",
+            "SkinData",
+            "SprayData",
+            "TypeDescriptionData",
+            "VeterancyData",
+            "VoiceLineData"
+          ]
+        },
+        "mapName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "localizedText": {
+          "enum": [
+            "None",
+            "Extracted"
+          ]
+        },
+        "gameStringText": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "locale": {
+              "enum": [
+                "ENUS",
+                "DEDE",
+                "ESES",
+                "ESMX",
+                "FRFR",
+                "ITIT",
+                "KOKR",
+                "PLPL",
+                "PTBR",
+                "RURU",
+                "ZHCN",
+                "ZHTW"
+              ]
+            },
+            "textType": {
+              "enum": [
+                "RawText",
+                "PlainText",
+                "PlainTextWithNewlines",
+                "PlainTextWithScaling",
+                "PlainTextWithScalingWithNewlines",
+                "ColoredText",
+                "ColoredTextWithScaling",
+                null
+              ]
+            },
+            "constantVars": {
+              "type": "object",
+              "properties": {
+                "replaced": {
+                  "type": "boolean"
+                },
+                "preserved": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "styleVars": {
+              "type": "object",
+              "properties": {
+                "replaced": {
+                  "type": "boolean"
+                },
+                "preserved": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        },
+        "totalItems": {
+          "type": "integer"
+        }
+      }
+    },
+    "items": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "gender": {
+            "enum": [
+              "Neutral",
+              "Male",
+              "Female",
+              null
+            ]
+          },
+          "damageType": {
+            "enum": [
+              "Unknown",
+              "Hero",
+              "Merc",
+              "Monster",
+              "Summon",
+              "Structure",
+              "Minion",
+              null
+            ]
+          },
+          "radius": {
+            "type": "number"
+          },
+          "innerRadius": {
+            "type": "number"
+          },
+          "sight": {
+            "type": "number"
+          },
+          "speed": {
+            "type": "number"
+          },
+          "killXP": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "attributes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "scalingLinkIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "life": {
+            "type": "object",
+            "properties": {
+              "amount": {
+                "type": "number"
+              },
+              "scale": {
+                "type": "number"
+              },
+              "regenRate": {
+                "type": "number"
+              },
+              "regenScale": {
+                "type": "number"
+              },
+              "type": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "energy": {
+            "type": "object",
+            "properties": {
+              "amount": {
+                "type": "number"
+              },
+              "regenRate": {
+                "type": "number"
+              },
+              "type": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "shield": {
+            "type": "object",
+            "properties": {
+              "amount": {
+                "type": "number"
+              },
+              "scale": {
+                "type": "number"
+              },
+              "regenRate": {
+                "type": "number"
+              },
+              "regenScale": {
+                "type": "number"
+              },
+              "regenDelay": {
+                "type": "number"
+              },
+              "type": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "armor": {
+            "type": "object",
+            "propertyNames": {
+              "enum": [
+                "Unknown",
+                "Hero",
+                "Merc",
+                "Monster",
+                "Summon",
+                "Structure",
+                "Minion"
+              ]
+            },
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "basic": {
+                  "type": "number"
+                },
+                "ability": {
+                  "type": "number"
+                },
+                "splash": {
+                  "type": "number"
+                }
+              }
+            }
+          },
+          "playstyles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "portraits": {
+            "type": "object",
+            "properties": {
+              "minimap": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "targetInfo": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "summonedUnitIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "weapons": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "nameId": {
+                  "type": "string"
+                },
+                "isDisabled": {
+                  "type": "boolean"
+                },
+                "range": {
+                  "type": "number"
+                },
+                "minimumRange": {
+                  "type": "number"
+                },
+                "period": {
+                  "type": "number"
+                },
+                "damage": {
+                  "type": "number"
+                },
+                "damageScale": {
+                  "type": "number"
+                },
+                "damageFactors": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "number"
+                  }
+                },
+                "vitalCost": {
+                  "type": "object",
+                  "propertyNames": {
+                    "enum": [
+                      "Unknown",
+                      "Life",
+                      "Shields",
+                      "Energy"
+                    ]
+                  },
+                  "additionalProperties": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          },
+          "abilities": {
+            "type": "object",
+            "propertyNames": {
+              "enum": [
+                "Unknown",
+                "Basic",
+                "Heroic",
+                "Trait",
+                "Mount",
+                "Activable",
+                "Hearth",
+                "Taunt",
+                "Dance",
+                "Spray",
+                "Voice",
+                "MapMechanic",
+                "Interact",
+                "Action",
+                "Hidden"
+              ]
+            },
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "linkId": {
+                    "type": "string"
+                  },
+                  "abilityId": {
+                    "type": "string"
+                  },
+                  "buttonId": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "icon": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "toggleCooldown": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "charges": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "countMax": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      },
+                      "countStart": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      },
+                      "countUse": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ]
+                      },
+                      "recastCooldown": {
+                        "type": [
+                          "number",
+                          "null"
+                        ]
+                      },
+                      "isCountHidden": {
+                        "type": "boolean"
+                      }
+                    }
+                  },
+                  "energyText": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "lifeText": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "cooldownText": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "shortText": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "fullText": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "abilityType": {
+                    "enum": [
+                      "Unknown",
+                      "Q",
+                      "W",
+                      "E",
+                      "Heroic",
+                      "Trait",
+                      "Z",
+                      "Active",
+                      "Passive",
+                      "B",
+                      "Attack",
+                      "Stop",
+                      "Hold",
+                      "Cancel",
+                      "Interact",
+                      "Taunt",
+                      "Dance",
+                      "Spray",
+                      "Voice",
+                      "ForceMove",
+                      "MapMechanic",
+                      "Hidden"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "subAbilities": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "propertyNames": {
+                "enum": [
+                  "Unknown",
+                  "Basic",
+                  "Heroic",
+                  "Trait",
+                  "Mount",
+                  "Activable",
+                  "Hearth",
+                  "Taunt",
+                  "Dance",
+                  "Spray",
+                  "Voice",
+                  "MapMechanic",
+                  "Interact",
+                  "Action",
+                  "Hidden"
+                ]
+              },
+              "additionalProperties": {
+                "$ref": "#/properties/items/additionalProperties/properties/abilities/additionalProperties"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

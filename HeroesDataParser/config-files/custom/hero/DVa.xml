@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CHero id="DVa">
+    <!--swap to mech, instead of pilot so that the "base" is the mech properties-->
+    <Unit value="HeroDVaMech" />
+    <!--clear the HeroDVaMech-->
+    <AlternateUnitArray index="0" value="" />
+  </CHero>
+  <CUnit id="HeroDVaPilot" parent="StormHeroMounted">
+    <CardLayouts index="0">
+      <LayoutButtons index="0" Slot="Hidden" /> <!--Face="DVaMechCancelBoosters" Type="AbilCmd" AbilCmd="DVaPilotRemoteBoostersOff,Execute" Requirements=""-->
+      <LayoutButtons index="25" Slot="Hidden" /> <!--Face="DVaMechCancelBoosters" Type="AbilCmd" AbilCmd="DVaPilotRemoteBoostersOff,255"-->
+      <LayoutButtons index="27" Slot="Hidden" /> <!--Face="DVaMechBoosters" Type="AbilCmd" AbilCmd="DVaBoostersOn,Execute"-->
+      <LayoutButtons index="35" Slot="Hidden" /> <!--Face="DVaBunnyHopOn" Type="AbilCmd" AbilCmd="DVaMechBunnyHopHeroic,On"-->
+      <LayoutButtons index="36" Slot="Hidden" /> <!--Face="DVaMicroMissiles" Type="AbilCmd" AbilCmd="DVaMicroMissiles,Execute"-->
+      <LayoutButtons index="37" Slot="Hidden" /> <!--Face="LootConsumableThrow" Type="AbilCmd" AbilCmd="LootConsumableThrow,255"-->
+      <LayoutButtons index="39" Slot="Hidden" /> <!--Face="DVaMechSelfDestruct" Type="AbilCmd" AbilCmd="DVaMechSelfDestruct,Execute"-->
+      <LayoutButtons index="41" Slot="Hidden" /> <!--Face="DVaMechDefenseMatrix" Type="AbilCmd" AbilCmd="DVaMechDefenseMatrixOn,Execute"-->
+      <LayoutButtons index="43" Slot="Hidden" /> <!--Face="DVaMechMechMode" Type="Passive"-->
+    </CardLayouts>    
+  </CUnit>
+  <CAbilEffectInstant id="DVaBoostersOff">
+    <ParentAbil value="DVaBoostersOn" />
+  </CAbilEffectInstant>
+  <CAbilBehavior id="DVaMechBunnyHopHeroic">
+    <CmdButtonArray index="Off" >
+      <hdp-ParentAbilArray value="DVaMechBunnyHopHeroic" />
+    </CmdButtonArray>
+  </CAbilBehavior>
+  <CAbilEffectInstant id="DVaLiquidCoolingAbility">
+    <hdp-ParentTalentArray value="DVaLiquidCooling" />
+  </CAbilEffectInstant>
+</Catalog>

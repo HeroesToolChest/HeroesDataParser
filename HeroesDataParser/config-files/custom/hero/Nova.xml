@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit id="HeroNova" parent="StormHeroMounted">
+    <CardLayouts index="0">
+      <LayoutButtons index="31" Slot="Hidden" /> <!--Face="NovaPermanentCloak" Type="AbilCmd" AbilCmd="NovaCloakCooldownDisplay,Execute"-->
+    </CardLayouts>
+  </CUnit> 
+</Catalog>

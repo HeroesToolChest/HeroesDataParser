@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Bundle>
+  <CBundle default="1">
+    <Name value="Bundle/Name/##id##"/>
+    <SortName value="Bundle/SortName/##id##"/>
+    <HyperlinkId value="##id##"/>
+    <ReleaseDate>
+      <Month value="1"/>
+      <Day value="1"/>
+      <Year value="2014"/>
+    </ReleaseDate>
+    <LootChestRewardCutsceneFile value="Cutscenes/UI_LootBox_Coin.StormCutscene"/>
+  </CBundle>
+  <CBundle id="BattleBundle">
+    <ProductId value="10863"/>
+    <Universe value="Heroes"/>
+    <HeroArray value="Raynor"/>
+    <HeroArray value="Diablo"/>
+    <HeroArray value="Tyrande"/>
+    <SkinArray Hero="Raynor" Skin="RaynorCommander"/>
+    <SkinArray Hero="Diablo" Skin="DiabloMurkablo"/>
+    <SkinArray Hero="Tyrande" Skin="TyrandeBloodElfBase"/>
+    <MountArray value="CyberWolfGold"/>
+    <TileCutsceneFile value="Cutscenes\FrameBundleBattle.StormCutscene"/>
+    <GoldBonus value="2500"/>
+  </CBundle>
+  <CBundle id="AlteredWarBundle">
+    <ProductId value="22668"/>
+    <Flags index="ShowDynamicProductContent" value="1"/>
+    <Universe value="Heroes"/>
+    <ReleaseDate Month="11" Day="22" Year="2016"/>
+    <TileTexture value="Assets\Textures\storm_ui_Bundles_H22_AlteredWar.dds"/>
+    <BoostBonus value="7Day"/>
+    <GemsBonus value="800"/>
+    <LootChestBonus value="CommonProgChest"/>
+  </CBundle>
+</Bundle>

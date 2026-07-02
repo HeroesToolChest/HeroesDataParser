@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AnnouncerPack>
+  <CAnnouncerPack default="1">
+    <Name value="AnnouncerPack/Name/##id##" />
+    <SortName value="AnnouncerPack/SortName/##id##" />
+    <Description value="AnnouncerPack/Description/##id##" />
+    <LootChestRewardCutsceneFile value="Cutscenes/UI_LootChest_Reward_BG.StormCutscene" />
+    <TileCutsceneFile value="Cutscenes/UI_LootChest_Reward_BG.StormCutscene" />
+    <Flags index="ShowInStore" value="1" />
+    <ReleaseDate>
+      <Month value="1" />
+      <Day value="1" />
+      <Year value="2014" />
+    </ReleaseDate>
+    <PreviewSound value="##id##_Preview" />
+  </CAnnouncerPack>
+  <CAnnouncerPack default="1" id="StormAnnouncerPackQuick">
+    <CollectionCategory value="Default"/>
+    <VoiceOver value="##id##"/>
+    <RequiredRewardArray value="##id##"/>
+    <Hero value="##heroid##"/>
+    <Gender value="Unknown"/>
+    <TileTexture value="Assets\Textures\Storm_UI_Announcer_##heroid##.dds"/>
+    <HyperlinkId value="##heroid##Announcer"/>
+    <Rarity value="Epic"/>
+  </CAnnouncerPack>
+  <CAnnouncerPack id="Adjutant" parent="StormAnnouncerPackQuick" heroid="AI">
+    <AttributeId value="AADJ"/>
+    <CollectionCategory value="Starcraft"/>
+    <Gender value="Female"/>
+    <ProductId value="36531"/>
+    <ReleaseDate Month="3" Day="27" Year="2018"/>
+    <HyperlinkId value="AdjutantAnnouncer"/>
+    <Rarity value="Legendary"/>
+    <TileTexture value="Assets\Textures\Storm_UI_Announcer_Adjutant.dds"/>
+  </CAnnouncerPack>
+  <CAnnouncerPack id="GarroshA">
+    <AttributeId value="GARR"/>
+    <HyperlinkId value="GarroshAnnouncer"/>
+    <TileTexture value="Assets\Textures\storm_ui_announcer_garrosh.dds"/>
+    <VoiceOver value="GarroshA"/>
+    <CollectionCategory value="Warcraft"/>
+    <Rarity value="Epic"/>
+  </CAnnouncerPack>
+  <CAnnouncerPack id="GarroshA" parent="StormAnnouncerPackQuick" heroid="Garrosh">
+    <ProductId value="29869"/>
+    <ReleaseDate Month="8" Day="8" Year="2017"/>
+    <CollectionCategory value="Warcraft"/>
+    <AttributeId value="AGAR"/>
+    <Gender value="Male"/>
+  </CAnnouncerPack>
+</AnnouncerPack>

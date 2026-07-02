@@ -1,8 +1,0 @@
-mount/infotext/CloudNine=A floating cloud
-mount/infotext/MagixCarpet=A flying magic carpet
-mount/name/CloudNine=Cloud Nine
-mount/name/MagixCarpet=Magic Carpet
-mount/searchtext/CloudNine=Blue
-mount/searchtext/MagixCarpet=Blue
-mount/sortname/CloudNine=99CloudeNine
-mount/sortname/MagixCarpet=xxMagixCarpet

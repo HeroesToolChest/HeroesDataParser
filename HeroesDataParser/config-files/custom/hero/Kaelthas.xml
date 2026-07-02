@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CButton id="KaelthasVerdantSpheresActive" parent="StormButtonParentTrait">
+    <hdp-ParentAbilArray value="KaelthasVerdantSpheres" />
+  </CButton>
+</Catalog>

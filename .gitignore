@@ -262,3 +262,7 @@ __pycache__/
 
 # Visual Studio Code
 .vscode/
+
+# Other files
+/HeroesDataParser/appsettings.Development.json
+sixlabors.lic

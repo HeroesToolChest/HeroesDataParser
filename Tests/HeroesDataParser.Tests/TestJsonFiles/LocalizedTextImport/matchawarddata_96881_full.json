@@ -1,0 +1,415 @@
+{
+  "meta": {
+    "heroesVersion": "2.55.16.96881",
+    "hdpVersion": "5.0.0",
+    "itemsType": "Data",
+    "dataType": "MatchAwardData",
+    "localizedText": "None",
+    "gameStringText": {
+      "locale": "ENUS",
+      "textType": "RawText",
+      "constantVars": {
+        "replaced": false,
+        "preserved": false
+      },
+      "styleVars": {
+        "replaced": false,
+        "preserved": false
+      }
+    },
+    "totalItems": 40
+  },
+  "items": {
+    "ClutchHealer": {
+      "gameLink": "EndOfMatchAwardClutchHealerBoolean",
+      "tag": "AwCH",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Clutch Healer</lang>",
+      "scoreScreenDescription": "Many Heals That Saved a Dying Ally",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Clutch Healer</lang>",
+      "endOfMatchDescription": "~AwardValue~ Clutch Heals",
+      "endOfMatchTooltipText": "~TooltipAmount~ Heals That Saved a Dying Ally",
+      "mvpScreenIcon": "storm_ui_mvp_clutchhealer_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_clutchhealer_%team%.png"
+    },
+    "GivenToNonwinner": {
+      "gameLink": "EndOfMatchAwardGivenToNonwinner",
+      "tag": "AwNW",
+      "scoreScreenName": "Given To Nonwinner",
+      "mvpScreenIcon": "storm_ui_mvp_trapper_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_trapper_%team%.png"
+    },
+    "HatTrick": {
+      "gameLink": "EndOfMatchAwardHatTrickBoolean",
+      "tag": "AwHT",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Hat Trick</lang>",
+      "scoreScreenDescription": "First Three Kills of Match",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Hat Trick</lang>",
+      "endOfMatchDescription": "First Three Kills of Match",
+      "endOfMatchTooltipText": "First, Second, and Third Kills of the Match",
+      "mvpScreenIcon": "storm_ui_mvp_hattrick_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_hattrick_%team%.png"
+    },
+    "HighestKillStreak": {
+      "gameLink": "EndOfMatchAwardHighestKillStreakBoolean",
+      "tag": "AwKS",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Dominator,Dominator</lang>",
+      "scoreScreenDescription": "High Killstreak",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Dominator</lang>",
+      "endOfMatchDescription": "Best Killing Spree - ~AwardValue~ Heroes",
+      "endOfMatchTooltipText": "~TooltipAmount~ Hero Killing Spree",
+      "mvpScreenIcon": "storm_ui_mvp_dominator_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_skull_%team%.png"
+    },
+    "MostAltarDamage": {
+      "gameLink": "EndOfMatchAwardMostAltarDamageDone",
+      "tag": "AwAD",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Cannoneer,Cannoneer</lang>",
+      "scoreScreenDescription": "High Core Damage Done",
+      "mvpScreenIcon": "storm_ui_mvp_cannoneer_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_cannoneer_%team%.png"
+    },
+    "MostCoinsPaid": {
+      "gameLink": "EndOfMatchAwardMostCoinsPaidBoolean",
+      "tag": "AwCP",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Moneybags,Moneybags</lang>",
+      "scoreScreenDescription": "High Coins Delivered",
+      "mvpScreenIcon": "storm_ui_mvp_moneybags_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_moneybags_%team%.png"
+    },
+    "MostCurseDamageDone": {
+      "gameLink": "EndOfMatchAwardMostCurseDamageDoneBoolean",
+      "tag": "AwCD",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Master of the Curse,Master of the Curse</lang>",
+      "scoreScreenDescription": "High Curse Siege Damage",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Master of the Curse</lang>",
+      "endOfMatchDescription": "~AwardValue~% Curse Damage",
+      "endOfMatchTooltipText": "~TooltipAmount~ Damage During Curse",
+      "mvpScreenIcon": "storm_ui_mvp_masterofthecurse_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_masterofthecurse_%team%.png"
+    },
+    "MostDamageDoneToZerg": {
+      "gameLink": "EndOfMatchAwardMostDamageDoneToZergBoolean",
+      "tag": "AwZe",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Zerg Crusher,Zerg Crusher</lang>",
+      "scoreScreenDescription": "High Damage Done to Zerg",
+      "mvpScreenIcon": "storm_ui_mvp_zergcrusher_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_zergcrusher_%team%.png"
+    },
+    "MostDamageTaken": {
+      "gameLink": "EndOfMatchAwardMostDamageTakenBoolean",
+      "tag": "AwDT",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Bulwark,Bulwark</lang>",
+      "scoreScreenDescription": "High Efficient Damage Soaked",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Bulwark</lang>",
+      "endOfMatchDescription": "~AwardValue~% of Team's Damage Soaked",
+      "endOfMatchTooltipText": "~TooltipAmount~ Damage Soaked<n/>~TooltipSecondaryAmount~ <lang rule=\"plural\" val=\"~TooltipSecondaryAmount~\">Death,Deaths</lang>",
+      "mvpScreenIcon": "storm_ui_mvp_bulwark_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_bulwark_%team%.png"
+    },
+    "MostDamageToMinions": {
+      "gameLink": "EndOfMatchAwardMostDamageToMinionsBoolean",
+      "tag": "AwMi",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Guardian Slayer,Guardian Slayer</lang>",
+      "scoreScreenDescription": "High Damage Done to Shrine Guardians",
+      "mvpScreenIcon": "storm_ui_mvp_guardianslayer_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_guardianslayer_%team%.png"
+    },
+    "MostDamageToPlants": {
+      "gameLink": "EndOfMatchAwardMostDamageToPlantsBoolean",
+      "tag": "AwPl",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Garden Terror,Garden Terror</lang>",
+      "scoreScreenDescription": "High Damage Done to Plants",
+      "mvpScreenIcon": "storm_ui_mvp_gardenterror_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_gardenterror_%team%.png"
+    },
+    "MostDaredevilEscapes": {
+      "gameLink": "EndOfMatchAwardMostDaredevilEscapesBoolean",
+      "tag": "AwDD",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Daredevil</lang>",
+      "scoreScreenDescription": "Escaped Death Many Times in Team Fights",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Daredevil</lang>",
+      "endOfMatchDescription": "Escaped Death ~AwardValue~ Times in Team Fights",
+      "endOfMatchTooltipText": "Brought to Brink of Death, but Survived, ~TooltipAmount~ Times in Team Fights",
+      "mvpScreenIcon": "storm_ui_mvp_daredevil_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_daredevil_%team%.png"
+    },
+    "MostDragonShrinesCaptured": {
+      "gameLink": "EndOfMatchAwardMostDragonShrinesCapturedBoolean",
+      "tag": "AwDS",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Shriner,Shriner</lang>",
+      "scoreScreenDescription": "High Shrines Captured",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Shriner</lang>",
+      "endOfMatchDescription": "~AwardValue~ Shrines Captured",
+      "endOfMatchTooltipText": "~TooltipAmount~ Shrines Captured",
+      "mvpScreenIcon": "storm_ui_mvp_shriner_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_shriner_%team%.png"
+    },
+    "MostEscapes": {
+      "gameLink": "EndOfMatchAwardMostEscapesBoolean",
+      "tag": "AwEs",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Escape Artist</lang>",
+      "scoreScreenDescription": "Escaped Death Many Times",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Escape Artist</lang>",
+      "endOfMatchDescription": "Escaped Death ~AwardValue~ Times",
+      "endOfMatchTooltipText": "Brought to Brink of Death, but Survived, ~TooltipAmount~ Times",
+      "mvpScreenIcon": "storm_ui_mvp_escapeartist_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_escapeartist_%team%.png"
+    },
+    "MostGemsTurnedIn": {
+      "gameLink": "EndOfMatchAwardMostGemsTurnedInBoolean",
+      "tag": "AwGT",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Jeweler,Jeweler</lang>",
+      "scoreScreenDescription": "Many Gems Turned in",
+      "mvpScreenIcon": "storm_ui_mvp_jeweler_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_jeweler_%team%.png"
+    },
+    "MostHealing": {
+      "gameLink": "EndOfMatchAwardMostHealingBoolean",
+      "tag": "AwHL",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Main Healer,Main Healer</lang>",
+      "scoreScreenDescription": "High Healing Done",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Main Healer</lang>",
+      "endOfMatchDescription": "~AwardValue~% of Team's Damage Healed",
+      "endOfMatchTooltipText": "~TooltipAmount~ Healing Done",
+      "mvpScreenIcon": "storm_ui_mvp_mainhealer_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_mainhealer_%team%.png"
+    },
+    "MostHeroDamageDone": {
+      "gameLink": "EndOfMatchAwardMostHeroDamageDoneBoolean",
+      "tag": "AwHD",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Painbringer,Painbringer</lang>",
+      "scoreScreenDescription": "High Hero Damage Done",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Painbringer</lang>",
+      "endOfMatchDescription": "~AwardValue~% of Team's Hero Damage",
+      "endOfMatchTooltipText": "~TooltipAmount~ Hero Damage Done",
+      "mvpScreenIcon": "storm_ui_mvp_painbringer_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_painbringer_%team%.png"
+    },
+    "MostImmortalDamage": {
+      "gameLink": "EndOfMatchAwardMostImmortalDamageBoolean",
+      "tag": "AwIm",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Immortal Slayer,Immortal Slayer</lang>",
+      "scoreScreenDescription": "High Damage Done to Immortals",
+      "mvpScreenIcon": "storm_ui_mvp_immortalslayer_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_immortalslayer_%team%.png"
+    },
+    "MostInterruptedCageUnlocks": {
+      "gameLink": "EndOfMatchAwardMostInterruptedCageUnlocksBoolean",
+      "tag": "AwCU",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Loyal Defender</lang>",
+      "scoreScreenDescription": "Interrupted Many Cage Unlock Attempts",
+      "mvpScreenIcon": "storm_ui_mvp_loyaldefender_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_loyaldefender_wcav_%team%.png"
+    },
+    "MostKills": {
+      "gameLink": "EndOfMatchAwardMostKillsBoolean",
+      "tag": "AwMK",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Finisher</lang>",
+      "scoreScreenDescription": "High Kills",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Finisher</lang>",
+      "endOfMatchDescription": "~AwardValue~% of Team's Kills",
+      "endOfMatchTooltipText": "~TooltipAmount~ Kills",
+      "mvpScreenIcon": "storm_ui_mvp_finisher_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_finisher_%team%.png"
+    },
+    "MostMercCampsCaptured": {
+      "gameLink": "EndOfMatchAwardMostMercCampsCapturedBoolean",
+      "tag": "AwMe",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Headhunter,Headhunter</lang>",
+      "scoreScreenDescription": "High Mercenary Captures",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Headhunter</lang>",
+      "endOfMatchDescription": "~AwardValue~ Mercenary Captures",
+      "endOfMatchTooltipText": "~TooltipAmount~ Mercenary Camps Captured",
+      "mvpScreenIcon": "storm_ui_mvp_headhunter_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_headhunter_%team%.png"
+    },
+    "MostNukeDamageDone": {
+      "gameLink": "EndOfMatchAwardMostNukeDamageDoneBoolean",
+      "tag": "AwND",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Da Bomb,Da Bomb</lang>",
+      "scoreScreenDescription": "High Damage Done with Warheads",
+      "mvpScreenIcon": "storm_ui_mvp_dabomb_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_dabomb_%team%.png"
+    },
+    "MostProtection": {
+      "gameLink": "EndOfMatchAwardMostProtectionBoolean",
+      "tag": "AwPr",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Protector</lang>",
+      "scoreScreenDescription": "High Damage Prevented",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Protector</lang>",
+      "endOfMatchDescription": "~AwardValue~% of Team's Damage Prevented",
+      "endOfMatchTooltipText": "~TooltipAmount~ Damage Prevented",
+      "mvpScreenIcon": "storm_ui_mvp_protector_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_protector_%team%.png"
+    },
+    "MostRoots": {
+      "gameLink": "EndOfMatchAwardMostRootsBoolean",
+      "tag": "AwRt",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Trapper</lang>",
+      "scoreScreenDescription": "High Root Time on Enemy Heroes",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Trapper</lang>",
+      "endOfMatchDescription": "~AwardValue~ Seconds Root Time",
+      "endOfMatchTooltipText": "~TooltipAmount~ Root Time on Enemy Heroes",
+      "mvpScreenIcon": "storm_ui_mvp_trapper_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_trapper_%team%.png"
+    },
+    "MostSeedsCollected": {
+      "gameLink": "EndOfMatchAwardMostSeedsCollectedBoolean",
+      "tag": "AwSe",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Seed Collector</lang>",
+      "scoreScreenDescription": "High Seeds Collected",
+      "mvpScreenIcon": "storm_ui_mvp_gardenterror_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_gardenterror_%team%.png"
+    },
+    "MostSiegeDamageDone": {
+      "gameLink": "EndOfMatchAwardMostSiegeDamageDoneBoolean",
+      "tag": "AwSD",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Siege Master,Siege Master</lang>",
+      "scoreScreenDescription": "High Siege Damage Done",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Siege Master</lang>",
+      "endOfMatchDescription": "~AwardValue~% of Team's Structure Damage",
+      "endOfMatchTooltipText": "~TooltipAmount~ Siege Damage Done",
+      "mvpScreenIcon": "storm_ui_mvp_siegemaster_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_siegemaster_%team%.png"
+    },
+    "MostSilences": {
+      "gameLink": "EndOfMatchAwardMostSilencesBoolean",
+      "tag": "AwSi",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Silencer</lang>",
+      "scoreScreenDescription": "High Silence Time",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Silencer</lang>",
+      "endOfMatchDescription": "~AwardValue~ Seconds Silence Time",
+      "endOfMatchTooltipText": "~TooltipAmount~ Seconds Silence Time on Enemy Heroes",
+      "mvpScreenIcon": "storm_ui_mvp_silencer_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_silencer_%team%.png"
+    },
+    "MostSkullsCollected": {
+      "gameLink": "EndOfMatchAwardMostSkullsCollectedBoolean",
+      "tag": "AwSk",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Skull Collector, Skull Collector</lang>",
+      "scoreScreenDescription": "High Skulls Collected",
+      "mvpScreenIcon": "storm_ui_mvp_skullcollector_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_skullcollector_%team%.png"
+    },
+    "MostStuns": {
+      "gameLink": "EndOfMatchAwardMostStunsBoolean",
+      "tag": "AwSt",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Stunner,Stunner</lang>",
+      "scoreScreenDescription": "High Stun Time",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Stunner</lang>",
+      "endOfMatchDescription": "~AwardValue~ Seconds Stun Time",
+      "endOfMatchTooltipText": "~TooltipAmount~ Stun Time on Enemy Heroes",
+      "mvpScreenIcon": "storm_ui_mvp_stunner_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_stunner_%team%.png"
+    },
+    "MostTeamfightDamageTaken": {
+      "gameLink": "EndOfMatchAwardMostTeamfightDamageTakenBoolean",
+      "tag": "AwGu",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Guardian</lang>",
+      "scoreScreenDescription": "Soaked High Damage in Team Fights",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Guardian</lang>",
+      "endOfMatchDescription": "~AwardValue~% of Team Fight Damage Soaked",
+      "endOfMatchTooltipText": "Soaked ~TooltipAmount~ Damage in Team Fights",
+      "mvpScreenIcon": "storm_ui_mvp_guardian_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_guardian_%team%.png"
+    },
+    "MostTeamfightHealingDone": {
+      "gameLink": "EndOfMatchAwardMostTeamfightHealingDoneBoolean",
+      "tag": "AwCM",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Combat Medic</lang>",
+      "scoreScreenDescription": "Healed High Damage in Team Fights",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Combat Medic</lang>",
+      "endOfMatchDescription": "~AwardValue~% of Team Fight Damage Healed",
+      "endOfMatchTooltipText": "Healed ~TooltipAmount~ Damage in Team Fights",
+      "mvpScreenIcon": "storm_ui_mvp_combatmedic_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_combatmedic_%team%.png"
+    },
+    "MostTeamfightHeroDamageDone": {
+      "gameLink": "EndOfMatchAwardMostTeamfightHeroDamageDoneBoolean",
+      "tag": "AwSc",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Scrapper</lang>",
+      "scoreScreenDescription": "High Team Fight Damage",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Scrapper</lang>",
+      "endOfMatchDescription": "~AwardValue~% of Team Fight Damage",
+      "endOfMatchTooltipText": "~TooltipAmount~ Hero Damage Done in Team Fights",
+      "mvpScreenIcon": "storm_ui_mvp_scrapper_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_scrapper_%team%.png"
+    },
+    "MostTimeInTemple": {
+      "gameLink": "EndOfMatchAwardMostTimeInTempleBoolean",
+      "tag": "AwTT",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Temple Master,Temple Master</lang>",
+      "scoreScreenDescription": "High Time Occupying Shrines",
+      "mvpScreenIcon": "storm_ui_mvp_templemaster_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_templemaster_%team%.png"
+    },
+    "MostTimeOnPoint": {
+      "gameLink": "EndOfMatchAwardMostTimeOnPointBoolean",
+      "tag": "AwPG",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Point Guard</lang>",
+      "scoreScreenDescription": "High Time Spent On Point",
+      "mvpScreenIcon": "storm_ui_mvp_pointguard_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_pointguard_%team%.png"
+    },
+    "MostTimePushing": {
+      "gameLink": "EndOfMatchAwardMostTimePushingBoolean",
+      "tag": "AwPu",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Pusher</lang>",
+      "scoreScreenDescription": "High amount of time on Payload",
+      "mvpScreenIcon": "storm_ui_mvp_pusher_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_pusher_%team%.png"
+    },
+    "MostVengeancesPerformed": {
+      "gameLink": "EndOfMatchAwardMostVengeancesPerformedBoolean",
+      "tag": "AwVe",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Avenger</lang>",
+      "scoreScreenDescription": "Avenged Many Deaths",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Avenger</lang>",
+      "endOfMatchDescription": "Avenged ~AwardValue~ Deaths",
+      "endOfMatchTooltipText": "Killed the Hero that Killed You ~TooltipAmount~ Times",
+      "mvpScreenIcon": "storm_ui_mvp_avenger_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_avenger_%team%.png"
+    },
+    "MostXPContribution": {
+      "gameLink": "EndOfMatchAwardMostXPContributionBoolean",
+      "tag": "AwXP",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Experienced,Experienced</lang>",
+      "scoreScreenDescription": "High XP Contributed",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Experienced</lang>",
+      "endOfMatchDescription": "Contributed ~AwardValue~% of Team's XP",
+      "endOfMatchTooltipText": "~TooltipAmount~ XP Contributed",
+      "mvpScreenIcon": "storm_ui_mvp_experienced_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_experienced_%team%.png"
+    },
+    "MVP": {
+      "gameLink": "EndOfMatchAwardMVPBoolean",
+      "tag": "AwMV",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">MVP,MVP</lang>",
+      "scoreScreenDescription": "Most Valuable Player",
+      "mvpScreenIcon": "storm_ui_mvp_mvp_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_mvp_%team%.png"
+    },
+    "ZeroDeaths": {
+      "gameLink": "EndOfMatchAward0DeathsBoolean",
+      "tag": "AwZD",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Sole Survivor</lang>",
+      "scoreScreenDescription": "No Deaths",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Sole Survivor</lang>",
+      "endOfMatchDescription": "No Deaths",
+      "endOfMatchTooltipText": "Only Hero with No Deaths",
+      "mvpScreenIcon": "storm_ui_mvp_solesurvivor_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_solesurvivor_%team%.png"
+    },
+    "ZeroOutnumberedDeaths": {
+      "gameLink": "EndOfMatchAward0OutnumberedDeathsBoolean",
+      "tag": "AwTP",
+      "scoreScreenName": "<lang rule=\"gender\" word=\"%gender%\">Team Player</lang>",
+      "scoreScreenDescription": "No Deaths While Outnumbered",
+      "endOfMatchName": "<lang rule=\"gender\" word=\"~HeroName~\">Team Player</lang>",
+      "endOfMatchDescription": "No Deaths While Outnumbered",
+      "endOfMatchTooltipText": "No Deaths While Outnumbered by Enemy Heroes",
+      "mvpScreenIcon": "storm_ui_mvp_teamplayer_%color%.png",
+      "scoreScreenIcon": "storm_ui_scorescreen_mvp_teamplayer_%team%.png"
+    }
+  }
+}

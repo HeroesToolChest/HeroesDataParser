@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CAbilEffectTarget id="ValeeraAmbush">
+    <ParentAbil value="ValeeraStealth" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="ValeeraCheapShot">
+    <ParentAbil value="ValeeraStealth" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="ValeeraGarrote">
+    <ParentAbil value="ValeeraStealth" />
+  </CAbilEffectTarget>
+</Catalog>

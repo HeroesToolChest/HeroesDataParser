@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Banner>
+  <CBanner default="1">
+    <Name value="Banner/Name/##id##" />
+    <SortName value="Banner/SortName/##id##" />
+    <Description value="Banner/Description/##id##" />
+    <TextureSlot value="main" />
+    <Model value="##id##" />
+    <TileCutsceneFile value="Cutscenes/UI_LootChest_Tile_Banner.StormCutscene" />
+    <LootChestRewardCutsceneFile value="Cutscenes/UI_LootChest_Reward_Banner.StormCutscene" />
+    <HeroSelectCutsceneFile value="Cutscenes/HeroSelect_Banner.StormCutscene" />
+    <EndOfMatchCutsceneFile value="Cutscenes/EndOfMatch/EndOfMatch_LineUp__Banner.StormCutscene" />
+    <PreviewCutsceneFile value="Cutscenes/UI_LootChest_Reward_Banner.StormCutscene" />
+    <ReleaseDate>
+      <Month value="1" />
+      <Day value="1" />
+      <Year value="2014" />
+    </ReleaseDate>
+  </CBanner>
+  <CBanner default="1" id="BannerCommon">
+    <TextureSlot value="decal"/>
+    <CreationActorMessageArray Send="Create LootBannerDropSoundStandard" Context="Game"/>
+    <CreationActorMessageArray Send="AnimPlay GLstand GLstand PlayForever" Context="Game"/>
+    <CreationActorMessageArray Send="AnimBracketStart BSD Birth Stand Death" Context="Game"/>
+  </CBanner>
+  <CBanner default="1" id="BannerDFEsportsWarChest18RareBase" parent="BannerCommon">
+    <Model value="BannerDFEsportsWarChest18Rare"/>
+    <RequiredRewardArray value="##id##"/>
+    <CollectionCategory value="Default"/>
+    <Description value="Banner/Description/BannerDFEsportsWarChestRareEsports"/>
+    <TextureSwap Slot="main.diffuse" Texture="Assets/Textures/storm_lootbanner_esports_warchest_18_diff.dds"/>
+    <TextureSwap Slot="main.specular" Texture="Assets/Textures/storm_lootbanner_esports_warchest_18_spec.dds"/>
+    <SortName value="Banner/SortName/BannerDFEsportsWarChestTeam18"/>
+  </CBanner>
+  <CBanner id="BannerDFEsportsWarChest18RareBallistix" parent="BannerDFEsportsWarChest18RareBase">
+    <ProductId value="37784"/>
+    <AttributeId value="BN9a"/>
+    <HyperlinkId value="Ballistix2018PhaseOneWarbanner"/>
+    <TextureSwap Slot="decal" Texture="Assets/Textures/storm_lootbanner_esports_warchest_ballistix_18_decal.dds"/>
+    <TextureSwap Slot="main.diffuse" Texture="Assets/Textures/storm_lootbanner_esports_warchest_blue_18_diff.dds"/>
+    <ReleaseDate Month="5" Day="22" Year="2018"/>
+  </CBanner>
+</Banner>

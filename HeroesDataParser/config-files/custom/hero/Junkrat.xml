@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CAbilEffectInstant id="JunkratRIPTireJump">
+    <ParentAbil value="JunkratRIPTire" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="JunkratIHateWaitingSummonMount">
+    <hdp-ParentTalentArray value="JunkratIHateWaitingTalent" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="JunkratRocketRideDismount">
+    <ParentAbil value="JunkratIHateWaitingSummonMount" />
+  </CAbilEffectInstant>
+</Catalog>

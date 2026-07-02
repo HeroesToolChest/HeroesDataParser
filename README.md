@@ -3,7 +3,7 @@
 [![Release](https://img.shields.io/github/release/koliva8245/HeroesDataParser.svg)](https://github.com/koliva8245/HeroesDataParser/releases/latest)
 [![NuGet](https://img.shields.io/nuget/v/HeroesDataParser.svg)](https://www.nuget.org/packages/HeroesDataParser/)
 
-Heroes Data Parser is a .NET command line tool that extracts Heroes of the Storm game data into XML and JSON files. Extracts numerous types of data.
+Heroes Data Parser is a .NET command line tool that extracts Heroes of the Storm game data into JSON files, including gamestrings and images.
 
 Extracts the following:
  - Heroes (includes images)
@@ -13,298 +13,241 @@ Extracts the following:
  - Mounts
  - Banners
  - Sprays (includes images)
- - Announcers (includes images)
+ - Announcer Packs (includes images)
  - Voice Lines (includes images)
  - Portrait Packs
- - Reward Portraits (images involve manual extraction, read [wiki](https://github.com/HeroesToolChest/HeroesDataParser/wiki/Portrait-Icon-Extraction))
+ - Reward Portraits (images involve manual extraction, read [wiki](https://github.com/HeroesToolChest/HeroesDataParser/wiki/Reward-Portrait-Extraction))
  - Emoticons (includes images)
  - Emoticon Packs
  - Veterancy data
- - Boosts
  - Bundles (includes images)
+ - Boosts
  - Loot Chests
  - Type Description data (includes images)
- 
-Visit the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki) for some more information and examples of XML and JSON output.
+ - Maps (includes images)
+
+Visit the [wiki](https://github.com/HeroesToolChest/HeroesDataParser/wiki) for more information.
 
 ### Other Helpful Repos
-- [Heroes Data](https://github.com/HeroesToolChest/heroes-data) contains already extracted data files in localized form
+- [Heroes Data](https://github.com/HeroesToolChest/heroes-data2) contains the extracted data and schema files
 - [Heroes Images](https://github.com/HeroesToolChest/heroes-images) complements Heroes Data by providing the extracted image files
-- [Heroes Icons](https://github.com/HeroesToolChest/Heroes.Icons) is a .NET library that parses the extracted json files
-
-### Third Party Repos
-- [heroes-talents](https://github.com/heroespatchnotes/heroes-talents) provides curated json data and image files
+- [Heroes Element](https://github.com/HeroesToolChest/Heroes.Element) is a .NET library to read the extracted JSON files
+- [Heroes XmlData](https://github.com/HeroesToolChest/Heroes.XmlData) is a .NET library which is used to parse the Heroes of the Storm CASC storage and extract the raw data files
 
 ## Installation
 ### Dotnet Global Tool (Recommended)
-Download and install the [.NET 8.0 SDK](https://dotnet.microsoft.com/download). 
+Download and install the latest [.NET SDK](https://dotnet.microsoft.com/download). 
 
 Once installed, run the following command:
 ```
 dotnet tool install --global HeroesDataParser
 ```
 
-Installing via this method also allows easy updating to future versions using the following command:
+To update to a newer version, run the following command:
 ```
 dotnet tool update --global HeroesDataParser
 ```
 
-***
-
 ### Zip File Download - Framework-Dependent Deployment (fdd)
 Portable to any operating system.
 
-Download and install the [.NET 8.0 Runtime or SDK](https://dotnet.microsoft.com/download). 
+Download and install the latest [.NET Runtime or SDK](https://dotnet.microsoft.com/download). 
 
-Download and extract the latest `HeroesDataParser.*-fdd-any` zip file from the [releases](https://github.com/HeroesToolChest/HeroesDataParser/releases) page.
-
-***
+Download and extract the latest `HeroesDataParser.*-fdd-any` archive file from the [releases](https://github.com/HeroesToolChest/HeroesDataParser/releases) page.
 
 ### Zip File Download - Framework-Dependent Executable (fde)
-Runs only on the selected operating system.
+Runs only on a selected operating system and architecture.
 
-Download and install the [.NET 8.0 Runtime or SDK](https://dotnet.microsoft.com/download). 
+Download and install the latest [.NET Runtime or SDK](https://dotnet.microsoft.com/download). 
 
-Download and extract the latest `HeroesDataParser.*-fde-<OS>-x64` zip file from the [releases](https://github.com/HeroesToolChest/HeroesDataParser/releases) page for a selected operating system.
-
-***
+Download and extract the latest `HeroesDataParser.*-fde-<OS>-<ARCH>` archive file from the [releases](https://github.com/HeroesToolChest/HeroesDataParser/releases) page for a selected operating system and architecture.
 
 ### Zip File Download - Self-Contained Deployment (scd)
-Runs only on the selected operating system.
+Runs only on a selected operating system and architecture. No runtime or SDK is required.
 
-No runtime or SDK is required.
+Download and extract the latest `HeroesDataParser.*-scd-<OS>-<ARCH>` archive file from the [releases](https://github.com/HeroesToolChest/HeroesDataParser/releases) page for a selected operating system and architecture.
 
-Download and extract the latest `HeroesDataParser.*-scd-<OS>-x64` zip file from the [releases](https://github.com/HeroesToolChest/HeroesDataParser/releases) page for a selected operating system.
-
-This zip file contains everything that is needed to run the dotnet app without .NET being installed, so the zip file is quite large.
+This archive file contains everything that is needed to run the dotnet app without .NET being installed, so the archive file is larger.
 
 ## Usage
 If installed as a Dotnet Global Tool, the app can be run with one of the following commands:
 ```
-dotnet heroes-data -h
-dotnet-heroes-data -h
+dotnet heroes-data-parser -h
+dotnet-heroes-data-parser -h
 ```
 
 If installed as a Framework-Dependent Deployment (fdd), run the following command from the extracted directory:
 ```
-dotnet heroesdata.dll -h
+dotnet HeroesDataParser.dll -h
 ```
 
 If installed as a Framework-Dependent Executable (fde) or Self-Contained Deployment (scd), run one of the following commands from the extracted directory:
 ```
-windows (cmd): heroesdata -h
-windows (powershell): .\heroesdata -h 
-macOS or Linux: ./heroesdata -h
+# Windows (cmd):
+HeroesDataParser -h
+
+# Windows (powershell):
+.\HeroesDataParser -h 
+
+# macOS or Linux:
+./HeroesDataParser -h
 ```
 
-Output of the -h option
+Output of the `-h` option
 ```
-Heroes Data Parser (VERSION)
+USAGE:
+    heroesdataparser <storage-type> [OPTIONS] [COMMAND]
 
-Usage:  [arguments] [options] [command]
+ARGUMENTS:
+    <storage-type>    Storage type to load from (mods, game, or online)
 
-Arguments:
-  storage-directory  The 'Heroes of the Storm' directory or an already extracted 'mods' directory.
+OPTIONS:
+                                             DEFAULT
+    -h, --help                                          Prints help information
+    -v, --version                                       Prints version information
+    -s, --storage-path <PATH>                           Path to the Heroes of the Storm directory or an already extracted mods directory
+        --download-ptr                                  Download from the PTR server instead of live (online storage-type only)
+    -e, --extractor <EXTRACTOR>              Hero       Extractors to enable, add :i or :images to enable image extraction (can be specified multiple times)
+    -l, --localization <LOCALE>              enUS       Locales for gamestrings to process (can be specified multiple times)
+    -g, --gamestring-text <FORMAT>           RawText    Format of the gamestrings
+        --gs-replace-constant-vars                      Replace constant variables in gamestrings with color hex values
+        --gs-replace-style-vars                         Replace font style variables in gamestrings with color hex values
+        --gs-preserve-constant-vars                     Preserve constant variables in gamestrings
+        --gs-preserve-style-vars                        Preserve style variables in gamestrings
+        --localized-text <OPTION>            None       Action for gamestring property extraction
+        --no-map-specific                               Disable map-specific JSON file creation when map extractor is specified
+        --map-specific-json-output <TYPE>    Patch      Action to handle map-specific JSON file creation
+        --map-specific-empty-patch                      Allow map-specific patch files without item changes to be created
+        --map-specific-empty-directories                Allow empty map-specific directories to be created
+        --custom-configs                                Display loaded custom config files
+        --no-indent                                     Disable indentation in output JSON files
+    -t, --threads <NUMBER>                   -1         Number of threads for data parsing and image writing (defaults to max processors)
+    -o, --output-path <PATH>                            Output directory for created files (defaults to current directory)
+        --set-heroes-version <VERSION>                  Manually set the Heroes of the Storm version as major.minor.revision.build[_ptr] (e.g. 1.2.3.4 or 1.2.3.4_ptr)
+        --heroes-version                                Display the Heroes of the Storm version
 
-Options:
-  -?|-h|--help                           Show help information
-  -v|--version                           Show version information
-  -o|--output-directory <DIRECTORYPATH>  Sets the output directory.
-  -d|--description <VALUE>               Sets the description output type (0 - 6) - Default: 0.
-  -e|--extract-data <VALUE>              Extracts data files - Default: herodata.
-  -i|--extract-images <VALUE>            Extracts image files, only available using the Heroes of the Storm game directory.
-  -l|--localization <LOCALE>             Sets the gamestring localization(s) - Default: enUS.
-  -b|--build <NUMBER>                    Sets the override build file(s).
-  -t|--threads <NUMBER>                  Limits the maximum amount of threads to use.
-  --xml                                  Creates xml output.
-  --json                                 Creates json output.
-  --file-split                           Splits the XML and JSON file(s) into multiple files.
-  --localized-text                       Extracts localized gamestrings from the XML and JSON file(s) into a text file.
-  --minify                               Creates .min file(s) along with current output file(s).
-  --warnings                             Displays all validation warnings.
-
-Commands:
-  extract                Extracts all required files from the `Heroes of the Storm` directory.
-  image                  Performs image processing.
-  list                   Displays .txt, .xml, and .json files in the local directory.
-  localized-json         Converts a localized gamestring file created from --localized-text to a json file.
-  portrait-auto-extract  Auto extracts the portraits from the battle.net cache or a copied directory.
-  portrait-cache         Obtains the portrait texture sheets from the battle.net cache.
-  portrait-extract       Performs portrait extraction from the texture sheets.
-  portrait-info          Provides information from the reward portrait data.
-  quick-compare          Compares two directory contents or files and displays a list of changed files.
-  read                   Reads a .txt, .xml, or .json file and displays its contents on screen.
-
-Use " [command] --help" for more information about a command.
-```
-
-Example command to create xml and json files from the `Heroes of the Storm` directory. Since no `-o|--output-directory` option is set, it defaults to the local directory.
-```
-dotnet heroesdata.dll 'D:\Heroes of the Storm' -e hero
+COMMANDS:
+    casc-extract <storage-type>    Extract data files from a Heroes of the Storm directory or from online
+    json-patch                     JSON patching operations
+    gamestring-text                Gamestring text formatting and conversion operations
+    localized-text                 Localized text operations
+    schema                         JSON schema operations
+    portrait                       Reward portrait data operations
 ```
 
-**Note: When using command prompt on windows, use double quotes instead of single quote when specifying filepaths.**
-
-## Validation Warnings
-All the warnings do not need to be fixed, they are shown for awareness.  
-Tooltip strings that fail to parse will show up as `(╯°□°）╯︵ ┻━┻ [Failed to parse]` in the xml or json files.  
-Warnings can be shown to the console using the option `--warnings`.  
-Ignored warnings are in `verifyignore.txt`.  
-Ignored warnings only work for a majority of english strings.  
+Example command to extract the `hero` data from the `Heroes of the Storm` directory. Since no `-o|--output-path` option is set, it defaults to the current directory.
+```
+dotnet heroesdataparser.dll game --storage-path "D:\Heroes of the Storm" -e hero
+```
 
 ## Arguments
-### Storage Path
-There are two types of paths that can be provided for this argument. One is the `Heroes of the Storm` directory and the other is an already extracted `mods` directory.
+### Storage Type
+Specify either `mods`, `game`, or `online` to indicate the type of storage to load from.
 
-If this option is not provided, it will look for the `Heroes of the Storm` files in the local directory or an extracted `mods` directory.
-
-The `extract` command is available to use to extract the mods directory and all required files.
-
-The `mods` directory can also have a build suffix in its name. [More info](https://github.com/koliva8245/HeroesDataParser/tree/master#mods-suffix-directory).
+`mods` - Already extracted `Heroes of the Storm` game data with `mods` as its root directory (see [`casc-extract`](#casc-extract) command)  
+`game` - The `Heroes of the Storm` installation  
+`online` - Download the game data from the live or PTR servers
 
 ## Options
-### Output Directory (-o|--output-directory)
-If this option is not provided, it will default to the install directory under the directory `output`.
- 
-***
- 
-### Description (-d|--description)
-Sets the description/tooltip output type (0 - 6).  
- - Default is 0 and is the recommended choice as it can be parsed to suit multiple verbiage
- - 5 is the other recommended choice, as it is the ingame verbiage
+### -s, --storage-path
+If the `storage-type` argument is set to `game` or `mods`, then this option is required to specify the path of the `Heroes of the Storm` directory or an already extracted `mods` directory. This option is not used with the `online` storage type.
 
-Some of these may require parsing for a readable output. Visit the [wiki page](https://github.com/koliva8245/HeroesDataParser/wiki/Parsing-Descriptions) for parsing tips.
+If on `Linux` or `macOS` and providing an extracted `mods` directory, ensure that all directories and files are in lowercase characters.
 
-`0` - RawDescription (Default)  
-The raw output of the description. Contains the color tags `<c val=\"#TooltipNumbers\"></c>`, scaling data `~~x~~`, and newlines `<n/>`. It can also contain error tags `##ERROR##`.
-
-Example:  
-```
-Fires a laser that deals <c val=\"#TooltipNumbers\">200~~0.04~~</c> damage.<n/>Does not affect minions.
-```
-
-`1` - PlainText  
-Plain text without any color tags, scaling info, or newlines.  Newlines are replaced with a double space.
-
-Example:  
-```
-Fires a laser that deals 200 damage.  Does not affect minions.
-```
-
-`2` - PlainTextWithNewlines  
-Same as PlainText but contains newlines.
-
-Example:  
-```
-Fires a laser that deals 200 damage.<n/>Does not affect minions.
-```
-
-`3` - PlainTextWithScaling  
-Same as PlainText but contains the scaling info `(+x% per level)`.
-
-Example:  
-```
-Fires a laser that deals 200 (+4% per level) damage.  Does not affect minions.
-```
-
-`4` - PlainTextWithScalingWithNewlines  
-Same as PlainTextWithScaling but contains the newlines.
-
-Example:  
-```
-Fires a laser that deals 200 (+4% per level) damage.<n/>Does not affect minions.
-```
-
-`5` - ColoredText  
-Contains the color tags and newlines. When parsed, this is what appears ingame for tooltips.
-
-Example:  
-```
-Fires a laser that deals <c val=\"#TooltipNumbers\">200</c> damage.<n/>Does not affect minions.
-```
-
-`6` - ColoredTextWithScaling  
-Same as ColoredText but contains the scaling info.
-
-Example:  
-```
-Fires a laser that deals <c val=\"#TooltipNumbers\">200 (+4% per level)</c> damage.<n/>Does not affect minions.
-```
+See the [`casc-extract`](#casc-extract) command for more information about extracting the data files.
 
 ***
 
-### Extract Data (-e|--extract-data)
-Extracts the data files. Multiple are allowed. Default is `herodata`.  
+### --download-ptr 
+If the `storage-type` argument is set to `online`, this option downloads from the PTR server instead of the live server.
 
-Extracts to `<OUTPUT-DIRECTORY>/<json and/or xml>`.
+***
+
+### -e, --extractor
+The extractors to enable for data and image extraction. Can be specified multiple times to enable multiple extractors. Default is `hero`.
+
+To extract images, if available for the data type, add `:i` or `:images` to the extractor name (e.g. `hero:i` or `hero:images`).
+
+Data JSON files will be created in the `data` subdirectory and image files will be created in the `images` subdirectory of the output directory.
+
+Enabling the extractor `map` will run all other enabled extractors for each found map, unless the [`--no-map-specific`](#--no-map-specific) option is enabled.
+
+Map specific JSON files will be created in the `maps` subdirectory of the `data` subdirectory which by default will be JSON patch files. To change this, set the [`--map-specific-json-output`](#--map-specific-json-output) option.
 
 `all` - extracts all data files  
-`herodata` - extracts hero data  
-`units` - extracts unit data  
-`matchawards` - extracts match awards  
-`heroskins` - extracts hero skins  
-`mounts` - extracts mounts  
-`banners` - extracts banners  
-`sprays` - extracts sprays  
-`announcers` - extracts announcers  
-`voicelines` - extracts voicelines  
-`portraitpacks` - extracts portrait packs  
-`rewardportraits` - extracts reward portraits  
-`emoticons` - extracts emojis  
-`emoticonpacks` - extracts emoji packs  
+`hero` - extracts hero data  
+`unit` - extracts unit data  
+`matchaward` - extracts match awards  
+`skin` - extracts hero skins  
+`mount` - extracts mounts  
+`banner` - extracts banners  
+`spray` - extracts sprays  
+`announcerpack` - extracts announcer packs  
+`voiceline` - extracts voicelines  
+`portraitpack` - extracts portrait packs  
+`rewardportrait` - extracts reward portraits  
+`emoticon` - extracts emojis  
+`emoticonpack` - extracts emoji packs  
 `veterancy` - extracts veterancy data  
-`boosts` - extracts boosts  
-`bundles` - extracts bundles  
-`lootchests` - extract loot chests  
-`typedescription` - extracts type description data
+`bundle` - extracts bundles  
+`boost` - extracts boosts  
+`lootchest` - extracts loot chests  
+`typedescription` - extracts type description data  
+`map` - extracts map data
 
-Example seleting multiple data extractions.
+Example selecting multiple data extractors along with spray images:
 ```
--e herodata -e sprays -e emoticons
+-e hero -e spray:i -e emoticon
 ```
-***
+The output directory structure:
+```
+output-directory/
+├── data/
+│   ├── emoticondata_20000_enus.json
+│   ├── herodata_20000_enus.json
+│   └── spraydata_20000_enus.json
+└── images/
+    └── sprays/
+        ├── image1.png
+        ├── image2.png
+        ├── ...
+```
+Example of having map extractor along with two other data extractors:
+```
+-e hero -e announcerpack -e map
+```
+The output directory structure:
+```
+output-directory/
+└── data/
+    ├── maps/
+    │   ├── blackhearts_revenge/
+    │   │   ├── announcerpackdata_20000_enus.patch.json
+    │   │   └── herodata_20000_enus.patch.json
+    │   ├── lost_cavern/
+    │   │   └── herodata_20000_enus.patch.json
+    │   ├── ...
+    ├── announcerpackdata_20000_enus.json
+    ├── herodata_20000_enus.json
+    └── mapdata_20000_enus.json
 
-### Extract Images (-i|--extract-images)
-Extracts the images that were referenced in the xml or json file(s) from the `-e|--extract-data` option. Multiple are allowed.  
-
-Extracts to `<OUTPUT-DIRECTORY>/images/<image-type>`  
-
-`all` - extracts all images files  
-`heroportraits` - extracts hero portrait images  
-`abilities` - extracts ability icons  
-`talents` - extracts talent icons  
-`abilitytalents` - extracts both ability and talent icons into the same directory (overrides `abilities` and `talents` choices)  
-`units` - extracts unit icons  
-`matchawards` - extracts match award icons  
-`sprays` - extracts spray images  
-`announcers` - extracts announcer images  
-`voicelines` - extracts voiceline images  
-`emoticons` - extracts emoji icons  
-`bundles` - extracts bundle images  
-`typedescription` - extracts type description icons
-
-`all-split` - sets all options except for `abilityTalents`  
-`herodata` - sets `heroportraits`, `abilitytalents`  
-`herodata-split` - sets `heroportraits`, `abilities`, `talents`
+```
 
 Notes:
+- Images for hero and unit include the portraits, ability, and talent icons
 - Static image files are extracted in `.png` format
-- Animated image files are extracted in `.gif` format
+- Animated image files are extracted in `.apng` format
   - Sprays and emoticons are the only ones with animated images
-- Due to the quality limitations of gifs, the texture files used for the creation of the gifs are also extracted in `.png` format
-  - Information about creating animations can be found in the [wiki](https://github.com/koliva8245/HeroesDataParser/wiki/Animated-Images)
 
-Example selecting multiple image extractions.
-```
--i abilities -i talents -i sprays
-```
 ***
 
-### Localization (-l|--localization)
-Sets the game string localization (descriptions/tooltips) parsing. Multiple are allowed, default is `enUS`.
+### -l, --localization
+Specifies the gamestring localization to parse. Can be specified multiple times to select multiple localizations. Default is `enUS`.
+
+All enabled extractors will run for each specified localization.
 
 `all` - selects all locales  
-`enUS` - English (Default)  
+`enUS` - English   
 `deDE` - German  
 `esES` - Spanish (EU)  
 `esMX` - Spanish (AL)  
@@ -324,438 +267,555 @@ Example selecting multiple locales.
 
 ***
 
-### Localized Text (--localized-text)
-Strings that are localized are removed from the XML and JSON file(s) and are instead put into a text file to allow easy swapping between localizations. The file(s) are sorted alphabetically and each line can be read in as a key-value pair (split on `=`). 
+### -g, --gamestring-text
+Specifies the format of the strings that are parsed from the gamestring files. Default is `RawText`.
 
-- The gamestring text file(s) are located at `<OUTPUT-DIRECTORY>/gamestrings/`
-- Both heroes and units use the `units/...` prefix string
-- For abilities the id is `<nameId>|<buttonId>|<abilityType>|<isPassive>` (if `isPassive` is false it will not show)
-- For talents the id is `<nameId>|<buttonId>`
+`RawText` is the recommended choice as it can be converted to a different format later (see [`gamestring-text format`](#gamestring-text-format) command) or be converted with a custom parser.
 
-The format of the strings in the text file are the following:
-- `abiltalent/cooldown/[Id]=[value]`
-- `abiltalent/energy/[Id]=[value]`
-- `abiltalent/full/[Id]=[value]`
-- `abiltalent/life/[Id]=[value]`
-- `abiltalent/name/[Id]=[value]`
-- `abiltalent/short/[Id]=[value]`
-- `announcer/name/[Id]=[value]`
-- `announcer/description/[Id]=[value]`
-- `announcer/sortname/[Id]=[value]`
-- `award/name/[Id]=[value]`
-- `award/description/[Id]=[value]`
-- `banner/name/[Id]=[value]`
-- `banner/description/[Id]=[value]`
-- `banner/sortname/[Id]=[value]`
-- `boost/name/[Id]=[value]`
-- `boost/sortname/[Id]=[value]`
-- `bundle/name/[Id]=[value]`
-- `bundle/sortname/[Id]=[value]`
-- `emoticon/aliases/[Id]=[value]`
-- `emoticon/description/[Id]=[value]`
-- `emoticon/expression/[Id]=[value]`
-- `emoticon/localizedaliases/[Id]=[value]`
-- `emoticon/searchtext/[Id]=[value]`
-- `emoticonpack/description/[Id]=[value]`
-- `emoticonpack/descriptionlocked/[Id]=[value]`
-- `emoticonpack/name/[Id]=[value]`
-- `emoticonpack/sortname/[Id]=[value]`
-- `heroskin/infotext/[Id]=[value]`
-- `heroskin/name/[Id]=[value]`
-- `heroskin/searchtext/[Id]=[value]`
-- `heroskin/sortname/[Id]=[value]`
-- `lootchest/name/[Id]=[value]`
-- `lootchest/description/[Id]=[value]`
-- `mount/infotext/[Id]=[value]`
-- `mount/name/[Id]=[value]`
-- `mount/searchtext/[Id]=[value]`
-- `mount/sortname/[Id]=[value]`
-- `portrait/name/[Id]=[value]`
-- `portrait/sortname/[Id]=[value]`
-- `rewardportrait/name/[Id]=[value]`
-- `rewardportrait/description/[Id]=[value]`
-- `rewardportrait/descriptionunearned/[Id]=[value]`
-- `spray/description/[Id]=[value]`
-- `spray/name/[Id]=[value]`
-- `spray/searchtext/[Id]=[value]`
-- `spray/sortname/[Id]=[value]`
-- `typedescription/name/[Id]=[value]`
-- `unit/damagetype/[Id]=[value]`
-- `unit/description/[Id]=[value]`
-- `unit/infotext/[Id]=[value]`
-- `unit/difficulty/[Id]=[value]`
-- `unit/energytype/[Id]=[value]`
-- `unit/expandedrole/[Id]=[value]`
-- `unit/lifetype/[Id]=[value]`
-- `unit/name/[Id]=[value]`
-- `unit/role/[Id]=[value] (comma delimited if more than 1 role)`
-- `unit/searchtext/[Id]=[value]`
-- `unit/shieldtype/[Id]=[value]`
-- `unit/title/[Id]=[value]`
-- `unit/type/[Id]=[value]`
-- `voiceline/description/[Id]=[value]`
-- `voiceline/name/[Id]=[value]`
-- `voiceline/sortname/[Id]=[value]`
+`ColoredText` is the other recommended choice, as it is the ingame format.
 
-If a json file is preferred over a text file, take a look at the [localized-json](https://github.com/koliva8245/HeroesDataParser/tree/master#localized-json) command.
+Some of these may require additional parsing for a friendly readable output. Visit the [wiki page](https://github.com/HeroesToolChest/HeroesDataParser/wiki/Parsing-GameStrings) for parsing tips.
+
+`0` - `RawText`  
+The raw output of the gamestring. Contains xml tags, scaling data `~~x~~`, and newlines `<n/>`. It can also contain error tags `##ERROR##`.
+
+Example:  
+```
+Fires a laser that deals <c val="#TooltipNumbers">200</c><c val="#ColorGray">~~0.04~~</c> damage.<n/>Does not affect minions.
+```
+
+`1` - `PlainText`   
+No xml tags, scaling info, or newlines. Newlines are replaced with a single space.
+
+Example:  
+```
+Fires a laser that deals 200 damage. Does not affect minions.
+```
+
+`2` - `PlainTextWithNewlines`    
+Same as `PlainText` but contains newlines.
+
+Example:  
+```
+Fires a laser that deals 200 damage.<n/>Does not affect minions.
+```
+
+`3` - `PlainTextWithScaling`    
+Same as `PlainText` but contains the scaling info `(+x% per level)`.
+
+Example:  
+```
+Fires a laser that deals 200 (+4% per level) damage. Does not affect minions.
+```
+
+`4` - `PlainTextWithScalingWithNewlines`    
+Same as `PlainTextWithScaling` but contains the newlines.
+
+Example:  
+```
+Fires a laser that deals 200 (+4% per level) damage.<n/>Does not affect minions.
+```
+
+`5` - `ColoredText`    
+Contains xml tags and newlines, when parsed this is what appears ingame for text and tooltips.
+
+Example:  
+```
+Fires a laser that deals <c val="#TooltipNumbers">200</c> damage.<n/>Does not affect minions.
+```
+
+`6` - `ColoredTextWithScaling`    
+Same as `ColoredText` but contains the scaling info with a custom constant tag.
+
+Example:  
+```
+Fires a laser that deals <c val="#TooltipNumbers">200</c><c val="#ColorGray"> (+4% per level)</c> damage.<n/>Does not affect minions.
+```
+
+***
+
+### --gs-replace-constant-vars 
+For all the constant tags `<c>` in a gamestring, the variable in the `val` attribute value will be replaced with the color text hex value.
+
+For example, `<c val="#TooltipNumbers">200</c>` would be changed to `<c val="bfd4fd">200</c>`.
+
+***
+
+### --gs-replace-style-vars
+For all the style tags `<s>` in a gamestring, the variable in the `val` attribute value will be replaced with the color text hex value.
+
+For example, `<s val="StandardTooltipDetails">Mana: 50</s>` would be changed to `<s val="bfd4fd">Mana: 50</s>`.
+
+***
+
+### --gs-preserve-constant-vars
+`--gs-replace-constant-vars` is required to enable this option.
+
+For all the constant tags `<c>` in a gamestring, the replaced variable will be preserved in a custom `hlt-name` attribute in the tag.
+
+For example, `<c val="#TooltipNumbers">200</c>` would be changed to `<c val="bfd4fd" hlt-name="#TooltipNumbers">200</c>`.
+
+***
+
+### --gs-preserve-style-vars
+`--gs-replace-style-vars` is required to enable this option.
+
+For all the style tags `<s>` in a gamestring, the replaced variable will be preserved in a custom `hlt-name` attribute in the tag.
+
+For example, `<s val="StandardTooltipDetails">Mana: 50</s>` would be changed to `<s val="bfd4fd" hlt-name="StandardTooltipDetails">Mana: 50</s>`.
+***
+
+### --localized-text
+Can be set to `None`, `Extract`, or `Copy`. Default is `None`.
+
+`None` - Gamestrings will be in the data JSON files.  
+`Extract` - Gamestrings will NOT be in the data JSON files and instead the gamestrings will be saved in a created gamestrings JSON file.  
+`Copy` - Gamestrings will be in both the data JSON files and a created gamestrings JSON file. 
+
+The gamestrings JSON file will be created in the `gamestrings` subdirectory of the output directory.
+
+If set to `Extract` or `Copy` and the `map` extractor is enabled, the map gamestrings will get its own gamestrings JSON file. The map-specific gamestrings JSON files will be created in the `maps` subdirectory of the `gamestrings` subdirectory.
+
+Also see [localized-text import](#localized-text-import) and [localized-text export](#localized-text-export) commands.
+
+***
+
+### --no-map-specific
+This option applies when the `map` extractor is enabled.
+
+Normally if the `map` extractor is enabled, map-specific JSON files will be created in the `maps` subdirectories of the `data` and `gamestrings` subdirectories for each map. 
+Enabling this option will disable the creation of these map-specific JSON files.
+
+***
+
+### --map-specific-json-output
+This option applies when the `map` extractor is enabled and affects only the map-specific JSON files.
+
+Can be set to `Normal`, `Patch`, or `All`. Default is `Patch`.
+
+`Normal` - The full JSON files are created.  
+`Patch` - JSON patch files are created.  
+`All` - Both the full JSON files and JSON patch files are created.
+
+For the patch files, the original or base files are the JSON files in the `data` or `gamestrings` subdirectories. 
+The map patch files contain the differences between the base files and the map-specific files, so the full map-specific JSON files can be recreated by applying the patch files to the base files.
+
+The command [`json-patch apply`](#json-patch-apply) can be used to apply the patch files.
 
 ## Commands
-### extract
+### casc-extract
 ```
-Usage:  extract [arguments] [options]
+DESCRIPTION:
+Extract data files from a Heroes of the Storm directory or from online
 
-Arguments:
-  storage-directory  The 'Heroes of the Storm' directory
+USAGE:
+    heroesdataparser casc-extract <storage-type> [OPTIONS]
 
-Options:
-  -?|-h|--help                           Show help information
-  -o|--output-directory <DIRECTORYPATH>  Sets the output directory.
-  --xml-merge                            Extracts the xml files as one file (excludes map files).
-  --textures                             Includes extracting all textures (.dds).
+ARGUMENTS:
+    <storage-type>    Storage type to load from (game or online)
+
+OPTIONS:
+                                 DEFAULT
+    -h, --help                                   Prints help information
+    -s, --storage-path <PATH>                    Path to the Heroes of the Storm directory
+        --download-ptr                           Download from the PTR server instead of live (online storage-type only)
+    -i, --include-filter <PATTERN>    **/*       Glob pattern to include file paths for extraction (can be specified multiple times)
+    -e, --exclude-filter <PATTERN>               Glob pattern to exclude file paths from extraction (can be specified multiple times)
+    -t, --threads <NUMBER>            -1         Number of threads for file extraction (defaults to max processors)
+    -o, --output-path <PATH>                     Output directory for extracted files (defaults to current directory)
 ```
+`-s, --storage-path` is required if the `storage-type` argument is set to `game`.
 
-Extracts all required files from the `Heroes of the Storm` directory which can be used for the `storage-path` argument.  
+If the `storage-type` argument is set to `online`, the `--download-ptr` option can be used to specify whether to download from the PTR server instead of the live server.
 
-If the `-o|--output-directory` is not set, the local directory will be used.
-
-A `mods` directory will always be created as the base directory.
-
-Example command that will extract all required files including the textures.
+For the `-i, --include-filter` and `-e, --exclude-filter` options, glob patterns can be used to filter for specific files to extract. See the Microsoft documention [pattern-formats](https://learn.microsoft.com/en-us/dotnet/core/extensions/file-globbing#pattern-formats) on file globbing for more infomation.  
+Specify `:hdp:` to filter the following:
 ```
-extract 'D:\Games\Heroes of the Storm' --textures
+**/gamestrings.txt
+**/buildid.txt
+**/assets.txt
+**/*.xml
+**/*.s2mv
+**/*.s2ma
+**/*.stormstyle
+**/*.stormlayout
+**/documentinfo
 ```
+Specify `**/*.dds` to include the image files.
 
-***
+The output directory structure of the extracted files will mirror the directory structure in the CASC storage.
+If `-o, --output-path` is not specified, then the extracted files will be in the `mods` directory in the current directory, otherwise the `mods` directory will be created as a subdirectory of the specified output path.
 
-### image
+A `hdp.info` JSON file will be created in the `mods` directory with information about the extraction.
+This file is used for the root command when `mods` is specified for the `storage-type` argument.
+
+All extracted directories and file names will be in lowercase.
+
+Example command that filters by `:hdp:` and `.dds`. The extracted files can be used by the root command:
 ```
-Usage:  image [arguments] [options]
-
-Arguments:
-  file-name  The filename, file path, or directory containing the images to process.
-
-Options:
-  -?|-h|--help                           Show help information
-  --width <VALUE>                        Sets the new width.
-  --height <VALUE>                       Sets the new height.
-  --png-compress                         Sets a png image bit depth to 8 bits
-  -o|--output-directory <DIRECTORYPATH>  Sets the output directory.
-```
-
-Performs image processing (`.png`, `.jpg`, or `.gif`) to a single file or multiple files in a directory.
-
-By default, if the `-o|--output-directory` option is not set the new processed images will be saved in the local directory, overriding the existing image.
-
-Example commands. First command compresses a single image.  Second command resizes all images in the `.\Images` subdirectory and saves them in the `.\Images\New` subdirectory.
-```
-image storm_ui_icon_abathur_spawnlocust.png --png-compress
-image '.\Images' -o '.\Images\New' --width 64 --length 64
-```
-***
-
-### list
-```
-Usage:  list [options]
-
-Options:
-  -?|-h|--help         Show help information
-  -f|--files           Displays all files.
-  -d|--directories     Displays all directories.
-  -s| --set-directory  Sets a relative directory to display
-```
-
-Displays `.txt`, `.xml`, and `.json` in the local directory.  Use the option `-s|--set-directory` to view subdirectories.
-
-Example command that displays all files and directories.
-```
-list -f -d
+casc-extract game -s "E:\Games\Heroes of the Storm" -i ":hdp:" -i "**/*.dds"
 ```
 
 ***
 
-### localized-json
+### json-patch apply
 ```
-Usage:  localized-json [arguments] [options]
+DESCRIPTION:
+Patch a JSON file with a JSON patch file
 
-Arguments:
-  path  The file path of the file or directory to convert
+USAGE:
+    heroesdataparser json-patch apply <file-path> <patch-file-path> [OPTIONS]
 
-Options:
-  -?|-h|--help                           Show help information
-  -o|--output-directory <DIRECTORYPATH>  Output directory to save the converted files to.
+ARGUMENTS:
+    <file-path>          Path to the original JSON file
+    <patch-file-path>    Path to the JSON patch file
+
+OPTIONS:
+    -h, --help                  Prints help information
+    -o, --output-path <PATH>    Output directory for the created file (defaults to the patch file's directory)
+        --overwrite             Allow the created file to overwrite an existing file
+        --delete-patch-file     Delete the patch file after applying it
+        --no-indent             Disable indentation in output JSON files
 ```
+The file name of the created (patched) file is based on the patch file name. It will be the same file name but with `.patch` removed from the name.
 
-Converts the localized text file(s) created from the option `--localized-text` into a json file.
-
-The json file is based on the format of the text file.
-
-The json contains two string values pairs at the top level: `meta` and `gamestrings`. `meta` contains the Heroes build version and the localization type of the strings. `gamestrings` is broken down based on the format in the text files.
-
-For example
+Example command of applying a patch where the patch file is in a different directory:
 ```
-abiltalent/cooldown/[Id]=[value]
-abiltalent/energy/[Id]=[value]
-abiltalent/full/[Id]=[value]
-...
-announcer/name/[Id]=[value]
-announcer/description/[Id]=[value]
-...
-```
-is broken down in the json as 
-```
-{
-  "meta": {
-    "version": "82624",
-    "locale": "enus"
-  },
-  "gamestrings": {
-    "abiltalent": {
-      "cooldown": {
-        "<Id1>": "<value1>",
-        "<Id2>": "<value2>",
-        "<Id3>": "<value3>",
-        "..."
-      },
-      "energy": {
-        "<Id1>": "<value1>",
-        "<Id2>": "<value2>",
-        "<Id3>": "<value3>",
-        "..."
-      },
-      "full": {
-        "<Id1>": "<value1>",
-        "<Id2>": "<value2>",
-        "<Id3>": "<value3>",
-        "..."
-      }
-    },
-    "announcer": {
-      "name": {
-        "<Id1>": "<value1>",
-        "<Id2>": "<value2>",
-        "<Id3>": "<value3>",
-        "..."
-      },
-      "description": {
-        "<Id1>": "<value1>",
-        "<Id2>": "<value2>",
-        "<Id3>": "<value3>",
-        "..."
-      }
-    }
-  }
-}
-```
-
-Example command
-```
-localized-json '.\gamestrings_76437_enus.txt'
+json-patch apply "path\to\announcerpackdata_20000_enus.json" "path\to\patch\announcerpackdata_96477_enus.patch.json"
 ```
 
 ***
 
-### portrait-auto-extract
+### json-patch create
 ```
-Usage:  portrait-auto-extract [arguments] [options]
+DESCRIPTION:
+Create a JSON patch file from two JSON files
 
-Arguments:
-  rewardportrait-file-path  The reward portrait data json file path.
-  cache-directory-path      The directory path of the battle.net cache or an another directory containing the files (.wafl or .dds).
+USAGE:
+    heroesdataparser json-patch create <old-file-path> <new-file-path> [OPTIONS]
 
-Options:
-  -?|-h|--help                           Show help information
-  -o|--output-directory <DIRECTORYPATH>  Directory to save the extracted portraits.
-  --xml-config <FILEPATH>                Sets the xml file used for the auto extracting.
-  --delete-file                          Deletes the texture sheet after images have been extracted.
+ARGUMENTS:  
+    <old-file-path>    Path to the original JSON file
+    <new-file-path>    Path to the updated JSON file
+
+OPTIONS:
+    -h, --help                  Prints help information
+    -o, --output-path <PATH>    Output directory for the created patch file (defaults to the new file path directory)
+        --overwrite             Allow the created patch file to overwrite an existing file
+        --no-indent             Disable indentation in output JSON files
 ```
+The file name of the created patch file is based on the new file name. It will be the same file name but with `.patch` inserted before the file extension.
 
-Attempts to auto extract all the reward portraits from the `portrait-auto-extract.xml` and the reward portrait data json file.
-
-The option `--xml-config` is optional, use it if a custom extract.xml is available.
-
-Example command
+Example command of creating JSON patch file where the new file is in a different directory than the old file:
 ```
-portrait-auto-extract '.\output\json\rewardportraitdata_79155_enus.json' '.\texturesheets'
-```
-
-***
-
-### portrait-cache
-```
-Usage:  portrait-cache [arguments] [options]
-
-Arguments:
-  cache-directory-path  The directory path of the battle.net cache
-
-Options:
-  -?|-h|--help                           Show help information
-  -o|--output-directory <DIRECTORYPATH>  Directory to save the texture sheets to.
-```
-
-Copies the `.wafl` files from the cache diretory into the output directory. The file extension is automatically converted into its proper image format.
-
-**Note: This will copy ALL .wafl files, which Starcraft II uses as well**
-
-Example command
-```
-portrait-cache 'C:\ProgramData\Blizzard Entertainment\Battle.net\Cache'
+json-patch create "path\to\old\announcerpackdata_20000_enus.json" "path\to\new\announcerpackdata_20000_enus.json"
 ```
 
 ***
 
-### portrait-extract
+### gamestring-text format 
 ```
-Usage:  portrait-extract [arguments] [options]
+DESCRIPTION:
+Format gamestring text in a data or gamestring file
 
-Arguments:
-  rewardportrait-file-path      The reward portrait data json file path.
-  texture-sheet-directory-path  The directory path of the saved texture sheets (the copied files from the battle.net cache).
-  image-file-name               The texture sheet image name (from data file) to extract images from.
+USAGE:
+    heroesdataparser gamestring-text format <file-path> <type> [OPTIONS]
 
-Options:
-  -?|-h|--help                           Show help information
-  -o|--output-directory <DIRECTORYPATH>  Output directory to save the extracted files to.
-  -t|--texture-sheet <FILENAME>          The file name of a texture sheet from the texture-sheet-directory-path argument.
-  --prompt                               Displays list of portrait names then prompts for original file.
-  --delete-file                          Deletes the texture sheet after images have been extracted.
+ARGUMENTS:
+    <file-path>    Path to the data or gamestring file
+    <type>         Target format for the gamestrings
+
+OPTIONS:
+                                      DEFAULT
+    -h, --help                                   Prints help information
+        --hlt-constant-mode <MODE>    None       Mode for removing hlt-name attributes from constant tags
+        --hlt-style-mode <MODE>       None       Mode for removing hlt-name attributes from style tags
+    -o, --output-path <PATH>                     Output directory for the created file (defaults to the input file's directory)
+        --overwrite                              Allow the created file to overwrite an existing file
+        --no-indent                              Disable indentation in output JSON files
+```
+For the argument `<type>`, the options are the same as the [`-g, --gamestring-text`](#-g---gamestring-text) option in the root command.
+
+For options `--hlt-constant-mode` and `--hlt-style-mode`, the modes are as follows:
+
+`0` - `None` - No changes are made to the `hlt-name` attributes in the tags.  
+`1` - `Remove` - The `hlt-name` attributes are removed from the tags.  
+`2` - `RemoveAndUndo` - The `val` attribute value is replaced with the `hlt-name` attribute value and the `hlt-name` attribute is removed.
+
+Overwriting an existing file with the created file is not allowed by default, enable the `--overwrite` option to allow overwriting or specify a different output directory with the `-o, --output-path` option.
+
+> [!NOTE]
+> Although it is allowed to format _from_ and _to_ any gamestring format types, some conversions are not reversible or may not produce the expected result. 
+> 
+> For example, if a file with gamestrings in `RawText` format is converted to `PlainText`, the gamestrings cannot be converted back to `RawText` since the necessary information (such as xml tags and scaling data) is lost during the conversion.
+> Likewise, converting from `ColoredText` to `ColoredTextWithScaling` will not add scaling data since that information is not present in the `ColoredText` format.
+> 
+> This command is therefore best used to convert from `RawText` to any other format.
+
+Example command of gamestrings file of `RawText` format being converted to `PlainText` format:
+```
+gamestring-text format "path\to\gamestrings_96477_enus.json" 1 --overwrite
 ```
 
-Extracts the images from the original texture sheet. 
-
-The `image-file-name` argument is optional. If set then the `-t|--texture-sheet` option must be set.
-
-Use the `--prompt` option (without the `image-file-name` argument) to be prompted the image file name and the original texture sheet name.
-
-Example command without `--prompt` option
+Example command of gamestrings file of `RawText` keeping the same format, but with `hlt-name` attributes removed:
 ```
-portrait-extract '.\output\json\rewardportraitdata_79155_enus.json' '.\texturesheets' 'ui_heroes_portraits_sheet5.png' -t 'a2354ee73a23a5263c1b88bdda84db035658bae17ef772026bd084d1733e4f80.dds'
+gamestring-text format "path\to\gamestrings_96477_enus.json" 0 --hlt-constant-mode 1 --hlt-style-mode 1
 ```
-Example command with `--prompt` option
+***
+
+### schema export data 
 ```
-portrait-extract '.\output\json\rewardportraitdata_79155_enus.json' '.\texturesheets' '--prompt'"
+DESCRIPTION:
+Export JSON schema for data files
+
+USAGE:
+    heroesdataparser schema export data [OPTIONS]
+
+OPTIONS:
+    -h, --help                     Prints help information
+    -e, --extractor <EXTRACTOR>    Extractor types for the JSON schema export (can be specified multiple times)
+    -o, --output-path <PATH>       Output directory for the created files (defaults to current directory)
+        --overwrite                Allow created files to overwrite existing files
+        --no-indent                Disable indentation in output JSON files
+```
+For option `-e, --extractor` at least extractor one is required and the extractor types are the same as the ones in the [`-e, --extractor`](#-e---extractor) option in the root command.
+
+The data JSON schema files will be created in the `schema` subdirectory of the output directory.
+
+Example command of exporting the hero and announcer pack data schema:
+```
+schema export data -e hero -e announcerpack
+```
+
+Example command of exporting all the data schemas:
+```
+schema export data -e all
 ```
 
 ***
 
-### portrait-info
+### schema export gamestrings 
 ```
-Usage:  portrait-info [arguments] [options]
+DESCRIPTION:
+Export JSON schema for the gamestrings file
 
-Arguments:
-  rewardportrait-file-path  The reward portrait data json file path.
+USAGE:
+    heroesdataparser schema export gamestrings [OPTIONS]
 
-Options:
-  -?|-h|--help                    Show help information
-  -t|--texture-sheets             Displays all the reward portraits image file names.
-  -z|--icon-zero                  Displays all the icon slot 0 names along with the image file name.
-  -p|--portrait-names <FILENAME>  Displays all the reward portrait names that are associated with the given texture sheet image name (from data file).
+OPTIONS:
+    -h, --help                  Prints help information
+    -o, --output-path <PATH>    Output directory for the created files (defaults to current directory)
+        --overwrite             Allow created files to overwrite existing files
+        --no-indent             Disable indentation in output JSON files
 ```
+The gamestrings JSON schema file will be created in the `schema` subdirectory of the output directory.
 
-Display information from the reward portrait data.
+There is only one gamestrings JSON schema file.
 
-Example command
+Example command:
 ```
-portrait-info '.\output\json\rewardportraitdata_79155_enus.json' -t
-```
-
-***
-
-### quick-compare
-```
-Usage:  quick-compare [arguments] [options]
-
-Arguments:
-  first-file-path   First directory or file path.
-  second-file-path  Second directory or file path.
-
-Options:
-  -?|-h|--help  Show help information
-```
-
-Determines if the `.json` or `.xml` data file(s) are the same or have been modified. The files must contain an underscore character `_`.
-
-Example command
-```
-quick-compare '.\12345_file.json' '.\12345_file2.json'
+schema export gamestrings
 ```
 
 ***
 
-### read
+### localized-text import
 ```
-Usage:  read [arguments] [options]
+DESCRIPTION:
+Copy over gamestrings from a gamestrings file to a data file
 
-Arguments:
-  file-name  The filename or relative file path to read and display on the console. Must be a .txt, .xml, or .json file.
+USAGE:
+    heroesdataparser localized-text import <data-file-path> <gamestrings-file-path> [OPTIONS]
 
-Options:
-  -?|-h|--help  Show help information
+ARGUMENTS:
+    <data-file-path>          Path to the data file
+    <gamestring-file-path>    Path to the gamestrings file
+
+OPTIONS:
+    -h, --help                  Prints help information
+    -o, --output-path <PATH>    Output directory for the created file (defaults to the input data file's directory)
+        --overwrite             Allow the created file to overwrite an existing file
+        --no-indent             Disable indentation in output JSON files
 ```
+If the data file already contains the gamestring properties, they will be overwritten.
 
-Reads a `.txt`, `.xml`, or `.json` file and displays its contents on screen.
+The `heroesVersion`, `hdpVersion`, and `mapName` properties must match between the data file and the gamestring file.
 
-Example command that reads and displays the `parserhelper.xml` file.
+The gamestring file's `dataTypes` property must contain the data file's `dataType`.
+
+> [!NOTE]
+> The created file will have the same name as the input data file.
+> If the file name contains the locale (e.g., `enus`) but the gamestring file has a different locale, the file name will remain unchanged.
+
+Example command of importing gamestrings from a gamestrings file to a data file:
 ```
-read .\parserhelper.xml
-```
-
-## Advanced Features
-### Mods suffix directory
-The `mods` directory may have a `_<build number>` suffix in its name. The build number determines the overrides file(s) to load. If the overrides file does not exist and the build number is greater than the highest overrides file then it will load the default overrides file otherwise it will load next **lowest** overrides file.
-
-Example:
-```
-directory to load: mods_13500
-
-hero overrides files:
-hero-overrides.xml
-hero-overrides_12000.xml
-hero-overrides_13000.xml <--- will be loaded
-hero-overrides_14000.xml
-
-directory to load: mods_14100
-
-hero overrides files:
-hero-overrides.xml <--- will be loaded
-hero-overrides_12000.xml
-hero-overrides_13000.xml 
-hero-overrides_14000.xml
+localized-text import "path\to\herodata_96477.json" "path\to\gamestrings_96477_enus.json" -o "path\to\output\directory"
 ```
 
 ***
 
-### Multi-mods directory
-There can be multiple mods directories with the suffix `_<build number>` in the same directory.  If the selected parent directory is the storage path, the highest build number suffix directory will be parsed.
+### localized-text export
+```
+DESCRIPTION:
+Copy over or extract gamestrings from a data file to a gamestrings file
 
-For example, with this directory:
+USAGE:
+    heroesdataparser localized-text export <data-file-path> <extract-type> [OPTIONS]
+
+ARGUMENTS:
+    <data-file-path>    Path to the data file
+    <extract-type>      Action to perform on gamestring properties
+
+OPTIONS:
+    -h, --help                            Prints help information
+    -g, --gamestrings-file-path <PATH>    Path to the gamestrings file
+    -o, --output-path <PATH>              Output directory for the created files (defaults to the input data file's directory)
+        --overwrite                       Allow the created files to overwrite existing files
+        --no-indent                       Disable indentation in output JSON files
 ```
-modFolders/
-|--mods_22000/
-   |--(FILES)
-|--mods_22100/
-   |--(FILES)
-|--mods_22388/
-   |--(FILES)
+For argument `<extract-type>`, the types are as follows:
+
+`0` - `Copy` - Gamestring properties will be copied to a gamestrings file but will remain in the data file..  
+`1` - `Extract` - Gamestring properties will be extracted to a gamestrings file and removed from the data file.  
+`2` - `Remove` - Gamestring properties will be removed from the data file but will NOT be saved to a gamestrings file.
+
+If option `-g, --gamestrings-file-path` is not specified, a new gamestrings file will be created. If it is specified, then the gamestrings file will be updated with the gamestrings from the data file.
+
+If option `-g, --gamestrings-file-path` is specified, the `heroesVersion`, `hdpVersion`, `mapName`, and `gameStringText` properties must match between the data file and the gamestrings file.
+Also, the `dataTypes` property of the gamestrings file must NOT already contain the `dataType` of the data file.
+
+Example command of extracting the gamestrings from the data file, two files will be created at the output directory:
 ```
-Setting `modFolders` as the storage path will have the `mods_22388` directory parsed.
+localized-text export "path\to\herodata_96477_enus.json" extract -o "path\to\output\directory"
+```
+
+Example command of copying the gamestrings from the data file to an existing gamestrings file, the gamestrings file will be updated:
+```
+localized-text export "path\to\spraydata_96881_enus.json" copy -g "path\to\gamestrings_96881_enus.json" --overwrite
+```
 
 ***
 
-### CASC DataOverrides loading
-When using a `Heroes of the Storm` directory, it will load the equivalent overrides file(s) based on the build version, just like in the [mods suffix directory](https://github.com/koliva8245/HeroesDataParser/tree/master#mods-suffix-directory).
+### portrait info
+```
+DESCRIPTION:
+Display information about a reward portraits data file
 
-The override files are for manually modifying the data after parsing the game data.
+USAGE:
+    heroesdataparser portrait info <rewardportrait-file-path> [OPTIONS]
+
+ARGUMENTS:
+    <rewardportrait-file-path>    Path to the rewardportrait data JSON file
+
+OPTIONS:
+    -h, --help                           Prints help information
+    -t, --texture-sheets                 Display all reward portrait texture sheet file names
+    -s, --icon-slot <SLOT>               Display all icon slot names along with the texture sheet image file name for the given slot
+    -i, --texture-sheet-image <IMAGE>    Display all reward portrait names and their icon slots for the specified texture sheet image
+```
+Specify at least one of the options to display the corresponding information about the reward portraits data file.
+
+Ensure that the provided reward portrait data JSON file contains gamestrings (i.e., it was not created with `--localized-text` set to `Extract`).
+
+Example command:
+```
+portrait info "path\to\rewardportraitdata_96477_enus.json" -s 0
+```
 
 ***
+
+### portrait battlenet-cache
+```
+DESCRIPTION:
+Copy .wafl files from the Battle.net cache directory or a custom directory to the output directory
+
+USAGE:
+    heroesdataparser portrait battlenet-cache [OPTIONS]
+
+OPTIONS:
+    -h, --help                      Prints help information
+    -c, --battlenet-cache <PATH>    Path to the Battle.net cache directory
+    -o, --output-path <PATH>        Output directory for copied texture sheets (defaults to current directory)
+```
+If the `-c, --battlenet-cache` option is not specified, then an attempt will be made to find the Battle.net cache directory automatically.
+
+The file extensions of the files are automatically converted into its proper image format (`.dds`, `.png`, `.jpg`, etc).
+
+> [!NOTE]
+> This copies ALL .wafl files, which Starcraft II uses as well.
+
+Example command:
+```
+portrait battlenet-cache -c "path\to\battlenet\cache"
+```
+
+***
+
+### portrait extract
+```
+DESCRIPTION:
+Extract reward portraits from texture sheets
+
+USAGE:
+    heroesdataparser portrait extract <rewardportrait-file-path> [OPTIONS]
+
+ARGUMENTS:
+    <rewardportrait-file-path>    Path to the rewardportrait data JSON file
+
+OPTIONS:
+    -h, --help                                    Prints help information
+    -i, --texture-sheet-image <IMAGE>             Texture sheet image name from the rewardportrait data JSON file
+    -c, --cache-texture-sheet-image <FILEPATH>    Path to the texture sheet image file to extract portraits from
+        --delete-texture-sheet                    Delete texture sheet after extracting portraits
+    -o, --output-path <PATH>                      Output directory for extracted portraits (defaults to current directory)
+```
+If either `-i, --texture-sheet-image` or `-c, --cache-texture-sheet-image` option is not specified, the user will be prompted for the missing option.
+
+Example command:
+```
+portrait extract "path\to\rewardportraitdata_96477_enus.json" -i "portrait_texture_sheet_0.png" -c "path\to\cache\3f2859d0a3e0e3d9ad00331a6fe5e164aef1e8a2539b3a1730677ecf45283f3f.dds"
+```
+
+***
+
+### portrait extract-auto
+```
+DESCRIPTION:
+Automatically extract reward portraits from texture sheets
+
+USAGE:
+    heroesdataparser portrait extract-auto <rewardportrait-file-path> [OPTIONS]
+
+ARGUMENTS:
+    <rewardportrait-file-path>    Path to the rewardportrait data JSON file
+
+OPTIONS:
+    -h, --help                      Prints help information
+    -c, --battlenet-cache <PATH>    Path to the Battle.net cache directory
+    -x, --xml-config <FILEPATH>     XML config file used for auto extraction
+        --delete-texture-sheet      Delete texture sheet after extracting portraits
+    -o, --output-path <PATH>        Output directory for extracted portraits (defaults to current directory)
+```
+If the `-c, --battlenet-cache` option is not specified, then an attempt will be made to find the Battle.net cache directory automatically.
+
+`-x, --xml-config` is for an optional XML config file, by default it will use the built-in XML config file.
+
+Example command:
+```
+portrait extract-auto "path\to\rewardportraitdata_96477_enus.json" -c "path\to\battlenet\cache"
+```
+
+## Additional Settings
+`appsettings.json` contains additional settings that cannot be configured through the command line.
+
+Instead of directly modifying `appsettings.json`, create a file named `appsettings.Production.json` to override these settings.
 
 ## Developing
-To build and compile the code, it is recommended to use the latest version of [Visual Studio 2022 or Visual Studio Code](https://visualstudio.microsoft.com/downloads/).
+To build and compile the code, it is recommended to use the latest version of [Visual Studio 2026 or Visual Studio Code](https://visualstudio.microsoft.com/downloads/).
 
-Another option is to use the dotnet CLI tools from the [.NET 8.0 SDK](https://dotnet.microsoft.com/download).
+Another option is to use the dotnet CLI tools from the latest [.NET SDK](https://dotnet.microsoft.com/download).
 
-The main project is `HeroesData.csproj` and the main entry point is `Program.cs`.
 
-Both the `CASCLib.csproj` and `Heroes.Models.csproj` projects are submodules. Any code changes should be commited to those respective repositories.
-
+A [SixLabors License](https://licensing.sixlabors.com/) is required to build the code. Put the license file in the root directory of the repository.
 ## License
 [MIT license](/LICENSE)

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit id="HeroLostVikingsController" parent="StormHeroMountedCustom">
+    <CardLayouts index="0">
+      <!--Add these to the controller-->
+      <LayoutButtons Face="LostVikingSelectOlaf" Type="Passive" Slot="Active" />
+      <LayoutButtons Face="LostVikingSelectBaleog" Type="Passive" Slot="Active" />
+      <LayoutButtons Face="LostVikingSelectErik" Type="Passive" Slot="Active" />
+      <LayoutButtons Face="LostVikingSelectAll" Type="Passive" Slot="Active" />
+      <LayoutButtons Face="LostVikingsVikingHoardTalent" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+  </CUnit>
+  <CHero id="LostVikings">
+    <hdp-PartyFrameImageArray value="Assets\Textures\storm_ui_ingame_partyframe_lostvikings_baelog.dds"/>
+    <hdp-PartyFrameImageArray value="Assets\Textures\storm_ui_ingame_partyframe_lostvikings_eric.dds"/>
+    <hdp-PartyFrameImageArray value="Assets\Textures\storm_ui_ingame_partyframe_lostvikings_olaf.dds"/>
+  </CHero>
+  <CAbilEffectTarget id="LostVikingsLongboatRaidMortar">
+    <ParentAbil value="LostVikingsLongboatRaidNewer" />
+  </CAbilEffectTarget>
+</Catalog>
+  

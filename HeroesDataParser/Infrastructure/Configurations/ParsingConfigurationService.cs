@@ -1,0 +1,168 @@
+﻿using System.Text.RegularExpressions;
+
+namespace HeroesDataParser.Infrastructure.Configurations;
+
+public class ParsingConfigurationService : ConfigurationServiceBase, IParsingConfigurationService
+{
+    private const string _parsingConfigFileNameNoExt = "parsing";
+    private const string _parsingConfigExtension = ".json";
+    private const string _parsingConfigFileName = $"{_parsingConfigFileNameNoExt}{_parsingConfigExtension}";
+
+    private readonly string _parsingConfigurationDirectory = Path.Combine(Constants.ConfigFilesDirectory, "parsing");
+
+    private readonly ILogger<ParsingConfigurationService> _logger;
+    private readonly IFileProvider _fileProvider;
+
+    private readonly SortedDictionary<int, string> _filePathsByBuild = [];
+    private readonly Dictionary<string, ParsingDataObjectType> _parsingDataObjectTypeByDOT = [];
+
+    private readonly JsonDocumentOptions _jsonDocumentOptions = new()
+    {
+        AllowTrailingCommas = true,
+        CommentHandling = JsonCommentHandling.Skip,
+    };
+
+    public ParsingConfigurationService(ILogger<ParsingConfigurationService> logger, IOptions<RootOptions> options, IFileProvider fileProvider)
+        : base(options.Value)
+    {
+        _logger = logger;
+        _fileProvider = fileProvider;
+    }
+
+    // the relative file path
+    public string? SelectedFilePath { get; private set; }
+
+    public string ParsingConfigurationDirectory => _parsingConfigurationDirectory;
+
+    public override void Load()
+    {
+        LoadFiles();
+        ProcessFiles();
+    }
+
+    public IEnumerable<string> FilterAllowedItems(string elementName, IEnumerable<string> items)
+    {
+        if (_parsingDataObjectTypeByDOT.TryGetValue(elementName, out ParsingDataObjectType? type))
+        {
+            ParsingDisallow parsingDisallow = type.ParsingDisallow;
+
+            foreach (string item in items)
+            {
+                if (!parsingDisallow.Exact.Contains(item) && !parsingDisallow.Regex.Any(x => Regex.IsMatch(item, x)))
+                    yield return item;
+                else
+                    _logger.LogTrace("Item {Item} is disallowed for {DataObjectType}", item, elementName);
+            }
+        }
+        else
+        {
+            _logger.LogTrace("No parsing configuration found for {DataObjectType}", elementName);
+
+            foreach (string item in items)
+            {
+                yield return item;
+            }
+        }
+    }
+
+    protected override void LoadFiles()
+    {
+        _logger.LogInformation("Loading parsing configuration files");
+
+        // get all <fileName>_<build>.json files
+        IDirectoryContents directoryContents = _fileProvider.GetDirectoryContents(_parsingConfigurationDirectory);
+
+        foreach (IFileInfo fileInfo in directoryContents)
+        {
+            if (!fileInfo.Exists || fileInfo.PhysicalPath is null || fileInfo.IsDirectory)
+                continue;
+
+            if (!fileInfo.Name.StartsWith(_parsingConfigFileNameNoExt, StringComparison.OrdinalIgnoreCase) || !fileInfo.Name.EndsWith(_parsingConfigExtension, StringComparison.OrdinalIgnoreCase))
+                continue;
+
+            ReadOnlySpan<char> filePathSpan = Path.GetFileNameWithoutExtension(fileInfo.Name.AsSpan());
+
+            int buildIndex = filePathSpan.IndexOf('_') + 1;
+            if (buildIndex < _parsingConfigFileNameNoExt.Length)
+                continue;
+
+            if (int.TryParse(filePathSpan[buildIndex..], out int buildNumber))
+            {
+                _filePathsByBuild.Add(buildNumber, fileInfo.PhysicalPath);
+            }
+        }
+
+        // add in the default file
+        IFileInfo defaultFile = _fileProvider.GetFileInfo(Path.Combine(_parsingConfigurationDirectory, _parsingConfigFileName));
+        if (defaultFile.Exists)
+        {
+            if (_filePathsByBuild.Keys.Count > 0)
+                _filePathsByBuild.Add(_filePathsByBuild.Keys.Max() + 1, defaultFile.PhysicalPath!);
+            else
+                _filePathsByBuild.Add(0, defaultFile.PhysicalPath!);
+        }
+
+        _logger.LogDebug("Parsing configuration files loaded: {@Files}", _filePathsByBuild);
+    }
+
+    protected override void ProcessFiles()
+    {
+        SelectedFilePath = GetSelectedFilePath(_filePathsByBuild);
+
+        if (string.IsNullOrWhiteSpace(SelectedFilePath))
+        {
+            _logger.LogWarning("No parsing configuration file found");
+            return;
+        }
+
+        _logger.LogDebug("Selected parsing configuration file: {SelectedFilePath}", SelectedFilePath);
+
+        LoadFile(SelectedFilePath);
+    }
+
+    private void LoadFile(string selectedFilePath)
+    {
+        using Stream fileStream = _fileProvider.GetFileInfo(Path.GetRelativePath(AppContext.BaseDirectory, selectedFilePath)).CreateReadStream();
+        using JsonDocument jsonDocument = JsonDocument.Parse(fileStream, _jsonDocumentOptions);
+
+        JsonElement root = jsonDocument.RootElement;
+
+        if (root.TryGetProperty("XmlDataParsers", out JsonElement xmlDataParserElement))
+        {
+            foreach (JsonProperty dataObjectTypeProperty in xmlDataParserElement.EnumerateObject())
+            {
+                ParsingDataObjectType parsingDataObjectType = new();
+
+                string dataObjectType = dataObjectTypeProperty.Name;
+
+                if (dataObjectTypeProperty.Value.TryGetProperty("Disallow", out JsonElement disallowElement))
+                {
+                    if (disallowElement.TryGetProperty("Exact", out JsonElement exactElement))
+                    {
+                        foreach (JsonElement item in exactElement.EnumerateArray())
+                        {
+                            string? value = item.GetString();
+                            if (value is not null)
+                                parsingDataObjectType.ParsingDisallow.Exact.Add(value);
+                        }
+                    }
+
+                    if (disallowElement.TryGetProperty("Regex", out JsonElement regexElement))
+                    {
+                        foreach (JsonElement item in regexElement.EnumerateArray())
+                        {
+                            string? value = item.GetString();
+                            if (value is not null)
+                                parsingDataObjectType.ParsingDisallow.Regex.Add(value);
+                        }
+                    }
+                }
+
+                _parsingDataObjectTypeByDOT[dataObjectType] = parsingDataObjectType;
+            }
+        }
+
+        _logger.LogInformation("Number of parsing configuration(s) loaded: {Count}", _parsingDataObjectTypeByDOT.Count);
+        _logger.LogDebug("Parsing configuration(s) loaded: {@ParsingDataObjectTypeByDOT}", _parsingDataObjectTypeByDOT);
+    }
+}

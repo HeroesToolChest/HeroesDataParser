@@ -1,0 +1,24 @@
+{
+  "meta": {
+    "heroesVersion": "2.55.15.96477",
+    "hdpVersion": "5.0.0",
+    "itemsType": "Data",
+    "dataType": "RewardPortraitData",
+    "localizedText": "Extracted",
+    "gameStringText": {
+      "locale": "ENUS",
+      "textType": "RawText",
+      "constantVars": {
+        "replaced": false,
+        "preserved": false
+      },
+      "styleVars": {
+        "replaced": false,
+        "preserved": false
+      }
+    },
+    "totalItems": 0
+  },
+  "items": {
+  }
+}

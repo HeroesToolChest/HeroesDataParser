@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CAbilEffectInstant id="ThrallFrostwolfsGrace">
+    <hdp-ParentTalentArray value="ThrallMasteryFrostwolfsGrace" />
+  </CAbilEffectInstant>
+  <CButton id="ThrallSpiritShieldDisabled" parent="StormButtonParent">
+    <hdp-ParentAbilLinkArray abilityId="ThrallSpiritShield" buttonId="ThrallSpiritShieldEnabled" abilityType="Active"  />
+  </CButton>
+</Catalog>

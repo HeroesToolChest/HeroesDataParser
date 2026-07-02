@@ -1,0 +1,1879 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Unit>
+  <CUnit default="1">
+    <Name value="Unit/Name/##id##" />
+    <Description value="Button/Tooltip/##id##" />
+    <Response value="Acquire" />
+    <LifeStart value="1" />
+    <LifeMax value="1" />
+    <Mover value="Ground" />
+    <TurningRate value="720" />
+    <Radius value="0.5" />
+    <SeparationRadius value="0.5" />
+    <MinimapRadius value="0.5" />
+    <Mass value="0.4" />
+    <FlagArray index="Turnable" value="1" />
+    <FlagArray index="Movable" value="1" />
+    <FlagArray index="Unclickable" value="1" />
+    <FlagArray index="Unhighlightable" value="1" />
+    <FlagArray index="Untooltipable" value="1" />
+    <FlagArray index="KillCredit" value="1" />
+    <FlagArray index="ClearRallyOnTargetLost" value="1" />
+    <FlagArray index="PlayerRevivable" value="1" />
+    <FlagArray index="CameraFollow" value="1" />
+  </CUnit>
+  <CUnit default="1" id="StormSummonInactive">
+    <FlagArray index="UseLineOfSight" value="1" />
+    <FlagArray index="KillCredit" value="0" />
+    <FlagArray index="VisionTestCenterOnly" value="1" />
+    <FlagArray index="Unstoppable" value="1" />
+    <Response value="Nothing" />
+    <Attributes index="NoMinionAggro" value="1" />
+    <Attributes index="ImmuneToSkillshots" value="1" />
+    <Attributes index="ImmuneToFriendlyAbilities" value="1" />
+    <Attributes index="Summoned" value="1" />
+    <MinimapRadius value="0" />
+  </CUnit>
+  <CUnit default="1" id="StormMinorUnit">
+    <DeathRevealRadius value="3" />
+    <FlagArray index="Unclickable" value="0" />
+    <FlagArray index="Unhighlightable" value="0" />
+    <FlagArray index="UseLineOfSight" value="1" />
+    <FlagArray index="VisionTestCenterOnly" value="1" />
+    <FlagArray index="LeechBehaviorShieldDamage" value="1" />
+    <FlagArray index="DisableLeashing" value="1" />
+    <PlaneArray index="Ground" value="1" />
+    <PushPriority value="0" />
+    <Collide index="Ground" value="1" />
+    <Collide index="ForceField" value="1" />
+    <Response value="Nothing" />
+    <Speed value="3.25" />
+    <StationaryTurningRate value="799.9804" />
+    <TurningRate value="399.9023" />
+    <Acceleration value="1000" />
+    <LateralAcceleration value="46" />
+    <Sight value="8" />
+    <RepairTime value="16.667" />
+    <AttackTargetPriority value="10" />
+    <DamageDealtXP value="1" />
+    <DamageTakenXP value="1" />
+    <ScoreResult value="BuildOrder" />
+    <SubgroupPriority value="6" />
+    <MinimapRadius value="0.375" />
+    <OverlapIndex value="Minion" />
+    <AIUtility value="0.1" />
+    <AIEvalFactor value="0.1" />
+    <BehaviorArray Link="ShrubProximityDetector" />
+  </CUnit>
+  <CUnit default="1" id="StormSummonPassive" parent="StormSummonInactive">
+    <DeathRevealRadius value="3" />
+    <FlagArray index="Turnable" value="0" />
+    <FlagArray index="Unclickable" value="0" />
+    <FlagArray index="Unhighlightable" value="0" />
+    <Collide index="Structure" value="1" />
+    <AttackTargetPriority value="20" />
+    <TargetingHitTestPriority value="11" />
+    <BehaviorArray Link="HallOfStormsKnockbackKillable" />
+    <Radius value="0" />
+    <PushPriority value="300" />
+    <AlliedPushPriority value="300" />
+  </CUnit>
+  <CUnit default="1" id="StormSummonActive" parent="StormMinorUnit">
+    <Attributes index="Summoned" value="1" />
+    <UnitDamageType value="Summon" />
+    <TacticalAIFilters value="-;Player,Ally,Neutral,NoMinionAggro" />
+    <PushPriority value="300" />
+    <AlliedPushPriority value="300" />
+  </CUnit>
+  <CUnit default="1" id="StormBasicHeroicUnit">
+    <FlagArray index="Unclickable" value="0" />
+    <FlagArray index="Unhighlightable" value="0" />
+    <FlagArray index="Hero" value="1" />
+    <FlagArray index="UseLineOfSight" value="1" />
+    <FlagArray index="AIForceTactical" value="1" />
+    <FlagArray index="VisionTestCenterOnly" value="1" />
+    <PlaneArray index="Ground" value="1" />
+    <Collide index="Ground" value="1" />
+    <Collide index="ForceField" value="1" />
+    <Collide index="Pushable" value="1" />
+    <Response value="Nothing" />
+    <Attributes index="Heroic" value="1" />
+    <Speed value="4.8398" />
+    <Acceleration value="1000" />
+    <LateralAcceleration value="46" />
+    <StationaryTurningRate value="1759.9218" />
+    <TurningRate value="1759.9218" />
+    <Sight value="12" />
+    <AttackTargetPriority value="10" />
+    <DamageDealtXP value="1" />
+    <DamageTakenXP value="1" />
+    <SubgroupPriority value="15" />
+    <TauntDuration index="Dance" value="5" />
+    <TauntDuration index="Tease" value="2.5" />
+  </CUnit>
+  <CUnit default="1" id="StormHero" parent="StormBasicHeroicUnit">
+    <FlagArray index="SelectableWhileDead" value="1" />
+    <FlagArray index="PreferLastAttackTarget" value="1" />
+    <FlagArray index="ResumeLastMoveOrder" value="1" />
+    <FlagArray index="StatTrackAbilities" value="1" />
+    <FlagArray index="LeechBehaviorShieldDamage" value="1" />
+    <FlagArray index="DisableLeashing" value="1" />
+    <EnergyStart value="500" />
+    <EnergyMax value="500" />
+    <EnergyRegenRate value="3" />
+    <ShieldRegenDelay value="10" />
+    <AbilArray Link="HoldFire" />
+    <AbilArray Link="attack" />
+    <AbilArray Link="move" />
+    <AbilArray Link="Hearthstone" />
+    <AbilArray Link="UseVehicle" />
+    <AbilArray Link="FountainDrink" />
+    <AbilArray Link="FountainDrinkOnCooldown" />
+    <AbilArray Link="CaptureMacGuffin" />
+    <AbilArray Link="CaptureMacGuffinTwo" />
+    <AbilArray Link="SmartCommandUnitInteraction" />
+    <AbilArray Link="MountCabooseSmartCommandUnitInteraction" />
+    <AbilArray Link="MapMechanicAbilityTarget" />
+    <AbilArray Link="MapMechanicAbilityTarget2" />
+    <AbilArray Link="MapMechanicAbilityInstant" />
+    <AbilArray Link="LootSpray" />
+    <AbilArray Link="LootYellVoiceLine" />
+    <BehaviorArray Link="HeroDummyVeterancy" />
+    <BehaviorArray Link="ShrubStatusController" />
+    <BehaviorArray Link="ShrubProximityDetector" />
+    <BehaviorArray Link="HeroGenericPregameAbilitySuppression" />
+    <BehaviorArray Link="HeroGenericPregameAbilityMinionSuppression" />
+    <BehaviorArray Link="EndOfMatchAwardsHeroGenericLowHealthMonitor" />
+    <BehaviorArray Link="HeroGenericStationaryExtraStealthController" />
+  </CUnit>
+  <CUnit default="1" id="StormHeroMounted" parent="StormHero">
+    <AbilArray Link="Mount" />
+    <AbilArray Link="Dismount" />
+    <CardLayouts>
+      <!--total index 24-->
+      <LayoutButtons Face="LockedHeroicAbility" Type="Passive" Requirements="UltimateNotUnlocked" Slot="Heroic" />
+      <LayoutButtons Face="Hearthstone" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hearth" />
+      <LayoutButtons Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Attack" />
+      <LayoutButtons Face="AcquireMove" Type="AbilCmd" AbilCmd="move,AcquireMove" Slot="Attack" />
+      <LayoutButtons Face="Stop" Type="AbilCmd" AbilCmd="HoldFire,Stop" Slot="Stop" />
+      <LayoutButtons Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="HoldFire,HoldFire" Slot="Hold" />
+      <LayoutButtons Face="SummonMount" Type="AbilCmd" AbilCmd="Mount,Execute" Slot="Mount" />
+      <LayoutButtons Face="UnsummonMount" Type="AbilCmd" AbilCmd="Dismount,Execute" Slot="Mount" />
+      <LayoutButtons Face="Cancel" Type="CancelTargetMode" Slot="Cancel" />
+      <LayoutButtons Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Cancel" />
+      <LayoutButtons Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrink,Execute" Slot="Interact" />
+      <LayoutButtons Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrinkOnCooldown,Execute" Slot="Interact" />
+      <LayoutButtons Face="CaptureMacGuffin" Type="AbilCmd" AbilCmd="CaptureMacGuffin,Execute" Slot="Interact" />
+      <LayoutButtons Face="SmartCommandUnitInteraction" Type="AbilCmd" AbilCmd="SmartCommandUnitInteraction,Execute" Slot="Interact" />
+      <LayoutButtons Face="MountCabooseSmartCommandUnitInteraction" Type="AbilCmd" AbilCmd="MountCabooseSmartCommandUnitInteraction,Execute" Slot="Interact" />
+      <LayoutButtons Face="Tease" Type="AbilCmd" AbilCmd="stop,Tease" Slot="Taunt" />
+      <LayoutButtons Face="Dance" Type="AbilCmd" AbilCmd="stop,Dance" Slot="Dance" />
+      <LayoutButtons Face="MapMechanicAbilityInstant" Type="AbilCmd" AbilCmd="MapMechanicAbilityInstant,Execute" Slot="MapMechanic" />
+      <LayoutButtons Face="MapMechanicAbility" Type="AbilCmd" AbilCmd="MapMechanicAbilityTarget,Execute" Slot="MapMechanic" />
+      <LayoutButtons Face="MapMechanicAbility2" Type="AbilCmd" AbilCmd="MapMechanicAbilityTarget2,Execute" Slot="MapMechanic" />
+      <LayoutButtons Face="LockedMapMechanicAbility" Type="Passive" Slot="MapMechanic" />
+      <LayoutButtons Face="MapMechanicAbilityParent" Type="AbilCmd" AbilCmd="MapMechanicAbilityParent,Execute" Slot="MapMechanic" />
+      <LayoutButtons Face="LootSpray" Type="AbilCmd" AbilCmd="LootSpray,Execute" Slot="Spray" />
+      <LayoutButtons Face="LootYellVoiceLine" Type="AbilCmd" AbilCmd="LootYellVoiceLine,Execute" Slot="Voice" />
+      <LayoutButtons Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="ForceMove" />
+    </CardLayouts>
+  </CUnit>
+  <CUnit default="1" id="StormHeroMountedCustom" parent="StormHero">
+    <CardLayouts>
+      <!--total index 22-->
+      <LayoutButtons Face="LockedHeroicAbility" Type="Passive" Requirements="UltimateNotUnlocked" Slot="Heroic" />
+      <LayoutButtons Face="Hearthstone" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hearth" />
+      <LayoutButtons Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Attack" />
+      <LayoutButtons Face="AcquireMove" Type="AbilCmd" AbilCmd="move,AcquireMove" Slot="Attack" />
+      <LayoutButtons Face="Stop" Type="AbilCmd" AbilCmd="HoldFire,Stop" Slot="Stop" />
+      <LayoutButtons Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="HoldFire,HoldFire" Slot="Hold" />
+      <LayoutButtons Face="Cancel" Type="CancelTargetMode" Slot="Cancel" />
+      <LayoutButtons Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrink,Execute" Slot="Interact" />
+      <LayoutButtons Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrinkOnCooldown,Execute" Slot="Interact" />
+      <LayoutButtons Face="CaptureMacGuffin" Type="AbilCmd" AbilCmd="CaptureMacGuffin,Execute" Slot="Interact" />
+      <LayoutButtons Face="SmartCommandUnitInteraction" Type="AbilCmd" AbilCmd="SmartCommandUnitInteraction,Execute" Slot="Interact" />
+      <LayoutButtons Face="MountCabooseSmartCommandUnitInteraction" Type="AbilCmd" AbilCmd="MountCabooseSmartCommandUnitInteraction,Execute" Slot="Interact" />
+      <LayoutButtons Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Cancel" />
+      <LayoutButtons Face="Tease" Type="AbilCmd" AbilCmd="stop,Tease" Slot="Taunt" />
+      <LayoutButtons Face="Dance" Type="AbilCmd" AbilCmd="stop,Dance" Slot="Dance" />
+      <LayoutButtons Face="MapMechanicAbilityInstant" Type="AbilCmd" AbilCmd="MapMechanicAbilityInstant,Execute" Slot="MapMechanic" />
+      <LayoutButtons Face="MapMechanicAbility" Type="AbilCmd" AbilCmd="MapMechanicAbilityTarget,Execute" Slot="MapMechanic" />
+      <LayoutButtons Face="MapMechanicAbility2" Type="AbilCmd" AbilCmd="MapMechanicAbilityTarget2,Execute" Slot="MapMechanic" />
+      <LayoutButtons Face="LockedMapMechanicAbility" Type="Passive" Slot="MapMechanic" />
+      <LayoutButtons Face="MapMechanicAbilityParent" Type="AbilCmd" AbilCmd="MapMechanicAbilityParent,Execute" Slot="MapMechanic" />
+      <LayoutButtons Face="LootSpray" Type="AbilCmd" AbilCmd="LootSpray,Execute" Slot="Spray" />
+      <LayoutButtons Face="LootYellVoiceLine" Type="AbilCmd" AbilCmd="LootYellVoiceLine,Execute" Slot="Voice" />
+      <LayoutButtons Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="ForceMove" />
+    </CardLayouts>
+  </CUnit>
+  <CUnit default="1" id="StormSummonInactive">
+    <FlagArray index="UseLineOfSight" value="1" />
+    <FlagArray index="KillCredit" value="0" />
+    <FlagArray index="VisionTestCenterOnly" value="1" />
+    <FlagArray index="Unstoppable" value="1" />
+    <Response value="Nothing" />
+    <Attributes index="NoMinionAggro" value="1" />
+    <Attributes index="ImmuneToSkillshots" value="1" />
+    <Attributes index="ImmuneToFriendlyAbilities" value="1" />
+    <Attributes index="Summoned" value="1" />
+    <MinimapRadius value="0" />
+  </CUnit>
+  <CUnit default="1" id="StormSummonFigment" parent="StormSummonInactive">
+    <DeathRevealRadius value="0" />
+    <FlagArray index="Invulnerable" value="1" />
+    <Attributes index="ImmuneToAOE" value="1" />
+    <Attributes index="IgnoredByTowerAI" value="1" />
+    <PushPriority value="300" />
+    <AlliedPushPriority value="300" />
+  </CUnit>
+  <CUnit id="HeroHpTESTHero">
+    <CardLayouts index="0">
+      <LayoutButtons Face="AmazonBallLightning" Type="AbilCmd" AbilCmd="AmazonBallLightning,Execute" Slot="Hidden" />
+      <LayoutButtons Face="TestButtonWithParentAbil" Type="Passive" Requirements="ArtanisHasTwinBladesPrimed" Slot="Ability2" />
+    </CardLayouts>
+  </CUnit>
+  <CUnit id="HeroAbathur" parent="StormHeroMountedCustom">
+    <LifeStart value="685" />
+    <LifeMax value="685" />
+    <LifeRegenRate value="1.4257" />
+    <BehaviorArray Link="LocustSpawnTimer" />
+    <BehaviorArray Link="NotManaUserDummy" />
+    <WeaponArray Link="HeroAbathur" />
+    <CardLayouts index="0">
+      <LayoutButtons index="1" Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Attack" />
+      <LayoutButtons index="2" Face="AcquireMove" Type="AbilCmd" AbilCmd="move,AcquireMove" Slot="Attack" />
+      <LayoutButtons index="3" Face="Stop" Type="AbilCmd" AbilCmd="HoldFire,Stop" Slot="Stop" />
+      <LayoutButtons index="4" Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="HoldFire,HoldFire" Slot="Hold" />
+      <LayoutButtons index="5" Face="Cancel" Type="CancelTargetMode" AbilCmd="" Slot="Cancel" />
+      <LayoutButtons index="6" Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrink,Execute" Slot="Interact" />
+      <LayoutButtons index="7" Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrinkOnCooldown,Execute" Slot="Interact" />
+      <LayoutButtons index="8" Face="CaptureMacGuffin" Type="AbilCmd" AbilCmd="CaptureMacGuffin,Execute" Slot="Interact" />
+      <LayoutButtons index="9" Face="SmartCommandUnitInteraction" Type="AbilCmd" AbilCmd="SmartCommandUnitInteraction,Execute" Slot="Interact" />
+      <LayoutButtons index="10" Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Cancel" />
+      <LayoutButtons index="11" Face="EvolveMonstrosityActiveHotbar" Type="AbilCmd" AbilCmd="AbathurEvolveMonstrosityActiveSymbiote,Execute" Requirements="AbathurHasActiveMonstrosity" Slot="Heroic" />
+      <LayoutButtons Face="AbathurEvolveMonstrosityHotbar" Type="AbilCmd" AbilCmd="AbathurEvolveMonstrosity,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AbathurUltimateEvolution" Type="AbilCmd" AbilCmd="AbathurUltimateEvolution,Execute" Slot="Heroic" />
+      <LayoutButtons Face="HearthstoneNoMana" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hearth" />
+      <LayoutButtons Face="AbathurLocustStrain" Type="AbilCmd" AbilCmd="AbathurSpawnLocusts,Execute" Slot="Trait" />
+      <LayoutButtons Face="AbathurSymbiote" Type="AbilCmd" AbilCmd="AbathurSymbiote,Execute" Slot="Ability1" />
+      <LayoutButtons Face="AbathurToxicNest" Type="AbilCmd" AbilCmd="AbathurToxicNest,Execute" Slot="Ability2" />
+      <LayoutButtons Face="AbathurDeepTunnel" Type="AbilCmd" AbilCmd="AbathurDeepTunnel,Execute" Slot="Mount" />
+    </CardLayouts>
+    <Radius value="0.75" />
+    <InnerRadius value="0.75" />
+    <AIThinkTree value="AI/Abathur.aitree" />
+    <AbilArray Link="AbathurDeepTunnel" />
+    <AbilArray Link="AbathurNeuralParasite" />
+    <AbilArray Link="AbathurSymbiote" />
+    <AbilArray Link="AbathurToxicNest" />
+    <AbilArray Link="AbathurUltimateEvolution" />
+    <AbilArray Link="AbathurSpawnLocusts" />
+    <AbilArray Link="AbathurSpawnLocustsAssaultStrain" />
+    <AbilArray Link="AbathurSpawnLocustsBombardStrain" />
+    <AbilArray Link="AbathurEvolveMonstrosity" />
+    <AbilArray Link="AbathurEvolveMonstrosityActiveSymbiote" />
+    <SubgroupPriority value="1" />
+    <EnergyStart value="0" />
+    <EnergyMax value="0" />
+    <EnergyRegenRate value="0" />
+    <Gender value="Neutral" />
+    <AIEvalFactor value="1.1" />
+    <AIBaseThreat value="0.4" />
+    <InitializerFunction value="libGDHL_gf_HeroAbathurIncrementHeroCountFunction" />
+    <DestructionFunction value="libGDHL_gf_HeroAbathurDecrementHeroCountFunction" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="Helper" value="1" />
+    <HeroPlaystyleFlags index="InstantTraveler" value="1" />
+    <HeroPlaystyleFlags index="RoleSpecialist" value="1" />
+    <HeroPlaystyleFlags index="TowerPusher" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
+  </CUnit>
+  <CUnit id="AbathurSymbiote" parent="StormSummonFigment">
+    <FlagArray index="Untargetable" value="1" />
+    <FlagArray index="Undetectable" value="1" />
+    <FlagArray index="AIForceTactical" value="1" />
+    <FlagArray index="Benign" value="1" />
+    <PlaneArray index="Air" value="1" />
+    <Mover value="Fly" />
+    <StationaryTurningRate value="799.9804" />
+    <TurningRate value="399.9023" />
+    <Acceleration value="1000" />
+    <LateralAcceleration value="46" />
+    <Speed value="0.0117" />
+    <Sight value="4" />
+    <AbilArray Link="AbathurAssumingDirectControlCancel" />
+    <AbilArray Link="AbathurSymbioteStab" />
+    <AbilArray Link="AbathurSymbioteSpikeBurst" />
+    <AbilArray Link="AbathurSymbioteCarapace" />
+    <AbilArray Link="attack" />
+    <AbilArray Link="AbathurMonstrosityDeepTunnel" />
+    <AbilArray Link="move" />
+    <BehaviorArray Link="SymbioteTimedLife" />
+    <BehaviorArray Link="EarnsXP" />
+    <BehaviorArray Link="AbathurSymbioteSuppressAttack" />
+    <BehaviorArray Link="HeroGenericMapMechanicPickupDisallowed" />
+    <BehaviorArray Link="DisableAIGoalAssignment" />
+    <CardLayouts>
+      <LayoutButtons Face="AbathurSymbioteCancel" Type="AbilCmd" AbilCmd="AbathurAssumingDirectControlCancel,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AbathurSymbioteStab" Type="AbilCmd" AbilCmd="AbathurSymbioteStab,Execute" Slot="Ability1" />
+      <LayoutButtons Slot="Ability1" />
+      <LayoutButtons Face="AbathurSymbioteSpikeBurst" Type="AbilCmd" AbilCmd="AbathurSymbioteSpikeBurst,Execute" Slot="Ability2" />
+      <LayoutButtons Face="AbathurSymbioteCarapace" Type="AbilCmd" AbilCmd="AbathurSymbioteCarapace,Execute" Slot="Ability3" />
+      <LayoutButtons Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Attack" />
+      <LayoutButtons Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="ForceMove" />
+      <LayoutButtons Face="Stop" Type="AbilCmd" AbilCmd="stop,Stop" Slot="Stop" />
+      <LayoutButtons Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="move,HoldPos" Slot="Hold" />
+      <LayoutButtons Face="AbathurMonstrosityDeepTunnel" Type="AbilCmd" AbilCmd="AbathurMonstrosityDeepTunnel,Execute" Slot="Mount" />
+    </CardLayouts>
+    <Radius value="1.5" />
+    <SubgroupPriority value="9" />
+    <AcquireLeashRadius value="4" />
+    <AIThinkTree value="AI/AbathurSymbiote.aitree" />
+    <Height value="1" />
+    <TauntDuration index="Cheer" value="5" />
+    <TauntDuration index="Dance" value="5" />
+    <LeaderAlias value="HeroAbathur" />
+  </CUnit>
+  <CUnit id="HeroAlarak" parent="StormHeroMounted">
+    <LifeStart value="1950" />
+    <LifeMax value="1950" />
+    <AbilArray Link="AlarakDiscordStrike" />
+    <AbilArray Link="AlarakLightningSurge" />
+    <AbilArray Link="AlarakCounterStrikeTargeted" />
+    <AbilArray Link="AlarakTelekinesis" />
+    <AbilArray Link="AlarakDeadlyChargeActivate" />
+    <AbilArray Link="AlarakDeadlyChargeExecute" />
+    <AbilArray Link="AlarakDeadlyChargeActivate2ndHeroic" />
+    <AbilArray Link="AlarakDeadlyChargeExecute2ndHeroic" />
+    <AbilArray Link="AlarakCounterStrikeTargeted2ndHeroic" />
+    <AbilArray Link="AlarakLightningSurgeLightningBarrage" />
+    <WeaponArray Link="HeroWeaponAlarak" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="AlarakUnleashDeadlyCharge" Type="AbilCmd" AbilCmd="AlarakDeadlyChargeExecute,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AlarakDeadlyCharge" Type="AbilCmd" AbilCmd="AlarakDeadlyChargeActivate,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AlarakCounterStrikeTargeted" Type="AbilCmd" AbilCmd="AlarakCounterStrikeTargeted,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AlarakDiscordStrike" Type="AbilCmd" AbilCmd="AlarakDiscordStrike,Execute" Slot="Ability1" />
+      <LayoutButtons Face="AlarakTelekinesis" Type="AbilCmd" AbilCmd="AlarakTelekinesis,Execute" Slot="Ability2" />
+      <LayoutButtons Face="AlarakLightningSurgeLightningBarrage" Type="AbilCmd" AbilCmd="AlarakLightningSurgeLightningBarrage,Execute" Slot="Ability3" />
+      <LayoutButtons Face="AlarakLightningSurge" Type="AbilCmd" AbilCmd="AlarakLightningSurge,Execute" Slot="Ability3" />
+      <LayoutButtons Face="AlarakUnleashDeadlyCharge" Type="AbilCmd" AbilCmd="AlarakDeadlyChargeExecute2ndHeroic,Execute" Slot="Trait" />
+      <LayoutButtons Face="AlarakDeadlyCharge2ndHeroicSadism" Type="AbilCmd" AbilCmd="AlarakDeadlyChargeActivate2ndHeroic,Execute" Slot="Trait" />
+      <LayoutButtons Face="AlarakCounterStrike2ndHeroicSadism" Type="AbilCmd" AbilCmd="AlarakCounterStrikeTargeted2ndHeroic,Execute" Slot="Trait" />
+      <LayoutButtons Face="AlarakSadism" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="0.8125" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="AlarakSadismToken" />
+    <BehaviorArray Link="AlarakLightningSurgeHitCounter" />
+    <BehaviorArray Link="AlarakSadismTakedownIncreaseTokenCounter" />
+    <LifeRegenRate value="4.0585" />
+    <InitializerFunction value="libHALA_gf_HeroAlarakIncrementHeroCountFunction" />
+    <DestructionFunction value="libHALA_gf_HeroAlarakDecrementHeroCountFunction" />
+    <TauntDuration index="Dance" value="5.7" />
+    <EffectArray index="Death" value="AlarakSadismDeathSet" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="RoleCaster" value="1" />
+    <HeroPlaystyleFlags index="SoloLaner" value="1" />
+    <AIThinkTree value="AI\Alarak.aitree" />
+    <InnerRadius value="0.8125" />
+  </CUnit>
+  <CUnit id="HeroAlexstrasza" parent="StormHeroMounted">
+    <LifeStart value="1698" />
+    <LifeMax value="1698" />
+    <LifeRegenRate value="8.8437" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="AlexstraszaGiftOfLifeLifeblossomTokenCounter" />
+    <AIThinkTree value="AI/Alexstrasza.aitree" />
+    <HeroPlaystyleFlags index="AllyHealer" value="1" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Helper" value="1" />
+    <HeroPlaystyleFlags index="RoleSupport" value="1" />
+    <WeaponArray Link="AlexstraszaAttackWeapon" />
+    <AbilArray Link="AlexstraszaGiftOfLife" />
+    <AbilArray Link="AlexstraszaAbundance" />
+    <AbilArray Link="AlexstraszaFlameBuffet" />
+    <AbilArray Link="AlexstraszaDragonqueen" />
+    <AbilArray Link="AlexstraszaDragonqueenDragonMorph" />
+    <AbilArray Link="AlexstraszaLifebinder" />
+    <AbilArray Link="AlexstraszaCleansingFlame" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="AlexstraszaGiftOfLife" Type="AbilCmd" AbilCmd="AlexstraszaGiftOfLife,Execute" Slot="Ability1" />
+      <LayoutButtons Face="AlexstraszaAbundance" Type="AbilCmd" AbilCmd="AlexstraszaAbundance,Execute" Slot="Ability2" />
+      <LayoutButtons Face="AlexstraszaFlameBuffet" Type="AbilCmd" AbilCmd="AlexstraszaFlameBuffet,Execute" Slot="Ability3" />
+      <LayoutButtons Face="AlexstraszaLifebinder" Type="AbilCmd" AbilCmd="AlexstraszaLifebinder,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AlexstraszaCleansingFlame" Type="AbilCmd" AbilCmd="AlexstraszaCleansingFlame,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AlexstraszaDragonqueen" Type="AbilCmd" AbilCmd="AlexstraszaDragonqueen,Execute" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="0.625" />
+    <InnerRadius value="0.625" />
+  </CUnit>
+  <CUnit id="HeroAlexstraszaDragon" parent="StormHeroMounted">
+    <LifeStart value="1698" />
+    <LifeMax value="1698" />
+    <LifeRegenRate value="8.8437" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="UltimateEvolutionInvalidTarget" />
+    <BehaviorArray Link="HeroGenericIsFat" />
+    <AIThinkTree value="AI/Alexstrasza.aitree" />
+    <HeroPlaystyleFlags index="AllyHealer" value="1" />
+    <HeroPlaystyleFlags index="Helper" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleSupport" value="1" />
+    <WeaponArray Link="AlexstraszaDragonConeWeapon" />
+    <ReviveType value="HeroAlexstrasza" />
+    <AbilArray Link="AlexstraszaDragonqueen" />
+    <AbilArray Link="AlexstraszaDragonqueenHumanoidMorph" />
+    <AbilArray Link="AlexstraszaBreathOfLife" />
+    <AbilArray Link="AlexstraszaPreservation" />
+    <AbilArray Link="AlexstraszaWingBuffet" />
+    <AbilArray Link="AlexstraszaLifebinder" />
+    <AbilArray Link="AlexstraszaCleansingFlameDragonqueen" />
+    <AbilArray Link="AlexstraszaCleansingFlame" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="AlexstraszaBreathOfLife" Type="AbilCmd" AbilCmd="AlexstraszaBreathOfLife,Execute" Slot="Ability1" />
+      <LayoutButtons Face="AlexstraszaPreservation" Type="AbilCmd" AbilCmd="AlexstraszaPreservation,Execute" Slot="Ability2" />
+      <LayoutButtons Face="AlexstraszaWingBuffet" Type="AbilCmd" AbilCmd="AlexstraszaWingBuffet,Execute" Slot="Ability3" />
+      <LayoutButtons Face="AlexstraszaLifebinder" Type="AbilCmd" AbilCmd="AlexstraszaLifebinder,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AlexstraszaCleansingFlameDragonqueen" Type="AbilCmd" AbilCmd="AlexstraszaCleansingFlameDragonqueen,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AlexstraszaDragonqueenDragonFormPassive" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="1.25" />
+    <InnerRadius value="1" />
+    <LeaderAlias value="HeroAlexstrasza" />
+    <HotkeyAlias value="HeroAlexstrasza" />
+    <SelectAlias value="HeroAlexstrasza" />
+    <SubgroupAlias value="HeroAlexstrasza" />
+    <ReviveInfoBase>
+      <Charge Link="HeroAlexstrasza/Revive" />
+      <Cooldown Link="HeroAlexstrasza/Revive" />
+    </ReviveInfoBase>
+    <InitializerFunction value="libHALE_gf_HeroAlexstraszaIncrementHeroCountFunction" />
+    <DestructionFunction value="libHALE_gf_HeroAlexstraszaDecrementHeroCountFunction" />
+  </CUnit>
+  <CUnit id="HeroGuldan" parent="StormHeroMounted">
+    <LifeStart value="1700" />
+    <LifeMax value="1700" />
+    <LifeRegenRate value="3.543" />
+    <AbilArray Link="AbathurAssumingDirectControlCancel" />
+    <AbilArray Link="GuldanLifeTap" />
+    <AbilArray Link="GuldanFelFlame" />
+    <AbilArray Link="GuldanDrainLife" />
+    <AbilArray Link="GuldanDrainLifeCancel" />
+    <AbilArray Link="GuldanFear" />
+    <AbilArray Link="GuldanHorrify" />
+    <AbilArray Link="GuldanCorruption" />
+    <AbilArray Link="GuldanRainOfDestruction" />
+    <AbilArray Link="GuldanRainOfDestructionCancel" />
+    <AbilArray Link="GuldanLifeTapFree" />
+    <BehaviorArray Link="GuldanLifeTapManaController" />
+    <BehaviorArray Link="GuldanVeterancyMana" />
+    <BehaviorArray Link="GuldanHasMaxLife" />
+    <WeaponArray Link="HeroGuldan" />
+    <Radius value="0.8125" />
+    <InnerRadius value="0.8125" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="GuldanHorrify" Type="AbilCmd" AbilCmd="GuldanHorrify,Execute" Slot="Heroic" />
+      <LayoutButtons Face="GuldanRainOfDestruction" Type="AbilCmd" AbilCmd="GuldanRainOfDestruction,Execute" Slot="Heroic" />
+      <LayoutButtons Face="GuldanFelFlame" Type="AbilCmd" AbilCmd="GuldanFelFlame,Execute" Slot="Ability1" />
+      <LayoutButtons Face="GuldanDrainLifeCancel" Type="AbilCmd" AbilCmd="GuldanDrainLifeCancel,Execute" Slot="Ability2" />
+      <LayoutButtons Face="GuldanDrainLife" Type="AbilCmd" AbilCmd="GuldanDrainLife,Execute" Slot="Ability2" />
+      <LayoutButtons Face="GuldanCorruption" Type="AbilCmd" AbilCmd="GuldanCorruption,Execute" Slot="Ability3" />
+      <LayoutButtons Face="GuldanLifeTapFree" Type="AbilCmd" AbilCmd="GuldanLifeTapFree,Execute" Slot="Trait" />
+      <LayoutButtons Face="GuldanLifeTap" Type="AbilCmd" AbilCmd="GuldanLifeTap,Execute" Slot="Trait" />
+      <LayoutButtons />
+    </CardLayouts>
+    <EnergyRegenRate value="0" />
+    <HeroPlaystyleFlags index="RoleCaster" value="1" />
+    <HeroPlaystyleFlags index="SoloLaner" value="1" />
+    <HeroPlaystyleFlags index="TowerPusher" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
+  </CUnit>
+  <CUnit id="HeroBarbarian" parent="StormHeroMounted">
+    <LifeStart value="2450" />
+    <LifeMax value="2450" />
+    <LifeRegenRate value="5.1054" />
+    <AbilArray Link="BarbarianShotofFury" />
+    <AbilArray Link="BarbarianSeismicSlam" />
+    <AbilArray Link="BarbarianAncientSpear" />
+    <AbilArray Link="BarbarianCancelLeapArreatCrater" />
+    <AbilArray Link="BarbarianLeap" />
+    <AbilArray Link="BarbarianWhirlwind" />
+    <AbilArray Link="BarbarianWhirlwindCancel" />
+    <AbilArray Link="BarbarianWrathoftheBerserker" />
+    <BehaviorArray Link="BarbarianFuryManagementBuff" />
+    <BehaviorArray Link="SonyaFuryCarry" />
+    <BehaviorArray Link="NotManaUserDummy" />
+    <BehaviorArray Link="HeroGeneric0EnergyOnRespawn" />
+    <WeaponArray Link="HeroBarbarian" />
+    <CardLayouts index="0">
+      <LayoutButtons index="1" Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Attack" />
+      <LayoutButtons index="2" Face="AcquireMove" Type="AbilCmd" AbilCmd="move,AcquireMove" Slot="Attack" />
+      <LayoutButtons index="3" Face="Stop" Type="AbilCmd" AbilCmd="HoldFire,Stop" Slot="Stop" />
+      <LayoutButtons index="4" Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="HoldFire,HoldFire" Slot="Hold" />
+      <LayoutButtons index="5" Face="SummonMount" Type="AbilCmd" AbilCmd="Mount,Execute" Slot="Mount" />
+      <LayoutButtons index="6" Face="UnsummonMount" Type="AbilCmd" AbilCmd="Dismount,Execute" Slot="Mount" />
+      <LayoutButtons index="7" Face="Cancel" Type="CancelTargetMode" AbilCmd="" Slot="Cancel" />
+      <LayoutButtons index="8" Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrink,Execute" Slot="Interact" />
+      <LayoutButtons index="9" Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrinkOnCooldown,Execute" Slot="Interact" />
+      <LayoutButtons index="10" Face="CaptureMacGuffin" Type="AbilCmd" AbilCmd="CaptureMacGuffin,Execute" Slot="Interact" />
+      <LayoutButtons index="11" Face="SmartCommandUnitInteraction" Type="AbilCmd" AbilCmd="SmartCommandUnitInteraction,Execute" Slot="Interact" />
+      <LayoutButtons index="12" Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Cancel" />
+      <LayoutButtons index="13" Face="BarbarianLeapArreatCraterCancel" Type="AbilCmd" AbilCmd="BarbarianCancelLeapArreatCrater,Execute" Slot="Heroic" />
+      <LayoutButtons Face="BarbarianLeap" Type="AbilCmd" AbilCmd="BarbarianLeap,Execute" Slot="Heroic" />
+      <LayoutButtons Face="BarbarianWrathoftheBerserker" Type="AbilCmd" AbilCmd="BarbarianWrathoftheBerserker,Execute" Slot="Heroic" />
+      <LayoutButtons Face="HearthstoneNoMana" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hearth" />
+      <LayoutButtons Face="BarbarianAncientSpear" Type="AbilCmd" AbilCmd="BarbarianAncientSpear,Execute" Slot="Ability1" />
+      <LayoutButtons Face="BarbarianSeismicSlam" Type="AbilCmd" AbilCmd="BarbarianSeismicSlam,Execute" Slot="Ability2" />
+      <LayoutButtons Face="BarbarianWhirlwindCancel" Type="AbilCmd" AbilCmd="BarbarianWhirlwindCancel,Execute" Slot="Ability3" />
+      <LayoutButtons Face="BarbarianWhirlwind" Type="AbilCmd" AbilCmd="BarbarianWhirlwind,Execute" Slot="Ability3" />
+      <LayoutButtons Face="BarbarianFuryShotOfFury" Type="AbilCmd" AbilCmd="BarbarianShotofFury,Execute" Slot="Trait" />
+      <LayoutButtons Face="BarbarianFury" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="0.75" />
+    <InnerRadius value="0.75" />
+    <AIThinkTree value="AI/Barbarian.aitree" />
+    <EnergyStart value="0" />
+    <EnergyMax value="100" />
+    <EnergyRegenRate value="0" />
+    <Gender value="Female" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="MercKiller" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleAutoAttacker" value="1" />
+    <HeroPlaystyleFlags index="RoleCaster" value="1" />
+    <HeroPlaystyleFlags index="SoloLaner" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
+  </CUnit>
+  <CUnit id="HeroKelThuzad" parent="StormHeroMounted">
+    <LifeStart value="1490" />
+    <LifeMax value="1490" />
+    <LifeRegenRate value="3.0976" />
+    <AbilArray Link="AbathurAssumingDirectControlCancel" />
+    <AbilArray Link="KelThuzadDeathAndDecay" />
+    <AbilArray Link="KelThuzadChains" />
+    <AbilArray Link="KelThuzadChainsLink" />
+    <AbilArray Link="KelThuzadFrostNova" />
+    <AbilArray Link="KelThuzadFrozenTomb" />
+    <AbilArray Link="KelThuzadShadowFissure" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="KelThuzadMasterOfTheColdDarkToken" />
+    <BehaviorArray Link="EndOfMatchAwardsHeroGenericLowHealthMonitor" />
+    <BehaviorArray Link="KelThuzadChainsHostTracker" />
+    <BehaviorArray Link="KelThuzadGlacialSpikeBehaviorAbility" />
+    <WeaponArray Link="HeroKelThuzad" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="KelThuzadDeathAndDecay" Type="AbilCmd" AbilCmd="KelThuzadDeathAndDecay,Execute" Slot="Ability1" />
+      <LayoutButtons Face="KelThuzadChainsLink" Type="AbilCmd" AbilCmd="KelThuzadChainsLink,Execute" Slot="Ability3" />
+      <LayoutButtons Face="KelThuzadChains" Type="AbilCmd" AbilCmd="KelThuzadChains,Execute" Slot="Ability3" />
+      <LayoutButtons Face="KelThuzadFrostNova" Type="AbilCmd" AbilCmd="KelThuzadFrostNova,Execute" Slot="Ability2" />
+      <LayoutButtons Face="KelThuzadFrozenTomb" Type="AbilCmd" AbilCmd="KelThuzadFrozenTomb,Execute" Slot="Heroic" />
+      <LayoutButtons Face="KelThuzadShadowFissure" Type="AbilCmd" AbilCmd="KelThuzadShadowFissure,Execute" Slot="Heroic" />
+      <LayoutButtons Face="KelThuzadMasterOfTheColdDark" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="0.875" />
+    <InnerRadius value="0.875" />
+    <InitializerFunction value="libHKEL_gf_HeroKelThuzadIncrementHeroCountFunction" />
+    <DestructionFunction value="libHKEL_gf_HeroKelThuzadDecrementHeroCountFunction" />
+    <HeroPlaystyleFlags index="DeadUpdater" value="1" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="RoleCaster" value="1" />
+    <AIThinkTree value="AI/KelThuzad.aitree" />
+    <EffectArray index="Death" value="KelthuzadPhylacteryApplyDeathCoolup" />
+  </CUnit>
+  <CUnit id="HeroSamuro" parent="StormHeroMounted">
+    <LifeStart value="1725" />
+    <LifeMax value="1725" />
+    <LifeRegenRate value="3.5898" />
+    <AbilArray Link="SamuroIllusionMaster" />
+    <AbilArray Link="SamuroMirrorImageTargeted" />
+    <AbilArray Link="SamuroIllusionMasterNoTarget" />
+    <AbilArray Link="SamuroCriticalStrike" />
+    <AbilArray Link="SamuroWindwalk" />
+    <AbilArray Link="SamuroBladestorm" />
+    <AbilArray Link="SamuroBladeStormDummy" />
+    <AbilArray Link="SamuroBladestormCancel" />
+    <AbilArray Link="SamuroIllusionMasterDummy" />
+    <AbilArray Link="SamuroIllusionMasterDummyShopAbility" />
+    <BehaviorArray Link="NotManaUserDummy" />
+    <BehaviorArray Link="SamuroMirrorImageUnitTracker" />
+    <BehaviorArray Link="SamuroMirrorImageTransferController" />
+    <BehaviorArray Link="SamuroCriticalStrikeTokenCounter" />
+    <WeaponArray Link="SamuroWeapon" />
+    <CardLayouts index="0">
+      <LayoutButtons index="0" Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Requirements="" Slot="Attack" />
+      <LayoutButtons index="1" Face="AcquireMove" Type="AbilCmd" AbilCmd="move,AcquireMove" Slot="Attack" />
+      <LayoutButtons index="2" Face="Stop" Type="AbilCmd" AbilCmd="HoldFire,Stop" Slot="Stop" />
+      <LayoutButtons index="3" Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="HoldFire,HoldFire" Slot="Hold" />
+      <LayoutButtons index="4" Face="SummonMount" Type="AbilCmd" AbilCmd="Mount,Execute" Slot="Mount" />
+      <LayoutButtons index="5" Face="UnsummonMount" Type="AbilCmd" AbilCmd="Dismount,Execute" Slot="Mount" />
+      <LayoutButtons index="6" Face="Cancel" Type="CancelTargetMode" AbilCmd="" Slot="Cancel" />
+      <LayoutButtons index="7" Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrink,Execute" Slot="Interact" />
+      <LayoutButtons index="8" Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrinkOnCooldown,Execute" Slot="Interact" />
+      <LayoutButtons index="9" Face="CaptureMacGuffin" Type="AbilCmd" AbilCmd="CaptureMacGuffin,Execute" Slot="Interact" />
+      <LayoutButtons index="10" Face="SmartCommandUnitInteraction" Type="AbilCmd" AbilCmd="SmartCommandUnitInteraction,Execute" Slot="Interact" />
+      <LayoutButtons index="11" Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Cancel" />
+      <LayoutButtons index="12" Face="LockedHeroicAbility" Type="Passive" AbilCmd="" Requirements="UltimateNotUnlocked" Slot="Heroic" />
+      <LayoutButtons index="13" Face="Tease" Type="AbilCmd" AbilCmd="stop,Tease" Slot="Taunt" />
+      <LayoutButtons index="14" Face="Dance" Type="AbilCmd" AbilCmd="stop,Dance" Slot="Dance" />
+      <LayoutButtons index="15" Face="MapMechanicAbilityInstant" Type="AbilCmd" AbilCmd="MapMechanicAbilityInstant,Execute" Slot="MapMechanic" />
+      <LayoutButtons index="16" Face="MapMechanicAbility" Type="AbilCmd" AbilCmd="MapMechanicAbilityTarget,Execute" Slot="MapMechanic" />
+      <LayoutButtons index="17" Face="MapMechanicAbility2" Type="AbilCmd" AbilCmd="MapMechanicAbilityTarget2,Execute" Slot="MapMechanic" />
+      <LayoutButtons index="18" Face="LockedMapMechanicAbility" Type="Passive" AbilCmd="MapMechanicAbilityTarget,Execute" Slot="MapMechanic" />
+      <LayoutButtons index="19" Face="LootYellVoiceLine" Type="AbilCmd" AbilCmd="LootYellVoiceLine,Execute" Slot="Voice" />
+      <LayoutButtons index="21" Face="HearthstoneNoMana" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hearth" />
+      <LayoutButtons Face="SamuroCancelBladestorm" Type="AbilCmd" AbilCmd="SamuroBladestormCancel,Execute" Slot="Heroic" />
+      <LayoutButtons Face="SamuroBladestorm" Type="AbilCmd" AbilCmd="SamuroBladeStormDummy,Execute" Slot="Heroic" />
+      <LayoutButtons Face="LockedHeroicAbility" Type="Passive" Requirements="AbathurIsUltimateEvolutionClone" Slot="Heroic" />
+      <LayoutButtons Face="SamuroIllusionMaster" Type="AbilCmd" AbilCmd="SamuroIllusionMasterNoTarget,Execute" Slot="Heroic" />
+      <LayoutButtons Face="SamuroIllusionMaster" Type="AbilCmd" AbilCmd="SamuroIllusionMaster,Execute" Slot="Heroic" />
+      <LayoutButtons Face="SamuroMirrorImage" Type="AbilCmd" AbilCmd="SamuroMirrorImageTargeted,Execute" Slot="Ability1" />
+      <LayoutButtons Face="SamuroCriticalStrike" Type="AbilCmd" AbilCmd="SamuroCriticalStrike,Execute" Slot="Ability2" />
+      <LayoutButtons Face="SamuroWindwalk" Type="AbilCmd" AbilCmd="SamuroWindwalk,Execute" Slot="Ability3" />
+      <LayoutButtons Face="SamuroAdvancingStrikes" Type="AbilCmd" AbilCmd="SamuroIllusionMasterNoTarget,Execute" Slot="Trait" />
+      <LayoutButtons Face="SamuroAdvancingStrikes" Type="AbilCmd" AbilCmd="SamuroIllusionMaster,Execute" Slot="Trait" />
+      <LayoutButtons Face="SamuroImageTransmissionDummyShopAbility" Type="AbilCmd" AbilCmd="SamuroIllusionMasterDummyShopAbility,Execute" Slot="Trait" />
+      <LayoutButtons Face="LootSpray" Type="AbilCmd" AbilCmd="LootSpray,Execute" Slot="Spray" />
+      <DisabledSlots index="Dynamic1" value="1" />
+      <DisabledSlots index="Dynamic2" value="1" />
+      <DisabledSlots index="Dynamic3" value="1" />
+      <DisabledSlots index="Dynamic4" value="1" />
+    </CardLayouts>
+    <InnerRadius value="0.6875" />
+    <AIThinkTree value="AI/Samuro.aitree" />
+    <EnergyStart value="0" />
+    <EnergyMax value="0" />
+    <EnergyRegenRate value="0" />
+    <InitializerFunction value="libHSAM_gf_HeroSamuroIncrementHeroCountFunction" />
+    <DestructionFunction value="libHSAM_gf_HeroSamuroDecrementHeroCountFunction" />
+    <Radius value="0.6875" />
+    <SeparationRadius value="0.6875" />
+    <MinimapRadius value="0.6875" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="MercKiller" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleAutoAttacker" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
+  </CUnit>
+  <CUnit id="HeroGarrosh" parent="StormHeroMounted">
+    <LifeStart value="2060" />
+    <LifeMax value="2060" />
+    <LifeRegenRate value="4.293" />
+    <AbilArray Link="GarroshGroundbreaker" />
+    <AbilArray Link="GarroshBloodthirst" />
+    <AbilArray Link="GarroshWreckingBall" />
+    <AbilArray Link="GarroshWarlordsChallenge" />
+    <AbilArray Link="GarroshDecimate" />
+    <AbilArray Link="GarroshArmorUpDoubleUp" />
+    <BehaviorArray Link="GarroshWreckingBallValidityBehavior" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="GarroshArmorUpPassive" />
+    <BehaviorArray Link="GarroshArmorUpFXCarryBehavior" />
+    <BehaviorArray Link="GarroshWreckingBallMarkerEnemyUnitTracker" />
+    <BehaviorArray Link="GarroshArmorUpSeasonedSoldierHealthBuff" />
+    <BehaviorArray Link="GarroshWreckingBallIntotheFrayCarryBehavior" />
+    <BehaviorArray Link="GarroshWreckingBallIntoTheFrayAllyValidityBehavior" />
+    <BehaviorArray Link="GarroshWreckingBallIntoTheFrayMarkerAllyUnitTracker" />
+    <BehaviorArray Link="GarroshWreckingBallIntoTheFrayItem" />
+    <WeaponArray Link="HeroGarrosh" />
+    <EffectArray index="Birth" value="GarroshUIActivateDummy" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="GarroshWarlordsChallenge" Type="AbilCmd" AbilCmd="GarroshWarlordsChallenge,Execute" Slot="Heroic" />
+      <LayoutButtons Face="GarroshDecimate" Type="AbilCmd" AbilCmd="GarroshDecimate,Execute" Slot="Heroic" />
+      <LayoutButtons Face="GarroshGroundbreaker" Type="AbilCmd" AbilCmd="GarroshGroundbreaker,Execute" Slot="Ability1" />
+      <LayoutButtons Face="GarroshBloodthirst" Type="AbilCmd" AbilCmd="GarroshBloodthirst,Execute" Slot="Ability2" />
+      <LayoutButtons Face="GarroshWreckingBall" Type="AbilCmd" AbilCmd="GarroshWreckingBall,Execute" Slot="Ability3" />
+      <LayoutButtons Face="GarroshArmorUpDoubleUp" Type="AbilCmd" AbilCmd="GarroshArmorUpDoubleUp,Execute" Slot="Trait" />
+      <LayoutButtons Face="GarroshArmorUp" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="0.875" />
+    <InnerRadius value="0.875" />
+    <AIThinkTree value="AI/Garrosh.aitree" />
+    <AIHealthThresholds index="ReturnToSpawn" value="0.1" />
+    <AIHealthThresholds index="EndOffensive" value="0.25" />
+    <AIHealthThresholds index="StartOffensive" value="0.45" />
+    <AIHealthThresholds index="High" value="0.6" />
+    <InitializerFunction value="libHGAR_gf_HeroGarroshIncrementHeroCountFunction" />
+    <DestructionFunction value="libHGAR_gf_HeroGarroshDecrementHeroCountFunction" />
+    <HeroPlaystyleFlags index="BodyBlocker" value="1" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleTank" value="1" />
+    <ArmorLink value="GarroshArmor" />
+  </CUnit>
+  <CUnit id="HeroAna" parent="StormHeroMounted">
+    <Gender value="Female" />
+    <LifeStart value="1598" />
+    <LifeMax value="1598" />
+    <LifeRegenRate value="3.3281" />
+    <AbilArray Link="AnaHealingDart" />
+    <AbilArray Link="AnaBioticGrenade" />
+    <AbilArray Link="AnaSleepDart" />
+    <AbilArray Link="AnaNanoBoost" />
+    <AbilArray Link="AnaEyeOfHorusActivate" />
+    <AbilArray Link="AnaEyeOfHorusAttack" />
+    <AbilArray Link="AnaEyeOfHorusAttackDummy" />
+    <AbilArray Link="AnaEyeOfHorusCancel" />
+    <AbilArray Link="AnaAimDownSightsActivate" />
+    <AbilArray Link="AnaAimDownSightsDeactivate" />
+    <AbilArray Link="AnaHealingDartDetachableBoxMagazine" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="AnaHealingDartConcentratedDosesPlayerTracker" />
+    <BehaviorArray Link="AnaEyeOfHorusTurretDisable" />
+    <BehaviorArray Link="AnaShrikeSelfHealPoisonTrait" />
+    <BehaviorArray Link="AnaShrikeSelfHealPoisonTraitHealToken" />
+    <BehaviorArray Link="AnaAimDownSightsCarryBehavior" />
+    <BehaviorArray Link="AnaSleepDartUnitTracker" />
+    <WeaponArray Link="AnaHeroWeapon" />
+    <WeaponArray Turret="AnaEyeOfHorusTurret" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="AnaNanoBoost" Type="AbilCmd" AbilCmd="AnaNanoBoost,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AnaEyeOfHorusHighPoweredRound" Type="AbilCmd" AbilCmd="AnaEyeOfHorusAttackDummy,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AnaEyeOfHorusHighPoweredRound" Type="AbilCmd" AbilCmd="AnaEyeOfHorusAttack,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AnaEyeOfHorusActivate" Type="AbilCmd" AbilCmd="AnaEyeOfHorusActivate,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AnaEyeOfHorusHighPoweredRound" Type="AbilCmd" AbilCmd="AnaEyeOfHorusAttackDummy,Execute" Slot="Ability1" />
+      <LayoutButtons Face="AnaHealingDart" Type="AbilCmd" AbilCmd="AnaHealingDartDetachableBoxMagazine,Execute" Slot="Ability1" />
+      <LayoutButtons Face="AnaHealingDart" Type="AbilCmd" AbilCmd="AnaHealingDart,Execute" Slot="Ability1" />
+      <LayoutButtons Face="AnaEyeOfHorusCancel" Type="AbilCmd" AbilCmd="AnaEyeOfHorusCancel,Execute" Slot="Ability2" />
+      <LayoutButtons Face="AnaBioticGrenade" Type="AbilCmd" AbilCmd="AnaBioticGrenade,Execute" Slot="Ability2" />
+      <LayoutButtons Face="AnaEyeOfHorusCancel" Type="AbilCmd" AbilCmd="AnaEyeOfHorusCancel,Execute" Slot="Ability3" />
+      <LayoutButtons Face="AnaSleepDart" Type="AbilCmd" AbilCmd="AnaSleepDart,Execute" Slot="Ability3" />
+      <LayoutButtons Face="AnaAimDownSightsDeactivate" Type="AbilCmd" AbilCmd="AnaAimDownSightsDeactivate,Execute" Slot="Trait" />
+      <LayoutButtons Face="AnaAimDownSightsActivate" Type="AbilCmd" AbilCmd="AnaAimDownSightsActivate,Execute" Slot="Trait" />
+      <LayoutButtons Face="AnaTraitShrikeSniper" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="0.5625" />
+    <InnerRadius value="0.5625" />
+    <AIEvalFactor value="1.2" />
+    <InitializerFunction value="libHANA_gf_HeroAnaIncrementHeroCountFunction" />
+    <DestructionFunction value="libHANA_gf_HeroAnaDecrementHeroCountFunction" />
+    <AIThinkTree value="AI/Ana.aitree" />
+    <HeroPlaystyleFlags index="AllyHealer" value="1" />
+    <HeroPlaystyleFlags index="ChanneledAutoAttacker" value="1" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Helper" value="1" />
+    <HeroPlaystyleFlags index="Roamer" value="1" />
+    <HeroPlaystyleFlags index="RoleSupport" value="1" />
+  </CUnit>
+    <CUnit id="HeroDehaka" parent="StormHeroMountedCustom">
+    <LifeStart value="2385" />
+    <LifeMax value="2385" />
+    <LifeRegenRate value="4.9687" />
+    <AbilArray Link="AbathurAssumingDirectControlCancel" />
+    <AbilArray Link="DehakaBurrow" />
+    <AbilArray Link="DehakaDarkSwarm" />
+    <AbilArray Link="DehakaBrushstalker" />
+    <AbilArray Link="DehakaIsolation" />
+    <AbilArray Link="DehakaDrag" />
+    <AbilArray Link="DehakaAdaptation" />
+    <AbilArray Link="DehakaEssenceCollection" />
+    <AbilArray Link="DehakaCancelBurrow" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="DehakaEssenceCollectionCarryBehavior" />
+    <BehaviorArray Link="DehakaEssenceCollectionEnabler" />
+    <BehaviorArray Link="DehakaBrushstalkerCarry" />
+    <BehaviorArray Link="DehakaEssenceCollectionPrimalRageTalentTokenCounter" />
+    <BehaviorArray Link="HeroGenericIsFat" />
+    <WeaponArray Link="HeroDehaka" />
+    <WeaponArray Link="HeroDehakaDragWeapon" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="DehakaIsolation" Type="AbilCmd" AbilCmd="DehakaIsolation,Execute" Slot="Heroic" />
+      <LayoutButtons Face="DehakaAdaptation" Type="AbilCmd" AbilCmd="DehakaAdaptation,Execute" Slot="Heroic" />
+      <LayoutButtons Face="DehakaBrushstalker" Type="AbilCmd" AbilCmd="DehakaBrushstalker,Execute" Slot="Mount" />
+      <LayoutButtons Face="DehakaCancelBurrow" Type="AbilCmd" AbilCmd="DehakaCancelBurrow,Execute" Slot="Ability3" />
+      <LayoutButtons Face="DehakaBurrow" Type="AbilCmd" AbilCmd="DehakaBurrow,Execute" Slot="Ability3" />
+      <LayoutButtons Face="DehakaDarkSwarm" Type="AbilCmd" AbilCmd="DehakaDarkSwarm,Execute" Slot="Ability2" />
+      <LayoutButtons Face="DehakaEssenceCollection" Type="AbilCmd" AbilCmd="DehakaEssenceCollection,Execute" Slot="Trait" />
+      <LayoutButtons Face="DehakaDrag" Type="AbilCmd" AbilCmd="DehakaDrag,Execute" Slot="Ability1" />
+    </CardLayouts>
+    <Radius value="1" />
+    <InnerRadius value="0.875" />
+    <AIThinkTree value="AI/Dehaka.aitree" />
+    <HeroPlaystyleFlags index="BodyBlocker" value="1" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleTank" value="1" />
+    <HeroPlaystyleFlags index="SoloLaner" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
+    <InitializerFunction value="libHDEH_gf_HeroDehakaIncrementHeroCountFunction" />
+    <DestructionFunction value="libHDEH_gf_HeroDehakaDecrementHeroCountFunction" />
+    <EffectArray index="Death" value="DehakaFeedingFrenzyTalentSubtractToken" />
+  </CUnit>
+  
+  <!--Other Units-->
+  <CUnit id="AbathurLocustAssaultStrain" parent="AbathurLocust">
+    <WeaponArray Link="AbathurLocustAssaultWeapon" />
+  </CUnit>
+  <CUnit id="AbathurLocustBombardStrain" parent="AbathurLocust">
+    <WeaponArray Link="AbathurLocustBombardWeapon" />
+    <WeaponArray Link="AbathurLocustBombardWeaponCloseRange" />
+  </CUnit>
+  <CUnit id="AbathurLocustNormal" parent="AbathurLocust">
+    <WeaponArray Link="AbathurLocustWeapon" />
+  </CUnit>
+  <CUnit id="AbathurToxicNest" parent="StormSummonPassive">
+    <LifeStart value="80" />
+    <LifeMax value="80" />
+    <Facing value="315" />
+    <Radius value="0.5" />
+  </CUnit>
+  <CUnit id="AbathurLocust" parent="StormSummonActive">
+    <FlagArray index="DoNotAcquire" value="1" />
+    <LifeStart value="350" />
+    <LifeMax value="350" />
+    <BehaviorArray Link="LocustTimedLife" />
+    <AbilArray Link="stop" />
+    <AbilArray Link="AttackAlly" />
+    <AbilArray Link="move" />
+    <Radius value="0.375" />
+    <SeparationRadius value="0.375" />
+    <AIThinkTree value="AI/SummonedMinion.aitree" />
+  </CUnit>
+  <CUnit id="AbathurLocustNormal" parent="AbathurLocust">
+    <WeaponArray Link="AbathurLocustWeapon" />
+  </CUnit>
+  <CUnit id="AbathurLocustBombardStrain" parent="AbathurLocust">
+    <WeaponArray Link="AbathurLocustBombardWeapon" />
+    <WeaponArray Link="AbathurLocustBombardWeaponCloseRange" />
+  </CUnit>
+  <CUnit id="AbathurLocustAssaultStrain" parent="AbathurLocust">
+    <WeaponArray Link="AbathurLocustAssaultWeapon" />
+  </CUnit>
+  <CUnit id="AbathurEvolvedMonstrosity" parent="StormSummonActive">
+    <FlagArray index="CreateAITreeOnSpawn" value="1" />
+    <PushPriority value="400" />
+    <LifeStart value="1350" />
+    <LifeMax value="1350" />
+    <Speed value="4" />
+    <StationaryTurningRate value="1759.9218" />
+    <TurningRate value="1759.9218" />
+    <Sight value="9" />
+    <AbilArray Link="stop" />
+    <AbilArray Link="attack" />
+    <AbilArray Link="move" />
+    <AbilArray Link="AbathurMonstrosityDeepTunnel" />
+    <AbilArray Link="HeroGenericSummonedUnitSpecialCaseInteraction" />
+    <BehaviorArray Link="HeroicSummon" />
+    <BehaviorArray Link="SpecialCaseNPCTakedownParticipant" />
+    <BehaviorArray Link="AbathurMonstrositySpawn" />
+    <BehaviorArray Link="HeroGenericIsFat" />
+    <BehaviorArray Link="HeroGenericHasNoStatusBar" />
+    <BehaviorArray Link="HeroGenericMapMechanicPickupDisallowed" />
+    <BehaviorArray Link="AbathurEvolveMonstrosityMinionAbsorbedToken" />
+    <WeaponArray Link="AbathurEvolveMonstrosityWeapon" />
+    <WeaponArray Link="AbathurEvolveMonstrosityWeaponMelee" />
+    <CardLayouts>
+      <LayoutButtons Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Stop" />
+      <LayoutButtons Face="Stop" Type="AbilCmd" AbilCmd="stop,Stop" Slot="Stop" />
+      <LayoutButtons Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="move,HoldPos" Slot="Hold" />
+      <LayoutButtons Face="SummonedUnitSpecialCaseInteraction" Type="AbilCmd" AbilCmd="HeroGenericSummonedUnitSpecialCaseInteraction,Execute" Slot="Hold" />
+      <LayoutButtons Face="MovePatrol" Type="AbilCmd" AbilCmd="move,Patrol" Slot="Hearth" />
+      <LayoutButtons Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Slot="Attack" />
+      <LayoutButtons Face="AcquireMove" Type="AbilCmd" AbilCmd="move,AcquireMove" Slot="Attack" />
+      <LayoutButtons Face="AbathurMonstrosityDeepTunnel" Type="AbilCmd" AbilCmd="AbathurMonstrosityDeepTunnel,Execute" Slot="Mount" />
+    </CardLayouts>
+    <Radius value="1" />
+    <InnerRadius value="0.375" />
+    <SubgroupPriority value="9" />
+    <TauntDuration index="Cheer" value="5" />
+    <TauntDuration index="Dance" value="5" />
+    <AlliedPushPriority value="600" />
+    <MinimapRadius value="1" />
+    <OverlapIndex value="Hero" />
+    <AIThinkTree value="AI/SummonedMinion.aitree" />
+  </CUnit>
+  <CUnit id="HeroDVaMech" parent="StormHeroMountedCustom">
+    <DeathTime value="1" />
+    <DefaultAcquireLevel value="Passive" />
+    <LifeStart value="2150" />
+    <LifeMax value="2150" />
+    <LifeRegenRate value="4.4804" />
+    <EnergyStart value="0" />
+    <EnergyMax value="100" />
+    <EnergyRegenRate value="0" />
+    <StationaryTurningRate value="599.9414" />
+    <TurningRate value="599.9414" />
+    <AbilArray index="1" Link="DVaAttack" />
+    <AbilArray Link="DVaMechTransport" />
+    <AbilArray Link="DVaBoostersOn" />
+    <AbilArray Link="DVaBoostersOff" />
+    <AbilArray Link="DVaMechDefenseMatrixOn" />
+    <AbilArray Link="DVaMechDefenseMatrixRetarget" />
+    <AbilArray Link="DVaMechSelfDestruct" />
+    <AbilArray Link="DVaMechBunnyHopHeroic" />
+    <AbilArray Link="DVaPilotBigShot" />
+    <AbilArray Link="DVaMechTraitAbilityDoesNothing" />
+    <AbilArray Link="DVaMechTraitEmergencyShieldingCooldownAbility" />
+    <AbilArray Link="DVaAutoMoveApproach" />
+    <AbilArray Link="DvaCancelDefenseMatrix" />
+    <AbilArray Link="DVaMicroMissiles" />
+    <BehaviorArray Link="DVaPilotAbilityDisablerCarry" />
+    <BehaviorArray Link="DVaMechFatalDamageResponse" />
+    <BehaviorArray Link="DVaMechNoCargoStatusBarHidden" />
+    <BehaviorArray Link="HalfValueHero" />
+    <BehaviorArray Link="DVaMechProMovesDamageResponseCarry" />
+    <BehaviorArray Link="DVaMechEmergencyShieldingFatalResponseCarry" />
+    <BehaviorArray Link="DVaFullMetalCarry" />
+    <BehaviorArray Link="NotManaUserDummy" />
+    <BehaviorArray Link="DVaMechWeaponChargeEnabler" />
+    <BehaviorArray Link="DVaMechEmergencyShieldingCooldownCarry" />
+    <BehaviorArray Link="HeroGenericIsFat" />
+    <BehaviorArray Link="HeroGenericMapMechanicPickupDisallowed" />
+    <BehaviorArray Link="DVaChannelingSlowController" />
+    <BehaviorArray Link="DVaMechPilotUnitTracker" />
+    <BehaviorArray Link="DVaLiquidCoolingCarry" />
+    <BehaviorArray Link="DVaAblativeArmorTokenCounter" />
+    <BehaviorArray Link="DVaAblativeArmorDisplayTokenCounter" />
+    <BehaviorArray Link="DVaLiquidCoolingAbility" />
+    <BehaviorArray Link="DVaBoostersGetOnThePointTalentCarry" />
+    <WeaponArray Link="DVaMechWeapon" Turret="DVaMechWeaponTurret" />
+    <CardLayouts index="0">
+      <LayoutButtons index="2" Face="Attack" Type="AbilCmd" AbilCmd="DVaAttack,Execute" Slot="Attack" />
+      <LayoutButtons Face="DVaBunnyHopOff" Type="AbilCmd" AbilCmd="DVaMechBunnyHopHeroic,Off" Slot="Heroic" />
+      <LayoutButtons Face="DVaBunnyHopOn" Type="AbilCmd" AbilCmd="DVaMechBunnyHopHeroic,On" Slot="Heroic" />
+      <LayoutButtons Face="DVaMicroMissiles" Type="AbilCmd" AbilCmd="DVaMicroMissiles,Execute" Slot="Heroic" />
+      <LayoutButtons Face="DVaAutoMove" Type="AbilCmd" AbilCmd="DVaAutoMoveApproach,Execute" Slot="Cancel" />
+      <LayoutButtons Face="LootConsumableThrow" Type="AbilCmd" AbilCmd="LootConsumableThrow,255" Slot="Hidden2" />
+      <LayoutButtons Face="DVaMechCancelBoosters" Type="AbilCmd" AbilCmd="DVaBoostersOff,Execute" Slot="Ability1" />
+      <LayoutButtons Face="DVaMechBoosters" Type="AbilCmd" AbilCmd="DVaBoostersOn,Execute" Slot="Ability1" />
+      <LayoutButtons Face="DVaMechDefenseMatrix" Type="AbilCmd" AbilCmd="DVaMechDefenseMatrixOn,Execute" Slot="Ability2" />
+      <LayoutButtons Face="DVaRetargetDefenseMatrix" Type="AbilCmd" AbilCmd="DVaMechDefenseMatrixRetarget,Execute" Slot="Ability2" />
+      <LayoutButtons Face="DVaMechSelfDestruct" Type="AbilCmd" AbilCmd="DVaMechSelfDestruct,Execute" Slot="Ability3" />
+      <LayoutButtons Face="DVaMechLoadPilot" Type="AbilCmd" AbilCmd="DVaMechTransport,Load" Slot="Hidden1" />
+      <LayoutButtons Face="DVaMechUnloadPilot" Type="AbilCmd" AbilCmd="DVaMechTransport,UnloadAll" Slot="Hidden1" />
+      <LayoutButtons Face="DvaCancelDefenseMatrix" Type="AbilCmd" AbilCmd="DvaCancelDefenseMatrix,Execute" Slot="Trait" />
+      <LayoutButtons Face="DVaMechMechMode" Type="Passive" AbilCmd="DVaMechTraitAbilityDoesNothing,Execute" Behavior="DVaMechEmergencyShieldingCooldownCarry" Slot="Trait" />
+      <LayoutButtons Face="DVaMechanizedWalker" Type="Passive" Slot="Mount" />
+      <LayoutButtons />
+    </CardLayouts>
+    <Radius value="1.1875" />
+    <InnerRadius value="0.9375" />
+    <StationaryStepAngle value="74.9926" />
+    <StationaryStepTime value="0.25" />
+    <HeroPlaystyleFlags index="BodyBlocker" value="1" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleTank" value="1" />
+    <AIThinkTree value="AI\DVaMech.aitree" />
+    <UICheckPassengers value="0" />
+  </CUnit>
+  <CUnit id="HeroDVaPilot" parent="StormHeroMounted">
+    <LifeStart value="1109" />
+    <LifeMax value="1109" />
+    <LifeRegenRate value="2.5664" />
+    <AbilArray Link="DVaPilotCallMech" />
+    <AbilArray Link="DVaBoostersOff" />
+    <AbilArray Link="DVaBoostersOn" />
+    <AbilArray Link="DVaMechDefenseMatrixOn" />
+    <AbilArray Link="DVaMechSelfDestruct" />
+    <AbilArray Link="DVaMechBunnyHopHeroic" />
+    <AbilArray Link="DVaPilotTorpedoDash" />
+    <AbilArray Link="DVaPilotConcussivePulse" />
+    <AbilArray Link="DVaPilotBigShot" />
+    <AbilArray Link="DVaPilotRemoteBoostersOff" />
+    <AbilArray Link="DVaMicroMissiles" />
+    <WeaponArray Link="DVaPilotWeapon" />
+    <CardLayouts index="0">
+      <LayoutButtons index="0" Face="DVaMechCancelBoosters" Type="AbilCmd" AbilCmd="DVaPilotRemoteBoostersOff,Execute" Requirements="" Slot="Ability1" />
+      <LayoutButtons Face="DVaMechCancelBoosters" Type="AbilCmd" AbilCmd="DVaPilotRemoteBoostersOff,255" Slot="Ability1" />
+      <LayoutButtons Face="DVaPilotTorpedoDashAbility" Type="AbilCmd" AbilCmd="DVaPilotTorpedoDash,Execute" Slot="Ability1" />
+      <LayoutButtons Face="DVaMechBoosters" Type="AbilCmd" AbilCmd="DVaBoostersOn,Execute" Slot="Ability1" />
+      <LayoutButtons />
+      <LayoutButtons />
+      <LayoutButtons />
+      <LayoutButtons />
+      <LayoutButtons />
+      <LayoutButtons />
+      <LayoutButtons Face="DVaPilotBigShot" Type="AbilCmd" AbilCmd="DVaPilotBigShot,Execute" Slot="Heroic" />
+      <LayoutButtons Face="DVaBunnyHopOn" Type="AbilCmd" AbilCmd="DVaMechBunnyHopHeroic,On" Slot="Heroic" />
+      <LayoutButtons Face="DVaMicroMissiles" Type="AbilCmd" AbilCmd="DVaMicroMissiles,Execute" Slot="Heroic" />
+      <LayoutButtons Face="LootConsumableThrow" Type="AbilCmd" AbilCmd="LootConsumableThrow,255" Slot="Hidden2" />
+      <LayoutButtons Face="DVaPilotCallMech" Type="AbilCmd" AbilCmd="DVaPilotCallMech,Execute" Slot="Ability3" />
+      <LayoutButtons Face="DVaMechSelfDestruct" Type="AbilCmd" AbilCmd="DVaMechSelfDestruct,Execute" Slot="Ability3" />
+      <LayoutButtons Face="DVaPilotConcussivePulseAbility" Type="AbilCmd" AbilCmd="DVaPilotConcussivePulse,Execute" Slot="Ability2" />
+      <LayoutButtons Face="DVaMechDefenseMatrix" Type="AbilCmd" AbilCmd="DVaMechDefenseMatrixOn,Execute" Slot="Ability2" />
+      <LayoutButtons Face="DVaPilotPilotMode" Type="Passive" Slot="Trait" />
+      <LayoutButtons Face="DVaMechMechMode" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="0.625" />
+    <InnerRadius value="0.625" />
+    <BehaviorArray Link="DVaPilotMechAbilityDisablerCarry" />
+    <BehaviorArray Link="DVaPilotSpawningAbilityDisabler" />
+    <BehaviorArray Link="NotManaUserDummy" />
+    <BehaviorArray Link="HalfValueHero" />
+    <BehaviorArray Link="DVaPilotTorpedoDashAllowed" />
+    <BehaviorArray Link="DVaPilotSelfDestructTracker" />
+    <InitializerFunction value="libHDVA_gf_HeroDVaIncrementHeroCountFunction" />
+    <DestructionFunction value="libHDVA_gf_HeroDVaDecrementHeroCountFunction" />
+    <HeroPlaystyleFlags index="RoleAutoAttacker" value="1" />
+    <EnergyStart value="0" />
+    <EnergyMax value="100" />
+    <EnergyRegenRate value="2.1992" />
+    <AIThinkTree value="AI\DVaPilot.aitree" />
+  </CUnit>
+  <CUnit id="HeroAmazon" parent="StormHeroMountedCustom">
+    <LifeStart value="1660" />
+    <LifeMax value="1660" />
+    <AIThinkTree value="AI/Amazon.aitree" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="AmazonAvoidanceMovementCheck" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="AmazonBallLightning" Type="AbilCmd" AbilCmd="AmazonBallLightning,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AmazonValkyrie" Type="AbilCmd" AbilCmd="AmazonValkyrie,Execute" Slot="Heroic" />
+      <LayoutButtons Face="LootConsumableThrow" Type="AbilCmd" AbilCmd="LootConsumableThrow,255" Slot="Hidden2" />
+      <LayoutButtons Face="AmazonAvoidance" Type="AbilCmd" AbilCmd="AmazonSurgeOfLight,Execute" Slot="Trait" />
+      <LayoutButtons Face="AmazonAvoidance" Type="Passive" Slot="Trait" />
+      <LayoutButtons Face="AmazonLightningFury" Type="AbilCmd" AbilCmd="AmazonLightningFury,Execute" Slot="Ability1" />
+      <LayoutButtons Face="AmazonBlindingLight" Type="AbilCmd" AbilCmd="AmazonBlindingLight,Execute" Slot="Ability2" />
+      <LayoutButtons Face="AmazonCancelFend" Type="AbilCmd" AbilCmd="AmazonFendCancelChannel,Execute" Slot="Ability3" />
+      <LayoutButtons Face="AmazonFend" Type="AbilCmd" AbilCmd="AmazonFend,Execute" Slot="Ability3" />
+      <LayoutButtons Face="AmazonWarTravelerSummonMount" Type="AbilCmd" AbilCmd="AmazonWarTravelerSummonMount,Execute" Slot="Mount" />
+      <LayoutButtons Face="SummonMount" Type="AbilCmd" AbilCmd="Mount,Execute" Slot="Mount" />
+      <LayoutButtons Face="UnsummonMount" Type="AbilCmd" AbilCmd="Dismount,Execute" Slot="Mount" />
+    </CardLayouts>
+    <AbilArray Link="AmazonBallLightning" />
+    <AbilArray Link="AmazonBlindingLight" />
+    <AbilArray Link="AmazonFend" />
+    <AbilArray Link="AmazonFendApproach" />
+    <AbilArray Link="AmazonFendCancelChannel" />
+    <AbilArray Link="AmazonFendChannel" />
+    <AbilArray Link="AmazonLightningFury" />
+    <AbilArray Link="AmazonValkyrie" />
+    <AbilArray Link="AmazonSurgeOfLight" />
+    <AbilArray Link="AmazonAvoidanceRockstopper" />
+    <AbilArray Link="Mount" />
+    <AbilArray Link="Dismount" />
+    <AbilArray Link="AmazonWarTravelerSummonMount" />
+    <WeaponArray Link="AmazonHeroWeaponMelee" />
+    <WeaponArray Link="AmazonHeroWeaponRanged" />
+    <LifeRegenRate value="3.457" />
+    <Radius value="0.6875" />
+    <InnerRadius value="0.6875" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="RoleAutoAttacker" value="1" />
+    <HeroPlaystyleFlags index="RoleCaster" value="1" />
+    <InitializerFunction value="libHAMA_gf_HeroAmazonIncrementHeroCountFunction" />
+    <DestructionFunction value="libHAMA_gf_HeroAmazonDecrementHeroCountFunction" />
+    <EffectArray index="Death" value="AmazonChargedStrikesResetTokens" />
+  </CUnit>
+  <CUnit id="HeroCho" parent="StormHeroMounted">
+    <Subtitle value="Hero/Name/ChoGallBundleProduct" />
+    <LifeStart value="2950" />
+    <LifeMax value="2950" />
+    <LifeRegenRate value="6.1445" />
+    <EnergyStart value="0" />
+    <EnergyMax value="0" />
+    <EnergyRegenRate value="0" />
+    <AbilArray Link="ChoConsumingBlaze" />
+    <AbilArray Link="ChoSurgingFistCast" />
+    <AbilArray Link="ChoSurgingFistTrigger" />
+    <AbilArray Link="ChoSurgingFistExecute" />
+    <AbilArray Link="ChoHammerOfTwilight" />
+    <AbilArray Link="ChoRuneBomb" />
+    <AbilArray Link="ChoUpheaval" />
+    <AbilArray Link="ChoOgreHide" />
+    <BehaviorArray Link="NotManaUserDummy" />
+    <BehaviorArray Link="HeroSharesCutsceneOverlaysSource" />
+    <BehaviorArray Link="ChoGallConjoined" />
+    <BehaviorArray Link="ChoOgreHideVisualController" />
+    <BehaviorArray Link="ChoOgreRageVisualController" />
+    <BehaviorArray Link="HeroGenericIsFat" />
+    <BehaviorArray Link="ChoOgreHideCallousedHideTalentMoveSpeedCarry" />
+    <WeaponArray Link="ChoShortRangeHeroWeapon" />
+    <WeaponArray Link="ChoHeroWeapon" />
+    <WeaponArray Link="ChoLongRangeHeroWeaponCthunsGift" />
+    <CardLayouts index="0">
+      <LayoutButtons index="1" Face="HearthstoneNoMana" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hearth" />
+      <LayoutButtons Face="ChoUpheaval" Type="AbilCmd" AbilCmd="ChoUpheaval,Execute" Slot="Heroic" />
+      <LayoutButtons Face="ChoHammerOfTwilight" Type="AbilCmd" AbilCmd="ChoHammerOfTwilight,Execute" Slot="Heroic" />
+      <LayoutButtons Face="ChoSurgingFistExecute" Type="AbilCmd" AbilCmd="ChoSurgingFistExecute,255" Slot="Hold" />
+      <LayoutButtons Face="ChoSurgingFistTriggerButton" Type="AbilCmd" AbilCmd="ChoSurgingFistTrigger,Execute" Slot="Ability1" />
+      <LayoutButtons Face="ChoSurgingFist" Type="AbilCmd" AbilCmd="ChoSurgingFistCast,Execute" Slot="Ability1" />
+      <LayoutButtons Face="ChoRuneBomb" Type="AbilCmd" AbilCmd="ChoRuneBomb,Execute" Slot="Ability3" />
+      <LayoutButtons Face="ChoConsumingBlaze" Type="AbilCmd" AbilCmd="ChoConsumingBlaze,Execute" Slot="Ability2" />
+      <LayoutButtons Face="ChoOgreHidePassive" Type="Passive" Requirements="ChoHasOgreHideArmorBuff" ShowInGlossary="0" Slot="Trait" />
+      <LayoutButtons Face="ChoOgreHideActivated" Type="AbilCmd" AbilCmd="ChoOgreHide,Execute" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="1.1875" />
+    <InnerRadius value="0.9375" />
+    <AIUtility value="2" />
+    <AIBaseThreat value="1.9" />
+    <AIThinkTree value="AI/Cho.aitree" />
+    <HeroPlaystyleFlags index="BodyBlocker" value="1" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="MercKiller" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleTank" value="1" />
+    <HeroPlaystyleFlags index="SoloLaner" value="1" />
+    <InitializerFunction value="libHCHO_gf_HeroChoGallIncrementHeroCountFunction" />
+    <DestructionFunction value="libHCHO_gf_HeroChoGallDecrementHeroCountFunction" />
+    <ArmorLink value="ChoGallArmor" />
+  </CUnit>
+  <CUnit id="HeroTracer" parent="StormHeroMounted">
+    <BehaviorArray Link="TracerReloadController" />
+    <BehaviorArray Link="TracerRecallController" />
+    <BehaviorArray Link="TracerPulseBombChargeController" />
+    <BehaviorArray Link="NotManaUserDummy" />
+    <BehaviorArray Link="TracerBlinkAvailabilityController" />
+    <BehaviorArray Link="TracerMeleeDisabler" />
+    <BehaviorArray Link="HeroWeaponCasterTargetFinderDisablerMounted" />
+    <BehaviorArray Link="TracerHasFullAmmo" />
+    <BehaviorArray Link="TracerRecallUnitAITrackingBehavior" />
+    <LifeStart value="1330" />
+    <LifeMax value="1330" />
+    <AbilArray index="1" Link="TracerAttack" />
+    <AbilArray Link="TracerReload" />
+    <AbilArray Link="TracerBlink" />
+    <AbilArray Link="TracerPulseBomb" />
+    <AbilArray Link="TracerRecall" />
+    <AbilArray Link="TracerMelee" />
+    <AbilArray Link="TracerLockedandLoaded" />
+    <AbilArray Link="TracerLockedandLoadedFailReload" />
+    <AbilArray Link="TracerSmartTargetingRightClick" />
+    <AbilArray Link="TracerTargetingAttackClick" />
+    <AbilArray Link="TracerUseVehicle" />
+    <CardLayouts index="0">
+      <LayoutButtons index="0" Face="TracerPulseBomb" Type="AbilCmd" AbilCmd="TracerPulseBomb,Execute" Requirements="" Slot="Heroic" />
+      <LayoutButtons index="1" Face="HearthstoneNoMana" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hearth" />
+      <LayoutButtons index="2" Face="Attack" Type="AbilCmd" AbilCmd="TracerTargetingAttackClick,Execute" Slot="Attack" />
+      <LayoutButtons Face="TracerRecall" Type="AbilCmd" AbilCmd="TracerRecall,Execute" Slot="Ability3" />
+      <LayoutButtons Face="TracerLockedandLoadedAbility" Type="AbilCmd" AbilCmd="TracerLockedandLoadedFailReload,Execute" Slot="Trait" />
+      <LayoutButtons Face="TracerLockedandLoadedAbility" Type="AbilCmd" AbilCmd="TracerLockedandLoaded,Execute" Slot="Trait" />
+      <LayoutButtons Face="TracerReload" Type="AbilCmd" AbilCmd="TracerReload,Execute" Slot="Trait" />
+      <LayoutButtons Face="TracerMelee" Type="AbilCmd" AbilCmd="TracerMelee,Execute" Slot="Ability2" />
+      <LayoutButtons Face="TracerBlink" Type="AbilCmd" AbilCmd="TracerBlink,Execute" Slot="Ability1" />
+    </CardLayouts>
+    <WeaponArray Link="TracerHeroWeapon" />
+    <EnergyStart value="20" />
+    <EnergyMax value="20" />
+    <EnergyRegenRate value="0" />
+    <Radius value="0.625" />
+    <AIEvalFactor value="1.2" />
+    <LifeRegenRate value="2.707" />
+    <EffectArray index="Death" value="TracerDeathSet" />
+    <InitializerFunction value="libTrac_gf_HeroTracerIncrementHeroCountFunction" />
+    <DestructionFunction value="libTrac_gf_HeroTracerDecrementHeroCountFunction" />
+    <AIThreatCalculation value="IgnoreEnergy" />
+    <InnerRadius value="0.625" />
+    <AIThinkTree value="AI/Tracer.aitree" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="RoleAutoAttacker" value="1" />
+  </CUnit>
+  <CUnit id="HeroDeathwing" parent="StormHeroMountedCustom">
+    <LifeStart value="2750" />
+    <LifeMax value="2750" />
+    <LifeRegenRate value="5.7304" />
+    <EnergyStart value="100" />
+    <EnergyMax value="100" />
+    <EnergyRegenRate value="5" />
+    <AbilArray Link="DeathwingOnslaught" />
+    <AbilArray Link="DeathwingMoltenFlame" />
+    <AbilArray Link="DeathwingMoltenFlameCancel" />
+    <AbilArray Link="DeathwingIncinerate" />
+    <AbilArray Link="DeathwingTailSmash" />
+    <AbilArray Link="DeathwingLavaBurst" />
+    <AbilArray Link="DeathwingEarthShatter" />
+    <AbilArray Link="DeathwingCataclysm" />
+    <AbilArray Link="DeathwingBrimstoneCancel" />
+    <AbilArray Link="DeathwingDragonflight" />
+    <AbilArray Link="DeathwingDragonflightFlyMorph" />
+    <AbilArray Link="DeathwingDragonflightLandMorph" />
+    <AbilArray Link="DeathwingDestroyerForm" />
+    <AbilArray Link="DeathwingWorldbreakerForm" />
+    <AbilArray Link="DeathwingSkyfall" />
+    <AbilArray Link="DeathwingFormSwitch" />
+    <BehaviorArray Link="HeroGenericIsFat" />
+    <BehaviorArray Link="DeathwingBrimstonePathingBlockerUnitTracker" />
+    <BehaviorArray Link="DeathwingDestroyerForm" />
+    <BehaviorArray Link="Ultimate1Unlocked" />
+    <BehaviorArray Link="DeathwingAdamantineArmorPlate4" />
+    <BehaviorArray Link="DeathwingAdamantineArmorPlate3" />
+    <BehaviorArray Link="DeathwingAdamantineArmorPlate2" />
+    <BehaviorArray Link="DeathwingAdamantineArmorPlate1" />
+    <BehaviorArray Link="UltimateEvolutionInvalidTarget" />
+    <BehaviorArray Link="UntargetableByFriendlyAbilities" />
+    <BehaviorArray Link="DeathwingFormSwitchAbility" />
+    <BehaviorArray Link="UnitImmuneToDevouringMaw" />
+    <BehaviorArray Link="NotManaUserDummy" />
+    <WeaponArray Link="DeathwingHeroWeapon" />
+    <CardLayouts index="0">
+      <LayoutButtons index="1" Face="DeathwingHearthstone" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hearth" />
+      <LayoutButtons Face="DeathwingCataclysm" Type="AbilCmd" AbilCmd="DeathwingCataclysm,Execute" Slot="Heroic" />
+      <LayoutButtons Face="DeathwingDestroyer" Type="AbilCmd" AbilCmd="DeathwingDestroyerForm,Execute" Slot="Ability1" />
+      <LayoutButtons Face="DeathwingMoltenFlameCancel" Type="AbilCmd" AbilCmd="DeathwingMoltenFlameCancel,Execute" Slot="Ability1" />
+      <LayoutButtons Face="DeathwingMoltenFlame" Type="AbilCmd" AbilCmd="DeathwingMoltenFlame,Execute" Slot="Ability1" />
+      <LayoutButtons Face="DeathwingWorldbreaker" Type="AbilCmd" AbilCmd="DeathwingWorldbreakerForm,Execute" Slot="Ability2" />
+      <LayoutButtons Face="DeathwingIncinerate" Type="AbilCmd" AbilCmd="DeathwingIncinerate,Execute" Slot="Ability2" />
+      <LayoutButtons Face="DeathwingLavaBurst" Type="AbilCmd" AbilCmd="DeathwingLavaBurst,Execute" Slot="Ability2" />
+      <LayoutButtons Face="DeathwingSkyfallActive" Type="AbilCmd" AbilCmd="DeathwingSkyfall,Execute" Slot="Ability3" />
+      <LayoutButtons Face="DeathwingOnslaught" Type="AbilCmd" AbilCmd="DeathwingOnslaught,Execute" Slot="Ability3" />
+      <LayoutButtons Face="DeathwingEarthShatter" Type="AbilCmd" AbilCmd="DeathwingEarthShatter,Execute" Slot="Ability3" />
+      <LayoutButtons Face="DeathwingDragonflight" Type="AbilCmd" AbilCmd="DeathwingDragonflight,Execute" Slot="Mount" />
+      <LayoutButtons Face="DeathwingAspectOfDeath" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="1.25" />
+    <InnerRadius value="1" />
+    <InitializerFunction value="libHDEA_gf_HeroDeathwingIncrementHeroCountFunction" />
+    <DestructionFunction value="libHDEA_gf_HeroDeathwingDecrementHeroCountFunction" />
+    <FlagArray index="Unstoppable" value="1" />
+    <Attributes index="ImmuneToFriendlyAbilities" value="1" />
+    <AIThinkTree value="AI/Deathwing.aitree" />
+    <HeroPlaystyleFlags index="BodyBlocker" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="HealingAltarGoalDisabled" value="1" />
+    <HeroPlaystyleFlags index="InstantTraveler" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="Roamer" value="1" />
+    <HeroPlaystyleFlags index="RoleAutoAttacker" value="1" />
+    <HeroPlaystyleFlags index="Suicidal" value="1" />
+    <HeroPlaystyleFlags index="TowerPusher" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
+  </CUnit>
+  <CUnit id="HeroDVaMech" parent="StormHeroMountedCustom">
+    <DeathTime value="1" />
+    <DefaultAcquireLevel value="Passive" />
+    <LifeStart value="2150" />
+    <LifeMax value="2150" />
+    <LifeRegenRate value="4.4804" />
+    <EnergyStart value="0" />
+    <EnergyMax value="100" />
+    <EnergyRegenRate value="0" />
+    <StationaryTurningRate value="599.9414" />
+    <TurningRate value="599.9414" />
+    <AbilArray index="1" Link="DVaAttack" />
+    <AbilArray Link="DVaMechTransport" />
+    <AbilArray Link="DVaBoostersOn" />
+    <AbilArray Link="DVaBoostersOff" />
+    <AbilArray Link="DVaMechDefenseMatrixOn" />
+    <AbilArray Link="DVaMechDefenseMatrixRetarget" />
+    <AbilArray Link="DVaMechSelfDestruct" />
+    <AbilArray Link="DVaMechBunnyHopHeroic" />
+    <AbilArray Link="DVaPilotBigShot" />
+    <AbilArray Link="DVaMechTraitAbilityDoesNothing" />
+    <AbilArray Link="DVaMechTraitEmergencyShieldingCooldownAbility" />
+    <AbilArray Link="DVaAutoMoveApproach" />
+    <AbilArray Link="DvaCancelDefenseMatrix" />
+    <AbilArray Link="DVaMicroMissiles" />
+    <BehaviorArray Link="DVaPilotAbilityDisablerCarry" />
+    <BehaviorArray Link="DVaMechFatalDamageResponse" />
+    <BehaviorArray Link="DVaMechNoCargoStatusBarHidden" />
+    <BehaviorArray Link="HalfValueHero" />
+    <BehaviorArray Link="DVaMechProMovesDamageResponseCarry" />
+    <BehaviorArray Link="DVaMechEmergencyShieldingFatalResponseCarry" />
+    <BehaviorArray Link="DVaFullMetalCarry" />
+    <BehaviorArray Link="NotManaUserDummy" />
+    <BehaviorArray Link="DVaMechWeaponChargeEnabler" />
+    <BehaviorArray Link="DVaMechEmergencyShieldingCooldownCarry" />
+    <BehaviorArray Link="HeroGenericIsFat" />
+    <BehaviorArray Link="HeroGenericMapMechanicPickupDisallowed" />
+    <BehaviorArray Link="DVaChannelingSlowController" />
+    <BehaviorArray Link="DVaMechPilotUnitTracker" />
+    <BehaviorArray Link="DVaLiquidCoolingCarry" />
+    <BehaviorArray Link="DVaAblativeArmorTokenCounter" />
+    <BehaviorArray Link="DVaAblativeArmorDisplayTokenCounter" />
+    <BehaviorArray Link="DVaLiquidCoolingAbility" />
+    <BehaviorArray Link="DVaBoostersGetOnThePointTalentCarry" />
+    <WeaponArray Link="DVaMechWeapon" Turret="DVaMechWeaponTurret" />
+    <CardLayouts index="0">
+      <LayoutButtons index="2" Face="Attack" Type="AbilCmd" AbilCmd="DVaAttack,Execute" Slot="Attack" />
+      <LayoutButtons Face="DVaBunnyHopOff" Type="AbilCmd" AbilCmd="DVaMechBunnyHopHeroic,Off" Slot="Heroic" />
+      <LayoutButtons Face="DVaBunnyHopOn" Type="AbilCmd" AbilCmd="DVaMechBunnyHopHeroic,On" Slot="Heroic" />
+      <LayoutButtons Face="DVaMicroMissiles" Type="AbilCmd" AbilCmd="DVaMicroMissiles,Execute" Slot="Heroic" />
+      <LayoutButtons Face="DVaAutoMove" Type="AbilCmd" AbilCmd="DVaAutoMoveApproach,Execute" Slot="Cancel" />
+      <LayoutButtons Face="LootConsumableThrow" Type="AbilCmd" AbilCmd="LootConsumableThrow,255" Slot="Hidden2" />
+      <LayoutButtons Face="DVaMechCancelBoosters" Type="AbilCmd" AbilCmd="DVaBoostersOff,Execute" Slot="Ability1" />
+      <LayoutButtons Face="DVaMechBoosters" Type="AbilCmd" AbilCmd="DVaBoostersOn,Execute" Slot="Ability1" />
+      <LayoutButtons Face="DVaMechDefenseMatrix" Type="AbilCmd" AbilCmd="DVaMechDefenseMatrixOn,Execute" Slot="Ability2" />
+      <LayoutButtons Face="DVaRetargetDefenseMatrix" Type="AbilCmd" AbilCmd="DVaMechDefenseMatrixRetarget,Execute" Slot="Ability2" />
+      <LayoutButtons Face="DVaMechSelfDestruct" Type="AbilCmd" AbilCmd="DVaMechSelfDestruct,Execute" Slot="Ability3" />
+      <LayoutButtons Face="DVaMechLoadPilot" Type="AbilCmd" AbilCmd="DVaMechTransport,Load" Slot="Hidden1" />
+      <LayoutButtons Face="DVaMechUnloadPilot" Type="AbilCmd" AbilCmd="DVaMechTransport,UnloadAll" Slot="Hidden1" />
+      <LayoutButtons Face="DvaCancelDefenseMatrix" Type="AbilCmd" AbilCmd="DvaCancelDefenseMatrix,Execute" Slot="Trait" />
+      <LayoutButtons Face="DVaMechMechMode" Type="Passive" AbilCmd="DVaMechTraitAbilityDoesNothing,Execute" Behavior="DVaMechEmergencyShieldingCooldownCarry" Slot="Trait" />
+      <LayoutButtons Face="DVaMechanizedWalker" Type="Passive" Slot="Mount" />
+      <LayoutButtons />
+    </CardLayouts>
+    <Radius value="1.1875" />
+    <InnerRadius value="0.9375" />
+    <StationaryStepAngle value="74.9926" />
+    <StationaryStepTime value="0.25" />
+    <HeroPlaystyleFlags index="BodyBlocker" value="1" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleTank" value="1" />
+    <AIThinkTree value="AI\DVaMech.aitree" />
+    <UICheckPassengers value="0" />
+  </CUnit>
+  <CUnit id="HeroFenix" parent="StormHeroMounted">
+    <LifeStart value="1140" />
+    <LifeMax value="1140" />
+    <LifeRegenRate value="2.379" />
+    <ShieldsStart value="760" />
+    <ShieldsMax value="760" />
+    <ShieldRegenDelay value="5" />
+    <ShieldRegenRate value="76" />
+    <AbilArray Link="FenixPlasmaCutter" />
+    <AbilArray Link="FenixWarp" />
+    <AbilArray Link="FenixPurificationSalvo" />
+    <AbilArray Link="FenixShieldCapacitorVisual" />
+    <AbilArray Link="FenixPhaseBomb" />
+    <AbilArray Link="FenixRepeaterCannon" />
+    <AbilArray Link="NovaSnipeStorm" />
+    <AbilArray Link="FenixPlanetCracker" />
+    <AbilArray Link="FenixPlanetCrackerCancel" />
+    <BehaviorArray Link="NotManaUserDummy" />
+    <BehaviorArray Link="HeroGenericIsFat" />
+    <BehaviorArray Link="FenixCombatTrackerBehavior" />
+    <BehaviorArray Link="FenixPurificationSalvoTrackingBehavior" />
+    <BehaviorArray Link="FenixShieldTrackerBehavior" />
+    <BehaviorArray Link="FenixRepeaterCannonBehavior" />
+    <WeaponArray Link="FenixHeroWeapon" Turret="FenixHeroWeaponTurret" />
+    <WeaponArray Link="FenixPhaseBombWeapon" Turret="FenixHeroWeaponTurret" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="FenixPlanetCrackerCancel" Type="AbilCmd" AbilCmd="FenixPlanetCrackerCancel,Execute" Slot="Heroic" />
+      <LayoutButtons Face="FenixPlanetCracker" Type="AbilCmd" AbilCmd="FenixPlanetCracker,Execute" Slot="Heroic" />
+      <LayoutButtons Face="FenixPurificationSalvo" Type="AbilCmd" AbilCmd="FenixPurificationSalvo,Execute" Slot="Heroic" />
+      <LayoutButtons Face="FenixPlasmaCutter" Type="AbilCmd" AbilCmd="FenixPlasmaCutter,Execute" Slot="Ability1" />
+      <LayoutButtons Face="FenixRepeaterCannon" Type="AbilCmd" AbilCmd="FenixRepeaterCannon,Execute" Slot="Ability2" />
+      <LayoutButtons Face="FenixPhaseBomb" Type="AbilCmd" AbilCmd="FenixPhaseBomb,Execute" Slot="Ability2" />
+      <LayoutButtons Face="FenixWarp" Type="AbilCmd" AbilCmd="FenixWarp,Execute" Slot="Ability3" />
+      <LayoutButtons Face="FenixShieldCapacitor" Type="Passive" Requirements="FenixShieldCapacitorVisualNotOnCooldown" Slot="Trait" />
+      <LayoutButtons Face="FenixShieldCapacitor" Type="AbilCmd" AbilCmd="FenixShieldCapacitorVisual,Execute" Slot="Trait" />
+    </CardLayouts>
+    <InitializerFunction value="libHFEN_gf_HeroFenixIncrementHeroCountFunction" />
+    <DestructionFunction value="libHFEN_gf_HeroFenixDecrementHeroCountFunction" />
+    <Radius value="1.0625" />
+    <InnerRadius value="0.9375" />
+    <EnergyStart value="0" />
+    <EnergyMax value="0" />
+    <EnergyRegenRate value="0" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="RoleAutoAttacker" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
+    <AIThinkTree value="AI\Fenix.aitree" />
+  </CUnit>
+  <CUnit id="HeroGall" parent="StormHeroMountedCustom">
+    <PlaneArray index="Air" value="1" />
+    <FlagArray index="Untargetable" value="1" />
+    <FlagArray index="Undetectable" value="1" />
+    <FlagArray index="Invulnerable" value="1" />
+    <FlagArray index="NoScore" value="1" />
+    <FlagArray index="Unstoppable" value="1" />
+    <FlagArray index="PreferLastAttackTarget" value="0" />
+    <FlagArray index="ResumeLastMoveOrder" value="0" />
+    <FlagArray index="StatTrackAbilities" value="0" />
+    <Attributes index="ImmuneToAOE" value="1" />
+    <Attributes index="NoMinionAggro" value="1" />
+    <Attributes index="ImmuneToSkillshots" value="1" />
+    <Attributes index="ImmuneToFriendlyAbilities" value="1" />
+    <EnergyStart value="0" />
+    <EnergyMax value="0" />
+    <EnergyRegenRate value="0" />
+    <ShieldRegenDelay value="0" />
+    <TurningRate value="999.8437" />
+    <AttackTargetPriority value="0" />
+    <AbilArray index="0" Link="GallShadowflame" />
+    <AbilArray index="1" Link="GallDreadOrb" />
+    <AbilArray index="2" Link="GallTwistingNetherActivated" />
+    <AbilArray index="3" Link="GallTwistingNether" />
+    <AbilArray index="4" Link="GallShadowboltVolley" />
+    <AbilArray index="5" Link="GallRunicBlast" />
+    <AbilArray index="6" Link="GallShove" />
+    <AbilArray index="7" Link="CaptureMacGuffinTwo" />
+    <AbilArray index="8" Link="GallShadowBoltVolleyMoltenBlockDummy" />
+    <AbilArray index="9" Link="LootSpray" />
+    <AbilArray index="10" Link="LootYellVoiceLine" />
+    <AbilArray index="11" Link="GallOgreRage" />
+    <AbilArray index="12" Link="GallShove" />
+    <AbilArray index="13" Link="GallDoubleBack" />
+    <AbilArray index="14" Link="GallShiftingNether" />
+    <BehaviorArray Link="GallAbilityDisablerBehavior" />
+    <BehaviorArray Link="GallChoMountedMonitor" />
+    <BehaviorArray Link="GallMovementSuppression" />
+    <BehaviorArray Link="HeroSharesCutsceneOverlaysDestination" />
+    <BehaviorArray Link="BenignFlag" />
+    <BehaviorArray Link="ChoGallConjoined" />
+    <BehaviorArray Link="HeroGenericHasNoStatusBar" />
+    <BehaviorArray Link="HallOfStormsKnockbackImmunity" />
+    <BehaviorArray Link="HeroGenericMapMechanicPickupDisallowed" />
+    <BehaviorArray Link="DisableDanceAndTaunt" />
+    <BehaviorArray Link="GallEyeOfKilrogg" />
+    <CardLayouts index="0">
+      <LayoutButtons index="1" Face="Dance" Type="AbilCmd" AbilCmd="stop,Dance" Slot="Dance" />
+      <LayoutButtons index="2" Face="LootSpray" Type="AbilCmd" AbilCmd="LootSpray,Execute" Slot="Spray" />
+      <LayoutButtons index="3" Face="LootYellVoiceLine" Type="AbilCmd" AbilCmd="LootYellVoiceLine,Execute" Slot="Voice" />
+      <LayoutButtons index="4" Face="GallTwistingNetherActivated" Type="AbilCmd" AbilCmd="GallTwistingNetherActivated,Execute" Slot="Heroic" />
+      <LayoutButtons index="5" Face="GallTwistingNether" Type="AbilCmd" AbilCmd="GallShiftingNether,Execute" Slot="Heroic" />
+      <LayoutButtons index="6" Face="GallTwistingNether" Type="AbilCmd" AbilCmd="GallTwistingNether,Execute" Slot="Heroic" />
+      <LayoutButtons index="7" Face="GallShadowboltVolley" Type="AbilCmd" AbilCmd="GallShadowBoltVolleyMoltenBlockDummy,Execute" Slot="Heroic" />
+      <LayoutButtons index="8" Face="GallShadowflame" Type="AbilCmd" AbilCmd="GallShadowflame,Execute" Slot="Ability1" />
+      <LayoutButtons index="9" Face="GallDoubleBackAbility" Type="AbilCmd" AbilCmd="GallDoubleBack,Execute" Slot="Ability2" />
+      <LayoutButtons index="10" Face="GallDreadOrb" Type="AbilCmd" AbilCmd="GallDreadOrb,Execute" Slot="Ability2" />
+      <LayoutButtons index="11" Face="GallRunicBlast" Type="AbilCmd" AbilCmd="GallRunicBlast,Execute" Slot="Ability3" />
+      <LayoutButtons index="12" Face="GallShoveHotbar" Type="AbilCmd" AbilCmd="GallShove,Execute" Slot="Mount" />
+      <LayoutButtons index="13" Face="GallOgreRageActivated" Type="AbilCmd" AbilCmd="GallOgreRage,Execute" Slot="Trait" />
+      <LayoutButtons index="14" Face="GallOgreRagePassive" Type="Passive" AbilCmd="" Slot="Trait" />
+      <LayoutButtons index="15" Face="GallShadowboltVolley" Type="AbilCmd" AbilCmd="GallShadowboltVolley,Execute" Slot="Heroic" />
+      <LayoutButtons index="16" removed="1" />
+      <LayoutButtons index="17" removed="1" />
+      <LayoutButtons index="18" removed="1" />
+      <LayoutButtons index="19" removed="1" />
+      <LayoutButtons index="20" removed="1" />
+      <LayoutButtons index="21" removed="1" />
+      <LayoutButtons index="22" removed="1" />
+    </CardLayouts>
+    <Radius value="0" />
+    <CargoSize value="0" />
+    <AIUtility value="0" />
+    <AIBaseThreat value="0" />
+    <AIThinkTree value="AI/Gall.aitree" />
+    <AIEvalFactor value="0" />
+    <OverlapIndex value="Minion" />
+    <AlliedPushPriority value="0" />
+    <HeroPlaystyleFlags index="GoalsDisabled" value="1" />
+    <HeroPlaystyleFlags index="RoleCaster" value="1" />
+    <InitializerFunction value="libHCHO_gf_HeroChoGallIncrementHeroCountFunction" />
+    <DestructionFunction value="libHCHO_gf_HeroChoGallDecrementHeroCountFunction" />
+    <ArmorLink value="ChoGallArmor" />
+  </CUnit>
+  <CUnit id="HeroAnubarak" parent="StormHeroMounted">
+    <LifeStart value="2150" />
+    <LifeMax value="2150" />
+    <LifeRegenRate value="4.4804" />
+    <AbilArray Link="AnubarakProtrusion" />
+    <AbilArray Link="AnubarakImpale" />
+    <AbilArray Link="AnubarakHardenCarapace" />
+    <AbilArray Link="AnubarakBurrowCharge" />
+    <AbilArray Link="AnubarakLocustSwarm" />
+    <AbilArray Link="AnubarakCocoon" />
+    <AbilArray Link="AnubarakBurrowChargeCancel" />
+    <AbilArray Link="AnubarakLegionOfBeetles" />
+    <AbilArray Link="AnubarakLegionOfBeetlesToggle" />
+    <AbilArray Link="AnubarakLegionOfBeetlesVisual" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="HeroGenericIsFat" />
+    <BehaviorArray Link="UsesLargeBlobShadow" />
+    <WeaponArray Link="AnubarakHeroWeapon" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="AnubarakLocustSwarm" Type="AbilCmd" AbilCmd="AnubarakLocustSwarm,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AnubarakCocoon" Type="AbilCmd" AbilCmd="AnubarakCocoon,Execute" Slot="Heroic" />
+      <LayoutButtons Face="AnubarakImpale" Type="AbilCmd" AbilCmd="AnubarakImpale,Execute" Slot="Ability1" />
+      <LayoutButtons Face="AnubarakBurrowChargeCancel" Type="AbilCmd" AbilCmd="AnubarakBurrowChargeCancel,Execute" Slot="Ability3" />
+      <LayoutButtons Face="AnubarakBurrowCharge" Type="AbilCmd" AbilCmd="AnubarakBurrowCharge,Execute" Slot="Ability3" />
+      <LayoutButtons Face="AnubarakScarabHostTrait" Type="AbilCmd" AbilCmd="AnubarakLegionOfBeetlesVisual,Execute" Slot="Trait" />
+      <LayoutButtons Face="AnubarakHardenCarapace" Type="AbilCmd" AbilCmd="AnubarakHardenCarapace,Execute" Slot="Ability2" />
+      <LayoutButtons />
+    </CardLayouts>
+    <Radius value="1.0625" />
+    <InnerRadius value="0.875" />
+    <AIThinkTree value="AI/Anubarak.aitree" />
+    <InitializerFunction value="libGDHL_gf_HeroAnubarakIncrementHeroCountFunction" />
+    <DestructionFunction value="libGDHL_gf_HeroAnubarakDecrementHeroCountFunction" />
+    <HeroPlaystyleFlags index="BodyBlocker" value="1" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleTank" value="1" />
+  </CUnit>
+  <CUnit id="AnubarakBeetleSpitBeetle" parent="StormSummonActive">
+    <FlagArray index="CreateAITreeOnSpawn" value="1" />
+    <Response value="Acquire" />
+    <LifeStart value="285" />
+    <LifeMax value="285" />
+    <Speed value="4" />
+    <AbilArray Link="stop" />
+    <AbilArray Link="AttackAlly" />
+    <AbilArray Link="move" />
+    <BehaviorArray Link="AnubarakLegionOfBeetlesBeetleArmorBuffBehavior" />
+    <BehaviorArray Link="ScarabHostBeetleJuicedTalentCarry" />
+    <WeaponArray Link="AnubarakBeetleSpitBeetleWeapon" />
+    <CardLayouts>
+      <LayoutButtons Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Stop" />
+      <LayoutButtons Face="Stop" Type="AbilCmd" AbilCmd="stop,Stop" Slot="Stop" />
+      <LayoutButtons Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="move,HoldPos" Slot="Hold" />
+      <LayoutButtons Face="Attack" Type="AbilCmd" AbilCmd="AttackAlly,Execute" Slot="Cancel" />
+      <LayoutButtons Face="MovePatrol" Type="AbilCmd" AbilCmd="move,Patrol" Slot="Hearth" />
+    </CardLayouts>
+    <ScoreResult value="" />
+    <AIThinkTree value="AI/SummonedMinionAttackOwnerTarget.aitree" />
+    <AcquireLeashRadius value="6" />
+  </CUnit>
+  <CUnit id="HeroJaina" parent="StormHeroMounted">
+    <LifeStart value="1365" />
+    <LifeMax value="1365" />
+    <LifeRegenRate value="2.8437" />
+    <AbilArray Link="JainaFrostbolt" />
+    <AbilArray Link="JainaBlizzard" />
+    <AbilArray Link="JainaConeOfCold" />
+    <AbilArray Link="JainaSummonWaterElemental" />
+    <AbilArray Link="JainaRingOfFrost" />
+    <AbilArray Link="JainaCommandWaterElemental" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="JainaWaterElementalStatusController" />
+    <BehaviorArray Link="JainaFrostbiteTokenCounter" />
+    <WeaponArray Link="HeroJaina" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="JainaCommandWaterElemental" Type="AbilCmd" AbilCmd="JainaCommandWaterElemental,Execute" Slot="Heroic" />
+      <LayoutButtons Face="JainaSummonWaterElemental" Type="AbilCmd" AbilCmd="JainaSummonWaterElemental,Execute" Slot="Heroic" />
+      <LayoutButtons Face="JainaRingOfFrost" Type="AbilCmd" AbilCmd="JainaRingOfFrost,Execute" Slot="Heroic" />
+      <LayoutButtons Face="JainaFrostbolt" Type="AbilCmd" AbilCmd="JainaFrostbolt,Execute" Slot="Ability1" />
+      <LayoutButtons Face="JainaBlizzard" Type="AbilCmd" AbilCmd="JainaBlizzard,Execute" Slot="Ability2" />
+      <LayoutButtons Face="JainaConeOfCold" Type="AbilCmd" AbilCmd="JainaConeOfCold,Execute" Slot="Ability3" />
+      <LayoutButtons Face="JainaTraitFrostbite" Type="Passive" Requirements="JainaHasPassive" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="0.625" />
+    <InnerRadius value="0.625" />
+    <AIEvalFactor value="1.2" />
+    <AIThinkTree value="AI/Jaina.aitree" />
+    <InitializerFunction value="libGDHL_gf_HeroJainaIncrementHeroCountFunction" />
+    <DestructionFunction value="libGDHL_gf_HeroJainaDecrementHeroCountFunction" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="RoleCaster" value="1" />
+    <HeroPlaystyleFlags index="TowerPusher" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
+    <EffectArray index="Death" value="JainaIceBlockApplyUsedCarry" />
+  </CUnit>
+  <!--Custom-->
+  <CUnit id="HeroJaina" parent="StormHeroMounted">
+    <CardLayouts index="0">
+      <LayoutButtons Face="JainaImprovedIceBlockCancel" Type="AbilCmd" AbilCmd="ImprovedIceBlock,Off" Slot="Active" />
+      <LayoutButtons Face="JainaImprovedIceBlockHotbar" Type="AbilCmd" AbilCmd="ImprovedIceBlock,On" Slot="Active" />
+    </CardLayouts>
+  </CUnit>
+  <CUnit id="HeroLucio" parent="StormHeroMountedCustom">
+    <LifeStart value="1442" />
+    <LifeMax value="1442" />
+    <LifeRegenRate value="3" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="LucioCrossfadeSpeedBoostApplier" />
+    <BehaviorArray Link="LucioCrossfadeAllyToken" />
+    <BehaviorArray Link="LucioWallRideLeftProbes" />
+    <BehaviorArray Link="LucioWallRideRightProbes" />
+    <BehaviorArray Link="LucioSkateCrossfadeUnitTracker" />
+    <Radius value="0.6875" />
+    <InnerRadius value="0.4375" />
+    <WeaponArray Link="HeroLucioWeapon" />
+    <AbilArray index="1" Link="LucioAttack" />
+    <AbilArray Link="LucioSoundwave" />
+    <AbilArray Link="LucioCrossfade" />
+    <AbilArray Link="LucioAmpItUp" />
+    <AbilArray Link="LucioPushOff" />
+    <AbilArray Link="LucioSoundBarrier" />
+    <AbilArray Link="LucioSmartTargetingRightClick" />
+    <AbilArray Link="LucioTargetingAttackClick" />
+    <AbilArray Link="LucioReverseAmp" />
+    <AbilArray Link="LucioHighFive" />
+    <AbilArray Link="LucioHighFiveApproach" />
+    <AbilArray Link="LucioWallRide" />
+    <AbilArray Link="LucioSummerAnthem" />
+    <AbilArray Link="LucioAmpItUpUpToEleven" />
+    <CardLayouts index="0">
+      <LayoutButtons index="2" Face="Attack" Type="AbilCmd" AbilCmd="LucioTargetingAttackClick,Execute" Slot="Attack" />
+      <LayoutButtons Face="LucioSoundBarrier" Type="AbilCmd" AbilCmd="LucioSoundBarrier,Execute" Slot="Heroic" />
+      <LayoutButtons Face="LucioHighFive" Type="AbilCmd" AbilCmd="LucioHighFive,Execute" Slot="Heroic" />
+      <LayoutButtons Face="LucioSoundwave" Type="AbilCmd" AbilCmd="LucioSoundwave,Execute" Slot="Ability1" />
+      <LayoutButtons Face="LucioCrossfadeActivateHealingBoost" Type="AbilCmd" AbilCmd="LucioCrossfade,On" Slot="Ability2" />
+      <LayoutButtons Face="LucioCrossfadeActivateSpeedBoost" Type="AbilCmd" AbilCmd="LucioCrossfade,Off" Slot="Ability2" />
+      <LayoutButtons Face="LucioAmpItUp" Type="AbilCmd" AbilCmd="LucioAmpItUp,Execute" Slot="Ability3" />
+      <LayoutButtons Face="LucioPushOff" Type="AbilCmd" AbilCmd="LucioPushOff,Execute" Slot="Trait" />
+      <LayoutButtons Face="LucioWallRide" Type="Passive" Slot="Mount" />
+      <LayoutButtons Face="LucioWallRide" Type="AbilCmd" AbilCmd="LucioWallRide,Execute" Slot="Mount" />
+    </CardLayouts>
+    <TurningRate value="999.8437" />
+    <InitializerFunction value="libHLUC_gf_HeroLucioIncrementHeroCountFunction" />
+    <DestructionFunction value="libHLUC_gf_HeroLucioDecrementHeroCountFunction" />
+    <AIThinkTree value="AI/Lucio.aitree" />
+    <HeroPlaystyleFlags index="AllyHealer" value="1" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Helper" value="1" />
+    <HeroPlaystyleFlags index="RoleSupport" value="1" />
+    <HeroPlaystyleFlags index="SelfHealer" value="1" />
+  </CUnit>
+  <CUnit id="HeroLostVikingsController" parent="StormHeroMountedCustom">
+    <CardLayouts index="0">
+      <LayoutButtons Face="LostVikingSelectOlaf" Type="Passive" Slot="Active" />
+    </CardLayouts>
+  </CUnit>
+  <CUnit id="HeroMaiev" parent="StormHeroMounted">
+    <LifeStart value="2021" />
+    <LifeMax value="2021" />
+    <LifeRegenRate value="4.211" />
+    <AbilArray Link="MaievSpiritOfVengeance" />
+    <AbilArray Link="MaievSpiritOfVengeanceBlink" />
+    <AbilArray Link="MaievFanOfKnives" />
+    <AbilArray Link="MaievUmbralBind" />
+    <AbilArray Link="MaievContainmentDisc" />
+    <AbilArray Link="MaievContainmentDiscContain" />
+    <AbilArray Link="MaievWardensCage" />
+    <AbilArray Link="MaievVaultOfTheWardens" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="MaievFanOfKnivesTargetCounter" />
+    <BehaviorArray Link="MaievUmbralBindTargetCounter" />
+    <BehaviorArray Link="MaievVigorousVaulterTokenCounter" />
+    <WeaponArray Link="HeroMaievWeapon" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="MaievContainmentDiscContain" Type="AbilCmd" AbilCmd="MaievContainmentDiscContain,Execute" Slot="Heroic" />
+      <LayoutButtons Face="MaievContainmentDisc" Type="AbilCmd" AbilCmd="MaievContainmentDisc,Execute" Slot="Heroic" />
+      <LayoutButtons Face="MaievWardensCage" Type="AbilCmd" AbilCmd="MaievWardensCage,Execute" Slot="Heroic" />
+      <LayoutButtons Face="MaievFanOfKnives" Type="AbilCmd" AbilCmd="MaievFanOfKnives,Execute" Slot="Ability1" />
+      <LayoutButtons Face="MaievVaultOfTheWardens" Type="AbilCmd" AbilCmd="MaievVaultOfTheWardens,Execute" Slot="Trait" />
+      <LayoutButtons Face="MaievSpiritOfVengeanceBlink" Type="AbilCmd" AbilCmd="MaievSpiritOfVengeanceBlink,Execute" Slot="Ability3" />
+      <LayoutButtons Face="MaievSpiritOfVengeance" Type="AbilCmd" AbilCmd="MaievSpiritOfVengeance,Execute" Slot="Ability3" />
+      <LayoutButtons Face="MaievUmbralBindPrimed" Type="Passive" Requirements="MaievUmbralBindPrimedRequirement" Slot="Ability2" />
+      <LayoutButtons Face="MaievUmbralBind" Type="AbilCmd" AbilCmd="MaievUmbralBind,Execute" Slot="Ability2" />
+    </CardLayouts>
+    <Radius value="0.75" />
+    <InitializerFunction value="libHMAI_gf_HeroMaievIncrementHeroCountFunction" />
+    <DestructionFunction value="libHMAI_gf_HeroMaievDecrementHeroCountFunction" />
+    <AIThinkTree value="AI\Maiev.aitree" />
+    <AIHealthThresholds index="ReturnToSpawn" value="0.15" />
+    <AIHealthThresholds index="EndOffensive" value="0.25" />
+    <AIHealthThresholds index="StartOffensive" value="0.5" />
+    <AIHealthThresholds index="High" value="0.7" />
+  </CUnit>
+  <CUnit id="HeroMonk" parent="StormHeroMounted">
+    <LifeStart value="$MonkLifeMax" />
+    <LifeMax value="$MonkLifeMax" />
+    <LifeRegenRate value="$MonkLifeRegen" />
+    <AbilArray Link="MonkDeadlyReach" />
+    <AbilArray Link="MonkBreathOfHeaven" />
+    <AbilArray Link="MonkRadiantDash" />
+    <AbilArray Link="MonkSevenSidedStrike" />
+    <AbilArray Link="MonkVultureClawKick" />
+    <AbilArray Link="MonkWatchingAlly" />
+    <AbilArray Link="MonkDivinePalm" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="MonkBreathOfHeavenCasterSearch" />
+    <BehaviorArray Link="MonkComboWeaponCarryBehavior" />
+    <WeaponArray Link="MonkHeroWeapon" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="MonkSevenSidedStrike" Type="AbilCmd" AbilCmd="MonkSevenSidedStrike,Execute" Slot="Heroic" />
+      <LayoutButtons Face="MonkDivinePalm" Type="AbilCmd" AbilCmd="MonkDivinePalm,Execute" Slot="Heroic" />
+      <LayoutButtons Face="MonkRadiantDash" Type="AbilCmd" AbilCmd="MonkRadiantDash,Execute" Slot="Ability1" />
+      <LayoutButtons Face="MonkBreathOfHeaven" Type="AbilCmd" AbilCmd="MonkBreathOfHeaven,Execute" Slot="Ability2" />
+      <LayoutButtons Face="MonkDeadlyReachActive" Type="Passive" Requirements="MonkHasDeadlyReachPrimedBehavior" Slot="Ability3" />
+      <LayoutButtons Face="MonkDeadlyReach" Type="AbilCmd" AbilCmd="MonkDeadlyReach,Execute" Slot="Ability3" />
+      <LayoutButtons Face="MonkIronFists" Type="Passive" Requirements="MonkHasIronFistsCarryBehavior" Slot="Trait" />
+      <LayoutButtons Face="MonkInsight" Type="Passive" Requirements="MonkHasInsightCarryBehavior" Slot="Trait" />
+      <LayoutButtons Face="MonkTranscendence" Type="Passive" Requirements="MonkHasTranscendenceCarryBehavior" Slot="Trait" />
+      <LayoutButtons Face="MonkBlankTrait" Type="Passive" Slot="Trait" />
+    </CardLayouts>
+    <Radius value="0.625" />
+    <InnerRadius value="0.625" />
+    <AIThinkTree value="AI/Monk.aitree" />
+    <AIEvalFactor value="1.3" />
+    <InitializerFunction value="libGDHL_gf_HeroMonkIncrementHeroCountFunction" />
+    <DestructionFunction value="libGDHL_gf_HeroMonkDecrementHeroCountFunction" />
+    <HeroPlaystyleFlags index="AllyHealer" value="1" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleSupport" value="1" />
+    <HeroPlaystyleFlags index="SelfHealer" value="1" />
+  </CUnit>
+  <CUnit id="HeroNecromancer" parent="StormHeroMounted">
+    <LifeStart value="2080" />
+    <LifeMax value="2080" />
+    <LifeRegenRate value="4.332" />
+    <Radius value="0.6875" />
+    <InnerRadius value="0.6875" />
+    <AbilArray Link="NecromancerSpectralScythe" />
+    <AbilArray Link="NecromancerBonePrison" />
+    <AbilArray Link="NecromancerPoisonNovaInstant" />
+    <AbilArray Link="NecromancerCursedStrikes" />
+    <AbilArray Link="NecromancerSkeletalMages" />
+    <AbilArray Link="NecromancerRaiseSkeletonDisplayAbility" />
+    <AbilArray Link="NecromancerCursedStrikesDisplayAbility" />
+    <WeaponArray Link="NecromancerCursedStrikesWeapon" />
+    <WeaponArray Link="NecromancerHeroWeapon" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="NecromancerSkeletalMages" Type="AbilCmd" AbilCmd="NecromancerSkeletalMages,Execute" Slot="Heroic" />
+      <LayoutButtons Face="NecromancerPoisonNova" Type="AbilCmd" AbilCmd="NecromancerPoisonNovaInstant,Execute" Slot="Heroic" />
+      <LayoutButtons Face="NecromancerSpectralScythe" Type="AbilCmd" AbilCmd="NecromancerSpectralScythe,Execute" Slot="Ability1" />
+      <LayoutButtons Face="NecromancerSpectralScythe" Type="Passive" Requirements="NecromancerHasSpectralScytheActivePassiveUseDisallow" Slot="Ability1" />
+      <LayoutButtons Face="NecromancerBonePrison" Type="AbilCmd" AbilCmd="NecromancerBonePrison,Execute" Slot="Ability3" />
+      <LayoutButtons Face="NecromancerCursedStrikesPassive" Type="Passive" AbilCmd="NecromancerCursedStrikesDisplayAbility,Execute" Requirements="NecromancerHasCursedStrikesPrimed" Slot="Ability2" />
+      <LayoutButtons Face="NecromancerCursedStrikes" Type="AbilCmd" AbilCmd="NecromancerCursedStrikes,Execute" Slot="Ability2" />
+      <LayoutButtons Face="NecromancerRaiseSkeleton" Type="AbilCmd" AbilCmd="NecromancerRaiseSkeletonDisplayAbility,Execute" Slot="Trait" />
+    </CardLayouts>
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="RaiseSkeletonMaxCountController" />
+    <BehaviorArray Link="NecromancerBoneArmor" />
+    <BehaviorArray Link="NecromancerRaiseSkeletonTracker" />
+    <BehaviorArray Link="NecromancerBonePrisonTracker" />
+    <BehaviorArray Link="NecromancerRaiseSkeletonAllSpawnTypesUnitTracker" />
+    <AIThinkTree value="AI/Necromancer.aitree" />
+    <InitializerFunction value="libGDHL_gf_HeroNecromancerIncrementHeroCountFunction" />
+    <DestructionFunction value="libGDHL_gf_HeroNecromancerDecrementHeroCountFunction" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Ganker" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleSpecialist" value="1" />
+    <HeroPlaystyleFlags index="SoloLaner" value="1" />
+    <HeroPlaystyleFlags index="TowerPusher" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
+  </CUnit>
+  <CUnit id="HeroSamuro" parent="StormHeroMounted">
+    <AbilArray Link="SamuroIllusionMaster" />
+    <AbilArray Link="SamuroMirrorImageTargeted" />
+    <AbilArray Link="SamuroIllusionMasterNoTarget" />
+    <AbilArray Link="SamuroCriticalStrike" />
+    <AbilArray Link="SamuroWindwalk" />
+    <AbilArray Link="SamuroBladestorm" />
+    <AbilArray Link="SamuroBladeStormDummy" />
+    <AbilArray Link="SamuroBladestormCancel" />
+    <AbilArray Link="SamuroIllusionMasterDummy" />
+    <AbilArray Link="SamuroIllusionMasterDummyShopAbility" />
+    <BehaviorArray Link="NotManaUserDummy" />
+    <BehaviorArray Link="SamuroMirrorImageUnitTracker" />
+    <BehaviorArray Link="SamuroMirrorImageTransferController" />
+    <BehaviorArray Link="SamuroCriticalStrikeTokenCounter" />
+    <WeaponArray Link="SamuroWeapon" />
+    <CardLayouts index="0">
+      <LayoutButtons index="0" Face="Attack" Type="AbilCmd" AbilCmd="attack,Execute" Requirements="" Slot="Attack" />
+      <LayoutButtons index="1" Face="AcquireMove" Type="AbilCmd" AbilCmd="move,AcquireMove" Slot="Attack" />
+      <LayoutButtons index="2" Face="Stop" Type="AbilCmd" AbilCmd="HoldFire,Stop" Slot="Stop" />
+      <LayoutButtons index="3" Face="MoveHoldPosition" Type="AbilCmd" AbilCmd="HoldFire,HoldFire" Slot="Hold" />
+      <LayoutButtons index="4" Face="SummonMount" Type="AbilCmd" AbilCmd="Mount,Execute" Slot="Mount" />
+      <LayoutButtons index="5" Face="UnsummonMount" Type="AbilCmd" AbilCmd="Dismount,Execute" Slot="Mount" />
+      <LayoutButtons index="6" Face="Cancel" Type="CancelTargetMode" AbilCmd="" Slot="Cancel" />
+      <LayoutButtons index="7" Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrink,Execute" Slot="Interact" />
+      <LayoutButtons index="8" Face="MoonwellDrink" Type="AbilCmd" AbilCmd="FountainDrinkOnCooldown,Execute" Slot="Interact" />
+      <LayoutButtons index="9" Face="CaptureMacGuffin" Type="AbilCmd" AbilCmd="CaptureMacGuffin,Execute" Slot="Interact" />
+      <LayoutButtons index="10" Face="SmartCommandUnitInteraction" Type="AbilCmd" AbilCmd="SmartCommandUnitInteraction,Execute" Slot="Interact" />
+      <LayoutButtons index="11" Face="Move" Type="AbilCmd" AbilCmd="move,Move" Slot="Cancel" />
+      <LayoutButtons index="12" Face="LockedHeroicAbility" Type="Passive" AbilCmd="" Requirements="UltimateNotUnlocked" Slot="Heroic" />
+      <LayoutButtons index="13" Face="Tease" Type="AbilCmd" AbilCmd="stop,Tease" Slot="Taunt" />
+      <LayoutButtons index="14" Face="Dance" Type="AbilCmd" AbilCmd="stop,Dance" Slot="Dance" />
+      <LayoutButtons index="15" Face="MapMechanicAbilityInstant" Type="AbilCmd" AbilCmd="MapMechanicAbilityInstant,Execute" Slot="MapMechanic" />
+      <LayoutButtons index="16" Face="MapMechanicAbility" Type="AbilCmd" AbilCmd="MapMechanicAbilityTarget,Execute" Slot="MapMechanic" />
+      <LayoutButtons index="17" Face="MapMechanicAbility2" Type="AbilCmd" AbilCmd="MapMechanicAbilityTarget2,Execute" Slot="MapMechanic" />
+      <LayoutButtons index="18" Face="LockedMapMechanicAbility" Type="Passive" AbilCmd="MapMechanicAbilityTarget,Execute" Slot="MapMechanic" />
+      <LayoutButtons index="19" Face="LootYellVoiceLine" Type="AbilCmd" AbilCmd="LootYellVoiceLine,Execute" Slot="Voice" />
+      <LayoutButtons index="21" Face="HearthstoneNoMana" Type="AbilCmd" AbilCmd="Hearthstone,Execute" Slot="Hearth" />
+      <LayoutButtons Face="SamuroCancelBladestorm" Type="AbilCmd" AbilCmd="SamuroBladestormCancel,Execute" Slot="Heroic" />
+      <LayoutButtons Face="SamuroBladestorm" Type="AbilCmd" AbilCmd="SamuroBladeStormDummy,Execute" Slot="Heroic" />
+      <LayoutButtons Face="LockedHeroicAbility" Type="Passive" Requirements="AbathurIsUltimateEvolutionClone" Slot="Heroic" />
+      <LayoutButtons Face="SamuroIllusionMaster" Type="AbilCmd" AbilCmd="SamuroIllusionMasterNoTarget,Execute" Slot="Heroic" />
+      <LayoutButtons Face="SamuroIllusionMaster" Type="AbilCmd" AbilCmd="SamuroIllusionMaster,Execute" Slot="Heroic" />
+      <LayoutButtons Face="SamuroMirrorImage" Type="AbilCmd" AbilCmd="SamuroMirrorImageTargeted,Execute" Slot="Ability1" />
+      <LayoutButtons Face="SamuroCriticalStrike" Type="AbilCmd" AbilCmd="SamuroCriticalStrike,Execute" Slot="Ability2" />
+      <LayoutButtons Face="SamuroWindwalk" Type="AbilCmd" AbilCmd="SamuroWindwalk,Execute" Slot="Ability3" />
+      <LayoutButtons Face="SamuroAdvancingStrikes" Type="AbilCmd" AbilCmd="SamuroIllusionMasterNoTarget,Execute" Slot="Trait" />
+      <LayoutButtons Face="SamuroAdvancingStrikes" Type="AbilCmd" AbilCmd="SamuroIllusionMaster,Execute" Slot="Trait" />
+      <LayoutButtons Face="SamuroImageTransmissionDummyShopAbility" Type="AbilCmd" AbilCmd="SamuroIllusionMasterDummyShopAbility,Execute" Slot="Trait" />
+      <LayoutButtons Face="LootSpray" Type="AbilCmd" AbilCmd="LootSpray,Execute" Slot="Spray" />
+      <DisabledSlots index="Dynamic1" value="1" />
+      <DisabledSlots index="Dynamic2" value="1" />
+      <DisabledSlots index="Dynamic3" value="1" />
+      <DisabledSlots index="Dynamic4" value="1" />
+    </CardLayouts>
+  </CUnit>
+  <CUnit id="HeroTassadar" parent="StormHeroMounted">
+    <LifeStart value="1650" />
+    <LifeMax value="1650" />
+    <LifeRegenRate value="3.4375" />
+    <AbilArray Link="TassadarOracleTargeted" />
+    <AbilArray Link="TassadarForceWall" />
+    <AbilArray Link="TassadarForceWallCancel" />
+    <AbilArray Link="TassadarArchon" />
+    <AbilArray Link="TassadarPsionicStorm" />
+    <AbilArray Link="TassadarShockRay" />
+    <AbilArray Link="TassadarBlackHole" />
+    <AbilArray Link="TassadarResonanceBeamArcDischargeDummy" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="TassadarResonanceBeamTokenCounter" />
+    <BehaviorArray Link="TassadarForceWallUnitTracker" />
+    <BehaviorArray Link="TassadarResonanceBeamCarry" />
+    <WeaponArray Link="TassadarResonanceBeam" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="TassadarArchon" Type="Passive" Requirements="TassadarArchonActive" Slot="Heroic">
+        <hdp-ParentAbilArray value="TassadarArchon" />
+      </LayoutButtons>
+      <LayoutButtons Face="TassadarArchon" Type="AbilCmd" AbilCmd="TassadarArchon,Execute" Slot="Heroic" />
+      <LayoutButtons Face="TassadarBlackHole" Type="AbilCmd" AbilCmd="TassadarBlackHole,Execute" Slot="Heroic" />
+      <LayoutButtons Face="TassadarForceWallCancel" Type="AbilCmd" AbilCmd="TassadarForceWallCancel,Execute" Slot="Ability3" />
+      <LayoutButtons Face="TassadarForceWall" Type="AbilCmd" AbilCmd="TassadarForceWall,Execute" Slot="Ability3" />
+      <LayoutButtons Face="TassadarShockRay" Type="AbilCmd" AbilCmd="TassadarShockRay,Execute" Slot="Ability1" />
+      <LayoutButtons Face="TassadarResonanceBeam" Type="AbilCmd" AbilCmd="TassadarResonanceBeamArcDischargeDummy,Execute" ShowInGlossary="0" Slot="Trait" />
+      <LayoutButtons Face="TassadarResonanceBeam" Type="Passive" Slot="Trait" />
+      <LayoutButtons Face="TassadarPsionicStorm" Type="AbilCmd" AbilCmd="TassadarPsionicStorm,Execute" Slot="Ability2" />
+    </CardLayouts>
+  </CUnit>
+  <CUnit id="HeroWhitemane" parent="StormHeroMounted">
+    <LifeStart value="1400" />
+    <LifeMax value="1400" />
+    <LifeRegenRate value="2.9218" />
+    <AbilArray Link="WhitemaneDesperatePlea" />
+    <AbilArray Link="WhitemaneInquisition" />
+    <AbilArray Link="WhitemaneInquisitionCancel" />
+    <AbilArray Link="WhitemaneSearingLash" />
+    <AbilArray Link="WhitemaneScarletAegis" />
+    <AbilArray Link="WhitemaneDivineReckoning" />
+    <AbilArray Link="WhitemaneFanaticalPower" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="WhitemaneZealUnitTracker" />
+    <BehaviorArray Link="WhitemaneZealCasterBehavior" />
+    <BehaviorArray Link="WhitemaneDesperatePleaDesperationTokenCounter" />
+    <BehaviorArray Link="WhitemaneClemencyItem" />
+    <BehaviorArray Link="WhitemaneZealTokenCounter" />
+    <CardLayouts index="0">
+      <LayoutButtons Face="WhitemaneScarletAegis" Type="AbilCmd" AbilCmd="WhitemaneScarletAegis,Execute" Slot="Heroic" />
+      <LayoutButtons Face="WhitemaneDivineReckoning" Type="AbilCmd" AbilCmd="WhitemaneDivineReckoning,Execute" Slot="Heroic" />
+      <LayoutButtons Face="WhitemaneTraitZeal" Type="AbilCmd" AbilCmd="WhitemaneFanaticalPower,Execute" Slot="Trait" />
+      <LayoutButtons Face="WhitemaneDesperatePlea" Type="AbilCmd" AbilCmd="WhitemaneDesperatePlea,Execute" Slot="Ability1" />
+      <LayoutButtons Face="WhitemaneInquisitionCancel" Type="AbilCmd" AbilCmd="WhitemaneInquisitionCancel,Execute" Slot="Ability2" />
+      <LayoutButtons Face="WhitemaneInquisition" Type="AbilCmd" AbilCmd="WhitemaneInquisition,Execute" Slot="Ability2" />
+      <LayoutButtons Face="WhitemaneSearingLash" Type="AbilCmd" AbilCmd="WhitemaneSearingLash,Execute" Slot="Ability3" />
+      <LayoutButtons />
+    </CardLayouts>
+  </CUnit>
+  <CUnit id="HeroRagnaros" parent="StormHeroMounted">
+    <LifeStart value="2075" />
+    <LifeMax value="2075" />
+    <LifeRegenRate value="4.3242" />
+    <AbilArray Link="RagnarosEmpowerSulfuras" />
+    <AbilArray Link="RagnarosLivingMeteor" />
+    <AbilArray Link="RagnarosLivingMeteorShiftingMeteor" />
+    <AbilArray Link="RagnarosBlastWave" />
+    <AbilArray Link="RagnarosSulfurasSmash" />
+    <AbilArray Link="RagnarosLavaWaveTargetPoint" />
+    <AbilArray Link="RagnarosMoltenCore" />
+    <WeaponArray Link="RagnarosAttackWeapon" />
+    <CardLayouts index="0">
+      <LayoutButtons index="0" Face="RagnarosMoltenCore" Type="AbilCmd" AbilCmd="RagnarosMoltenCore,Execute" Requirements="" Slot="Trait" />
+      <LayoutButtons Face="RagnarosSulfurasSmash" Type="AbilCmd" AbilCmd="RagnarosSulfurasSmash,Execute" Slot="Heroic" />
+      <LayoutButtons Face="RagnarosLavaWaveTargetPoint" Type="AbilCmd" AbilCmd="RagnarosLavaWaveTargetPoint,Execute" Slot="Heroic" />
+      <LayoutButtons Face="LockedHeroicAbility" Type="Passive" Requirements="UltimateNotUnlocked" Slot="Heroic" />
+      <LayoutButtons Face="RagnarosEmpowerSulfurasActive" Type="Passive" Requirements="RagnarosHasEmpowerSulfurasCasterBehavior" Slot="Ability1" />
+      <LayoutButtons Face="RagnarosEmpowerSulfuras" Type="AbilCmd" AbilCmd="RagnarosEmpowerSulfuras,Execute" Slot="Ability1" />
+      <LayoutButtons Face="RagnarosLivingMeteorShiftingMeteorRedirect" Type="AbilCmd" AbilCmd="RagnarosLivingMeteorShiftingMeteor,Execute" Slot="Ability2" />
+      <LayoutButtons Face="RagnarosLivingMeteor" Type="AbilCmd" AbilCmd="RagnarosLivingMeteor,Execute" Slot="Ability2" />
+      <LayoutButtons Face="RagnarosBlastWave" Type="AbilCmd" AbilCmd="RagnarosBlastWave,Execute" Slot="Ability3" />
+    </CardLayouts>
+    <Radius value="1" />
+    <InnerRadius value="0.875" />
+    <BehaviorArray Link="ExcellentMana" />
+    <BehaviorArray Link="RagnarosMountTrailBehavior" />
+    <BehaviorArray Link="RagnarosLivingMeteorMeteorTracker" />
+    <InitializerFunction value="libHMaj_gf_HeroRagnarosIncrementHeroCountFunction" />
+    <DestructionFunction value="libHMaj_gf_HeroRagnarosDecrementHeroCountFunction" />
+    <HeroPlaystyleFlags index="EnergyImportant" value="1" />
+    <HeroPlaystyleFlags index="Escaper" value="1" />
+    <HeroPlaystyleFlags index="Overconfident" value="1" />
+    <HeroPlaystyleFlags index="RoleCaster" value="1" />
+    <HeroPlaystyleFlags index="WaveClearer" value="1" />
+    <TauntDuration index="Dance" value="10" />
+  </CUnit>
+</Unit> 

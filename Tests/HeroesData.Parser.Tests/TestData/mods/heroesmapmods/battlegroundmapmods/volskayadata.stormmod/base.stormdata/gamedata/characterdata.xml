@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="us-ascii"?>
-<Catalog>
-    <CCharacter id="Volskaya">
-        <Age value="35"/>
-        <Gender value="Female"/>
-        <Race value="Unknown"/>
-        <Color value="255,128,0,128"/>
-    </CCharacter>
-</Catalog>

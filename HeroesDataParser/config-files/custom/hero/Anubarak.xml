@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CAbilEffectInstant id="AnubarakLegionOfBeetlesVisual">
+    <ProducedUnitArray value="AnubarakBeetleSpitBeetle" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="AnubarakCocoon">
+    <ProducedUnitArray value="AnubarakCocoonNormal" />
+    <ProducedUnitArray value="AnubarakCocoonFat" />
+  </CAbilEffectTarget>
+  <CButton id="AnubarakScarabHostToggleLegionOfBeetlesOn" parent="StormButtonParentTrait">
+    <hdp-ParentAbilLinkArray abilityId="AnubarakLegionOfBeetlesToggle" buttonId="AnubarakScarabHostToggleLegionOfBeetlesOff" abilityType="Trait" />
+  </CButton>
+</Catalog>

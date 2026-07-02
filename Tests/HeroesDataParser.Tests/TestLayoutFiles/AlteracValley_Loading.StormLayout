@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+  <DescFlags val="Locked" />
+  <Constant name="SectionTextOffset" val="-5" />
+  <Constant name="MapObjectiveOverlayColor" val="61abff" />
+  <Frame type="Frame" name="ScreenMapLoading_AlteracValley" template="LoadingShared/LoadingTemplate">
+    <Anchor relative="$parent" />
+    <Frame type="Image" name="BackgroundImage">
+      <Texture val="@UI/LoadingScreen_AlteracValley" />
+    </Frame>
+    <Frame type="Label" name="MapLabel_Subtitle">
+      <Anchor side="Top" relative="$parent" pos="Min" offset="25" />
+      <Anchor side="Left" relative="$parent" pos="Mid" offset="0" />
+      <Anchor side="Right" relative="$parent" pos="Mid" offset="0" />
+      <Style val="Storm_MapLoading_Subtitle_Alterac" />
+    </Frame>
+    <Frame type="Label" name="MapLabel_Title">
+      <Anchor side="Top" relative="$parent/MapLabel_Subtitle" pos="Max" offset="-8" />
+      <Anchor side="Left" relative="$parent" pos="Mid" offset="0" />
+      <Anchor side="Right" relative="$parent" pos="Mid" offset="0" />
+      <Style val="Storm_MapLoading_Title_Alterac" />
+    </Frame>
+    <Frame type="Frame" name="MapObjective1">
+      <Frame type="Image" name="BucketFrame">
+        <AdjustmentColor val="#MapObjectiveOverlayColor" />
+      </Frame>
+      <Frame type="Image" name="Icon">
+        <Anchor side="Top" relative="$parent/IconAnchorFrame" pos="Mid" offset="-45" />
+        <Anchor side="Bottom" relative="$parent/IconAnchorFrame" pos="Mid" offset="-45" />
+        <Anchor side="Left" relative="$parent/IconAnchorFrame" pos="Mid" offset="0" />
+        <Anchor side="Right" relative="$parent/IconAnchorFrame" pos="Mid" offset="0" />
+        <Texture val="@UI/LoadingScreen_WCAV_Icon1_Horde" />
+      </Frame>
+      <Frame type="Image" name="IconAlternate">
+        <Anchor side="Top" relative="$parent/IconAnchorFrame" pos="Mid" offset="-45" />
+        <Anchor side="Bottom" relative="$parent/IconAnchorFrame" pos="Mid" offset="-45" />
+        <Anchor side="Left" relative="$parent/IconAnchorFrame" pos="Mid" offset="0" />
+        <Anchor side="Right" relative="$parent/IconAnchorFrame" pos="Mid" offset="0" />
+        <Texture val="@UI/LoadingScreen_WCAV_Icon1_Alliance" />
+        <Visible val="False" />
+        <Unclipped val="True" />
+      </Frame>
+      <Frame type="Label" name="ObjectiveTitle">
+        <Text val="@UI/MapLoadingScreen/AlteracValley/Title1" />
+        <Style val="Storm_MapLoading_SectionTitleText_Alterac" />
+      </Frame>
+      <Frame type="Label" name="ObjectiveDescription">
+        <Text val="@UI/MapLoadingScreen/AlteracValley/Description1" />
+        <Style val="Storm_MapLoading_SectionText_Alterac" />
+      </Frame>
+    </Frame>
+    <Frame type="Frame" name="MapObjective2">
+      <Frame type="Image" name="BucketFrame">
+        <AdjustmentColor val="#MapObjectiveOverlayColor" />
+      </Frame>
+      <Frame type="Image" name="Icon">
+        <Anchor side="Top" relative="$parent/IconAnchorFrame" pos="Mid" offset="-45" />
+        <Anchor side="Bottom" relative="$parent/IconAnchorFrame" pos="Mid" offset="-45" />
+        <Anchor side="Left" relative="$parent/IconAnchorFrame" pos="Mid" offset="0" />
+        <Anchor side="Right" relative="$parent/IconAnchorFrame" pos="Mid" offset="0" />
+        <Texture val="@UI/LoadingScreen_WCAV_Icon2_Alliance" />
+      </Frame>
+      <Frame type="Image" name="IconAlternate">
+        <Anchor side="Top" relative="$parent/IconAnchorFrame" pos="Mid" offset="-45" />
+        <Anchor side="Bottom" relative="$parent/IconAnchorFrame" pos="Mid" offset="-45" />
+        <Anchor side="Left" relative="$parent/IconAnchorFrame" pos="Mid" offset="0" />
+        <Anchor side="Right" relative="$parent/IconAnchorFrame" pos="Mid" offset="0" />
+        <Texture val="@UI/LoadingScreen_WCAV_Icon2_Horde" />
+        <Visible val="False" />
+        <Unclipped val="True" />
+      </Frame>
+      <Frame type="Label" name="ObjectiveTitle">
+        <Text val="@UI/MapLoadingScreen/AlteracValley/Title2" />
+        <Style val="Storm_MapLoading_SectionTitleText_Alterac" />
+      </Frame>
+      <Frame type="Label" name="ObjectiveDescription">
+        <Text val="@UI/MapLoadingScreen/AlteracValley/Description2" />
+        <Style val="Storm_MapLoading_SectionText_Alterac" />
+      </Frame>
+    </Frame>
+    <Frame type="Frame" name="MapObjective3">
+      <Frame type="Image" name="BucketFrame">
+        <AdjustmentColor val="#MapObjectiveOverlayColor" />
+      </Frame>
+      <Frame type="Image" name="Icon">
+        <Anchor side="Top" relative="$parent/IconAnchorFrame" pos="Mid" offset="-45" />
+        <Anchor side="Bottom" relative="$parent/IconAnchorFrame" pos="Mid" offset="-45" />
+        <Anchor side="Left" relative="$parent/IconAnchorFrame" pos="Mid" offset="0" />
+        <Anchor side="Right" relative="$parent/IconAnchorFrame" pos="Mid" offset="0" />
+        <Texture val="@UI/LoadingScreen_WCAV_Icon3_Alliance" />
+      </Frame>
+      <Frame type="Image" name="IconAlternate">
+        <Anchor side="Top" relative="$parent/IconAnchorFrame" pos="Mid" offset="-45" />
+        <Anchor side="Bottom" relative="$parent/IconAnchorFrame" pos="Mid" offset="-45" />
+        <Anchor side="Left" relative="$parent/IconAnchorFrame" pos="Mid" offset="0" />
+        <Anchor side="Right" relative="$parent/IconAnchorFrame" pos="Mid" offset="0" />
+        <Texture val="@UI/LoadingScreen_WCAV_Icon3_Horde" />
+        <Visible val="False" />
+        <Unclipped val="True" />
+      </Frame>
+      <Frame type="Label" name="ObjectiveTitle">
+        <Text val="@UI/MapLoadingScreen/AlteracValley/Title3" />
+        <Style val="Storm_MapLoading_SectionTitleText_Alterac" />
+      </Frame>
+      <Frame type="Label" name="ObjectiveDescription">
+        <Text val="@UI/MapLoadingScreen/AlteracValley/Description3" />
+        <Style val="Storm_MapLoading_SectionText_Alterac" />
+      </Frame>
+    </Frame>
+    <Animation name="RedTeamOnLeft">
+      <Event event="BlueTeamOnLeft" action="Stop" frame="HeroLoadingPanel" />
+      <Event event="RedTeamOnLeft" action="Reset,Play" frame="HeroLoadingPanel" />
+      <Controller type="Visibility" end="Pause" frame="MapObjective1/Icon">
+                <Key type="Bool" time="0" value="False" /></Controller>
+      <Controller type="Visibility" end="Pause" frame="MapObjective1/IconAlternate">
+                <Key type="Bool" time="0" value="True" /></Controller>
+      <Controller type="Visibility" end="Pause" frame="MapObjective2/Icon">
+                <Key type="Bool" time="0" value="False" /></Controller>
+      <Controller type="Visibility" end="Pause" frame="MapObjective2/IconAlternate">
+                <Key type="Bool" time="0" value="True" /></Controller>
+      <Controller type="Visibility" end="Pause" frame="MapObjective3/Icon">
+                <Key type="Bool" time="0" value="False" /></Controller>
+      <Controller type="Visibility" end="Pause" frame="MapObjective3/IconAlternate">
+                <Key type="Bool" time="0" value="True" /></Controller>
+    </Animation>
+  </Frame>
+</Desc>

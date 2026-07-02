@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "heroesVersion": "2.55.15.96477",
+    "hdpVersion": "5.0.0",
+    "itemsType": "Data",
+    "dataType": "RewardPortraitData",
+    "localizedText": "None",
+    "gameStringText": {
+      "locale": "ENUS",
+      "textType": "RawText",
+      "constantVars": {
+        "replaced": false,
+        "preserved": false
+      },
+      "styleVars": {
+        "replaced": false,
+        "preserved": false
+      }
+    },
+    "totalItems": 1
+  },
+  "items": {
+    "AbathurEpic": {
+      "name": "Abathur Mastery Portrait",
+      "hyperlinkId": "AbathurEpic",
+      "rarity": "Epic",
+      "category": "PortraitProgression1",
+      "heroId": "Abathur",
+      "iconSlot": 23,
+      "image": "storm_portrait_abathurepic.png",
+      "textureSheet": {
+        "image": "ui_heroes_portraits_sheet2.png",
+        "rows": 6,
+        "columns": 6
+      },
+      "description": "Unlocks this Hero's Master Portrait in your Collection",
+      "descriptionUnearned": "You have unlocked this Hero's Master Portrait in your Collection"
+    }
+  }
+}

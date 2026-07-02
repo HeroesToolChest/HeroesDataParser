@@ -1,0 +1,104 @@
+{
+  "XmlDataParsers": {
+    "Boost": {
+      "Disallow": {
+        "Exact": [
+        ],
+        "Regex": [
+          ".*\\(Test\\)$"
+        ]
+      }
+    },
+    "Hero": {
+      "Disallow": {
+        "Exact": [
+          "_Empty",
+          "AI",
+          "ChoGallBundleProduct",
+          "Cyberpunk",
+          "DeathwingWorldBreaker",
+          "FallOfKingsCrest",
+          "GreymaneWorgen",
+          "InvisibleHero",
+          "LegacyVOHero",
+          "Random",
+          "Resistance",
+          "TestHero",
+          "WarchromeWastes"
+        ],
+        "Regex": [
+          "\\b\\w*Event\\b" // exclude all heroes ending with 'Event'
+        ]
+      }
+    },
+    "LootChest": {
+      "Disallow": {
+        "Exact": [
+        ],
+        "Regex": [
+          "^TEST.*"
+        ]
+      }
+    },
+    "MatchAward": {
+      "Disallow": {
+        "Exact": [
+          "EndOfMatchAwardMapSpecificBoolean"
+        ],
+        "Regex": [
+          "^(?!EndOfMatchAward).*"
+        ]
+      }
+    },
+    "PortraitPack": {
+      "Disallow": {
+        "Exact": [
+        ],
+        "Regex": [
+          "^Test.*"
+        ]
+      }
+    },
+    "RewardPortrait": {
+      "Disallow": {
+        "Exact": [
+          "_PORTRAITPLACEHOLDER",
+          "PortraitOverlayPlayerLevel",
+          "PortraitOverlayStormLeagueLevel"
+        ],
+        "Regex": [
+        ]
+      }
+    },
+    "Unit": {
+      "Disallow": {
+        "Exact": [
+          "AbathurSymbiote",
+          "SamuroMirrorImage",
+          "RagnarosBigRag",
+          "NovaHoloClone",
+          "RexxarMisha",
+          "MedicMedivacDropship",
+          "FirebatBunkerDropBunkerUnit",
+          "BaleogsGravestone",
+          "EriksGravestone",
+          "LostVikingsGravestone",
+          "OlafsGravestone"
+        ],
+        "Regex": [
+          // starts with hero but excludes with test in name
+          "^Hero(?!.*test)"
+        ]
+      }
+    },
+    "VoiceLine": {
+      "Disallow": {
+        "Exact": [
+        ],
+        "Regex": [
+          "_P$" // tose that end with _P
+        ]
+      }
+    }
+  }
+}

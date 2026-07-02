@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Validator>
+  <CValidator default="1">
+    <ResultFailed value="Error" />
+  </CValidator>
+  <CValidatorPlayerTalent id="HasAbathurMasteryPressurizedGlands">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="AbathurMasteryPressurizedGlands" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="AbathurHasReinforcedCarapace">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="AbathurReinforcedCarapace" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasAbathurMasteryRegenerativeMicrobes">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="AbathurMasteryRegenerativeMicrobes" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="AbathurHasVolatileMutation">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="AbathurVolatileMutation" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="AbathurHasUltimateEvolutionEvolutionaryLink">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="AbathurUltimateEvolutionEvolutionaryLink" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="HasAbathurMasteryEnvenomedNestsToxicNest">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="AbathurMasteryEnvenomedNestsToxicNest" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="SamuroHasDeflectionTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="SamuroAdvancingStrikesDeflection" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="SamuroHasBlademastersPursuit">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="SamuroBlademastersPursuit" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="SamuroHasThreeBladeStyle">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="SamuroThreeBladeStyle" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="SamuroHasPressTheAttack">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="SamuroPressTheAttack" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="GarroshHasBodyCheckBruteForceTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="GarroshBodyCheckBruteForce" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="GarroshHasArmorUpInnerRageTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="GarroshArmorUpInnerRage" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="AmazonAvoidancePlateoftheWhaleHasTalent">
+    <Find value="1" />
+    <Value value="AmazonPlateoftheWhale" />
+    <WhichPlayer Value="Caster" />
+  </CValidatorPlayerTalent>
+  <CValidatorCombine id="AmazonAvoidanceSurgeOfLightHasTalentAndDoesNotHaveAbilityReadyBuff">
+    <Type value="And" />
+    <CombineArray value="AmazonAvoidanceSurgeOfLightHasTalent" />
+    <CombineArray value="AmazonAvoidanceSurgeOfLightDoesNotHaveAbilityReadyBuff" />
+  </CValidatorCombine>
+  <CValidatorCombine id="AmazonAvoidanceSurgeOfLightHasTalentAndHasAbilityReadyBuff">
+    <Type value="And" />
+    <CombineArray value="AmazonAvoidanceSurgeOfLightHasTalent" />
+    <CombineArray value="AmazonAvoidanceSurgeOfLightHasAbilityReadyBuff" />
+  </CValidatorCombine>
+  <CValidatorPlayerTalent id="AmazonAvoidanceWarTravelerHasTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="AmazonWarTraveler" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="AmazonHasFendGlovesOfAlacrityTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="AmazonFendGlovesOfAlacrity" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="AmazonTitansRevengeHasTalent">
+    <Find value="1" />
+    <Value value="AmazonTitansRevenge" />
+    <WhichPlayer Value="Caster" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="Amazon-HasAvoidanceRockstopperTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="Amazon-AvoidanceRockstopper" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="AmazonAvoidanceSurgeOfLightHasTalent">
+    <Find value="1" />
+    <Value value="AmazonSurgeOfLight" />
+    <WhichPlayer Value="Caster" />
+  </CValidatorPlayerTalent>
+  <CValidatorUnitCompareBehaviorCount id="AmazonAvoidanceSurgeOfLightDoesNotHaveAbilityReadyBuff">
+    <WhichUnit Value="Caster" />
+    <Behavior value="AmazonAvoidanceSurgeOfLightAbilityReady" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="AmazonAvoidanceSurgeOfLightHasAbilityReadyBuff">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="AmazonAvoidanceSurgeOfLightAbilityReady" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorPlayerTalent id="GuldanHasLifeTapImprovedLifeTapTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="GuldanLifeTapImprovedLifeTap" />
+  </CValidatorPlayerTalent>
+  <CValidatorPlayerTalent id="GuldanHasLifeTapDarknessWithinTalent">
+    <WhichPlayer Value="Caster" />
+    <Find value="1" />
+    <Value value="GuldanLifeTapDarknessWithin" />
+  </CValidatorPlayerTalent>
+</Validator>

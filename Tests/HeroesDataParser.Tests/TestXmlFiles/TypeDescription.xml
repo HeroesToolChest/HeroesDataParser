@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TypeDescription>
+  <CTextureSheet id="RewardIconSheet">
+    <Image value="Assets\Textures\storm_ui_heroes_rewardicons_sheet.dds"/>
+    <Rows value="12"/>
+    <Columns value="5"/>
+  </CTextureSheet>
+  <CTypeDescription default="1">
+    <Name value="TypeDescription/Name/##id##"/>
+  </CTypeDescription>
+  <CTypeDescription default="1">
+    <RewardIcon TextureSheet="RewardIconSheet" />
+  </CTypeDescription>
+  <CTypeDescription id="LootChestSummer2018Epic">
+    <RewardIcon Index="37" />
+    <LargeIcon value="@UI/Storm_UI_ProfileDialog_ProgressionReward_Icon_EpicSummerLootChest" />
+  </CTypeDescription>
+</TypeDescription>

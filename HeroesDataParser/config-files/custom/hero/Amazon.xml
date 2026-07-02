@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CAbilEffectInstant id="AmazonSurgeOfLight">
+    <hdp-ParentTalentArray value="AmazonSurgeOfLight" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="AmazonWarTravelerSummonMount">
+    <hdp-ParentTalentArray value="AmazonWarTraveler" />
+  </CAbilEffectInstant>
+</Catalog>

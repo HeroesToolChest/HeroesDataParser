@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/HeroesDataParser.Tests/HeroesDataParser.Tests.csproj" />
+  </Folder>
+  <Project Path="HeroesDataParser.Benchmarks/HeroesDataParser.Benchmarks.csproj" />
+  <Project Path="HeroesDataParser/HeroesDataParser.csproj" />
+</Solution>

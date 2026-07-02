@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Boost>
+  <CBoost default="1">
+    <PreviewCutsceneFile value="Cutscenes\StoreBoost##id##.StormCutscene"/>
+    <TileCutsceneFile value="Cutscenes\FrameBoost##id##.StormCutscene"/>
+    <LootChestRewardCutsceneFile value="Cutscenes/FrameBoost##id##.StormCutscene"/>
+    <Model value="Storm_UI_Stimpack_##id##"/>
+  </CBoost>
+  <CBoost id="360DayStimpack">
+    <ProductId value="21051"/>
+    <TileTexture value="@UI/Storm_UI_Boost_Purchase_Dialog_3"/>
+    <PreviewTexture value="@UI/Storm_UI_Glues_Boost_Generic"/>
+    <PreviewCutsceneFile value="Cutscenes\StoreBoost365Day.StormCutscene"/>
+    <TileCutsceneFile value="Cutscenes\FrameBoost365Day.StormCutscene"/>
+    <LootChestRewardCutsceneFile value="Cutscenes\FrameBoost365Day.StormCutscene"/>
+    <Model value="Storm_UI_Stimpack_365Day"/>
+    <ReleaseDate Month="11" Day="22" Year="2016"/>
+    <EventName value="LTO"/>
+  </CBoost>
+</Boost>

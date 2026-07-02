@@ -1,0 +1,88 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Version>5.0.0</Version>
+    <PublishSingleFile>false</PublishSingleFile>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>dotnet-heroes-data-parser</ToolCommandName>
+    <Copyright>Copyright © 2018 - 2026 Kevin Oliva</Copyright>
+    <Authors>Kevin Oliva</Authors>
+    <PackageId>HeroesDataParser</PackageId>
+    <Product>HeroesDataParser</Product>
+    <PackageProjectUrl>https://github.com/HeroesToolChest/HeroesDataParser</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/HeroesToolChest/HeroesDataParser</RepositoryUrl>
+    <PackageReleaseNotes>https://github.com/HeroesToolChest/HeroesDataParser/releases</PackageReleaseNotes>
+    <PackageTags>hots heroes-of-the-storm HeroesOfTheStorm blizzard</PackageTags>
+    <Description>Extracts Heroes of the Storm game data into JSON format</Description>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <DebugType>embedded</DebugType>
+    <SixLaborsLicenseFile>../sixlabors.lic</SixLaborsLicenseFile>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Heroes.Element" Version="1.0.0" />
+		<PackageReference Include="Heroes.XmlData" Version="1.0.0" />
+		<PackageReference Include="JsonPatch.Net" Version="5.0.3" />
+		<PackageReference Include="Microsoft.Extensions.Compliance.Redaction" Version="10.7.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.9" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.9" />
+		<PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.7.0" />
+		<PackageReference Include="Pfim" Version="0.11.4" />
+		<PackageReference Include="Polly.Core" Version="8.7.0" />
+		<PackageReference Include="Polly.Extensions" Version="8.7.0" />
+		<PackageReference Include="Serilog" Version="4.3.1" />
+		<PackageReference Include="Serilog.Extensions.Hosting" Version="10.0.0" />
+		<PackageReference Include="Serilog.Formatting.Compact" Version="3.0.0" />
+		<PackageReference Include="Serilog.Settings.Configuration" Version="10.0.1" />
+		<PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
+		<PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+		<PackageReference Include="SixLabors.ImageSharp" Version="4.0.0" />
+		<PackageReference Include="Spectre.Console" Version="0.57.1" />
+		<PackageReference Include="Spectre.Console.Analyzer" Version="1.0.1-preview.0.1">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Spectre.Console.Cli" Version="0.55.0" />
+		<PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="appsettings.Development.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="appsettings.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="config-files\portrait-extract.xml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="config-files\custom\**\*.xml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="config-files\parsing\parsing*.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+  
+</Project>

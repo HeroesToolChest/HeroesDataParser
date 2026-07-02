@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit id="HeroJaina" parent="StormHeroMounted">
+    <CardLayouts index="0">   
+      <LayoutButtons Face="JainaImprovedIceBlockCancel" Type="AbilCmd" AbilCmd="ImprovedIceBlock,Off" Slot="Active" />
+      <LayoutButtons Face="JainaImprovedIceBlockHotbar" Type="AbilCmd" AbilCmd="ImprovedIceBlock,On" Slot="Active" />
+    </CardLayouts>
+  </CUnit>
+  <CAbilBehavior id="ImprovedIceBlock">
+    <CmdButtonArray index="Off">
+      <hdp-ParentAbilArray value="ImprovedIceBlock" />
+    </CmdButtonArray>
+  </CAbilBehavior>
+</Catalog>

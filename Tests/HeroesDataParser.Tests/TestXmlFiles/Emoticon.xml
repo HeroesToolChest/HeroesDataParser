@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Emoticon>
+  <CTextureSheet default="1">
+    <Image value="Assets\Textures\UI_texturesheet_##id##.dds"/>
+    <Rows value="1"/>
+    <Columns value="1"/>
+  </CTextureSheet>
+  <CTextureSheet id="storm_emoji_cat_gleam_anim_sheet">
+    <Image value="Assets\Textures\storm_emoji_cat_gleam_anim_sheet.dds"/>
+    <Rows value="7"/>
+    <Columns value="4"/>
+  </CTextureSheet>
+  <CTextureSheet id="storm_emoji_greymane_sheet">
+    <Image value="Assets\Textures\storm_emoji_greymane_sheet.dds"/>
+    <Rows value="3"/>
+    <Columns value="4"/>
+  </CTextureSheet>
+  <CTextureSheet id="storm_emoji_abathur_mecha_sheet">
+    <Image value="Assets\Textures\storm_emoji_abathur_mecha_sheet.dds"/>
+    <Rows value="3"/>
+    <Columns value="4"/>
+  </CTextureSheet>
+  <CTextureSheet id="storm_emoji_reghar_classic21_anim_sheet">
+    <Image value="Assets\Textures\storm_emoji_reghar_classic21_anim_sheet.dds"/>
+    <Rows value="2"/>
+    <Columns value="4"/>
+  </CTextureSheet>
+  
+  <CEmoticon default="1">
+    <LocalizedAliasArray value="Emoticon/Name/##id##"/>
+    <NameInvalid value="Emoticon/NameInvalid/##id##"/>
+    <Description value="Emoticon/Description/##id##"/>
+    <DescriptionLocked value="Emoticon/DescriptionLocked/##id##"/>
+    <Expression value="Unknown"/>
+    <Priority value="100"/>
+    <Image TextureSheet="EmoticonsSheet1" DurationPerFrame="500"/>
+  </CEmoticon>
+  <CEmoticon default="1" id="skinned_hero_emoticon">
+    <Priority value="120"/>
+  </CEmoticon>
+  <CEmoticon default="1" id="abstract_emoticon">
+    <Image TextureSheet=""/>
+    <Priority value="0"/>
+    <Flags index="Hidden" value="1"/>
+  </CEmoticon>
+  <CEmoticon default="1" id="generic_emoticon"/>
+  <CEmoticon default="1" id="basic_hero_emoticon">
+    <Priority value="110"/>
+  </CEmoticon>
+  <CEmoticon default="1" id="cat_anim_emoticon" parent="generic_emoticon"/>
+  <CEmoticon id="abstract_angry" parent="abstract_emoticon">
+    <UniversalAliasArray value=":angry:"/>
+    <LocalizedAliasArray value="Emoticon/Name/ascii_angry"/>
+    <Expression value="Angry"/>
+  </CEmoticon>
+  <CEmoticon id="cat_gleam_anim" parent="cat_anim_emoticon">
+    <Image>
+      <TextureSheet value="storm_emoji_cat_gleam_anim_sheet"/>
+      <Count value="25"/>
+      <DurationPerFrame value="50"/>
+      <Width value="34"/>
+    </Image>
+    <UniversalAliasArray value=":catgleam:"/>
+    <SearchTextArray value="Emoticon/SearchText/Anim"/>
+  </CEmoticon>
+  <CEmoticon default="1" id="greymane_emoticon" parent="basic_hero_emoticon">
+    <Image TextureSheet="storm_emoji_greymane_sheet"/>
+    <Hero value="Greymane"/>
+  </CEmoticon>
+  <CEmoticon id="greymane_rofl" parent="greymane_emoticon">
+    <Image Index="5" Width="29"/>
+    <Expression value="Rofl"/>
+    <UniversalAliasArray value=":greymanelol:"/>
+    <UniversalAliasArray value=":greymanerofl:"/>
+    <UniversalAliasArray value=":greylol:"/>
+    <UniversalAliasArray value=":greyrofl:"/>
+  </CEmoticon>
+  <CEmoticon default="1" id="abathur_mecha_emoticon" parent="skinned_hero_emoticon">
+    <Image TextureSheet="storm_emoji_abathur_mecha_sheet"/>
+    <Hero value="Abathur"/>
+    <Skin value="AbathurMecha"/>
+  </CEmoticon>
+  <CEmoticon id="abathur_mecha_angry" parent="abathur_mecha_emoticon">
+    <Image Width="37"/>
+    <Expression value="Angry"/>
+    <UniversalAliasArray value=":abathurxenotechangry:"/>
+    <UniversalAliasArray value=":abaxangry:"/>
+  </CEmoticon>
+  <CEmoticon default="1" id="hostemoji_anniversary_emoticon" parent="generic_emoticon">
+    <Image TextureSheet="storm_emoji_reghar_classic21_anim_sheet"/>
+  </CEmoticon>
+  <CEmoticon id="abstract_cool_casesensitive" parent="abstract_emoticon">
+    <LocalizedAliasArray value="Emoticon/Name/ascii_cool"/>
+    <Flags index="CaseSensitive" value="1"/>
+    <Expression value="Cool"/>
+  </CEmoticon>
+</Emoticon>

@@ -1,0 +1,662 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Talent>
+  <CTalent id="GenericTalentCalldownMULE">
+    <Face value="GenericCalldownMule"/>
+    <Abil value="TalentBucketCalldownMule"/>
+    <RankArray>
+      <BehaviorArray value="GenericCalldownMule"/>
+    </RankArray>
+    <Active value="1"/>
+  </CTalent>
+  <CTalent id="AbathurMasteryPressurizedGlands">
+    <Face value="AbathurSymbiotePressurizedGlandsTalent" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AbathurSymbioteSpikeBurstDamageSearch" />
+        <Field value="AreaArray[0].Radius" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Actor" />
+        <Entry value="SymbioteSpikeBurstRangeSplat" />
+        <Field value="Scale" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Actor" />
+        <Entry value="AbathurSymbioteSpikeBlastCast" />
+        <Field value="Scale" />
+        <Value value="0.250000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AbathurSpikeBurstSomaTransferenceSearch" />
+        <Field value="AreaArray[0].Radius" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Entry value="AbathurSymbioteSpikeBurst" />
+        <Field value="Cost[0].Cooldown.TimeUse" />
+        <Value value="-1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Abil value="AbathurSymbioteSpikeBurst" />
+  </CTalent>
+  <CTalent id="AbathurReinforcedCarapace">
+    <Face value="AbathurReinforcedCarapaceTalent" />
+    <Abil value="AbathurSymbioteCarapace" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="MultiplyLevelModification" />
+        <Catalog value="Behavior" />
+        <Entry value="CarapaceEvolutionShield" />
+        <Field value="DamageResponse.ModifyLimit" />
+        <Value value="1.400000" />
+      </Modifications>
+      <Modifications>
+        <Type value="MultiplyLevelModification" />
+        <Catalog value="Behavior" />
+        <Entry value="CarapaceEvolutionShieldHivemind" />
+        <Field value="DamageResponse.ModifyLimit" />
+        <Value value="1.400000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  <CTalent id="AbathurMasteryRegenerativeMicrobes">
+    <Face value="AbathurSymbioteRegenerativeMicrobesTalent" />
+    <Abil value="AbathurSymbioteCarapace" />
+  </CTalent>
+  <CTalent id="AbathurMasteryEnvenomedNestsToxicNest">
+    <Face value="AbathurToxicNestEnvenomedNestTalent" />
+    <AbilityModificationArray ModifyAbil="AbathurToxicNest" TooltipAddendum="Talent/Abathur/ToxicNest/EnevenomedNest">
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AbathurToxicNestApplyEnvenomedNestDamage" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Abil value="AbathurToxicNest" />
+  </CTalent>
+  <CTalent id="AbathurCombatStyleSurvivalInstincts">
+    <Face value="AbathurLocustStrainSurvivalInstinctsTalent" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AbathurSurvivalInstinctsApplyBehavior" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="AbathurHeroicAbilityUltimateEvolution">
+    <Face value="AbathurUltimateEvolution" />
+    <RankArray>
+      <BehaviorArray value="Ultimate1Unlocked" />
+    </RankArray>
+    <Active value="1" />
+    <Abil value="AbathurUltimateEvolution" />
+  </CTalent>
+  <CTalent id="AbathurUltimateEvolutionEvolutionaryLink">
+    <Face value="AbathurUltimateEvolutionEvolutionaryLinkTalent" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AbathurUltimateEvolutionEvolutionaryLinkApplyTarget" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AbathurUltimateEvolutionEvolutionaryLinkTargetSearch" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AbathurUltimateEvolutionEvolutionaryLinkRemoveTargetSearch" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="UltimateEvolutionTimedLife" />
+        <Field value="Duration" />
+        <Value value="10.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Abil value="AbathurUltimateEvolution" />
+  </CTalent>
+  <CTalent id="AbathurHeroicAbilityEvolveMonstrosity">
+    <Face value="AbathurEvolveMonstrosityHotbar" />
+    <RankArray>
+      <BehaviorArray value="Ultimate2Unlocked" />
+      <BehaviorArray value="AbathurEvolveMonstrosityTrackingBehavior" />
+      <BehaviorArray value="AbathurEvolveMonstrosityQuestStack" />
+    </RankArray>
+    <QuestData StackBehavior="AbathurEvolveMonstrosityQuestStack" />
+    <Active value="1" />
+    <Abil value="AbathurEvolveMonstrosity" />
+  </CTalent>
+  <CTalent id="KelThuzadMasterOfTheColdDark">
+    <Face value="KelThuzadMasterOfTheColdDark" />
+    <QuestData>
+      <StackBehavior value="KelThuzadMasterOfTheColdDarkToken" />
+      <FinishedBehavior value="KelThuzadMasterOfTheColdDarkSpellPower" />
+      <TargetCount value="30" />
+      <IgnoreTargetCount value="0" />
+    </QuestData>
+  </CTalent>
+  <CTalent id="AlarakExtendedLightning">
+    <Face value="AlarakExtendedLightning" />
+    <Abil value="AlarakLightningSurge" />
+    <RankArray>
+      <BehaviorArray value="AlarakSadism10TokenReduction" />
+      <BehaviorArray value="AlarakLightningSurgeExtendedLightningMasterQuestToken" />
+      <BehaviorArray value="AlarakLightningSurgeExtendedLightningTalentTokenCounter" />
+    </RankArray>
+    <AbilityModificationArray>
+      <Modifications Type="FlatModification" Entry="AlarakLightningSurge" Field="Range[0]" />
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Actor" />
+        <Entry value="AlarakLightningSurgeRangeSplat" />
+        <Field value="Scale" />
+      </Modifications>
+      <Modifications Type="FlatModification" Entry="AlarakLightningSurgeLightningBarrage" Field="Range[0]" />
+    </AbilityModificationArray>
+    <QuestData StackBehavior="AlarakLightningSurgeExtendedLightningMasterQuestToken" />
+  </CTalent>
+  <CTalent id="AlarakRiteofRakShir">
+    <Face value="AlarakRiteofRakShir" />
+    <Abil value="AlarakRiteofRakShir" />
+    <RankArray>
+      <BehaviorArray value="AlarakRiteofRakShirItem" />
+    </RankArray>
+    <Active value="1" />
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="AlarakLightningBarrage">
+    <Face value="AlarakLightningBarrage" />
+    <Abil value="AlarakLightningSurge" />
+  </CTalent>
+  <CTalent id="AlarakShowofForce">
+    <Face value="AlarakShowofForce" />
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="AlarakMockingStrikes">
+    <Face value="AlarakMockingStrikes" />
+  </CTalent>
+  <CTalent id="SamuroThreeBladeStyle">
+    <Face value="SamuroThreeBladeStyleTalent" />
+    <Abil value="SamuroIllusionMaster" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="SamuroMirrorImageTimedLife" />
+        <Field value="Duration" />
+        <Value value="8.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  <CTalent id="SamuroAdvancingStrikesDeflection">
+    <Face value="SamuroDeflectionTalent" />
+  </CTalent>
+  <CTalent id="SamuroPressTheAttack">
+    <Face value="SamuroPressTheAttack" />
+    <RankArray>
+      <BehaviorArray value="SamuroPressTheAttackCarry" />
+      <BehaviorArray value="SamuroPressTheAttackTokenCounter" />
+    </RankArray>
+  </CTalent>
+  <CTalent id="SamuroBlademastersPursuit">
+    <Face value="SamuroBlademastersPursuitTalent" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="SamuroAdvancingStrikesMoveSpeedBuff" />
+        <Field value="Modification.UnifiedMoveSpeedFactor" />
+        <Value value="0.150000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="SamuroAdvancingStrikesMoveSpeedBuff" />
+        <Field value="Duration" />
+        <Value value="2.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="SamuroAdvancingStrikesDeflectionBlock" />
+        <Field value="Duration" />
+        <Value value="2.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  <CTalent id="MuradinMasteryPassiveStoneform">
+    <Face value="MuradinSecondWindStoneformTalent" />
+    <RankArray>
+      <BehaviorArray value="StoneformCarryBehavior" />
+    </RankArray>
+    <Abil value="Stoneform" />
+    <Trait value="1" />
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="GarroshArmorUpBodyCheck">
+    <Face value="GarroshArmorUpBodyCheck" />
+    <Abil value="GarroshArmorUpBodyCheck" />
+    <RankArray>
+      <BehaviorArray value="GarroshArmorUpBodyCheckCarryBehavior" />
+      <BehaviorArray value="GarroshBodyCheckItem" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="GarroshBodyCheckBruteForce">
+    <Face value="GarroshBodyCheckBruteForce" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="GarroshBodyCheckBruteForceApplyHealReduction" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Abil value="GarroshArmorUpBodyCheck" />
+  </CTalent>
+  <CTalent id="GarroshArmorUpInnerRage">
+    <Face value="GarroshArmorUpInnerRage" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Entry value="GarroshArmorUpBodyCheck" />
+        <Field value="Cost[0].Charge.CountMax" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Entry value="GarroshArmorUpBodyCheck" />
+        <Field value="Cost[0].Charge.HideCount" />
+        <FieldIsInteger value="1" />
+        <Value value="-1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="GarroshBodyCheckBruteForceHealReduction" />
+        <Field value="Modification.HealTakenAdditiveMultiplier[Life]" />
+        <Value value="-0.450000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="GarroshBodyCheckBruteForceHealReduction" />
+        <Field value="Modification.VitalRegenMultiplier[Life]" />
+        <Value value="-0.450000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Abil value="GarroshArmorUpBodyCheck" />
+  </CTalent>
+  <CTalent id="BarbarianBattleRage">
+    <Face value="BarbarianBattleRage" />
+    <Abil value="BarbarianBattleRage" />
+    <RankArray>
+      <BehaviorArray value="BarbarianBattleRageItem" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="TassadarOracle">
+    <Face value="TassadarOracleTargeted" />
+    <Abil value="TassadarOracleTargeted" />
+    <RankArray>
+      <BehaviorArray value="TassadarOracleAbility" />
+      <BehaviorArray value="TassadarOracleTalentCarry" />
+      <BehaviorArray value="TassadarOracleTalentHealerCarry" />
+    </RankArray>
+    <AbilityModificationArray />
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="ThrallAncestralWrath">
+    <Face value="ThrallAncestralWrath" />
+    <Abil value="ThrallAncestralWrath" />
+    <RankArray>
+      <BehaviorArray value="ThrallAncestralWrathItem" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="GallKeepMoving">
+    <Face value="GallKeepMoving" />
+    <Abil value="GallShove" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="GallShoveMoveSpeedBuff" />
+        <Field value="Duration" />
+        <Value value="2.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Behavior" />
+        <Entry value="GallShoveMoveSpeedBuff" />
+        <Field value="Modification.UnifiedMoveSpeedFactor" />
+        <Value value="0.100000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="AnubarakCombatStyleLegionOfBeetles">
+    <Face value="AnubarakLegionOfBeetlesTalent" />
+    <Abil value="AnubarakLegionOfBeetlesToggle" />
+    <RankArray>
+      <BehaviorArray value="AnubarakLegionOfBeetlesControllerBehavior" />
+      <BehaviorArray value="AnubarakLegionOfBeetlesItem" />
+    </RankArray>
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="DVaLiquidCooling">
+    <Face value="DVaLiquidCooling" />
+    <RankArray />
+    <Trait value="1" />
+    <Abil value="DVaLiquidCoolingAbility" />
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="AmazonPlateoftheWhale">
+    <Face value="AmazonAvoidancePlateoftheWhale" />
+    <RankArray>
+      <BehaviorArray value="AmazonPlateoftheWhaleRegenBehavior" />
+      <BehaviorArray value="AmazonPlateoftheWhaleStackCounter" />
+    </RankArray>
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="AmazonWarTraveler">
+    <Face value="AmazonAvoidanceWarTraveler" />
+    <Trait value="1" />
+    <RankArray>
+      <BehaviorArray value="AmazonAvoidanceWarTravelerMovementBonus" />
+      <BehaviorArray value="AmazonAvoidanceWarTravelerTokenCounter" />
+    </RankArray>
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AmazonWarTravelerSummonMountCooldownSwitch" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AmazonWarTravelerDismountCooldownSwitch" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  <CTalent id="AmazonFendGlovesOfAlacrity">
+    <Face value="AmazonFendGlovesOfAlacrity" />
+    <RankArray>
+      <BehaviorArray value="AmazonGlovesOfAlacrityAvoidanceMaxedAttackRangeBehavior" />
+      <BehaviorArray value="AmazonGlovesOfAlacrityBaseAttackRangeBehavior" />
+    </RankArray>
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="AmazonTitansRevenge">
+    <Face value="AmazonTitansRevenge" />
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="Amazon-AvoidanceRockstopper">
+    <Face value="AmazonAvoidanceRockstopper" />
+    <RankArray>
+      <BehaviorArray value="AmazonAvoidanceRockstopperItem" />
+    </RankArray>
+    <Active value="1" />
+    <Abil value="AmazonAvoidanceRockstopper" />
+  </CTalent>
+  <CTalent id="AmazonSurgeOfLight">
+    <Trait value="1" />
+    <Abil value="AmazonSurgeOfLight" />
+    <Face value="AmazonAvoidanceSurgeOfLight" />
+    <RankArray>
+      <BehaviorArray value="AmazonAvoidanceSurgeOfLightPickedTalent" />
+    </RankArray>
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AmazonAvoidanceSurgeOfLightDummyCurrentCharge" />
+        <Field value="Amount" />
+        <FieldIsInteger value="1" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  <CTalent id="DeathwingDragonSoul">
+    <Face value="DeathwingDragonSoul" />
+    <Abil value="DeathwingIncinerate" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="DeathwingLavaBurstExplosionDamage" />
+        <Field value="LeechFraction[Life]" />
+        <Value value="1.500000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="DeathwingIncinerateDamage" />
+        <Field value="LeechFraction[Life]" />
+        <Value value="0.750000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  <CTalent id="MeiOWAcclimation">
+    <Face value="MeiOWAcclimation" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="MeiOWAcclimationBuffApply" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <RankArray>
+      <BehaviorArray value="MeiOWAcclimationArmorCarry" />
+    </RankArray>
+  </CTalent>
+  <CTalent id="RagnarosCatchingFire">
+    <Face value="RagnarosCatchingFireTalent" />
+    <Abil value="RagnarosCatchingFire" />
+    <RankArray>
+      <BehaviorArray value="RagnarosCatchingFireTokenCounter" />
+      <BehaviorArray value="RagnarosCatchingFireRegenIncreaseCarryBehavior" />
+      <BehaviorArray value="RagnarosCatchingFireItem" />
+    </RankArray>
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="RagnarosCatchingFireAddToken" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <QuestData StackBehavior="RagnarosCatchingFireTokenCounter" TargetCount="15" />
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="JunkratTotalMayhemDirtyTricksterTalent">
+    <Face value="JunkratDirtyTrickster" />
+    <RankArray>
+      <BehaviorArray value="JunkratTotalMayhemDirtyTricksterItem" />
+      <BehaviorArray value="JunkratTotalMayhemDirtyTricksterDamageResponseBehavior" />
+    </RankArray>
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="JunkratTotalMayhemSearchArea" />
+        <Field value="AreaArray[0].Radius" />
+        <Value value="0.400000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Actor" />
+        <Entry value="JunkratTotalMayhemGrenadeExplosion" />
+        <Field value="Scale" />
+        <Value value="0.200000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="BarbarianShotOfFury">
+    <Face value="BarbarianFuryShotOfFuryTalent" />
+    <Abil value="BarbarianShotofFury" />
+    <RankArray>
+      <BehaviorArray value="BarbarianShotofFuryCarryBehavior" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="VarianTwinBladesOfFury">
+    <Face value="VarianTwinBladesOfFury" />
+    <RankArray>
+      <BehaviorArray value="Ultimate3Unlocked" />
+      <BehaviorArray value="VarianTwinBladesOfFuryHeroModifications" />
+    </RankArray>
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="VarianTwinBladesOfFuryApplyCasterMoveSpeed" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="VarianBaseModifyHeroicStrikeCooldown" />
+        <Field value="Cost[0].CooldownTimeUse" />
+        <Value value="-7.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Abil value="VarianTwinBladesofFury" />
+  </CTalent>
+  <CTalent id="AlarakMightOfTheHighlord">
+    <Face value="AlarakMightOfTheHighlord" />
+    <Abil value="AlarakMightOfTheHighlordSetDeadlyChargeAsHeroic" />
+    <RankArray>
+      <BehaviorArray value="Ultimate1Unlocked" />
+      <BehaviorArray value="Ultimate2Unlocked" />
+      <BehaviorArray value="AlarakMightOfTheHighlordHeroicSelector" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="VarianLionsFangLionheart">
+    <Face value="VarianLionsFangLionheart" />
+    <Abil value="VarianLionsFang" />
+  </CTalent>
+  <CTalent id="AlexstraszaPacify">
+    <Face value="AlexstraszaPacify" />
+    <Abil value="AlexstraszaPacify" />
+    <RankArray>
+      <BehaviorArray value="AlexstraszaPacifyItem" />
+    </RankArray>
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AlexstraszaPacifyLifeUnboundModifyCooldownHealSet" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AlexstraszaPacifyLifeUnboundModifyCooldownHealSetDragonCone" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AlexstraszaPacifyModifyCooldownHealed" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="AnduinVariansLegacy">
+    <Face value="AnduinVariansLegacy" />
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AnduinVariansLegacyDoTApplyBehavior" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  <CTalent id="DeathwingSkyfall">
+    <Face value="DeathwingSkyfall" />
+    <Abil value="DeathwingSkyfall" />
+    <Active value="1" />
+  </CTalent>
+  <CTalent id="AnaShrikeVampiricRounds">
+    <Face value="AnaShrikeVampiricRounds" />
+    <Abil value="AnaShrike" />
+    <RankArray>
+      <BehaviorArray value="AnaShrikeVampiricRoundsTokenCounter" />
+    </RankArray>
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AnaShrikeVampiricRoundsAddToken" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AnaShrikeVampiricRoundsAdd4Tokens" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Accumulator" />
+        <Entry value="AnaShrikeSelfHealPoisonTraitHealToken" />
+        <Field value="Scale" />
+        <Value value="0.150000" />
+      </Modifications>
+    </AbilityModificationArray>
+    <QuestData StackBehavior="AnaShrikeVampiricRoundsTokenCounter" />
+    <Trait value="1" />
+  </CTalent>
+  <CTalent id="ZeratulMightOfTheNerazim">
+    <Face value="ZeratulMightOfTheNerazimPassive" />
+    <Abil value="ZeratulMightOfTheNerazimDummy" />
+    <RankArray>
+      <BehaviorArray value="Ultimate1Unlocked" />
+    </RankArray>
+    <Active value="1" />
+  </CTalent>
+</Talent>

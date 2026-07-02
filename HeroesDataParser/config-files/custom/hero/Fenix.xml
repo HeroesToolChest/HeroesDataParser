@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CAbilEffectInstant id="FenixRepeaterCannon">
+    <ParentAbil value="FenixPhaseBomb" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="FenixShieldCapacitorVisual">
+    <hdp-ParentAbilLinkArray abilityId=":PASSIVE:" buttonId="FenixShieldCapacitor" abilityType="Trait" />
+  </CAbilEffectInstant>
+</Catalog>

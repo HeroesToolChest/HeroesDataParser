@@ -1,0 +1,200 @@
+﻿namespace HeroesDataParser.Infrastructure.JsonFileWriters;
+
+public abstract class JsonFileWriterBase
+{
+    public JsonFileWriterBase(
+        ILogger logger,
+        IOptions<RootOptions> options,
+        IAnsiConsole console,
+        ISerializedDataStoreService serializedDataStoreService,
+        IJsonSerializerOptionService jsonSerializerOptionService,
+        IResultSummaryService resultSummaryService)
+    {
+        Logger = logger;
+        Options = options.Value;
+        Console = console;
+        SerializedDataStoreService = serializedDataStoreService;
+        JsonSerializerOptionService = jsonSerializerOptionService;
+        ResultSummaryService = resultSummaryService;
+    }
+
+    protected ILogger Logger { get; }
+
+    protected RootOptions Options { get; }
+
+    protected IAnsiConsole Console { get; }
+
+    protected ISerializedDataStoreService SerializedDataStoreService { get; }
+
+    protected IJsonSerializerOptionService JsonSerializerOptionService { get; }
+
+    protected IResultSummaryService ResultSummaryService { get; }
+
+    protected abstract void IncrementFilesTotal();
+
+    protected abstract void IncrementFilesWritten();
+
+    protected string GetFileName(string fileSuffixName, bool isPatch, bool isGameStrings)
+    {
+        string patchSuffix = isPatch ? ".patch" : string.Empty;
+        string localeSuffix = isGameStrings || Options.LocalizedText != LocalizedTextOption.Extract ? $"_{Options.CurrentLocale}" : string.Empty;
+
+        return $"{fileSuffixName}_{Options.BuildNumber ?? 0}{localeSuffix}{patchSuffix}.json".ToLowerInvariant();
+    }
+
+    protected string GetFilePath(string innerDirectory, string fileName)
+    {
+        string directory = Path.Combine(Options.OutputDirectory, innerDirectory);
+        Directory.CreateDirectory(directory);
+
+        return Path.Combine(directory, fileName);
+    }
+
+    protected async Task WriteSubMapJsonFile(string innerDirectory, string mapName, DataType dataType, byte[] bytes, bool isGameStrings)
+    {
+        if (Options.MapSpecificWriterJsonOutputType.HasFlag(MapSpecificWriterJsonOutputType.Normal))
+            await WriteNormalMap(innerDirectory, mapName, dataType, bytes, isGameStrings);
+
+        if (Options.MapSpecificWriterJsonOutputType.HasFlag(MapSpecificWriterJsonOutputType.Patch))
+            await WriteMapPatch(innerDirectory, mapName, dataType, bytes, isGameStrings);
+    }
+
+    // the normal json file without a map loaded
+    protected async Task WriteBaseJsonFile(string innerDirectory, DataType dataType, byte[] bytes, bool isGameStrings)
+    {
+        string fileName = GetFileName(dataType.ToString(), false, isGameStrings);
+        string filePath = GetFilePath(innerDirectory, fileName);
+
+        await WriteBaseJsonFile(innerDirectory, filePath, fileName, dataType, bytes);
+    }
+
+    protected async Task WriteBaseJsonFile(string innerDirectory, string filePath, string fileName, DataType dataType, byte[] bytes)
+    {
+        Logger.LogDebug("Writing to {FilePath}", filePath);
+
+        try
+        {
+            IncrementFilesTotal();
+
+            await using FileStream fileStream = File.Create(filePath);
+            await fileStream.WriteAsync(bytes);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error writing json file to {FilePath}", filePath);
+            return;
+        }
+
+        IncrementFilesWritten();
+        SerializedDataStoreService.AddSerializedData(dataType, bytes);
+
+        Console.Write("Created file ");
+        WriteFilePath(Path.Join(innerDirectory, fileName));
+        Console.WriteLine();
+    }
+
+    protected async Task WriteMapPatch(string innerDirectory, string mapName, DataType dataType, byte[] bytes, bool isGameStrings)
+    {
+        string fileName = GetFileName(dataType.ToString(), true, isGameStrings);
+        string filePath = GetFilePath(innerDirectory, fileName);
+
+        Logger.LogDebug("Writing json patch file {FilePath} for map {MapName}", filePath, mapName);
+
+        await WritePatchJsonFile(innerDirectory, mapName, dataType, fileName, filePath, bytes);
+    }
+
+    protected async Task WriteNormalMap(string innerDirectory, string mapName, DataType dataType, byte[] bytes, bool isGameStrings)
+    {
+        string fileName = GetFileName(dataType.ToString(), false, isGameStrings);
+        string filePath = GetFilePath(innerDirectory, fileName);
+
+        Logger.LogDebug("Writing normal json file {FilePath} for map {MapName}", filePath, mapName);
+
+        try
+        {
+            IncrementFilesTotal();
+
+            await using FileStream fileStream = File.Create(filePath);
+            await fileStream.WriteAsync(bytes);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error writing json file {FilePath} for map {MapName}", filePath, mapName);
+            return;
+        }
+
+        IncrementFilesWritten();
+
+        Console.Write("Created file ");
+        WriteFilePath(Path.Join(innerDirectory, fileName));
+        Console.WriteLine();
+    }
+
+    private static void WriteFilePath(string filePath)
+    {
+        AnsiConsole.Write(GetFilePath(filePath));
+    }
+
+    private static TextPath GetFilePath(string filePath)
+    {
+        return new TextPath(filePath)
+            .SeparatorColor(Color.SpringGreen3)
+            .StemColor(Color.SteelBlue1)
+            .LeafColor(Color.Orange1);
+    }
+
+    private static int GetCountOfUniqueItems(IReadOnlyList<PatchOperation> patchOperations)
+    {
+        return patchOperations.Select(x =>
+        {
+            if (x.Path.SegmentCount > 1 && x.Path.GetSegment(0).AsSpan().Equals("items", StringComparison.OrdinalIgnoreCase))
+                return x.Path.GetSegment(1).ToString();
+            else
+                return null;
+        })
+        .Where(x => !string.IsNullOrEmpty(x))
+        .Distinct()
+        .Count();
+    }
+
+    private async Task WritePatchJsonFile(string innerDirectory, string mapName, DataType dataType, string fileName, string filePath, byte[] bytes)
+    {
+        JsonPatch? jsonPatch = SerializedDataStoreService.GetJsonDataPatch(dataType, bytes);
+
+        int totalItemsChanged = jsonPatch is not null ? GetCountOfUniqueItems(jsonPatch.Operations) : 0;
+
+        Logger.LogInformation("Found {TotalItems} changed items of {DataType} for map {MapName}", totalItemsChanged, dataType, mapName);
+
+        if (totalItemsChanged > 0 || Options.AllowEmptyMapSpecificPatchFiles)
+        {
+            try
+            {
+                IncrementFilesTotal();
+
+                await using FileStream fileStream = File.Create(filePath);
+                await JsonSerializer.SerializeAsync(fileStream, jsonPatch, JsonSerializerOptionService.JsonSerializerDataOptions);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, "Error writing diff json file {FilePath} for map {MapName}", filePath, mapName);
+                return;
+            }
+
+            IncrementFilesWritten();
+
+            Console.Write("Created patch file ");
+            WriteFilePath(Path.Join(innerDirectory, fileName));
+
+            if (totalItemsChanged < 1)
+                Console.Write($" [0]");
+            else
+                Console.Write($" [+{totalItemsChanged}]");
+
+            Console.WriteLine();
+        }
+        else
+        {
+            Console.WriteLine($"No changes found for {dataType.ToString().ToLowerInvariant()} [{Options.CurrentLocale.ToString().ToLowerInvariant()}] patch file");
+        }
+    }
+}

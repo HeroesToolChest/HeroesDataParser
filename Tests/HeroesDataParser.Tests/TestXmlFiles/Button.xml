@@ -1,0 +1,550 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Button>
+  <CButton default="1">
+    <Name value="Button/Name/##id##"/>
+    <Tooltip value="Button/Tooltip/##id##"/>
+    <TooltipFlags index="ShowName" value="1"/>
+    <TooltipFlags index="ShowHotkey" value="1"/>
+    <TooltipFlags index="ShowUsage" value="1"/>
+    <TooltipFlags index="ShowTime" value="1"/>
+    <TooltipFlags index="ShowCooldown" value="1"/>
+    <TooltipFlags index="ShowRequirements" value="1"/>
+    <TooltipFlags index="ShowAutocast" value="1"/>
+    <UseHotkeyLabel value="1"/>
+  </CButton>
+  <CButton default="1" id="StormButtonParent">
+    <TooltipFlags index="ShowTime" value="0"/>
+    <TooltipFlags index="ShowRequirements" value="0"/>
+    <TooltipFlags index="ShowAutocast" value="0"/>
+    <TooltipVitalName index="Energy" value="UI/Tooltip/Abil/Mana"/>
+    <SimpleDisplayText value="Button/SimpleDisplayText/##id##"/>
+  </CButton>
+  <CButton default="1" id="StormButtonParentTrait" parent="StormButtonParent"/>
+  <CButton default="1" id="StormButtonParentFury" parent="StormButtonParent">
+    <TooltipVitalName index="Energy" value="UI/Tooltip/Abil/Fury"/>
+  </CButton>
+  <CButton id="TestButtonWithParentAbil" parent="StormButtonParent">
+    <hdp-ParentAbilArray value="SomeParentAbil" />
+  </CButton>
+  <CButton id="Hearthstone" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_miscrune_1.dds"/>
+  </CButton>
+  <CButton id="HearthstoneNoMana" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_miscrune_1.dds"/>
+    <HotkeyAlias value="Hearthstone"/>
+  </CButton>
+  <CButton id="Attack" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_talent_autoattack_base.dds"/>
+  </CButton>
+  <CButton id="UseVehicle" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_temp_war3_btnloaddwarf.dds"/>
+  </CButton>
+  <CButton id="MountCabooseSmartCommandUnitInteraction" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_temp_icon_cheatdeath.dds"/>
+  </CButton>
+  <CButton id="LootSpray">
+    <Icon value="Assets\Textures\storm_temp_war3_btnhealingspray.dds" />
+    <HotkeyAlias value="LootDebugCycleVanity" />
+  </CButton>
+  <CButton id="LootYellVoiceLine">
+    <Icon value="Assets\Textures\storm_btn_d3_barbarian_threateningshout.dds"/>
+    <AlertIcon value="Assets\Textures\storm_btn_d3_barbarian_threateningshout.dds"/>
+  </CButton>
+  <CButton id="Stop">
+    <Icon value="Assets\Textures\btn-command-stop.dds"/>
+    <AlertIcon value="Assets\Textures\btn-command-stop.dds"/>
+    <TintRacially value="1"/>
+    <Universal value="1"/>
+  </CButton>
+  <CButton id="Tease">
+    <Icon value="Assets\Textures\btn-command-stop.dds"/>
+    <AlertIcon value="Assets\Textures\btn-command-stop.dds"/>
+    <TintRacially value="1"/>
+    <HotkeyAlias value="Cheer"/>
+    <Universal value="1"/>
+  </CButton>
+  <CButton id="Dance">
+    <Icon value="Assets\Textures\btn-command-stop.dds"/>
+    <AlertIcon value="Assets\Textures\btn-command-stop.dds"/>
+    <TintRacially value="1"/>
+    <Universal value="1"/>
+  </CButton>
+  <CButton id="GenericCalldownMule" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_talent_mule.dds"/>
+  </CButton>
+  <CButton id="SummonMount" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_generic_mount.dds"/>
+    <TooltipAppender Validator="HasBucketSwiftStorm" Face="GenericSwiftStormTalent"/>
+  </CButton>
+  <CButton id="AbathurSymbiote" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_symbiote.dds" />
+    <TooltipAppender Validator="HasAbathurMasteryPressurizedGlands" Face="AbathurSymbiotePressurizedGlandsTalent" />
+    <TooltipAppender Validator="AbathurHasReinforcedCarapace" Face="AbathurReinforcedCarapaceTalent" />
+    <TooltipAppender Validator="HasAbathurMasteryRegenerativeMicrobes" Face="AbathurSymbioteRegenerativeMicrobesTalent" />
+    <TooltipAppender Validator="AbathurHasSymbioteCarapaceSustainedCarapace" Face="AbathurSymbioteCarapaceSustainedCarapaceTalent" />
+    <TooltipAppender Validator="AbathurHasSymbioteAdrenalOverload" Face="AbathurSymbioteAdrenalOverloadTalent" />
+    <TooltipAppender Validator="HasAbathurMasteryNeedlespine" Face="AbathurSymbioteNeedlespineTalent" />
+    <TooltipAppender Validator="AbathurHasSymbioteCarapaceNetworkedCarapace" Face="AbathurSymbioteCarapaceNetworkedCarapaceTalent" />
+    <TooltipAppender Validator="HasAbathurMasterySpatialEfficiency" Face="AbathurSymbioteSpatialEfficiencyTalent" />
+    <TooltipAppender Validator="AbathurHasSymbioteSpikeBurstSomaTransference" Face="AbathurSymbioteSpikeBurstSomaTransferenceTalent" />
+    <TooltipAppender Validator="HasAbathurMasteryEnvenomedSpikes" Face="AbathurSymbioteEnvenomedSpikesTalent" />
+    <TooltipAppender Validator="HasAbathurMasteryAdrenalineBoost" Face="AbathurSymbioteAdrenalineBoostTalent" />
+    <TooltipAppender Validator="AbathurHasSymbioteHivemind" Face="AbathurSymbioteHivemindTalent" />
+  </CButton>
+  <CButton id="AbathurToxicNest" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_toxicnest.dds" />
+    <TooltipAppender Validator="HasPregameSuppressionBehavior" Text="Button/TooltipAppender/LockedUntilGameStarts" />
+    <TooltipAppender Validator="HasAbathurMasteryEnvenomedNestsToxicNest" Face="AbathurToxicNestEnvenomedNestTalent" />
+    <TooltipAppender Validator="HasAbathurMasteryProlificDispersal" Face="AbathurToxicNestProlificDispersalTalent" />
+    <TooltipAppender Validator="AbathurHasMasteryBallistospores" Face="AbathurToxicNestBallistosporesTalent" />
+    <TooltipAppender Validator="HasAbathurMasteryVileNestsToxicNest" Face="AbathurToxicNestVileNestTalent" />
+  </CButton>
+  <CButton id="AbathurLocustStrain" parent="StormButtonParentTrait">
+    <TooltipFlags index="ShowHotkey" value="0" />
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_spawnlocust.dds" />
+    <Hotkey value="" />
+    <HotkeyAlias value="" />
+    <UseHotkeyLabel value="0" />
+    <TooltipAppender Validator="HasPregameSuppressionMinionBehavior" Text="Button/TooltipAppender/LockedUntilMinionsSpawn" />
+    <TooltipAppender Validator="HasAbathurCombatStyleSurvivalInstincts" Face="AbathurLocustStrainSurvivalInstinctsTalent" />
+    <TooltipAppender Validator="HasAbathurCombatStyleAssaultStrain" Face="AbathurLocustStrainAssaultStrainTalent" />
+    <TooltipAppender Validator="HasAbathurCombatStyleBombardStrain" Face="AbathurLocustStrainBombardStrainTalent" />
+    <TooltipAppender />
+  </CButton>
+  <CButton id="AbathurDeepTunnel" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_Abathur_Mount.dds" />
+    <TooltipAppender Validator="HasPregameSuppressionBehavior" Text="Button/TooltipAppender/LockedUntilGameStarts" />
+  </CButton>
+  <CButton id="AbathurSymbioteCancel" parent="StormButtonParent">
+    <Icon value="Assets\Textures\hud_btn_bg_ability_cancel.dds" />
+  </CButton>
+  <CButton id="AbathurSymbioteStab" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_stab.dds" />
+    <TooltipAppender Validator="HasAbathurMasteryNeedlespine" Face="AbathurSymbioteNeedlespineTalent" />
+    <TooltipAppender Validator="HasAbathurMasterySpatialEfficiency" Face="AbathurSymbioteSpatialEfficiencyTalent" />
+  </CButton>
+  <CButton id="AbathurSymbioteSpikeBurst" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_spikeburst.dds" />
+    <TooltipAppender Validator="HasAbathurMasteryPressurizedGlands" Face="AbathurSymbiotePressurizedGlandsTalent" />
+    <TooltipAppender Validator="AbathurHasSymbioteSpikeBurstSomaTransference" Face="AbathurSymbioteSpikeBurstSomaTransferenceTalent" />
+    <TooltipAppender Validator="HasAbathurMasteryEnvenomedSpikes" Face="AbathurSymbioteEnvenomedSpikesTalent" />
+  </CButton>
+  <CButton id="AbathurSymbioteCarapace" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_carapace.dds" />
+    <TooltipAppender Validator="AbathurHasReinforcedCarapace" Face="AbathurReinforcedCarapaceTalent" />
+    <TooltipAppender Validator="AbathurHasSymbioteCarapaceSustainedCarapace" Face="AbathurSymbioteCarapaceSustainedCarapaceTalent" />
+    <TooltipAppender Validator="AbathurHasSymbioteCarapaceNetworkedCarapace" Face="AbathurSymbioteCarapaceNetworkedCarapaceTalent" />
+    <TooltipAppender Validator="HasAbathurMasteryAdrenalineBoost" Face="AbathurSymbioteAdrenalineBoostTalent" />
+  </CButton>
+  <CButton id="AbathurMonstrosityDeepTunnel" parent="StormButtonParent">
+    <TooltipAppender Validator="HasPregameSuppressionBehavior" Text="Button/TooltipAppender/LockedUntilGameStarts" />
+    <Icon value="Assets\Textures\storm_ui_icon_Abathur_Mount.dds" />
+    <HotkeyAlias value="AbathurDeepTunnel" />
+  </CButton>
+  <CButton id="AbathurSymbiotePressurizedGlandsTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_spikeburst.dds" />
+  </CButton>
+  <CButton id="AbathurToxicNestEnvenomedNestTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_toxicnest.dds" />
+  </CButton>
+  <CButton id="AbathurLocustStrainSurvivalInstinctsTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_spawnlocust.dds" />
+  </CButton>
+  <CButton id="AbathurUltimateEvolution" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_abathur_ultimateevolution.dds" />
+    <TooltipAppender Validator="AbathurHasVolatileMutation" Face="AbathurVolatileMutationTalent" />
+    <TooltipAppender Validator="AbathurHasUltimateEvolutionEvolutionaryLink" Face="AbathurUltimateEvolutionEvolutionaryLinkTalent" />
+  </CButton>
+  <CButton id="AlarakDeadlyCharge" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_recklesscharge.dds" />
+    <TooltipVitalOverrideText index="Energy" value="Abil/AlarakDeadlyChargeButtonVitalCostOverride" />
+    <TooltipCooldownOverrideText value="Abil/AlarakDeadlyChargeButtonCooldownCostOverride" />
+  </CButton>
+  <CButton id="AlarakSadism" parent="StormButtonParentTrait">
+    <TooltipAppender Validator="AlarakHasShowofForceTalent" Face="AlarakShowofForce" />
+    <TooltipAppender Validator="AlarakHasRuthlessMomentumTalent" Face="AlarakRuthlessMomentum" />
+    <TooltipAppender Validator="AlarakHasBladeoftheHighlordTalent" Face="AlarakBladeoftheHighlord" />
+    <TooltipAppender Validator="AlarakHasPureMaliceTalent" Face="AlarakPureMalice" />
+    <TooltipAppender Validator="AlarakHasMockingStrikesTalent" Face="AlarakMockingStrikes" />
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_sadism.dds" />
+  </CButton>
+  <CButton id="AlarakExtendedLightning" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_lightningsurge.dds" />
+  </CButton>
+  <CButton id="AlarakLightningSurgeLightningBarrage" parent="StormButtonParent">
+    <TooltipAppender Validator="AlarakHasSustainingPowerTalent" Face="AlarakSustainingPower" />
+    <TooltipAppender Validator="AlarakHasExtendedLightningTalent" Face="AlarakExtendedLightning" />
+    <TooltipAppender Validator="AlarakHasNegativelyChargedTalent" Face="AlarakNegativelyCharged" />
+    <TooltipAppender Validator="AlarakHasLightningBarrageTalent" Face="AlarakLightningBarrage" />
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_lightningsurge.dds" />
+    <HotkeyAlias value="AlarakLightningSurge" />
+  </CButton>
+  <CButton id="AlarakLightningBarrage" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_lightningsurge.dds" />
+  </CButton>
+  <CButton id="AlarakRiteofRakShir" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_sadism_b.dds" />
+  </CButton>
+  <CButton id="AlarakUnleashDeadlyCharge" parent="StormButtonParent">
+    <TooltipFlags index="ShowCooldown" value="0" />
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_recklesscharge.dds" />
+    <HotkeyAlias value="AlarakLightningSurge" />
+  </CButton>
+  <CButton id="AlarakLightningSurgeLightningBarrage" parent="StormButtonParent">
+    <TooltipAppender Validator="AlarakHasSustainingPowerTalent" Face="AlarakSustainingPower" />
+    <TooltipAppender Validator="AlarakHasExtendedLightningTalent" Face="AlarakExtendedLightning" />
+    <TooltipAppender Validator="AlarakHasNegativelyChargedTalent" Face="AlarakNegativelyCharged" />
+    <TooltipAppender Validator="AlarakHasLightningBarrageTalent" Face="AlarakLightningBarrage" />
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_lightningsurge.dds" />
+    <HotkeyAlias value="AlarakLightningSurge" />
+  </CButton>
+  <CButton id="AlarakShowofForce" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_sadism.dds" />
+  </CButton>
+  <CButton id="AlarakDeadlyCharge2ndHeroicSadism" parent="StormButtonParentTrait">
+    <TooltipAppender Validator="AlarakHasRuthlessMomentumTalent" Face="AlarakRuthlessMomentum" />
+    <TooltipAppender Validator="AlarakHasShowofForceTalent" Face="AlarakShowofForce" />
+    <TooltipAppender Validator="AlarakHasBladeoftheHighlordTalent" Face="AlarakBladeoftheHighlord" />
+    <TooltipAppender Validator="AlarakHasPureMaliceTalent" Face="AlarakPureMalice" />
+    <TooltipAppender Validator="AlarakHasMockingStrikesTalent" Face="AlarakMockingStrikes" />
+    <TooltipCooldownOverrideText value="Abil/AlarakDeadlyChargeItemButtonCooldownCostOverride" />
+    <TooltipVitalOverrideText index="Energy" value="Abil/AlarakDeadlyChargeItemButtonVitalCostOverride" />
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_recklesscharge.dds" />
+  </CButton>
+  <CButton id="AlarakCounterStrike2ndHeroicSadism" parent="StormButtonParentTrait">
+    <TooltipAppender Validator="AlarakHasShowofForceTalent" Face="AlarakShowofForce" />
+    <TooltipAppender Validator="AlarakHasRuthlessMomentumTalent" Face="AlarakRuthlessMomentum" />
+    <TooltipAppender Validator="AlarakHasBladeoftheHighlordTalent" Face="AlarakBladeoftheHighlord" />
+    <TooltipAppender Validator="AlarakHasPureMaliceTalent" Face="AlarakPureMalice" />
+    <TooltipAppender Validator="AlarakHasMockingStrikesTalent" Face="AlarakMockingStrikes" />
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_counterstrike.dds" />
+  </CButton>
+  <CButton id="AlarakMockingStrikes" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_talent_autoattack_cooldown.dds" />
+  </CButton>
+  <CButton id="AlexstraszaGiftOfLife" parent="StormButtonParent">
+    <TooltipVitalName index="Life" value="UI/Tooltip/Abil/CurrentLife" />
+    <TooltipVitalName index="Shields" value="UI/Tooltip/Abil/Life" />
+    <TooltipVitalOverrideText index="Life" value="UI/Tooltip/Abil/AlexstraszaGiftOfLifeVitalCostOverride" />
+    <Icon value="Assets\Textures\storm_ui_icon_alexstrasza_gift_of_life.dds" />
+    <TooltipAppender Validator="AlexstraszaLiveAndLetLiveGiftOfLifeHasTalent" Face="AlexstraszaLiveAndLetLiveGiftOfLife" />
+    <TooltipAppender Validator="AlexstraszaLifeblossomGiftOfLifeHasTalent" Face="AlexstraszaLifeblossomeGiftOfLife" />
+    <TooltipAppender Validator="AlexstraszaToughLoveHasTalent" Face="AlexstraszaToughLoveGiftOfLife" />
+  </CButton>
+  <CButton id="AlexstraszaAbundance" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_alexstrasza_abundance.dds" />
+    <TooltipAppender Validator="AlexstraszaCircleOfLifeAbundanceHasTalent" Face="AlexstraszaCircleOfLifeAbundance" />
+    <TooltipAppender Validator="AlexstraszaSurgeOfVitalityAbundanceHasTalent" Face="AlexstraszaSurgeOfVitalityAbundance" />
+    <TooltipAppender Validator="AlexstraszaVerdantFlourishHasTalent" Face="AlexstraszaVerdantFlourishAbundance" />
+    <TooltipAppender Validator="AlexstraszaOverprotectiveHasTalent" Face="AlexstraszaOverprotectiveAbundance" />
+  </CButton>
+  <CButton id="AlexstraszaCleansingFlameDragonqueen" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_alexstrasza_cleansing_flame.dds" />
+    <HotkeyAlias value="AlexstraszaCleansingFlame" />
+    <TooltipAppender Validator="AlexstraszaOnRubyWingsCleansingFlameHasTalent" Face="AlexstraszaOnRubyWingsCleansingFlame" />
+  </CButton>
+  <CButton id="GuldanLifeTapFree" parent="StormButtonParent">
+    <Tooltip value="Button/Tooltip/GuldanLifeTap" />
+    <TooltipAppender Validator="GuldanHasLifeTapDarknessWithinTalent" Text="Button/Tooltip/GuldanLifeTapDarknessWithinDamageTrackingAppender" />
+    <TooltipAppender Validator="GuldanHasLifeTapImprovedLifeTapTalent" Face="GuldanLifeTapImprovedLifeTap" />
+    <TooltipAppender Validator="GuldanHasLifeTapHungerforPowerTalent" Face="GuldanLifeTapHungerforPower" />
+    <TooltipAppender Validator="GuldanHasDarkBargainTalent" Face="GuldanDarkBargain" />
+    <TooltipAppender Validator="GuldanHasLifeTapDarknessWithinTalent" Face="GuldanLifeTapDarknessWithin" />
+    <Icon value="Assets\Textures\storm_ui_icon_guldan_lifetap.dds" />
+  </CButton>
+  <CButton id="GuldanLifeTap" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_guldan_lifetap.dds" />
+    <TooltipAppender Validator="GuldanHasLifeTapDarknessWithinTalent" Text="Button/Tooltip/GuldanLifeTapDarknessWithinDamageTrackingAppender" />
+    <TooltipAppender Validator="GuldanHasLifeTapImprovedLifeTapTalent" Face="GuldanLifeTapImprovedLifeTap" />
+    <TooltipAppender Validator="GuldanHasLifeTapHungerforPowerTalent" Face="GuldanLifeTapHungerforPower" />
+    <TooltipAppender Validator="GuldanHasDarkBargainTalent" Face="GuldanDarkBargain" />
+    <TooltipAppender Validator="GuldanHasLifeTapDarknessWithinTalent" Face="GuldanLifeTapDarknessWithin" />
+    <TooltipVitalName index="Life" value="UI/Tooltip/Abil/Life" />
+    <TooltipVitalOverrideText index="Life" value="UI/Tooltip/Abil/GuldanLifeTapVitalCostOverride" />
+  </CButton>
+  <CButton id="BarbarianSeismicSlam" parent="StormButtonParentFury">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_seismicslam.dds" />
+    <TooltipAppender Validator="HasBarbarianMasteryFuriousBlowSeismicSlam" Face="BarbarianSeismicSlamFuriousBlowTalent" />
+    <TooltipAppender Validator="HasBarbarianMasteryShatteredGroundSeismicSlam" Face="BarbarianSeismicSlamShatteredGroundTalent" />
+    <TooltipAppender Validator="BarbarianHasGiantSlammerTalent" Face="BarbarianGiantSlammer" />
+  </CButton>
+  <CButton id="KelThuzadMasterOfTheColdDark" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_kel'thuzad_powerofthecolddark.dds" />
+    <TooltipAppender Validator="KelThuzadHasPhylacteryOfKelThuzad" Face="KelThuzadPhylactery" />
+    <TooltipAppender Validator="KelThuzadHasChillingTouch" Face="KelThuzadChillingTouch" />
+    <TooltipAppender Validator="KelThuzadHasHungeringCold" Face="KelThuzadHungeringCold" />
+    <TooltipAppender Validator="KelThuzadHasPowerOfIcecrown" Face="KelThuzadPowerOfIcecrown" />
+  </CButton>
+  <CButton id="SamuroIllusionMaster" parent="StormButtonParent">
+    <TooltipAppender Validator="SamuroHasThreeBladeStyle" Face="SamuroThreeBladeStyleTalent" />
+    <Icon value="Assets\Textures\storm_ui_icon_samuro_illusiondancer.dds" />
+    <Tooltip value="Button/Tooltip/SamuroIllusionMasterTalent" />
+    <SimpleDisplayText value="Button/SimpleDisplayText/SamuroIllusionMasterTalent" />
+    <TooltipCooldownOverrideText value="SamuroIllusionMaster" />
+  </CButton>
+  <CButton id="SamuroAdvancingStrikes" parent="StormButtonParent">
+    <TooltipAppender Validator="SamuroHasDeflectionTalent" Face="SamuroDeflectionTalent" />
+    <TooltipAppender Validator="SamuroHasPressTheAttack" Face="SamuroPressTheAttack" />
+    <TooltipAppender Validator="SamuroHasBlademastersPursuit" Face="SamuroBlademastersPursuitTalent" />
+    <Icon value="Assets\Textures\storm_ui_icon_samuro_flowingstrikes.dds" />
+    <HotkeyAlias value="SamuroMirrorImage" />
+    <TooltipCooldownOverrideText value="SamuroImageTransmission" />
+  </CButton>
+  <CButton id="MuradinSecondWindStoneformTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_Muradin_SecondWind.dds" />
+  </CButton>
+  <CButton id="GarroshArmorUpBodyCheck" parent="StormButtonParent">
+    <TooltipAppender Validator="GarroshHasBodyCheckBruteForceTalent" Face="GarroshBodyCheckBruteForce" />
+    <TooltipAppender Validator="GarroshHasArmorUpInnerRageTalent" Face="GarroshArmorUpInnerRage" />
+    <TooltipCooldownOverrideText value="GarroshBodyCheckCooldown" />
+    <Icon value="Assets\Textures\storm_ui_icon_garrosh_slam.dds" />
+  </CButton>
+  <CButton id="GarroshArmorUpInnerRage" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_garrosh_slam.dds" />
+  </CButton>
+  <CButton id="AnaEyeOfHorusActivate" parent="StormButtonParent">
+    <TooltipAppender Validator="AnaHasEyeOfHorusDeadeyeTalent" Face="AnaEyeOfHorusDeadeye" />
+    <Icon value="Assets\Textures\storm_ui_icon_ana_overwatch.dds" />
+  </CButton>
+  <CButton id="AnaEyeOfHorusHighPoweredRound" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_ana_overwatch.dds" />
+    <HotkeyAlias value="AnaEyeOfHorusActivate" />
+  </CButton>
+  <CButton id="BarbarianBattleRage" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_talent_mercenarylord.dds" />
+  </CButton>
+  <CButton id="DehakaEssenceCollection" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_dehaka_essencecollection.dds" />
+    <TooltipAppender Validator="DehakaHasEssenceCollectionTissueRegenerationTalent" Face="DehakaEssenceCollectionTalentTissueRegeneration" />
+    <TooltipAppender Validator="DehakaHasEssenceCollectionTalentHeroStalkerTalent" Face="DehakaEssenceCollectionTalentHeroStalker" />
+    <TooltipAppender Validator="DehakaEssenceCollectionOneWhoCollects" Face="DehakaEssenceCollectionOneWhoCollectsTalent" />
+    <TooltipAppender Validator="DehakaHasPrimalRageTalent" Face="DehakaPrimalRage" />
+    <TooltipAppender Validator="DehakaHasEssenceClawsTalent" Face="DehakaEssenceClaws" />
+    <TooltipCooldownOverrideText value="Button/Tooltip/DehakaEssenceCollectionCooldownOverride" />
+  </CButton>
+  <CButton id="TassadarOracleTargeted" parent="StormButtonParentTrait">
+    <Icon value="Assets\Textures\storm_ui_icon_tassadar_oracle.dds" />
+  </CButton>
+  <CButton id="ThrallAncestralWrath" parent="StormButtonParent">
+    <TooltipFlags index="ShowCooldown" value="0" />
+    <Icon value="Assets\Textures\storm_ui_icon_talent_bloodforblood.dds" />
+    <HotkeyAlias value="GenericSpellShieldItemDisabled" />
+  </CButton>
+  <CButton id="GallKeepMoving" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_gall_shove.dds" />
+  </CButton>
+  <CButton id="AnubarakLegionOfBeetlesTalent" parent="StormButtonParent">
+    <TooltipVitalName index="Energy" value="" />
+    <Icon value="Assets\Textures\storm_ui_icon_Anubarak_ScarabHost.dds" />
+  </CButton>
+  <CButton id="DVaLiquidCooling" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_dva_mechmode_b.dds" />
+  </CButton>
+  <CButton id="DVaMechBoosters" parent="StormButtonParent">
+    <TooltipAppender Validator="DVaBoostersRushdownHasTalent" Face="DVaBoostersRushdown" />
+    <TooltipAppender Validator="DVaBoostersComingThroughHasTalent" Face="DVaBoostersComingThrough" />
+    <TooltipAppender Validator="DVaBoostersHitTheNitrousHasTalent" Face="DVaBoostersHitTheNitrous" />
+    <TooltipAppender Validator="DvaHasGetOnThePointTalent" Face="DvaGetOnThePoint" />
+    <TooltipAppender Validator="DVaHasInForTheKillTalent" Face="DVaInForTheKill" />
+    <TooltipCooldownOverrideText value="Button/OverrideText/DVaMechBoosters" />
+    <Icon value="Assets\Textures\storm_ui_icon_dva_boosters.dds" />
+  </CButton>
+  <CButton id="DVaBunnyHopOn" parent="StormButtonParent">
+    <TooltipAppender Validator="DVaBunnyHopStopAndPopHasTalent" Face="DVaBunnyHopStopAndPop" />
+    <TooltipCooldownOverrideText value="Button/OverrideText/DVaBunnyHop" />
+    <Icon value="Assets\Textures\storm_ui_icon_dva_bunnyhop.dds" />
+  </CButton>
+  <CButton id="DVaBunnyHopOff" parent="StormButtonParent">
+    <Icon value="Assets\Textures\hud_btn_bg_ability_cancel.dds" />
+    <SimpleDisplayText value="Button/Tooltip/DVaBunnyHopOff" />
+  </CButton>
+  <CButton id="AmazonWarTravelerSummonMount" parent="SummonMount">
+    <TooltipAppender Validator="AmazonAvoidanceWarTravelerHasTalent" Face="AmazonAvoidanceWarTraveler" />
+  </CButton>
+  <CButton id="AmazonAvoidance" parent="StormButtonParentTrait">
+    <Icon value="Assets\Textures\storm_ui_icon_cassia_avoidance_b.dds" />
+    <TooltipAppender Validator="AmazonAvoidancePlateoftheWhaleHasTalent" Face="AmazonAvoidancePlateoftheWhale" />
+    <TooltipAppender Validator="AmazonAvoidanceSurgeOfLightHasTalentAndDoesNotHaveAbilityReadyBuff" Text="Button/TooltipAppender/AmazonAvoidanceSurgeOfLightCharging" Face="AmazonAvoidanceSurgeOfLight" />
+    <TooltipAppender Validator="AmazonAvoidanceSurgeOfLightHasTalentAndHasAbilityReadyBuff" Text="Button/TooltipAppender/AmazonAvoidanceSurgeOfLightReady" Face="AmazonAvoidanceSurgeOfLight" />
+    <TooltipAppender Validator="AmazonAvoidanceWarTravelerHasTalent" Face="AmazonAvoidanceWarTraveler" />
+    <TooltipAppender Validator="AmazonHasFendGlovesOfAlacrityTalent" Face="AmazonFendGlovesOfAlacrity" />
+    <TooltipAppender Validator="AmazonTitansRevengeHasTalent" Face="AmazonTitansRevenge" />
+    <TooltipAppender Validator="Amazon-HasAvoidanceRockstopperTalent" Face="AmazonAvoidanceRockstopper" />
+  </CButton>
+  <CButton id="AmazonAvoidanceSurgeOfLight" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_cassia_avoidance_b.dds" />
+  </CButton>
+  <CButton id="DeathwingMoltenFlame" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_deathwing_molten_flame.dds" />
+    <TooltipAppender Validator="DeathwingHasInfernusTalent" Face="DeathwingInfernus" />
+    <TooltipAppender Validator="DeathwingHasWickedInfernoTalent" Face="DeathwingWickedInferno" />
+    <TooltipAppender Validator="DeathwingHasConflagrationTalent" Face="DeathwingConflagration" />
+    <TooltipVitalName index="Energy" value="UI/Tooltip/Abil/Energy" />
+    <TooltipVitalOverrideText index="Energy" value="Deathwing/ManaCostOverride" />
+  </CButton>
+  <CButton id="DeathwingFormSwitch" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_deathwing_deathdrop.dds" />
+  </CButton>
+  <CButton id="DeathwingDragonSoul" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_deathwing_heat_wave.dds" />
+  </CButton>
+  <CButton id="DeathwingLavaBurst" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_deathwing_lava_burst.dds" />
+    <TooltipVitalName index="Energy" value="UI/Tooltip/Abil/Energy" />
+    <TooltipAppender Validator="DeathwingHasDragonSoulTalent" Face="DeathwingDragonSoul" />
+    <TooltipAppender Validator="DeathwingHasHeatWaveTalent" Face="DeathwingHeatWave" />
+  </CButton>
+  <CButton id="FenixShieldCapacitor" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_fenix_shield_1.dds" />
+    <TooltipAppender Validator="FenixHasEmergencyProtocol" Face="FenixEmergencyProtocol" />
+    <TooltipAppender Validator="FenixHasDivertPowerWeapons" Face="FenixDivertPowerWeapons" />
+    <TooltipAppender Validator="FenixHasDampeningShield" Face="FenixDampeningField" />
+    <TooltipAppender Validator="FenixHasRapidRecharge" Face="FenixRapidRecharge" />
+    <TooltipAppender Validator="FenixHasAuxiliaryShields" Face="FenixAuxiliaryShields" />
+    <TooltipAppender Validator="FenixHasPhotonicWeaponry" Face="FenixPhotonicWeaponry" />
+    <TooltipAppender Validator="FenixHasUnconqueredSpirit" Face="FenixUnconqueredSpirit" />
+  </CButton>
+  <CButton id="JainaImprovedIceBlockHotbar" parent="StormButtonParent">
+    <TooltipCooldownOverrideText value="Improved Ice Block Cooldown" />
+    <Icon value="Assets\Textures\storm_ui_icon_talent_iceblock.dds" />
+    <HotkeyAlias value="GenericRewindHotbar" />
+    <TooltipAppender Validator="JainaHasLT15000FrostbiteTokens" Text="Button/TooltipAppender/GenericLockedUntilQuestComplete" />
+  </CButton>
+  <CButton id="JainaImprovedIceBlockCancel" parent="StormButtonParent">
+    <Icon value="Assets\Textures\hud_btn_bg_ability_cancel.dds" />
+  </CButton>
+  <CButton id="LucioCrossfadeActivateHealingBoost" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_Lucio_CrossfadeHealing.dds" />
+    <TooltipAppender Validator="LucioHasCrossfadePartyMixTalent" Face="LucioCrossfadePartyMix" />
+    <TooltipAppender Validator="LucioHasReverseAmpTalent" Face="LucioReverseAmp" />
+    <TooltipAppender Validator="LucioHasAllTogetherTalent" Face="LucioCrossfadeAllTogether" />
+    <TooltipAppender Validator="LucioHasPassiveHousePartyTalent" Face="LucioPassiveHouseParty" />
+    <TooltipAppender Validator="LucioHasItemSummerAnthemTalent" Face="LucioItemSummerAnthem" />
+  </CButton>
+  <CButton id="LucioWallRide" parent="StormButtonParent">
+    <TooltipFlags index="ShowCooldown" value="0" />
+    <Icon value="Assets\Textures\storm_ui_icon_lucio_mount.dds" />
+    <TooltipAppender Validator="LucioHasWallRideAccelerandoTalent" Face="LucioWallRideAccelerando" />
+    <TooltipAppender Validator="LucioHasPassiveSmoothMovesTalent" Face="LucioPassiveSmoothMoves" />
+    <TooltipAppender Validator="LucioHasWallRideSlipTalent" Face="LucioWallRideSlip" />
+    <hdp-IsActive value="0" />
+  </CButton>
+  <CButton id="LostVikingSelectOlaf" parent="StormButtonParent">
+    <TooltipAppender Validator="LostVikingsHasOlafTheStout" Face="LostVikingsOlafTheStoutTalent" />
+    <TooltipAppender Validator="LostVikingsHasHunkaBurningOlaf" Face="LostVikingsHunkaBurningOlafTalent" />
+    <TooltipAppender Validator="LostVikingsHasLargeAndInCharge" Face="LostVikingsLargeAndInChargeTalent" />
+    <Icon value="Assets\Textures\storm_ui_icon_lostvikings_selectolaf.dds" />
+    <TooltipFlags index="ShowHotkey" value="0" />
+    <TooltipFlags index="ShowCooldown" value="0" />
+    <hdp-IsActive value="1" />
+  </CButton>
+  <CButton id="MeiOWAcclimation" parent="StormButtonParent">
+    <TooltipCooldownOverrideText value="Button/TooltipCooldownOverride/MeiOWAcclimation" />
+    <Icon value="Assets\Textures\storm_ui_icon_jaina_frostarmor.dds" />
+  </CButton>
+  <CButton id="MaievUmbralBindPrimed" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_maiev_umbra_2.dds" />
+    <Tooltip value="Button/Tooltip/MaievUmbralBind" />
+    <TooltipAppender Validator="MaievHasUmbralBindBondsOfJusticeTalent" Face="MaievUmbralBindBondsOfJustice" />
+    <TooltipAppender Validator="MaievHasUmbralBindPursuitOfVengeanceTalent" Face="MaievUmbralBindPursuitOfVengeance" />
+    <TooltipAppender Validator="MaievHasUmbralBindBondsOfCorruptionTalent" Face="MaievUmbralBindBondsOfCorruption" />
+    <TooltipAppender Validator="MaievHasUmbralBindChainGangTalent" Face="MaievUmbralBindChainGang" />
+    <TooltipAppender Validator="MaievHasUmbralBindCruelChainTalent" Face="MaievUmbralBindCruelChain" />
+    <TooltipCooldownOverrideText value="Button/CooldownOverride/MaievUmbralBindPrimed" />
+  </CButton>
+  <CButton id="MonkIronFists" parent="StormButtonParentTrait">
+    <Icon value="Assets\Textures\storm_ui_icon_monk_trait_ironfist.dds" />
+    <AlertTooltip value="Button/Tooltip/MonkIronFistsTalent" />
+    <TooltipAppender Validator="MonkHasFistsofLegendTalent" Face="MonkTranscendenceTalent" />
+    <TooltipAppender Validator="MonkHasFistsofLegendTalent" Face="MonkInsightTalent" />
+    <TooltipAppender Validator="MonkHasFistsofLegendTalent" Face="MonkFistsofLegend" />
+  </CButton>
+  <CButton id="MonkIronFists" parent="StormButtonParentTrait">
+    <hdp-ParentAbilLinkArray abilityId=":PASSIVE:" buttonId="MonkBlankTrait" abilityType="Trait" />
+  </CButton>
+  <CButton id="NecromancerBoneArmor" parent="StormButtonParent">
+    <TooltipAppender Validator="HasNecromancerTalentShade" Face="NecromancerBoneArmorShade" />
+    <TooltipAppender Validator="HasNecromancerTalentBacklash" Face="NecromancerBoneArmorBacklash" />
+    <TooltipAppender Validator="HasNecromancerTalentShackler" Face="NecromancerBoneArmorShackler" />
+    <TooltipAppender Validator="HasNecromancerTalentBoneArmorWallOfBones" Face="NecromancerWallOfBonesBoneArmorTalent" />
+    <TooltipCooldownOverrideText value="Necromancer/BoneArmor/CooldownOverride" />
+    <Icon value="Assets\Textures\storm_ui_icon_Necromancer_BoneArmor.dds" />
+  </CButton>
+  <CButton id="NecromancerBoneArmorAbilBacklash" parent="NecromancerBoneArmor">
+    <Icon value="Assets\Textures\storm_ui_icon_Necromancer_BoneArmor_B.dds" />
+    <TooltipCooldownOverrideText value="" />
+  </CButton>
+  <CButton id="NecromancerBoneArmorAbilShackler" parent="NecromancerBoneArmor">
+    <Icon value="Assets\Textures\storm_ui_icon_Necromancer_BoneArmor_C.dds" />
+    <TooltipCooldownOverrideText value="" />
+  </CButton>
+  <CButton id="RagnarosCatchingFireTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_ragnaros_catchingfire.dds" />
+    <TooltipFlags index="ShowCooldown" value="0" />
+  </CButton>
+  <CButton id="RagnarosCatchingFireItem" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_ragnaros_catchingfire.dds" />
+    <TooltipAppender Validator="RagnarosHasCatchingFireAndNotComplete" Text="Button/TooltipAppender/GenericLockedUntilQuestComplete" />
+  </CButton>
+  <CButton id="JunkratDirtyTrickster" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_junkrat_bomb_pack.dds" />
+    <HotkeyAlias value="JunkratTotalMayhem" />
+    <UseHotkeyLabel value="0" />
+  </CButton>
+  <CButton id="AnubarakScarabHostToggleLegionOfBeetlesOff" parent="StormButtonParentTrait">
+    <Icon value="Assets\Textures\hud_btn_bg_ability_cancel.dds" />
+  </CButton>
+  <CButton id="AnubarakScarabHostToggleLegionOfBeetlesOn" parent="StormButtonParentTrait">
+    <Icon value="Assets\Textures\storm_ui_icon_Anubarak_ScarabHost.dds" />
+  </CButton>
+  <CButton id="BarbarianFuryShotOfFuryTalent" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_sonya_fury.dds" />
+  </CButton>
+  <CButton id="TassadarArchon" parent="StormButtonParent">
+    <Name value="Button/Name/TassadarArchonSelectButton" />
+    <TooltipAppender Validator="TassadarHasTwilightArchon" Face="TassadarArchonTwilightArchonTalent" />
+    <Icon value="Assets\Textures\storm_ui_icon_tassadar_archon.dds" />
+    <AlertTooltip value="Button/Tooltip/TassadarArchonSelectButton" />
+  </CButton>
+  <CButton id="VarianTwinBladesOfFury" parent="StormButtonParent">
+    <TooltipAppender Validator="VarianTwinBladesOfFuryHasFrenzyTalent" Face="VarianTwinBladesOfFuryFrenzy" />
+    <Icon value="Assets\Textures\storm_ui_icon_varian_twinbladesoffury.dds" />
+  </CButton>
+  <CButton id="AlarakMightOfTheHighlord" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_alarak_sadism_a.dds" />
+  </CButton>
+  <CButton id="WhitemaneInquisitionCancel" parent="StormButtonParent">
+    <Icon value="Assets\Textures\hud_btn_bg_ability_cancel.dds" />
+  </CButton>
+  <CButton id="VarianLionsFangLionheart" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_varian_lionsfang.dds" />
+  </CButton>
+  <CButton id="AlexstraszaPacify" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_alexstrasza_pacify.dds" />
+  </CButton>
+  <CButton id="AnduinVariansLegacy" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_anduin_varians_legacy.dds" />
+  </CButton>
+  <CButton id="DeathwingSkyfall" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_deathwing_skyfall.dds" />
+  </CButton>
+  <CButton id="AnaShrikeVampiricRounds" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_ana_shrike.dds" />
+  </CButton>
+  <CButton id="ZeratulMightOfTheNerazimPassive" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_zeratul_mightofnerazim.dds" />
+    <HotkeyAlias value="ZeratulShadowAssault" />
+    <TooltipCooldownOverrideText value="Abil/ZeratulMightOfTheNerazimCooldownOverride" />
+    <TooltipFlags index="ShowHotkey" value="0" />
+    <UseHotkeyLabel value="0" />
+    <TooltipAppender Validator="ZeratulHasTwilightFallsTalent" Face="ZeratulTwilightFalls" />
+    <TooltipVitalOverrideText index="Energy" value="Abil/ZeratulMightoftheNerazimOverride" />
+    <Tooltip value="Button/Tooltip/ZeratulMightOfTheNerazimTalent" />
+    <SimpleDisplayText value="Button/SimpleDisplayText/ZeratulMightOfTheNerazimTalent" />
+  </CButton>
+  <CButton id="RagnarosSulfurasSmash" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_ragnaros_sulfurassmash.dds" />
+    <TooltipCooldownOverrideText value="Button/CooldownOverride/RagnarosSulfurasSmash" />
+    <TooltipAppender Validator="RagnarosHasSulfurasSmashFlamesOfSulfuron" Face="RagnarosSulfurasSmashFlamesOfSulfuron" />
+  </CButton>
+</Button>

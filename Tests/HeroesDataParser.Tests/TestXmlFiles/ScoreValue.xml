@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ScoreValue>
+  <CScoreValue default="1">
+    <Name value="ScoreValue/Name/##id##"/>
+    <PublishName value="ScoreValue/PublishName/##id##"/>
+    <Tooltip value="ScoreValue/Tooltip/##id##"/>
+  </CScoreValue>
+  <CScoreValueCustom default="1" id="BaseScoreValue">
+  </CScoreValueCustom>
+  <CScoreValueCustom default="1" id="StatScoreValue" parent="BaseScoreValue">
+  </CScoreValueCustom>
+  <CScoreValueCustom default="1" id="EndOfMatchAwardBooleanValue" parent="StatScoreValue">
+    <Flags index="TriggerAchievement" value="1" />
+    <Flags index="ProfileStat" value="1" />
+    <Flags index="EndOfMatchAward" value="1" />
+  </CScoreValueCustom>
+  <CScoreValueCustom id="EndOfMatchAwardMostXPContributionBoolean" parent="EndOfMatchAwardBooleanValue">
+    <Icon value="Assets\Textures\storm_ui_scorescreen_mvp_experienced_%team%.dds" />
+    <UniqueTag value="AwXP" />
+  </CScoreValueCustom>
+  <CScoreValueCustom id="EndOfMatchAwardMostCurseDamageDoneBoolean" parent="EndOfMatchAwardBooleanValue">
+    <Icon value="Assets\Textures\storm_ui_scorescreen_mvp_MasterOfTheCurse_%team%.dds" />
+    <UniqueTag value="AwCD" />
+  </CScoreValueCustom>
+  <CScoreValueCustom id="EndOfMatchAwardMostDragonShrinesCapturedBoolean" parent="EndOfMatchAwardBooleanValue">
+    <Icon value="Assets\Textures\storm_ui_scorescreen_mvp_shriner_%team%.dds" />
+    <UniqueTag value="AwDS" />
+  </CScoreValueCustom>
+  <CScoreValueCustom id="EndOfMatchAwardMostInterruptedCageUnlocksBoolean" parent="EndOfMatchAwardBooleanValue">
+    <Icon value="Assets\Textures\storm_ui_scorescreen_mvp_loyaldefender_wcav_%team%.dds" />
+    <UniqueTag value="AwCU" />
+  </CScoreValueCustom>
+  <CScoreValueCustom id="EndOfMatchAwardHighestKillStreakBoolean" parent="EndOfMatchAwardBooleanValue">
+    <Icon value="Assets\Textures\storm_ui_scorescreen_mvp_skull_%team%.dds" />
+    <UniqueTag value="AwKS" />
+    <hdp-MvpIcon>
+      <Value value="Assets\Textures\storm_ui_mvp_icons_rewards_dominator.dds" />
+      <Name value="dominator" />
+    </hdp-MvpIcon>
+  </CScoreValueCustom>
+  <CScoreValueCustom id="EndOfMatchAwardMostAltarDamageDone" parent="EndOfMatchAwardBooleanValue">
+    <Icon value="Assets\Textures\storm_ui_scorescreen_mvp_cannoneer_%team%.dds" />
+    <UniqueTag value="AwAD" />
+    <hdp-Id value="MostAltarDamage" />
+  </CScoreValueCustom>
+</ScoreValue>

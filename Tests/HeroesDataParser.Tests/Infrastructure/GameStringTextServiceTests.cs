@@ -1,0 +1,421 @@
+﻿namespace HeroesDataParser.Infrastructure.Tests;
+
+[TestClass]
+public class GameStringTextServiceTests
+{
+    private readonly ILogger<GameStringTextService> _logger;
+    private readonly IOptions<RootOptions> _options;
+    private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
+
+    private readonly HeroesXmlLoader _heroesXmlLoader;
+
+    public GameStringTextServiceTests()
+    {
+        _logger = Substitute.For<ILogger<GameStringTextService>>();
+        _options = Substitute.For<IOptions<RootOptions>>();
+        _heroesXmlLoaderService = Substitute.For<IHeroesXmlLoaderService>();
+
+        _heroesXmlLoader = TestHeroesXmlLoader.GetArrangedHeroesXmlLoader();
+        _heroesXmlLoaderService.HeroesXmlLoader.Returns(_heroesXmlLoader);
+    }
+
+    [TestMethod]
+    public void GetGameStringText_GetFromTextAndNoFontStyleExtraction_GetsTooltipDescription()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            GameStringText = new GameStringTextOptions()
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontStylesVars = false,
+            },
+        });
+
+        GameStringTextService tooltipDescriptionService = new(_logger, _options, _heroesXmlLoaderService);
+
+        // act
+        GameStringText result = tooltipDescriptionService.GetGameStringText("Cooldown: <d ref=\"Abil,AnaHealingDart,Cost.Cooldown.TimeUse\"/> seconds");
+
+        // assert
+        result.RawText.Should().Be("Cooldown: <d ref=\"Abil,AnaHealingDart,Cost.Cooldown.TimeUse\"/> seconds");
+    }
+
+    [TestMethod]
+    public void GetGameStringText_WithFontStyleExtractionNoStormStylesFound_GetsTooltipDescriptionWithNoReplacements()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            GameStringText = new GameStringTextOptions()
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontStylesVars = true,
+            },
+        });
+
+        GameStringTextService tooltipDescriptionService = new(_logger, _options, _heroesXmlLoaderService);
+
+        // act
+        GameStringText result = tooltipDescriptionService.GetGameStringText("Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers2\">200</c> Mana <c val=\"#TooltipNumbers2\">250</c>;<s val=\"StandardTooltipDetails2\">Mana: 50</s>;<s val=\"StandardTooltipDetails2\">Mana: 100</s>");
+
+        // assert
+        result.RawText.Should().Be("Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers2\">200</c> Mana <c val=\"#TooltipNumbers2\">250</c>;<s val=\"StandardTooltipDetails2\">Mana: 50</s>;<s val=\"StandardTooltipDetails2\">Mana: 100</s>");
+        tooltipDescriptionService.ShouldExtractFontValues.Should().BeTrue();
+        tooltipDescriptionService.ValByStyleConstantName.Should().BeEmpty();
+        tooltipDescriptionService.ValByStyleName.Should().BeEmpty();
+    }
+
+    [TestMethod]
+    public void GetGameStringText_WithFontConstantExtraction_GetsTooltipDescriptionWithReplacements()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            GameStringText = new GameStringTextOptions()
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontConstantVars = true,
+            },
+        });
+
+        GameStringTextService tooltipDescriptionService = new(_logger, _options, _heroesXmlLoaderService);
+
+        // act
+        GameStringText result = tooltipDescriptionService.GetGameStringText("Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200</c> Mana <c val=\"#TooltipAttackDamageNumbers\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipProgressComplete\">Mana: 100</s>");
+
+        // assert
+        result.RawText.Should().Be("Instantly boost an allied Hero, restoring <c val=\"bfd4fd\">200</c> Mana <c val=\"c27f02\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipProgressComplete\">Mana: 100</s>");
+        tooltipDescriptionService.ShouldExtractFontValues.Should().BeTrue();
+        tooltipDescriptionService.ValByStyleConstantName.Should().HaveCount(2);
+        tooltipDescriptionService.ValByStyleName.Should().BeEmpty();
+    }
+
+    [TestMethod]
+    public void GetGameStringText_WithFontStyleExtraction_GetsTooltipDescriptionWithReplacements()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            GameStringText = new GameStringTextOptions()
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontStylesVars = true,
+            },
+        });
+
+        GameStringTextService tooltipDescriptionService = new(_logger, _options, _heroesXmlLoaderService);
+
+        // act
+        GameStringText result = tooltipDescriptionService.GetGameStringText("Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200</c> Mana <c val=\"#TooltipAttackDamageNumbers\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipProgressComplete\">Mana: 100</s>");
+
+        // assert
+        result.RawText.Should().Be("Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200</c> Mana <c val=\"#TooltipAttackDamageNumbers\">250</c>;<s val=\"bfd4fd\">Mana: 50</s>;<s val=\"FFFFFF\">Mana: 100</s>");
+        tooltipDescriptionService.ShouldExtractFontValues.Should().BeTrue();
+        tooltipDescriptionService.ValByStyleConstantName.Should().BeEmpty();
+        tooltipDescriptionService.ValByStyleName.Should().HaveCount(2);
+    }
+
+    [TestMethod]
+    public void GetGameStringText_WithFontStyleExtractionWithPreserve_GetsTooltipDescriptionWithReplacements()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            GameStringText = new GameStringTextOptions()
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontStylesVars = true,
+                ReplaceFontConstantVars = true,
+                PreserveFontConstantVars = true,
+                PreserveFontStyleVars = true,
+            },
+        });
+
+        GameStringTextService tooltipDescriptionService = new(_logger, _options, _heroesXmlLoaderService);
+
+        // act
+        GameStringText result = tooltipDescriptionService.GetGameStringText("Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200</c> Mana <c val=\"#TooltipNumbers\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipDetails\">Mana: 100</s>");
+
+        // assert
+        result.RawText.Should().Be("Instantly boost an allied Hero, restoring <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">200</c> Mana <c val=\"bfd4fd\" hlt-name=\"#TooltipNumbers\">250</c>;<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"bfd4fd\" hlt-name=\"StandardTooltipDetails\">Mana: 100</s>");
+        tooltipDescriptionService.ShouldExtractFontValues.Should().BeTrue();
+        tooltipDescriptionService.ValByStyleConstantName.Should().ContainSingle();
+        tooltipDescriptionService.ValByStyleName.Should().ContainSingle();
+    }
+
+    [TestMethod]
+    public void GetGameStringText_WithFontConstantExtractionMissingAttributes_GetsTooltipDescriptionWithReplacements()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            GameStringText = new GameStringTextOptions()
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontConstantVars = true,
+            },
+        });
+
+        GameStringTextService tooltipDescriptionService = new(_logger, _options, _heroesXmlLoaderService);
+
+        // act
+        GameStringText result = tooltipDescriptionService.GetGameStringText("Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>");
+
+        // assert
+        result.RawText.Should().Be("Instantly boost an allied Hero, restoring <c val=\"bfd4fd\">200</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>");
+        tooltipDescriptionService.ShouldExtractFontValues.Should().BeTrue();
+        tooltipDescriptionService.ValByStyleConstantName.Should().ContainSingle();
+        tooltipDescriptionService.ValByStyleName.Should().BeEmpty();
+    }
+
+    [TestMethod]
+    public void GetGameStringText_WithFontStyleExtractionMissingAttributes_GetsTooltipDescriptionWithReplacements()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            GameStringText = new GameStringTextOptions()
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontStylesVars = true,
+            },
+        });
+
+        GameStringTextService tooltipDescriptionService = new(_logger, _options, _heroesXmlLoaderService);
+
+        // act
+        GameStringText result = tooltipDescriptionService.GetGameStringText("Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>");
+
+        // assert
+        result.RawText.Should().Be("Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"bfd4fd\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>");
+        tooltipDescriptionService.ShouldExtractFontValues.Should().BeTrue();
+        tooltipDescriptionService.ValByStyleConstantName.Should().BeEmpty();
+        tooltipDescriptionService.ValByStyleName.Should().ContainSingle();
+    }
+
+    [TestMethod]
+    public void GetGameStringText_CurrentLocale_AppliesLocale()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            CurrentLocale = StormLocale.DEDE,
+            GameStringText = new GameStringTextOptions()
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontConstantVars = true,
+                ReplaceFontStylesVars = true,
+            },
+        });
+
+        GameStringTextService tooltipDescriptionService = new(_logger, _options, _heroesXmlLoaderService);
+
+        // act
+        GameStringText result = tooltipDescriptionService.GetGameStringText("Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200~~0.05~~</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>");
+
+        // assert
+        result.ColoredTextWithScaling.Should().Be("Instantly boost an allied Hero, restoring <c val=\"bfd4fd\">200 (+5% pro Stufe)</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"bfd4fd\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>");
+    }
+
+    [TestMethod]
+    public void GetGameStringTextFromId_NoIdFound_ReturnsNull()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            GameStringText = new GameStringTextOptions()
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontStylesVars = true,
+            },
+        });
+
+        GameStringTextService tooltipDescriptionService = new(_logger, _options, _heroesXmlLoaderService);
+
+        // act
+        GameStringText? result = tooltipDescriptionService.GetGameStringTextFromId("No--Id");
+
+        // assert
+        result.Should().BeNull();
+    }
+
+    [TestMethod]
+    public void GetGameStringTextFromId_IdFound_ReturnsTooltipDescription()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            GameStringText = new GameStringTextOptions()
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontConstantVars = true,
+                ReplaceFontStylesVars = true,
+            },
+        });
+
+        GameStringTextService tooltipDescriptionService = new(_logger, _options, _heroesXmlLoaderService);
+
+        // act
+        GameStringText? result = tooltipDescriptionService.GetGameStringTextFromId("test_for_tooltip_decription_service");
+
+        // assert
+        result.Should().NotBeNull();
+        result.RawText.Should().Be("Instantly boost an allied Hero, restoring <c val=\"bfd4fd\">200~~0.045~~</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"bfd4fd\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>");
+        tooltipDescriptionService.ShouldExtractFontValues.Should().BeTrue();
+        tooltipDescriptionService.ValByStyleConstantName.Should().ContainSingle();
+        tooltipDescriptionService.ValByStyleName.Should().ContainSingle();
+    }
+
+    [TestMethod]
+    public void GetGameStringTextFromId_CurrentLocale_AppliesLocale()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            CurrentLocale = StormLocale.FRFR,
+            GameStringText = new GameStringTextOptions()
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontConstantVars = true,
+                ReplaceFontStylesVars = true,
+            },
+        });
+
+        GameStringTextService tooltipDescriptionService = new(_logger, _options, _heroesXmlLoaderService);
+
+        // act
+        GameStringText? result = tooltipDescriptionService.GetGameStringTextFromId("test_for_tooltip_decription_service");
+
+        // assert
+        result.Should().NotBeNull();
+        result.ColoredTextWithScaling.Should().Be("Instantly boost an allied Hero, restoring <c val=\"bfd4fd\">200 (+4,5% par niveau)</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"bfd4fd\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>");
+    }
+
+    [TestMethod]
+    public void GetGameStringTextFromStormGameString_ParsesStormGameString_ReturnsTooltipDescription()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            CurrentLocale = StormLocale.DEDE,
+            GameStringText = new GameStringTextOptions()
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontConstantVars = true,
+                ReplaceFontStylesVars = true,
+            },
+        });
+
+        StormGameString stormGameString = _heroesXmlLoader.HeroesData.GetStormGameString("test_for_tooltip_decription_service")!;
+
+        GameStringTextService tooltipDescriptionService = new(_logger, _options, _heroesXmlLoaderService);
+
+        // act
+        GameStringText? result = tooltipDescriptionService.GetGameStringTextFromStormGameString(stormGameString);
+
+        // assert
+        result.Should().NotBeNull();
+        result.RawText.Should().Be("Instantly boost an allied Hero, restoring <c val=\"bfd4fd\">200~~0.045~~</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"bfd4fd\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>");
+        tooltipDescriptionService.ShouldExtractFontValues.Should().BeTrue();
+        tooltipDescriptionService.ValByStyleConstantName.Should().ContainSingle();
+        tooltipDescriptionService.ValByStyleName.Should().ContainSingle();
+    }
+
+    [TestMethod]
+    public void GetGameStringTextFromStormGameString_ParsesStormGameStringWithCurrentLocal_AppliesCurrentLocale()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            CurrentLocale = StormLocale.FRFR,
+            GameStringText = new GameStringTextOptions()
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontConstantVars = true,
+                ReplaceFontStylesVars = true,
+            },
+        });
+
+        StormGameString stormGameString = _heroesXmlLoader.HeroesData.GetStormGameString("test_for_tooltip_decription_service")!;
+
+        GameStringTextService tooltipDescriptionService = new(_logger, _options, _heroesXmlLoaderService);
+
+        // act
+        GameStringText? result = tooltipDescriptionService.GetGameStringTextFromStormGameString(stormGameString);
+
+        // assert
+        result.Should().NotBeNull();
+        result.ColoredTextWithScaling.Should().Be("Instantly boost an allied Hero, restoring <c val=\"bfd4fd\">200 (+4,5% par niveau)</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"bfd4fd\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>");
+    }
+
+    [TestMethod]
+    public void GetGameStringTextFromGameString_ParsesTextGameStringWithCurrentLocal_AppliesCurrentLocale()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            CurrentLocale = StormLocale.FRFR,
+            GameStringText = new GameStringTextOptions()
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontConstantVars = true,
+                ReplaceFontStylesVars = true,
+            },
+        });
+
+        GameStringTextService tooltipDescriptionService = new(_logger, _options, _heroesXmlLoaderService);
+
+        // act
+        GameStringText? result = tooltipDescriptionService.GetGameStringTextFromGameString("Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200~~0.045~~</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>");
+
+        // assert
+        result.Should().NotBeNull();
+        result.ColoredTextWithScaling.Should().Be("Instantly boost an allied Hero, restoring <c val=\"bfd4fd\">200 (+4,5% par niveau)</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"bfd4fd\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>");
+    }
+
+    [TestMethod]
+    public void GetStormGameString_NoIdFound_ReturnsNull()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            GameStringText = new GameStringTextOptions()
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontStylesVars = true,
+            },
+        });
+
+        GameStringTextService tooltipDescriptionService = new(_logger, _options, _heroesXmlLoaderService);
+
+        // act
+        string? result = tooltipDescriptionService.GetStormGameString("No--Id");
+
+        // assert
+        result.Should().BeNull();
+    }
+
+    [TestMethod]
+    public void GetStormGameString_IdFound_ReturnsUnParsedGameString()
+    {
+        // arrange
+        _options.Value.Returns(new RootOptions()
+        {
+            GameStringText = new GameStringTextOptions()
+            {
+                Type = GameStringTextType.RawText,
+                ReplaceFontStylesVars = true,
+            },
+        });
+
+        GameStringTextService tooltipDescriptionService = new(_logger, _options, _heroesXmlLoaderService);
+
+        // act
+        string? result = tooltipDescriptionService.GetStormGameString("test_for_tooltip_decription_service");
+
+        // assert
+        result.Should().NotBeNull();
+        result.Should().Be("Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200~~0.045~~</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>");
+    }
+}

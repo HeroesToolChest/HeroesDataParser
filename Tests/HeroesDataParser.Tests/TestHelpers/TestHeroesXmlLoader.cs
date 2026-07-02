@@ -1,0 +1,395 @@
+﻿namespace HeroesDataParser.Tests.TestHelpers;
+
+public static class TestHeroesXmlLoader
+{
+    private const string _xmlTestDirectory = "TestXmlFiles";
+
+    public static HeroesXmlLoader GetArrangedHeroesXmlLoader()
+    {
+        XDocument unitDocument = GetXDocument("Unit.xml");
+        XDocument heroDocument = GetXDocument("Hero.xml");
+        XDocument buttonDocument = GetXDocument("Button.xml");
+        XDocument abilEffectTargetDocument = GetXDocument("Abil.xml");
+        XDocument behaviorDocument = GetXDocument("Behavior.xml");
+        XDocument actorDocument = GetXDocument("Actor.xml");
+        XDocument weaponDocument = GetXDocument("Weapon.xml");
+        XDocument effectDocument = GetXDocument("Effect.xml");
+        XDocument skinDocument = GetXDocument("Skin.xml");
+        XDocument voiceLineDocument = GetXDocument("VoiceLine.xml");
+        XDocument talentDocument = GetXDocument("Talent.xml");
+        XDocument validatorDocument = GetXDocument("Validator.xml");
+        XDocument requirementDocument = GetXDocument("Requirement.xml");
+        XDocument stormStyleDocument = GetXDocument("StormStyle.xml");
+        XDocument announcerPackDocument = GetXDocument("AnnouncerPack.xml");
+        XDocument bundleDocument = GetXDocument("Bundle.xml");
+        XDocument bannerDocument = GetXDocument("Banner.xml");
+        XDocument boostDocument = GetXDocument("Boost.xml");
+        XDocument lootChestDocument = GetXDocument("LootChest.xml");
+        XDocument mapDocument = GetXDocument("Map.xml");
+        XDocument veterancyDocument = GetXDocument("Veterancy.xml");
+        XDocument mountDocument = GetXDocument("Mount.xml");
+        XDocument matchAwardDocument = GetXDocument("MatchAward.xml");
+        XDocument scoreValueDocument = GetXDocument("ScoreValue.xml");
+        XDocument sprayDocument = GetXDocument("Spray.xml");
+        XDocument emoticonDocument = GetXDocument("Emoticon.xml");
+        XDocument emoticonPackDocument = GetXDocument("EmoticonPack.xml");
+        XDocument portraitPackDocument = GetXDocument("PortraitPack.xml");
+        XDocument rewardPortraitDocument = GetXDocument("RewardPortrait.xml");
+        XDocument typeDescriptionDocument = GetXDocument("TypeDescription.xml");
+
+        return HeroesXmlLoader.LoadWithEmpty()
+            .LoadCustomMod(new ManualModLoader(string.Empty)
+                .AddBaseElementTypes(
+                [
+                    ("Abil", "CAbilEffectTarget"),
+                    ("Abil", "CAbilEffectInstant"),
+                    ("Unit", "CUnit"),
+                    ("Hero", "CHero"),
+                    ("Button", "CButton"),
+                    ("Actor", "CActorUnit"),
+                    ("Weapon", "CWeaponLegacy"),
+                    ("Effect", "CEffectDamage"),
+                    ("Skin", "CSkin"),
+                    ("VoiceLine", "CVoiceLine"),
+                    ("Talent", "CTalent"),
+                    ("Validator", "CValidatorPlayerTalent"),
+                    ("Requirement", "CRequirement"),
+                    ("AnnouncerPack", "CAnnouncerPack"),
+                    ("Bundle", "CBundle"),
+                    ("Banner", "CBanner"),
+                    ("Boost", "CBoost"),
+                    ("LootChest", "CLootChest"),
+                    ("Map", "CMap"),
+                    ("Behavior", "CBehaviorVeterancy"),
+                    ("Mount", "CMount"),
+                    ("User", "CUser"),
+                    ("ScoreValue", "CScoreValue"),
+                    ("Spray", "CSpray"),
+                    ("Emoticon", "CEmoticon"),
+                    ("TextureSheet", "CTextureSheet"),
+                    ("EmoticonPack", "CEmoticonPack"),
+                    ("PortraitPack", "CPortraitPack"),
+                    ("Reward", "CReward"),
+                    ("TypeDescription", "CTypeDescription"),
+                ])
+                .AddElements(unitDocument.Root!.Elements())
+                .AddElements(heroDocument.Root!.Elements())
+                .AddElements(buttonDocument.Root!.Elements())
+                .AddElements(abilEffectTargetDocument.Root!.Elements())
+                .AddElements(behaviorDocument.Root!.Elements())
+                .AddElements(actorDocument.Root!.Elements())
+                .AddElements(weaponDocument.Root!.Elements())
+                .AddElements(effectDocument.Root!.Elements())
+                .AddElements(skinDocument.Root!.Elements())
+                .AddElements(voiceLineDocument.Root!.Elements())
+                .AddElements(talentDocument.Root!.Elements())
+                .AddElements(validatorDocument.Root!.Elements())
+                .AddElements(requirementDocument.Root!.Elements())
+                .AddElements(announcerPackDocument.Root!.Elements())
+                .AddElements(bundleDocument.Root!.Elements())
+                .AddElements(bannerDocument.Root!.Elements())
+                .AddElements(boostDocument.Root!.Elements())
+                .AddElements(lootChestDocument.Root!.Elements())
+                .AddElements(mapDocument.Root!.Elements())
+                .AddElements(veterancyDocument.Root!.Elements())
+                .AddElements(mountDocument.Root!.Elements())
+                .AddElements(matchAwardDocument.Root!.Elements())
+                .AddElements(scoreValueDocument.Root!.Elements())
+                .AddElements(sprayDocument.Root!.Elements())
+                .AddElements(emoticonDocument.Root!.Elements())
+                .AddElements(emoticonPackDocument.Root!.Elements())
+                .AddElements(portraitPackDocument.Root!.Elements())
+                .AddElements(rewardPortraitDocument.Root!.Elements())
+                .AddElements(typeDescriptionDocument.Root!.Elements())
+                .AddGameStrings(
+                [
+                    "test_for_tooltip_decription_service=Instantly boost an allied Hero, restoring <c val=\"#TooltipNumbers\">200~~0.045~~</c> Mana <c val=\"#TooltipNumbersNoVal\">250</c>;<s val=\"StandardTooltipDetails\">Mana: 50</s>;<s val=\"StandardTooltipDetailsNoTextColor\">Mana: 100</s>",
+                    "e_gameUIStringChargeCooldownColon=Charge Cooldown: ",
+                    "e_gameUIStringCooldownColon=Cooldown: ",
+                    "UI/AbilTooltipCooldown=Cooldown: %1 second",
+                    "UI/AbilTooltipCooldownPlural=Cooldown: %1 seconds",
+                    "Abil/Name/attack=Storm Attack",
+                    "Abil/Name/AbathurSymbiote=Symbiote",
+                    "Abil/Name/AbathurToxicNest=Toxic Nest",
+                    "Abil/AlarakDeadlyChargeButtonVitalCostOverride=60",
+                    "Abil/AlarakDeadlyChargeButtonCooldownCostOverride=45 seconds",
+                    "Button/Name/HearthstoneNoMana=Hearthstone",
+                    "Button/Name/LootSpray=Quick Spray Expression",
+                    "Button/Name/LootYellVoiceLine=Quick Voice Line Expression",
+                    "Button/Name/Tease=Taunt",
+                    "Button/Name/Dance=Dance",
+                    "Button/Name/GenericCalldownMule=Calldown: MULE",
+                    "Button/Name/AbathurSymbiote=Symbiote",
+                    "Button/Name/AbathurToxicNest=Toxic Nest",
+                    "Button/Name/AbathurLocustStrain=Locust Strain",
+                    "Button/Name/AbathurDeepTunnel=Deep Tunnel",
+                    "Button/Name/AbathurSymbiotePressurizedGlandsTalent=Pressurized Glands",
+                    "Button/Name/AbathurToxicNestEnvenomedNestTalent=Envenomed Nest",
+                    "Button/Name/AbathurLocustStrainSurvivalInstinctsTalent=Survival Instincts",
+                    "Button/Name/AlarakDeadlyCharge=Deadly Charge",
+                    "Button/Name/AlarakSadism=Sadism",
+                    "Button/Name/AlexstraszaGiftOfLife=Gift of Life",
+                    "Button/Name/AlexstraszaAbundance=Abundance",
+                    "Button/Name/BarbarianSeismicSlam=Seismic Slam",
+                    "Button/Name/GuldanLifeTap=Life Tap",
+                    "Button/Name/AbathurSymbioteCancel=Cancel Symbiote",
+                    "Button/Name/UseVehicle=Use Vehicle",
+                    "Button/Name/SamuroIllusionMaster=Illusion Master",
+                    "Button/Name/SamuroAdvancingStrikes=Image Transmission",
+                    "Button/Name/RagnarosCatchingFireItem=Catching Fire",
+                    "Button/SimpleDisplayText/GenericCalldownMule=Activate to heal Structures",
+                    "Button/SimpleDisplayText/AbathurSymbiote=Assist an ally and gain new abilities",
+                    "Button/SimpleDisplayText/AbathurToxicNest=Spawn a mine",
+                    "Button/SimpleDisplayText/AbathurLocustStrain=Spawn locusts that attack down the nearest lane",
+                    "Button/SimpleDisplayText/AbathurDeepTunnel=Tunnel to a location.",
+                    "Button/SimpleDisplayText/AbathurSymbiotePressurizedGlandsTalent=Increases Spike Burst range and decreases cooldown",
+                    "Button/SimpleDisplayText/AbathurToxicNestEnvenomedNestTalent=Toxic Nests deal more damage, reduce Armor",
+                    "Button/SimpleDisplayText/AbathurLocustStrainSurvivalInstinctsTalent=Increases Locust Health and damage",
+                    "Button/SimpleDisplayText/AlarakDeadlyCharge=Channel to charge a long distance",
+                    "Button/SimpleDisplayText/AlarakSadism=Each point of Sadism increases Alarak's Ability damage...",
+                    "Button/SimpleDisplayText/AlexstraszaGiftOfLife=Give a portion of Health to an allied Hero",
+                    "Button/SimpleDisplayText/AlexstraszaAbundance=Heal allied Heroes in an area",
+                    "Button/SimpleDisplayText/GuldanLifeTap=Restore Mana at the cost of Health",
+                    "Button/SimpleDisplayText/BarbarianSeismicSlam=Damage an enemy and splash damage behind them",
+                    "Button/SimpleDisplayText/SamuroIllusionMasterTalent=Mirror Images can be controlled",
+                    "Button/SimpleDisplayText/SamuroAdvancingStrikes=Increase Movement Speed when attacking Heroes",
+                    "Button/SimpleDisplayText/RagnarosCatchingFireItem=Activate to gain Resistant for a short time",
+                    "Button/Tooltip/SummonMount=After Channeling for 1 second, gain 30% Movement Speed",
+                    "Button/Tooltip/Attack=Attacks using the Hero's weapon",
+                    "Button/Tooltip/HearthstoneNoMana=After Channeling for...",
+                    "Button/Tooltip/LootSpray=Express yourself to other players by marking the ground with your selected spray.",
+                    "Button/Tooltip/LootYellVoiceLine=Express yourself to other players by playing your selected Voice Line.",
+                    "Button/Tooltip/GenericCalldownMule=Activate to calldown a Mule that repairs Structures",
+                    "Button/Tooltip/AbathurSymbiote=Spawn and attach a Symbiote...",
+                    "Button/Tooltip/AbathurToxicNest=Spawn a mine that becomes active...",
+                    "Button/Tooltip/AbathurLocustStrain=Spawns a Locust to attack down the nearest lane...",
+                    "Button/Tooltip/AbathurDeepTunnel=Quickly tunnel to a visible location.",
+                    "Button/Tooltip/AbathurSymbiotePressurizedGlandsTalent=Increases the range of Symbiote's Spike Burst by",
+                    "Button/Tooltip/AbathurToxicNestEnvenomedNestTalent=Toxic Nests deal",
+                    "Button/Tooltip/AbathurLocustStrainSurvivalInstinctsTalent=Increases Locust's Health by",
+                    "Button/Tooltip/AlarakDeadlyCharge=After channeling, Alarak charges forward...",
+                    "Button/Tooltip/AlarakSadism=Alarak's Ability damage and self-healing are increased...",
+                    "Button/Tooltip/AlexstraszaGiftOfLife=Sacrifice...",
+                    "Button/Tooltip/AlexstraszaAbundance=Plant a seed of healing that blooms after...",
+                    "Button/Tooltip/GuldanLifeTap=Gul'dan does not regenerate Mana...",
+                    "Button/Tooltip/BarbarianSeismicSlam=Deals deals damage to...",
+                    "Button/Tooltip/AbathurSymbioteCancel=Cancels the Symbiote ability.",
+                    "Button/Tooltip/SamuroIllusionMasterTalent=Mirror Images can be controlled individually or as...",
+                    "Button/Tooltip/SamuroAdvancingStrikes=Activate to switch places with a target",
+                    "Button/Tooltip/DehakaEssenceCollectionCooldownOverride=5 seconds",
+                    "Button/Tooltip/DVaBunnyHopOff=Cancel Bunny Hop",
+                    "Button/Tooltip/RagnarosCatchingFireItem=Activate to gain armor...",
+                    "Button/OverrideText/DVaMechBoosters=<d ref=\"Effect,DVaBoostersApplyCooldown,Cost[0].CooldownTimeUse\"/> seconds",
+                    "Button/OverrideText/DVaBunnyHop=<d ref=\"Abil,DVaMechBunnyHopHeroic,OffCost.Cooldown.TimeUse\"/> seconds",
+                    "Button/TooltipCooldownOverride/MeiOWAcclimation=<d ref=\"Effect,MeiOWBlizzardPolarVortexCooldownModifyUnit,Cost[0].CooldownTimeUse\" player=\"0\"/> seconds",
+                    "Button/CooldownOverride/MaievUmbralBindPrimed=<d ref=\"Abil,MaievUmbralBind,Cost.Cooldown.TimeUse\"/> seconds",
+                    "Hero/AdditionalSearchText/Abathur=Zerg Swarm HotS Heart of the Swarm StarCraft II 2 SC2 Star2 Starcraft2 SC slug Double Soak ",
+                    "Hero/AlternateNameSearchText/Abathur=Abathur",
+                    "Hero/Description/Abathur=A unique Hero that can manipulate the battle from anywhere on the map.",
+                    "Hero/Info/Abathur=Abathur, the Evolution Master of Kerrigan's Swarm, works ceaselessly...",
+                    "Hero/Name/Abathur=Abathur",
+                    "Hero/Title/Abathur=Evolution Master",
+                    "UI/HeroUtil/Difficulty/Easy=Easy",
+                    "UI/HeroUtil/Difficulty/Hard=Hard",
+                    "UI/HeroUtil/Difficulty/Medium=Medium",
+                    "UI/HeroUtil/Difficulty/VeryHard=Very Hard",
+                    "UI/HeroUtil/Role/Bruiser=Bruiser",
+                    "UI/HeroUtil/Role/Damage=Assassin",
+                    "UI/HeroUtil/Role/Healer=Healer",
+                    "UI/HeroUtil/Role/Specialist=Specialist",
+                    "UI/HeroUtil/Role/MeleeAssassin=Melee Assassin",
+                    "UI/HeroUtil/Role/Multiclass=Multiclass",
+                    "UI/HeroUtil/Role/RangedAssassin=Ranged Assassin",
+                    "UI/HeroUtil/Role/Support=Support",
+                    "UI/HeroUtil/Role/Tank=Tank",
+                    "UI/HeroUtil/Role/Warrior=Warrior",
+                    "UI/HeroLife=Health",
+                    "UI/HeroShields=Shields",
+                    "UI/HeroEnergyType/Mana=Mana",
+                    "UI/Tooltip/Abil/AlexstraszaGiftOfLifeVitalCostOverride=<s val=\"StandardTooltipDetails\">15%</s>",
+                    "UI/Tooltip/Abil/Mana=<s val=\"StandardTooltipDetails\">Mana: %1</s>",
+                    "UI/Tooltip/Abil/CurrentLife=<s val=\"StandardTooltipDetails\">Health: %1</s>",
+                    "UI/Tooltip/Abil/Life=<s val=\"StandardTooltipDetails\">Life: %1</s>",
+                    "UI/Tooltip/Abil/Fury=<s val=\"StandardTooltipDetails\">Fury: %1</s>",
+                    "UI/Tooltip/Abil/Energy=<s val=\"StandardTooltipDetails\">Energy: %1</s>",
+                    "UI/Tooltip/Abil/GuldanLifeTapVitalCostOverride=<s val=\"StandardTooltipDetails\"><d ref=\"Abil,GuldanLifeTap,Cost.Vital[Life]\"/></s>",
+                    "Weapon/Name/HeroAbathur=Hero Abathur",
+                    "Unit/Name/HeroAbathur=Abathur",
+                    "Unit/Name/AbathurSymbiote=Symbiote",
+                    "SamuroIllusionMaster=8 seconds",
+                    "SamuroImageTransmission=14 seconds",
+                    "GarroshBodyCheckCooldown=<d ref=\"Abil,GarroshArmorUpBodyCheck,Cost.Charge.TimeUse\"/> seconds",
+                ],
+                StormLocale.ENUS)
+                .AddAssetFilePaths(
+                [
+                    Path.Join("Assets", "Textures", "test-default.dds"),
+                    Path.Join("Assets", "Textures", "test-image1.dds"),
+                    Path.Join("Assets", "Textures", "test-image2.dds"),
+                    Path.Join("Assets", "Textures", "test-image3.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_miscrune_1.dds"),
+                    Path.Join("Assets", "Textures", "storm_temp_war3_btnhealingspray.dds"),
+                    Path.Join("Assets", "Textures", "btn-command-stop.dds"),
+                    Path.Join("Assets", "Textures", "storm_btn_d3_barbarian_threateningshout.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_talent_mule.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_abathur_symbiote.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_abathur_toxicnest.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_abathur_spawnlocust.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_abathur_mount.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_alarak_recklesscharge.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_alarak_sadism.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_alexstrasza_gift_of_life.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_alexstrasza_abundance.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_guldan_lifetap.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_sonya_seismicslam.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_minimapicon_heros_infestor.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_ingame_partyframe_abathur.dds"),
+                    Path.Join("Assets", "Textures", "hud_btn_bg_ability_cancel.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_talent_autoattack_base.dds"),
+                    Path.Join("Assets", "Textures", "storm_temp_war3_btnloaddwarf.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_temp_icon_cheatdeath.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_abathur_spikeburst.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_samuro_illusiondancer.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_samuro_flowingstrikes.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_icon_Muradin_SecondWind.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_ingame_heroselect_btn_infestor.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_ingame_hero_leaderboard_Abathur.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_ingame_hero_loadingscreen_Abathur.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_ingame_partypanel_btn_Abathur.dds"),
+                    Path.Join("Assets", "Textures", "UI_targetportrait_Hero_Abathur.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_glues_draft_portrait_Abathur.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_ingame_partyframe_Abathur.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_ingame_partyframe_Abathur.dds"),
+                    Path.Join("Assets", "Textures", "Storm_UI_Announcer_Adjutant.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_Bundles_H22_AlteredWar.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_homescreenbackground_wcav.dds"),
+                    Path.Join("Assets", "Textures", "ui_ingame_mapmechanic_loadscreen_WCAV_icon1_horde.dds"),
+                    Path.Join("Assets", "Textures", "ui_ingame_mapmechanic_loadscreen_WCAV_icon2_horde.dds"),
+                    Path.Join("Assets", "Textures", "ui_ingame_mapmechanic_loadscreen_WCAV_icon3_horde.dds"),
+                    Path.Join("Assets", "Textures", "ui_ingame_mapmechanic_loadscreen_WCAV_icon1_alliance.dds"),
+                    Path.Join("Assets", "Textures", "ui_ingame_mapmechanic_loadscreen_WCAV_icon2_alliance.dds"),
+                    Path.Join("Assets", "Textures", "ui_ingame_mapmechanic_loadscreen_WCAV_icon3_alliance.dds"),
+                    Path.Join("Assets", "Textures", "Storm_UI_Voice_Abathur.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_scorescreen_mvp_experienced_blue.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_scorescreen_mvp_experienced_red.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_mvp_icons_rewards_experienced.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_scorescreen_mvp_MasterOfTheCurse_blue.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_scorescreen_mvp_MasterOfTheCurse_red.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_mvp_icons_rewards_MasterOfTheCurse.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_scorescreen_mvp_shriner_blue.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_scorescreen_mvp_shriner_red.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_mvp_icons_rewards_shriner.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_scorescreen_mvp_loyaldefender_wcav_blue.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_scorescreen_mvp_loyaldefender_wcav_red.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_mvp_icons_rewards_loyaldefender_wcav.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_mvp_icons_rewards_dominator.dds"),
+                    Path.Join("Assets", "Textures", "storm_lootspray_animated_craft20_lowbattery.dds"),
+                    Path.Join("Assets", "Textures", "classic21_diablo_spray.dds"),
+                    Path.Join("Assets", "Textures", "storm_emoji_greymane_sheet.dds"),
+                    Path.Join("Assets", "Textures", "storm_emoji_cat_gleam_anim_sheet.dds"),
+                    Path.Join("Assets", "Textures", "storm_emoji_abathur_mecha_sheet.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_profile_hero_progression_icon_epicsummerlootchest.dds"),
+                    Path.Join("Assets", "Textures", "storm_ui_heroes_rewardicons_sheet.dds"),
+                    Path.Join("Textures", "test-default.dds"),
+                ])
+                .AddLevelScalingArrayElements(heroDocument.Root.Descendants("LevelScalingArray"))
+                .AddStormStyleElements(stormStyleDocument.Root!.Elements())
+                .AddStormMaps(
+                [
+                    new StormMap
+                    {
+                        Name = "Alterac Pass",
+                        MapId = "AlteracPass",
+                        MapLink = "AlteracPass",
+                        MapSize = new(256, 216),
+                        NameByLocale = new Dictionary<StormLocale, string>
+                        {
+                            [StormLocale.ENUS] = "Alterac Pass",
+                        },
+                        LoadingScreenImagePath = Path.Join("Assets", "Textures", "test-image3.dds"),
+                        LayoutFilePath = "TestLayoutFiles/AlteracValley_Loading.StormLayout",
+                        LayoutLoadingScreenFrame = "ScreenMapLoading_AlteracValley",
+                        ReplayPreviewImagePath = Path.Join("Assets", "Textures", "test-image2.dds"),
+                        S2MAFilePath = "Maps/AlteracPass/AlteracPass.s2ma",
+                        S2MVFilePath = "Maps/AlteracPass/AlteracPass.s2mv",
+                    },
+                    new StormMap
+                    {
+                        Name = "Battlefield of Eternity",
+                        MapId = "BattlefieldOfEternity",
+                        MapLink = "BoE",
+                        MapSize = new(248, 208),
+                        NameByLocale = new Dictionary<StormLocale, string>
+                        {
+                            [StormLocale.DEDE] = "Schlachtfeld der Ewigkeit",
+                        },
+                        LoadingScreenImagePath = Path.Join("Assets", "Textures", "test-image3.dds"),
+                        LayoutFilePath = "TestLayoutFiles/BattlefieldOfEternity_Loading.StormLayout",
+                        LayoutLoadingScreenFrame = "ScreenMapLoading_BattlefieldOfEternity",
+                        ReplayPreviewImagePath = Path.Join("Assets", "Textures", "test-image2.dds"),
+                        S2MAFilePath = "Maps/BattlefieldOfEternity/BattlefieldOfEternity.s2ma",
+                        S2MVFilePath = "Maps/BattlefieldOfEternity/BattlefieldOfEternity.s2mv",
+                    },
+                    new StormMap
+                    {
+                        Name = "Test1",
+                        MapId = "Test1",
+                        MapLink = "Test1",
+                        MapSize = new(100, 100),
+                        NameByLocale = new Dictionary<StormLocale, string>
+                        {
+                            [StormLocale.ENUS] = "Test1",
+                        },
+                        LoadingScreenImagePath = Path.Join("Assets", "Textures", "test-default.dds"),
+                        LayoutFilePath = "TestLayoutFiles/NonExists.StormLayout",
+                        LayoutLoadingScreenFrame = "ScreenMapLoading_AlteracValley",
+                        ReplayPreviewImagePath = Path.Join("Textures", "test-default.dds"),
+                        S2MAFilePath = "Maps/Test1/Test1.s2ma",
+                        S2MVFilePath = "Maps/Test1/Test1.s2mv",
+                    },
+                    new StormMap
+                    {
+                        Name = "MpqTest1",
+                        MapId = "MpqTest1",
+                        MapLink = "MpqTest1",
+                        MapSize = new(100, 100),
+                        NameByLocale = new Dictionary<StormLocale, string>
+                        {
+                            [StormLocale.ENUS] = "MpqTest1",
+                        },
+                        LoadingScreenImagePath = Path.Join("Assets", "Textures", "Storm_UI_Gamemode_MapSelect_Hanamura.png"),
+                        LayoutFilePath = "TestLayoutFiles/NonExists.StormLayout",
+                        LayoutLoadingScreenFrame = "ScreenMapLoading_AlteracValley",
+                        ReplayPreviewImagePath = Path.Join("Textures", "ReplaysPreviewImage.tga"),
+                        S2MAFilePath = "TestS2MAFiles/hanamura_temple.s2ma",
+                        S2MVFilePath = "Maps/Test1/Test1.s2mv",
+                    }
+                ])
+                .AddLayoutFilePaths(
+                [
+                    Path.Join("TestLayoutFiles", "AlteracValley_Loading.StormLayout"),
+                    Path.Join("TestLayoutFiles", "BattlefieldOfEternity_Loading.StormLayout"),
+                ])
+                .AddAssetTexts(
+                [
+                    "UI/LoadingScreen_WCAV_Icon1_Horde=Assets\\Textures\\ui_ingame_mapmechanic_loadscreen_WCAV_icon1_horde.dds",
+                    "UI/LoadingScreen_WCAV_Icon2_Horde=Assets\\Textures\\ui_ingame_mapmechanic_loadscreen_WCAV_icon2_horde.dds",
+                    "UI/LoadingScreen_WCAV_Icon3_Horde=Assets\\Textures\\ui_ingame_mapmechanic_loadscreen_WCAV_icon3_horde.dds",
+                    "UI/LoadingScreen_WCAV_Icon1_Alliance=Assets\\Textures\\ui_ingame_mapmechanic_loadscreen_WCAV_icon1_alliance.dds",
+                    "UI/LoadingScreen_WCAV_Icon2_Alliance=Assets\\Textures\\ui_ingame_mapmechanic_loadscreen_WCAV_icon2_alliance.dds",
+                    "UI/LoadingScreen_WCAV_Icon3_Alliance=Assets\\Textures\\ui_ingame_mapmechanic_loadscreen_WCAV_icon3_alliance.dds",
+                    "UI/Storm_UI_ProfileDialog_ProgressionReward_Icon_EpicSummerLootChest=Assets\\Textures\\storm_ui_profile_hero_progression_icon_epicsummerlootchest.dds",
+                ])
+                .AddConstantXElements(
+                [
+                    XElement.Parse("<const id=\"$HeroPortraits33\" value=\"ui_heroes_portraits_sheet33.dds\" />"),
+                    XElement.Parse("<const id=\"$HeroPortraits3\" value=\"ui_heroes_portraits_sheet3.dds\" />"),
+                ]))
+            .LoadGameStrings();
+    }
+
+    private static XDocument GetXDocument(string file)
+    {
+        return XDocument.Load(File.OpenRead(Path.Join(_xmlTestDirectory, file)));
+    }
+}

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CAbilEffectInstant id="YrelVindicationCast">
+    <hdp-ParentAbilArray value="YrelVindication" />
+    <hdp-ParentAbilArray value="YrelDivinePurpose" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="YrelRighteousHammer">
+    <hdp-ParentAbilArray value="YrelRighteousHammerChannel" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="YrelAvengingWrath">
+    <hdp-ParentAbilArray value="YrelAvengingWrathChannel" />
+  </CAbilEffectTarget>
+  <CButton id="YrelDivinePurposeActive" parent="YrelDivinePurpose">
+    <hdp-ParentAbilArray value="YrelDivinePurpose" />
+  </CButton>
+  <CAbilEffectTarget id="YrelRighteousHammerDivinePurpose">
+    <hdp-ParentAbilArray value="YrelDivinePurpose" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="YrelAvengingWrathDivinePurpose">
+    <hdp-ParentAbilArray value="YrelDivinePurpose" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="YrelDivineSteedSummonMount">
+    <hdp-ParentTalentArray value="YrelDivineSteed" />
+  </CAbilEffectInstant>
+</Catalog>

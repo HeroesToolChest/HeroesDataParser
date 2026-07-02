@@ -1,6 +1,0 @@
-﻿Hero/Description/Auriel=desc
-Hero/Name/Auriel=Auriel
-Abil/Name/AurielSacredSweep=Sacred Sweep
-Button/Name/AurielSacredSweep=Sacred Sweep
-Button/Simple/AurielSacredSweep=Damages enemies in an a wide arc, bonus damage to enemies in the center
-Button/Tooltip/AurielBlindingFlashSacredSweepTalent=Enemies hit by the center area of Sacred Sweep are blinded for <c val="#TooltipNumbers"><d ref="Behavior,AurielSacredSweepBlindingFlashBlind,Duration" precision="2"/></c> seconds.

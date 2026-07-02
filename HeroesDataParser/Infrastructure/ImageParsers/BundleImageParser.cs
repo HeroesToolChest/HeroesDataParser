@@ -1,0 +1,18 @@
+﻿namespace HeroesDataParser.Infrastructure.ImageParsers;
+
+public class BundleImageParser : ImageParserBase<Bundle>
+{
+    public BundleImageParser(ILogger<BundleImageParser> logger, IHeroesXmlLoaderService heroesXmlLoaderService)
+        : base(logger, heroesXmlLoaderService)
+    {
+    }
+
+    public override ExtractImageOptions ExtractImageOption => ExtractImageOptions.Bundle;
+
+    protected override string Subdirectory => "bundles";
+
+    protected override void SetImages(Bundle element)
+    {
+        AddStaticImage(element);
+    }
+}

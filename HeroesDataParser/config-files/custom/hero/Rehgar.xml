@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit id="HeroRehgar" parent="StormHeroMountedCustom">
+    <CardLayouts index="0">
+      <!--for the actually lunge of ability-->
+      <LayoutButtons index="31" Slot="Hidden" />
+      <!--Face="RehgarGhostWolf" Type="AbilCmd" AbilCmd="RehgarGhostWolfLunge,Execute" Slot="Mount"-->
+    </CardLayouts>
+  </CUnit>
+</Catalog>

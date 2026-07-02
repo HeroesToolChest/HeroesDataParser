@@ -1,0 +1,76 @@
+﻿namespace HeroesDataParser.Infrastructure;
+
+public class MainService : IMainService
+{
+    private readonly ILogger<MainService> _logger;
+    private readonly RootOptions _options;
+    private readonly IAnsiConsole _console;
+    private readonly IMainLocalePreProcessor _mainLocalePreProcess;
+    private readonly IMainLocaleProcessor _mainLocaleProcess;
+    private readonly IImageWriterService _imageWriterService;
+    private readonly IHeroesXmlLoaderService _heroesXmlLoaderService;
+
+    private readonly Stopwatch _stopwatch = new();
+
+    public MainService(
+        ILogger<MainService> logger,
+        IOptions<RootOptions> options,
+        IAnsiConsole console,
+        IMainLocalePreProcessor mainLocalePreProcess,
+        IMainLocaleProcessor mainLocaleProcess,
+        IImageWriterService imageWriterService,
+        IHeroesXmlLoaderService heroesXmlLoaderService)
+    {
+        _logger = logger;
+        _options = options.Value;
+        _console = console;
+        _mainLocalePreProcess = mainLocalePreProcess;
+        _mainLocaleProcess = mainLocaleProcess;
+        _imageWriterService = imageWriterService;
+        _heroesXmlLoaderService = heroesXmlLoaderService;
+    }
+
+    public async Task Start()
+    {
+        int count = 1;
+
+        if (_options.LocalizedText == LocalizedTextOption.Extract)
+            _options.IsLocalizedExtractFirstRun = true;
+
+        foreach (StormLocale locale in _options.Localizations)
+        {
+            _mainLocalePreProcess.Run();
+
+            _options.CurrentLocale = locale;
+            _logger.LogDebug("Localization: {Locale}", locale);
+            _console.Write(new Rule($"[[ [DarkSeaGreen3_1]Locale: {locale}[/] ... [LightSkyBlue3_1]{count} of {_options.Localizations.Count}[/] ]]")
+            {
+                Justification = Justify.Left,
+            });
+
+            LoadGameStrings();
+
+            await _mainLocaleProcess.Run();
+
+            _options.IsLocalizedExtractFirstRun = false;
+
+            count++;
+        }
+
+        // write out all images
+        await _imageWriterService.Write();
+    }
+
+    private void LoadGameStrings()
+    {
+        _logger.LogDebug("Loading gamestrings...");
+        _console.Write("Loading gamestrings...");
+
+        _stopwatch.Start();
+        _heroesXmlLoaderService.HeroesXmlLoader.LoadGameStrings(_options.CurrentLocale);
+        _stopwatch.Stop();
+
+        _logger.LogDebug("GameStrings {Locale} loaded", _options.CurrentLocale);
+        _console.WriteLine($"{_heroesXmlLoaderService.HeroesXmlLoader.GetCountOfGameStringsFiles()} text files (in {_stopwatch.Elapsed.TotalSeconds:0}s {_stopwatch.Elapsed.Milliseconds:0}ms)");
+    }
+}

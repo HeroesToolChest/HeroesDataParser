@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RewardPortrait>
+  <const id="$HeroPortraits33" value="ui_heroes_portraits_sheet33.dds" />
+  <const id="$HeroPortraits3" value="ui_heroes_portraits_sheet3.dds" />
+  <CReward default="1">
+    <Name value="Reward/Name/##id##"/>
+    <Description value="Reward/Description/##id##"/>
+    <DescriptionUnearned value="Reward/DescriptionUnearned/##id##"/>
+    <HyperlinkId value="##id##"/>
+    <RewardDisplayType value="Flyout"/>
+  </CReward>
+  <CRewardPortrait default="1">
+    <Model value="##id##"/>
+    <IconCols value="6"/>
+    <IconRows value="6"/>
+  </CRewardPortrait>
+  <CRewardPortrait default="1" id="PortraitParent">
+    <Category File="HeroPortrait" Tag="PORT" />
+    <IconFile value="$HeroPortraits1" />
+    <UIOrderHint value="1000" />
+    <Flags index="Allowed" value="1" />
+    <CollectionCategory value="Unsorted" />
+  </CRewardPortrait>
+  <CRewardPortrait default="1" id="HeroPortraitParent" parent="PortraitParent">
+    <Description value="Reward/Description/HeroPortraitGeneric" />
+    <DescriptionUnearned value="Reward/DescriptionUnearned/HeroPortraitGeneric" />
+    <Flags index="Allowed" value="0" />
+    <CollectionCategory value="PortraitProgression1" />
+  </CRewardPortrait>
+  <CRewardPortrait default="1" id="LootBoxPortraitParent" parent="PortraitParent">
+    <Description value="Reward/Description/LootBoxPortraitGeneric" />
+    <DescriptionUnearned value="Reward/DescriptionUnearned/LootBoxPortraitGeneric" />
+    <PortraitPack value="##id##" />
+    <Flags index="Allowed" value="0" />
+  </CRewardPortrait>
+  <CRewardPortrait default="1" id="WinterVeilPortraitParent" parent="LootBoxPortraitParent">
+    <CollectionCategory value="SeasonalEvents" />
+    <UIOrderHint value="200" />
+  </CRewardPortrait>
+  <CRewardPortrait default="1" id="Winter18PortraitParent" parent="WinterVeilPortraitParent" />
+  <CRewardPortrait id="SylvanasBasic" parent="HeroPortraitParent">
+    <IconFile value="$HeroPortraits3" />
+    <IconSlot value="7" />
+    <Hero value="Sylvanas" />
+  </CRewardPortrait>
+  <CRewardPortrait id="AbathurToys18Portrait" parent="Winter18PortraitParent">
+    <IconFile value="$HeroPortraits33" />
+    <IconSlot value="15" />
+    <HyperlinkId value="CaterpillathurPortrait" />
+    <License value="35888" />
+  </CRewardPortrait>
+</RewardPortrait>

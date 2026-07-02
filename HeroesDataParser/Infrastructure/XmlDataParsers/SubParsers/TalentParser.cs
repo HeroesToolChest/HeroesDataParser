@@ -1,0 +1,306 @@
+﻿namespace HeroesDataParser.Infrastructure.XmlDataParsers.SubParsers;
+
+public class TalentParser : AbilityTalentParserBase, ITalentParser
+{
+    private readonly IAbilityParser _abilityParser;
+
+    public TalentParser(ILogger<TalentParser> logger, IOptions<RootOptions> options, IAbilityParser abilityParser, IHeroesXmlLoaderService heroesXmlLoaderService, IGameStringTextService gameStringTextService)
+        : base(logger, options, heroesXmlLoaderService, gameStringTextService)
+    {
+        _abilityParser = abilityParser;
+    }
+
+    // <TalentTreeArray Talent="SamuroWayOfIllusion" Tier="1" Column="1" />
+    public Talent? GetTalent(Hero hero, StormElementData talentTreeData)
+    {
+        string? talentValue = null;
+        string? tierValue = null;
+        string? columnValue = null;
+
+        if (talentTreeData.TryGetElementDataAt("Talent", out StormElementData? talentData))
+            talentValue = talentData.Value.GetString();
+        if (string.IsNullOrEmpty(talentValue))
+            return null;
+
+        if (talentTreeData.TryGetElementDataAt("Tier", out StormElementData? tierData))
+            tierValue = tierData.Value.GetString();
+        if (string.IsNullOrEmpty(tierValue))
+            return null;
+
+        if (talentTreeData.TryGetElementDataAt("Column", out StormElementData? columnData))
+            columnValue = columnData.Value.GetString();
+        if (string.IsNullOrEmpty(columnValue))
+            return null;
+
+        Talent talent = new()
+        {
+            TalentElementId = talentValue,
+            Column = int.Parse(columnValue),
+            HasHotkey = true,
+        };
+
+        SetTalentTier(talent, tierValue);
+        SetTalentData(hero, talent);
+
+        if (talentTreeData.TryGetElementDataAt("PrerequisiteTalentArray", out StormElementData? prerequisiteTalentArrayDataArray))
+        {
+            foreach (string index in prerequisiteTalentArrayDataArray.GetElementDataIndexes())
+            {
+                StormElementData prerequisiteTalentArrayData = prerequisiteTalentArrayDataArray.GetElementDataAt(index);
+
+                string value = prerequisiteTalentArrayData.Value.GetString();
+                if (!string.IsNullOrEmpty(value) && HeroesData.StormElementExists("Talent", value))
+                    talent.PrerequisiteTalentIds.Add(value);
+            }
+        }
+
+        if (talent.IsValid is false)
+            return null;
+
+        return talent;
+    }
+
+    public List<Ability> GetBehaviorAbilitiesFromTalent(Talent talent)
+    {
+        List<Ability> behaviorAbilities = [];
+
+        StormElement? talentElement = HeroesData.GetCompleteStormElement("Talent", talent.TalentElementId);
+        if (talentElement is null)
+            return behaviorAbilities;
+
+        // find any behavior abilities (activable abilities granted from talents)
+        AddBehaviorAbilities(talent, talentElement.DataValues, behaviorAbilities);
+
+        return behaviorAbilities;
+    }
+
+    private static void SetTalentTier(Talent talent, string tier)
+    {
+        if (tier == "1")
+            talent.Tier = TalentTier.Level1;
+        else if (tier == "2")
+            talent.Tier = TalentTier.Level4;
+        else if (tier == "3")
+            talent.Tier = TalentTier.Level7;
+        else if (tier == "4")
+            talent.Tier = TalentTier.Level10;
+        else if (tier == "5")
+            talent.Tier = TalentTier.Level13;
+        else if (tier == "6")
+            talent.Tier = TalentTier.Level16;
+        else if (tier == "7")
+            talent.Tier = TalentTier.Level20;
+        else
+            talent.Tier = TalentTier.Unknown;
+    }
+
+    private static void SetAbilityUpgradeFlag(Talent talent, StormElementData abilityModificationData)
+    {
+        IEnumerable<string> abilityModificationIndexes = abilityModificationData.GetElementDataIndexes();
+
+        foreach (string abilityModificationIndex in abilityModificationIndexes)
+        {
+            StormElementData abilityModificationArray = abilityModificationData.GetElementDataAt(abilityModificationIndex);
+            if (abilityModificationArray.ContainsIndex("Modifications"))
+            {
+                talent.UpgradesAbilityType = true;
+                break;
+            }
+        }
+    }
+
+    private void SetTalentData(Hero hero, Talent talent)
+    {
+        StormElement? talentElement = HeroesData.GetCompleteStormElement("Talent", talent.TalentElementId);
+        if (talentElement is null)
+            return;
+
+        StormElementData talentDataValues = talentElement.DataValues;
+
+        bool isTraitElement = false;
+
+        if (talentDataValues.TryGetElementDataAt("Trait", out StormElementData? traitData) && traitData.Value.GetString() == "1")
+        {
+            isTraitElement = true;
+            talent.UpgradesAbilityType = true;
+        }
+
+        if (talentDataValues.TryGetElementDataAt("QuestData", out StormElementData? questData) &&
+            questData.TryGetElementDataAt("StackBehavior", out StormElementData? stackBehaviorData) &&
+            !string.IsNullOrEmpty(stackBehaviorData.Value.GetString()))
+        {
+            talent.IsQuest = true;
+        }
+
+        // set the IsActive, we do not know if it's an active abilityType yet
+        if (talentDataValues.TryGetElementDataAt("Active", out StormElementData? activeData) && activeData.Value.GetString() == "1")
+            talent.IsActive = true;
+
+        if (talentDataValues.TryGetElementDataAt("Abil", out StormElementData? abilityData))
+            SetAbilElementData(hero, talent, abilityData);
+        else
+            talent.HasHotkey = false;
+
+        // if NOT IsActive and UpgradesAbilityId then check for AbilityModificationArray
+        if (!talent.IsActive && !talent.UpgradesAbilityType && talentDataValues.TryGetElementDataAt("AbilityModificationArray", out StormElementData? abilityModificationData))
+            SetAbilityUpgradeFlag(talent, abilityModificationData);
+
+        // only set if IsActive is false
+        if (!talent.IsActive && talentDataValues.TryGetElementDataAt("RankArray", out StormElementData? rankArrayData))
+            SetHeroicAbilityTypeFromRankArray(talent, rankArrayData);
+
+        // the trait check should come after the ability data is set
+        // hidden means that it was an ability that is in the AbilArray but not in the command array
+        if (((talent.IsActive is true && (talent.AbilityType == AbilityType.Unknown)) ||
+            (talent.IsActive is false && (talent.AbilityType == AbilityType.Unknown || talent.AbilityType == AbilityType.Hidden))) && isTraitElement)
+        {
+            talent.AbilityType = AbilityType.Trait;
+            talent.UpgradesAbilityType = true;
+        }
+
+        // button data should come after ability data
+        if (talentDataValues.TryGetElementDataAt("Face", out StormElementData? faceData))
+        {
+            talent.ButtonElementId = faceData.Value.GetString();
+
+            SetButtonData(talent);
+        }
+
+        // if not set, set to the passive abilityId
+        if (string.IsNullOrEmpty(talent.AbilityElementId))
+            talent.AbilityElementId = PassiveAbilityElementId;
+
+        // if not set, set to the button element id to none
+        if (string.IsNullOrEmpty(talent.ButtonElementId))
+            talent.ButtonElementId = NoButtonElementId;
+
+        // if it's NOT an IsActive and if the abilityType is still Unknown or Hidden, then set it to a Passive abilityType
+        if (talent is { IsActive: false, AbilityType: AbilityType.Unknown or AbilityType.Hidden })
+        {
+            talent.AbilityType = AbilityType.Passive;
+            talent.UpgradesAbilityType = false;
+            talent.HasHotkey = false;
+        }
+
+        // if it's an IsActive and if the abilityType is still Unknown or Hidden, then set it to an Active abilityType
+        if (talent is { IsActive: true, AbilityType: AbilityType.Unknown or AbilityType.Hidden })
+            talent.AbilityType = AbilityType.Active;
+
+        if (talent.IsQuest)
+            talent.UpgradesAbilityType = false;
+
+        if (talent.AbilityType == AbilityType.Active)
+            talent.HasHotkey = false;
+    }
+
+    private void SetAbilElementData(Hero hero, Talent talent, StormElementData abilityData)
+    {
+        talent.AbilityElementId = abilityData.Value.GetString();
+
+        if (!HeroesData.StormElementExists("Abil", talent.AbilityElementId))
+            return;
+
+        // find the (first) matching ability we have for the hero
+        if (hero.GetAbilityTypeByNameId(talent.AbilityElementId, out AbilityType abilityType))
+        {
+            talent.AbilityType = abilityType;
+        }
+        else
+        {
+            // search through all hero units
+            foreach (Unit heroUnit in hero.HeroUnits.Values)
+            {
+                if (heroUnit.GetAbilityTypeByNameId(talent.AbilityElementId, out abilityType))
+                {
+                    talent.AbilityType = abilityType;
+                }
+            }
+        }
+
+        if (talent.AbilityType == AbilityType.Unknown)
+            talent.HasHotkey = false;
+
+        if (talent.IsActive)
+            SetAbilityData(talent.AbilityElementId, talent);
+        else
+            talent.UpgradesAbilityType = true;
+    }
+
+    private void SetAbilityData(string abilityId, AbilityTalentBase abilityTalent)
+    {
+        StormElement? abilityElement = HeroesData.GetCompleteStormElement("Abil", abilityId);
+        if (abilityElement is null)
+            return;
+
+        SetAbilityData(abilityElement, abilityTalent, abilCmdIndex: null);
+
+        // for talents, don't set the charges
+        abilityTalent.Charges = null;
+    }
+
+    private void AddBehaviorAbilities(Talent talent, StormElementData talentDataValues, List<Ability> behaviorAbilities)
+    {
+        if (talentDataValues.TryGetElementDataAt("RankArray", out StormElementData? rankArrayData) &&
+            rankArrayData.TryGetElementDataAt("0", out StormElementData? rankArray0Data) &&
+            rankArray0Data.TryGetElementDataAt("BehaviorArray", out StormElementData? behaviorArrayData))
+        {
+            IEnumerable<string> behaviorArrayIndexes = behaviorArrayData.GetElementDataIndexes();
+
+            foreach (string behaviorArrayIndex in behaviorArrayIndexes)
+            {
+                string behaviorArrayValue = behaviorArrayData.GetElementDataAt(behaviorArrayIndex).Value.GetString();
+
+                StormElement? behaviorElement = HeroesData.GetCompleteStormElement("Behavior", behaviorArrayValue);
+                if (behaviorElement is null || !behaviorElement.ElementType.Equals("CBehaviorAbility", StringComparison.OrdinalIgnoreCase))
+                    continue;
+
+                if (behaviorElement.DataValues.TryGetElementDataAt("buttons", out StormElementData? buttonsData))
+                    AddBehaviorAbilitiesFromButtons(talent, buttonsData, behaviorAbilities);
+            }
+        }
+    }
+
+    private void AddBehaviorAbilitiesFromButtons(Talent talent, StormElementData buttonsData, List<Ability> behaviorAbilities)
+    {
+        IEnumerable<string> buttonIndexes = buttonsData.GetElementDataIndexes();
+
+        foreach (string buttonIndex in buttonIndexes)
+        {
+            Ability? ability = _abilityParser.GetBehaviorAbility(buttonsData.GetElementDataAt(buttonIndex));
+
+            if (ability is null)
+                continue;
+
+            ability.AbilityType = talent.AbilityType;
+
+            if (ability.ParentAbilityElementIds.Count < 1 && ability.ParentAbilityLinkIds.Count < 1 && ability.ParentTalentElementIds.Count < 1 && ability.ParentTalentLinkIds.Count < 1)
+                ability.ParentTalentLinkIds.Add(new TalentLinkId(talent.TalentElementId, talent.ButtonElementId, talent.AbilityType, talent.Tier));
+
+            behaviorAbilities.Add(ability);
+        }
+    }
+
+    private void SetHeroicAbilityTypeFromRankArray(Talent talent, StormElementData rankArrayData)
+    {
+        IEnumerable<string> rankArrayIndexes = rankArrayData.GetElementDataIndexes();
+
+        foreach (string rankArrayIndex in rankArrayIndexes)
+        {
+            StormElementData rankArray = rankArrayData.GetElementDataAt(rankArrayIndex);
+            if (rankArray.TryGetElementDataAt("BehaviorArray", out StormElementData? behaviorArrayData))
+            {
+                IEnumerable<string> behaviorArrayIndexes = behaviorArrayData.GetElementDataIndexes();
+                foreach (string behaviorArrayIndex in behaviorArrayIndexes)
+                {
+                    string value = behaviorArrayData.GetElementDataAt(behaviorArrayIndex).Value.GetString();
+
+                    if ((value == "Ultimate1Unlocked" || value == "Ultimate2Unlocked" || value == "Ultimate3Unlocked") && HeroesData.StormElementExists("Behavior", value))
+                    {
+                        talent.AbilityType = AbilityType.Heroic;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}

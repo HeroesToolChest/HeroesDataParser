@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit id="HeroImperius" parent="StormHeroMounted">
+    <CardLayouts index="0">
+      <LayoutButtons index="25" Slot="Hidden" /> <!--Face="ImperiusAngelicArmamentsLaunchMissiles" Type="AbilCmd" AbilCmd="ImperiusAngelicArmamentsLaunchMissiles,Execute"-->
+    </CardLayouts>
+  </CUnit>
+</Catalog>

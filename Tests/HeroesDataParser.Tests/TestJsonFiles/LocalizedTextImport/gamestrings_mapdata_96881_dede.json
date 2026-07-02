@@ -1,0 +1,357 @@
+{
+  "meta": {
+    "heroesVersion": "2.55.16.96881",
+    "hdpVersion": "5.0.0",
+    "itemsType": "GameStrings",
+    "dataTypes": [
+      "MapData"
+    ],
+    "gameStringText": {
+      "locale": "DEDE",
+      "textType": "RawText",
+      "constantVars": {
+        "replaced": false,
+        "preserved": false
+      },
+      "styleVars": {
+        "replaced": false,
+        "preserved": false
+      }
+    }
+  },
+  "items": {
+    "map": {
+      "name": {
+        "Alterac Pass": "Alteracpass",
+        "Battlefield of Eternity": "Schlachtfeld der Ewigkeit",
+        "Blackheart's Bay": "Schwarzherzbucht",
+        "Blackheart's Revenge": "Schwarzherz' Rache",
+        "Braxis Holdout": "Endstation Braxis",
+        "Braxis Outpost": "Außenposten Braxis",
+        "Checkpoint: Hanamura": "Checkpoint: Hanamura",
+        "Cursed Hollow": "Verfluchtes Tal",
+        "Deadman's Stand": "Verteidigung von Deadman's Port",
+        "Deadman's Stand (Heroic)": "Verteidigung von Deadman's Port (Heroisch)",
+        "Dragon Shire": "Drachengärten",
+        "Escape From Braxis": "Flucht von Braxis",
+        "Escape From Braxis (Heroic)": "Flucht von Braxis (Heroisch)",
+        "Garden Arena": "Gartenarena",
+        "Garden of Terror": "Garten der Ängste",
+        "Garden of Terror Classic": "Garden of Terror Classic",
+        "Hanamura Temple": "Tempel von Hanamura",
+        "Haunted Mines": "Geisterminen",
+        "Industrial District": "Industriebezirk",
+        "Infernal Shrines": "Höllenschreine",
+        "Lost Cavern": "Vergessene Höhle",
+        "Lunar Rocket Racing": "Mondfest-Raketenrennen",
+        "Pull Party": "Ich glaub, es hakt",
+        "Punisher Arena": "Bestraferarena",
+        "Sandbox (Cursed Hollow)": "Sandbox (Verfluchtes Tal)",
+        "Sandbox (Volskaya Foundry)": "Sandbox (Volskaya-Fertigung)",
+        "Silver City": "Silberne Stadt",
+        "Sky Temple": "Tempel des Himmels",
+        "Snow Brawl": "Schneeballschlacht",
+        "Temple Arena": "Tempelarena",
+        "Tomb of the Spider Queen": "Grabkammer der Spinnenkönigin",
+        "Towers of Doom": "Türme des Unheils",
+        "Trial Grounds": "Stiftung Waffentest",
+        "Volskaya Foundry": "Volskaya-Fertigung",
+        "Warhead Junction": "Sprengkopfmanufaktur"
+      },
+      "objectiveDescription": {
+        "Alterac Pass": [
+          "Nehmt das gegnerische Gefängnis ein, um eure Kavallerie auf den Weg zu bringen. Gefängnisse können von Helden und Dienern zurückerobert werden, also bewacht sie gut!",
+          "Die Kavallerie stürmt alle Wege entlang und erhöht den Schaden und die Bewegungsgeschwindigkeit naher verbündeter Helden.",
+          "Statt Zitadellen gibt es Generäle, die sich gegen Angreifer zur Wehr setzen. Zerstörte Festungen verringern die Panzerung des jeweiligen Generals."
+        ],
+        "Battlefield of Eternity": [
+          "Der himmlische Leutnant Ilarian und der Dämonenfürst Beleth bekämpfen sich in einem Krieg, der schon Jahrtausende währt.",
+          "Verhilf dem Unsterblichen an deiner Seite zum Sieg über seinen Widersacher.",
+          "Stehe deinem Unsterblichen bei seinem vernichtenden Angriff auf die gegnerischen Gebäude bei!"
+        ],
+        "Blackheart's Bay": [
+          "Greif Schatztruhen und Söldner an, um Dublonen zu ergattern.",
+          "Gib deine Dublonen bei Käpt'n Schwarzherz ab, sonst verlierst du sie alle, wenn dein Held stirbt!",
+          "Wenn er genug Dublonen von deinem Team erhalten hat, bombardiert Schwarzherz die Gebäude deiner Gegner!"
+        ],
+        "Blackheart's Revenge": [
+          "Hindert gegnerische Helden daran, Kanonenkugeln zu sammeln und mit den Kanonen auf Schwarzherz' Rache zu feuern.",
+          "Verteidige das Schiff, bis es am Pier die gegnerische Zitadelle zerstört, um zu siegen."
+        ],
+        "Braxis Holdout": [
+          "Zwei Signale werden in regelmäßigen Abständen aktiviert. Nimm mit deinem Team beide ein, um Zerg in euren Käfig zu locken.",
+          "Sobald einer der zwei Käfige voll ist, öffnen sich beide und Wellen von Zerg strömen auf beide Basen zu.",
+          "Wehre die gegnerischen Zerg ab und unterstütze deine eigenen. Sie greifen auch Helden an, also sei vorsichtig."
+        ],
+        "Braxis Outpost": [
+          "Helden werden im Startbereich nicht geheilt und Ruhesteine funktionieren nicht.",
+          "Auf dem Schlachtfeld erscheinen immer wieder Regenerationskugeln. Sammle sie ein, um geheilt zu werden.",
+          "Auf diesem Schlachtfeld gibt es keine zusätzlichen Ziele. Zerstöre einfach die Zitadelle des Gegners, um zu gewinnen!"
+        ],
+        "Checkpoint: Hanamura": [
+          "Es gibt keine Zitadellen in diesem Heldenchaos. Das Match endet, wenn die Fracht ihr Ziel erreicht oder der Timer abläuft.",
+          "Eine Fracht erscheint nur für dein Team. Bleib in ihrer Nähe, um sie zu ihrem Ziel zu befördern, bevor der Timer abläuft."
+        ],
+        "Cursed Hollow": [
+          "Der Rabenfürst erschafft regelmäßig Tribute. Sammle sie für dein Team!",
+          "Wenn dein Team sich drei Tribute erkämpft hat, wird der Rabenfürst eure Gegner verfluchen!",
+          "Verfluchte Gebäude greifen nicht an und verfluchte Diener haben nur 1 Lebenspunkt."
+        ],
+        "Dragon Shire": [
+          "Um die Statue des Drachenritters zu aktivieren, muss dein Team zwei Schreine kontrollieren!",
+          "Ist die Statue aktiviert, kann ein Held den Drachenritter aus seinem Gefängnis befreien.",
+          "Mit der gewaltigen Macht des Drachen kannst du gegnerische Gebäude einstampfen!"
+        ],
+        "Garden Arena": [
+          "Töte die Gartenungeheuer und sammle ihre Samen.",
+          "Sammle 100 Samen für dein Team, um zu gewinnen!"
+        ],
+        "Garden of Terror": [
+          "Königin Nachtschatten lässt in regelmäßigen Abständen einen Samen erscheinen. Besiege die Unkrautler, die ihn verteidigen, und sammle ihn für dein Team ein!",
+          "Wenn drei Samen eingesammelt wurden, erscheinen sofort drei Gartenungeheuer, die sich durch alle drei Wege wuchern.",
+          "Gartenungeheuer können gegnerische Gebäude außer Gefecht setzen, also greife gemeinsam mit ihnen an!"
+        ],
+        "Garden of Terror Classic": [
+          "Nachts erheben sich die Unkrautler aus den Gärten.",
+          "Vernichte die Unkrautler und sammle Samen für dein Team!",
+          "Kontrolliere dein Gartenungeheuer und vernichte deine Gegner mit 100 Samen!"
+        ],
+        "Hanamura Temple": [
+          "In regelmäßigen Abständen erscheint eine Fracht in der Mitte des Schlachtfelds, die von beiden Teams gesichert werden kann.",
+          "Bleib in der Nähe eurer Fracht und bring sie zu ihrem Ziel. Hindere den Gegner daran, dasselbe zu tun.",
+          "Sobald ein Team eine Fracht zu ihrem Ziel gebracht hat, bombardiert sie die gegnerischen Gebäude."
+        ],
+        "Haunted Mines": [
+          "Von Zeit zu Zeit öffnen sich die Geisterminen und geben eine Armee aus Untoten frei!",
+          "Vernichte die Untoten und sammle ihre Schädel, um dem Golem deines Teams mehr Macht zu verleihen!",
+          "Sobald ein Team 55 Schädel gesammelt hat, erheben sich Golems für beide Teams. Je mehr Schädel dein Team sammelt, desto stärker wird euer Golem!"
+        ],
+        "Industrial District": [
+          "Helden werden im Startbereich nicht geheilt und Ruhesteine funktionieren nicht.",
+          "Auf dem Schlachtfeld erscheinen immer wieder Regenerationskugeln. Sammle sie ein, um geheilt zu werden.",
+          "Auf diesem Schlachtfeld gibt es keine zusätzlichen Ziele. Zerstöre einfach die Zitadelle des Gegners, um zu gewinnen!"
+        ],
+        "Infernal Shrines": [
+          "Die Höllenschreine sammeln regelmäßig Energie an. Aktiviere sie und stell dich auf einen Kampf ein.",
+          "Töte mit deinem Team schneller als eure Gegner 40 Wächter, damit ein mächtiger Bestrafer eure Reihen stärkt.",
+          "Bestrafer haben eine von drei vernichtenden Kräften. Achtung: Helden werden von ihnen sofort aufs Korn genommen."
+        ],
+        "Lost Cavern": [
+          "Helden werden im Startbereich nicht geheilt und Ruhesteine funktionieren nicht.",
+          "Auf dem Schlachtfeld erscheinen immer wieder Regenerationskugeln. Sammle sie ein, um geheilt zu werden.",
+          "Auf diesem Schlachtfeld gibt es keine zusätzlichen Ziele. Zerstöre einfach die Zitadelle des Gegners, um zu gewinnen!"
+        ],
+        "Lunar Rocket Racing": [
+          "Helden bewegen sich automatisch in Richtung des Mauszeigers.",
+          "Sammle Umschläge ein, um verschiedene Fähigkeiten zu erlangen.",
+          "Schließe 7 Runden ab und gewinne. Der letzte Spieler verliert das Rennen."
+        ],
+        "Punisher Arena": [
+          "Die Bestrafer greifen abwechselnd einander oder die Helden an. Jede Runde wechseln die magischen Fähigkeiten der Bestrafer.",
+          "Gegnerische Helden sind 4 Punkte wert. Der gegnerische Bestrafer ist 10 wert."
+        ],
+        "Sandbox (Cursed Hollow)": [
+          "Der Rabenfürst erschafft regelmäßig Tribute. Sammle sie für dein Team!",
+          "Wenn dein Team sich drei Tribute erkämpft hat, wird der Rabenfürst eure Gegner verfluchen!",
+          "Verfluchte Gebäude greifen nicht an und verfluchte Diener haben nur 1 Lebenspunkt."
+        ],
+        "Sandbox (Volskaya Foundry)": [
+          "Kontrollpunkte werden ab und zu aktiviert. Stell dich auf einen Punkt, um ihn einzunehmen und die Kontrolle über einen riesigen Mech zu erlangen.",
+          "Im Triglav-Protektor haben zwei Spieler Platz, ein Pilot und ein Richtschütze. Arbeitet zusammen!",
+          "Der Protektor fügt Gebäuden und Helden unglaublich hohen Schaden zu. Vernichtet damit das gegnerische Team."
+        ],
+        "Silver City": [
+          "Helden werden im Startbereich nicht geheilt und Ruhesteine funktionieren nicht.",
+          "Auf dem Schlachtfeld erscheinen immer wieder Regenerationskugeln. Sammle sie ein, um geheilt zu werden.",
+          "Auf diesem Schlachtfeld gibt es keine zusätzlichen Ziele. Zerstöre einfach die Zitadelle des Gegners, um zu gewinnen!"
+        ],
+        "Sky Temple": [
+          "Die Tempel werden in regelmäßigen Abständen aktiviert. Solange dein Held auf der Tempelplattform steht, kannst du ihre Macht nutzen!",
+          "Halte die Stellung, um einen vernichtenden Beschuss auf gegnerische Gebäude loszulassen.",
+          "Die Wächter werden versuchen, deinem Team die Herrschaft über die Tempel zu entreißen. Schlage sie zurück, um die Macht der Tempel ungehindert zu nutzen!"
+        ],
+        "Snow Brawl": [
+          "Schneebälle erscheinen in der Nähe von Helden, Gebäuden, Tributen und Regenerationskugeln. Heb sie auf und bewirf deine Gegner damit!",
+          "Wintertribute erscheinen schnell hintereinander. Sammle sie ein, um einen Kolossalen Schneeball auf gegnerische Gebäude zu werfen.",
+          "Regelmäßig entstehen unvollständige Schneemänner auf der Karte. Bewirf sie mit Schnee, um sie fertigzustellen. Schneemänner folgen dir und kämpfen mit dir."
+        ],
+        "Temple Arena": [
+          "In jeder Runde kann eine andere Anzahl Tempel aktiviert werden.",
+          "Nimm die Tempel ein und zerstöre die Zitadelle des Gegners."
+        ],
+        "Tomb of the Spider Queen": [
+          "Gegnerische Spinnendiener und Helden lassen beim Tod magische Juwelen zurück. Sammle so viele, wie du kannst.",
+          "Gib deine Juwelen an den Altären der Spinnenkönigin ab, sonst verlierst du sie alle, wenn dein Held stirbt!",
+          "Die Netzweber werden für das Team, das zuerst genügend Juwelen abgibt, die gegnerische Verteidigung in Schutt und Asche legen!"
+        ],
+        "Towers of Doom": [
+          "Beide Zitadellen sind durch eine Barriere geschützt, die von Helden nicht angegriffen werden kann. Um zu siegen, muss dein Team die Altäre aktivieren.",
+          "Altäre erscheinen regelmäßig an verschiedenen Orten auf dem Schlachtfeld. Aktiviere sie, damit die Türme deines Teams auf die gegnerische Zitadelle feuern.",
+          "Zerstöre gegnerische Türme, um sie zu erobern. Je mehr Türme dein Team kontrolliert, desto mehr Kugeln werden gefeuert, wenn du einen Altar aktivierst."
+        ],
+        "Trial Grounds": [
+          "Eliminiert das gegnerische Team, um die Runde zu gewinnen.",
+          "Kurz nach Rundenbeginn erscheint ein Ziel in der Mitte des Schlachtfelds. Nutzt seine Macht, um eure Gegner zu vernichten!",
+          "Auf dem Schlachtfeld verteilte Medikits stellen eine Menge Lebenspunkte und Ressourcen wieder her."
+        ],
+        "Volskaya Foundry": [
+          "Kontrollpunkte werden ab und zu aktiviert. Stell dich auf einen Punkt, um ihn einzunehmen und die Kontrolle über einen riesigen Mech zu erlangen.",
+          "Im Triglav-Protektor haben zwei Spieler Platz, ein Pilot und ein Richtschütze. Arbeitet zusammen!",
+          "Der Protektor fügt Gebäuden und Helden unglaublich hohen Schaden zu. Vernichtet damit das gegnerische Team."
+        ],
+        "Warhead Junction": [
+          "Regelmäßig erscheinen mehrere Sprengköpfe auf dem Schlachtfeld.",
+          "Sammle Sprengköpfe ein, um Nuklearraketen anfordern zu können. Setze Sprengköpfe schnell ein, denn sie gehen verloren, wenn dein Held stirbt!",
+          "Feuere Nuklearraketen ab, um die Befestigungen des gegnerischen Teams zu zerstören. Greife ihre Gebäude an, um den Brand auszuweiten!"
+        ]
+      },
+      "objectiveTitle": {
+        "Alterac Pass": [
+          "Gefängnisse",
+          "Kavallerie",
+          "Generäle"
+        ],
+        "Battlefield of Eternity": [
+          "Ein endloser Kampf",
+          "Nimm es mit Unsterblichen auf",
+          "Verwüste gegnerische Forts"
+        ],
+        "Blackheart's Bay": [
+          "Sammle Dublonen",
+          "Gib Dublonen ab",
+          "Bombardiere deine Gegner"
+        ],
+        "Blackheart's Revenge": [
+          "Töte gegnerische Helden",
+          "Schütze Schwarzherz' Schiff"
+        ],
+        "Braxis Holdout": [
+          "Nimm die Signale ein",
+          "Locke Zerg an",
+          "Die Zerg sind los!"
+        ],
+        "Braxis Outpost": [
+          "Konstante Action",
+          "Regenerationskugeln",
+          "Zerstöre die Zitadelle"
+        ],
+        "Checkpoint: Hanamura": [
+          "Keine Zitadellen",
+          "Begleite die Fracht"
+        ],
+        "Cursed Hollow": [
+          "Sammle Tribute",
+          "Verfluche deine Gegner",
+          "Verfluchte Forts und Diener"
+        ],
+        "Dragon Shire": [
+          "Kontrolliere die Schreine",
+          "Befreie den Drachenritter",
+          "Verwüste gegnerische Forts"
+        ],
+        "Garden Arena": [
+          "Töte die Unkrautler",
+          "Sammle Samen ein"
+        ],
+        "Garden of Terror": [
+          "Aussaat",
+          "Sammle Samen ein",
+          "Gartenungeheuer"
+        ],
+        "Garden of Terror Classic": [
+          "Kämpf gegen die Unkrautler",
+          "Sammle Samen",
+          "Gartenungeheuer kontrollieren"
+        ],
+        "Hanamura Temple": [
+          "Fracht sichern",
+          "Fracht begleiten",
+          "Gegner bombardieren"
+        ],
+        "Haunted Mines": [
+          "Wage dich unter Tage",
+          "Sammle Schädel",
+          "Entfessle einen Golem"
+        ],
+        "Industrial District": [
+          "Konstante Action",
+          "Regenerationskugeln",
+          "Zerstöre die Zitadelle"
+        ],
+        "Infernal Shrines": [
+          "Aktiviere die Schreine",
+          "Bezwinge ihre Wächter",
+          "Nimm dich vor den Bestrafern in Acht"
+        ],
+        "Lost Cavern": [
+          "Konstante Action",
+          "Regenerationskugeln",
+          "Zerstöre die Zitadelle"
+        ],
+        "Lunar Rocket Racing": [
+          "Raketenflug",
+          "Umschläge",
+          "Wettrennen"
+        ],
+        "Punisher Arena": [
+          "Vorsicht vor den Bestrafern",
+          "Kills sind der Schlüssel"
+        ],
+        "Sandbox (Cursed Hollow)": [
+          "Sammle Tribute",
+          "Verfluche deine Gegner",
+          "Verfluchte Forts und Diener"
+        ],
+        "Sandbox (Volskaya Foundry)": [
+          "Kontrollpunkte",
+          "Steuert den Protektor",
+          "Zerstört alles!"
+        ],
+        "Silver City": [
+          "Konstante Action",
+          "Regenerationskugeln",
+          "Zerstöre die Zitadelle"
+        ],
+        "Sky Temple": [
+          "Erobere die Tempel",
+          "Halte die Tempel",
+          "Verteidige die Tempel"
+        ],
+        "Snow Brawl": [
+          "Wirf Schneebälle",
+          "Sammle Tribute",
+          "Baue Schneemänner"
+        ],
+        "Temple Arena": [
+          "Sich verändernde Tempel",
+          "Entfessle ihre Macht"
+        ],
+        "Tomb of the Spider Queen": [
+          "Sammle Juwelen",
+          "Gib Juwelen ab",
+          "Rufe Netzweber herbei"
+        ],
+        "Towers of Doom": [
+          "Geschützte Zitadellen",
+          "Aktiviere die Altäre",
+          "Erobere die Glockentürme"
+        ],
+        "Trial Grounds": [
+          "Bis aufs Blut",
+          "Experimentelle Waffen",
+          "Medikits"
+        ],
+        "Volskaya Foundry": [
+          "Kontrollpunkte",
+          "Steuert den Protektor",
+          "Zerstört alles!"
+        ],
+        "Warhead Junction": [
+          "Nukleare Kriegsführung",
+          "Sammle Sprengköpfe",
+          "Fordere<n/>Nuklearschläge an"
+        ]
+      }
+    }
+  }
+}

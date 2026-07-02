@@ -1,0 +1,166 @@
+﻿namespace HeroesDataParser.Cli.Commands;
+
+public class RootCommand : AsyncCommand<RootSettings>
+{
+    private readonly ILogger<RootCommand> _logger;
+    private readonly RootOptions _options;
+    private readonly IAnsiConsole _console;
+    private readonly IPreLoaderService _preLoaderService;
+    private readonly IMainService _mainService;
+    private readonly IPostCleanupService _postCleanupService;
+    private readonly IResultSummaryService _resultSummaryService;
+
+    public RootCommand(
+        ILogger<RootCommand> logger,
+        IOptions<RootOptions> options,
+        IAnsiConsole console,
+        IPreLoaderService preLoaderService,
+        IMainService mainService,
+        IPostCleanupService postCleanupService,
+        IResultSummaryService resultSummaryService)
+    {
+        _logger = logger;
+        _options = options.Value;
+        _console = console;
+        _preLoaderService = preLoaderService;
+        _mainService = mainService;
+        _postCleanupService = postCleanupService;
+        _resultSummaryService = resultSummaryService;
+    }
+
+    protected override async Task<int> ExecuteAsync(CommandContext context, RootSettings settings, CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("Starting {CommandName}", nameof(RootCommand));
+
+        SetOptions(settings);
+
+        if (_options.ShowHeroesVersion)
+        {
+            _console.WriteLine(_preLoaderService.GetHeroesVersion());
+            return 0;
+        }
+
+        _console.MarkupLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        _console.MarkupLine($"[bold]{Constants.AppName} v{AppVersion.GetAppVersion()}[/]");
+        _console.MarkupLine("  --[link]https://github.com/HeroesToolChest/HeroesDataParser[/]");
+        _console.MarkupLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        _console.WriteLine();
+
+        await _preLoaderService.Load();
+
+        await _mainService.Start();
+        _postCleanupService.Start();
+        _resultSummaryService.PrintSummary();
+
+        return 0;
+    }
+
+    private void SetOptions(RootSettings settings)
+    {
+        _options.StorageLoad.Type = settings.StorageType;
+        _options.StorageLoad.Path = settings.StorageDirectory?.FullName;
+        _options.StorageLoad.Ptr = settings.IsPtr;
+
+        _options.ShowHeroesVersion = settings.ShowHeroesVersion;
+
+        if (settings.OutputDirectory is not null)
+            _options.OutputDirectory = settings.OutputDirectory.FullName;
+        else
+            _options.OutputDirectory = ".";
+
+        if (!string.IsNullOrWhiteSpace(settings.SetHeroesVersion) && HeroesDataVersion.TryParse(settings.SetHeroesVersion, out HeroesDataVersion? heroesDataVersion))
+        {
+            _options.HeroesVersion.Major = heroesDataVersion.Major;
+            _options.HeroesVersion.Minor = heroesDataVersion.Minor;
+            _options.HeroesVersion.Revision = heroesDataVersion.Revision;
+            _options.HeroesVersion.Build = heroesDataVersion.Build;
+            _options.HeroesVersion.IsPtr = heroesDataVersion.IsPtr;
+        }
+        else
+        {
+            _options.HeroesVersion.Major = -1;
+            _options.HeroesVersion.Minor = -1;
+            _options.HeroesVersion.Revision = -1;
+            _options.HeroesVersion.Build = -1;
+            _options.HeroesVersion.IsPtr = true;
+        }
+
+        foreach (string extractor in settings.Extractors)
+        {
+            ParseExtractor(extractor);
+        }
+
+        if (settings.StormLocales.Length > 0)
+            _options.Localizations.Clear();
+
+        if (settings.StormLocales.Any(x => x.Equals("all", StringComparison.OrdinalIgnoreCase)))
+        {
+            foreach (StormLocale stormLocale in Enum.GetValues<StormLocale>())
+            {
+                _options.Localizations.Add(stormLocale);
+            }
+        }
+        else
+        {
+            foreach (string locale in settings.StormLocales)
+            {
+                if (Enum.TryParse(locale, true, out StormLocale stormLocale))
+                    _options.Localizations.Add(stormLocale);
+            }
+        }
+
+        _options.GameStringText.Type = settings.GameStringTextType;
+        _options.GameStringText.ReplaceFontConstantVars = settings.GameStringReplaceConstantVars;
+        _options.GameStringText.ReplaceFontStylesVars = settings.GameStringReplaceStyleVars;
+        _options.GameStringText.PreserveFontConstantVars = settings.GameStringPreserveConstantVars;
+        _options.GameStringText.PreserveFontStyleVars = settings.GameStringPreserveStyleVars;
+
+        if (settings.GameStringPreserveConstantVars || settings.GameStringPreserveStyleVars)
+            _options.GameStringText.ReplaceFontStylesVars = true;
+
+        _options.LocalizedText = settings.LocalizedTextOption;
+        _options.DisableMapSpecificJson = settings.DisableMapSpecificJson;
+        _options.MapSpecificWriterJsonOutputType = settings.MapSpecificWriterJsonOutputType;
+        _options.AllowEmptyMapSpecificPatchFiles = settings.AllowEmptyMapSpecificPatchFiles;
+        _options.AllowEmptyMapSpecificDirectories = settings.AllowEmptyMapSpecificDirectories;
+        _options.ShowLoadedCustomConfigFiles = settings.ShowLoadedCustomConfigFiles;
+        _options.JsonIndent = !settings.DisableJsonIndent;
+        _options.Threads = settings.Threads;
+    }
+
+    private void ParseExtractor(ReadOnlySpan<char> extractor)
+    {
+        Span<Range> keyPair = stackalloc Range[2];
+
+        extractor.Split(keyPair, ':', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+        ReadOnlySpan<char> key = extractor[keyPair[0]];
+        ReadOnlySpan<char> imageValue = extractor[keyPair[1]]; // images
+
+        if (!Enum.TryParse(key, true, out ExtractDataOptions extractorName))
+            return;
+
+        if (extractorName == ExtractDataOptions.All)
+        {
+            foreach (ExtractDataOptions option in Enum.GetValues<ExtractDataOptions>())
+            {
+                if (option == ExtractDataOptions.None || option == ExtractDataOptions.All)
+                    continue;
+
+                _options.Extractors[option] = new ExtractorOptions()
+                {
+                    IsEnabled = true,
+                    Images = !imageValue.IsEmpty, // should already be validated
+                };
+            }
+
+            return;
+        }
+
+        _options.Extractors[extractorName] = new ExtractorOptions()
+        {
+            IsEnabled = true,
+            Images = !imageValue.IsEmpty, // should already be validated
+        };
+    }
+}

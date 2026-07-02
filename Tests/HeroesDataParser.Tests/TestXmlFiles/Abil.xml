@@ -1,0 +1,1102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Abil>
+  <CAbil default="1">
+    <Name value="Abil/Name/##id##"/>
+  </CAbil>
+  <CAbilBehavior default="1">
+    <CmdButtonArray index="On">
+      <Flags index="ShowInGlossary" value="1"/>
+    </CmdButtonArray>
+    <Cost>
+      <Charge Location="Unit"/>
+      <Cooldown Location="Unit"/>
+    </Cost>
+    <OffCost>
+      <Charge Location="Unit"/>
+      <Cooldown Location="Unit"/>
+    </OffCost>
+    <ExpireCost>
+      <Charge Location="Unit"/>
+      <Cooldown Location="Unit"/>
+    </ExpireCost>
+    <SharedFlags index="DisableWhileDead" value="0"/>
+  </CAbilBehavior>
+  <CAbilEffect default="1">
+    <RangeSlop value="1"/>
+    <ArcSlop value="11.25"/>
+    <Cost>
+      <Charge Location="Unit"/>
+      <Cooldown Location="Unit"/>
+    </Cost>
+    <CancelCost>
+      <Charge Location="Unit"/>
+      <Cooldown Location="Unit"/>
+    </CancelCost>
+    <InterruptCost>
+      <Charge Location="Unit"/>
+      <Cooldown Location="Unit"/>
+    </InterruptCost>
+  </CAbilEffect>
+  <CAbilAttack id="attack">
+    <MinAttackSpeedMultiplier value="0.25" />
+    <MaxAttackSpeedMultiplier value="128" />
+    <ExecuteUnitAutoQueueId value="Spell" />
+  </CAbilAttack>
+  <CAbilEffectTarget default="1">
+    <CmdButtonArray index="Execute">
+      <Flags index="ShowInGlossary" value="1"/>
+    </CmdButtonArray>
+    <Flags index="CanToggleAutoCast" value="1"/>
+    <Flags index="BestUnit" value="1"/>
+    <FollowRange value="5"/>
+  </CAbilEffectTarget>
+  <CAbilEffectTarget default="1">
+    <CmdButtonArray index="Execute" AutoQueueId="Spell">
+      <Flags index="AllowMinimap" value="0" />
+      <Flags index="AllowSelfCast" value="1" />
+    </CmdButtonArray>
+    <Flags index="AllowMovement" value="1" />
+    <Flags index="WaitToSpend" value="0" />
+    <Flags index="UninterruptibleTurn" value="1" />
+    <Flags index="ValidateButtonState" value="1" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="UseVehicle">
+    <Effect value="UseVehiclePersistent" />
+    <Flags index="AllowTurningSuppressed" value="1" />
+    <Flags index="ChannelingMinimum" value="0" />
+    <Flags index="Smart" value="1" />
+    <TargetFilters value="-;Self,Player,Enemy" />
+    <Range value="2" />
+    <CancelableArray index="Channel" value="1" />
+    <ValidatedArray index="Approach" value="0" />
+    <CmdButtonArray index="Execute" AutoQueueId="UseVehicle" DefaultButtonFace="UseVehicle" PreemptLevel="-1" />
+    <Activity value="Abil/Activity/UseVehicle" />
+    <ShowProgressArray index="Channel" value="1" />
+    <CastOutroTimeEffect value="UseVehiclePersistent" />
+    <PrepEffect value="UseVehiclePrepSet" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="Hearthstone">
+    <CmdButtonArray index="Execute">
+      <AutoQueueId value="Hearthstone" />
+      <DefaultButtonFace value="Hearthstone" />
+      <Flags index="Continuous" value="0" />
+    </CmdButtonArray>
+    <ProgressButtonArray index="Cast" value="Hearthstone" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="LootSpray">
+    <CmdButtonArray index="Execute" AutoQueueId="LootAction" DefaultButtonFace="LootSpray" PreemptLevel="-1" />
+    <Flags index="Transient" value="1" />
+    <Effect value="LootSprayDummy" />
+    <Cost>
+      <Cooldown TimeUse="3" />
+    </Cost>
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="MountCabooseSmartCommandUnitInteraction">
+    <Activity value="Abil/Activity/MountCaboose" />
+    <Effect value="MountCabooseSmartCommandSet" />
+    <Flags index="ClearLastAttackTarget" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="Smart" value="1" />
+    <Cost>
+      <Cooldown Link="Abil/Mount" TimeUse="4" />
+    </Cost>
+    <Range value="4" />
+    <RangeSlop value="6" />
+    <CastIntroTime value="1" />
+    <CmdButtonArray index="Execute">
+      <AutoQueueId value="Mount" />
+      <DefaultButtonFace value="MountCabooseSmartCommandUnitInteraction" />
+      <Requirements value="NotMounted" />
+      <PreemptLevel value="-1" />
+    </CmdButtonArray>
+    <PrepEffect value="HeroGenericMountAbilityUsePrepareEffectSet" />
+    <SharedFlags index="AllowQuickCastCustomization" value="0" />
+    <AbilityCategories index="Mount" value="1" />
+    <AbilityCategories index="RequiresCastTime" value="1" />
+    <AbilityCategories index="InterruptedByDamage" value="1" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="LootYellVoiceLine">
+    <Effect value="LootYellVoiceLineDummy" />
+    <Flags index="Transient" value="1" />
+    <Cost>
+      <Cooldown TimeUse="7" />
+    </Cost>
+    <CmdButtonArray index="Execute" AutoQueueId="LootAction" DefaultButtonFace="LootYellVoiceLine" PreemptLevel="-1" />
+  </CAbilEffectInstant>
+  <CAbilStop default="1">
+    <AbilSetId value="Stop"/>
+    <CmdButtonArray index="Stop" DefaultButtonFace="Stop">
+      <Flags index="ToSelection" value="1"/>
+    </CmdButtonArray>
+    <CmdButtonArray index="HoldFire" DefaultButtonFace="HoldFire">
+      <Flags index="ToSelection" value="1"/>
+    </CmdButtonArray>
+    <CmdButtonArray index="Cheer" DefaultButtonFace="Cheer">
+      <Flags index="ToSelection" value="1"/>
+    </CmdButtonArray>
+    <CmdButtonArray index="Dance" DefaultButtonFace="Dance">
+      <Flags index="ToSelection" value="1"/>
+    </CmdButtonArray>
+  </CAbilStop>
+  <CAbilStop id="stop">
+    <CmdButtonArray index="HoldFire" DefaultButtonFace="HoldFireSpecial"/>
+  </CAbilStop>
+  <CAbilStop id="stop">
+    <SharedFlags index="AllowQuickCastCustomization" value="0" />
+    <CmdButtonArray index="Tease" DefaultButtonFace="Tease" />
+  </CAbilStop>
+  <CAbilEffectTarget id="AbathurSymbiote">
+    <Effect value="AbathurSymbioteInitialDelay" />
+    <Cost>
+      <Cooldown TimeUse="4" />
+    </Cost>
+    <TargetFilters value="-;Self,Neutral,Enemy,Missile,Item,Stasis,Dead" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurSymbiote" />
+    <CmdButtonArray index="Execute2" DefaultButtonFace="AbathurSymbiote2" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="TalentBucketCalldownMule">
+    <Effect value="CalldownMULEDummySet" />
+    <Cost>
+      <Cooldown TimeUse="60" />
+    </Cost>
+    <Range value="500" />
+    <Arc value="360" />
+    <CmdButtonArray index="Execute">
+      <Flags index="AllowMinimap" value="1" />
+    </CmdButtonArray>
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AbathurToxicNest">
+    <Effect value="AbathurToxicNestInitialSet" />
+    <Cost>
+      <Charge>
+        <CountMax value="3" />
+        <CountStart value="3" />
+        <CountUse value="1" />
+        <TimeUse value="10" />
+      </Charge>
+      <Cooldown TimeUse="0.0625" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurToxicNest" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlarakDeadlyChargeActivate">
+    <Cost>
+      <Cooldown TimeUse="0.5" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlarakDeadlyCharge" ShowValidator="AlarakHasDeadlyChargeAsFirstHeroic">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="AbathurSpawnLocusts">
+    <Effect value="LocustSpawnLocustSwitch" />
+    <Cost>
+      <Cooldown Link="AbathurSpawnLocusts" TimeUse="15" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurLocustStrain" PreemptLevel="-1" />
+    <Flags index="Transient" value="1" />
+    <ProducedUnitArray value="AbathurLocustNormal" />
+    <ProducedUnitArray value="AbathurLocustBombardStrain" />
+    <ProducedUnitArray value="AbathurLocustAssaultStrain" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="AbathurDeepTunnel">
+    <Cost>
+      <Cooldown TimeUse="30" />
+    </Cost>
+    <Range value="500" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurDeepTunnel">
+      <Flags index="AllowMinimap" value="1" />
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <Arc value="360" />
+    <PrepEffect value="AbathurDeepTunnelPrepSet" />
+    <InterruptArray index="Cast" value="1" />
+    <InterruptCost>
+      <Cooldown Operation="Set" TimeUse="10" />
+    </InterruptCost>
+    <CastIntroTime value="2.5" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlarakLightningSurge">
+    <Flags index="BestUnit" value="0" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Cost>
+      <Vital index="Energy" value="25" />
+      <Cooldown TimeUse="6" />
+    </Cost>
+    <Range value="10" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlarakLightningSurge">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <PrepEffect value="AlarakLightningSurgePrepSet" />
+    <Effect value="AlarakLightningSurgeCastSet" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <TargetFilters value="Visible;Self,Player,Ally,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <CursorEffect value="AlarakLightningSurgeSearch16" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlarakLightningSurgeLightningBarrage">
+    <PrepEffect value="AlarakLightningSurgePrepSet" />
+    <Effect value="AlarakLightningSurgeCastSet" />
+    <Flags index="BestUnit" value="0" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Cost>
+      <Charge Link="Abil/AlarakLightningSurge" />
+      <Cooldown Link="Abil/Alarak/LightningSurgeLightningBarrage" TimeUse="0.125" />
+    </Cost>
+    <InterruptCost>
+      <Charge Link="Abil/AlarakLightningSurge" />
+      <Cooldown Link="Abil/AlarakLightningSurge" />
+    </InterruptCost>
+    <TargetFilters value="Visible;Self,Player,Ally,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <Range value="10" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CursorEffect value="AlarakLightningSurgeSearch16" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlarakLightningSurgeLightningBarrage" Requirements="HasLightningSurgeLightningBarrageFreeCast">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <ParentAbil value="AlarakLightningSurge" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlarakRiteofRakShir">
+    <Effect value="AlarakSadismRiteofRakShirTalentApplyDebuff" />
+    <Cost>
+      <Cooldown Location="Player" TimeUse="300" />
+    </Cost>
+    <TargetFilters value="Heroic;Player,Ally,Dead,Invulnerable,AITargetableStructure" />
+    <Range value="8" />
+    <Arc value="360" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlarakRiteofRakShir" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlarakLightningSurgeLightningBarrage">
+    <PrepEffect value="AlarakLightningSurgePrepSet" />
+    <Effect value="AlarakLightningSurgeCastSet" />
+    <Flags index="BestUnit" value="0" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Cost>
+      <Charge Link="Abil/AlarakLightningSurge" />
+      <Cooldown Link="Abil/Alarak/LightningSurgeLightningBarrage" TimeUse="0.125" />
+    </Cost>
+    <InterruptCost>
+      <Charge Link="Abil/AlarakLightningSurge" />
+      <Cooldown Link="Abil/AlarakLightningSurge" />
+    </InterruptCost>
+    <TargetFilters value="Visible;Self,Player,Ally,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <Range value="10" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CursorEffect value="AlarakLightningSurgeSearch16" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlarakLightningSurgeLightningBarrage" Requirements="HasLightningSurgeLightningBarrageFreeCast">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <ParentAbil value="AlarakLightningSurge" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlarakCounterStrikeTargeted2ndHeroic">
+    <PrepEffect value="AlarakCounterStrikeCastSet" />
+    <Effect value="AlarakCounterStrikeCasterPersistentExpireSet" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Flags index="TargetVectorLock" value="1" />
+    <CastIntroTime value="1" />
+    <Cost>
+      <Vital index="Energy" value="50" />
+      <Cooldown Link="Abil/AlarakCounterStrikeTargeted" TimeUse="30" />
+    </Cost>
+    <Range value="500" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <CursorEffect value="AlarakCounterStrikeDummySearch" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlarakCounterStrikeTargeted" Requirements="AlarakHasCounterStrike2ndHeroicCarry">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlarakCounterStrikeTargeted2ndHeroic">
+    <hdp-ParentTalentArray value="AlarakCounterStrikeItem" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="AbathurAssumingDirectControlCancel">
+    <Effect value="AbathurAssumingDirectControlCancelSet" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="Transient" value="1" />
+    <Cost>
+      <Cooldown TimeStart="1.5" TimeUse="1.5" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurSymbioteCancel" Requirements="AbathurHasAssumedDirectControl" />
+    <Arc value="0.9997" />
+    <ParentAbil value="AbathurSymbiote" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="AbathurSymbioteStab">
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurSymbioteStab">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <Range value="500" />
+    <Effect value="StabCreateSet" />
+    <Cost>
+      <Charge>
+        <CountMax value="2" />
+        <CountStart value="2" />
+        <CountUse value="1" />
+        <TimeUse value="3" />
+      </Charge>
+      <Cooldown TimeStart="0.5" TimeUse="1" />
+    </Cost>
+    <Flags index="RequireTargetVision" value="0" />
+    <CursorEffect value="AbathurSymbioteStabMissileScan" />
+    <Arc value="360" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="AbathurSymbioteSpikeBurst">
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurSymbioteSpikeBurst" />
+    <Effect value="SpikeBurstCastSearch" />
+    <Cost>
+      <Cooldown TimeStart="0.5" TimeUse="6" />
+    </Cost>
+    <PrepEffect value="AbathurSymbioteSpikeBurstPrepSet" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="AbathurSymbioteCarapace">
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurSymbioteCarapace" />
+    <Effect value="CarapaceEvolutionSearchArea" />
+    <Cost>
+      <Cooldown TimeStart="0.5" TimeUse="6" />
+    </Cost>
+    <PrepEffect value="AbathurSymbioteCarapacePrepSet" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="AbathurMonstrosityDeepTunnel">
+    <Effect value="AbathurMonstrosityDeepTunnelPersistent" />
+    <Cost>
+      <Cooldown Location="Player" TimeUse="80" />
+    </Cost>
+    <Range value="500" />
+    <ShowProgressArray index="Cast" value="1" />
+    <ShowProgressArray index="Channel" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurMonstrosityDeepTunnel">
+      <Flags index="AllowMinimap" value="1" />
+      <Flags index="AllowSelfCast" value="0" />
+      <Flags index="ToSelection" value="1" />
+    </CmdButtonArray>
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Activity value="Abil/Activity/DeepTunnelActivity" />
+    <CastOutroTimeEffect value="AbathurMonstrosityDeepTunnelPersistent" />
+    <Arc value="360" />
+    <PrepEffect value="AbathurMonstrosityDeepTunnelPrepSet" />
+    <InterruptArray index="Cast" value="1" />
+    <InterruptCost>
+      <Cooldown Location="Player" Operation="Set" TimeUse="10" />
+    </InterruptCost>
+    <CastIntroTime value="2.5" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="AbathurEvolveMonstrosityActiveSymbiote">
+    <Effect value="AbathurEvolveMonstrosityActivateSymbioteEnumerator" />
+    <Cost>
+      <Cooldown Link="Abil/AbathurSymbiote" TimeUse="4" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="EvolveMonstrosityActiveHotbar" Requirements="AbathurHasActiveMonstrosityNotInStasis" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <AbilityCategories index="TargetAcrossMapPlane" value="1" />
+    <Arc value="360" />
+    <ParentAbil value="AbathurEvolveMonstrosity" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="AbathurUltimateEvolution">
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurUltimateEvolution" Requirements="Ultimate1Unlocked" />
+    <Range value="500" />
+    <TargetFilters value="Heroic;Player,Neutral,Enemy,Stasis,Dead,Hallucination,Benign" />
+    <Arc value="360" />
+    <Effect value="UltimateEvolutionInitialCreatePersistent" />
+    <Cost>
+      <Cooldown TimeUse="70" />
+    </Cost>
+    <CastIntroTime value="1" />
+    <FinishTime value="0.0625" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <Activity value="Abil/Activity/AbathurUltimateEvolution" />
+    <ShowProgressArray index="Cast" value="1" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <InterruptArray index="Cast" value="1" />
+    <InterruptCost>
+      <Cooldown Operation="Set" TimeUse="10" />
+    </InterruptCost>
+    <AbilityCategories index="TargetAcrossMapPlane" value="1" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AbathurEvolveMonstrosity">
+    <Effect value="AbathurEvolveMonstrosityInitialSet" />
+    <Cost>
+      <Cooldown TimeUse="90" />
+    </Cost>
+    <TargetFilters value="-;Neutral,Enemy,Heroic,Missile,Stasis,Dead" />
+    <Range value="500" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AbathurEvolveMonstrosityHotbar" Requirements="Ultimate2Unlocked">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <Arc value="360" />
+    <ProducedUnitArray value="AbathurEvolvedMonstrosity" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlexstraszaGiftOfLife">
+    <Effect value="AlexstraszaGiftOfLifeSet" />
+    <Cost>
+      <Cooldown TimeUse="7" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlexstraszaGiftOfLife" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlexstraszaAbundance">
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlexstraszaAbundance" />
+    <Effect value="AlexstraszaAbundanceCreatePersistent" />
+    <Range value="11.5" />
+    <Cost>
+      <Vital index="Energy" value="75" />
+      <Cooldown TimeUse="14" />
+    </Cost>
+    <CastIntroTime value="0.125" />
+    <Arc value="360" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="GuldanLifeTapFree">
+    <Effect value="GuldanLifeTapCastSet" />
+    <Cost>
+      <Cooldown Link="Abil/GuldanLifeTap" TimeUse="0.5" />
+    </Cost>
+    <CmdButtonArray index="Execute">
+      <DefaultButtonFace value="GuldanLifeTapFree" />
+      <Requirements value="GuldanLifeTapManaControllerNotActive" />
+      <ShowValidator value="GuldanCasterHasGuldanLifeTapDarknessWithinReady" />
+      <UseValidator value="GuldanCasterHasGuldanLifeTapDarknessWithinReady" />
+    </CmdButtonArray>
+    <ParentAbil value="GuldanLifeTap" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="GuldanLifeTap">
+    <Effect value="GuldanLifeTapCastSet" />
+    <Cost>
+      <Vital index="Life" value="222" />
+      <Cooldown TimeUse="0.5" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="GuldanLifeTap" Requirements="GuldanLifeTapManaControllerNotActive" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="AlexstraszaCleansingFlameDragonqueen">
+    <PrepEffect value="AlexstraszaCleansingFlamePrepSet" />
+    <Effect value="AlexstraszaCleansingFlameFireballPersistent" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RangeUseCasterRadius" value="0" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Cost>
+      <Vital index="Energy" value="100" />
+      <Cooldown Link="Abil/AlexstraszaCleansingFlame" TimeUse="100" />
+    </Cost>
+    <InterruptArray index="Cast" value="1" />
+    <InterruptCost>
+      <Cooldown Link="Abil/AlexstraszaCleansingFlame" TimeStart="10" TimeUse="10" />
+    </InterruptCost>
+    <Range value="$AlexstraszaCleansingFlameCastRange" />
+    <Arc value="360" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CursorEffect value="AlexstraszaCleansingFlameFireballSearch" />
+    <CastOutroTimeEffect value="AlexstraszaCleansingFlameFireballPersistent" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlexstraszaCleansingFlameDragonqueen" Requirements="Ultimate2Unlocked">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <SharedFlags index="AllowQuickCastCustomization" value="0" />
+    <SharedFlags index="ForceQuickCast" value="1" />
+    <CursorRangeFlags index="ClampMin" value="1" />
+    <CursorRangeFlags index="ClampMax" value="1" />
+    <ParentAbil value="AlexstraszaCleansingFlame" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="BarbarianSeismicSlam">
+    <Effect value="BarbarianSeismicSlamSet" />
+    <Cost>
+      <Vital index="Energy" value="25" />
+      <Cooldown TimeUse="1" />
+    </Cost>
+    <TargetFilters value="-;Player,Ally,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <Range value="2.25" />
+    <RangeSlop value="2.5" />
+    <Arc value="219.9902" />
+    <CastIntroTime value="0.15" />
+    <UninterruptibleArray index="Prep" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="BarbarianSeismicSlam">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="SamuroIllusionMaster">
+    <AbilityCategories index="TargetAcrossMapPlane" value="1" />
+    <PrepEffect value="DismountCasterSet" />
+    <Effect value="SamuroIllusionMasterInitalSet" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="TransientPreferred" value="1" />
+    <Cost>
+      <Cooldown Location="Player" TimeUse="14" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="SamuroAdvancingStrikes">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="Stoneform">
+    <Effect value="StoneformApplyBehavior" />
+    <Cost>
+      <Cooldown TimeUse="60" />
+    </Cost>
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="MuradinSecondWindActivateable" Requirements="MuradinHasStoneformCarryBehavior" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="GarroshArmorUpBodyCheck">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="GarroshBodyCheckImpactSet" />
+    <Flags index="ClearLastAttackTarget" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Cost>
+      <Charge>
+        <CountMax value="1" />
+        <CountStart value="1" />
+        <CountUse value="1" />
+        <HideCount value="1" />
+        <TimeUse value="15" />
+      </Charge>
+      <Cooldown TimeUse="1" />
+    </Cost>
+    <TargetFilters value="Visible;Player,Ally,Neutral,Structure,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <Range value="3" />
+    <RangeSlop value="5" />
+    <CastIntroTime value="0.125" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="GarroshArmorUpBodyCheck" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="AnaEyeOfHorusActivate">
+    <PrepEffect value="AnaEyeOfHorusActivatePrepSet" />
+    <Effect value="AnaEyeOfHorusInitialSet" />
+    <Flags index="ClearLastAttackTarget" value="1" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="NoDeceleration" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Flags index="UpdateTarget" value="1" />
+    <Cost>
+      <Vital index="Energy" value="45" />
+      <Charge>
+        <CountMax value="6" />
+        <CountStart value="6" />
+        <CountUse value="0" />
+        <HideCount value="1" />
+      </Charge>
+      <Cooldown TimeUse="60" />
+    </Cost>
+    <CancelableArray index="Channel" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <AutoQueueArray index="Channel" value="0" />
+    <AutoQueueArray index="Finish" value="0" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AnaEyeOfHorusActivate" Requirements="Ultimate2Unlocked">
+      <Flags index="Continuous" value="0" />
+    </CmdButtonArray>
+    <CastIntroTime value="0.0625" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="AnaEyeOfHorusAttack">
+    <Effect value="AnaEyeOfHorusAttackInitialSet" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Flags index="TransientPreferred" value="1" />
+    <Cost>
+      <Charge CountMax="6" CountStart="6" CountUse="1" />
+      <Cooldown TimeUse="1" />
+    </Cost>
+    <Range value="500" />
+    <Arc value="360" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CursorEffect value="AnaEyeOfHorusPresearch" />
+    <TargetCursorInfo>
+      <Invalid value="SelectNormal" />
+      <Normal value="SelectNormal" />
+      <Allied value="SelectNormal" />
+      <Enemy value="SelectNormal" />
+    </TargetCursorInfo>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AnaEyeOfHorusHighPoweredRound" Requirements="AnaHaveEyeOfHorus">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <SharedFlags index="AllowQuickCastCustomization" value="0" />
+    <AbilityCategories index="TargetAcrossMapPlane" value="1" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="AnaEyeOfHorusAttackDummy">
+    <Effect value="AnaEyeOfHorusAttackDummySet" />
+    <Cost>
+      <Charge CountMax="6" CountStart="6" Link="Abil/AnaEyeOfHorusAttack" />
+      <Cooldown TimeUse="1" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AnaEyeOfHorusHighPoweredRound" Requirements="AnaHaveEyeOfHorus" />
+    <AbilityCategories index="TargetAcrossMapPlane" value="1" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="BarbarianBattleRage">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="BarbarianBattleRageCastSet" />
+    <Cost>
+      <Charge>
+        <CountMax value="2" />
+        <CountUse value="1" />
+        <Location value="Player" />
+        <TimeUse value="30" />
+      </Charge>
+      <Cooldown Location="Player" TimeUse="8" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="BarbarianBattleRage" Requirements="AbathurHasNoStrainBuffs" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="DehakaEssenceCollection">
+    <Effect value="DehakaEssenceCollectionInitialAmountSwitch" />
+    <Cost>
+      <Charge CountMax="50" />
+      <Cooldown TimeUse="1" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="DehakaEssenceCollectionStore" Requirements="DehakaEssenceCollectionStackBehaviorActive" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="TassadarOracleTargeted">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="TassadarOracleTargetedCreatePersistent" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Cost>
+      <Charge Link="" />
+      <Cooldown TimeUse="45" />
+    </Cost>
+    <Range value="500" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="TassadarOracleTargeted">
+      <Flags index="AllowMinimap" value="1" />
+      <Flags index="AllowMinimapUpdateTarget" value="1" />
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <CmdButtonArray index="Cancel" DefaultButtonFace="TassadarCancelOracle" />
+    <ArcSlop value="0" />
+    <CastIntroTime value="0.0625" />
+    <CursorEffect value="TassadarOracleTargetedSearchArea" />
+    <AutoQueueArray index="Channel" value="0" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="ThrallAncestralWrath">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="ThrallAncestralWrathCastSet" />
+    <Cost>
+      <Charge CountMax="8" CountUse="8" />
+      <Cooldown TimeUse="1" />
+    </Cost>
+    <TargetFilters value="Heroic,Visible;Self,Player,Ally,Neutral,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <Range value="7" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="ThrallAncestralWrath">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="GallShove">
+    <Flags index="RequireTargetVision" value="0" />
+    <Flags index="Transient" value="1" />
+    <Effect value="GallShoveInitialPersistent" />
+    <Range value="500" />
+    <Arc value="360" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="GallShoveHotbar">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <Cost>
+      <Cooldown TimeUse="30" />
+    </Cost>
+  </CAbilEffectTarget>
+  <CAbilBehavior id="AnubarakLegionOfBeetlesToggle">
+    <OrderArray index="0" Color="255,0,255,0" Model="Assets\UI\Feedback\WayPointConfirm\WayPointConfirm.m3" LineTexture="Assets\Textures\Storm_WayPointLine.dds" />
+    <CmdButtonArray index="On" DefaultButtonFace="AnubarakScarabHostToggleLegionOfBeetlesOn" />
+    <CmdButtonArray index="Off" DefaultButtonFace="AnubarakScarabHostToggleLegionOfBeetlesOff" />
+    <Flags index="Toggle" value="1" />
+    <Flags index="Transient" value="1" />
+    <BehaviorArray value="AnubarakLegionOfBeetlesDisableBehavior" />
+    <Cost>
+      <Cooldown TimeUse="0.5" />
+    </Cost>
+    <OffCost>
+      <Cooldown TimeUse="0.5" />
+    </OffCost>
+  </CAbilBehavior>
+  <CAbilEffectInstant id="DVaLiquidCoolingAbility">
+    <Effect value="DVaLiquidCoolingCastSet" />
+    <Cost>
+      <Cooldown Location="Player" TimeUse="50" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="DVaLiquidCooling" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="AlarakDeadlyChargeExecute">
+    <Effect value="AlarakDeadlyChargeExecuteTriggerDummy" />
+    <Cost>
+      <Cooldown TimeUse="0.25" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlarakUnleashDeadlyCharge" ShowValidator="AlarakDeadlyChargeIsFirstHeroicAndChanneling" />
+    <SharedFlags index="AllowQuickCastCustomization" value="0" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="AlarakDeadlyChargeExecute2ndHeroic" parent="AlarakDeadlyChargeExecute">
+    <CmdButtonArray index="Execute" ShowValidator="AlarakDeadlyChargeIsSecondHeroicAndChanneling" />
+  </CAbilEffectInstant>
+  <!--test for subability-->
+  <CAbilEffectInstant id="AlarakDeadlyChargeExecute2ndHeroic">
+    <ParentAbil value="AlarakDeadlyChargeActivate2ndHeroic" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="DVaBoostersOn">
+    <Flags index="Transient" value="1" />
+    <Effect value="DVaBoostersInitialSet" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="DVaMechBoosters" Requirements="DVaMechAbilityUseRequirement" />
+    <Cost>
+      <Cooldown TimeUse="0.0625" />
+    </Cost>
+    <PrepEffect value="DecloakCasterSet" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="AmazonWarTravelerSummonMount">
+    <SharedFlags index="AllowQuickCastCustomization" value="0" />
+    <AbilityCategories index="Mount" value="1" />
+    <AbilityCategories index="InterruptedByDamage" value="1" />
+    <PrepEffect value="HeroGenericMountAbilityUsePrepareEffectSet" />
+    <Effect value="HeroGenericMountAbilityInitialSet" />
+    <Flags index="ClearLastAttackTarget" value="1" />
+    <Cost>
+      <Cooldown Link="Abil/Mount" TimeUse="4" />
+    </Cost>
+    <ValidatedArray index="Approach" value="0" />
+    <ValidatedArray index="Channel" value="0" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AmazonWarTravelerSummonMount" ShowValidator="AmazonWarTravelerMountCombine" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="AmazonSurgeOfLight">
+    <CmdButtonArray index="Execute" DefaultButtonFace="AmazonAvoidance" ShowValidator="AmazonHasSurgeOfLightPickedTalent" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="AmazonAvoidanceSurgeOfLightActivateSet" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RangeUseCasterRadius" value="0" />
+    <Cost>
+      <Charge>
+        <CountMax value="100" />
+        <CountUse value="100" />
+        <HideCount value="1" />
+        <Location value="Player" />
+      </Charge>
+      <Cooldown Location="Player" TimeUse="0.25" />
+    </Cost>
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CastIntroTime value="0.125" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="DeathwingMoltenFlame">
+    <Activity value="Abil/Activity/DeathwingMoltenFlame" />
+    <Effect value="DeathwingMoltenFlameInitialSet" />
+    <Flags index="ClearLastAttackTarget" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Flags index="TargetVectorLock" value="1" />
+    <Cost>
+      <Cooldown TimeUse="3" />
+    </Cost>
+    <Arc value="360" />
+    <Range value="500" />
+    <ShowProgressArray index="Cast" value="1" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CursorEffect value="DeathwingMoltenFlameSearch" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="DeathwingMoltenFlame" UseValidator="DeathwingCasterHasGTE10Energy">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <CastIntroTime value="1.5" />
+    <PrepEffect value="DeathwingMoltenFlamePrepSet" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="DeathwingFormSwitch">
+    <AbilityCategories index="Control" value="1" />
+    <Activity value="Abil/Activity/DeathwingFormSwitch" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="DeathwingFormSwitchInitialSet" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Cost>
+      <Cooldown TimeUse="20" />
+    </Cost>
+    <CastIntroTime value="2" />
+    <CastOutroTime value="0.5" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="DeathwingAspectOfDeath" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <ShowProgressArray index="Cast" value="1" />
+    <ShowProgressArray index="Channel" value="1" />
+    <ShowProgressArray index="Finish" value="1" />
+  </CAbilEffectInstant>
+  <CAbilBehavior id="DVaMechBunnyHopHeroic">
+    <BehaviorArray value="DvaMechBunnyHopActive" />
+    <CmdButtonArray index="On" DefaultButtonFace="DVaBunnyHopOn" Requirements="DVaMechAbilityUseAndBunnyHopUnlockedRequirement" />
+    <CmdButtonArray index="Off" DefaultButtonFace="DVaBunnyHopOff">
+      <hdp-ParentAbilArray value="DVaMechBunnyHopHeroic" />
+    </CmdButtonArray>
+    <Flags index="Toggle" value="1" />
+    <Flags index="Transient" value="1" />
+    <Cost>
+      <Cooldown Location="Player" TimeUse="1" />
+    </Cost>
+    <OffCost>
+      <Cooldown Location="Player" TimeUse="70" />
+    </OffCost>
+    <ExpireCost>
+      <Cooldown Location="Player" TimeUse="70" />
+    </ExpireCost>
+    <ValidatorArray value="DVaSourceisMech" />
+  </CAbilBehavior>
+  <CAbilEffectInstant id="FenixShieldCapacitorVisual">
+    <Effect value="FenixShieldCapacitorVisualDummySet" />
+    <Flags index="ValidateButtonState" value="0" />
+    <Cost>
+      <Cooldown TimeUse="5" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="FenixShieldCapacitor">
+      <Flags index="AllowMinimap" value="0" />
+      <Flags index="IgnoreUser" value="1" />
+      <Flags index="ShowInGlossary" value="0" />
+    </CmdButtonArray>
+    <SharedFlags index="AllowQuickCastCustomization" value="0" />
+    <hdp-ParentAbilLinkArray abilityId=":PASSIVE:" buttonId="FenixShieldCapacitor" abilityType="Trait" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="GallShadowBoltVolleyMoltenBlockDummy">
+    <CmdButtonArray index="Execute" DefaultButtonFace="GallShadowboltVolley" Requirements="GallShadowboltVolleyMoltenBlockDummyRequirements" />
+    <Cost>
+      <Cooldown TimeUse="60" />
+    </Cost>
+    <SharedFlags index="AllowQuickCastCustomization" value="0" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="AnubarakLegionOfBeetles">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="AnubarakLegionOfBeetlesInitialSet" />
+    <Flags index="Transient" value="1" />
+    <Cost>
+      <Cooldown TimeUse="12" />
+    </Cost>
+    <ProducedUnitArray value="AnubarakBeetleSpitBeetle" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="AnubarakScarabHostTrait" Requirements="AnubarakHasLegionOfBeetlesController" PreemptLevel="-1" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="AnubarakLegionOfBeetlesVisual">
+    <Effect value="AnubarakLegionofBeetlesVisualDummySet" />
+    <Flags index="ValidateButtonState" value="0" />
+    <Cost>
+      <Cooldown Link="Abil/AnubarakLegionOfBeetles" TimeUse="8" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AnubarakScarabHostTrait" PreemptLevel="-1">
+      <Flags index="AllowMinimap" value="0" />
+      <Flags index="Continuous" value="0" />
+      <Flags index="ShowInGlossary" value="0" />
+    </CmdButtonArray>
+    <SharedFlags index="AllowQuickCastCustomization" value="0" />
+    <!--Custom-->
+    <ProducedUnitArray value="AnubarakBeetleSpitBeetle" />
+  </CAbilEffectInstant>
+  <CAbilBehavior id="ImprovedIceBlock">
+    <OrderArray index="0" Color="255,0,255,0" Model="Assets\UI\Feedback\WayPointConfirm\WayPointConfirm.m3" LineTexture="Assets\Textures\Storm_WayPointLine.dds" />
+    <Flags index="Toggle" value="1" />
+    <Flags index="Transient" value="1" />
+    <BehaviorArray value="JainaImprovedIceBlock" />
+    <CmdButtonArray index="On" DefaultButtonFace="JainaImprovedIceBlockHotbar">
+      <Flags index="ToSelection" value="1" />
+    </CmdButtonArray>
+    <CmdButtonArray index="Off" DefaultButtonFace="JainaImprovedCancelIceBlock">
+      <Flags index="ToSelection" value="1" />
+    </CmdButtonArray>
+    <Cost>
+      <Cooldown Location="Player" TimeUse="0.5" />
+    </Cost>
+    <ExpireCost>
+      <Cooldown Location="Player" TimeUse="40" />
+    </ExpireCost>
+    <OffCost>
+      <Cooldown Location="Player" TimeUse="40" />
+    </OffCost>
+    <ValidatorArray value="CasterNotDead" />
+  </CAbilBehavior>
+  <!--custom-->
+  <CAbilBehavior id="ImprovedIceBlock">
+    <CmdButtonArray index="On">
+      <hdp-ParentAbilLinkArray abilityId=":PASSIVE:" buttonId="JainaTraitFrostbite" abilityType="Trait" />
+    </CmdButtonArray>
+    <CmdButtonArray index="Off">
+      <hdp-ParentAbilArray value="ImprovedIceBlock" />
+    </CmdButtonArray>
+  </CAbilBehavior>
+  <CAbilBehavior id="LucioCrossfade">
+    <CmdButtonArray index="On" DefaultButtonFace="LucioCrossfadeActivateHealingBoost">
+      <Flags index="ToSelection" value="1" />
+    </CmdButtonArray>
+    <CmdButtonArray index="Off" DefaultButtonFace="LucioCrossfadeActivateSpeedBoost">
+      <Flags index="ToSelection" value="1" />
+    </CmdButtonArray>
+    <Cost>
+      <Cooldown TimeUse="0.5" />
+    </Cost>
+    <OffCost>
+      <Cooldown TimeUse="0.5" />
+    </OffCost>
+    <BehaviorArray value="LucioCrossfadeHealingBoostApplier" />
+    <Flags index="Toggle" value="1" />
+    <Flags index="Transient" value="1" />
+    <ExpireCost>
+      <Cooldown TimeUse="0.5" />
+    </ExpireCost>
+    <ValidatorArray value="CasterNotDead" />
+  </CAbilBehavior>
+  <CAbilEffectInstant id="LucioWallRide">
+    <Flags index="Transient" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="LucioWallRide" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="MaievUmbralBind">
+    <Effect value="MaievUmbralBindInitialSet" />
+    <Flags index="TransientPreferred" value="1" />
+    <Cost>
+      <Vital index="Energy" value="55" />
+      <Cooldown TimeUse="14" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="MaievUmbralBind" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="NecromancerBoneArmor">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="NecromancerBoneArmorCastSet" />
+    <Flags index="BestUnit" value="1" />
+    <Flags index="Transient" value="1" />
+    <Cost>
+      <Cooldown Location="Player" TimeUse="30" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="NecromancerBoneArmor">
+      <Flags index="AllowMinimap" value="0" />
+      <Flags index="Continuous" value="0" />
+    </CmdButtonArray>
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="RagnarosCatchingFire">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="RagnarosCatchingFireResistant" />
+    <Cost>
+      <Cooldown TimeUse="30" />
+    </Cost>
+    <UninterruptibleArray index="Cast" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="RagnarosCatchingFireItem" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="JunkratTotalMayhemDirtyTrickster">
+    <Effect value="JunkratTotalMayhemDirtyTricksterDummySet" />
+    <Flags index="ValidateButtonState" value="0" />
+    <Cost>
+      <Cooldown TimeUse="20" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="JunkratDirtyTrickster">
+      <Flags index="IgnoreUser" value="1" />
+    </CmdButtonArray>
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="BarbarianShotofFury">
+    <Effect value="BarbarianShotOfFurySet" />
+    <Cost>
+      <Cooldown TimeUse="40" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="BarbarianFuryShotOfFury" Requirements="BarbarianHasShotofFury" />
+    <PrepEffect value="DecloakCasterSet" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="VarianTwinBladesofFury">
+    <CmdButtonArray index="Execute" DefaultButtonFace="VarianTwinBladesOfFury" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="AlarakMightOfTheHighlordSetDeadlyChargeAsHeroic">
+    <Effect value="AlarakMightOfTheHighlordSetHeroicAsDeadlyChargeSet" />
+    <Cost>
+      <Cooldown Location="Player" TimeUse="0.5" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="AlarakMightOfTheHighlord" />
+  </CAbilEffectInstant>
+  <CAbilEffectInstant id="WhitemaneInquisitionCancel">
+    <Cost>
+      <Cooldown TimeUse="0.5" />
+    </Cost>
+    <CmdButtonArray index="Execute" AutoQueueId="" DefaultButtonFace="WhitemaneInquisitionCancel" ShowValidator="WhitemaneInquisitionOrClemencyIsCasting" />
+    <ParentAbil value="WhitemaneInquisition" />
+    <hdp-ParentAbilArray value="WhitemaneInquisitionClemency" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="VarianLionsFang">
+    <PrepEffect value="VarianLionsFangPrepSet" />
+    <Effect value="VarianLionsFangInitialOffset" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Flags index="TargetVectorLock" value="1" />
+    <Cost>
+      <Vital index="Energy" value="50" />
+      <Cooldown TimeUse="8" />
+    </Cost>
+    <Range value="500" />
+    <CastIntroTime value="0.125" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <CursorEffect value="VarianLionsFangMissileSearch" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="VarianLionsFang">
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <Arc value="360" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="DeathwingSkyfall">
+    <Effect value="DeathwingSkyfallInitialSet" />
+    <Flags index="ClearLastAttackTargetOutOfRange" value="1" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RangeUseCasterRadius" value="0" />
+    <Cost>
+      <Charge>
+        <CountMax value="3" />
+        <CountStart value="3" />
+        <CountUse value="1" />
+        <TimeUse value="10" />
+      </Charge>
+      <Cooldown TimeUse="0.5" />
+    </Cost>
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="DeathwingSkyfallActive" ShowValidator="DeathwingSkyfallShowValidator">
+      <Flags index="AllowMinimap" value="1" />
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <Range value="500" />
+    <Arc value="360" />
+    <CursorEffect value="DeathwingSkyfallExplosionSearch" />
+    <AbilityCategories index="Reveals" value="1" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="ZeratulMightOfTheNerazimDummy">
+    <Effect value="ZeratulMightOfTheNerazimDummySet" />
+    <Cost>
+      <Vital index="Energy" value="30" />
+      <Cooldown Link="Abil/ZeratulMightOfTheNerazim" TimeUse="20" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="ZeratulMightOfTheNerazimPassive" Requirements="Ultimate1Unlocked" />
+    <Flags index="ValidateButtonState" value="0" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="RagnarosSulfurasSmash">
+    <Effect value="RagnarosSulfurasSmashPersistentSet" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Cost>
+      <Vital index="Energy" value="70" />
+      <Charge>
+        <CountMax value="1" />
+        <CountStart value="1" />
+        <CountUse value="1" />
+        <HideCount value="1" />
+        <Location value="Player" />
+        <TimeUse value="60" />
+      </Charge>
+      <Cooldown Location="Player" TimeUse="1" />
+    </Cost>
+    <Range value="16" />
+    <RangeSlop value="5" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="RagnarosSulfurasSmash" Requirements="Ultimate1Unlocked">
+      <Flags index="AllowMinimap" value="1" />
+    </CmdButtonArray>
+    <CursorEffect value="RagnarosSulfurasSmashSearchArea" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <CastIntroTime value="0.1875" />
+    <Activity value="Abil/RagnarosSulfurasSmash/Activity" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <Arc value="360" />
+    <InterruptCost>
+      <Cooldown Location="Player" Operation="Set" TimeUse="10" />
+    </InterruptCost>
+  </CAbilEffectTarget>
+</Abil>

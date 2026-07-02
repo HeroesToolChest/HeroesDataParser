@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<LootChest>
+  <CLootChest default="1" id="BaseLootChest">
+    <Name value="LootChest/Name/##id##" />
+    <HyperlinkId value="##id##" />
+    <CutsceneFile value="Cutscenes/UI_LootBox_Base.StormCutscene" />
+    <DisplayModel value="Storm_LootUI_Chest_Base" />
+    <MaxRerolls value="5" />
+    <PreviewCutsceneFile value="Cutscenes\StoreLootChest_##id##.StormCutscene" />
+    <TileCutsceneFile value="Cutscenes\FrameLootChest_##id##.StormCutscene" />
+    <TypeDescription value="LootChestCommon" />
+  </CLootChest>
+  <CLootChest default="1" id="CommonLootChest" parent="BaseLootChest">
+    <DisplayModel value="Storm_LootUI_Chest_Base_Common" />
+  </CLootChest>
+  <CLootChest id="AlarakChest" parent="CommonLootChest">
+    <MaxRerolls value="3" />
+    <ServerId value="9" />
+    <RequiredRewardArray value="AlarakChestReward" />
+  </CLootChest>
+  <CLootChest default="1" id="Halloween2018LootChestParent" parent="BaseLootChest">
+    <CutsceneFile value="Cutscenes/UI_LootChest_Halloween.StormCutscene" />
+    <TypeDescription value="##id##" />
+    <EventName value="Halloween18" />
+  </CLootChest>
+  <CLootChest default="1" id="Halloween2018EpicLootChest" parent="Halloween2018LootChestParent">
+    <DisplayModel value="Storm_LootUI_Chest_Halloween_Epic" />
+    <Rarity value="Epic" />
+  </CLootChest>
+  <CLootChest id="LootChestHalloween2018Epic" parent="Halloween2018EpicLootChest">
+    <MaxRerolls value="3" />
+    <ServerId value="125" />
+    <RequiredRewardArray value="LootChestHalloween2018EpicReward" />
+  </CLootChest>
+</LootChest>

@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Actor>
+  <CActorUnit default="1" id="StormUnitBase" parent="StormGenericUnitSelectable">
+  </CActorUnit>
+  <CActorUnit default="1" id="StormHeroBase" parent="StormUnitBase">
+    <Aliases value="AnimOverrideReceiverStand" />
+    <Aliases value="_Hero" />
+    <CustomUnitStatusFrame value="UnitStatus/HeroUnitStatusFrameTemplate" />
+    <CustomUnitStatusActor value="StatusBarStabilizer" />
+    <MinimapRenderPriority value="Hero" />
+    <MinimapIconBackground value="Assets\Textures\storm_ui_minimapicon_herobg_arrow.dds" />
+    <MinimapIconBackgroundIsTeamColored value="1" />
+    <VitalNames index="Life" value="UI/HeroLife" />
+    <VitalNames index="Shields" value="UI/HeroShields" />
+    <VitalNames index="Energy" value="UI/HeroEnergyType/Mana" />
+    <MinimapIconType value="Hero" />
+    <MinimapUnitStatusFrame value="MinimapUnitStatus/MinimapHeroIcon" />
+  </CActorUnit>
+  <CActorUnit default="1" id="StormHeroBasePredictive" parent="StormHeroBase">
+    <Macros value="AttackPredictionMacro" />
+  </CActorUnit>
+  <CActorUnit default="1" id="StormHeroStandard" parent="StormHeroBase">
+  </CActorUnit>
+  <CActorUnit id="HeroAbathur" parent="StormHeroBasePredictive" unitName="HeroAbathur">
+    <HeroIcon value="Assets\Textures\ui_targetportrait_hero_abathur.dds" />
+    <MinimapIcon value="Assets\Textures\storm_ui_minimapicon_heros_infestor.dds" />
+    <UnitIcon value="Assets\Textures\ui_targetportrait_hero_abathur.dds" />
+    <Wireframe>
+      <Image value="Assets\Textures\ui_targetportrait_hero_abathur.dds" />
+    </Wireframe>
+    <GroupIcon>
+      <Image value="Assets\Textures\storm_ui_ingame_partyframe_abathur.dds" />
+    </GroupIcon>
+    <Macros value="TipableKnockbackMacro" />
+    <CustomUnitStatusFrame value="UnitStatus/HeroUnitStatusFrameNoEnergyTemplate" />
+    <VitalNames index="Energy" value="" />
+  </CActorUnit>
+  <CActorUnit id="HeroFenix" parent="StormHeroStandard" unitName="HeroFenix">
+    <DeathArray index="Normal" ModelLink="HeroFenixDeathRagdoll" SoundLink="FenixBase_Death" VoiceLink="FenixBase_Death" />
+    <ModelFlags index="TreatAsUnableToTurnForWalkDirections" value="1" />
+    <PortraitActor value="FenixPortrait" />
+    <PortraitModel value="FenixPortrait" />
+    <HeroIcon value="Assets\Textures\storm_ui_ingame_hero_leaderboard_fenix.dds" />
+    <HighlightTooltip value="Unit/Name/Fenix" />
+    <MinimapIcon value="Assets\Textures\storm_ui_minimapicon_fenix.dds" />
+    <UnitIcon value="Assets\Textures\ui_targetportrait_hero_fenix.dds" />
+    <Aliases value="_Fenix" />
+    <CustomUnitStatusFrame value="UnitStatus/HeroUnitStatusFrameSeparateShieldBar" />
+    <ErrorArray Error="NotEnoughEnergy" Sound="FenixBase_LowMana" />
+    <SoundArray index="Yes" value="FenixBase_Yes" />
+    <SoundArray index="Attack" value="FenixBase_Attack" />
+    <SoundArray index="Pissed" value="FenixBase_Pissed" />
+    <GroupIcon>
+      <Image value="Assets\Textures\storm_ui_ingame_partyframe_fenix.dds" />
+    </GroupIcon>
+  </CActorUnit>
+  <CActorUnit id="HeroSamuro" parent="StormHeroStandard" unitName="HeroSamuro">
+    <UnitIcon value="Assets\Textures\storm_ui_icon_samuro_selectprime.dds" />
+    <UnitButton value="SamuroSelectSamuroPrime" />
+    <UnitButtonMultiple value="SamuroSelectAll" />
+    <GroupIcon>
+      <Image value="Assets\Textures\storm_ui_ingame_partyframe_samuro.dds" />
+    </GroupIcon>
+  </CActorUnit>
+</Actor>

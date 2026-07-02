@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Desc>
+  <DescFlags val="Locked" />
+  <Constant name="SectionTextOffset" val="-5" />
+  <Constant name="MapObjectiveOverlayColor" val="f76a22" />
+  <Frame type="Frame" name="ScreenMapLoading_BattlefieldOfEternity" template="LoadingShared/LoadingTemplate">
+    <Anchor relative="$parent" />
+    <Frame type="Frame" name="MapObjective1">
+      <Frame type="Image" name="BucketFrame">
+        <AdjustmentColor val="#MapObjectiveOverlayColor" />
+      </Frame>
+      <Frame type="Image" name="Icon">
+        <Anchor side="Top" relative="$parent/IconAnchorFrame" pos="Mid" offset="-30" />
+        <Anchor side="Bottom" relative="$parent/IconAnchorFrame" pos="Mid" offset="-10" />
+        <Anchor side="Left" relative="$parent/IconAnchorFrame" pos="Mid" offset="0" />
+        <Anchor side="Right" relative="$parent/IconAnchorFrame" pos="Mid" offset="0" />
+        <Texture val="@UI/ui_ingame_mapmechanic_loadscreen_eternity_icon1" />
+        <ScaleWidthToTexture val="true" />
+        <Height val="165" />
+      </Frame>
+      <Frame type="Label" name="ObjectiveTitle">
+        <Text val="@UI/MapLoadingScreen/BattlefieldOfEternity/Title1" />
+        <Style val="Storm_MapLoading_SectionTitleText_Red" />
+      </Frame>
+      <Frame type="Label" name="ObjectiveDescription">
+        <Text val="@UI/MapLoadingScreen/BattlefieldOfEternity/Description1" />
+        <Style val="Storm_MapLoading_SectionText_Red" />
+      </Frame>
+    </Frame>
+    <Frame type="Frame" name="MapObjective2">
+      <Frame type="Image" name="BucketFrame">
+        <AdjustmentColor val="#MapObjectiveOverlayColor" />
+      </Frame>
+      <Frame type="Image" name="Icon">
+        <Anchor side="Top" relative="$parent/IconAnchorFrame" pos="Mid" offset="-15" />
+        <Anchor side="Bottom" relative="$parent/IconAnchorFrame" pos="Mid" offset="-15" />
+        <Anchor side="Left" relative="$parent/IconAnchorFrame" pos="Mid" offset="2" />
+        <Anchor side="Right" relative="$parent/IconAnchorFrame" pos="Mid" offset="2" />
+        <Texture val="@UI/ui_ingame_mapmechanic_loadscreen_eternity_icon2" />
+        <ScaleWidthToTexture val="true" />
+        <Height val="160" />
+      </Frame>
+      <Frame type="Label" name="ObjectiveTitle">
+        <Text val="@UI/MapLoadingScreen/BattlefieldOfEternity/Title2" />
+        <Style val="Storm_MapLoading_SectionTitleText_Red" />
+      </Frame>
+      <Frame type="Label" name="ObjectiveDescription">
+        <Text val="@UI/MapLoadingScreen/BattlefieldOfEternity/Description2" />
+        <Style val="Storm_MapLoading_SectionText_Red" />
+      </Frame>
+    </Frame>
+    <Frame type="Frame" name="MapObjective3">
+      <Frame type="Image" name="BucketFrame">
+        <AdjustmentColor val="#MapObjectiveOverlayColor" />
+      </Frame>
+      <Frame type="Image" name="Icon">
+        <Anchor side="Top" relative="$parent/IconAnchorFrame" pos="Mid" offset="-30" />
+        <Anchor side="Bottom" relative="$parent/IconAnchorFrame" pos="Mid" offset="-10" />
+        <Anchor side="Left" relative="$parent/IconAnchorFrame" pos="Mid" offset="-8" />
+        <Anchor side="Right" relative="$parent/IconAnchorFrame" pos="Mid" offset="-8" />
+        <Texture val="@UI/ui_ingame_mapmechanic_loadscreen_eternity_icon3" />
+        <ScaleWidthToTexture val="true" />
+        <Height val="170" />
+      </Frame>
+      <Frame type="Label" name="ObjectiveTitle">
+        <Text val="@UI/MapLoadingScreen/BattlefieldOfEternity/Title3" />
+        <Style val="Storm_MapLoading_SectionTitleText_Red" />
+      </Frame>
+      <Frame type="Label" name="ObjectiveDescription">
+        <Text val="@UI/MapLoadingScreen/BattlefieldOfEternity/Description3" />
+        <Style val="Storm_MapLoading_SectionText_Red" />
+      </Frame>
+    </Frame>
+  </Frame>
+</Desc>
