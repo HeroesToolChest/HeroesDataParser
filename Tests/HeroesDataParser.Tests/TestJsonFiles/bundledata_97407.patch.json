@@ -1,0 +1,7 @@
+[
+  {
+    "op": "replace",
+    "path": "/meta/heroesVersion",
+    "value": "2.55.17.97407_ptr"
+  }
+]

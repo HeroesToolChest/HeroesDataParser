@@ -220,5 +220,13 @@ public class JsonApplyService : IJsonApplyService
         _jsonSerializerOptions.WriteIndented = _options.JsonIndent;
         _jsonSerializerOptions.Converters.Add(new GameStringTextConverter(new GameStringTextConverterOptions() { GameStringTextType = GameStringTextType.RawText }));
         _jsonSerializerOptions.Converters.Add(new GameStringItemDictionaryConverter());
+        _jsonSerializerOptions.TypeInfoResolver = new HeroesElementResolver()
+        {
+            Modifiers =
+            {
+                typeInfo => JsonTypeInfoModifiers.SerializationModifiers(typeInfo, LocalizedTextOption.None, []),
+            },
+        };
+        _jsonSerializerOptions.NumberHandling = JsonNumberHandling.Strict;
     }
 }
