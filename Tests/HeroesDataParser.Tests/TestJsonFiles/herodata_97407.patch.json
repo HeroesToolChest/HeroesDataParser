@@ -1,0 +1,230 @@
+[
+  {
+    "op": "replace",
+    "path": "/meta/heroesVersion",
+    "value": "2.55.17.97407_ptr"
+  },
+  {
+    "op": "remove",
+    "path": "/items/Abathur/subAbilities/AbathurCombatStyleLocustBrood|AbathurLocustSwarm|Active|Level16"
+  },
+  {
+    "op": "add",
+    "path": "/items/Abathur/subAbilities/AbathurCombatStyleLocustBrood|AbathurLocustSwarm|Active|Level1",
+    "value": {
+      "Activable": [
+        {
+          "linkId": "AbathurLocustSwarm|AbathurLocustSwarm|Active",
+          "abilityId": "AbathurLocustSwarm",
+          "buttonId": "AbathurLocustSwarm",
+          "icon": "storm_ui_icon_abathur_spawnlocust.png",
+          "abilityType": "Active"
+        }
+      ]
+    }
+  },
+  {
+    "op": "replace",
+    "path": "/items/Abathur/talents/Level1/3/linkId",
+    "value": "AbathurCombatStyleLocustBrood|AbathurLocustSwarm|Active|Level1"
+  },
+  {
+    "op": "replace",
+    "path": "/items/Abathur/talents/Level1/3/talentId",
+    "value": "AbathurCombatStyleLocustBrood"
+  },
+  {
+    "op": "replace",
+    "path": "/items/Abathur/talents/Level1/3/buttonId",
+    "value": "AbathurLocustSwarm"
+  },
+  {
+    "op": "replace",
+    "path": "/items/Abathur/talents/Level1/3/abilityId",
+    "value": "AbathurLocustSwarm"
+  },
+  {
+    "op": "replace",
+    "path": "/items/Abathur/talents/Level1/3/abilityType",
+    "value": "Active"
+  },
+  {
+    "op": "replace",
+    "path": "/items/Abathur/talents/Level1/3/upgradesAbilityType",
+    "value": false
+  },
+  {
+    "op": "remove",
+    "path": "/items/Abathur/talents/Level1/3/tooltipAbilityLinkIds"
+  },
+  {
+    "op": "add",
+    "path": "/items/Abathur/talents/Level4/3",
+    "value": {
+      "linkId": "AbathurSlapathur|AbathurSlapathur|E|Level4",
+      "talentId": "AbathurSlapathur",
+      "buttonId": "AbathurSlapathur",
+      "abilityId": "AbathurSymbioteCarapace",
+      "icon": "storm_ui_icon_abathur_volatilemutation.png",
+      "abilityType": "E",
+      "isQuest": false,
+      "upgradesAbilityType": true,
+      "hasHotkey": true,
+      "sort": 4
+    }
+  },
+  {
+    "op": "replace",
+    "path": "/items/Abathur/talents/Level16/3/linkId",
+    "value": "AbathurCombatStyleSurvivalInstincts|AbathurLocustStrainSurvivalInstinctsTalent|Trait|Level16"
+  },
+  {
+    "op": "replace",
+    "path": "/items/Abathur/talents/Level16/3/talentId",
+    "value": "AbathurCombatStyleSurvivalInstincts"
+  },
+  {
+    "op": "replace",
+    "path": "/items/Abathur/talents/Level16/3/buttonId",
+    "value": "AbathurLocustStrainSurvivalInstinctsTalent"
+  },
+  {
+    "op": "replace",
+    "path": "/items/Abathur/talents/Level16/3/abilityId",
+    "value": ":PASSIVE:"
+  },
+  {
+    "op": "replace",
+    "path": "/items/Abathur/talents/Level16/3/abilityType",
+    "value": "Trait"
+  },
+  {
+    "op": "replace",
+    "path": "/items/Abathur/talents/Level16/3/upgradesAbilityType",
+    "value": true
+  },
+  {
+    "op": "add",
+    "path": "/items/Abathur/talents/Level16/3/tooltipAbilityLinkIds",
+    "value": [
+      "AbathurSpawnLocusts|AbathurLocustStrain|Trait"
+    ]
+  },
+  {
+    "op": "replace",
+    "path": "/items/Alexstrasza/life/regenRate",
+    "value": 8.8438
+  },
+  {
+    "op": "replace",
+    "path": "/items/Alexstrasza/talents/Level1/0/tooltipAbilityLinkIds/0",
+    "value": "AlexstraszaBreathOfLife|AlexstraszaBreathOfLife|Q"
+  },
+  {
+    "op": "add",
+    "path": "/items/Alexstrasza/talents/Level1/0/tooltipAbilityLinkIds/1",
+    "value": "AlexstraszaGiftOfLife|AlexstraszaGiftOfLife|Q"
+  },
+  {
+    "op": "add",
+    "path": "/items/Alexstrasza/talents/Level1/1/tooltipAbilityLinkIds/1",
+    "value": "AlexstraszaPreservation|AlexstraszaPreservation|W"
+  },
+  {
+    "op": "add",
+    "path": "/items/Alexstrasza/talents/Level4/0/tooltipAbilityLinkIds/1",
+    "value": "AlexstraszaPreservation|AlexstraszaPreservation|W"
+  },
+  {
+    "op": "replace",
+    "path": "/items/Alexstrasza/talents/Level7/0/tooltipAbilityLinkIds/0",
+    "value": "AlexstraszaBreathOfLife|AlexstraszaBreathOfLife|Q"
+  },
+  {
+    "op": "add",
+    "path": "/items/Alexstrasza/talents/Level7/0/tooltipAbilityLinkIds/1",
+    "value": "AlexstraszaGiftOfLife|AlexstraszaGiftOfLife|Q"
+  },
+  {
+    "op": "add",
+    "path": "/items/Alexstrasza/talents/Level7/1/tooltipAbilityLinkIds/1",
+    "value": "AlexstraszaPreservation|AlexstraszaPreservation|W"
+  },
+  {
+    "op": "replace",
+    "path": "/items/Alexstrasza/talents/Level16/0/tooltipAbilityLinkIds/0",
+    "value": "AlexstraszaBreathOfLife|AlexstraszaBreathOfLife|Q"
+  },
+  {
+    "op": "add",
+    "path": "/items/Alexstrasza/talents/Level16/0/tooltipAbilityLinkIds/1",
+    "value": "AlexstraszaGiftOfLife|AlexstraszaGiftOfLife|Q"
+  },
+  {
+    "op": "add",
+    "path": "/items/Alexstrasza/talents/Level16/1/tooltipAbilityLinkIds/1",
+    "value": "AlexstraszaPreservation|AlexstraszaPreservation|W"
+  },
+  {
+    "op": "replace",
+    "path": "/items/Alexstrasza/heroUnits/HeroAlexstraszaDragon/life/regenRate",
+    "value": 8.8438
+  },
+  {
+    "op": "replace",
+    "path": "/items/Diablo/abilities/Basic/2/charges/recastCooldown",
+    "value": 1.75
+  },
+  {
+    "op": "replace",
+    "path": "/items/NexusHunter/talents/Level1/1/isQuest",
+    "value": false
+  },
+  {
+    "op": "replace",
+    "path": "/items/NexusHunter/talents/Level1/1/upgradesAbilityType",
+    "value": true
+  },
+  {
+    "op": "add",
+    "path": "/items/Ragnaros/abilities/Heroic/0/charges",
+    "value": {
+      "countMax": 1,
+      "countStart": 1,
+      "countUse": 1,
+      "recastCooldown": 1,
+      "isCountHidden": true
+    }
+  },
+  {
+    "op": "replace",
+    "path": "/items/Ragnaros/talents/Level10/0/isQuest",
+    "value": true
+  },
+  {
+    "op": "replace",
+    "path": "/items/Ragnaros/heroUnits/RagnarosBigRag/life/amount",
+    "value": 5000
+  },
+  {
+    "op": "add",
+    "path": "/items/Ragnaros/heroUnits/RagnarosBigRag/abilities/Heroic/0/charges",
+    "value": {
+      "countMax": 1,
+      "countStart": 1,
+      "countUse": 1,
+      "recastCooldown": 1,
+      "isCountHidden": true
+    }
+  },
+  {
+    "op": "replace",
+    "path": "/items/Whitemane/talents/Level1/2/isQuest",
+    "value": false
+  },
+  {
+    "op": "replace",
+    "path": "/items/Whitemane/talents/Level1/2/upgradesAbilityType",
+    "value": true
+  }
+]

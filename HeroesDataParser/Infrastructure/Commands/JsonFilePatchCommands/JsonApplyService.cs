@@ -10,6 +10,7 @@ public class JsonApplyService : IJsonApplyService
     private readonly IJsonSerializerOptionService _jsonSerializerOptionService;
 
     private readonly JsonSerializerOptions _jsonSerializerOptions;
+    private readonly JsonSerializerOptions _dataOnlyJsonSerializerOptions;
 
     public JsonApplyService(
         ILogger<JsonApplyService> logger,
@@ -22,6 +23,7 @@ public class JsonApplyService : IJsonApplyService
         _console = console;
         _jsonSerializerOptionService = jsonSerializerOptionService;
         _jsonSerializerOptions = new(_jsonSerializerOptionService.GeneralJsonSerializerOptions);
+        _dataOnlyJsonSerializerOptions = new(_jsonSerializerOptionService.GeneralJsonSerializerOptions);
     }
 
     public async Task ApplyJsonPatch()
@@ -42,6 +44,12 @@ public class JsonApplyService : IJsonApplyService
         if (itemsType is null)
             return;
 
+        if (itemsType == ItemsType.Data)
+        {
+            LocalizedTextOption localizedTextOption = GetLocalizedTextOption(originalDocument);
+            SetDataOnlySerializationOptions(localizedTextOption);
+        }
+
         JsonDocument? patchedDocument = patch.Apply(originalDocument);
         if (patchedDocument is null)
         {
@@ -57,14 +65,14 @@ public class JsonApplyService : IJsonApplyService
 
     private async Task CreateReserializedData(JsonDocument jsonDocument)
     {
-        MetaDataProperties metaDataProperties = jsonDocument.RootElement.GetProperty(ElementConstants.RootMetaPropertyName).Deserialize<MetaDataProperties>(_jsonSerializerOptions)!;
+        MetaDataProperties metaDataProperties = jsonDocument.RootElement.GetProperty(ElementConstants.RootMetaPropertyName).Deserialize<MetaDataProperties>(_dataOnlyJsonSerializerOptions)!;
 
         SortedDictionary<string, object> itemObjects = new(StringComparer.OrdinalIgnoreCase);
         Type elementType = DataDocument.Load(jsonDocument).ElementType;
 
         foreach (JsonProperty property in jsonDocument.RootElement.GetProperty(ElementConstants.ItemsPropertyName).EnumerateObject())
         {
-            object? @object = property.Value.Deserialize(elementType, _jsonSerializerOptions);
+            object? @object = property.Value.Deserialize(elementType, _dataOnlyJsonSerializerOptions);
             if (@object is null)
                 continue;
 
@@ -82,7 +90,7 @@ public class JsonApplyService : IJsonApplyService
         CreateDirectory();
 
         await using FileStream stream = File.Create(_options.OutputFilePath);
-        await JsonSerializer.SerializeAsync(stream, rootJsonElement, _jsonSerializerOptions);
+        await JsonSerializer.SerializeAsync(stream, rootJsonElement, _dataOnlyJsonSerializerOptions);
 
         DisplaySuccess();
     }
@@ -227,6 +235,26 @@ public class JsonApplyService : IJsonApplyService
                 typeInfo => JsonTypeInfoModifiers.SerializationModifiers(typeInfo, LocalizedTextOption.None, []),
             },
         };
-        _jsonSerializerOptions.NumberHandling = JsonNumberHandling.Strict;
+    }
+
+    private LocalizedTextOption GetLocalizedTextOption(JsonDocument jsonDocument)
+    {
+        MetaDataProperties metaDataProperties = jsonDocument.RootElement.GetProperty(ElementConstants.RootMetaPropertyName).Deserialize<MetaDataProperties>(_jsonSerializerOptions)!;
+
+        return metaDataProperties.LocalizedText == LocalizedText.None ? LocalizedTextOption.None : LocalizedTextOption.Extract;
+    }
+
+    private void SetDataOnlySerializationOptions(LocalizedTextOption localizedTextOption)
+    {
+        _dataOnlyJsonSerializerOptions.WriteIndented = _options.JsonIndent;
+        _dataOnlyJsonSerializerOptions.Converters.Add(new GameStringTextConverter(new GameStringTextConverterOptions() { GameStringTextType = GameStringTextType.RawText }));
+        _dataOnlyJsonSerializerOptions.Converters.Add(new GameStringItemDictionaryConverter());
+        _dataOnlyJsonSerializerOptions.TypeInfoResolver = new HeroesElementResolver()
+        {
+            Modifiers =
+            {
+                typeInfo => JsonTypeInfoModifiers.SerializationModifiers(typeInfo, localizedTextOption, []),
+            },
+        };
     }
 }

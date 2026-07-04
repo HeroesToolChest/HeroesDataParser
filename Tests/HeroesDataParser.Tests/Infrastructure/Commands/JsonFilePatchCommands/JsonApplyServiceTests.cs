@@ -170,4 +170,34 @@ public class JsonApplyServiceTests
 
         patchedText.Should().BeEquivalentTo(comparedToText);
     }
+
+    [TestMethod]
+    public async Task ApplyJsonPatch__PatchedCorrectly()
+    {
+        // arrange
+        string outputFilePath = Path.Combine(TestConstants.TestDirectory, nameof(ApplyJsonPatch__PatchedCorrectly), "herodata_97407.json");
+
+        _options.Value.Returns(new JsonApplyOptions()
+        {
+            JsonFilePath = Path.Combine("TestJsonFiles", "herodata_97039_extracted.json"),
+            JsonPatchFilePath = Path.Combine("TestJsonFiles", "herodata_97407.patch.json"),
+            OutputFilePath = outputFilePath,
+            JsonIndent = true,
+        });
+
+        _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
+
+        JsonApplyService jsonApplyService = new(_logger, _options, _console, _jsonSerializerOptionService);
+
+        // act
+        await jsonApplyService.ApplyJsonPatch();
+
+        // assert
+        _console.Output.Should().Contain("JSON patch applied successfully");
+
+        string patchedText = File.ReadAllText(outputFilePath).ReplaceLineEndings("\n");
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "herodata_97407_patched.json")).ReplaceLineEndings("\n");
+
+        patchedText.Should().BeEquivalentTo(comparedToText);
+    }
 }
