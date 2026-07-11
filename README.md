@@ -808,13 +808,12 @@ portrait extract-auto "path\to\rewardportraitdata_96477_enus.json" -c "path\to\b
 ## Additional Settings
 `appsettings.json` contains additional settings that cannot be configured through the command line.
 
-Instead of directly modifying `appsettings.json`, create a file named `appsettings.Production.json` to override these settings.
+Instead of directly modifying `appsettings.json`, create a file named `appsettings.release.json` to override these settings.
 
 ## Developing
 To build and compile the code, it is recommended to use the latest version of [Visual Studio 2026 or Visual Studio Code](https://visualstudio.microsoft.com/downloads/).
 
 Another option is to use the dotnet CLI tools from the latest [.NET SDK](https://dotnet.microsoft.com/download).
-
 
 A [SixLabors License](https://licensing.sixlabors.com/) is required to build the code. Put the license file in the root directory of the repository.
 ## License
