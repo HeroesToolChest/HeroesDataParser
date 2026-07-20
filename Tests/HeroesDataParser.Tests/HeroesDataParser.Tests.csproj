@@ -1,4 +1,4 @@
-﻿<Project Sdk="MSTest.Sdk/4.2.3">
+﻿<Project Sdk="MSTest.Sdk/4.3.2">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -9,12 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AwesomeAssertions" Version="9.4.0" />
+    <PackageReference Include="AwesomeAssertions" Version="9.5.0" />
     <PackageReference Include="AwesomeAssertions.Analyzers" Version="9.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="NSubstitute" Version="5.3.0" />
+    <PackageReference Include="NSubstitute" Version="6.0.0" />
     <PackageReference Include="NSubstitute.Analyzers.CSharp" Version="1.0.17">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

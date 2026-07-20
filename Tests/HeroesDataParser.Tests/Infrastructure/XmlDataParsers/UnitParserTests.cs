@@ -66,8 +66,8 @@ public class UnitParserTests
             },
         };
 
-        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[24]")).Returns(abathurUltimateEvolutionAbility);
-        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[27]")).Returns(abathurSymbioteAbility);
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "CardLayouts[0].LayoutButtons[24]")).Returns(abathurUltimateEvolutionAbility);
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "CardLayouts[0].LayoutButtons[27]")).Returns(abathurSymbioteAbility);
 
         // act
         Unit? unit = unitParser.Parse(unitId);
@@ -108,7 +108,7 @@ public class UnitParserTests
         unit.UnitPortraits.TargetInfoPanelPath!.FilePath.Should().StartWith("Assets").And.EndWith("storm_ui_ingame_partyframe_Abathur.dds");
         unit.SummonedUnitIds.Should().BeEmpty();
         unit.Weapons.Should().ContainSingle();
-        unit.AbilitiesByTooltipTalentElementId.Count.Should().Be(3);
+        unit.AbilitiesByTooltipTalentElementId.Should().HaveCount(3);
         AssertionExtensions.Should(unit.GetTooltipAbilityLinkIdsByTalentElementId("AbathurVolatileMutation")).ContainSingle().And
             .Contain(new AbilityLinkId("AbathurUltimateEvolution", "AbathurUltimateEvolution", AbilityType.Heroic));
 
@@ -177,14 +177,14 @@ public class UnitParserTests
 
         UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _gameStringTextService);
 
-        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[25]")).Returns(new Ability()
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "CardLayouts[0].LayoutButtons[25]")).Returns(new Ability()
         {
             AbilityElementId = "AbathurEvolveMonstrosityActiveSymbiote",
             ButtonElementId = "EvolveMonstrosityActiveHotbar",
             AbilityType = AbilityType.Heroic,
             ParentAbilityElementIds = ["AbathurEvolveMonstrosity"],
         });
-        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[26]")).Returns(new Ability()
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "CardLayouts[0].LayoutButtons[26]")).Returns(new Ability()
         {
             AbilityElementId = "AbathurEvolveMonstrosity",
             ButtonElementId = "AbathurEvolveMonstrosityHotbar",
@@ -210,7 +210,7 @@ public class UnitParserTests
 
         UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _gameStringTextService);
 
-        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[32]")).Returns(new Ability()
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "CardLayouts[0].LayoutButtons[32]")).Returns(new Ability()
         {
             AbilityElementId = "AlarakDeadlyChargeExecute2ndHeroic",
             ButtonElementId = "AlarakUnleashDeadlyCharge",
@@ -218,7 +218,7 @@ public class UnitParserTests
             Tier = AbilityTier.Trait,
             ParentAbilityElementIds = ["AlarakDeadlyChargeActivate2ndHeroic"],
         });
-        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[33]")).Returns(new Ability()
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "CardLayouts[0].LayoutButtons[33]")).Returns(new Ability()
         {
             AbilityElementId = "AlarakDeadlyChargeActivate2ndHeroic",
             ButtonElementId = "AlarakDeadlyCharge2ndHeroicSadism",
@@ -268,28 +268,28 @@ public class UnitParserTests
             AllowSpecialAbilities = allow,
         };
 
-        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[13]")).Returns(new Ability()
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "CardLayouts[0].LayoutButtons[13]")).Returns(new Ability()
         {
             AbilityElementId = "stop",
             ButtonElementId = "Tease",
             AbilityType = AbilityType.Taunt,
             Tier = AbilityTier.Taunt,
         });
-        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[14]")).Returns(new Ability()
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "CardLayouts[0].LayoutButtons[14]")).Returns(new Ability()
         {
             AbilityElementId = "stop",
             ButtonElementId = "Dance",
             AbilityType = AbilityType.Dance,
             Tier = AbilityTier.Dance,
         });
-        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[20]")).Returns(new Ability()
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "CardLayouts[0].LayoutButtons[20]")).Returns(new Ability()
         {
             AbilityElementId = "LootSpray",
             ButtonElementId = "LootSpray",
             AbilityType = AbilityType.Spray,
             Tier = AbilityTier.Spray,
         });
-        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[21]")).Returns(new Ability()
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "CardLayouts[0].LayoutButtons[21]")).Returns(new Ability()
         {
             AbilityElementId = "LootYellVoiceLine",
             ButtonElementId = "LootYellVoiceLine",
@@ -318,7 +318,7 @@ public class UnitParserTests
             AllowHiddenAbilities = allow,
         };
 
-        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[0]")).Returns(new Ability()
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "CardLayouts[0].LayoutButtons[0]")).Returns(new Ability()
         {
             AbilityElementId = "Test",
             ButtonElementId = "Test",
@@ -396,7 +396,7 @@ public class UnitParserTests
 
         UnitParser unitParser = new(_logger, _options, _heroesXmlLoaderService, _abilityParser, _gameStringTextService);
 
-        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons[0]")).Returns(new Ability()
+        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "Buttons[0]")).Returns(new Ability()
         {
             AbilityElementId = "Test",
             ButtonElementId = "Test",
@@ -435,7 +435,7 @@ public class UnitParserTests
             },
         };
 
-        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons[0]")).Returns(new Ability()
+        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "Buttons[0]")).Returns(new Ability()
         {
             AbilityElementId = "DeathwingFormSwitch",
             ButtonElementId = "DeathwingFormSwitch",
@@ -443,7 +443,7 @@ public class UnitParserTests
             Tier = AbilityTier.Activable,
         });
 
-        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[29]")).Returns(deathwingLavaBurstAbility);
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "CardLayouts[0].LayoutButtons[29]")).Returns(deathwingLavaBurstAbility);
 
         // act
         Unit? unit = unitParser.Parse(unitId);
@@ -485,8 +485,8 @@ public class UnitParserTests
             Tier = AbilityTier.Heroic,
         };
 
-        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[23]")).Returns(dVaMechBunnyHopHeroicOff);
-        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[24]")).Returns(dVaMechBunnyHopHeroicOn);
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "CardLayouts[0].LayoutButtons[23]")).Returns(dVaMechBunnyHopHeroicOff);
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "CardLayouts[0].LayoutButtons[24]")).Returns(dVaMechBunnyHopHeroicOn);
 
         // act
         Unit? unit = unitParser.Parse(unitId);
@@ -522,8 +522,8 @@ public class UnitParserTests
             ParentAbilityLinkIds = [new AbilityLinkId(AbilityTalentParserBase.PassiveAbilityElementId, "FenixShieldCapacitor", AbilityType.Trait)],
         };
 
-        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[32]")).Returns(fenixShieldCapacitorPassiveAbility);
-        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x.Field == "CardLayouts[0].LayoutButtons[33]")).Returns(fenixShieldCapacitorVisualAbility);
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "CardLayouts[0].LayoutButtons[32]")).Returns(fenixShieldCapacitorPassiveAbility);
+        _abilityParser.GetAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "CardLayouts[0].LayoutButtons[33]")).Returns(fenixShieldCapacitorVisualAbility);
 
         // act
         Unit? unit = unitParser.Parse(unitId);
@@ -566,9 +566,9 @@ public class UnitParserTests
             Tier = AbilityTier.Activable,
         };
 
-        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons[0]")).Returns(necromancerBoneArmorBehaviorAbility);
-        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons[1]")).Returns(necromancerBoneArmorAbilBacklashBehaviorAbility);
-        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons[2]")).Returns(necromancerBoneArmorAbilShacklerAbility);
+        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "Buttons[0]")).Returns(necromancerBoneArmorBehaviorAbility);
+        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "Buttons[1]")).Returns(necromancerBoneArmorAbilBacklashBehaviorAbility);
+        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "Buttons[2]")).Returns(necromancerBoneArmorAbilShacklerAbility);
 
         // act
         Unit? unit = unitParser.Parse(unitId);

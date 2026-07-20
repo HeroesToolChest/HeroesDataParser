@@ -709,7 +709,7 @@ public class TalentParserTests
             Tier = AbilityTier.Activable,
         };
 
-        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons[0]")).Returns(ragnarosCatchingFileAbility);
+        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "Buttons[0]")).Returns(ragnarosCatchingFileAbility);
 
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
 
@@ -744,7 +744,7 @@ public class TalentParserTests
             Tier = AbilityTier.Activable,
         };
 
-        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons[0]")).Returns(junkratDirtyTricksterAbility);
+        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "Buttons[0]")).Returns(junkratDirtyTricksterAbility);
 
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
 
@@ -789,8 +789,8 @@ public class TalentParserTests
             Tier = AbilityTier.Activable,
         };
 
-        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons[0]")).Returns(anubarakScarabHostToggleLegionOfBeetlesOnAbility);
-        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x.Field == "Buttons[1]")).Returns(anubarakScarabHostToggleLegionOfBeetlesOffAbility);
+        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "Buttons[0]")).Returns(anubarakScarabHostToggleLegionOfBeetlesOnAbility);
+        _abilityParser.GetBehaviorAbility(Arg.Is<StormElementData>(x => x != null && x.Field == "Buttons[1]")).Returns(anubarakScarabHostToggleLegionOfBeetlesOffAbility);
 
         Talent? talent = talentParser.GetTalent(hero, talentTreeArray);
 

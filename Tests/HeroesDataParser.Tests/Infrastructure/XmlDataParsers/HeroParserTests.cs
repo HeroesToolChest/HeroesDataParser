@@ -212,7 +212,7 @@ public class HeroParserTests
         _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
             .Do(x =>
             {
-                Unit argUnit = x.Arg<Unit>();
+                Unit argUnit = x.Arg<Unit>()!;
                 argUnit.Id = "HeroAbathur";
                 argUnit.Description = null;
                 argUnit.UnitPortraits.MiniMapIcon = "minimap_icon.png";
@@ -269,7 +269,7 @@ public class HeroParserTests
         _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
             .Do(x =>
             {
-                Unit argUnit = x.Arg<Unit>();
+                Unit argUnit = x.Arg<Unit>()!;
                 argUnit.Id = "HeroAbathur";
                 argUnit.AddLayoutAbility(abathurSymbioteAbility);
                 argUnit.AddLayoutAbility(envenomedNestAbility);
@@ -277,14 +277,14 @@ public class HeroParserTests
                 argUnit.AddAbilityByTooltipTalentElementId("AbathurMasteryEnvenomedNestsToxicNest", envenomedNestAbility);
             });
 
-        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x.Field == "TalentTreeArray[0]")).Returns(new Talent()
+        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x != null && x.Field == "TalentTreeArray[0]")).Returns(new Talent()
         {
             TalentElementId = "AbathurMasteryPressurizedGlands",
             ButtonElementId = "AbathurSymbiotePressurizedGlandsTalent",
             Tier = TalentTier.Level1,
             AbilityType = AbilityType.W,
         });
-        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x.Field == "TalentTreeArray[1]")).Returns(new Talent()
+        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x != null && x.Field == "TalentTreeArray[1]")).Returns(new Talent()
         {
             TalentElementId = "AbathurMasteryEnvenomedNestsToxicNest",
             ButtonElementId = "AbathurToxicNestEnvenomedNestTalent",
@@ -337,7 +337,7 @@ public class HeroParserTests
         _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
             .Do(x =>
             {
-                Unit argUnit = x.Arg<Unit>();
+                Unit argUnit = x.Arg<Unit>()!;
                 argUnit.Id = "HeroAlarak";
                 argUnit.AddLayoutAbility(new Ability()
                 {
@@ -364,7 +364,7 @@ public class HeroParserTests
                 });
             });
 
-        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x.Field == "TalentTreeArray[0]")).Returns(new Talent()
+        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x != null && x.Field == "TalentTreeArray[0]")).Returns(new Talent()
         {
             TalentElementId = "AlarakDeadlyChargeSecondHeroic",
             ButtonElementId = "AlarakDeadlyCharge",
@@ -432,7 +432,7 @@ public class HeroParserTests
         _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
             .Do(x =>
             {
-                Unit argUnit = x.Arg<Unit>();
+                Unit argUnit = x.Arg<Unit>()!;
                 argUnit.Id = "HeroAlarak";
                 argUnit.AddLayoutAbility(sadismAbility);
                 argUnit.AddLayoutAbility(alarakCounterStrikeTargeted2ndHeroicAbility);
@@ -442,7 +442,7 @@ public class HeroParserTests
                 argUnit.AddAbilityByTooltipTalentElementId("AlarakShowofForce", alarakDeadlyChargeActivate2ndHeroicmAbility);
             });
 
-        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x.Field == "TalentTreeArray[5]")).Returns(new Talent()
+        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x != null && x.Field == "TalentTreeArray[5]")).Returns(new Talent()
         {
             TalentElementId = "AlarakShowofForce",
             ButtonElementId = "AlarakShowofForce",
@@ -503,7 +503,7 @@ public class HeroParserTests
         _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
             .Do(x =>
             {
-                Unit argUnit = x.Arg<Unit>();
+                Unit argUnit = x.Arg<Unit>()!;
                 argUnit.Id = "HeroDeathwing";
                 argUnit.AddLayoutAbility(deathwingIncinerateAbility);
                 argUnit.AddAsLayoutSubAbilityToAbility(deathwingLavaBurstAbility);
@@ -511,7 +511,7 @@ public class HeroParserTests
                 argUnit.AddAbilityByTooltipTalentElementId("DeathwingDragonSoul", deathwingLavaBurstAbility);
             });
 
-        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x.Field == "TalentTreeArray[0]")).Returns(new Talent()
+        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x != null && x.Field == "TalentTreeArray[0]")).Returns(new Talent()
         {
             TalentElementId = "DeathwingDragonSoul",
             ButtonElementId = "DeathwingDragonSoul",
@@ -570,7 +570,7 @@ public class HeroParserTests
         _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
             .Do(x =>
             {
-                Unit argUnit = x.Arg<Unit>();
+                Unit argUnit = x.Arg<Unit>()!;
                 argUnit.Id = "HeroGuldan";
                 argUnit.AddLayoutAbility(guldanLifeTapAbility);
                 argUnit.AddLayoutAbility(guldanLifeTapFreeSubAbility);
@@ -580,14 +580,14 @@ public class HeroParserTests
                 argUnit.AddAbilityByTooltipTalentElementId("GuldanLifeTapDarknessWithin", guldanLifeTapFreeSubAbility);
             });
 
-        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x.Field == "TalentTreeArray[4]")).Returns(new Talent()
+        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x != null && x.Field == "TalentTreeArray[4]")).Returns(new Talent()
         {
             TalentElementId = "GuldanLifeTapImprovedLifeTap",
             ButtonElementId = "GuldanLifeTapImprovedLifeTap",
             Tier = TalentTier.Level4,
             AbilityType = AbilityType.Trait,
         });
-        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x.Field == "TalentTreeArray[17]")).Returns(new Talent()
+        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x != null && x.Field == "TalentTreeArray[17]")).Returns(new Talent()
         {
             TalentElementId = "GuldanLifeTapDarknessWithin",
             ButtonElementId = "GuldanLifeTapDarknessWithin",
@@ -644,7 +644,7 @@ public class HeroParserTests
         _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
             .Do(x =>
             {
-                Unit argUnit = x.Arg<Unit>();
+                Unit argUnit = x.Arg<Unit>()!;
                 argUnit.Id = "HeroMalGanis";
                 argUnit.AddLayoutAbility(malGanisFelClawsFirstAbility);
                 argUnit.AddAsLayoutSubAbilityToAbility(malGanisFelClawsThirdSubAbility);
@@ -682,7 +682,7 @@ public class HeroParserTests
         _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
             .Do(x =>
             {
-                Unit argUnit = x.Arg<Unit>();
+                Unit argUnit = x.Arg<Unit>()!;
                 argUnit.Id = "HeroRagnaros";
             });
 
@@ -694,7 +694,7 @@ public class HeroParserTests
             AbilityType = AbilityType.Active,
         };
 
-        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x.Field == "TalentTreeArray[5]")).Returns(ragnarosCatchingFireTalent);
+        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x != null && x.Field == "TalentTreeArray[5]")).Returns(ragnarosCatchingFireTalent);
         _talentParser.GetBehaviorAbilitiesFromTalent(ragnarosCatchingFireTalent).Returns([ragnarosCatchingFireAbility]);
 
         // act
@@ -730,7 +730,7 @@ public class HeroParserTests
         _unitParser.When(x => x.Parse(Arg.Any<Unit>()))
             .Do(x =>
             {
-                Unit argUnit = x.Arg<Unit>();
+                Unit argUnit = x.Arg<Unit>()!;
                 argUnit.Id = "HeroGarrosh";
             });
 
@@ -750,8 +750,8 @@ public class HeroParserTests
             AbilityType = AbilityType.Active,
         };
 
-        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x.Field == "TalentTreeArray[2]")).Returns(garroshArmorUpBodyCheckTalent);
-        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x.Field == "TalentTreeArray[20]")).Returns(garroshArmorUpInnerRageTalent);
+        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x != null && x.Field == "TalentTreeArray[2]")).Returns(garroshArmorUpBodyCheckTalent);
+        _talentParser.GetTalent(Arg.Any<Hero>(), Arg.Is<StormElementData>(x => x != null && x.Field == "TalentTreeArray[20]")).Returns(garroshArmorUpInnerRageTalent);
         _talentParser.GetBehaviorAbilitiesFromTalent(garroshArmorUpBodyCheckTalent).Returns([garroshArmorUpBodyCheckAbility]);
         _talentParser.GetBehaviorAbilitiesFromTalent(garroshArmorUpInnerRageTalent).Returns([]);
 
