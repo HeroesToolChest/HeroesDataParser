@@ -5,6 +5,8 @@ on: workflow_dispatch
 jobs:
   deploy:
     uses: koliva8245/github.workflows/.github/workflows/nuget-release.yml@main
+    permissions:
+      id-token: write
     with:
       artifacts-workflow: build.yml
       nuget-publish-env: Nuget Publish
