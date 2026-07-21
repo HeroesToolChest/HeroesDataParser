@@ -13,6 +13,7 @@
       "Disallow": {
         "Exact": [
           "_Empty",
+          "AbathurSymbiote",
           "AI",
           "ChoGallBundleProduct",
           "Cyberpunk",
@@ -24,6 +25,7 @@
           "Random",
           "Resistance",
           "TestHero",
+          "ValeeraStealthed",
           "WarchromeWastes"
         ],
         "Regex": [
