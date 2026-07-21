@@ -6,24 +6,20 @@ env:
   ARTIFACTS: ./artifacts
 
 jobs:
-  download-artifacts:
-    uses: koliva8245/github.workflows/.github/workflows/nuget-release.yml@main
-    with:
-      artifacts-workflow: build.yml
-    secrets:
-      token: ${{ secrets.GITHUB_TOKEN }}
-
   nuget-publish:
     runs-on: ubuntu-latest
-    needs: download-artifacts
     permissions:
       id-token: write
     environment:
       name: Nuget Publish
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v4
+        uses: dawidd6/action-download-artifact@v21
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          workflow: build.yml
+          name: "-Nuget$"
+          name_is_regexp: true
           path: ${{ env.ARTIFACTS }}
 
       - name: NuGet login
