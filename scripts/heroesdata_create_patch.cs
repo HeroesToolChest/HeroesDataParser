@@ -94,26 +94,19 @@ bool isPatchedUp = false;
 // patches up the existing heroesdata and creates the patched files in the output 'prev' directory
 if (latestFullIndex < latestIndex)
 {
-    bool firstRun = true;
+    // seed 'prev' with copies of the latest-full data and gamestrings files
+    string heroesdataLatestFullDirectory = Path.Combine(heroesdataDirectory, latestFullDirectory);
+    string prevLatestFullDirectory = Path.Combine(outputPrevDirectory, latestFullDirectory);
+
+    CopyDirectory(Path.Combine(heroesdataLatestFullDirectory, DataDirectory), Path.Combine(prevLatestFullDirectory, DataDirectory));
+    CopyDirectory(Path.Combine(heroesdataLatestFullDirectory, GameStringsDirectory), Path.Combine(prevLatestFullDirectory, GameStringsDirectory));
+
     for (int i = latestFullIndex + 1; i < latestIndex + 1; i++)
     {
         Console.WriteLine($"Applying patch version (to root): {versionsDirectories[i]}");
 
-        string targetVersionName = versionsDirectories[i];
-        string sourceDirectory;
-
-        if (firstRun)
-        {
-            sourceDirectory = heroesdataDirectory;
-            firstRun = false;
-        }
-        else
-        {
-            sourceDirectory = outputPrevDirectory;
-        }
-
         // patch up
-        await PatchUp(sourceDirectory, latestFullDirectory, targetVersionName); // creates patched files in output directory 'prev'
+        await PatchUp(outputPrevDirectory, latestFullDirectory, versionsDirectories[i]); // creates patched files in output directory 'prev'
     }
 
     isPatchedUp = true;
@@ -322,7 +315,7 @@ async Task PatchUp(string sourceDirectory, string sourceVersionName, string targ
         Console.WriteLine($"Target version '{targetVersionName}' is not extracted, skipping");
         return;
     }
-    
+
     Console.WriteLine("Patching up data files...");
     await ApplyDataPatchUp(Path.Combine(sourceVersionDirectory, DataDirectory), sourceVersionName, Path.Combine(heroesdataTargetVersionDirectory, DataDirectory), hdpJsonTargetFile);
 
@@ -351,6 +344,8 @@ async Task ApplyDataPatchUp(string sourceDataDirectory, string sourceVersionName
         }
 
         await ExecuteHDP($"json-patch apply \"{originalFilePath}\" \"{Path.Combine(targetDataDirectory, ((JsonElement)dataPatchFileName).GetString()!)}\" -o \"{Path.Combine(outputPrevDirectory, sourceVersionName, DataDirectory)}\"");
+
+        File.Delete(originalFilePath);
     }
 }
 
@@ -376,6 +371,8 @@ async Task ApplyGameStringPatchUp(string sourceGameStringsDirectory, string sour
             gamestringPatchFileName = hdpJsonTargetFile.Files.GameStrings[locale].ToString()!;
 
         await ExecuteHDP($"json-patch apply \"{originalFilePath}\" \"{Path.Combine(targetGameStringsDirectory, gamestringPatchFileName)}\" -o \"{Path.Combine(outputPrevDirectory, sourceVersionName, GameStringsDirectory)}\"");
+
+        File.Delete(originalFilePath);
     }
 }
 
@@ -443,6 +440,14 @@ static string StripEndPatch(ReadOnlySpan<char> fileName)
     return fileName.ToString();
 }
 
+static void CopyDirectory(string sourceDirectory, string destinationDirectory)
+{
+    Directory.CreateDirectory(destinationDirectory);
+
+    foreach (string filePath in Directory.EnumerateFiles(sourceDirectory))
+        File.Copy(filePath, Path.Combine(destinationDirectory, Path.GetFileName(filePath)));
+}
+
 async Task<string> ExecuteHDP(string arguments)
 {
     Process process = new()
@@ -460,8 +465,11 @@ async Task<string> ExecuteHDP(string arguments)
 
     process.Start();
 
-    string output = await process.StandardOutput.ReadToEndAsync();
-    string error = await process.StandardError.ReadToEndAsync();
+    Task<string> outputTask = process.StandardOutput.ReadToEndAsync();
+    Task<string> errorTask = process.StandardError.ReadToEndAsync();
+
+    string output = await outputTask;
+    string error = await errorTask;
 
     await process.WaitForExitAsync();
 

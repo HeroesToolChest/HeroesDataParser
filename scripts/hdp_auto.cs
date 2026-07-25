@@ -112,9 +112,17 @@ else
     await ExecuteHDPNoCapture($"game -s \"{installedHeroesDirectory}\" {otherOptions}");
 
 if (jsonCreate == "full")
-    await ExecuteHeroesDataCreateFull($"{outputHeroesVersionDirectory} {heroesdataDirectory} {hotsVersion} {args[6]}");
+{
+    int exitCode = await ExecuteHeroesDataCreateFull($"{outputHeroesVersionDirectory} {heroesdataDirectory} {hotsVersion} {args[6]}");
+    if (exitCode != 0)
+        return exitCode;
+}
 else if (jsonCreate == "patch")
-    await ExecuteHeroesDataCreatePatch($"{outputHeroesVersionDirectory} {heroesdataDirectory} {hotsVersion} {args[6]}");
+{
+    int exitCode = await ExecuteHeroesDataCreatePatch($"{outputHeroesVersionDirectory} {heroesdataDirectory} {hotsVersion} {args[6]}");
+    if (exitCode != 0)
+        return exitCode;
+}
 
 // update the version file with the new version
 versionJsonNode["date"] = DateTimeOffset.UtcNow.ToString("O");
@@ -180,7 +188,7 @@ async Task ExecuteHDPNoCapture(string arguments)
     await process.WaitForExitAsync();
 }
 
-static async Task ExecuteHeroesDataCreateFull(string arguments)
+static async Task<int> ExecuteHeroesDataCreateFull(string arguments)
 {
     Process process = new()
     {
@@ -197,9 +205,11 @@ static async Task ExecuteHeroesDataCreateFull(string arguments)
 
     process.Start();
     await process.WaitForExitAsync();
+
+    return process.ExitCode;
 }
 
-static async Task ExecuteHeroesDataCreatePatch(string arguments)
+static async Task<int> ExecuteHeroesDataCreatePatch(string arguments)
 {
     Process process = new()
     {
@@ -216,6 +226,8 @@ static async Task ExecuteHeroesDataCreatePatch(string arguments)
 
     process.Start();
     await process.WaitForExitAsync();
+
+    return process.ExitCode;
 }
 
 static async Task<string> ProcessCommand(Process process)
