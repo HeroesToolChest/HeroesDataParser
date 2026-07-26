@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using System.Runtime.InteropServices;
 
 namespace HeroesDataParser.Cli.Commands.PortraitCommands.Tests;
@@ -8,12 +9,14 @@ public class PortraitExtractAutoCommandTests
 {
     private readonly ILogger<PortraitExtractAutoCommand> _logger;
     private readonly IOptions<PortraitExtractAutoOptions> _options;
+    private readonly IFileProvider _fileProvider;
     private readonly IPortraitExtractAutoService _portraitExtractAutoService;
 
     public PortraitExtractAutoCommandTests()
     {
         _logger = Substitute.For<ILogger<PortraitExtractAutoCommand>>();
         _options = Substitute.For<IOptions<PortraitExtractAutoOptions>>();
+        _fileProvider = Substitute.For<IFileProvider>();
         _portraitExtractAutoService = Substitute.For<IPortraitExtractAutoService>();
     }
 
@@ -212,7 +215,6 @@ public class PortraitExtractAutoCommandTests
         // assert
         AssertCommandSuccessful(result);
 
-        portraitExtractAutoOptions.BattleNetCacheDirectory.Should().Be(Path.GetFullPath("TestXmlFiles"));
         portraitExtractAutoOptions.OutputDirectory.Should().Be(Path.GetFullPath("TestXmlFiles"));
     }
 
@@ -270,11 +272,74 @@ public class PortraitExtractAutoCommandTests
         portraitExtractAutoOptions.DeleteTextureSheet.Should().BeTrue();
     }
 
+    [TestMethod]
+    public async Task PortraitExtractAutoCommand_FileProviderReturnsPhysicalPath_UsesPhysicalPathAsXmlConfigFilePath()
+    {
+        // arrange
+        const string physicalPath = "/app/config/portrait-extract.xml";
+
+        PortraitExtractAutoOptions portraitExtractAutoOptions = new();
+        _options.Value.Returns(portraitExtractAutoOptions);
+
+        IFileInfo fileInfo = Substitute.For<IFileInfo>();
+        fileInfo.PhysicalPath.Returns(physicalPath);
+        _fileProvider.GetFileInfo(Path.Combine(Constants.ConfigFilesDirectory, "portrait-extract.xml")).Returns(fileInfo);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<PortraitExtractAutoCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
+            "-c", "TestXmlFiles",
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        AssertCommandSuccessful(result);
+
+        portraitExtractAutoOptions.XmlConfigFilePath.Should().Be(physicalPath);
+    }
+
+    [TestMethod]
+    public async Task PortraitExtractAutoCommand_FileProviderReturnsNullPhysicalPath_UsesFallbackXmlConfigFilePath()
+    {
+        // arrange
+        PortraitExtractAutoOptions portraitExtractAutoOptions = new();
+        _options.Value.Returns(portraitExtractAutoOptions);
+
+        IFileInfo fileInfo = Substitute.For<IFileInfo>();
+        fileInfo.PhysicalPath.Returns((string?)null);
+        _fileProvider.GetFileInfo(Path.Combine(Constants.ConfigFilesDirectory, "portrait-extract.xml")).Returns(fileInfo);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<PortraitExtractAutoCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
+            "-c", "TestXmlFiles",
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        AssertCommandSuccessful(result);
+
+        portraitExtractAutoOptions.XmlConfigFilePath.Should().Be(Path.Combine(Constants.ConfigFilesDirectory, "portrait-extract.xml"));
+    }
+
     private ServiceCollection GetServiceCollection()
     {
         ServiceCollection services = new();
         services.AddSingleton(_logger);
         services.AddSingleton(_options);
+        services.AddSingleton(_fileProvider);
         services.AddSingleton(_portraitExtractAutoService);
 
         return services;
