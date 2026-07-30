@@ -22,18 +22,14 @@ public class HeroAbilityTalentImageParser : ImageParserBase<Hero>
     {
         foreach (ICollection<Ability> abilityList in element.Abilities.Values)
         {
-            foreach (Ability ability in abilityList)
+            SetAbilities(element, abilityList);
+        }
+
+        foreach (IDictionary<AbilityTier, IList<Ability>> abilityListByLinkId in element.SubAbilities.Values)
+        {
+            foreach (ICollection<Ability> abilityList in abilityListByLinkId.Values)
             {
-                string? abilityIcon = ability.Icon;
-                ImagePath? abilityIconPath = ability.IconPath;
-
-                if (string.IsNullOrWhiteSpace(abilityIcon) || string.IsNullOrWhiteSpace(abilityIconPath?.FilePath))
-                    return;
-
-                AddToFiles(abilityIcon, element.Id, async (directoryPath) =>
-                {
-                    await ProcessStaticImage(abilityIcon, abilityIconPath, directoryPath);
-                });
+                SetAbilities(element, abilityList);
             }
         }
     }
@@ -44,18 +40,14 @@ public class HeroAbilityTalentImageParser : ImageParserBase<Hero>
         {
             foreach (ICollection<Ability> abilityList in heroUnit.Value.Abilities.Values)
             {
-                foreach (Ability ability in abilityList)
+                SetAbilities(element, abilityList);
+            }
+
+            foreach (IDictionary<AbilityTier, IList<Ability>> abilityListByLinkId in heroUnit.Value.SubAbilities.Values)
+            {
+                foreach (ICollection<Ability> abilityList in abilityListByLinkId.Values)
                 {
-                    string? abilityIcon = ability.Icon;
-                    ImagePath? abilityIconPath = ability.IconPath;
-
-                    if (string.IsNullOrWhiteSpace(abilityIcon) || string.IsNullOrWhiteSpace(abilityIconPath?.FilePath))
-                        return;
-
-                    AddToFiles(abilityIcon, element.Id, async (directoryPath) =>
-                    {
-                        await ProcessStaticImage(abilityIcon, abilityIconPath, directoryPath);
-                    });
+                    SetAbilities(element, abilityList);
                 }
             }
         }
@@ -78,6 +70,23 @@ public class HeroAbilityTalentImageParser : ImageParserBase<Hero>
                     await ProcessStaticImage(talentIcon, talentIconPath, directoryPath);
                 });
             }
+        }
+    }
+
+    private void SetAbilities(Hero hero, ICollection<Ability> abilityList)
+    {
+        foreach (Ability ability in abilityList)
+        {
+            string? abilityIcon = ability.Icon;
+            ImagePath? abilityIconPath = ability.IconPath;
+
+            if (string.IsNullOrWhiteSpace(abilityIcon) || string.IsNullOrWhiteSpace(abilityIconPath?.FilePath))
+                return;
+
+            AddToFiles(abilityIcon, hero.Id, async (directoryPath) =>
+            {
+                await ProcessStaticImage(abilityIcon, abilityIconPath, directoryPath);
+            });
         }
     }
 }

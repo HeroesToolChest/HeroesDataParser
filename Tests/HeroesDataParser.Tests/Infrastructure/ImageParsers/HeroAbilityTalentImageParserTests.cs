@@ -26,16 +26,36 @@ public class HeroAbilityTalentImageParserTests : ImageWriterBase
         SortedDictionary<string, Hero> elementsById = [];
 
         Hero hero = new("id1");
-        hero.AddAbility(new Ability()
+
+        Ability heroAbility1 = new()
         {
             Icon = "ability1.png",
             IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "ability_icon1.dds") },
-        });
+        };
+        hero.AddAbility(heroAbility1);
+
         hero.AddAbility(new Ability()
         {
             Icon = "ability2.png",
             IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "ability_icon2.dds") },
         });
+
+        hero.AssignSubAbilityToLink(
+            new Ability()
+            {
+                Icon = "heroSubAbility1.png",
+                IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "heroSubAbility_icon1.dds") },
+            },
+            heroAbility1.LinkId);
+
+        hero.AssignSubAbilityToLink(
+            new Ability()
+            {
+                Icon = "heroSubAbility2.png",
+                IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "heroSubAbility_icon2.dds") },
+            },
+            heroAbility1.LinkId);
+
         hero.AddTalent(new Talent()
         {
             Icon = "talent1.png",
@@ -48,21 +68,34 @@ public class HeroAbilityTalentImageParserTests : ImageWriterBase
         });
 
         Unit unit = new("unitId1");
-        unit.AddAbility(new Ability()
+
+        Ability unitAbility1 = new()
         {
             Icon = "unitAbility1.png",
             IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "unitAbility_icon1.dds") },
-        });
+        };
+
+        unit.AddAbility(unitAbility1);
+
         unit.AddAbility(new Ability()
         {
             Icon = "unitAbility2.png",
             IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "unitAbility_icon2.dds") },
         });
+
         unit.AddAbility(new Ability()
         {
             Icon = "ability1.png",
             IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "ability_icon1.dds") },
         });
+
+        unit.AssignSubAbilityToLink(
+            new Ability()
+            {
+                Icon = "unitSubAbility1.png",
+                IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "unitSubAbility_icon1.dds") },
+            },
+            unitAbility1.LinkId);
 
         hero.HeroUnits.Add(unit.Id, unit);
         elementsById.Add("hero1", hero);
@@ -71,7 +104,7 @@ public class HeroAbilityTalentImageParserTests : ImageWriterBase
         HashSet<ImageWriterFile> imageWriterFiles = heroAbilityTalentImageParser.GetImages(elementsById);
 
         // assert
-        imageWriterFiles.Should().HaveCount(6);
+        imageWriterFiles.Should().HaveCount(9);
 
         List<ImageWriterFile> imageWriterFileList = [.. imageWriterFiles];
 
@@ -85,22 +118,37 @@ public class HeroAbilityTalentImageParserTests : ImageWriterBase
         abilityPath2.FileName.Should().Be("ability2.png");
         abilityPath2.SubDirectoryPath.Should().Be("abilitytalents");
 
-        ImageWriterFile abilityPath3 = imageWriterFileList[2];
+        ImageWriterFile heroSubAbilityPath1 = imageWriterFileList[2];
+        heroSubAbilityPath1.ElementId.Should().Be("id1");
+        heroSubAbilityPath1.FileName.Should().Be("heroSubAbility1.png");
+        heroSubAbilityPath1.SubDirectoryPath.Should().Be("abilitytalents");
+
+        ImageWriterFile heroSubAbilityPath2 = imageWriterFileList[3];
+        heroSubAbilityPath2.ElementId.Should().Be("id1");
+        heroSubAbilityPath2.FileName.Should().Be("heroSubAbility2.png");
+        heroSubAbilityPath2.SubDirectoryPath.Should().Be("abilitytalents");
+
+        ImageWriterFile abilityPath3 = imageWriterFileList[4];
         abilityPath3.ElementId.Should().Be("id1");
         abilityPath3.FileName.Should().Be("unitAbility1.png");
         abilityPath3.SubDirectoryPath.Should().Be("abilitytalents");
 
-        ImageWriterFile abilityPath4 = imageWriterFileList[3];
+        ImageWriterFile abilityPath4 = imageWriterFileList[5];
         abilityPath4.ElementId.Should().Be("id1");
         abilityPath4.FileName.Should().Be("unitAbility2.png");
         abilityPath4.SubDirectoryPath.Should().Be("abilitytalents");
 
-        ImageWriterFile talentPath1 = imageWriterFileList[4];
+        ImageWriterFile unitSubAbilityPath1 = imageWriterFileList[6];
+        unitSubAbilityPath1.ElementId.Should().Be("id1");
+        unitSubAbilityPath1.FileName.Should().Be("unitSubAbility1.png");
+        unitSubAbilityPath1.SubDirectoryPath.Should().Be("abilitytalents");
+
+        ImageWriterFile talentPath1 = imageWriterFileList[7];
         talentPath1.ElementId.Should().Be("id1");
         talentPath1.FileName.Should().Be("talent1.png");
         talentPath1.SubDirectoryPath.Should().Be("abilitytalents");
 
-        ImageWriterFile talentPath2 = imageWriterFileList[5];
+        ImageWriterFile talentPath2 = imageWriterFileList[8];
         talentPath2.ElementId.Should().Be("id1");
         talentPath2.FileName.Should().Be("talent2.png");
         talentPath2.SubDirectoryPath.Should().Be("abilitytalents");
@@ -116,11 +164,22 @@ public class HeroAbilityTalentImageParserTests : ImageWriterBase
         SortedDictionary<string, Hero> elementsById = [];
 
         Hero hero = new("id1");
-        hero.AddAbility(new Ability()
+
+        Ability heroAbility = new()
         {
             Icon = "storm_ui_icon_abathur_toxicnest.png",
             IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "storm_ui_icon_abathur_toxicnest.dds") },
-        });
+        };
+        hero.AddAbility(heroAbility);
+
+        hero.AssignSubAbilityToLink(
+            new Ability()
+            {
+                Icon = "storm_ui_icon_alexstrasza_dragon_queen.png",
+                IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "storm_ui_icon_alexstrasza_dragon_queen.dds") },
+            },
+            heroAbility.LinkId);
+
         hero.AddTalent(new Talent()
         {
             Icon = "storm_ui_icon_alexstrasza_dragon_queen.png",
