@@ -28,12 +28,12 @@
 
 	<ItemGroup>
 		<PackageReference Include="Heroes.Element" Version="1.0.2" />
-		<PackageReference Include="Heroes.XmlData" Version="1.0.2" />
+		<PackageReference Include="Heroes.XmlData" Version="1.0.3" />
 		<PackageReference Include="JsonPatch.Net" Version="5.0.3" />
-		<PackageReference Include="Microsoft.Extensions.Compliance.Redaction" Version="10.8.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.10" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.10" />
-		<PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.8.0" />
+		<PackageReference Include="Microsoft.Extensions.Compliance.Redaction" Version="10.9.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.11" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.11" />
+		<PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.9.0" />
 		<PackageReference Include="Pfim" Version="0.11.4" />
 		<PackageReference Include="Polly.Core" Version="8.7.0" />
 		<PackageReference Include="Polly.Extensions" Version="8.7.0" />
@@ -43,7 +43,7 @@
 		<PackageReference Include="Serilog.Settings.Configuration" Version="10.0.1" />
 		<PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
 		<PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
-		<PackageReference Include="SixLabors.ImageSharp" Version="4.0.0" />
+		<PackageReference Include="SixLabors.ImageSharp" Version="4.1.0" />
 		<PackageReference Include="Spectre.Console" Version="0.57.2" />
 		<PackageReference Include="Spectre.Console.Analyzer" Version="1.0.1-preview.0.1">
 		  <PrivateAssets>all</PrivateAssets>
