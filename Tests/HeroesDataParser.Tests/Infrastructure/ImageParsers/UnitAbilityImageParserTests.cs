@@ -26,16 +26,35 @@ public class UnitAbilityImageParserTests : ImageWriterBase
         SortedDictionary<string, Unit> elementsById = [];
 
         Unit unit = new("id1");
-        unit.AddAbility(new Ability()
+
+        Ability ability1 = new()
         {
             Icon = "ability1.png",
             IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "ability_icon1.dds") },
-        });
+        };
+        unit.AddAbility(ability1);
+
         unit.AddAbility(new Ability()
         {
             Icon = "ability2.png",
             IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "ability_icon2.dds") },
         });
+
+        unit.AssignSubAbilityToLink(
+            new Ability()
+            {
+                Icon = "subAbility1.png",
+                IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "subAbility_icon1.dds") },
+            },
+            ability1.LinkId);
+
+        unit.AssignSubAbilityToLink(
+            new Ability()
+            {
+                Icon = "subAbility2.png",
+                IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "subAbility_icon2.dds") },
+            },
+            ability1.LinkId);
 
         elementsById.Add("unit1", unit);
 
@@ -43,7 +62,7 @@ public class UnitAbilityImageParserTests : ImageWriterBase
         HashSet<ImageWriterFile> imageWriterFiles = unitAbilityImageParser.GetImages(elementsById);
 
         // assert
-        imageWriterFiles.Should().HaveCount(2);
+        imageWriterFiles.Should().HaveCount(4);
 
         List<ImageWriterFile> imageWriterFilesList = [.. imageWriterFiles];
 
@@ -56,6 +75,16 @@ public class UnitAbilityImageParserTests : ImageWriterBase
         path2.ElementId.Should().Be("id1");
         path2.FileName.Should().Be("ability2.png");
         path2.SubDirectoryPath.Should().Be("abilities");
+
+        ImageWriterFile subAbilityPath1 = imageWriterFilesList[2];
+        subAbilityPath1.ElementId.Should().Be("id1");
+        subAbilityPath1.FileName.Should().Be("subAbility1.png");
+        subAbilityPath1.SubDirectoryPath.Should().Be("abilities");
+
+        ImageWriterFile subAbilityPath2 = imageWriterFilesList[3];
+        subAbilityPath2.ElementId.Should().Be("id1");
+        subAbilityPath2.FileName.Should().Be("subAbility2.png");
+        subAbilityPath2.SubDirectoryPath.Should().Be("abilities");
     }
 
     [TestMethod]
@@ -68,11 +97,21 @@ public class UnitAbilityImageParserTests : ImageWriterBase
         SortedDictionary<string, Unit> elementsById = [];
 
         Unit unit = new("id1");
-        unit.AddAbility(new Ability()
+
+        Ability ability = new()
         {
             Icon = "storm_temp_war3_btnskeletonwarrior.png",
             IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "storm_temp_war3_btnskeletonwarrior.dds") },
-        });
+        };
+        unit.AddAbility(ability);
+
+        unit.AssignSubAbilityToLink(
+            new Ability()
+            {
+                Icon = "storm_temp_war3_btnskeletonarcher.png",
+                IconPath = new ImagePath { FilePath = Path.Join(TestImagesDirectory, "storm_temp_war3_btnskeletonarcher.dds") },
+            },
+            ability.LinkId);
 
         elementsById.Add("unit1", unit);
 
@@ -85,5 +124,6 @@ public class UnitAbilityImageParserTests : ImageWriterBase
 
         // assert
         File.Exists(Path.Combine(outputImageDirectory, "storm_temp_war3_btnskeletonwarrior.png")).Should().BeTrue();
+        File.Exists(Path.Combine(outputImageDirectory, "storm_temp_war3_btnskeletonarcher.png")).Should().BeTrue();
     }
 }

@@ -20,19 +20,32 @@ public class UnitAbilityTalentImageParser : ImageParserBase<Unit>
     {
         foreach (ICollection<Ability> abilityList in element.Abilities.Values)
         {
-            foreach (Ability ability in abilityList)
+            SetAbilities(element, abilityList);
+        }
+
+        foreach (IDictionary<AbilityTier, IList<Ability>> abilityListByLinkId in element.SubAbilities.Values)
+        {
+            foreach (ICollection<Ability> abilityList in abilityListByLinkId.Values)
             {
-                string? abilityIcon = ability.Icon;
-                ImagePath? abilityIconPath = ability.IconPath;
-
-                if (string.IsNullOrWhiteSpace(abilityIcon) || string.IsNullOrWhiteSpace(abilityIconPath?.FilePath))
-                    return;
-
-                AddToFiles(abilityIcon, element.Id, async (directoryPath) =>
-                {
-                    await ProcessStaticImage(abilityIcon, abilityIconPath, directoryPath);
-                });
+                SetAbilities(element, abilityList);
             }
+        }
+    }
+
+    private void SetAbilities(Unit unit, ICollection<Ability> abilityList)
+    {
+        foreach (Ability ability in abilityList)
+        {
+            string? abilityIcon = ability.Icon;
+            ImagePath? abilityIconPath = ability.IconPath;
+
+            if (string.IsNullOrWhiteSpace(abilityIcon) || string.IsNullOrWhiteSpace(abilityIconPath?.FilePath))
+                return;
+
+            AddToFiles(abilityIcon, unit.Id, async (directoryPath) =>
+            {
+                await ProcessStaticImage(abilityIcon, abilityIconPath, directoryPath);
+            });
         }
     }
 }
