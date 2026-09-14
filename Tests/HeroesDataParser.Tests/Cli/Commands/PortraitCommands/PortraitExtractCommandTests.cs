@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace HeroesDataParser.Cli.Commands.PortraitCommands.Tests;
+﻿namespace HeroesDataParser.Cli.Commands.PortraitCommands.Tests;
 
 [TestClass]
 public class PortraitExtractCommandTests
@@ -96,7 +94,7 @@ public class PortraitExtractCommandTests
         TestContext.CancellationToken);
 
         // assert
-        AssertCommandSuccessful(result);
+        await AssertCommandSuccessful(result);
 
         portraitExtractOptions.RewardPortraitDataFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "rewardportraitdata_96477_enus.json")));
         portraitExtractOptions.RewardPortraitTextureSheetImage.Should().Be("texturesheet_image.png");
@@ -128,7 +126,7 @@ public class PortraitExtractCommandTests
         TestContext.CancellationToken);
 
         // assert
-        AssertCommandSuccessful(result);
+        await AssertCommandSuccessful(result);
 
         portraitExtractOptions.OutputDirectory.Should().Be(Path.GetFullPath("TestXmlFiles"));
     }
@@ -156,7 +154,7 @@ public class PortraitExtractCommandTests
         TestContext.CancellationToken);
 
         // assert
-        AssertCommandSuccessful(result);
+        await AssertCommandSuccessful(result);
 
         portraitExtractOptions.DeleteTextureSheet.Should().BeTrue();
     }
@@ -186,7 +184,7 @@ public class PortraitExtractCommandTests
         TestContext.CancellationToken);
 
         // assert
-        AssertCommandSuccessful(result);
+        await AssertCommandSuccessful(result);
 
         portraitExtractOptions.RewardPortraitDataFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "rewardportraitdata_96477_enus.json")));
         portraitExtractOptions.RewardPortraitTextureSheetImage.Should().Be("ui_heroes_portraits_sheet5.png");
@@ -221,7 +219,7 @@ public class PortraitExtractCommandTests
         TestContext.CancellationToken);
 
         // assert
-        AssertCommandSuccessful(result);
+        await AssertCommandSuccessful(result);
 
         portraitExtractOptions.RewardPortraitDataFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "rewardportraitdata_96477_enus.json")));
         portraitExtractOptions.RewardPortraitTextureSheetImage.Should().Be("ui_heroes_portraits_sheet5.png");
@@ -240,9 +238,9 @@ public class PortraitExtractCommandTests
         return services;
     }
 
-    private void AssertCommandSuccessful(CommandAppResult result)
+    private async Task AssertCommandSuccessful(CommandAppResult result)
     {
         result.ExitCode.Should().Be(0);
-        _portraitExtractService.Received(1).Extract();
+        await _portraitExtractService.Received(1).Extract();
     }
 }

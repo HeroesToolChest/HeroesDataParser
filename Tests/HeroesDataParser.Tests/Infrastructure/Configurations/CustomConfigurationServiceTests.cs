@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.FileProviders;
-
-namespace HeroesDataParser.Infrastructure.Configurations.Tests;
+﻿namespace HeroesDataParser.Infrastructure.Configurations.Tests;
 
 [TestClass]
 public class CustomConfigurationServiceTests

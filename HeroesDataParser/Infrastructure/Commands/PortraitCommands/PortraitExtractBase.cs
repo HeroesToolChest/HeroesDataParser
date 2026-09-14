@@ -14,15 +14,17 @@ public abstract class PortraitExtractBase : PortraitBase
 
     protected string OutputDirectory { get; set; } = string.Empty;
 
-    protected void ExtractImageFiles(List<RewardPortrait> rewardPortraits, string cacheTextureSheetImageFilePath, string textureSheetImageLookup, bool deleteTextureSheet)
+    protected async Task<bool> ExtractImageFiles(List<RewardPortrait> rewardPortraits, string cacheTextureSheetImageFilePath, string textureSheetImageLookup, bool deleteTextureSheet)
     {
         if (!File.Exists(cacheTextureSheetImageFilePath))
         {
             Logger.LogWarning("Could not find the texture sheet image file at {CacheTextureSheetImageFilePath}", cacheTextureSheetImageFilePath);
-            Console.MarkupLineInterpolated($"[yellow]Could not find the file {cacheTextureSheetImageFilePath}");
+            Console.MarkupLineInterpolated($"[yellow]Could not find the file {cacheTextureSheetImageFilePath}[/]");
 
-            return;
+            return false;
         }
+
+        bool success = true;
 
         Directory.CreateDirectory(OutputDirectory);
 
@@ -45,11 +47,22 @@ public abstract class PortraitExtractBase : PortraitBase
             if (!columns.HasValue || !rows.HasValue)
                 continue;
 
-            image.Save(Path.Combine(OutputDirectory, fileName), new Point((iconSlot % columns.Value) * _portraitWidth, (iconSlot / rows.Value) * _portraitWidth), new SixLabors.ImageSharp.Size(_portraitWidth, _portraitHeight));
+            Point point = new((iconSlot % columns.Value) * _portraitWidth, (iconSlot / rows.Value) * _portraitWidth);
+            SixLabors.ImageSharp.Size size = new(_portraitWidth, _portraitHeight);
 
-            count++;
+            if (image.IsSolidColor(point, size))
+            {
+                success = false;
+                Console.MarkupLineInterpolated($"[yellow]Skipping {fileName} because it was not found.[/]");
+            }
+            else
+            {
+                await image.Save(Path.Combine(OutputDirectory, fileName), point, size);
 
-            Console.WriteLine(fileName);
+                count++;
+
+                Console.WriteLine(fileName);
+            }
         }
 
         if (deleteTextureSheet)
@@ -64,5 +77,7 @@ public abstract class PortraitExtractBase : PortraitBase
 
         Console.WriteLine();
         Console.WriteLine($"{count} portrait images extracted to {OutputDirectory}");
+
+        return success;
     }
 }

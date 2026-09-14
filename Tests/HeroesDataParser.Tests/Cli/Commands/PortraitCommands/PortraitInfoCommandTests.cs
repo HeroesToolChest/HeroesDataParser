@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace HeroesDataParser.Cli.Commands.PortraitCommands.Tests;
+﻿namespace HeroesDataParser.Cli.Commands.PortraitCommands.Tests;
 
 [TestClass]
 public class PortraitInfoCommandTests

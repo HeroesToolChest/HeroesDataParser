@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System.Runtime.InteropServices;
-
-namespace HeroesDataParser.Cli.Commands.PortraitCommands.Tests;
+﻿namespace HeroesDataParser.Cli.Commands.PortraitCommands.Tests;
 
 [TestClass]
 public class PortraitBattleNetCacheCommandTests

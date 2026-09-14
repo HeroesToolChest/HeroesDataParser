@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "heroesVersion": "2.55.17.98025",
+    "hdpVersion": "5.0.4",
+    "itemsType": "Data",
+    "dataType": "RewardPortraitData",
+    "localizedText": "None",
+    "gameStringText": {
+      "locale": "ENUS",
+      "textType": "RawText",
+      "constantVars": {
+        "replaced": true,
+        "preserved": true
+      },
+      "styleVars": {
+        "replaced": true,
+        "preserved": true
+      }
+    },
+    "totalItems": 3
+  },
+  "items": {
+    "Blizzcon2026Giveaway": {
+      "name": "Blizzcon 2026 Giveaway Portrait",
+      "hyperlinkId": "Blizzcon2026Giveaway",
+      "rarity": "Common",
+      "category": "PortraitAchievements1",
+      "iconSlot": 27,
+      "image": "storm_portrait_blizzcon2026giveaway.png",
+      "textureSheet": {
+        "image": "ui_heroes_portraits_sheet44.png",
+        "rows": 6,
+        "columns": 6
+      },
+      "description": "Thanks from the Heroes of the Storm Team!"
+    },
+    "Blizzcon2026Logo": {
+      "name": "Blizzcon 2026 Logo Portrait",
+      "hyperlinkId": "Blizzcon2026Logo",
+      "rarity": "Common",
+      "category": "PortraitAchievements1",
+      "iconSlot": 26,
+      "image": "storm_portrait_blizzcon2026logo.png",
+      "textureSheet": {
+        "image": "ui_heroes_portraits_sheet44.png",
+        "rows": 6,
+        "columns": 6
+      },
+      "description": "Thanks from the Heroes of the Storm Team!"
+    },
+    "BloodElfSketchWCAVPortrait": {
+      "name": "Sketch Blood Elf Priest Portrait",
+      "hyperlinkId": "SketchBloodElfPriestPortrait",
+      "rarity": "Common",
+      "category": "PortraitWarcraftLegends",
+      "portraitPackId": "BloodElfSketchWCAVPortrait",
+      "iconSlot": 15,
+      "image": "storm_portrait_bloodelfsketchwcavportrait.png",
+      "textureSheet": {
+        "image": "ui_heroes_portraits_sheet29.png",
+        "rows": 6,
+        "columns": 6
+      },
+      "description": "You have unlocked this portrait in your Collection",
+      "descriptionUnearned": "Forge using Shards, purchase with Gems, or receive in a Loot Chest to unlock."
+    }
+  }
+}

@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.FileProviders;
-using System.Text;
+﻿using System.Text;
 
 namespace HeroesDataParser.Infrastructure.Configurations.Tests;
 

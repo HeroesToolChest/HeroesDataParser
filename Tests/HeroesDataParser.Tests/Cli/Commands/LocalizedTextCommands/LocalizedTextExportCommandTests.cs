@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace HeroesDataParser.Cli.Commands.LocalizedTextCommands.Tests;
+﻿namespace HeroesDataParser.Cli.Commands.LocalizedTextCommands.Tests;
 
 [TestClass]
 public class LocalizedTextExportCommandTests

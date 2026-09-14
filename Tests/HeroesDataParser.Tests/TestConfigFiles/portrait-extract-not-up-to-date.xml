@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Portraits>
+  <TextureSheet>
+    <Image>ui_heroes_portraits_sheet44.png</Image>
+    <Zero>(Not in reward data)</Zero>
+    <One>ClassicRexxarPortrait01</One>
+    <File>c445143311340c4e420aa3015bfecfb8236b4b36a96e75fd823b775da98c4432</File>
+  </TextureSheet>
+</Portraits>
+

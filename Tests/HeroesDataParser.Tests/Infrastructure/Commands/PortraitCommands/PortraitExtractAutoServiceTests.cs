@@ -15,7 +15,7 @@ public class PortraitExtractAutoServiceTests
     }
 
     [TestMethod]
-    public void Extract_NoTextureSheets_ReturnsDisplay()
+    public async Task Extract_NoTextureSheets_ReturnsDisplay()
     {
         // arrange
         _options.Value.Returns(new PortraitExtractAutoOptions()
@@ -28,14 +28,14 @@ public class PortraitExtractAutoServiceTests
         PortraitExtractAutoService service = new(_logger, _options, _console);
 
         // act
-        service.Extract();
+        await service.Extract();
 
         // assert
         _console.Output.Should().Contain("No texture sheets were found to auto-extract in the XML configuration");
     }
 
     [TestMethod]
-    public void Extract_TextureSheets_ExtractsPortraits()
+    public async Task Extract_TextureSheets_ExtractsPortraits()
     {
         // arrange
         _options.Value.Returns(new PortraitExtractAutoOptions()
@@ -49,7 +49,7 @@ public class PortraitExtractAutoServiceTests
         PortraitExtractAutoService service = new(_logger, _options, _console);
 
         // act
-        service.Extract();
+        await service.Extract();
 
         // assert
         _console.Output.Should().Contain("There are 1 texture sheets to be found in the cache for auto-extraction");
@@ -61,12 +61,13 @@ public class PortraitExtractAutoServiceTests
         _console.Output.Should().Contain("1 out of 1 texture sheets were found in the cache");
         _console.Output.Should().Contain("auto-extraction xml file (need to be added)");
         _console.Output.Should().Contain("ui_heroes_portraits_sheet9.png");
+        _console.Output.Should().Contain("1 out of 1 texture sheets in the auto-extract xml file were up to date");
 
         Directory.GetFiles(Path.Combine(TestConstants.TestDirectory, nameof(Extract_TextureSheets_ExtractsPortraits)), "*.png").Should().HaveCount(36);
     }
 
     [TestMethod]
-    public void Extract_TextureSheetsPartialFind_ExtractsPortraits()
+    public async Task Extract_TextureSheetsPartialFind_ExtractsPortraits()
     {
         // arrange
         _options.Value.Returns(new PortraitExtractAutoOptions()
@@ -80,7 +81,7 @@ public class PortraitExtractAutoServiceTests
         PortraitExtractAutoService service = new(_logger, _options, _console);
 
         // act
-        service.Extract();
+        await service.Extract();
 
         // assert
         _console.Output.Should().Contain("There are 2 texture sheets to be found in the cache for auto-extraction");
@@ -93,12 +94,13 @@ public class PortraitExtractAutoServiceTests
         _console.Output.Should().Contain("Only 1 out of 2 texture sheets were found in the cache");
         _console.Output.Should().Contain("auto-extraction xml file (need to be added)");
         _console.Output.Should().Contain("ui_heroes_portraits_sheet9.png");
+        _console.Output.Should().Contain("1 out of 1 texture sheets in the auto-extract xml file were up to date");
 
         Directory.GetFiles(Path.Combine(TestConstants.TestDirectory, nameof(Extract_TextureSheetsPartialFind_ExtractsPortraits)), "*.png").Should().HaveCount(36);
     }
 
     [TestMethod]
-    public void Extract_RewardPortraitsAllFound_ExtractsPortraits()
+    public async Task Extract_RewardPortraitsAllFound_ExtractsPortraits()
     {
         // arrange
         _options.Value.Returns(new PortraitExtractAutoOptions()
@@ -112,7 +114,7 @@ public class PortraitExtractAutoServiceTests
         PortraitExtractAutoService service = new(_logger, _options, _console);
 
         // act
-        service.Extract();
+        await service.Extract();
 
         // assert
         _console.Output.Should().Contain("There are 1 texture sheets to be found in the cache for auto-extraction");
@@ -123,7 +125,36 @@ public class PortraitExtractAutoServiceTests
         _console.Output.Should().Contain("1 portrait images extracted to ");
         _console.Output.Should().Contain("1 out of 1 texture sheets were found in the cache");
         _console.Output.Should().Contain("All texture sheets in the reward data json file were found in the cache");
+        _console.Output.Should().Contain("1 out of 1 texture sheets in the auto-extract xml file were up to date");
 
         Directory.GetFiles(Path.Combine(TestConstants.TestDirectory, nameof(Extract_RewardPortraitsAllFound_ExtractsPortraits)), "*.png").Should().ContainSingle();
+    }
+
+    [TestMethod]
+    public async Task Extract_RewardPortraitsNotUpToDate_AutoExtractFileNotUpToDate()
+    {
+        // arrange
+        _options.Value.Returns(new PortraitExtractAutoOptions()
+        {
+            BattleNetCacheDirectory = Path.Combine("TestImages", "PortraitsCache"),
+            RewardPortraitDataFilePath = Path.Combine("TestJsonFiles", "rewardportraitdata_98025_enus_1.json"),
+            XmlConfigFilePath = Path.Combine("TestConfigFiles", "portrait-extract-not-up-to-date.xml"),
+            OutputDirectory = Path.Combine(TestConstants.TestDirectory, nameof(Extract_RewardPortraitsNotUpToDate_AutoExtractFileNotUpToDate)),
+        });
+
+        PortraitExtractAutoService service = new(_logger, _options, _console);
+
+        // act
+        await service.Extract();
+
+        // assert
+        _console.Output.Should().Contain("There are 1 texture sheets to be found in the cache for auto-extraction");
+        _console.Output.Should().Contain("There are 2 texture sheets found in the reward data json file");
+        _console.Output.Should().Contain("Extracting portraits from texture sheet...");
+        _console.Output.Should().Contain("ui_heroes_portraits_sheet44.png");
+        _console.Output.Should().Contain("Skipping storm_portrait_blizzcon2026giveaway.png because it was not found.");
+        _console.Output.Should().Contain("Skipping storm_portrait_blizzcon2026logo.png because it was not found.");
+        _console.Output.Should().Contain("0 portrait images extracted to ");
+        _console.Output.Should().Contain("Only 0 out of 1 texture sheets in the auto-extract xml fil were up to date");
     }
 }

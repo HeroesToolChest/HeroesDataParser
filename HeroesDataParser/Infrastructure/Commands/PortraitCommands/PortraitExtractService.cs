@@ -14,11 +14,11 @@ public class PortraitExtractService : PortraitExtractBase, IPortraitExtractServi
         _options = options.Value;
     }
 
-    public void Extract()
+    public async Task Extract()
     {
         OutputDirectory = _options.OutputDirectory;
 
-        ExtractImageFiles(GetRewardPortraits(), _options.CacheTextureSheetImageFilePath, _options.RewardPortraitTextureSheetImage, _options.DeleteTextureSheet);
+        await ExtractImageFiles(GetRewardPortraits(), _options.CacheTextureSheetImageFilePath, _options.RewardPortraitTextureSheetImage, _options.DeleteTextureSheet);
     }
 
     public void DisplayAvailablePortraits()

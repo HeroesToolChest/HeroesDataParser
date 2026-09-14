@@ -2,5 +2,5 @@
 
 public interface IPortraitExtractAutoService
 {
-    void Extract();
+    Task Extract();
 }

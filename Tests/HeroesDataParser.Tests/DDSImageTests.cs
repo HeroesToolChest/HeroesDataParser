@@ -113,4 +113,19 @@ public class DDSImageTests
         // assert
         File.Exists(outputFile).Should().BeTrue();
     }
+
+    [TestMethod]
+    public void IsSolidColor_PortraitTexture_ReturnsTrue()
+    {
+        // arrange
+        string file = Path.Combine(_testImagesDirectory, "portraits_with_blank.dds");
+        using Stream stream = File.OpenRead(file);
+        using DDSImage image = new(stream);
+
+        // act
+        bool result = image.IsSolidColor(new Point(0, 608), new Size(152, 152));
+
+        // assert
+        result.Should().BeTrue();
+    }
 }

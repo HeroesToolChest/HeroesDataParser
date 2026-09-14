@@ -1,6 +1,6 @@
 ﻿namespace HeroesDataParser.Cli.Commands.PortraitCommands;
 
-public class PortraitExtractAutoCommand : Command<PortraitExtractAutoSettings>
+public class PortraitExtractAutoCommand : AsyncCommand<PortraitExtractAutoSettings>
 {
     private readonly ILogger<PortraitExtractAutoCommand> _logger;
     private readonly PortraitExtractAutoOptions _options;
@@ -24,7 +24,7 @@ public class PortraitExtractAutoCommand : Command<PortraitExtractAutoSettings>
         _portraitExtractAutoService = portraitExtractAutoService;
     }
 
-    protected override int Execute(CommandContext context, PortraitExtractAutoSettings settings, CancellationToken cancellationToken)
+    protected override async Task<int> ExecuteAsync(CommandContext context, PortraitExtractAutoSettings settings, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Starting {CommandName}", nameof(PortraitExtractAutoCommand));
 
@@ -61,7 +61,7 @@ public class PortraitExtractAutoCommand : Command<PortraitExtractAutoSettings>
         _options.RewardPortraitDataFilePath = settings.FilePath.FullName;
         _options.DeleteTextureSheet = settings.DeleteTextureSheet;
 
-        _portraitExtractAutoService.Extract();
+        await _portraitExtractAutoService.Extract();
 
         return 0;
     }

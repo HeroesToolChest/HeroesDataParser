@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace HeroesDataParser.Cli.Commands.GameStringTextCommands.Tests;
+﻿namespace HeroesDataParser.Cli.Commands.GameStringTextCommands.Tests;
 
 [TestClass]
 public class GameStringTextUpdateCommandTests

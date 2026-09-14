@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace HeroesDataParser.Cli.Commands.JsonSchemaCommands.Tests;
+﻿namespace HeroesDataParser.Cli.Commands.JsonSchemaCommands.Tests;
 
 [TestClass]
 public class JsonSchemaExportDataCommandTests

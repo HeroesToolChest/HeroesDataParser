@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
-using System.Runtime.InteropServices;
-
-namespace HeroesDataParser.Cli.Commands.PortraitCommands.Tests;
+﻿namespace HeroesDataParser.Cli.Commands.PortraitCommands.Tests;
 
 [TestClass]
 public class PortraitExtractAutoCommandTests
@@ -182,7 +178,7 @@ public class PortraitExtractAutoCommandTests
         TestContext.CancellationToken);
 
         // assert
-        AssertCommandSuccessful(result);
+        await AssertCommandSuccessful(result);
 
         portraitExtractAutoOptions.BattleNetCacheDirectory.Should().Be(Path.GetFullPath("TestXmlFiles"));
         portraitExtractAutoOptions.RewardPortraitDataFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json")));
@@ -213,7 +209,7 @@ public class PortraitExtractAutoCommandTests
         TestContext.CancellationToken);
 
         // assert
-        AssertCommandSuccessful(result);
+        await AssertCommandSuccessful(result);
 
         portraitExtractAutoOptions.OutputDirectory.Should().Be(Path.GetFullPath("TestXmlFiles"));
     }
@@ -240,7 +236,7 @@ public class PortraitExtractAutoCommandTests
         TestContext.CancellationToken);
 
         // assert
-        AssertCommandSuccessful(result);
+        await AssertCommandSuccessful(result);
 
         portraitExtractAutoOptions.XmlConfigFilePath.Should().Be(Path.GetFullPath(Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json")));
     }
@@ -267,7 +263,7 @@ public class PortraitExtractAutoCommandTests
         TestContext.CancellationToken);
 
         // assert
-        AssertCommandSuccessful(result);
+        await AssertCommandSuccessful(result);
 
         portraitExtractAutoOptions.DeleteTextureSheet.Should().BeTrue();
     }
@@ -299,7 +295,7 @@ public class PortraitExtractAutoCommandTests
         TestContext.CancellationToken);
 
         // assert
-        AssertCommandSuccessful(result);
+        await AssertCommandSuccessful(result);
 
         portraitExtractAutoOptions.XmlConfigFilePath.Should().Be(physicalPath);
     }
@@ -329,7 +325,7 @@ public class PortraitExtractAutoCommandTests
         TestContext.CancellationToken);
 
         // assert
-        AssertCommandSuccessful(result);
+        await AssertCommandSuccessful(result);
 
         portraitExtractAutoOptions.XmlConfigFilePath.Should().Be(Path.Combine(Constants.ConfigFilesDirectory, "portrait-extract.xml"));
     }
@@ -345,9 +341,9 @@ public class PortraitExtractAutoCommandTests
         return services;
     }
 
-    private void AssertCommandSuccessful(CommandAppResult result)
+    private async Task AssertCommandSuccessful(CommandAppResult result)
     {
         result.ExitCode.Should().Be(0);
-        _portraitExtractAutoService.Received(1).Extract();
+        await _portraitExtractAutoService.Received(1).Extract();
     }
 }

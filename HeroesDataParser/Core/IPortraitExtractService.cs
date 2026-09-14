@@ -2,7 +2,7 @@
 
 public interface IPortraitExtractService
 {
-    void Extract();
+    Task Extract();
 
     void DisplayAvailablePortraits();
 }

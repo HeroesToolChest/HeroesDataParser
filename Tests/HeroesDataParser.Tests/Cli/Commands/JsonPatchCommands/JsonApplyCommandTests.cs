@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace HeroesDataParser.Cli.Commands.JsonPatchCommands.Tests;
+﻿namespace HeroesDataParser.Cli.Commands.JsonPatchCommands.Tests;
 
 [TestClass]
 public class JsonApplyCommandTests

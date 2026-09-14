@@ -1,5 +1,4 @@
 ﻿using HeroesDataParser.Cli.Settings;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace HeroesDataParser.Cli.Commands.Tests;
 

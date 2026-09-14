@@ -1,5 +1,4 @@
 ﻿using HeroesDataParser.Infrastructure.ImageParsers;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace HeroesDataParser.Infrastructure.Processors.Tests;
 

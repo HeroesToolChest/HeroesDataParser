@@ -12,7 +12,7 @@ public class PortraitExtractAutoService : PortraitExtractBase, IPortraitExtractA
         _options = options.Value;
     }
 
-    public void Extract()
+    public async Task Extract()
     {
         OutputDirectory = _options.OutputDirectory;
 
@@ -26,11 +26,10 @@ public class PortraitExtractAutoService : PortraitExtractBase, IPortraitExtractA
             return;
         }
 
-        int count = 0;
+        int textureSheetFoundCount = 0;
+        int autoExtractUpToDateCount = 0;
 
         List<KeyValuePair<string, PortraitExtract>> notFoundFileFromXml = [];
-        HashSet<string> imagesExtracted = [];
-
         List<RewardPortrait> rewardPortraits = GetRewardPortraits();
 
         HashSet<string> textureSheetImageData = rewardPortraits
@@ -59,19 +58,20 @@ public class PortraitExtractAutoService : PortraitExtractBase, IPortraitExtractA
                 continue;
             }
 
-            ExtractImageFiles(rewardPortraits, files[0], item.Value.TextureSheetImage, _options.DeleteTextureSheet);
+            bool success = await ExtractImageFiles(rewardPortraits, files[0], item.Value.TextureSheetImage, _options.DeleteTextureSheet);
 
-            imagesExtracted.Add(item.Value.TextureSheetImage);
+            if (success)
+                autoExtractUpToDateCount++;
 
-            count++;
+            textureSheetFoundCount++;
         }
 
         Console.WriteLine();
 
-        if (count == portraitsByTextureSheetImageXml.Count)
-            Console.MarkupLineInterpolated($"[green]{count} out of {portraitsByTextureSheetImageXml.Count} texture sheets were found in the cache[/]");
+        if (textureSheetFoundCount == portraitsByTextureSheetImageXml.Count)
+            Console.MarkupLineInterpolated($"[green]{textureSheetFoundCount} out of {portraitsByTextureSheetImageXml.Count} texture sheets were found in the cache[/]");
         else
-            Console.MarkupLineInterpolated($"[yellow]Only {count} out of {portraitsByTextureSheetImageXml.Count} texture sheets were found in the cache[/]");
+            Console.MarkupLineInterpolated($"[yellow]Only {textureSheetFoundCount} out of {portraitsByTextureSheetImageXml.Count} texture sheets were found in the cache[/]");
 
         if (notFoundFileFromXml.Count > 0)
         {
@@ -93,15 +93,14 @@ public class PortraitExtractAutoService : PortraitExtractBase, IPortraitExtractA
             Console.Write(table);
         }
 
+        Console.WriteLine();
+
         if (textureSheetImageData.Count == portraitsByTextureSheetImageXml.Count)
         {
-            Console.WriteLine();
-            Console.MarkupLine("[green]All texture sheets in the reward data json file were found in the cache (the auto-extraction xml file is up to date)[/]");
+            Console.MarkupLine("[green]All texture sheets in the reward data json file were found in the cache[/]");
         }
         else
         {
-            Console.WriteLine();
-
             if (textureSheetImageData.Count - portraitsByTextureSheetImageXml.Count > 0)
             {
                 Console.MarkupLineInterpolated($"[yellow]The following {textureSheetImageData.Count - portraitsByTextureSheetImageXml.Count} texture sheet(s) are in the reward data json file and not in the auto-extraction xml file (need to be added)[/]");
@@ -112,6 +111,13 @@ public class PortraitExtractAutoService : PortraitExtractBase, IPortraitExtractA
                 }
             }
         }
+
+        Console.WriteLine();
+
+        if (autoExtractUpToDateCount == textureSheetFoundCount)
+            Console.MarkupLineInterpolated($"[green]{autoExtractUpToDateCount} out of {textureSheetFoundCount} texture sheets in the auto-extract xml file were up to date[/]");
+        else
+            Console.MarkupLineInterpolated($"[yellow]Only {autoExtractUpToDateCount} out of {textureSheetFoundCount} texture sheets in the auto-extract xml fil were up to date[/]");
     }
 
     private Dictionary<string, PortraitExtract> LoadPortraitDataFromXml()

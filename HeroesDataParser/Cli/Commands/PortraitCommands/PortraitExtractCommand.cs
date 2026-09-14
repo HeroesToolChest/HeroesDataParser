@@ -1,6 +1,6 @@
 ﻿namespace HeroesDataParser.Cli.Commands.PortraitCommands;
 
-public class PortraitExtractCommand : Command<PortraitExtractSettings>
+public class PortraitExtractCommand : AsyncCommand<PortraitExtractSettings>
 {
     private readonly ILogger<PortraitExtractCommand> _logger;
     private readonly PortraitExtractOptions _options;
@@ -19,7 +19,7 @@ public class PortraitExtractCommand : Command<PortraitExtractSettings>
         _portraitExtractService = portraitExtractService;
     }
 
-    protected override int Execute(CommandContext context, PortraitExtractSettings settings, CancellationToken cancellationToken)
+    protected override async Task<int> ExecuteAsync(CommandContext context, PortraitExtractSettings settings, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Starting {CommandName}", nameof(PortraitExtractCommand));
 
@@ -70,7 +70,7 @@ public class PortraitExtractCommand : Command<PortraitExtractSettings>
             _options.CacheTextureSheetImageFilePath = settings.CacheTextureSheetImage.FullName;
         }
 
-        _portraitExtractService.Extract();
+        await _portraitExtractService.Extract();
 
         return 0;
     }

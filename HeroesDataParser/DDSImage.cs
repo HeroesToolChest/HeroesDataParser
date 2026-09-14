@@ -13,6 +13,7 @@ namespace HeroesDataParser;
 public sealed class DDSImage : IDisposable
 {
     private readonly Pfim.IImage _ddsImageFile;
+    private Image? _decodedImage;
 
     public DDSImage(string file)
     {
@@ -31,6 +32,7 @@ public sealed class DDSImage : IDisposable
     public void Dispose()
     {
         _ddsImageFile.Dispose();
+        _decodedImage?.Dispose();
     }
 
     /// <summary>
@@ -38,6 +40,7 @@ public sealed class DDSImage : IDisposable
     /// </summary>
     /// <param name="file">The file path the image will be written to. The file extension determine to conversion to perform.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="Exception">Thrown when the pixel format is unsupported.</exception>
     public Task Save(string file)
     {
         if (_ddsImageFile.Format == ImageFormat.Rgba32)
@@ -87,6 +90,7 @@ public sealed class DDSImage : IDisposable
     /// <param name="point">The coordinates where the image will be cropped from.</param>
     /// <param name="size">The size of the new image.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="Exception">Thrown when the pixel format is unsupported.</exception>
     public Task Save(string file, Point point, Size size)
     {
         if (_ddsImageFile.Format == ImageFormat.Rgba32)
@@ -138,6 +142,7 @@ public sealed class DDSImage : IDisposable
     /// <param name="frames">The amount of frames.</param>
     /// <param name="frameDelay">The delay of each frame.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="Exception">Thrown when the pixel format is unsupported.</exception>
     public Task SaveAsGif(string file, Size size, Size innerSize, int frames, int frameDelay)
     {
         if (Path.GetExtension(file) != ".gif")
@@ -192,6 +197,7 @@ public sealed class DDSImage : IDisposable
     /// <param name="frames">The amount of frames.</param>
     /// <param name="frameDelay">The delay of each frame.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="Exception">Thrown when the pixel format is unsupported.</exception>
     public Task SaveAsAPNG(string file, Size size, Size innerSize, int frames, int frameDelay)
     {
         if (_ddsImageFile.Format == ImageFormat.Rgba32)
@@ -234,6 +240,51 @@ public sealed class DDSImage : IDisposable
         }
     }
 
+    /// <summary>
+    /// Checks if the image is a solid color in the specified area.
+    /// </summary>
+    /// <param name="point">The top-left coordinates where the area will be checked.</param>
+    /// <param name="size">The size of the area to check.</param>
+    /// <returns><see langword="true"/> if the area is a solid color, otherwise <see langword="false"/>.</returns>
+    /// <exception cref="Exception">Thrown when the pixel format is unsupported.</exception>
+    public bool IsSolidColor(Point point, Size size)
+    {
+        if (_ddsImageFile.Format == ImageFormat.Rgba32)
+        {
+            return IsSolidColor<Bgra32>(point, size);
+        }
+        else if (_ddsImageFile.Format == ImageFormat.Rgb24)
+        {
+            return IsSolidColor<Bgr24>(point, size);
+        }
+        else if (_ddsImageFile.Format == ImageFormat.Rgba16)
+        {
+            return IsSolidColor<Bgra4444>(point, size);
+        }
+        else if (_ddsImageFile.Format == ImageFormat.R5g5b5)
+        {
+            // Turn the alpha channel on for image sharp
+            for (int i = 1; i < _ddsImageFile.Data.Length; i += 2)
+            {
+                _ddsImageFile.Data[i] |= 128;
+            }
+
+            return IsSolidColor<Bgra5551>(point, size);
+        }
+        else if (_ddsImageFile.Format == ImageFormat.R5g5b5a1)
+        {
+            return IsSolidColor<Bgra5551>(point, size);
+        }
+        else if (_ddsImageFile.Format == ImageFormat.R5g6b5)
+        {
+            return IsSolidColor<Bgr565>(point, size);
+        }
+        else
+        {
+            throw new Exception($"Unsupported pixel format ({_ddsImageFile.Format})");
+        }
+    }
+
     private static Task SaveNewFile<T>(string file, Image<T> image)
         where T : unmanaged, IPixel<T>
     {
@@ -258,10 +309,23 @@ public sealed class DDSImage : IDisposable
         }
     }
 
+    private Image<T> GetDecodedImage<T>()
+        where T : unmanaged, IPixel<T>
+    {
+        if (_decodedImage is Image<T> decodedImage)
+            return decodedImage;
+
+        Image<T> image = Image.LoadPixelData<T>(_ddsImageFile.Data, _ddsImageFile.Width, _ddsImageFile.Height);
+
+        _decodedImage = image;
+
+        return image;
+    }
+
     private Task Save<T>(string file)
         where T : unmanaged, IPixel<T>
     {
-        using Image<T> image = Image.LoadPixelData<T>(_ddsImageFile.Data, _ddsImageFile.Width, _ddsImageFile.Height);
+        Image<T> image = GetDecodedImage<T>();
 
         return SaveNewFile(file, image);
     }
@@ -269,11 +333,11 @@ public sealed class DDSImage : IDisposable
     private Task Save<T>(string file, Point point, Size size)
         where T : unmanaged, IPixel<T>
     {
-        using Image<T> image = Image.LoadPixelData<T>(_ddsImageFile.Data, _ddsImageFile.Width, _ddsImageFile.Height);
+        Image<T> image = GetDecodedImage<T>();
 
-        image.Mutate(x => x.Crop(new Rectangle(point, size)));
+        using Image<T> cropped = image.Clone(x => x.Crop(new Rectangle(point, size)));
 
-        return SaveNewFile(file, image);
+        return SaveNewFile(file, cropped);
     }
 
     private Task SaveAsGif<T>(string file, Size size, Size innerSize, int frames, int frameDelay)
@@ -282,7 +346,7 @@ public sealed class DDSImage : IDisposable
         int gifFrameDelay = frameDelay / 10;
 
         // Load full base image
-        using Image<T> image = Image.LoadPixelData<T>(_ddsImageFile.Data, _ddsImageFile.Width, _ddsImageFile.Height);
+        Image<T> image = GetDecodedImage<T>();
 
         // with first frame
         using Image<T> gif = image.Clone(x => x.Crop(new Rectangle(new Point(0, 0), size)));
@@ -320,7 +384,7 @@ public sealed class DDSImage : IDisposable
         Rational apngFrameDelay = new((uint)frameDelay, 1000, false);
 
         // Load full base image
-        using Image<T> image = Image.LoadPixelData<T>(_ddsImageFile.Data, _ddsImageFile.Width, _ddsImageFile.Height);
+        Image<T> image = GetDecodedImage<T>();
 
         // with first frame
         using Image<T> apng = image.Clone(x => x.Crop(new Rectangle(new Point(0, 0), size)));
@@ -359,5 +423,43 @@ public sealed class DDSImage : IDisposable
             InterlaceMethod = PngInterlaceMode.None,
             BitDepth = PngBitDepth.Bit16,
         });
+    }
+
+    private bool IsSolidColor<T>(Point point, Size size)
+        where T : unmanaged, IPixel<T>
+    {
+        Image<T> source = GetDecodedImage<T>();
+
+        Rgba32 firstColor = default;
+        bool isSolid = true;
+        bool first = true;
+
+        source.ProcessPixelRows(accessor =>
+        {
+            for (int y = point.Y; y < point.Y + size.Height && isSolid; y++)
+            {
+                Span<T> row = accessor.GetRowSpan(y).Slice(point.X, size.Width);
+
+                for (int x = 0; x < row.Length; x++)
+                {
+                    Rgba32 pixelColor = row[x].ToRgba32();
+
+                    if (first)
+                    {
+                        firstColor = pixelColor;
+                        first = false;
+                        continue;
+                    }
+
+                    if (pixelColor.R != firstColor.R || pixelColor.G != firstColor.G || pixelColor.B != firstColor.B)
+                    {
+                        isSolid = false;
+                        break;
+                    }
+                }
+            }
+        });
+
+        return isSolid;
     }
 }
