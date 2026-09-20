@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <CUnit id="HeroJaina" parent="StormHeroMounted">
+    <CardLayouts index="0">   
+      <LayoutButtons Face="JainaImprovedIceBlockCancel" Type="AbilCmd" AbilCmd="JainaIceBlockCancel,Execute" Slot="Active" />
+      <LayoutButtons Face="JainaImprovedIceBlockHotbar" Type="AbilCmd" AbilCmd="JainaIceBlockActivate,Execute" Slot="Active" />
+      <LayoutButtons Face="JainaIceColdCancel" Type="AbilCmd" AbilCmd="JainaIceBlockCancel,Execute" Slot="Active" />
+      <LayoutButtons Face="JainaIceColdHotbar" Type="AbilCmd" AbilCmd="JainaIceBlockActivate,Execute" Slot="Active" />
+    </CardLayouts>
+  </CUnit>
+  <CButton id="JainaImprovedIceBlockCancel" parent="StormButtonParent">
+    <hdp-ParentAbilLinkArray abilityId="JainaIceBlockActivate" buttonId="JainaImprovedIceBlockHotbar" abilityType="Active" />
+  </CButton>
+  <CButton id="JainaIceColdCancel" parent="StormButtonParent">
+    <hdp-ParentAbilLinkArray abilityId="JainaIceBlockActivate" buttonId="JainaIceColdHotbar" abilityType="Active" />
+  </CButton>
+</Catalog>
