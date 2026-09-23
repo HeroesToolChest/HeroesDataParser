@@ -7,12 +7,14 @@ public class CASCExtractCommandTests
 {
     private readonly ILogger<CASCExtractCommand> _logger;
     private readonly IOptions<CASCExtractOptions> _options;
+    private readonly IOptions<HttpClientOptions> _httpClientOptions;
     private readonly ICASCExtractorService _cascExtractorService;
 
     public CASCExtractCommandTests()
     {
         _logger = Substitute.For<ILogger<CASCExtractCommand>>();
         _options = Substitute.For<IOptions<CASCExtractOptions>>();
+        _httpClientOptions = Substitute.For<IOptions<HttpClientOptions>>();
         _cascExtractorService = Substitute.For<ICASCExtractorService>();
     }
 
@@ -180,6 +182,9 @@ public class CASCExtractCommandTests
         CASCExtractOptions cascExtractOptions = new();
         _options.Value.Returns(cascExtractOptions);
 
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
         TypeRegistrar registrar = new(GetServiceCollection());
 
         CommandAppTester app = new(registrar);
@@ -214,6 +219,9 @@ public class CASCExtractCommandTests
         CASCExtractOptions cascExtractOptions = new();
         _options.Value.Returns(cascExtractOptions);
 
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
         TypeRegistrar registrar = new(GetServiceCollection());
 
         CommandAppTester app = new(registrar);
@@ -246,6 +254,9 @@ public class CASCExtractCommandTests
         // arrange
         CASCExtractOptions cascExtractOptions = new();
         _options.Value.Returns(cascExtractOptions);
+
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
 
         TypeRegistrar registrar = new(GetServiceCollection());
 
@@ -285,6 +296,9 @@ public class CASCExtractCommandTests
         // arrange
         CASCExtractOptions cascExtractOptions = new();
         _options.Value.Returns(cascExtractOptions);
+
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
 
         TypeRegistrar registrar = new(GetServiceCollection());
 
@@ -331,6 +345,9 @@ public class CASCExtractCommandTests
         CASCExtractOptions cascExtractOptions = new();
         _options.Value.Returns(cascExtractOptions);
 
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
         TypeRegistrar registrar = new(GetServiceCollection());
 
         CommandAppTester app = new(registrar);
@@ -363,6 +380,9 @@ public class CASCExtractCommandTests
         CASCExtractOptions cascExtractOptions = new();
         _options.Value.Returns(cascExtractOptions);
 
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
         TypeRegistrar registrar = new(GetServiceCollection());
 
         CommandAppTester app = new(registrar);
@@ -391,6 +411,9 @@ public class CASCExtractCommandTests
         CASCExtractOptions cascExtractOptions = new();
         _options.Value.Returns(cascExtractOptions);
 
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
         TypeRegistrar registrar = new(GetServiceCollection());
 
         CommandAppTester app = new(registrar);
@@ -415,6 +438,7 @@ public class CASCExtractCommandTests
         ServiceCollection services = new();
         services.AddSingleton(_logger);
         services.AddSingleton(_options);
+        services.AddSingleton(_httpClientOptions);
         services.AddSingleton(_cascExtractorService);
 
         return services;

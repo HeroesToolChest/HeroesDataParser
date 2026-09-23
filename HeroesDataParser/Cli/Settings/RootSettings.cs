@@ -82,6 +82,11 @@ public class RootSettings : CommandSettings
     [DefaultValue(-1)]
     public int Threads { get; init; }
 
+    [CommandOption("--http-timeout <SECONDS>")]
+    [Description("Timeout in seconds for HTTP requests, 0 for infinite timeout")]
+    [DefaultValue(30)]
+    public int HttpTimeout { get; init; }
+
     [CommandOption("-o|--output-path <PATH>")]
     [Description("Output directory for created files (defaults to current directory)")]
     public DirectoryInfo? OutputDirectory { get; init; }
@@ -150,6 +155,9 @@ public class RootSettings : CommandSettings
 
         if (Threads == 0 || Threads < -1)
             return ValidationResult.Error("--threads must be -1 or a positive integer");
+
+        if (HttpTimeout < 0)
+            return ValidationResult.Error("--http-timeout must be 0 or a positive integer");
 
         if (OutputDirectory is not null && File.Exists(OutputDirectory.FullName))
             return ValidationResult.Error("The provided --output-path is an existing file and not a directory");

@@ -126,11 +126,19 @@ catch (CommandParseException ex)
 
     exitCode = -1;
 }
+catch (TaskCanceledException ex) when (ex.InnerException is TimeoutException)
+{
+    Log.Error(ex, "An http request timed out");
+    AnsiConsole.MarkupLine("[red]Error: An http request timed out.[/]");
+    AnsiConsole.WriteException(ex);
+
+    exitCode = 1;
+}
 catch (Exception ex)
 {
     Log.Fatal(ex, "Application error");
 
-    AnsiConsole.WriteLine("An application error occured. Check logs for more details.");
+    AnsiConsole.WriteLine("[red]An application error occured. Check logs for more details.[/]");
     AnsiConsole.WriteException(ex);
 
     exitCode = 1;

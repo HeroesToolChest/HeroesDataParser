@@ -4,6 +4,7 @@ public class RootCommand : AsyncCommand<RootSettings>
 {
     private readonly ILogger<RootCommand> _logger;
     private readonly RootOptions _options;
+    private readonly HttpClientOptions _httpClientOptions;
     private readonly IAnsiConsole _console;
     private readonly IPreLoaderService _preLoaderService;
     private readonly IMainService _mainService;
@@ -13,6 +14,7 @@ public class RootCommand : AsyncCommand<RootSettings>
     public RootCommand(
         ILogger<RootCommand> logger,
         IOptions<RootOptions> options,
+        IOptions<HttpClientOptions> httpClientOptions,
         IAnsiConsole console,
         IPreLoaderService preLoaderService,
         IMainService mainService,
@@ -21,6 +23,7 @@ public class RootCommand : AsyncCommand<RootSettings>
     {
         _logger = logger;
         _options = options.Value;
+        _httpClientOptions = httpClientOptions.Value;
         _console = console;
         _preLoaderService = preLoaderService;
         _mainService = mainService;
@@ -33,6 +36,8 @@ public class RootCommand : AsyncCommand<RootSettings>
         _logger.LogInformation("Starting {CommandName}", nameof(RootCommand));
 
         SetOptions(settings);
+
+        _httpClientOptions.TimeoutSeconds = settings.HttpTimeout;
 
         if (_options.ShowHeroesVersion)
         {

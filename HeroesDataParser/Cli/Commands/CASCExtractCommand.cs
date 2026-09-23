@@ -7,12 +7,18 @@ public class CASCExtractCommand : AsyncCommand<CASCExtractSettings>
 
     private readonly ILogger<CASCExtractCommand> _logger;
     private readonly CASCExtractOptions _options;
+    private readonly HttpClientOptions _httpClientOptions;
     private readonly ICASCExtractorService _cascExtractorService;
 
-    public CASCExtractCommand(ILogger<CASCExtractCommand> logger, IOptions<CASCExtractOptions> options, ICASCExtractorService cascExtractorService)
+    public CASCExtractCommand(
+        ILogger<CASCExtractCommand> logger,
+        IOptions<CASCExtractOptions> options,
+        IOptions<HttpClientOptions> httpClientOptions,
+        ICASCExtractorService cascExtractorService)
     {
         _logger = logger;
         _options = options.Value;
+        _httpClientOptions = httpClientOptions.Value;
         _cascExtractorService = cascExtractorService;
     }
 
@@ -59,5 +65,7 @@ public class CASCExtractCommand : AsyncCommand<CASCExtractSettings>
 
         if (settings.OutputDirectory is not null)
             _options.OutputDirectory = settings.OutputDirectory.FullName;
+
+        _httpClientOptions.TimeoutSeconds = settings.HttpTimeout;
     }
 }

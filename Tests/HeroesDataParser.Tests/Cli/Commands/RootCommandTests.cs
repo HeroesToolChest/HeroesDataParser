@@ -7,6 +7,7 @@ public class RootCommandTests
 {
     private readonly ILogger<RootCommand> _logger;
     private readonly IOptions<RootOptions> _options;
+    private readonly IOptions<HttpClientOptions> _httpClientOptions;
     private readonly IAnsiConsole _console;
     private readonly IPreLoaderService _preLoaderService;
     private readonly IMainService _mainService;
@@ -17,6 +18,7 @@ public class RootCommandTests
     {
         _logger = Substitute.For<ILogger<RootCommand>>();
         _options = Substitute.For<IOptions<RootOptions>>();
+        _httpClientOptions = Substitute.For<IOptions<HttpClientOptions>>();
         _console = Substitute.For<IAnsiConsole>();
         _preLoaderService = Substitute.For<IPreLoaderService>();
         _mainService = Substitute.For<IMainService>();
@@ -313,6 +315,28 @@ public class RootCommandTests
     }
 
     [TestMethod]
+    [DataRow(-1)]
+    [DataRow(-2)]
+    public void RootCommand_InvalidHttpTimeout_ReturnsError(int num)
+    {
+        // arrange
+        CommandAppTester app = new();
+        app.SetDefaultCommand<RootCommand>();
+
+        // act
+        CommandAppResult result = app.Run(
+        [
+            "game",
+            "--storage-path", "TestXmlFiles",
+            "--http-timeout", $"{num}",
+        ]);
+
+        // assert
+        result.ExitCode.Should().Be(-1);
+        result.Output.Should().Contain("--http-timeout must be 0 or a positive integer");
+    }
+
+    [TestMethod]
     public void RootCommand_InvalidPreserveConstantVars_ReturnsError()
     {
         // arrange
@@ -361,6 +385,9 @@ public class RootCommandTests
         RootOptions rootOptions = new();
         _options.Value.Returns(rootOptions);
 
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
         TypeRegistrar registrar = new(GetServiceCollection());
         CommandAppTester app = new(registrar);
         app.SetDefaultCommand<RootCommand>();
@@ -404,6 +431,9 @@ public class RootCommandTests
         RootOptions rootOptions = new();
         _options.Value.Returns(rootOptions);
 
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
         TypeRegistrar registrar = new(GetServiceCollection());
         CommandAppTester app = new(registrar);
         app.SetDefaultCommand<RootCommand>();
@@ -434,6 +464,9 @@ public class RootCommandTests
         // arrange
         RootOptions rootOptions = new();
         _options.Value.Returns(rootOptions);
+
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
 
         TypeRegistrar registrar = new(GetServiceCollection());
         CommandAppTester app = new(registrar);
@@ -466,6 +499,9 @@ public class RootCommandTests
         // arrange
         RootOptions rootOptions = new();
         _options.Value.Returns(rootOptions);
+
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
 
         TypeRegistrar registrar = new(GetServiceCollection());
         CommandAppTester app = new(registrar);
@@ -503,6 +539,9 @@ public class RootCommandTests
         RootOptions rootOptions = new();
         _options.Value.Returns(rootOptions);
 
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
         TypeRegistrar registrar = new(GetServiceCollection());
         CommandAppTester app = new(registrar);
         app.SetDefaultCommand<RootCommand>();
@@ -533,6 +572,9 @@ public class RootCommandTests
         // arrange
         RootOptions rootOptions = new();
         _options.Value.Returns(rootOptions);
+
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
 
         TypeRegistrar registrar = new(GetServiceCollection());
         CommandAppTester app = new(registrar);
@@ -567,6 +609,9 @@ public class RootCommandTests
         RootOptions rootOptions = new();
         _options.Value.Returns(rootOptions);
 
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
         TypeRegistrar registrar = new(GetServiceCollection());
         CommandAppTester app = new(registrar);
         app.SetDefaultCommand<RootCommand>();
@@ -594,6 +639,9 @@ public class RootCommandTests
         // arrange
         RootOptions rootOptions = new();
         _options.Value.Returns(rootOptions);
+
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
 
         TypeRegistrar registrar = new(GetServiceCollection());
         CommandAppTester app = new(registrar);
@@ -624,6 +672,9 @@ public class RootCommandTests
         // arrange
         RootOptions rootOptions = new();
         _options.Value.Returns(rootOptions);
+
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
 
         TypeRegistrar registrar = new(GetServiceCollection());
         CommandAppTester app = new(registrar);
@@ -659,6 +710,9 @@ public class RootCommandTests
         RootOptions rootOptions = new();
         _options.Value.Returns(rootOptions);
 
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
         TypeRegistrar registrar = new(GetServiceCollection());
         CommandAppTester app = new(registrar);
         app.SetDefaultCommand<RootCommand>();
@@ -684,6 +738,9 @@ public class RootCommandTests
         // arrange
         RootOptions rootOptions = new();
         _options.Value.Returns(rootOptions);
+
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
 
         TypeRegistrar registrar = new(GetServiceCollection());
         CommandAppTester app = new(registrar);
@@ -715,6 +772,9 @@ public class RootCommandTests
         RootOptions rootOptions = new();
         _options.Value.Returns(rootOptions);
 
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
         TypeRegistrar registrar = new(GetServiceCollection());
         CommandAppTester app = new(registrar);
         app.SetDefaultCommand<RootCommand>();
@@ -740,6 +800,9 @@ public class RootCommandTests
         // arrange
         RootOptions rootOptions = new();
         _options.Value.Returns(rootOptions);
+
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
 
         TypeRegistrar registrar = new(GetServiceCollection());
         CommandAppTester app = new(registrar);
@@ -767,6 +830,9 @@ public class RootCommandTests
         RootOptions rootOptions = new();
         _options.Value.Returns(rootOptions);
 
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
         TypeRegistrar registrar = new(GetServiceCollection());
         CommandAppTester app = new(registrar);
         app.SetDefaultCommand<RootCommand>();
@@ -787,11 +853,48 @@ public class RootCommandTests
     }
 
     [TestMethod]
+    [DataRow(29)]
+    [DataRow(0)]
+    public async Task RootCommand_HttpTimeoutOption_ExecutesSuccessfully(int httpTimeout)
+    {
+        // arrange
+        RootOptions rootOptions = new();
+        _options.Value.Returns(rootOptions);
+
+        HttpClientOptions httpClientOptions = new()
+        {
+            TimeoutSeconds = httpTimeout,
+        };
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<RootCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            "game",
+            "--storage-path", "TestXmlFiles",
+            "--http-timeout", $"{httpTimeout}",
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        await AssertCommandSuccessful(result);
+
+        httpClientOptions.TimeoutSeconds.Should().Be(httpTimeout);
+    }
+
+    [TestMethod]
     public async Task RootCommand_DisableMapSpecificOption_ExecutesSuccessfully()
     {
         // arrange
         RootOptions rootOptions = new();
         _options.Value.Returns(rootOptions);
+
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
 
         TypeRegistrar registrar = new(GetServiceCollection());
         CommandAppTester app = new(registrar);
@@ -818,6 +921,10 @@ public class RootCommandTests
         // arrange
         RootOptions rootOptions = new();
         _options.Value.Returns(rootOptions);
+
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
         _preLoaderService.GetHeroesVersion().Returns("2.55.3.90045");
 
         TypeRegistrar registrar = new(GetServiceCollection());
@@ -848,6 +955,10 @@ public class RootCommandTests
         // arrange
         RootOptions rootOptions = new();
         _options.Value.Returns(rootOptions);
+
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
         _preLoaderService.GetHeroesVersion().Returns("2.55.3.90045");
 
         TypeRegistrar registrar = new(GetServiceCollection());
@@ -876,6 +987,7 @@ public class RootCommandTests
         ServiceCollection services = new();
         services.AddSingleton(_logger);
         services.AddSingleton(_options);
+        services.AddSingleton(_httpClientOptions);
         services.AddSingleton(_console);
         services.AddSingleton(_preLoaderService);
         services.AddSingleton(_mainService);

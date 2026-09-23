@@ -16,6 +16,7 @@ public static class ServiceCollectionExtensions
             services.AddSingleton(configuration);
             services.Configure<RootOptions>(configuration.GetSection(nameof(RootOptions)));
             services.Configure<CASCExtractOptions>(configuration.GetSection(nameof(CASCExtractOptions)));
+            services.Configure<HttpClientOptions>(configuration.GetSection(nameof(HttpClientOptions)));
             services.Configure<JsonApplyOptions>(configuration.GetSection(nameof(JsonApplyOptions)));
             services.Configure<JsonCreateOptions>(configuration.GetSection(nameof(JsonCreateOptions)));
             services.Configure<GameStringTextFormatOptions>(configuration.GetSection(nameof(GameStringTextFormatOptions)));
@@ -39,9 +40,15 @@ public static class ServiceCollectionExtensions
             services.AddSingleton<IFileProvider>(sp => new PhysicalFileProvider(AppContext.BaseDirectory));
             services.AddRedaction();
             services
-                .AddHttpClient(Constants.HttpClientBlizzard, httpClient =>
+                .AddHttpClient(Constants.HttpClientBlizzard, (serviceProvider, httpClient) =>
                 {
-                    httpClient.Timeout = TimeSpan.FromSeconds(15);
+                    HttpClientOptions httpClientOptions = serviceProvider.GetRequiredService<IOptions<HttpClientOptions>>().Value;
+
+                    if (httpClientOptions.TimeoutSeconds == 0)
+                        httpClient.Timeout = Timeout.InfiniteTimeSpan;
+                    else
+                        httpClient.Timeout = TimeSpan.FromSeconds(httpClientOptions.TimeoutSeconds);
+
                     httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("HeroesDataParser", AppVersion.GetAppVersion()));
                 })
                 .AddResilienceHandler("hdp-pipeline", builder =>
