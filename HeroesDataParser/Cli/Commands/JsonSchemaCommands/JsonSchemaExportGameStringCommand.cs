@@ -20,11 +20,10 @@ public class JsonSchemaExportGameStringCommand : AsyncCommand<JsonSchemaExportGa
     {
         _logger.LogInformation("Starting {CommandName}", nameof(JsonSchemaExportGameStringCommand));
 
-        string outputDirectory;
         if (settings.OutputDirectory is null)
             _options.OutputDirectory = Path.Combine(Path.GetFullPath("."), "schema");
         else
-            outputDirectory = settings.OutputDirectory.FullName;
+            _options.OutputDirectory = settings.OutputDirectory.FullName;
 
         _options.AllowOverwrite = settings.Overwrite;
         _options.JsonIndent = !settings.DisableJsonIndent;
