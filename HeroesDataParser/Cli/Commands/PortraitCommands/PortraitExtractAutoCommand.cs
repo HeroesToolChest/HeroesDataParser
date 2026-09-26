@@ -48,7 +48,7 @@ public class PortraitExtractAutoCommand : AsyncCommand<PortraitExtractAutoSettin
             if (!string.IsNullOrWhiteSpace(xmlConfigFilePath))
                 _options.XmlConfigFilePath = xmlConfigFilePath;
             else
-                _options.XmlConfigFilePath = _portraitExtractFile;
+                _options.XmlConfigFilePath = _portraitExtractFile; // should never get here but use the relative path (current working directory)
         }
 
         string outputDirectory;
