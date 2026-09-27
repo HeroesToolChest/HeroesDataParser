@@ -5,14 +5,16 @@ namespace HeroesDataParser;
 
 internal static class SerilogLogging
 {
-    public const string LogDirectory = "logs";
-    public const string LogPrefix = "log";
+    public const string LogDirectoryName = "logs";
+    public const string LogPrefixName = "log";
     public const int RetainedFileCountLimit = 7;
 
-    public static DateTime StartDateTime { get; } = DateTime.Now;
+    private static readonly DateTime _startDateTime = DateTime.Now;
+
+    public static string LogDirectoryPath => AppPaths.GetDirectory(LogDirectoryName);
 
     public static Action<LoggerSinkConfiguration> LoggerConfigure()
     {
-        return x => x.File(new CompactJsonFormatter(), Path.Combine(AppContext.BaseDirectory, LogDirectory, $"{LogPrefix}{StartDateTime:yyyyMMdd_HHmmss}.txt"), retainedFileCountLimit: RetainedFileCountLimit, fileSizeLimitBytes: 1024 * 1024 * 64);
+        return x => x.File(new CompactJsonFormatter(), Path.Combine(LogDirectoryPath, $"{LogPrefixName}{_startDateTime:yyyyMMdd_HHmmss}.txt"), retainedFileCountLimit: RetainedFileCountLimit, fileSizeLimitBytes: 1024 * 1024 * 64);
     }
 }

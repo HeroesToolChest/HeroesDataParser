@@ -3,7 +3,10 @@
 public static class Constants
 {
     public const string AppName = "Heroes Data Parser";
+    public const string AppNameShort = "HeroesDataParser";
     public const string AppNameLower = "heroesdataparser";
+    public const string EnvironmentVariablePrefix = "HEROESDATAPARSER_";
+    public const string PortableMarkerFileName = ".portable";
     public const string HttpClientBlizzard = "Blizzard";
     public const string ImageWriterPipeline = "image-writer-pipeline";
     public const string CASCFileExtractorPipeline = "casc-file-extractor-pipeline";
@@ -14,4 +17,5 @@ public static class Constants
     public const string ImagesDirectory = "images";
     public const string ConfigFilesDirectory = "config-files";
     public const string PortraitRewardsDirectory = "portraitrewards";
+    public const string CacsLibCacheDirectory = "casclib-cache";
 }

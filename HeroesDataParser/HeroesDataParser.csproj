@@ -84,5 +84,9 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
+
+  <Target Name="AddPortableMarker" AfterTargets="Publish" Condition="'$(PortableBuild)'=='true'">
+    <WriteLinesToFile File="$(PublishDir).portable" Overwrite="true" Lines="" />
+  </Target>
   
 </Project>

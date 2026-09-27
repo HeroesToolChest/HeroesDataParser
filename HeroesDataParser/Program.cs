@@ -163,8 +163,8 @@ static void SetAppCulture()
 
 static void RunLogRententionPolicy()
 {
-    FileInfo[] allLogFiles = new DirectoryInfo(Path.Combine(AppContext.BaseDirectory, SerilogLogging.LogDirectory))
-       .GetFiles($"{SerilogLogging.LogPrefix}*.txt");
+    FileInfo[] allLogFiles = new DirectoryInfo(SerilogLogging.LogDirectoryPath)
+       .GetFiles($"{SerilogLogging.LogPrefixName}*.txt");
 
     Log.Information($"Log Retention: Found {allLogFiles.Length} log files. Keeping latest {SerilogLogging.RetainedFileCountLimit} log files");
 

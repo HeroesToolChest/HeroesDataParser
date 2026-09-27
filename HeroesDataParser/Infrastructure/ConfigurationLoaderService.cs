@@ -168,7 +168,12 @@ public class ConfigurationLoaderService : IConfigurationLoaderService
 
     private HeroesDataVersion? GetOnlineVersion(LoadedConfiguration preloadData)
     {
-        preloadData.CascConfig = HeroesXmlLoader.GetOnlineCASCConfig(_httpClientFactory.CreateClient(Constants.HttpClientBlizzard), _options.StorageLoad.Ptr, new CASCLoggerOptions());
+        CascLibOptions cascLibOptions = new()
+        {
+            CachePath = AppPaths.GetDirectory(Constants.CacsLibCacheDirectory),
+        };
+
+        preloadData.CascConfig = HeroesXmlLoader.GetOnlineCASCConfig(_httpClientFactory.CreateClient(Constants.HttpClientBlizzard), _options.StorageLoad.Ptr, new CASCLoggerOptions(), cascLibOptions);
 
         return preloadData.CascConfig.GetVersionFromCascConfig();
     }
