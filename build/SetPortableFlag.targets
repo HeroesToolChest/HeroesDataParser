@@ -1,0 +1,26 @@
+<Project>
+
+  <UsingTask
+      TaskName="SetPortableFlag"
+      TaskFactory="RoslynCodeTaskFactory"
+      AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <AppSettingsPath ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System.IO" />
+      <Code Type="Fragment" Language="cs">
+<![CDATA[
+      var json = File.ReadAllText(AppSettingsPath);
+      json = json.Replace("\"Portable\": false", "\"Portable\": true");
+      File.WriteAllText(AppSettingsPath, json);
+]]>
+      </Code>
+    </Task>
+  </UsingTask>
+
+  <Target Name="SetPortableFlagAfterPublish" AfterTargets="Publish" Condition="'$(PortableBuild)' == 'true'">
+    <SetPortableFlag AppSettingsPath="$(PublishDir)appsettings.json" />
+  </Target>
+
+</Project>

@@ -6,7 +6,7 @@ public static class Constants
     public const string AppNameShort = "HeroesDataParser";
     public const string AppNameLower = "heroesdataparser";
     public const string EnvironmentVariablePrefix = "HEROESDATAPARSER_";
-    public const string PortableMarkerFileName = ".portable";
+    public const string PortableConfigurationKey = "Portable";
     public const string HttpClientBlizzard = "Blizzard";
     public const string ImageWriterPipeline = "image-writer-pipeline";
     public const string CASCFileExtractorPipeline = "casc-file-extractor-pipeline";

@@ -85,8 +85,6 @@
     </None>
   </ItemGroup>
 
-  <Target Name="AddPortableMarker" AfterTargets="Publish" Condition="'$(PortableBuild)'=='true'">
-    <WriteLinesToFile File="$(PublishDir).portable" Overwrite="true" Lines="" />
-  </Target>
+  <Import Project="..\build\SetPortableFlag.targets" />
   
 </Project>

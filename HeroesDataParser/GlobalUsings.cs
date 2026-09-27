@@ -49,6 +49,7 @@ global using HeroesDataParser.Options.JsonSchemaExportOptions;
 global using HeroesDataParser.Options.LocalizedTextFileOptions;
 global using HeroesDataParser.Options.PortraitOptions;
 global using Json.Patch;
+global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.FileProviders;
 global using Microsoft.Extensions.Logging;

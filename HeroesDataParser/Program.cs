@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Serilog;
+﻿using Serilog;
 using System.Text;
 
 Console.OutputEncoding = Encoding.UTF8;
@@ -10,6 +9,8 @@ IConfigurationRoot configuration = new ConfigurationBuilder()
     .AddJsonFile(Path.Combine(AppContext.BaseDirectory, "appsettings.json"), optional: false, reloadOnChange: false)
     .AddJsonFile(Path.Combine(AppContext.BaseDirectory, "appsettings.release.json"), optional: true, reloadOnChange: false)
     .Build();
+
+AppPaths.Initialize(configuration);
 
 Log.Logger = new LoggerConfiguration()
     .Enrich.FromLogContext()

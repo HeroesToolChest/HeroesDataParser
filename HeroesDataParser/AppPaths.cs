@@ -3,6 +3,13 @@
 // paths for the creation of files and directories; logs, casc cdn cache, etc.
 public static class AppPaths
 {
+    private static IConfiguration? _configuration;
+
+    public static void Initialize(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+
     public static string GetDirectory(string subDirectory)
     {
         string baseDirectory = ResolveBaseDirectory();
@@ -25,7 +32,7 @@ public static class AppPaths
         return exeDirectory;
 #else
         // for development/zip installs
-        if (File.Exists(Path.Combine(exeDirectory, Constants.PortableMarkerFileName)))
+        if (_configuration is not null && _configuration.GetValue<bool>(Constants.PortableConfigurationKey))
             return exeDirectory;
 
         // tool install

@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Polly;
+﻿using Polly;
 using Polly.Retry;
 using Serilog;
 using System.Net;
