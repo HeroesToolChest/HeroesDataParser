@@ -52,8 +52,8 @@ try
         config.SetApplicationVersion(AppVersion.GetAppVersion());
         config.UseStrictParsing();
         config.CaseSensitivity(CaseSensitivity.None);
-#if DEBUG
         config.PropagateExceptions();
+#if DEBUG
         config.ValidateExamples();
 #endif
         config.AddCommand<CASCExtractCommand>("casc-extract")
@@ -126,24 +126,27 @@ try
 catch (CommandParseException ex)
 {
     Log.Error(ex, "Command line parsing error");
-    AnsiConsole.WriteException(ex);
+    AnsiConsole.MarkupLineInterpolated($"[red]{ex.Message}[/]");
 
     exitCode = -1;
 }
-catch (TaskCanceledException ex) when (ex.InnerException is TimeoutException)
+catch (Exception ex) when ((ex as TaskCanceledException ?? ex.InnerException) is TaskCanceledException canceledEx)
 {
-    Log.Error(ex, ex.InnerException.Message);
-    AnsiConsole.MarkupLineInterpolated($"[red]{ex.InnerException.Message}[/]");
-    AnsiConsole.WriteException(ex);
+    bool isTimeout = canceledEx.InnerException is TimeoutException;
+
+    Log.Error(ex, isTimeout ? "Task was canceled due to a timeout" : "Task was canceled");
+
+    if (ex != canceledEx)
+        AnsiConsole.MarkupLineInterpolated($"[red]{ex.Message}[/]");
+
+    AnsiConsole.MarkupLineInterpolated($"[red]{canceledEx.Message}[/]");
 
     exitCode = 1;
 }
 catch (Exception ex)
 {
     Log.Fatal(ex, "Application error");
-
     AnsiConsole.MarkupLine("[red]An application error occured. Check logs for more details.[/]");
-    AnsiConsole.WriteException(ex);
 
     exitCode = 1;
 }

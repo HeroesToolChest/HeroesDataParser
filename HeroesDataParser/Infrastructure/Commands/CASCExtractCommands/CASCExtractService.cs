@@ -200,7 +200,12 @@ public class CASCExtractService : ICASCExtractService
         }
         else
         {
-            return HeroesXmlLoader.GetOnlineCASCConfig(_httpClientFactory.CreateClient(Constants.HttpClientBlizzard), _options.StorageLoad.Ptr, new CASCLoggerOptions());
+            CascLibOptions cascLibOptions = new()
+            {
+                CachePath = AppPaths.GetDirectory(Constants.CacsLibCacheDirectory),
+            };
+
+            return HeroesXmlLoader.GetOnlineCASCConfig(_httpClientFactory.CreateClient(Constants.HttpClientBlizzard), _options.StorageLoad.Ptr, new CASCLoggerOptions(), cascLibOptions);
         }
     }
 
@@ -251,20 +256,10 @@ public class CASCExtractService : ICASCExtractService
 
                 _stopwatch.Start();
 
-                if (_options.StorageLoad.Type == StorageType.Game)
+                await Task.Run(() =>
                 {
-                    await Task.Run(() =>
-                    {
-                        heroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, _httpClientFactory.CreateClient(Constants.HttpClientBlizzard), progressReporter: new ProgressReporter(progress));
-                    });
-                }
-                else
-                {
-                    await Task.Run(() =>
-                    {
-                        heroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, _httpClientFactory.CreateClient(Constants.HttpClientBlizzard), progressReporter: new ProgressReporter(progress));
-                    });
-                }
+                    heroesXmlLoader = HeroesXmlLoader.LoadWithCASC(cascConfig, _httpClientFactory.CreateClient(Constants.HttpClientBlizzard), progressReporter: new ProgressReporter(progress));
+                });
 
                 _stopwatch.Stop();
             });
