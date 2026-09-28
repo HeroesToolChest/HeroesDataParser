@@ -10,6 +10,10 @@ public class CASCExtractOptions
 
     public HashSet<string> ExcludeFilters { get; set; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
+    public bool Flatten { get; set; }
+
+    public CascExtractDuplicateHandling DuplicateHandling { get; set; } = CascExtractDuplicateHandling.Error;
+
     public int Threads { get; set; }
 
     public string OutputDirectory { get; set; } = ".";

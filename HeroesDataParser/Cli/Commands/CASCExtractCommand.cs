@@ -8,18 +8,18 @@ public class CASCExtractCommand : AsyncCommand<CASCExtractSettings>
     private readonly ILogger<CASCExtractCommand> _logger;
     private readonly CASCExtractOptions _options;
     private readonly HttpClientOptions _httpClientOptions;
-    private readonly ICASCExtractorService _cascExtractorService;
+    private readonly ICASCExtractService _cascExtractService;
 
     public CASCExtractCommand(
         ILogger<CASCExtractCommand> logger,
         IOptions<CASCExtractOptions> options,
         IOptions<HttpClientOptions> httpClientOptions,
-        ICASCExtractorService cascExtractorService)
+        ICASCExtractService cascExtractService)
     {
         _logger = logger;
         _options = options.Value;
         _httpClientOptions = httpClientOptions.Value;
-        _cascExtractorService = cascExtractorService;
+        _cascExtractService = cascExtractService;
     }
 
     protected override async Task<int> ExecuteAsync(CommandContext context, CASCExtractSettings settings, CancellationToken cancellationToken)
@@ -28,7 +28,7 @@ public class CASCExtractCommand : AsyncCommand<CASCExtractSettings>
 
         SetOptions(settings);
 
-        await _cascExtractorService.RootDirectoryExtract();
+        await _cascExtractService.RootDirectoryExtract();
 
         return 0;
     }
@@ -38,6 +38,10 @@ public class CASCExtractCommand : AsyncCommand<CASCExtractSettings>
         _options.StorageLoad.Type = settings.StorageType;
         _options.StorageLoad.Path = settings.StorageDirectory?.FullName;
         _options.StorageLoad.Ptr = settings.IsPtr;
+        _options.Flatten = settings.Flatten;
+
+        if (settings.DuplicateHandling is not null)
+            _options.DuplicateHandling = settings.DuplicateHandling.Value;
 
         if (settings.IncludeFilters.Contains(CASCExtractSettings.AllIncludePattern))
         {

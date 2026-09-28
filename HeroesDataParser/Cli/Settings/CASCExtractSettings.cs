@@ -27,6 +27,15 @@ public class CASCExtractSettings : CommandSettings
     [Description("Glob pattern to exclude file paths from extraction (can be specified multiple times)")]
     public string[] ExcludeFilters { get; init; } = [];
 
+    [CommandOption("--flatten")]
+    [Description("Extract all files into a single directory instead of preserving the directory structure")]
+    [DefaultValue(false)]
+    public bool Flatten { get; init; }
+
+    [CommandOption("--duplicates <MODE>")]
+    [Description("How to handle duplicate file names (--flatten option only, defaults to error)")]
+    public CascExtractDuplicateHandling? DuplicateHandling { get; init; }
+
     [CommandOption("-t|--threads <NUMBER>")]
     [Description("Number of threads for file extraction (defaults to max processors)")]
     [DefaultValue(-1)]
@@ -60,6 +69,9 @@ public class CASCExtractSettings : CommandSettings
 
         if (IsPtr && StorageType != StorageType.Online)
             return ValidationResult.Error("--ptr is only valid when storage-type is 'online'");
+
+        if (DuplicateHandling is not null && !Flatten)
+            return ValidationResult.Error("--duplicates is only valid when --flatten is specified");
 
         if (Threads == 0 || Threads < -1)
             return ValidationResult.Error("--threads must be -1 or a positive integer");

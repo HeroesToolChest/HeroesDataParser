@@ -1,4 +1,5 @@
 ﻿using HeroesDataParser.Cli.Settings;
+using Microsoft.Win32;
 
 namespace HeroesDataParser.Cli.Commands.Tests;
 
@@ -8,14 +9,14 @@ public class CASCExtractCommandTests
     private readonly ILogger<CASCExtractCommand> _logger;
     private readonly IOptions<CASCExtractOptions> _options;
     private readonly IOptions<HttpClientOptions> _httpClientOptions;
-    private readonly ICASCExtractorService _cascExtractorService;
+    private readonly ICASCExtractService _cascExtractorService;
 
     public CASCExtractCommandTests()
     {
         _logger = Substitute.For<ILogger<CASCExtractCommand>>();
         _options = Substitute.For<IOptions<CASCExtractOptions>>();
         _httpClientOptions = Substitute.For<IOptions<HttpClientOptions>>();
-        _cascExtractorService = Substitute.For<ICASCExtractorService>();
+        _cascExtractorService = Substitute.For<ICASCExtractService>();
     }
 
     public TestContext TestContext { get; set; }
@@ -173,6 +174,25 @@ public class CASCExtractCommandTests
         // assert
         result.ExitCode.Should().Be(-1);
         result.Output.Should().Contain("is an existing file and not a directory");
+    }
+
+    [TestMethod]
+    public void CASCExtractCommand_DuplicatesWithoutFlatten_ReturnsError()
+    {
+        // arrange
+        CommandAppTester app = new();
+        app.SetDefaultCommand<CASCExtractCommand>();
+
+        // act
+        CommandAppResult result = app.Run(
+        [
+            "online",
+            "--duplicates", "append",
+        ]);
+
+        // assert
+        result.ExitCode.Should().Be(-1);
+        result.Output.Should().Contain("only valid when --flatten is specified");
     }
 
     [TestMethod]
@@ -431,6 +451,72 @@ public class CASCExtractCommandTests
         await AssertCommandSuccessful(result);
 
         cascExtractOptions.OutputDirectory.Should().Be(".");
+    }
+
+    [TestMethod]
+    [DataRow("error", CascExtractDuplicateHandling.Error)]
+    [DataRow("ignore", CascExtractDuplicateHandling.Ignore)]
+    [DataRow("Overwrite", CascExtractDuplicateHandling.Overwrite)]
+    [DataRow("APPEND", CascExtractDuplicateHandling.Append)]
+    public async Task CASCExtractCommand_FlattenWithDuplicates_ExecutesSuccessfully(string value, CascExtractDuplicateHandling expected)
+    {
+        // arrange
+        CASCExtractOptions cascExtractOptions = new();
+        _options.Value.Returns(cascExtractOptions);
+
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<CASCExtractCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            "online",
+            "--flatten",
+            "--duplicates", value,
+            "-o", "TestXmlFiles"
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        await AssertCommandSuccessful(result);
+
+        cascExtractOptions.Flatten.Should().BeTrue();
+        cascExtractOptions.DuplicateHandling.Should().Be(expected);
+    }
+
+    [TestMethod]
+    public async Task CASCExtractCommand_FlattenWithoutDuplicates_DefaultsToError()
+    {
+        // arrange
+        CASCExtractOptions cascExtractOptions = new();
+        _options.Value.Returns(cascExtractOptions);
+
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<CASCExtractCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            "online",
+            "--flatten",
+            "-o", "TestXmlFiles"
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        await AssertCommandSuccessful(result);
+
+        cascExtractOptions.DuplicateHandling.Should().Be(CascExtractDuplicateHandling.Error);
     }
 
     private ServiceCollection GetServiceCollection()

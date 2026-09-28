@@ -1,6 +1,6 @@
 ﻿namespace HeroesDataParser.Core;
 
-public interface ICASCExtractorService
+public interface ICASCExtractService
 {
     Task RootDirectoryExtract();
 }

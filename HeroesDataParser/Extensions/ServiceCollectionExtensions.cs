@@ -1,4 +1,5 @@
-﻿using Polly;
+﻿using HeroesDataParser.Infrastructure.Commands.CASCExtractCommands;
+using Polly;
 using Polly.Retry;
 using Serilog;
 using System.Net;
@@ -196,7 +197,7 @@ public static class ServiceCollectionExtensions
 
         private IServiceCollection AddCommandServices()
         {
-            services.AddSingleton<ICASCExtractorService, CASCExtractorService>();
+            services.AddSingleton<ICASCExtractService, CASCExtractService>();
             services.AddSingleton<IJsonApplyService, JsonApplyService>();
             services.AddSingleton<IJsonCreateService, JsonCreateService>();
             services.AddSingleton<IGameStringTextUpdateService, GameStringTextFormatService>();
