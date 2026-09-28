@@ -817,6 +817,14 @@ portrait extract-auto "path\to\rewardportraitdata_96477_enus.json" -c "path\to\b
 
 Instead of directly modifying `appsettings.json`, create a file named `appsettings.release.json` to override these settings.
 
+## Logs and CASC Cache
+Logs and the CASC cache are stored in the following locations depending on the install type:
+- .NET tool install: Local application data directory (e.g., %LOCALAPPDATA%)
+  - Windows: `%LOCALAPPDATA%/HeroesDataParser/`
+  - MacOS: `~/Library/Application Support/HeroesDataParser/`
+  - Linux: `~/.local/share/HeroesDataParser/`
+- Zip install: The directory where the zip was extracted
+
 ## Developing
 To build and compile the code, it is recommended to use the latest version of [Visual Studio 2026 or Visual Studio Code](https://visualstudio.microsoft.com/downloads/).
 
