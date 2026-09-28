@@ -7,6 +7,9 @@ SetAppCulture();
 
 IConfigurationRoot configuration = new ConfigurationBuilder()
     .AddJsonFile(Path.Combine(AppContext.BaseDirectory, "appsettings.json"), optional: false, reloadOnChange: false)
+#if DEBUG
+    .AddJsonFile(Path.Combine(AppContext.BaseDirectory, "appsettings.Development.json"), optional: true, reloadOnChange: false)
+#endif
     .AddJsonFile(Path.Combine(AppContext.BaseDirectory, "appsettings.release.json"), optional: true, reloadOnChange: false)
     .Build();
 
@@ -139,7 +142,7 @@ catch (Exception ex)
 {
     Log.Fatal(ex, "Application error");
 
-    AnsiConsole.WriteLine("[red]An application error occured. Check logs for more details.[/]");
+    AnsiConsole.MarkupLine("[red]An application error occured. Check logs for more details.[/]");
     AnsiConsole.WriteException(ex);
 
     exitCode = 1;
