@@ -122,6 +122,7 @@ OPTIONS:
         --custom-configs                                Display loaded custom config files
         --no-indent                                     Disable indentation in output JSON files
     -t, --threads <NUMBER>                   -1         Number of threads for data parsing and image writing (defaults to max processors)
+        --http-timeout <SECONDS>             15         Timeout in seconds for HTTP requests, 0 for infinite timeout
     -o, --output-path <PATH>                            Output directory for created files (defaults to current directory)
         --set-heroes-version <VERSION>                  Manually set the Heroes of the Storm version as major.minor.revision.build[_ptr] (e.g. 1.2.3.4 or 1.2.3.4_ptr)
         --heroes-version                                Display the Heroes of the Storm version
@@ -415,21 +416,24 @@ ARGUMENTS:
     <storage-type>    Storage type to load from (game or online)
 
 OPTIONS:
-                                 DEFAULT
+                                      DEFAULT
     -h, --help                                   Prints help information
     -s, --storage-path <PATH>                    Path to the Heroes of the Storm directory
         --download-ptr                           Download from the PTR server instead of live (online storage-type only)
     -i, --include-filter <PATTERN>    **/*       Glob pattern to include file paths for extraction (can be specified multiple times)
     -e, --exclude-filter <PATTERN>               Glob pattern to exclude file paths from extraction (can be specified multiple times)
+        --flatten                                Extract all files into a single directory instead of preserving the directory structure
+        --duplicates <MODE>                      How to handle duplicate file names (--flatten option only, defaults to error)
     -t, --threads <NUMBER>            -1         Number of threads for file extraction (defaults to max processors)
+        --http-timeout <SECONDS>      15         Timeout in seconds for HTTP requests, 0 for infinite timeout
     -o, --output-path <PATH>                     Output directory for extracted files (defaults to current directory)
 ```
 `-s, --storage-path` is required if the `storage-type` argument is set to `game`.
 
-If the `storage-type` argument is set to `online`, the `--download-ptr` option can be used to specify whether to download from the PTR server instead of the live server.
+When `storage-type` is set to `online`, the `--download-ptr` option downloads from the PTR server instead of the live server.
 
-For the `-i, --include-filter` and `-e, --exclude-filter` options, glob patterns can be used to filter for specific files to extract. See the Microsoft documention [pattern-formats](https://learn.microsoft.com/en-us/dotnet/core/extensions/file-globbing#pattern-formats) on file globbing for more infomation.  
-Specify `:hdp:` to filter the following:
+For the `-i, --include-filter` and `-e, --exclude-filter` options, glob patterns can be used to filter specific files for extraction. See the Microsoft [pattern-formats documentation](https://learn.microsoft.com/en-us/dotnet/core/extensions/file-globbing#pattern-formats) on file globbing for more information.  
+Use `:hdp:` as a shorthand to include the following patterns:
 ```
 **/gamestrings.txt
 **/buildid.txt
@@ -448,6 +452,9 @@ If `-o, --output-path` is not specified, then the extracted files will be in the
 
 A `hdp.info` JSON file will be created in the `mods` directory with information about the extraction.
 This file is used for the root command when `mods` is specified for the `storage-type` argument.
+
+Use `--flatten` to extract all files directly into the output directory without preserving the directory structure and without creating a `mods` subdirectory or `hdp.info` file.
+Use the `--duplicates` option to control how duplicate file names are handled (default: error).
 
 All extracted directories and file names will be in lowercase.
 
