@@ -19,5 +19,4 @@ public static class Constants
     public const string ConfigFilesDirectory = "config-files";
     public const string PortraitRewardsDirectory = "portraitrewards";
     public const string CacsLibCacheDirectory = "casclib-cache";
-
 }
