@@ -3,5 +3,5 @@
 public class HttpClientOptions
 {
     // zero means infinite timeout
-    public int TimeoutSeconds { get; set; } = 30;
+    public int TimeoutSeconds { get; set; }
 }

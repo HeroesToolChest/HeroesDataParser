@@ -84,7 +84,7 @@ public class RootSettings : CommandSettings
 
     [CommandOption("--http-timeout <SECONDS>")]
     [Description("Timeout in seconds for HTTP requests, 0 for infinite timeout")]
-    [DefaultValue(30)]
+    [DefaultValue(Constants.HttpClientTimeoutSeconds)]
     public int HttpTimeout { get; init; }
 
     [CommandOption("-o|--output-path <PATH>")]

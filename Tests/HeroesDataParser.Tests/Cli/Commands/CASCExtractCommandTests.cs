@@ -156,6 +156,28 @@ public class CASCExtractCommandTests
     }
 
     [TestMethod]
+    [DataRow(-1)]
+    [DataRow(-2)]
+    public void CASCExtractCommand_InvalidHttpTimeout_ReturnsError(int num)
+    {
+        // arrange
+        CommandAppTester app = new();
+        app.SetDefaultCommand<CASCExtractCommand>();
+
+        // act
+        CommandAppResult result = app.Run(
+        [
+            "game",
+            "--storage-path", "TestXmlFiles",
+            "--http-timeout", $"{num}",
+        ]);
+
+        // assert
+        result.ExitCode.Should().Be(-1);
+        result.Output.Should().Contain("--http-timeout must be 0 or a positive integer");
+    }
+
+    [TestMethod]
     public void CASCExtractCommand_OutputDirectoryIsAnExistingFile_ReturnsError()
     {
         // arrange
@@ -422,6 +444,68 @@ public class CASCExtractCommandTests
         await AssertCommandSuccessful(result);
 
         cascExtractOptions.Threads.Should().Be(4);
+    }
+
+    [TestMethod]
+    [DataRow(29)]
+    [DataRow(0)]
+    public async Task CASCExtractCommand_HttpTimeoutOption_ExecutesSuccessfully(int httpTimeout)
+    {
+        // arrange
+        CASCExtractOptions cascExtractOptions = new();
+        _options.Value.Returns(cascExtractOptions);
+
+        HttpClientOptions httpClientOptions = new()
+        {
+            TimeoutSeconds = httpTimeout,
+        };
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<CASCExtractCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            "game",
+            "--storage-path", "TestXmlFiles",
+            "--http-timeout", $"{httpTimeout}",
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        await AssertCommandSuccessful(result);
+
+        httpClientOptions.TimeoutSeconds.Should().Be(httpTimeout);
+    }
+
+    [TestMethod]
+    public async Task CASCExtractCommand_NoHttpTimeoutOption_ExecutesSuccessfully()
+    {
+        // arrange
+        CASCExtractOptions cascExtractOptions = new();
+        _options.Value.Returns(cascExtractOptions);
+
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<CASCExtractCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            "game",
+            "--storage-path", "TestXmlFiles",
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        await AssertCommandSuccessful(result);
+
+        httpClientOptions.TimeoutSeconds.Should().Be(Constants.HttpClientTimeoutSeconds);
     }
 
     [TestMethod]

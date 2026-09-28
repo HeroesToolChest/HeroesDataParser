@@ -887,6 +887,34 @@ public class RootCommandTests
     }
 
     [TestMethod]
+    public async Task RootCommand_NoHttpTimeoutOption_ExecutesSuccessfully()
+    {
+        // arrange
+        RootOptions rootOptions = new();
+        _options.Value.Returns(rootOptions);
+
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<RootCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            "game",
+            "--storage-path", "TestXmlFiles",
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        await AssertCommandSuccessful(result);
+
+        httpClientOptions.TimeoutSeconds.Should().Be(Constants.HttpClientTimeoutSeconds);
+    }
+
+    [TestMethod]
     public async Task RootCommand_DisableMapSpecificOption_ExecutesSuccessfully()
     {
         // arrange

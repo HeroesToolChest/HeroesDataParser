@@ -8,6 +8,7 @@ public static class Constants
     public const string EnvironmentVariablePrefix = "HEROESDATAPARSER_";
     public const string PortableConfigurationKey = "Portable";
     public const string HttpClientBlizzard = "Blizzard";
+    public const int HttpClientTimeoutSeconds = 15;
     public const string ImageWriterPipeline = "image-writer-pipeline";
     public const string CASCFileExtractorPipeline = "casc-file-extractor-pipeline";
     public const string ElementDataSuffix = "data";
@@ -18,4 +19,5 @@ public static class Constants
     public const string ConfigFilesDirectory = "config-files";
     public const string PortraitRewardsDirectory = "portraitrewards";
     public const string CacsLibCacheDirectory = "casclib-cache";
+
 }
