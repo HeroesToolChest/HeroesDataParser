@@ -130,16 +130,19 @@ catch (CommandParseException ex)
 
     exitCode = -1;
 }
-catch (Exception ex) when ((ex as TaskCanceledException ?? ex.InnerException) is TaskCanceledException canceledEx)
+catch (Exception ex) when (FindTaskCanceled(ex) is { } canceledEx)
 {
     bool isTimeout = canceledEx.InnerException is TimeoutException;
 
     Log.Error(ex, isTimeout ? "Task was canceled due to a timeout" : "Task was canceled");
 
-    if (ex != canceledEx)
-        AnsiConsole.MarkupLineInterpolated($"[red]{ex.Message}[/]");
+    for (Exception? current = ex; current is not null; current = current.InnerException)
+    {
+        AnsiConsole.MarkupLineInterpolated($"[red]{current.Message}[/]");
 
-    AnsiConsole.MarkupLineInterpolated($"[red]{canceledEx.Message}[/]");
+        if (current == canceledEx)
+            break;
+    }
 
     exitCode = 1;
 }
@@ -166,6 +169,17 @@ static void SetAppCulture()
     CultureInfo cultureInfo = new("en-US");
     CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
     CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+}
+
+static TaskCanceledException? FindTaskCanceled(Exception ex)
+{
+    for (Exception? current = ex; current is not null; current = current.InnerException)
+    {
+        if (current is TaskCanceledException canceledEx)
+            return canceledEx;
+    }
+
+    return null;
 }
 
 static void RunLogRententionPolicy()
