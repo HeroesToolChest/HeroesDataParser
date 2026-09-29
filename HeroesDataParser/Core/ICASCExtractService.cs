@@ -2,5 +2,5 @@
 
 public interface ICASCExtractService
 {
-    Task RootDirectoryExtract();
+    Task<bool> RootDirectoryExtract();
 }

@@ -28,9 +28,9 @@ public class CASCExtractCommand : AsyncCommand<CASCExtractSettings>
 
         SetOptions(settings);
 
-        await _cascExtractService.RootDirectoryExtract();
+        bool result = await _cascExtractService.RootDirectoryExtract();
 
-        return 0;
+        return result ? 0 : 1;
     }
 
     private void SetOptions(CASCExtractSettings settings)

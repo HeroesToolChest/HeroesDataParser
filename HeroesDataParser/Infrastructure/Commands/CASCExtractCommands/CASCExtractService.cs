@@ -36,7 +36,7 @@ public class CASCExtractService : ICASCExtractService
         _pipeline = pipelineProvider.GetPipeline(Constants.CASCFileExtractorPipeline);
     }
 
-    public async Task RootDirectoryExtract()
+    public async Task<bool> RootDirectoryExtract()
     {
         _logger.LogInformation("Load storage type {StorageType}", _options.StorageLoad.Type);
 
@@ -46,7 +46,7 @@ public class CASCExtractService : ICASCExtractService
 
         _console.MarkupLineInterpolated($"Load time: {_stopwatch.Elapsed.TotalSeconds:0.####} seconds");
 
-        await ExtractFiles(heroesXmlLoader);
+        return await ExtractFiles(heroesXmlLoader);
     }
 
     private static IEnumerable<CASCFile> EnumerateDirectory(CASCFolder gameDataFolder)
@@ -123,12 +123,15 @@ public class CASCExtractService : ICASCExtractService
         return outputPathByOriginalFilePath;
     }
 
-    private async Task ExtractFiles(HeroesXmlLoader heroesXmlLoader)
+    private async Task<bool> ExtractFiles(HeroesXmlLoader heroesXmlLoader)
     {
         _stopwatch.Restart();
 
         // filtered files to extract based on include/exclude filters
-        Dictionary<string, string> outputPathByOriginalFilePath = GetFilePaths(heroesXmlLoader);
+        Dictionary<string, string>? outputPathByOriginalFilePath = GetFilePaths(heroesXmlLoader);
+
+        if (outputPathByOriginalFilePath is null)
+            return false;
 
         int totalFiles = outputPathByOriginalFilePath.Count;
 
@@ -190,6 +193,8 @@ public class CASCExtractService : ICASCExtractService
 
         _logger.LogInformation("Extraction completed in {ElapsedSeconds} seconds", _stopwatch.Elapsed.TotalSeconds);
         _logger.LogInformation("Total files extracted: {success}", success);
+
+        return true;
     }
 
     private CASCConfig GetCASCConfig()
@@ -327,7 +332,7 @@ public class CASCExtractService : ICASCExtractService
         _console.MarkupLineInterpolated($"[aqua]Output Directory: {fullOutputDirectory}[/]");
     }
 
-    private Dictionary<string, string> GetFilePaths(HeroesXmlLoader heroesXmlLoader)
+    private Dictionary<string, string>? GetFilePaths(HeroesXmlLoader heroesXmlLoader)
     {
         _console.WriteLine("Gettings files for extraction...");
 
@@ -361,16 +366,24 @@ public class CASCExtractService : ICASCExtractService
         Dictionary<string, string> outputPathByOriginalFilePath;
 
         if (_options.Flatten)
-            outputPathByOriginalFilePath = GetFlattenedOutputPaths(enumeratedFiles);
+        {
+            Dictionary<string, string>? outputPaths = GetFlattenedOutputPaths(enumeratedFiles);
+            if (outputPaths is null)
+                return null;
+
+            outputPathByOriginalFilePath = outputPaths;
+        }
         else
+        {
             outputPathByOriginalFilePath = GetOutputPaths(enumeratedFiles);
+        }
 
         _console.WriteLine($"Total files to extract: {outputPathByOriginalFilePath.Count}");
 
         return outputPathByOriginalFilePath;
     }
 
-    private Dictionary<string, string> GetFlattenedOutputPaths(IEnumerable<string> filteredFiles)
+    private Dictionary<string, string>? GetFlattenedOutputPaths(IEnumerable<string> filteredFiles)
     {
         // for final output paths, key is original file path (casc), value is output path (to extract)
         Dictionary<string, string> outputPathByOriginalFilePath = new(StringComparer.OrdinalIgnoreCase);
@@ -393,7 +406,9 @@ public class CASCExtractService : ICASCExtractService
                 switch (_options.DuplicateHandling)
                 {
                     case CascExtractDuplicateHandling.Error:
-                        throw new InvalidOperationException($"Duplicate file name found: {fileName} (original: {existingFilePath}, duplicate: {filePath})");
+                        _logger.LogError("Duplicate file name {FileName}: {FilePath} conflicts with {ExistingFilePath}", fileName, filePath, existingFilePath);
+                        _console.MarkupLineInterpolated($"[red]Error: Duplicate file name '{fileName}': {filePath} conflicts with {existingFilePath}[/]");
+                        return null;
                     case CascExtractDuplicateHandling.Ignore:
                         _logger.LogTrace("Ignoring duplicate file name: {FileName} (original: {ExistingFilePath}, duplicate: {FilePath})", fileName, existingFilePath, filePath);
                         continue; // keeps the first occurrence and ignores the duplicate

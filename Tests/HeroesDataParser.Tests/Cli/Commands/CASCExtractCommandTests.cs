@@ -1,5 +1,4 @@
 ﻿using HeroesDataParser.Cli.Settings;
-using Microsoft.Win32;
 
 namespace HeroesDataParser.Cli.Commands.Tests;
 
@@ -17,6 +16,8 @@ public class CASCExtractCommandTests
         _options = Substitute.For<IOptions<CASCExtractOptions>>();
         _httpClientOptions = Substitute.For<IOptions<HttpClientOptions>>();
         _cascExtractorService = Substitute.For<ICASCExtractService>();
+
+        _cascExtractorService.RootDirectoryExtract().Returns(Task.FromResult(true));
     }
 
     public TestContext TestContext { get; set; }
@@ -601,6 +602,37 @@ public class CASCExtractCommandTests
         await AssertCommandSuccessful(result);
 
         cascExtractOptions.DuplicateHandling.Should().Be(CascExtractDuplicateHandling.Error);
+    }
+
+    [TestMethod]
+    public async Task CASCExtractCommand_ServiceReturnsFalse_ReturnsExitCode1()
+    {
+        // arrange
+        CASCExtractOptions cascExtractOptions = new();
+        _options.Value.Returns(cascExtractOptions);
+
+        HttpClientOptions httpClientOptions = new();
+        _httpClientOptions.Value.Returns(httpClientOptions);
+
+        _cascExtractorService.RootDirectoryExtract().Returns(Task.FromResult(false));
+
+        TypeRegistrar registrar = new(GetServiceCollection());
+
+        CommandAppTester app = new(registrar);
+        app.SetDefaultCommand<CASCExtractCommand>();
+
+        // act
+        CommandAppResult result = await app.RunAsync(
+        [
+            "online",
+            "-d", "mods",
+            "-o", "TestXmlFiles"
+        ],
+        TestContext.CancellationToken);
+
+        // assert
+        result.ExitCode.Should().Be(1);
+        await _cascExtractorService.Received(1).RootDirectoryExtract();
     }
 
     private ServiceCollection GetServiceCollection()
