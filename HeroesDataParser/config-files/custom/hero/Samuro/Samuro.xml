@@ -24,27 +24,27 @@
   <CButton id="SamuroSelectSamuroPrime" parent="StormButtonParent">
     <!--from CActorUnit - HeroSamuro -> UnitIcon-->
     <Icon value="Assets\Textures\storm_ui_icon_samuro_selectprime.dds" />
-    
-    <hdp-ParentAbilLinkArray abilityId="SamuroIllusionMaster" buttonId="SamuroIllusionMaster" abilityType="Heroic" />
+
+    <hdp-ParentTalentLinkArray talentId="SamuroHeroicAbilityIllusionMaster" buttonId="SamuroIllusionMasterTalent" abilityId="SamuroIllusionMaster" abilityType="Heroic" talentTier="Level10" />
   </CButton>
   <CButton id="SamuroIllusionMasterToggleAIOn" parent="StormButtonParent">
     <hdp-ParentAbilLinkArray abilityId="SamuroIllusionMasterToggleAI" buttonId="SamuroIllusionMasterToggleAIOff" abilityType="Active" />
   </CButton>
   <CButton id="SamuroIllusionMasterToggleAIOff" parent="StormButtonParent">
-    <hdp-ParentAbilLinkArray abilityId="SamuroIllusionMaster" buttonId="SamuroIllusionMaster" abilityType="Heroic" />
+    <hdp-ParentTalentLinkArray talentId="SamuroHeroicAbilityIllusionMaster" buttonId="SamuroIllusionMasterTalent" abilityId="SamuroIllusionMaster" abilityType="Heroic" talentTier="Level10" />
   </CButton>
   <CButton id="SamuroSelectMirrorImages" parent="StormButtonParent">
     <!--from CActorUnit - SamuroMirrorImage -> UnitIcon-->
     <Icon value="Assets\Textures\storm_ui_icon_samuro_selectmirror1.dds" />
     
     <!--though avaiable on Q, its allowed when the Heroic talent is selected-->
-    <hdp-ParentAbilLinkArray abilityId="SamuroIllusionMaster" buttonId="SamuroIllusionMaster" abilityType="Heroic" />
+    <hdp-ParentTalentLinkArray talentId="SamuroHeroicAbilityIllusionMaster" buttonId="SamuroIllusionMasterTalent" abilityId="SamuroIllusionMaster" abilityType="Heroic" talentTier="Level10" />
   </CButton>
   <CButton id="SamuroSelectAll" parent="StormButtonParent">
     <!--from CActorUnit - HeroSamuro -> UnitIconMultiple-->
     <Icon value="Assets\Textures\storm_ui_icon_samuro_selectall.dds" />
 
     <!--though avaiable on Q, its allowed when the Heroic talent is selected-->
-    <hdp-ParentAbilLinkArray abilityId="SamuroIllusionMaster" buttonId="SamuroIllusionMaster" abilityType="Heroic" />
+    <hdp-ParentTalentLinkArray talentId="SamuroHeroicAbilityIllusionMaster" buttonId="SamuroIllusionMasterTalent" abilityId="SamuroIllusionMaster" abilityType="Heroic" talentTier="Level10" />
   </CButton>
 </Catalog>
