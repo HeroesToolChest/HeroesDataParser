@@ -454,7 +454,12 @@ A `hdp.info` JSON file will be created in the `mods` directory with information 
 This file is used for the root command when `mods` is specified for the `storage-type` argument.
 
 Use `--flatten` to extract all files directly into the output directory without preserving the directory structure and without creating a `mods` subdirectory or `hdp.info` file.
-Use the `--duplicates` option to control how duplicate file names are handled (default: error).
+Use the `--duplicates` option to control how duplicate file names are handled (default is `Error`):
+
+`Error` - Throws an error and stops extraction.  
+`Ignore` - Skips the duplicate file and keeps the existing one.  
+`Overwrite` - Replaces the existing file with the duplicate.  
+`Append` - Renames the duplicate file by appending a number suffix (e.g., `file (1).txt`, `file (2).txt`).
 
 All extracted directories and file names will be in lowercase.
 
