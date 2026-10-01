@@ -19,7 +19,7 @@ public class GameStringTextFormatCommand : AsyncCommand<GameStringTextFormatSett
         _gameStringTextUpdateService = gameStringTextUpdateService;
     }
 
-    protected override async Task<int> ExecuteAsync(CommandContext context, GameStringTextFormatSettings settings, CancellationToken cancellationToken)
+    public override async Task<int> ExecuteAsync(CommandContext context, GameStringTextFormatSettings settings, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Starting {CommandName}", nameof(GameStringTextFormatCommand));
 

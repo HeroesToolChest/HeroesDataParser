@@ -22,7 +22,7 @@ public class CASCExtractCommand : AsyncCommand<CASCExtractSettings>
         _cascExtractService = cascExtractService;
     }
 
-    protected override async Task<int> ExecuteAsync(CommandContext context, CASCExtractSettings settings, CancellationToken cancellationToken)
+    public override async Task<int> ExecuteAsync(CommandContext context, CASCExtractSettings settings, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Starting {CommandName}", nameof(CASCExtractCommand));
 

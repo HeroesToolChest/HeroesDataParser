@@ -13,7 +13,7 @@ public class PortraitInfoCommand : Command<PortraitInfoSettings>
         _portraitInfoService = portraitInfoService;
     }
 
-    protected override int Execute(CommandContext context, PortraitInfoSettings settings, CancellationToken cancellationToken)
+    public override int Execute(CommandContext context, PortraitInfoSettings settings, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Starting {CommandName}", nameof(PortraitInfoCommand));
 

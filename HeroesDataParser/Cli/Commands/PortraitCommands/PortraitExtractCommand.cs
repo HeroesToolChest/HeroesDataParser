@@ -19,7 +19,7 @@ public class PortraitExtractCommand : AsyncCommand<PortraitExtractSettings>
         _portraitExtractService = portraitExtractService;
     }
 
-    protected override async Task<int> ExecuteAsync(CommandContext context, PortraitExtractSettings settings, CancellationToken cancellationToken)
+    public override async Task<int> ExecuteAsync(CommandContext context, PortraitExtractSettings settings, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Starting {CommandName}", nameof(PortraitExtractCommand));
 

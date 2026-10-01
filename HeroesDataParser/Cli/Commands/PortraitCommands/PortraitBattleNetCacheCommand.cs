@@ -15,7 +15,7 @@ public class PortraitBattleNetCacheCommand : Command<PortraitBattleNetCacheSetti
         _portraitBattleNetCacheService = portraitBattleNetCacheService;
     }
 
-    protected override int Execute(CommandContext context, PortraitBattleNetCacheSettings settings, CancellationToken cancellationToken)
+    public override int Execute(CommandContext context, PortraitBattleNetCacheSettings settings, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Starting {CommandName}", nameof(PortraitBattleNetCacheCommand));
 

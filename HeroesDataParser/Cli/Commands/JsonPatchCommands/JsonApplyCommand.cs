@@ -15,7 +15,7 @@ public class JsonApplyCommand : AsyncCommand<JsonApplySettings>
         _jsonApplyService = jsonApplyService;
     }
 
-    protected override async Task<int> ExecuteAsync(CommandContext context, JsonApplySettings settings, CancellationToken cancellationToken)
+    public override async Task<int> ExecuteAsync(CommandContext context, JsonApplySettings settings, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Starting {CommandName}", nameof(JsonApplyCommand));
 

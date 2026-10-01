@@ -15,7 +15,7 @@ public class JsonCreateCommand : AsyncCommand<JsonCreateSettings>
         _jsonCreateService = jsonCreateService;
     }
 
-    protected override async Task<int> ExecuteAsync(CommandContext context, JsonCreateSettings settings, CancellationToken cancellationToken)
+    public override async Task<int> ExecuteAsync(CommandContext context, JsonCreateSettings settings, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Starting {CommandName}", nameof(JsonApplyCommand));
 

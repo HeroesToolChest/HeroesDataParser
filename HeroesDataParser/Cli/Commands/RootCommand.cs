@@ -31,7 +31,7 @@ public class RootCommand : AsyncCommand<RootSettings>
         _resultSummaryService = resultSummaryService;
     }
 
-    protected override async Task<int> ExecuteAsync(CommandContext context, RootSettings settings, CancellationToken cancellationToken)
+    public override async Task<int> ExecuteAsync(CommandContext context, RootSettings settings, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Starting {CommandName}", nameof(RootCommand));
 

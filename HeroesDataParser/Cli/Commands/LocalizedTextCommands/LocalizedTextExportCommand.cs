@@ -19,7 +19,7 @@ public class LocalizedTextExportCommand : AsyncCommand<LocalizedTextExportSettin
         _localizedTextExportService = localizedTextExportService;
     }
 
-    protected override async Task<int> ExecuteAsync(CommandContext context, LocalizedTextExportSettings settings, CancellationToken cancellationToken)
+    public override async Task<int> ExecuteAsync(CommandContext context, LocalizedTextExportSettings settings, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Starting {CommandName}", nameof(LocalizedTextExportCommand));
 

@@ -19,7 +19,7 @@ public class LocalizedTextImportCommand : AsyncCommand<LocalizedTextImportSettin
         _localizedTextImportService = localizedTextImportService;
     }
 
-    protected override async Task<int> ExecuteAsync(CommandContext context, LocalizedTextImportSettings settings, CancellationToken cancellationToken)
+    public override async Task<int> ExecuteAsync(CommandContext context, LocalizedTextImportSettings settings, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Starting {CommandName}", nameof(LocalizedTextImportCommand));
 

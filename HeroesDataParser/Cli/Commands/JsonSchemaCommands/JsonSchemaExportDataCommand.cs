@@ -16,7 +16,7 @@ public class JsonSchemaExportDataCommand : AsyncCommand<JsonSchemaExportDataSett
         _jsonSchemaExporterService = jsonSchemaExporterService;
     }
 
-    protected override async Task<int> ExecuteAsync(CommandContext context, JsonSchemaExportDataSettings settings, CancellationToken cancellationToken)
+    public override async Task<int> ExecuteAsync(CommandContext context, JsonSchemaExportDataSettings settings, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Starting {CommandName}", nameof(JsonSchemaExportDataCommand));
 
