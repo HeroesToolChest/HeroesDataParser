@@ -1,7 +1,4 @@
-﻿using HeroesDataParser.Infrastructure.Commands.CASCExtractCommands;
-using Polly;
-using Polly.Retry;
-using Serilog;
+﻿using Serilog;
 using System.Net;
 using System.Net.Http.Headers;
 
@@ -54,7 +51,7 @@ public static class ServiceCollectionExtensions
                 .AddResilienceHandler("hdp-pipeline", builder =>
                 {
                     builder
-                        .AddRetry(new RetryStrategyOptions<HttpResponseMessage>()
+                        .AddRetry(new HttpRetryStrategyOptions()
                         {
                             ShouldHandle = args => HandleTransientHttpError(args.Outcome),
                             MaxRetryAttempts = 5,
@@ -217,6 +214,7 @@ public static class ServiceCollectionExtensions
     {
         { Exception: HttpRequestException } => PredicateResult.True(),
         { Result.StatusCode: HttpStatusCode.RequestTimeout } => PredicateResult.True(),
+        { Result.StatusCode: HttpStatusCode.TooManyRequests } => PredicateResult.True(),
         { Result.StatusCode: >= HttpStatusCode.InternalServerError } => PredicateResult.False(),
         _ => PredicateResult.False(),
     };

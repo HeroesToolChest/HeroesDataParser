@@ -1,7 +1,5 @@
 ﻿using CASCLib;
 using Microsoft.Extensions.FileSystemGlobbing;
-using Polly;
-using Polly.Registry;
 
 namespace HeroesDataParser.Infrastructure.Commands.CASCExtractCommands;
 

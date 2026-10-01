@@ -1,7 +1,4 @@
-﻿using Polly;
-using Polly.Registry;
-
-namespace HeroesDataParser.Infrastructure;
+﻿namespace HeroesDataParser.Infrastructure;
 
 public class ImageWriterService : IImageWriterService
 {
