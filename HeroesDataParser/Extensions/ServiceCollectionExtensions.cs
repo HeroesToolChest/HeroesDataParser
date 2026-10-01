@@ -46,7 +46,7 @@ public static class ServiceCollectionExtensions
                     else
                         httpClient.Timeout = TimeSpan.FromSeconds(httpClientOptions.TimeoutSeconds);
 
-                    httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("HeroesDataParser", AppVersion.GetAppVersion()));
+                    httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(Constants.AppNameShort, AppVersion.GetAppVersion()));
                 })
                 .AddResilienceHandler("hdp-pipeline", builder =>
                 {
