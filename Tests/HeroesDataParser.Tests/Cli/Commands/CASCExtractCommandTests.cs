@@ -87,7 +87,7 @@ public class CASCExtractCommandTests
         CommandAppResult result = app.Run(
         [
             "online",
-            "--storage-path", "TestXmlFiles"
+            "--storage-path", "TestXmlFiles",
         ]);
 
         // assert
@@ -106,7 +106,7 @@ public class CASCExtractCommandTests
         CommandAppResult result = app.Run(
         [
             "game",
-            "-s", "aaa"
+            "-s", "aaa",
         ]);
 
         // assert
@@ -126,7 +126,7 @@ public class CASCExtractCommandTests
         [
             "game",
             "--download-ptr",
-            "-s", "TestXmlFiles"
+            "-s", "TestXmlFiles",
         ]);
 
         // assert
@@ -191,7 +191,7 @@ public class CASCExtractCommandTests
             "game",
             "-s", "TestXmlFiles",
             "-d", "mods",
-            "-o", Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json")
+            "-o", Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"),
         ]);
 
         // assert
@@ -239,7 +239,7 @@ public class CASCExtractCommandTests
             "game",
             "-s", "TestXmlFiles",
             "-d", "mods",
-            "-o", "TestXmlFiles"
+            "-o", "TestXmlFiles",
         ],
         TestContext.CancellationToken);
 
@@ -276,7 +276,7 @@ public class CASCExtractCommandTests
             "online",
             "--download-ptr",
             "-d", "mods",
-            "-o", "TestXmlFiles"
+            "-o", "TestXmlFiles",
         ],
         TestContext.CancellationToken);
 
@@ -312,7 +312,7 @@ public class CASCExtractCommandTests
             "online",
             "-d", "mods",
             "-i", ":hdp:",
-            "-o", "TestXmlFiles"
+            "-o", "TestXmlFiles",
         ],
         TestContext.CancellationToken);
 
@@ -328,7 +328,7 @@ public class CASCExtractCommandTests
                 "**/*.s2ma",
                 "**/*.stormstyle",
                 "**/*.stormlayout",
-                "**/documentinfo"
+                "**/documentinfo",
             ]);
         cascExtractOptions.ExcludeFilters.Should().BeEmpty();
     }
@@ -359,7 +359,7 @@ public class CASCExtractCommandTests
             "-e", "**/buildid.txt",
             "-e", "some.txt",
             "-e", "some.txt",
-            "-o", "TestXmlFiles"
+            "-o", "TestXmlFiles",
         ],
         TestContext.CancellationToken);
 
@@ -376,7 +376,7 @@ public class CASCExtractCommandTests
                 "**/*.stormstyle",
                 "**/*.stormlayout",
                 "**/documentinfo",
-                "**/*.dds"
+                "**/*.dds",
             ]);
         cascExtractOptions.ExcludeFilters.Should().BeEquivalentTo(["**/buildid.txt", "some.txt"]);
     }
@@ -406,7 +406,7 @@ public class CASCExtractCommandTests
             "-i", ".txt",
             "-i", "folder/**/*",
             "-i", "folder\\folder\\**\\file.txt",
-            "-o", "TestXmlFiles"
+            "-o", "TestXmlFiles",
         ],
         TestContext.CancellationToken);
 
@@ -437,7 +437,7 @@ public class CASCExtractCommandTests
             "online",
             "-d", "mods",
             "--threads", "4",
-            "-o", "TestXmlFiles"
+            "-o", "TestXmlFiles",
         ],
         TestContext.CancellationToken);
 
@@ -563,7 +563,7 @@ public class CASCExtractCommandTests
             "online",
             "--flatten",
             "--duplicates", value,
-            "-o", "TestXmlFiles"
+            "-o", "TestXmlFiles",
         ],
         TestContext.CancellationToken);
 
@@ -594,7 +594,7 @@ public class CASCExtractCommandTests
         [
             "online",
             "--flatten",
-            "-o", "TestXmlFiles"
+            "-o", "TestXmlFiles",
         ],
         TestContext.CancellationToken);
 
@@ -626,7 +626,7 @@ public class CASCExtractCommandTests
         [
             "online",
             "-d", "mods",
-            "-o", "TestXmlFiles"
+            "-o", "TestXmlFiles",
         ],
         TestContext.CancellationToken);
 

@@ -148,7 +148,7 @@ public class JsonSchemaExportDataCommandTests
         CommandAppResult result = await app.RunAsync(
         [
             "--extractor", "unit",
-            "--overwrite"
+            "--overwrite",
         ],
         TestContext.CancellationToken);
 

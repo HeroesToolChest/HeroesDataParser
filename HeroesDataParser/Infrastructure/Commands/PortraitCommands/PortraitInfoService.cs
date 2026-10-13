@@ -40,10 +40,12 @@ public class PortraitInfoService : PortraitBase, IPortraitInfoService
 
     private static List<RewardPortrait> GetRewardPortraitWithImage(List<RewardPortrait> rewardPortraits)
     {
-        return [.. rewardPortraits
+        return [
+            .. rewardPortraits
             .Where(x => !string.IsNullOrWhiteSpace(x.TextureSheet.Image))
             .DistinctBy(x => x.TextureSheet.Image)
-            .OrderBy(x => x.TextureSheet.Image)];
+            .OrderBy(x => x.TextureSheet.Image),
+        ];
     }
 
     private void DisplayTextureSheetImageFileNames(List<RewardPortrait> rewardPortraits)
@@ -71,9 +73,11 @@ public class PortraitInfoService : PortraitBase, IPortraitInfoService
     private void DisplayFileNamesWithIconSlot(List<RewardPortrait> rewardPortraits)
     {
         List<RewardPortrait> rewardPortraitWithImages = GetRewardPortraitWithImage(rewardPortraits);
-        List<RewardPortrait> rewardPortraitsWithIconSlot = [.. rewardPortraits
+        List<RewardPortrait> rewardPortraitsWithIconSlot = [
+            .. rewardPortraits
             .Where(x => x.IconSlot == _options.ShowIconSlotFileNames && !string.IsNullOrWhiteSpace(x.TextureSheet.Image) && !string.IsNullOrWhiteSpace(x.Name?.RawText))
-            .OrderBy(x => x.Name?.RawText)];
+            .OrderBy(x => x.Name?.RawText),
+        ];
 
         if (rewardPortraitsWithIconSlot.Count < rewardPortraitWithImages.Count)
         {

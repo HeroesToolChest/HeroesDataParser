@@ -160,7 +160,7 @@ public class RootCommandTests
         [
             "game",
             "--storage-path", "TestXmlFiles",
-            "--set-heroes-version", $"{heroesVersion}"
+            "--set-heroes-version", $"{heroesVersion}",
         ]);
 
         // assert

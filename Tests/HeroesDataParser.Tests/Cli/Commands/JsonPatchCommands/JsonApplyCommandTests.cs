@@ -44,7 +44,7 @@ public class JsonApplyCommandTests
         // act
         CommandAppResult result = app.Run(
         [
-            "nonexistant.json", Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.patch.json")
+            "nonexistant.json", Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.patch.json"),
         ]);
 
         // assert
@@ -62,7 +62,7 @@ public class JsonApplyCommandTests
         // act
         CommandAppResult result = app.Run(
         [
-            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"), "nonexistent_patch.json"
+            Path.Combine("TestJsonFiles", "announcerpackdata_96477_enus.json"), "nonexistent_patch.json",
         ]);
 
         // assert

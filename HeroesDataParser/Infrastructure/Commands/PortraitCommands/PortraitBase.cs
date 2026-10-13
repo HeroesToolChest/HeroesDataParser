@@ -14,9 +14,11 @@ public abstract class PortraitBase
 
     protected int DisplayPortraitsFromTextureSheetImage(List<RewardPortrait> rewardPortraits, string textureSheetImage)
     {
-        List<RewardPortrait> associatedPortraits = [.. rewardPortraits
-            .Where(x => !string.IsNullOrWhiteSpace(x.TextureSheet.Image) && x.TextureSheet.Image.Equals(textureSheetImage, StringComparison.Ordinal))
-            .OrderBy(x => x.IconSlot)];
+        List<RewardPortrait> associatedPortraits = [
+                .. rewardPortraits
+                .Where(x => !string.IsNullOrWhiteSpace(x.TextureSheet.Image) && x.TextureSheet.Image.Equals(textureSheetImage, StringComparison.Ordinal))
+                .OrderBy(x => x.IconSlot),
+            ];
 
         if (associatedPortraits.Count > 0)
             Console.WriteLine($"There are {associatedPortraits.Count} images in '{textureSheetImage}'");

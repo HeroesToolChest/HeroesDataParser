@@ -140,7 +140,7 @@ public class CustomConfigurationServiceTests
         selectedPaths.Should().ContainSingle()
             .And.Contain(
                 [
-                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Abathur_1000.xml")
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Abathur_1000.xml"),
                 ]);
     }
 
@@ -272,7 +272,7 @@ public class CustomConfigurationServiceTests
         selectedPaths.Should().ContainSingle()
             .And.Contain(
                 [
-                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Abathur_2000.xml")
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Abathur_2000.xml"),
                 ]);
     }
 
@@ -327,7 +327,7 @@ public class CustomConfigurationServiceTests
         selectedPaths.Should().ContainSingle()
             .And.Contain(
                 [
-                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Abathur_2000.xml")
+                    Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Abathur_2000.xml"),
                 ]);
     }
 

@@ -44,7 +44,7 @@ public class GameStringTextUpdateCommandTests
         // act
         CommandAppResult result = app.Run(
         [
-            "nonexistant.json", "1"
+            "nonexistant.json", "1",
         ]);
 
         // assert
@@ -62,7 +62,7 @@ public class GameStringTextUpdateCommandTests
         // act
         CommandAppResult result = app.Run(
         [
-            Path.Combine("TestJsonFiles", "herodata_96477_enus_rawtext.json"), "7"
+            Path.Combine("TestJsonFiles", "herodata_96477_enus_rawtext.json"), "7",
         ]);
 
         // assert
@@ -81,7 +81,7 @@ public class GameStringTextUpdateCommandTests
         CommandAppResult result = app.Run(
         [
             Path.Combine("TestJsonFiles", "herodata_96477_enus_rawtext.json"), "1",
-            "--hlt-style-mode", "3"
+            "--hlt-style-mode", "3",
         ]);
 
         // assert
@@ -100,7 +100,7 @@ public class GameStringTextUpdateCommandTests
         CommandAppResult result = app.Run(
         [
             Path.Combine("TestJsonFiles", "herodata_96477_enus_rawtext.json"), "1",
-            "--hlt-constant-mode", "3"
+            "--hlt-constant-mode", "3",
         ]);
 
         // assert
@@ -119,7 +119,7 @@ public class GameStringTextUpdateCommandTests
         CommandAppResult result = app.Run(
         [
             Path.Combine("TestJsonFiles", "herodata_96477_enus_rawtext.json"), "1",
-            "--output-path", Path.Combine("TestJsonFiles", "herodata_96477_enus_rawtext.json")
+            "--output-path", Path.Combine("TestJsonFiles", "herodata_96477_enus_rawtext.json"),
         ]);
 
         // assert
@@ -169,7 +169,7 @@ public class GameStringTextUpdateCommandTests
         CommandAppResult result = await app.RunAsync(
         [
             Path.Combine("TestJsonFiles", "herodata_96477_enus_rawtext.json"), "1",
-            "--overwrite"
+            "--overwrite",
         ],
         TestContext.CancellationToken);
 

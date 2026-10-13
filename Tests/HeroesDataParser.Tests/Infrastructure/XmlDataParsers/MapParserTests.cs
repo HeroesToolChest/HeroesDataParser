@@ -58,32 +58,32 @@ public class MapParserTests
         map.MapObjectives[0].Title!.RawText.Should().Be("Cavalry");
         map.MapObjectives[0].Description!.RawText.Should().Be("Capture the enemy Prison Camp...");
         map.MapObjectives[0].Icons!.Should().HaveCount(2);
-        map.MapObjectives[0].Icons![0].Height.Should().BeNull();
-        map.MapObjectives[0].Icons![0].Image.Should().Be("ui_ingame_mapmechanic_loadscreen_WCAV_icon1_horde.png");
-        map.MapObjectives[0].Icons![0].ScaleWidth.Should().BeFalse();
-        map.MapObjectives[0].Icons![1].Height.Should().BeNull();
-        map.MapObjectives[0].Icons![1].Image.Should().Be("ui_ingame_mapmechanic_loadscreen_WCAV_icon1_alliance.png");
-        map.MapObjectives[0].Icons![1].ScaleWidth.Should().BeFalse();
+        map.MapObjectives[0].Icons[0].Height.Should().BeNull();
+        map.MapObjectives[0].Icons[0].Image.Should().Be("ui_ingame_mapmechanic_loadscreen_WCAV_icon1_horde.png");
+        map.MapObjectives[0].Icons[0].ScaleWidth.Should().BeFalse();
+        map.MapObjectives[0].Icons[1].Height.Should().BeNull();
+        map.MapObjectives[0].Icons[1].Image.Should().Be("ui_ingame_mapmechanic_loadscreen_WCAV_icon1_alliance.png");
+        map.MapObjectives[0].Icons[1].ScaleWidth.Should().BeFalse();
 
         map.MapObjectives[1].Title!.RawText.Should().Be("Cavalry2");
         map.MapObjectives[1].Description!.RawText.Should().Be("Capture the enemy Prison Camp2...");
         map.MapObjectives[1].Icons!.Should().HaveCount(2);
-        map.MapObjectives[1].Icons![0].Height.Should().BeNull();
-        map.MapObjectives[1].Icons![0].Image.Should().Be("ui_ingame_mapmechanic_loadscreen_WCAV_icon2_alliance.png");
-        map.MapObjectives[1].Icons![0].ScaleWidth.Should().BeFalse();
-        map.MapObjectives[1].Icons![1].Height.Should().BeNull();
-        map.MapObjectives[1].Icons![1].Image.Should().Be("ui_ingame_mapmechanic_loadscreen_WCAV_icon2_horde.png");
-        map.MapObjectives[1].Icons![1].ScaleWidth.Should().BeFalse();
+        map.MapObjectives[1].Icons[0].Height.Should().BeNull();
+        map.MapObjectives[1].Icons[0].Image.Should().Be("ui_ingame_mapmechanic_loadscreen_WCAV_icon2_alliance.png");
+        map.MapObjectives[1].Icons[0].ScaleWidth.Should().BeFalse();
+        map.MapObjectives[1].Icons[1].Height.Should().BeNull();
+        map.MapObjectives[1].Icons[1].Image.Should().Be("ui_ingame_mapmechanic_loadscreen_WCAV_icon2_horde.png");
+        map.MapObjectives[1].Icons[1].ScaleWidth.Should().BeFalse();
 
         map.MapObjectives[2].Title!.RawText.Should().Be("Cavalry3");
         map.MapObjectives[2].Description!.RawText.Should().Be("Capture the enemy Prison Camp3...");
         map.MapObjectives[2].Icons!.Should().HaveCount(2);
-        map.MapObjectives[2].Icons![0].Height.Should().BeNull();
-        map.MapObjectives[2].Icons![0].Image.Should().Be("ui_ingame_mapmechanic_loadscreen_WCAV_icon3_alliance.png");
-        map.MapObjectives[2].Icons![0].ScaleWidth.Should().BeFalse();
-        map.MapObjectives[2].Icons![1].Height.Should().BeNull();
-        map.MapObjectives[2].Icons![1].Image.Should().Be("ui_ingame_mapmechanic_loadscreen_WCAV_icon3_horde.png");
-        map.MapObjectives[2].Icons![1].ScaleWidth.Should().BeFalse();
+        map.MapObjectives[2].Icons[0].Height.Should().BeNull();
+        map.MapObjectives[2].Icons[0].Image.Should().Be("ui_ingame_mapmechanic_loadscreen_WCAV_icon3_alliance.png");
+        map.MapObjectives[2].Icons[0].ScaleWidth.Should().BeFalse();
+        map.MapObjectives[2].Icons[1].Height.Should().BeNull();
+        map.MapObjectives[2].Icons[1].Image.Should().Be("ui_ingame_mapmechanic_loadscreen_WCAV_icon3_horde.png");
+        map.MapObjectives[2].Icons[1].ScaleWidth.Should().BeFalse();
     }
 
     [TestMethod]
@@ -112,8 +112,8 @@ public class MapParserTests
         map.MapSize.Value.Y.Should().Be(208);
         map.MapObjectives.Should().HaveCount(3);
         map.MapObjectives[0].Icons!.Should().ContainSingle();
-        map.MapObjectives[0].Icons![0].Height.Should().Be(165);
-        map.MapObjectives[0].Icons![0].ScaleWidth.Should().BeTrue();
+        map.MapObjectives[0].Icons[0].Height.Should().Be(165);
+        map.MapObjectives[0].Icons[0].ScaleWidth.Should().BeTrue();
     }
 
     [TestMethod]

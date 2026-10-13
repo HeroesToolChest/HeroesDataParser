@@ -363,7 +363,7 @@ public static class TestHeroesXmlLoader
                         ReplayPreviewImagePath = Path.Join("Textures", "ReplaysPreviewImage.tga"),
                         S2MAFilePath = "TestS2MAFiles/hanamura_temple.s2ma",
                         S2MVFilePath = "Maps/Test1/Test1.s2mv",
-                    }
+                    },
                 ])
                 .AddLayoutFilePaths(
                 [

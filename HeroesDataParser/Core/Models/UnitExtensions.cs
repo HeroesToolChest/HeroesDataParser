@@ -89,10 +89,12 @@ public static class UnitExtensions
                 return true;
             }
 
-            List<Ability> matchingSubAbilities = [.. unit.SubAbilities
-            .SelectMany(x => x.Value)
-            .SelectMany(y => y.Value)
-            .Where(MatchAbility)];
+            List<Ability> matchingSubAbilities = [
+                .. unit.SubAbilities
+                .SelectMany(x => x.Value)
+                .SelectMany(y => y.Value)
+                .Where(MatchAbility),
+            ];
 
             if (matchingSubAbilities.Count != 0)
             {
@@ -191,11 +193,13 @@ public static class UnitExtensions
         {
             if (unit.AbilitiesByTooltipTalentElementId.TryGetValue(talentElementId, out List<Ability>? abilities))
             {
-                return [.. abilities
-                .Where(ability =>
-                    unit.Abilities.Values.Any(x => x.Contains(ability)) ||
-                    unit.SubAbilities.Values.Any(x => x.Values.Any(x => x.Contains(ability))))
-                .Select(x => x.LinkId)];
+                return [
+                    .. abilities
+                    .Where(ability =>
+                        unit.Abilities.Values.Any(x => x.Contains(ability)) ||
+                        unit.SubAbilities.Values.Any(x => x.Values.Any(x => x.Contains(ability))))
+                    .Select(x => x.LinkId),
+                ];
             }
             else
             {

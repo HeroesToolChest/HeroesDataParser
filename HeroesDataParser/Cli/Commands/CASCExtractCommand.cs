@@ -58,7 +58,7 @@ public class CASCExtractCommand : AsyncCommand<CASCExtractSettings>
                 "**/*.s2ma",
                 "**/*.stormstyle",
                 "**/*.stormlayout",
-                "**/documentinfo"
+                "**/documentinfo",
             ];
         }
 
