@@ -277,6 +277,9 @@ dotnet_diagnostic.SA0001.severity = none
 # SA1101: Prefix local calls with this
 dotnet_diagnostic.SA1101.severity = none
 
+# SA1143: Conditional expressions must be formatted consistently
+dotnet_diagnostic.SA1143.severity = none
+
 # SA1309: Field names should not begin with underscore
 dotnet_diagnostic.SA1309.severity = none
 
