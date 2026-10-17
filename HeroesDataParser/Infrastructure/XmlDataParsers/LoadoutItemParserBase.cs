@@ -18,9 +18,9 @@ public abstract class LoadoutItemParserBase<T> : StoreItemParserBase<T>
         return collectionObject;
     }
 
-    protected override void SetProperties(T collectionObject, StormElement stormElement)
+    protected override void SetProperties(T elementObject, StormElement stormElement)
     {
-        base.SetProperties(collectionObject, stormElement);
+        base.SetProperties(elementObject, stormElement);
     }
 
     protected override void SetCommonProperties(T collectionObject, StormElement stormElement)

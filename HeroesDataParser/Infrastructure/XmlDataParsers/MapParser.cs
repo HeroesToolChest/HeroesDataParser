@@ -14,21 +14,22 @@ public class MapParser : DataParser<Map>
 
     public override string DataObjectType => "Map";
 
-    public override Map? Parse(string mapTitle)
+    // id is mapTitle
+    public override Map? Parse(string id)
     {
-        _logger.LogTrace("Parsing map title {MapTitle}", mapTitle);
+        _logger.LogTrace("Parsing map title {MapTitle}", id);
 
-        StormMap? stormMap = HeroesXmlLoader.GetStormMap(mapTitle);
+        StormMap? stormMap = HeroesXmlLoader.GetStormMap(id);
         if (stormMap is null)
         {
-            _logger.LogWarning("Could not find s2m data for map title {MapTitle}", mapTitle);
+            _logger.LogWarning("Could not find s2m data for map title {MapTitle}", id);
             return null;
         }
 
         using (LogContext.PushProperty("s2ma", stormMap.S2MAFilePath))
         using (LogContext.PushProperty("s2mv", stormMap.S2MVFilePath))
         {
-            Map map = new(mapTitle)
+            Map map = new(id)
             {
                 MapId = stormMap.MapId,
                 MapLink = stormMap.MapLink,
@@ -37,7 +38,7 @@ public class MapParser : DataParser<Map>
 
             StormElement? stormElement = HeroesData.GetCompleteStormElement(DataObjectType, stormMap.MapLink);
             if (stormElement is null)
-                _logger.LogWarning("No storm element found for map link {MapLink} of map title {MapTitle}", stormMap.MapLink, mapTitle);
+                _logger.LogWarning("No storm element found for map link {MapLink} of map title {MapTitle}", stormMap.MapLink, id);
             else
                 SetDataFromXmlFiles(stormElement, map, stormMap);
 
@@ -45,7 +46,7 @@ public class MapParser : DataParser<Map>
             SetPreviewImage(map, stormMap);
             SetMapObjectives(map, stormMap);
 
-            _logger.LogTrace("Parsing map title {MapTitle} complete", mapTitle);
+            _logger.LogTrace("Parsing map title {MapTitle} complete", id);
 
             return map;
         }

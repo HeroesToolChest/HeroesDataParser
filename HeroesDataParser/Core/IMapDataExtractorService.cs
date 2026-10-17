@@ -2,5 +2,5 @@
 
 public interface IMapDataExtractorService
 {
-    Task<SortedDictionary<string, Map>> Extract(Func<Map, Task> elementParsersForMap);
+    Task<SortedDictionary<string, Map>> Extract(Func<Map, Task> dataParsers);
 }

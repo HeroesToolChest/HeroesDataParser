@@ -18,20 +18,20 @@ public class HeroParser : LoadoutItemParserBase<Hero>
 
     public override string DataObjectType => "Hero";
 
-    protected override void SetProperties(Hero collectionObject, StormElement stormElement)
+    protected override void SetProperties(Hero elementObject, StormElement stormElement)
     {
         if (stormElement.DataValues.TryGetElementDataAt("Unit", out StormElementData? unitData))
-            collectionObject.UnitId = unitData.Value.GetString();
+            elementObject.UnitId = unitData.Value.GetString();
 
         // first thing to do is to set the unit data
-        SetUnitData(collectionObject);
+        SetUnitData(elementObject);
 
         // find additional (hero) units
-        SetHeroUnits(collectionObject, stormElement);
+        SetHeroUnits(elementObject, stormElement);
 
-        base.SetProperties(collectionObject, stormElement);
+        base.SetProperties(elementObject, stormElement);
 
-        SetSummonedUnitIds(collectionObject);
+        SetSummonedUnitIds(elementObject);
     }
 
     protected override void SetAdditionalProperties(Hero collectionObject, StormElement stormElement)

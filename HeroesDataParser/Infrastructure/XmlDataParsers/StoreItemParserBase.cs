@@ -14,11 +14,11 @@ public abstract class StoreItemParserBase<T> : DataParser<T>
 
     public abstract override string DataObjectType { get; }
 
-    protected override void SetProperties(T collectionObject, StormElement stormElement)
+    protected override void SetProperties(T elementObject, StormElement stormElement)
     {
-        SetCommonProperties(collectionObject, stormElement);
-        SetAdditionalProperties(collectionObject, stormElement);
-        SetValidatedProperties(collectionObject);
+        SetCommonProperties(elementObject, stormElement);
+        SetAdditionalProperties(elementObject, stormElement);
+        SetValidatedProperties(elementObject);
     }
 
     protected virtual void SetCommonProperties(T collectionObject, StormElement stormElement)

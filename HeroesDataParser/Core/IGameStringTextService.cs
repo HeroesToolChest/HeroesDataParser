@@ -25,17 +25,17 @@ public interface IGameStringTextService
     /// <summary>
     /// Gets a gamestring text from a <see cref="StormGameString"/>.
     /// </summary>
-    /// <param name="gamestring">A <see cref="StormGameString"/>, which is an unparsed gamestring.</param>
+    /// <param name="stormGameString">A <see cref="StormGameString"/>, which is an unparsed gamestring.</param>
     /// <returns>A <see cref="GameStringText"/>.</returns>
     /// <remarks>Resides from the gamestring.txt files.</remarks>
-    GameStringText GetGameStringTextFromStormGameString(StormGameString gamestring);
+    GameStringText GetGameStringTextFromStormGameString(StormGameString stormGameString);
 
     /// <summary>
     /// Gets a gamestring text from an unparsed gamestring.
     /// </summary>
-    /// <param name="gamestring">An unparsed gamestring.</param>
+    /// <param name="gameString">An unparsed gamestring.</param>
     /// <returns>A <see cref="GameStringText"/>.</returns>
-    GameStringText GetGameStringTextFromGameString(string gamestring);
+    GameStringText GetGameStringTextFromGameString(string gameString);
 
     /// <summary>
     /// Gets an unparsed gamestring from an id.
