@@ -130,6 +130,13 @@ catch (CommandParseException ex)
 
     exitCode = -1;
 }
+catch (CommandRuntimeException ex)
+{
+    Log.Error(ex, "Command line runtime error");
+    AnsiConsole.MarkupLineInterpolated($"[red]{ex.Message}[/]");
+
+    exitCode = -1;
+}
 catch (Exception ex) when (FindTaskCanceled(ex) is { } canceledEx)
 {
     bool isTimeout = canceledEx.InnerException is TimeoutException;
@@ -149,7 +156,7 @@ catch (Exception ex) when (FindTaskCanceled(ex) is { } canceledEx)
 catch (Exception ex)
 {
     Log.Fatal(ex, "Application error");
-    AnsiConsole.MarkupLine("[red]An application error occured. Check logs for more details.[/]");
+    AnsiConsole.MarkupLine("[red]An application error occurred. Check logs for more details.[/]");
 
     exitCode = 1;
 }
