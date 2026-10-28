@@ -17,6 +17,7 @@ Extracts the following:
  - Voice Lines (includes images)
  - Portrait Packs
  - Reward Portraits (images involve manual extraction, read [wiki](https://github.com/HeroesToolChest/HeroesDataParser/wiki/Reward-Portrait-Extraction))
+ - Reward License IDs
  - Emoticons (includes images)
  - Emoticon Packs
  - Veterancy data
@@ -187,6 +188,7 @@ Map specific JSON files will be created in the `maps` subdirectory of the `data`
 `voiceline` - extracts voicelines  
 `portraitpack` - extracts portrait packs  
 `rewardportrait` - extracts reward portraits  
+`rewardlicense` - extracts reward license ids  
 `emoticon` - extracts emojis  
 `emoticonpack` - extracts emoji packs  
 `veterancy` - extracts veterancy data  
