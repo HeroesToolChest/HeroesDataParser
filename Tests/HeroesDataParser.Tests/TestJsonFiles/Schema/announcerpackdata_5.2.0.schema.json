@@ -35,6 +35,7 @@
             "MountData",
             "PortraitPackData",
             "RewardPortraitData",
+            "RewardLicenseData",
             "SkinData",
             "SprayData",
             "TypeDescriptionData",
@@ -122,59 +123,113 @@
       "additionalProperties": {
         "type": "object",
         "properties": {
-          "gameLink": {
+          "name": {
             "type": [
               "string",
               "null"
             ]
           },
-          "tag": {
+          "sortName": {
             "type": [
               "string",
               "null"
             ]
           },
-          "scoreScreenName": {
+          "hyperlinkId": {
             "type": [
               "string",
               "null"
             ]
           },
-          "scoreScreenDescription": {
+          "attributeId": {
             "type": [
               "string",
               "null"
             ]
           },
-          "endOfMatchName": {
+          "franchise": {
+            "enum": [
+              "Classic",
+              "Diablo",
+              "Overwatch",
+              "Starcraft",
+              "Warcraft",
+              "Nexus",
+              "Unknown",
+              null
+            ]
+          },
+          "rarity": {
+            "enum": [
+              "Unknown",
+              "None",
+              "Common",
+              "Rare",
+              "Epic",
+              "Legendary",
+              null
+            ]
+          },
+          "releaseDate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          },
+          "category": {
             "type": [
               "string",
               "null"
             ]
           },
-          "endOfMatchDescription": {
+          "event": {
             "type": [
               "string",
               "null"
             ]
           },
-          "endOfMatchTooltipText": {
+          "gender": {
             "type": [
               "string",
               "null"
             ]
           },
-          "mvpScreenIcon": {
+          "heroId": {
             "type": [
               "string",
               "null"
             ]
           },
-          "scoreScreenIcon": {
+          "image": {
             "type": [
               "string",
               "null"
             ]
+          },
+          "searchText": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "infoText": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "requiredRewardArray": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       }

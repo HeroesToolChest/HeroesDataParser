@@ -31,6 +31,7 @@ public abstract class StoreItemParserBase<T> : DataParser<T>
         SetDescriptionProperty(collectionObject, stormElement);
         SetInfoTextProperty(collectionObject, stormElement);
         SetImageProperty(collectionObject, stormElement);
+        SetRequiredRewardArrayProperty(collectionObject, stormElement);
 
         if (stormElement.DataValues.TryGetElementDataAt("sortname", out StormElementData? sortNameData))
             collectionObject.SortName = GameStringTextService.GetGameStringTextFromId(sortNameData.Value.GetString());
@@ -89,24 +90,42 @@ public abstract class StoreItemParserBase<T> : DataParser<T>
 
     private static void SetFranchiseProperty(IFranchise franchiseObject, StormElement stormElement)
     {
-        if (stormElement.DataValues.TryGetElementDataAt("universe", out StormElementData? universeData))
-        {
-            string universe = universeData.Value.GetString();
+        if (!stormElement.DataValues.TryGetElementDataAt("universe", out StormElementData? universeData))
+            return;
 
-            if (universe.Equals("retro", StringComparison.OrdinalIgnoreCase))
-                franchiseObject.Franchise = Franchise.Classic;
-            else if (universe.Equals("starcraft", StringComparison.OrdinalIgnoreCase))
-                franchiseObject.Franchise = Franchise.Starcraft;
-            else if (universe.Equals("warcraft", StringComparison.OrdinalIgnoreCase))
-                franchiseObject.Franchise = Franchise.Warcraft;
-            else if (universe.Equals("diablo", StringComparison.OrdinalIgnoreCase))
-                franchiseObject.Franchise = Franchise.Diablo;
-            else if (universe.Equals("overwatch", StringComparison.OrdinalIgnoreCase))
-                franchiseObject.Franchise = Franchise.Overwatch;
-            else if (universe.Equals("heroes", StringComparison.OrdinalIgnoreCase) || universe.Equals("nexus", StringComparison.OrdinalIgnoreCase))
-                franchiseObject.Franchise = Franchise.Nexus;
-            else
-                franchiseObject.Franchise = Franchise.Unknown;
+        string universe = universeData.Value.GetString();
+
+        if (universe.Equals("retro", StringComparison.OrdinalIgnoreCase))
+            franchiseObject.Franchise = Franchise.Classic;
+        else if (universe.Equals("starcraft", StringComparison.OrdinalIgnoreCase))
+            franchiseObject.Franchise = Franchise.Starcraft;
+        else if (universe.Equals("warcraft", StringComparison.OrdinalIgnoreCase))
+            franchiseObject.Franchise = Franchise.Warcraft;
+        else if (universe.Equals("diablo", StringComparison.OrdinalIgnoreCase))
+            franchiseObject.Franchise = Franchise.Diablo;
+        else if (universe.Equals("overwatch", StringComparison.OrdinalIgnoreCase))
+            franchiseObject.Franchise = Franchise.Overwatch;
+        else if (universe.Equals("heroes", StringComparison.OrdinalIgnoreCase) || universe.Equals("nexus", StringComparison.OrdinalIgnoreCase))
+            franchiseObject.Franchise = Franchise.Nexus;
+        else
+            franchiseObject.Franchise = Franchise.Unknown;
+    }
+
+    private void SetRequiredRewardArrayProperty(T elementObject, StormElement stormElement)
+    {
+        if (elementObject is not IRequiredRewardArray requiredRewardArrayObject)
+            return;
+
+        if (!stormElement.DataValues.TryGetElementDataAt("RequiredRewardArray", out StormElementData? requiredRewardArrayData))
+            return;
+
+        foreach (string index in requiredRewardArrayData.GetElementDataIndexes())
+        {
+            string rewardId = requiredRewardArrayData.GetElementDataAt(index).Value.GetString();
+            if (!HeroesData.StormElementExists("Reward", rewardId))
+                continue;
+
+            requiredRewardArrayObject.RequiredRewardArray.Add(rewardId);
         }
     }
 }

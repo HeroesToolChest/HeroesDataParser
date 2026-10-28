@@ -40,8 +40,28 @@ public class VoiceLineParserTests
         voiceLine.HeroId.Should().Be("Abathur");
         voiceLine.HyperlinkId.Should().Be("AbathurVoiceLine01");
         voiceLine.Id.Should().Be("AbathurBase_VoiceLine01");
+        voiceLine.RequiredRewardArray.Should().BeEmpty();
         voiceLine.Rarity.Should().Be(Rarity.Common);
         voiceLine.ReleaseDate.Should().Be(new DateOnly(2014, 3, 13));
         voiceLine.Image.Should().Be("storm_ui_voice_abathur.png");
+    }
+
+    [TestMethod]
+    public void Parse_AbathurBase_VoiceLine02_ReturnsVoiceLineData()
+    {
+        // arrange
+        VoiceLineParser voiceLineParser = new(_logger, _options, _heroesXmlLoaderService, _gameStringTextService);
+
+        // act
+        VoiceLine? voiceLine = voiceLineParser.Parse("AbathurBase_VoiceLine02");
+
+        // assert
+        voiceLine.Should().NotBeNull();
+        voiceLine.AttributeId.Should().Be("AB02");
+        voiceLine.HeroId.Should().Be("Abathur");
+        voiceLine.HyperlinkId.Should().Be("AbathurVoiceLine02");
+        voiceLine.Id.Should().Be("AbathurBase_VoiceLine02");
+        voiceLine.RequiredRewardArray.Should().ContainSingle()
+            .And.Contain("AbathurBase_VoiceLine02");
     }
 }

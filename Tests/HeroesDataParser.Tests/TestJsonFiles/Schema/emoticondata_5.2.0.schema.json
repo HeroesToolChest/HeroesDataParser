@@ -35,6 +35,7 @@
             "MountData",
             "PortraitPackData",
             "RewardPortraitData",
+            "RewardLicenseData",
             "SkinData",
             "SprayData",
             "TypeDescriptionData",
@@ -122,71 +123,41 @@
       "additionalProperties": {
         "type": "object",
         "properties": {
-          "name": {
+          "expression": {
             "type": [
               "string",
               "null"
             ]
           },
-          "sortName": {
+          "description": {
             "type": [
               "string",
               "null"
             ]
           },
-          "hyperlinkId": {
+          "universalAliases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "localizedAliases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "searchText": {
             "type": [
               "string",
               "null"
             ]
           },
-          "franchise": {
-            "enum": [
-              "Classic",
-              "Diablo",
-              "Overwatch",
-              "Starcraft",
-              "Warcraft",
-              "Nexus",
-              "Unknown",
-              null
-            ]
+          "isCaseSensitive": {
+            "type": "boolean"
           },
-          "rarity": {
-            "enum": [
-              "Unknown",
-              "None",
-              "Common",
-              "Rare",
-              "Epic",
-              "Legendary",
-              null
-            ]
-          },
-          "releaseDate": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "date"
-          },
-          "category": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "event": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "portraitPackId": {
-            "type": [
-              "string",
-              "null"
-            ]
+          "isHidden": {
+            "type": "boolean"
           },
           "heroId": {
             "type": [
@@ -194,8 +165,11 @@
               "null"
             ]
           },
-          "iconSlot": {
-            "type": "integer"
+          "skinId": {
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "image": {
             "type": [
@@ -203,14 +177,14 @@
               "null"
             ]
           },
-          "textureSheet": {
-            "type": "object",
+          "animation": {
+            "type": [
+              "object",
+              "null"
+            ],
             "properties": {
-              "image": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+              "width": {
+                "type": "integer"
               },
               "rows": {
                 "type": [
@@ -223,32 +197,20 @@
                   "integer",
                   "null"
                 ]
+              },
+              "texture": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "frames": {
+                "type": "integer"
+              },
+              "duration": {
+                "type": "integer"
               }
             }
-          },
-          "searchText": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "description": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "descriptionUnearned": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "infoText": {
-            "type": [
-              "string",
-              "null"
-            ]
           }
         }
       }

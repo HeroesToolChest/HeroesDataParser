@@ -41,6 +41,7 @@ public class PortraitPackParserTests
         portraitPack.Category.Should().BeNull();
         portraitPack.HyperlinkId.Should().Be("AbathurCarbotsPortrait");
         portraitPack.Id.Should().Be("AbathurCarbotsPortrait");
+        portraitPack.RequiredRewardArray.Should().BeEmpty();
         portraitPack.Rarity.Should().Be(Rarity.Common);
         portraitPack.ReleaseDate.Should().BeNull();
         portraitPack.Event.Should().BeNull();
@@ -68,6 +69,7 @@ public class PortraitPackParserTests
         portraitPack.Category.Should().BeNull();
         portraitPack.HyperlinkId.Should().Be("AdmiralKrakenovPortrait");
         portraitPack.Id.Should().Be("AdmiralKrakenovPortrait");
+        portraitPack.RequiredRewardArray.Should().BeEmpty();
         portraitPack.Rarity.Should().Be(Rarity.Common);
         portraitPack.ReleaseDate.Should().BeNull();
         portraitPack.Event.Should().BeNull();

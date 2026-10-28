@@ -35,6 +35,7 @@
             "MountData",
             "PortraitPackData",
             "RewardPortraitData",
+            "RewardLicenseData",
             "SkinData",
             "SprayData",
             "TypeDescriptionData",
@@ -122,94 +123,106 @@
       "additionalProperties": {
         "type": "object",
         "properties": {
-          "normalizedId": {
-            "type": "string"
-          },
           "name": {
             "type": [
               "string",
               "null"
             ]
           },
-          "mapId": {
+          "sortName": {
             "type": [
               "string",
               "null"
             ]
           },
-          "mapLink": {
+          "hyperlinkId": {
             "type": [
               "string",
               "null"
             ]
           },
-          "mapSize": {
+          "attributeId": {
             "type": [
-              "object",
+              "string",
+              "null"
+            ]
+          },
+          "franchise": {
+            "enum": [
+              "Classic",
+              "Diablo",
+              "Overwatch",
+              "Starcraft",
+              "Warcraft",
+              "Nexus",
+              "Unknown",
+              null
+            ]
+          },
+          "rarity": {
+            "enum": [
+              "Unknown",
+              "None",
+              "Common",
+              "Rare",
+              "Epic",
+              "Legendary",
+              null
+            ]
+          },
+          "releaseDate": {
+            "type": [
+              "string",
               "null"
             ],
-            "properties": {
-              "x": {
-                "type": "number"
-              },
-              "y": {
-                "type": "number"
-              }
-            }
+            "format": "date"
           },
-          "replayPreviewImage": {
+          "category": {
             "type": [
               "string",
               "null"
             ]
           },
-          "loadingScreenImage": {
+          "event": {
             "type": [
               "string",
               "null"
             ]
           },
-          "mapObjectives": {
+          "heroId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "image": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "searchText": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "infoText": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "requiredRewardArray": {
             "type": "array",
             "items": {
-              "type": "object",
-              "properties": {
-                "title": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                },
-                "description": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                },
-                "icons": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "image": {
-                        "type": [
-                          "string",
-                          "null"
-                        ]
-                      },
-                      "height": {
-                        "type": [
-                          "integer",
-                          "null"
-                        ]
-                      },
-                      "scaleWidth": {
-                        "type": "boolean"
-                      }
-                    }
-                  }
-                }
-              }
+              "type": "string"
             }
           }
         }

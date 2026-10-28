@@ -42,6 +42,9 @@
     <HyperlinkId value="XenotechAbathur" />
     <SortName value="Skin/SortName/AbathurXenotechX" />
   </CSkin>
+  <CRewardSkin id="AbathurMecha">
+    <License value="26728" />
+  </CRewardSkin>
   <CSkin id="AbathurPajamathur" parent="AbathurPajamathurCommon">
     <AttributeId value="Aba3"/>
     <VariationArray value="AbathurPajamathurPlane"/>
@@ -129,4 +132,7 @@
     <RequiredRewardArray value="MephistoToys19Var4"/>
     <HyperlinkId value="CuddlyTickleMephisto"/>
   </CSkin>
+  <CRewardSkin id="MephistoToys19Var4">
+    <License value="51305"/>
+  </CRewardSkin>
 </Skin>

@@ -26,7 +26,7 @@ public class JsonSchemaExporterServiceTests
             AllowOverwrite = false,
             JsonIndent = true,
             ExtractDataOptions = ExtractDataOptions.Hero,
-            Version = "5.0.0",
+            Version = "5.2.0",
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
@@ -51,8 +51,10 @@ public class JsonSchemaExporterServiceTests
     [DataRow(ExtractDataOptions.EmoticonPack)]
     [DataRow(ExtractDataOptions.LootChest)]
     [DataRow(ExtractDataOptions.Map)]
+    [DataRow(ExtractDataOptions.MatchAward)]
     [DataRow(ExtractDataOptions.Mount)]
     [DataRow(ExtractDataOptions.PortraitPack)]
+    [DataRow(ExtractDataOptions.RewardLicense)]
     [DataRow(ExtractDataOptions.RewardPortrait)]
     [DataRow(ExtractDataOptions.Skin)]
     [DataRow(ExtractDataOptions.Spray)]
@@ -70,7 +72,7 @@ public class JsonSchemaExporterServiceTests
             AllowOverwrite = true,
             JsonIndent = true,
             ExtractDataOptions = dataType,
-            Version = "5.0.0",
+            Version = "5.2.0",
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
@@ -96,7 +98,7 @@ public class JsonSchemaExporterServiceTests
             AllowOverwrite = true,
             JsonIndent = true,
             ExtractDataOptions = ExtractDataOptions.Hero | ExtractDataOptions.Unit | ExtractDataOptions.AnnouncerPack,
-            Version = "5.0.0",
+            Version = "5.2.0",
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
@@ -123,7 +125,7 @@ public class JsonSchemaExporterServiceTests
             OutputDirectory = outputFileDirectory,
             AllowOverwrite = true,
             JsonIndent = true,
-            Version = "5.0.0",
+            Version = "5.2.0",
         });
 
         _jsonSerializerOptionService.GeneralJsonSerializerOptions.Returns(JsonGeneralSerializerOptions.GetGeneralJsonSerializerOptions());
@@ -136,11 +138,11 @@ public class JsonSchemaExporterServiceTests
         // assert
         _console.Output.Should().Contain($"Exported 'gamestrings' JSON schema");
 
-        string newOutputFile = Path.Combine(outputFileDirectory, "gamestrings_5.0.0.schema.json");
+        string newOutputFile = Path.Combine(outputFileDirectory, "gamestrings_5.2.0.schema.json");
         File.Exists(newOutputFile).Should().BeTrue();
 
         string newFileContent = File.ReadAllText(newOutputFile).ReplaceLineEndings("\n");
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "Schema", "gamestrings_5.0.0.schema.json")).ReplaceLineEndings("\n");
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "Schema", "gamestrings_5.2.0.schema.json")).ReplaceLineEndings("\n");
         newFileContent.Should().BeEquivalentTo(comparedToText);
     }
 
@@ -149,11 +151,11 @@ public class JsonSchemaExporterServiceTests
         string dataTypeName = dataType.ToString().ToLower();
         _console.Output.Should().Contain($"Exported '{dataTypeName}' JSON schema");
 
-        string newOutputFile = Path.Combine(outputFileDirectory, $"{dataTypeName}data_5.0.0.schema.json");
+        string newOutputFile = Path.Combine(outputFileDirectory, $"{dataTypeName}data_5.2.0.schema.json");
         File.Exists(newOutputFile).Should().BeTrue();
 
         string newFileContent = File.ReadAllText(newOutputFile).ReplaceLineEndings("\n");
-        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "Schema", $"{dataTypeName}data_5.0.0.schema.json")).ReplaceLineEndings("\n");
+        string comparedToText = File.ReadAllText(Path.Combine("TestJsonFiles", "Schema", $"{dataTypeName}data_5.2.0.schema.json")).ReplaceLineEndings("\n");
         newFileContent.Should().BeEquivalentTo(comparedToText);
     }
 }

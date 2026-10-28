@@ -48,6 +48,8 @@ public class SprayParserTests
         spray.Description.Should().BeNull();
         spray.HyperlinkId.Should().Be("LowBattery");
         spray.Id.Should().Be("SprayAnimatedCraft20LowBattery");
+        spray.RequiredRewardArray.Should().ContainSingle()
+            .And.Contain("SprayAnimatedCraft20LowBattery");
         spray.Rarity.Should().Be(Rarity.Rare);
         spray.ReleaseDate.Should().Be(new DateOnly(2020, 9, 8));
         spray.Image.Should().Be("storm_lootspray_animated_craft20_lowbattery.apng");
@@ -98,6 +100,8 @@ public class SprayParserTests
         spray.Description.Should().BeNull();
         spray.HyperlinkId.Should().Be("Classic21Diablospray");
         spray.Id.Should().Be("Classic21Diablospray");
+        spray.RequiredRewardArray.Should().ContainSingle()
+            .And.Contain("Classic21Diablospray");
         spray.Rarity.Should().Be(Rarity.Common);
         spray.ReleaseDate.Should().Be(new DateOnly(2021, 11, 9));
         spray.Image.Should().Be("classic21_diablo_spray.png");

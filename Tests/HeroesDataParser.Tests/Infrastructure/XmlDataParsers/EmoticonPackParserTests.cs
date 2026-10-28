@@ -42,6 +42,8 @@ public class EmoticonPackParserTests
         emoticonPack.Category.Should().Be("Starcraft");
         emoticonPack.HyperlinkId.Should().Be("AbathurEmoticonPack");
         emoticonPack.Id.Should().Be("AbathurEmoticonPack");
+        emoticonPack.RequiredRewardArray.Should().ContainSingle()
+            .And.Contain("AbathurEmoticonPack");
         emoticonPack.Rarity.Should().Be(Rarity.Common);
         emoticonPack.ReleaseDate.Should().Be(new DateOnly(2017, 3, 14));
         emoticonPack.Event.Should().BeNull();
@@ -63,10 +65,27 @@ public class EmoticonPackParserTests
         emoticonPack.Category.Should().Be("SeasonalEvents");
         emoticonPack.HyperlinkId.Should().Be("SkeletalHandSymbolPack1");
         emoticonPack.Id.Should().Be("SkeletalHandSymbolPack1");
+        emoticonPack.RequiredRewardArray.Should().ContainSingle()
+            .And.Contain("SkeletalHandSymbolPack1");
         emoticonPack.Rarity.Should().Be(Rarity.Common);
         emoticonPack.ReleaseDate.Should().Be(new DateOnly(2017, 10, 17));
         emoticonPack.Event.Should().Be("HallowsEnd");
         emoticonPack.EmoticonIds.Should().HaveCount(5)
             .And.ContainInOrder("hand_fistbump_skeletal", "hand_hangloose_skeletal", "hand_rockon_skeletal", "hand_thumbsdown_skeletal", "hand_thumbsup_skeletal");
+    }
+
+    [TestMethod]
+    public void Parse_SapperPackBonusHasMultipleRequiredRewards_ReturnsAllRequiredRewards()
+    {
+        // arrange
+        EmoticonPackParser emoticonPackParser = new(_logger, _options, _heroesXmlLoaderService, _gameStringTextService);
+
+        // act
+        EmoticonPack? emoticonPack = emoticonPackParser.Parse("SapperPackBonus");
+
+        // assert
+        emoticonPack.Should().NotBeNull();
+        emoticonPack.RequiredRewardArray.Should().HaveCount(2)
+            .And.ContainInOrder("SapperPack1", "SapperPack2");
     }
 }

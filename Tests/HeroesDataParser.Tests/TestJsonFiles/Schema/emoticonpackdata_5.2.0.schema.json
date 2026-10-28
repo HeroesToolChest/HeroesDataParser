@@ -35,6 +35,7 @@
             "MountData",
             "PortraitPackData",
             "RewardPortraitData",
+            "RewardLicenseData",
             "SkinData",
             "SprayData",
             "TypeDescriptionData",
@@ -182,6 +183,12 @@
               "null"
             ]
           },
+          "emoticonIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
           "searchText": {
             "type": [
               "string",
@@ -199,6 +206,12 @@
               "string",
               "null"
             ]
+          },
+          "requiredRewardArray": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       }

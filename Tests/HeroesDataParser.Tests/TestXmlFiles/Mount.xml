@@ -61,6 +61,9 @@
     <ReleaseDate Month="9" Day="5" Year="2017"/>
     <HyperlinkId value="EarthbreakerGrizzly"/>
   </CMount>
+  <CRewardMount id="MountBearRank17Base">
+    <License value="23823"/>
+  </CRewardMount>
   <CMount default="1" id="AbstractCloud">
     <LootChestRewardCutsceneFile value="Cutscenes/UI/UI_LootChest_Reward_Mount_Cloud.StormCutscene" />
   </CMount>

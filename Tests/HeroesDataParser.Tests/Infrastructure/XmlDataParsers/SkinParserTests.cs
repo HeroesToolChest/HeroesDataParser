@@ -37,6 +37,8 @@ public class SkinParserTests
         skin.Should().NotBeNull();
         skin.AttributeId.Should().Be("Mep3");
         skin.Id.Should().Be("MephistoToys19Var4");
+        skin.RequiredRewardArray.Should().ContainSingle()
+            .And.Contain("MephistoToys19Var4");
         skin.Rarity.Should().Be(Rarity.Legendary);
         skin.ReleaseDate.Should().Be(new DateOnly(2019, 12, 17));
         skin.Category.Should().BeNull();
@@ -70,6 +72,8 @@ public class SkinParserTests
         skin.Should().NotBeNull();
         skin.AttributeId.Should().Be("AbaD");
         skin.Id.Should().Be("AbathurMecha");
+        skin.RequiredRewardArray.Should().ContainSingle()
+            .And.Contain("AbathurMecha");
         skin.Rarity.Should().Be(Rarity.Legendary);
         skin.ReleaseDate.Should().Be(new DateOnly(2018, 1, 16));
         skin.Category.Should().BeNull();
@@ -85,5 +89,20 @@ public class SkinParserTests
                 "AbathurMechaVar4",
                 "AbathurMechaVar5");
         skin.Franchise.Should().Be(Franchise.Nexus);
+    }
+
+    [TestMethod]
+    public void Parse_AbathurBoneRequiresHeroReward_ReturnsHeroRequiredReward()
+    {
+        // arrange
+        SkinParser skinParser = new(_logger, _options, _heroesXmlLoaderService, _gameStringTextService);
+
+        // act
+        Skin? skin = skinParser.Parse("AbathurBone");
+
+        // assert
+        skin.Should().NotBeNull();
+        skin.RequiredRewardArray.Should().ContainSingle()
+            .And.Contain("Abathur");
     }
 }

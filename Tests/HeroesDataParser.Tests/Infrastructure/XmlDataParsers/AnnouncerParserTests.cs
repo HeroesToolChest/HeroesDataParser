@@ -41,6 +41,8 @@ public class AnnouncerParserTests
         announcer.HeroId.Should().Be("AI");
         announcer.HyperlinkId.Should().Be("AdjutantAnnouncer");
         announcer.Id.Should().Be("Adjutant");
+        announcer.RequiredRewardArray.Should().ContainSingle()
+            .And.Contain("Adjutant");
         announcer.Rarity.Should().Be(Rarity.Legendary);
         announcer.ReleaseDate.Should().Be(new DateOnly(2018, 3, 27));
         announcer.Image.Should().Be("storm_ui_announcer_adjutant.png");

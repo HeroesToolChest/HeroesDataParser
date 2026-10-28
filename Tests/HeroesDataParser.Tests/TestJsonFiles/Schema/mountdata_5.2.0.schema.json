@@ -35,6 +35,7 @@
             "MountData",
             "PortraitPackData",
             "RewardPortraitData",
+            "RewardLicenseData",
             "SkinData",
             "SprayData",
             "TypeDescriptionData",
@@ -140,6 +141,12 @@
               "null"
             ]
           },
+          "attributeId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
           "franchise": {
             "enum": [
               "Classic",
@@ -182,7 +189,13 @@
               "null"
             ]
           },
-          "rewardPortraitIds": {
+          "type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "variationMountIds": {
             "type": "array",
             "items": {
               "type": "string"
@@ -205,6 +218,12 @@
               "string",
               "null"
             ]
+          },
+          "requiredRewardArray": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       }

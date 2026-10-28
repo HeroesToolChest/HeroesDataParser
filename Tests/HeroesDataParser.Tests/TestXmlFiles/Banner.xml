@@ -40,4 +40,7 @@
     <TextureSwap Slot="main.diffuse" Texture="Assets/Textures/storm_lootbanner_esports_warchest_blue_18_diff.dds"/>
     <ReleaseDate Month="5" Day="22" Year="2018"/>
   </CBanner>
+  <CRewardBanner id="BannerDFEsportsWarChest18RareBallistix">
+    <License value="30103"/>
+  </CRewardBanner>
 </Banner>

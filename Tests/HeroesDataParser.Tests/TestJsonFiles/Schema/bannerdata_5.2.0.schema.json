@@ -35,6 +35,7 @@
             "MountData",
             "PortraitPackData",
             "RewardPortraitData",
+            "RewardLicenseData",
             "SkinData",
             "SprayData",
             "TypeDescriptionData",
@@ -188,32 +189,6 @@
               "null"
             ]
           },
-          "image": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "animation": {
-            "type": [
-              "object",
-              "null"
-            ],
-            "properties": {
-              "texture": {
-                "type": [
-                  "string",
-                  "null"
-                ]
-              },
-              "frames": {
-                "type": "integer"
-              },
-              "duration": {
-                "type": "integer"
-              }
-            }
-          },
           "searchText": {
             "type": [
               "string",
@@ -231,6 +206,12 @@
               "string",
               "null"
             ]
+          },
+          "requiredRewardArray": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       }

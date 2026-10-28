@@ -35,6 +35,7 @@
             "MountData",
             "PortraitPackData",
             "RewardPortraitData",
+            "RewardLicenseData",
             "SkinData",
             "SprayData",
             "TypeDescriptionData",
@@ -1112,6 +1113,12 @@
                   }
                 }
               }
+            }
+          },
+          "requiredRewardArray": {
+            "type": "array",
+            "items": {
+              "type": "string"
             }
           }
         }

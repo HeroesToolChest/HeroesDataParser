@@ -46,4 +46,10 @@
     <CollectionCategory value="Default"/>
     <ReleaseDate Month="11" Day="9" Year="2021"/>
   </CSpray>
+  <CRewardSpray id="SprayAnimatedCraft20LowBattery">
+    <License value="57158"/>
+  </CRewardSpray>
+  <CRewardSpray id="Classic21Diablospray">
+    <License value="266134"/>
+  </CRewardSpray>
 </Spray>

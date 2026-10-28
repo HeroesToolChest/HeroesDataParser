@@ -34,6 +34,9 @@
     <Rarity value="Legendary"/>
     <TileTexture value="Assets\Textures\Storm_UI_Announcer_Adjutant.dds"/>
   </CAnnouncerPack>
+  <CRewardAnnouncerPack id="Adjutant">
+    <License value="28708"/>
+  </CRewardAnnouncerPack>
   <CAnnouncerPack id="GarroshA">
     <AttributeId value="GARR"/>
     <HyperlinkId value="GarroshAnnouncer"/>

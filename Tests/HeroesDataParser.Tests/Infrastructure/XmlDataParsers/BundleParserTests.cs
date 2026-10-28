@@ -34,6 +34,7 @@ public class BundleParserTests
         bundle.Should().NotBeNull();
         bundle.HyperlinkId.Should().Be("BattleBundle");
         bundle.Id.Should().Be("BattleBundle");
+        bundle.RequiredRewardArray.Should().BeEmpty();
         bundle.Franchise.Should().Be(Franchise.Nexus);
         bundle.GoldBonus.Should().Be(2500);
         bundle.BoostBonusId.Should().BeNull();
@@ -72,6 +73,7 @@ public class BundleParserTests
         bundle.Should().NotBeNull();
         bundle.HyperlinkId.Should().Be("AlteredWarBundle");
         bundle.Id.Should().Be("AlteredWarBundle");
+        bundle.RequiredRewardArray.Should().BeEmpty();
         bundle.Franchise.Should().Be(Franchise.Nexus);
         bundle.GoldBonus.Should().BeNull();
         bundle.BoostBonusId.Should().Be("7Day");

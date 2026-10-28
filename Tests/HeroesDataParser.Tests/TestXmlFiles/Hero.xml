@@ -18,6 +18,7 @@
     <Description value="Hero/Description/##id##"/>
     <InfoText value="Hero/Info/##id##"/>
     <Title value="Hero/Title/##id##"/>
+    <RequiredRewardArray value="##id##"/>
     <Portrait value="Assets\Textures\UI_targetportrait_Hero_##id##.dds"/>
     <SelectScreenButtonImage value="Assets\Textures\storm_ui_ingame_heroselect_btn_##id##.dds"/>
     <PartyPanelButtonImage value="Assets\Textures\storm_ui_ingame_partypanel_btn_##id##.dds"/>
@@ -4745,6 +4746,15 @@
     </TalentTreeArray>
     <TalentTreeArray Talent="ZeratulUnwaveringPressure" Tier="7" Column="2" />
     <TalentTreeArray Talent="ZeratulShadowStrideTalent" Tier="7" Column="3" />
-    <TalentTreeArray Talent="ZeratulShadowMending" Tier="7" Column="4" />   
+    <TalentTreeArray Talent="ZeratulShadowMending" Tier="7" Column="4" />
   </CHero>
+  <CRewardHero id="Abathur">
+    <License value="10219" />
+  </CRewardHero>
+  <CRewardHero id="Barbarian">
+    <License value="10195" />
+  </CRewardHero>
+  <CRewardHero id="Cassia">
+    <License value="19066" />
+  </CRewardHero>
 </Hero>

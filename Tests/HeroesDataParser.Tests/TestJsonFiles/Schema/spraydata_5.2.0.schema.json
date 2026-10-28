@@ -35,6 +35,7 @@
             "MountData",
             "PortraitPackData",
             "RewardPortraitData",
+            "RewardLicenseData",
             "SkinData",
             "SprayData",
             "TypeDescriptionData",
@@ -188,22 +189,30 @@
               "null"
             ]
           },
-          "features": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+          "image": {
+            "type": [
+              "string",
+              "null"
+            ]
           },
-          "variationSkinIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "voiceLineIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
+          "animation": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "texture": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "frames": {
+                "type": "integer"
+              },
+              "duration": {
+                "type": "integer"
+              }
             }
           },
           "searchText": {
@@ -223,6 +232,12 @@
               "string",
               "null"
             ]
+          },
+          "requiredRewardArray": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       }

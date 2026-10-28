@@ -40,5 +40,9 @@ public class RewardPortraitParser : StoreItemParserBase<RewardPortrait>
             collectionObject.TextureSheet.Rows = iconRowsData.Value.GetInt32();
 
         collectionObject.Image = $"storm_portrait_{collectionObject.Id.ToLowerInvariant()}.{StaticImageFileExtension}";
+
+        // this is a reward element already so just its id to the property
+        if (stormElement.DataValues.ContainsIndex("License"))
+            collectionObject.RequiredRewardArray.Add(collectionObject.Id);
     }
 }

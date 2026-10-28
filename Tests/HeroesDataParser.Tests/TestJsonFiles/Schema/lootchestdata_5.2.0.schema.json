@@ -35,6 +35,7 @@
             "MountData",
             "PortraitPackData",
             "RewardPortraitData",
+            "RewardLicenseData",
             "SkinData",
             "SprayData",
             "TypeDescriptionData",
@@ -128,28 +129,10 @@
               "null"
             ]
           },
-          "sortName": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
           "hyperlinkId": {
             "type": [
               "string",
               "null"
-            ]
-          },
-          "franchise": {
-            "enum": [
-              "Classic",
-              "Diablo",
-              "Overwatch",
-              "Starcraft",
-              "Warcraft",
-              "Nexus",
-              "Unknown",
-              null
             ]
           },
           "rarity": {
@@ -163,92 +146,22 @@
               null
             ]
           },
-          "releaseDate": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "date"
-          },
-          "category": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
           "event": {
             "type": [
               "string",
               "null"
             ]
           },
-          "isDynamicContent": {
-            "type": "boolean"
+          "maxRerolls": {
+            "type": "integer"
           },
-          "heroIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "skinIds": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          "mountIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "image": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "boostId": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "goldBonus": {
-            "type": [
-              "integer",
-              "null"
-            ]
-          },
-          "gemsBonus": {
-            "type": [
-              "integer",
-              "null"
-            ]
-          },
-          "lootChestId": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "searchText": {
+          "typeDescriptionId": {
             "type": [
               "string",
               "null"
             ]
           },
           "description": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "infoText": {
             "type": [
               "string",
               "null"

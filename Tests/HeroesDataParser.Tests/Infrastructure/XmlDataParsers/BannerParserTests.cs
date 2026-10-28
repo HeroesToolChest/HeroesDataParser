@@ -43,6 +43,8 @@ public class BannerParserTests
         banner.Rarity.Should().Be(Rarity.Common);
         banner.HyperlinkId.Should().Be("Ballistix2018PhaseOneWarbanner");
         banner.Id.Should().Be("BannerDFEsportsWarChest18RareBallistix");
+        banner.RequiredRewardArray.Should().ContainSingle()
+            .And.Contain("BannerDFEsportsWarChest18RareBallistix");
         banner.ReleaseDate.Should().Be(new DateOnly(2018, 5, 22));
         banner.SortName!.RawText.Should().Be("sort name");
         banner.Name!.RawText.Should().Be("name");

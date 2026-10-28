@@ -24,6 +24,14 @@
     <HyperlinkId value="##heroid##VoiceLine01" />
     <ProductId value="0" />
   </CVoiceLine>
+  <CVoiceLine default="1" id="StormVoiceLine02Common" parent="StormVoiceLineCommonBase">
+    <RequiredRewardArray value="##heroid##Base_VoiceLine02" />
+    <HyperlinkId value="##heroid##VoiceLine02" />
+  </CVoiceLine>
+  <CVoiceLine default="1" id="StormVoiceLine03Common" parent="StormVoiceLineCommonBase">
+    <RequiredRewardArray value="##heroid##Base_VoiceLine03" />
+    <HyperlinkId value="##heroid##VoiceLine03" />
+  </CVoiceLine>
   <CVoiceLine default="1" id="Abathur_VoiceLine01Common" parent="StormVoiceLine01Common">
     <?token id="heroid" type="CHeroLink" value="Abathur"?>
     <AttributeId value="AB01" />
@@ -58,4 +66,10 @@
   <CVoiceLine id="AbathurBase_VoiceLine03" parent="Abathur_VoiceLine03Common" />
   <CVoiceLine id="AbathurBase_VoiceLine04" parent="Abathur_VoiceLine04Common" />
   <CVoiceLine id="AbathurBase_VoiceLine05" parent="Abathur_VoiceLine05Common" />
+  <CRewardVoiceLine id="AbathurBase_VoiceLine01">
+    <License value="18735" />
+  </CRewardVoiceLine>
+  <CRewardVoiceLine id="AbathurBase_VoiceLine02">
+    <License value="18736" />
+  </CRewardVoiceLine>
 </VoiceLine>

@@ -46,4 +46,22 @@
     <CutsceneEmoticonArray value="hand_hangloose_skeletal"/>
     <CutsceneEmoticonArray value="hand_rockon_skeletal"/>
   </CEmoticonPack>
+  <CEmoticonPack id="SapperPackBonus" parent="HallowsEndEmoticonPackParent">
+    <ReleaseDate Month="10" Day="17" Year="2017"/>
+    <RequiredRewardArray value="SapperPack1"/>
+    <RequiredRewardArray value="SapperPack2"/>
+    <Flags index="Hidden" value="1"/>
+  </CEmoticonPack>
+  <CRewardEmoticonPack id="AbathurEmoticonPack">
+    <License value="19110"/>
+  </CRewardEmoticonPack>
+  <CRewardEmoticonPack id="SkeletalHandSymbolPack1">
+    <License value="23999"/>
+  </CRewardEmoticonPack>
+  <CRewardEmoticonPack id="SapperPack1">
+    <License value="25110"/>
+  </CRewardEmoticonPack>
+  <CRewardEmoticonPack id="SapperPack2">
+    <License value="25111"/>
+  </CRewardEmoticonPack>
 </EmoticonPack>

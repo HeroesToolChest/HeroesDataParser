@@ -125,6 +125,8 @@ public class HeroParserTests
         hero.SortName.Should().BeNull();
         hero.HyperlinkId.Should().Be("Abathur");
         hero.AttributeId.Should().Be("Abat");
+        hero.RequiredRewardArray.Should().ContainSingle()
+            .And.Contain("Abathur");
         hero.Franchise.Should().Be(Franchise.Starcraft);
         hero.Rarity.Should().Be(Rarity.Legendary);
         hero.ReleaseDate.Should().Be(new DateOnly(2014, 3, 13));
@@ -198,6 +200,25 @@ public class HeroParserTests
         // assert
         hero.Should().NotBeNull();
         hero.Gender.Should().Be(Gender.Female);
+        hero.RequiredRewardArray.Should().ContainSingle()
+            .And.Contain("Barbarian");
+    }
+
+    [TestMethod]
+    public void Parse_AmazonRequiredRewardIsCassia_ReturnsCassiaRequiredReward()
+    {
+        // arrange
+        string heroUnit = "Amazon";
+
+        HeroParser heroParser = new(_logger, _options, _heroesXmlLoaderService, _unitParser, _talentParser, _gameStringTextService);
+
+        // act
+        Hero? hero = heroParser.Parse(heroUnit);
+
+        // assert
+        hero.Should().NotBeNull();
+        hero.RequiredRewardArray.Should().ContainSingle()
+            .And.Contain("Cassia");
     }
 
     [TestMethod]
