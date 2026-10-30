@@ -4,9 +4,9 @@ namespace HeroesDataParser.Infrastructure.Configurations;
 
 public class ParsingConfigurationService : ConfigurationServiceBase, IParsingConfigurationService
 {
-    private const string _parsingConfigFileNameNoExt = "parsing";
-    private const string _parsingConfigExtension = ".json";
-    private const string _parsingConfigFileName = $"{_parsingConfigFileNameNoExt}{_parsingConfigExtension}";
+    private const string ParsingConfigFileNameNoExt = "parsing";
+    private const string ParsingConfigExtension = ".json";
+    private const string ParsingConfigFileName = $"{ParsingConfigFileNameNoExt}{ParsingConfigExtension}";
 
     private readonly string _parsingConfigurationDirectory = Path.Combine(Constants.ConfigFilesDirectory, "parsing");
 
@@ -77,13 +77,13 @@ public class ParsingConfigurationService : ConfigurationServiceBase, IParsingCon
             if (!fileInfo.Exists || fileInfo.PhysicalPath is null || fileInfo.IsDirectory)
                 continue;
 
-            if (!fileInfo.Name.StartsWith(_parsingConfigFileNameNoExt, StringComparison.OrdinalIgnoreCase) || !fileInfo.Name.EndsWith(_parsingConfigExtension, StringComparison.OrdinalIgnoreCase))
+            if (!fileInfo.Name.StartsWith(ParsingConfigFileNameNoExt, StringComparison.OrdinalIgnoreCase) || !fileInfo.Name.EndsWith(ParsingConfigExtension, StringComparison.OrdinalIgnoreCase))
                 continue;
 
             ReadOnlySpan<char> filePathSpan = Path.GetFileNameWithoutExtension(fileInfo.Name.AsSpan());
 
             int buildIndex = filePathSpan.IndexOf('_') + 1;
-            if (buildIndex < _parsingConfigFileNameNoExt.Length)
+            if (buildIndex < ParsingConfigFileNameNoExt.Length)
                 continue;
 
             if (int.TryParse(filePathSpan[buildIndex..], out int buildNumber))
@@ -93,7 +93,7 @@ public class ParsingConfigurationService : ConfigurationServiceBase, IParsingCon
         }
 
         // add in the default file
-        IFileInfo defaultFile = _fileProvider.GetFileInfo(Path.Combine(_parsingConfigurationDirectory, _parsingConfigFileName));
+        IFileInfo defaultFile = _fileProvider.GetFileInfo(Path.Combine(_parsingConfigurationDirectory, ParsingConfigFileName));
         if (defaultFile.Exists)
         {
             if (_filePathsByBuild.Keys.Count > 0)

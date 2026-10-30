@@ -739,7 +739,7 @@ public class CustomConfigurationServiceTests
         IReadOnlyList<string> selectedPaths = customConfigurationService.SelectedCustomDataFilePaths;
 
         // assert
-        selectedPaths.Should().HaveCount(1)
+        selectedPaths.Should().ContainSingle()
             .And.ContainInConsecutiveOrder(
                 [
                     Path.Join(customConfigurationService.CustomConfigurationDirectory, "hero", "Alarak", "Alarak_12455.xml"),

@@ -2,8 +2,8 @@
 
 public class CASCExtractCommand : AsyncCommand<CASCExtractSettings>
 {
-    private const string _hdpFilter = ":hdp:";
-    private static readonly string[] _specialFilters = [CASCExtractSettings.AllIncludePattern, _hdpFilter];
+    private const string HdpFilter = ":hdp:";
+    private static readonly string[] _specialFilters = [CASCExtractSettings.AllIncludePattern, HdpFilter];
 
     private readonly ILogger<CASCExtractCommand> _logger;
     private readonly CASCExtractOptions _options;
@@ -47,7 +47,7 @@ public class CASCExtractCommand : AsyncCommand<CASCExtractSettings>
         {
             _options.IncludeFilters = [CASCExtractSettings.AllIncludePattern];
         }
-        else if (settings.IncludeFilters.Any(x => x.Contains(_hdpFilter)))
+        else if (settings.IncludeFilters.Any(x => x.Contains(HdpFilter)))
         {
             _options.IncludeFilters = [
                 "**/gamestrings.txt",

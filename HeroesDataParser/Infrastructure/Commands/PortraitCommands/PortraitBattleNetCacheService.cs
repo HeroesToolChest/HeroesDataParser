@@ -6,7 +6,7 @@ namespace HeroesDataParser.Infrastructure.Commands.PortraitCommands;
 
 public class PortraitBattleNetCacheService : PortraitBase, IPortraitBattleNetCacheService
 {
-    private const string _waflExtension = ".wafl";
+    private const string WaflExtension = ".wafl";
 
     private readonly PortraitBattleNetCacheOptions _options;
 
@@ -18,13 +18,13 @@ public class PortraitBattleNetCacheService : PortraitBase, IPortraitBattleNetCac
 
     public void CopyWaflFiles()
     {
-        Console.WriteLine($"Getting {_waflExtension} files from blizzard cache...");
+        Console.WriteLine($"Getting {WaflExtension} files from blizzard cache...");
 
-        string[] waflFiles = Directory.GetFiles(_options.BattleNetCacheDirectory, $"*{_waflExtension}", SearchOption.AllDirectories);
+        string[] waflFiles = Directory.GetFiles(_options.BattleNetCacheDirectory, $"*{WaflExtension}", SearchOption.AllDirectories);
 
         if (waflFiles.Length == 0)
         {
-            Console.MarkupLineInterpolated($"[yellow]No {_waflExtension} files found in the specified directory[/]");
+            Console.MarkupLineInterpolated($"[yellow]No {WaflExtension} files found in the specified directory[/]");
             return;
         }
 

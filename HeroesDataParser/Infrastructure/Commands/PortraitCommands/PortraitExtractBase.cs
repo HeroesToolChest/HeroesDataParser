@@ -4,8 +4,8 @@ namespace HeroesDataParser.Infrastructure.Commands.PortraitCommands;
 
 public abstract class PortraitExtractBase : PortraitBase
 {
-    private const int _portraitWidth = 152;
-    private const int _portraitHeight = 152;
+    private const int PortraitWidth = 152;
+    private const int PortraitHeight = 152;
 
     protected PortraitExtractBase(ILogger logger, IAnsiConsole console)
         : base(logger, console)
@@ -47,8 +47,8 @@ public abstract class PortraitExtractBase : PortraitBase
             if (!columns.HasValue || !rows.HasValue)
                 continue;
 
-            Point point = new((iconSlot % columns.Value) * _portraitWidth, (iconSlot / rows.Value) * _portraitWidth);
-            SixLabors.ImageSharp.Size size = new(_portraitWidth, _portraitHeight);
+            Point point = new((iconSlot % columns.Value) * PortraitWidth, (iconSlot / rows.Value) * PortraitWidth);
+            SixLabors.ImageSharp.Size size = new(PortraitWidth, PortraitHeight);
 
             if (image.IsSolidColor(point, size))
             {

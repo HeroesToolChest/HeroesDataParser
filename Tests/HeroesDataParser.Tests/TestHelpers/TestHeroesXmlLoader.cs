@@ -2,7 +2,7 @@
 
 public static class TestHeroesXmlLoader
 {
-    private const string _xmlTestDirectory = "TestXmlFiles";
+    private const string XmlTestDirectory = "TestXmlFiles";
 
     public static HeroesXmlLoader GetArrangedHeroesXmlLoader()
     {
@@ -390,6 +390,6 @@ public static class TestHeroesXmlLoader
 
     private static XDocument GetXDocument(string file)
     {
-        return XDocument.Load(File.OpenRead(Path.Join(_xmlTestDirectory, file)));
+        return XDocument.Load(File.OpenRead(Path.Join(XmlTestDirectory, file)));
     }
 }
