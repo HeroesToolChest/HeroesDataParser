@@ -219,7 +219,7 @@
               "null"
             ]
           },
-          "requiredRewardArray": {
+          "rewardLicenseIds": {
             "type": "array",
             "items": {
               "type": "string"

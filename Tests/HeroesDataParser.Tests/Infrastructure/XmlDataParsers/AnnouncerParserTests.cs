@@ -42,7 +42,7 @@ public class AnnouncerParserTests
         announcer.HyperlinkId.Should().Be("AdjutantAnnouncer");
         announcer.Id.Should().Be("Adjutant");
         announcer.IsFreePlay.Should().BeFalse();
-        announcer.RequiredRewardArray.Should().ContainSingle()
+        announcer.RewardLicenseIds.Should().ContainSingle()
             .And.Contain("Adjutant");
         announcer.Rarity.Should().Be(Rarity.Legendary);
         announcer.ReleaseDate.Should().Be(new DateOnly(2018, 3, 27));
@@ -65,6 +65,6 @@ public class AnnouncerParserTests
         announcer.HeroId.Should().Be("AI");
         announcer.Id.Should().Be("NoAnnouncerPack");
         announcer.IsFreePlay.Should().BeTrue();
-        announcer.RequiredRewardArray.Should().BeEmpty();
+        announcer.RewardLicenseIds.Should().BeEmpty();
     }
 }

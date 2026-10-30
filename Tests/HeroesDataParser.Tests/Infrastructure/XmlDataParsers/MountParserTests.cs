@@ -36,7 +36,7 @@ public class MountParserTests
         mount.Should().NotBeNull();
         mount.AttributeId.Should().Be("BEA5");
         mount.Id.Should().Be("MountBearRank17Base");
-        mount.RequiredRewardArray.Should().ContainSingle()
+        mount.RewardLicenseIds.Should().ContainSingle()
             .And.Contain("MountBearRank17Base");
         mount.Rarity.Should().Be(Rarity.Common);
         mount.ReleaseDate.Should().Be(new DateOnly(2017, 9, 5));
@@ -52,7 +52,7 @@ public class MountParserTests
     }
 
     [TestMethod]
-    public void Parse_MountCloudVar1RequiredRewardDoesNotExist_RequiredRewardArrayIsEmpty()
+    public void Parse_MountCloudVar1RequiredRewardDoesNotExist_RewardLicenseIdsIsEmpty()
     {
         // arrange
         MountParser mountParser = new(_logger, _options, _heroesXmlLoaderService, _gameStringTextService);
@@ -62,6 +62,6 @@ public class MountParserTests
 
         // assert
         mount.Should().NotBeNull();
-        mount.RequiredRewardArray.Should().BeEmpty();
+        mount.RewardLicenseIds.Should().BeEmpty();
     }
 }

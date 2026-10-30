@@ -125,7 +125,7 @@ public class HeroParserTests
         hero.SortName.Should().BeNull();
         hero.HyperlinkId.Should().Be("Abathur");
         hero.AttributeId.Should().Be("Abat");
-        hero.RequiredRewardArray.Should().ContainSingle()
+        hero.RewardLicenseIds.Should().ContainSingle()
             .And.Contain("Abathur");
         hero.Franchise.Should().Be(Franchise.Starcraft);
         hero.Rarity.Should().Be(Rarity.Legendary);
@@ -200,12 +200,12 @@ public class HeroParserTests
         // assert
         hero.Should().NotBeNull();
         hero.Gender.Should().Be(Gender.Female);
-        hero.RequiredRewardArray.Should().ContainSingle()
+        hero.RewardLicenseIds.Should().ContainSingle()
             .And.Contain("Barbarian");
     }
 
     [TestMethod]
-    public void Parse_AmazonRequiredRewardIsCassia_ReturnsCassiaRequiredReward()
+    public void Parse_AmazonRequiredRewardIsCassia_ReturnsCassiaRewardLicenseId()
     {
         // arrange
         string heroUnit = "Amazon";
@@ -217,7 +217,7 @@ public class HeroParserTests
 
         // assert
         hero.Should().NotBeNull();
-        hero.RequiredRewardArray.Should().ContainSingle()
+        hero.RewardLicenseIds.Should().ContainSingle()
             .And.Contain("Cassia");
     }
 

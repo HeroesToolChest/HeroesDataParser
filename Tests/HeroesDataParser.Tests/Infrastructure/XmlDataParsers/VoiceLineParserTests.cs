@@ -41,7 +41,7 @@ public class VoiceLineParserTests
         voiceLine.HyperlinkId.Should().Be("AbathurVoiceLine01");
         voiceLine.Id.Should().Be("AbathurBase_VoiceLine01");
         voiceLine.IsFreePlay.Should().BeTrue();
-        voiceLine.RequiredRewardArray.Should().BeEmpty();
+        voiceLine.RewardLicenseIds.Should().BeEmpty();
         voiceLine.Rarity.Should().Be(Rarity.Common);
         voiceLine.ReleaseDate.Should().Be(new DateOnly(2014, 3, 13));
         voiceLine.Image.Should().Be("storm_ui_voice_abathur.png");
@@ -63,7 +63,7 @@ public class VoiceLineParserTests
         voiceLine.HyperlinkId.Should().Be("AbathurVoiceLine02");
         voiceLine.Id.Should().Be("AbathurBase_VoiceLine02");
         voiceLine.IsFreePlay.Should().BeFalse();
-        voiceLine.RequiredRewardArray.Should().ContainSingle()
+        voiceLine.RewardLicenseIds.Should().ContainSingle()
             .And.Contain("AbathurBase_VoiceLine02");
     }
 }

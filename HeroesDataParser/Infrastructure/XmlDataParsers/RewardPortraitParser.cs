@@ -43,6 +43,6 @@ public class RewardPortraitParser : StoreItemParserBase<RewardPortrait>
 
         // this is a reward element already so just its id to the property
         if (stormElement.DataValues.ContainsIndex("License"))
-            collectionObject.RequiredRewardArray.Add(collectionObject.Id);
+            collectionObject.RewardLicenseIds.Add(collectionObject.Id);
     }
 }

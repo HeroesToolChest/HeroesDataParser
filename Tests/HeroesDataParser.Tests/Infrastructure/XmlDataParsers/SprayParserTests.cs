@@ -49,7 +49,7 @@ public class SprayParserTests
         spray.HyperlinkId.Should().Be("LowBattery");
         spray.Id.Should().Be("SprayAnimatedCraft20LowBattery");
         spray.IsFreePlay.Should().BeFalse();
-        spray.RequiredRewardArray.Should().ContainSingle()
+        spray.RewardLicenseIds.Should().ContainSingle()
             .And.Contain("SprayAnimatedCraft20LowBattery");
         spray.Rarity.Should().Be(Rarity.Rare);
         spray.ReleaseDate.Should().Be(new DateOnly(2020, 9, 8));
@@ -102,7 +102,7 @@ public class SprayParserTests
         spray.HyperlinkId.Should().Be("Classic21Diablospray");
         spray.Id.Should().Be("Classic21Diablospray");
         spray.IsFreePlay.Should().BeFalse();
-        spray.RequiredRewardArray.Should().ContainSingle()
+        spray.RewardLicenseIds.Should().ContainSingle()
             .And.Contain("Classic21Diablospray");
         spray.Rarity.Should().Be(Rarity.Common);
         spray.ReleaseDate.Should().Be(new DateOnly(2021, 11, 9));
@@ -126,6 +126,6 @@ public class SprayParserTests
         spray.HyperlinkId.Should().Be("NexusCrest");
         spray.Id.Should().Be("SprayStaticFluidDefault");
         spray.IsFreePlay.Should().BeTrue();
-        spray.RequiredRewardArray.Should().BeEmpty();
+        spray.RewardLicenseIds.Should().BeEmpty();
     }
 }

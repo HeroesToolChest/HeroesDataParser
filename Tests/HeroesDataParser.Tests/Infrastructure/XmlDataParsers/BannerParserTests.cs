@@ -44,7 +44,7 @@ public class BannerParserTests
         banner.HyperlinkId.Should().Be("Ballistix2018PhaseOneWarbanner");
         banner.Id.Should().Be("BannerDFEsportsWarChest18RareBallistix");
         banner.IsFreePlay.Should().BeFalse();
-        banner.RequiredRewardArray.Should().ContainSingle()
+        banner.RewardLicenseIds.Should().ContainSingle()
             .And.Contain("BannerDFEsportsWarChest18RareBallistix");
         banner.ReleaseDate.Should().Be(new DateOnly(2018, 5, 22));
         banner.SortName!.RawText.Should().Be("sort name");
@@ -68,6 +68,6 @@ public class BannerParserTests
         banner.HyperlinkId.Should().Be("NexusBanner");
         banner.Id.Should().Be("BannerDefault");
         banner.IsFreePlay.Should().BeTrue();
-        banner.RequiredRewardArray.Should().BeEmpty();
+        banner.RewardLicenseIds.Should().BeEmpty();
     }
 }

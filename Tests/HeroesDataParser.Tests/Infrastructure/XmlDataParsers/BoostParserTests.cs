@@ -38,7 +38,7 @@ public class BoostParserTests
         boost.Rarity.Should().BeNull();
         boost.HyperlinkId.Should().Be("360DayStimpack");
         boost.Id.Should().Be("360DayStimpack");
-        boost.RequiredRewardArray.Should().BeEmpty();
+        boost.RewardLicenseIds.Should().BeEmpty();
         boost.ReleaseDate.Should().Be(new DateOnly(2016, 11, 22));
         boost.SortName.Should().BeNull();
         boost.Name.Should().BeNull();

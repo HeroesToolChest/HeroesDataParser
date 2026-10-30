@@ -31,7 +31,7 @@ public abstract class StoreItemParserBase<T> : DataParser<T>
         SetDescriptionProperty(collectionObject, stormElement);
         SetInfoTextProperty(collectionObject, stormElement);
         SetImageProperty(collectionObject, stormElement);
-        SetRequiredRewardArrayProperty(collectionObject, stormElement);
+        SetRewardLicenseIdsProperty(collectionObject, stormElement);
         SetFreePlayProperty(collectionObject, stormElement);
 
         if (stormElement.DataValues.TryGetElementDataAt("sortname", out StormElementData? sortNameData))
@@ -121,9 +121,9 @@ public abstract class StoreItemParserBase<T> : DataParser<T>
             freePlayObject.IsFreePlay = freePlayValue == 1;
     }
 
-    private void SetRequiredRewardArrayProperty(T elementObject, StormElement stormElement)
+    private void SetRewardLicenseIdsProperty(T elementObject, StormElement stormElement)
     {
-        if (elementObject is not IRequiredRewardArray requiredRewardArrayObject)
+        if (elementObject is not IRewardLicenseIds rewardLicenseIdsObject)
             return;
 
         if (!stormElement.DataValues.TryGetElementDataAt("RequiredRewardArray", out StormElementData? requiredRewardArrayData))
@@ -135,7 +135,7 @@ public abstract class StoreItemParserBase<T> : DataParser<T>
             if (!HeroesData.StormElementExists("Reward", rewardId))
                 continue;
 
-            requiredRewardArrayObject.RequiredRewardArray.Add(rewardId);
+            rewardLicenseIdsObject.RewardLicenseIds.Add(rewardId);
         }
     }
 }

@@ -48,7 +48,7 @@ public class RewardPortraitParserTests
         rewardPortrait.Image.Should().Be("storm_portrait_sylvanasbasic.png");
         rewardPortrait.IconSlot.Should().Be(7);
         rewardPortrait.PortraitPackId.Should().BeNull();
-        rewardPortrait.RequiredRewardArray.Should().BeEmpty();
+        rewardPortrait.RewardLicenseIds.Should().BeEmpty();
     }
 
     [TestMethod]
@@ -78,7 +78,7 @@ public class RewardPortraitParserTests
         rewardPortrait.Image.Should().Be("storm_portrait_abathurtoys18portrait.png");
         rewardPortrait.IconSlot.Should().Be(15);
         rewardPortrait.PortraitPackId.Should().Be("AbathurToys18Portrait");
-        rewardPortrait.RequiredRewardArray.Should().ContainSingle()
+        rewardPortrait.RewardLicenseIds.Should().ContainSingle()
             .And.Contain("AbathurToys18Portrait");
     }
 }
