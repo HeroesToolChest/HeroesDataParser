@@ -41,10 +41,30 @@ public class AnnouncerParserTests
         announcer.HeroId.Should().Be("AI");
         announcer.HyperlinkId.Should().Be("AdjutantAnnouncer");
         announcer.Id.Should().Be("Adjutant");
+        announcer.IsFreePlay.Should().BeFalse();
         announcer.RequiredRewardArray.Should().ContainSingle()
             .And.Contain("Adjutant");
         announcer.Rarity.Should().Be(Rarity.Legendary);
         announcer.ReleaseDate.Should().Be(new DateOnly(2018, 3, 27));
         announcer.Image.Should().Be("storm_ui_announcer_adjutant.png");
+    }
+
+    [TestMethod]
+    public void Parse_NoAnnouncerPack_ReturnsAnnouncerData()
+    {
+        // arrange
+        AnnouncerPackParser announcerParser = new(_logger, _options, _heroesXmlLoaderService, _gameStringTextService);
+
+        // act
+        AnnouncerPack? announcer = announcerParser.Parse("NoAnnouncerPack");
+
+        // assert
+        announcer.Should().NotBeNull();
+        announcer.AttributeId.Should().Be("NoAP");
+        announcer.Category.Should().Be("Default");
+        announcer.HeroId.Should().Be("AI");
+        announcer.Id.Should().Be("NoAnnouncerPack");
+        announcer.IsFreePlay.Should().BeTrue();
+        announcer.RequiredRewardArray.Should().BeEmpty();
     }
 }

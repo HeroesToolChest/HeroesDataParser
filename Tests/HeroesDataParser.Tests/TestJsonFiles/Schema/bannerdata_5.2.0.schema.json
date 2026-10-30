@@ -189,6 +189,9 @@
               "null"
             ]
           },
+          "isFreePlay": {
+            "type": "boolean"
+          },
           "searchText": {
             "type": [
               "string",

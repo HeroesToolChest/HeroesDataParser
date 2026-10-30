@@ -52,4 +52,12 @@
     <AttributeId value="AGAR"/>
     <Gender value="Male"/>
   </CAnnouncerPack>
+  <CAnnouncerPack id="NoAnnouncerPack">
+    <AttributeId value="NoAP"/>
+    <TileTexture value="Assets\Textures\Storm_UI_Announcer_Default.dds"/>
+    <Hero value="AI"/>
+    <CollectionCategory value="Default"/>
+    <Flags index="FreePlay" value="1"/>
+    <Flags index="ShowInStore" value="0"/>
+  </CAnnouncerPack>
 </AnnouncerPack>

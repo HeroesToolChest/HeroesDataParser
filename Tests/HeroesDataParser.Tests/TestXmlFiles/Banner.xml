@@ -40,6 +40,17 @@
     <TextureSwap Slot="main.diffuse" Texture="Assets/Textures/storm_lootbanner_esports_warchest_blue_18_diff.dds"/>
     <ReleaseDate Month="5" Day="22" Year="2018"/>
   </CBanner>
+  <CBanner default="1" id="BannerDefaultBase" parent="BannerCommon">
+    <Model value="BannerDefault"/>
+    <Description value="Banner/Description/BannerDefault"/>
+    <Flags index="FreePlay" value="1"/>
+    <SortName value="Banner/SortName/2ndAnniversaryBanner"/>
+  </CBanner>
+  <CBanner id="BannerDefault" parent="BannerDefaultBase">
+    <HyperlinkId value="NexusBanner" />
+    <AttributeId value="BN17" />
+    <CollectionCategory value="Default" />
+  </CBanner>
   <CRewardBanner id="BannerDFEsportsWarChest18RareBallistix">
     <License value="30103"/>
   </CRewardBanner>

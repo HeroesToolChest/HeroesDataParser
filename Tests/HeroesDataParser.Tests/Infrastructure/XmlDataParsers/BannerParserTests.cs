@@ -22,7 +22,7 @@ public class BannerParserTests
     }
 
     [TestMethod]
-    public void Parse_BattleBundle_ReturnsBundleData()
+    public void Parse_BannerDFEsportsWarChest18RareBallistix_ReturnsBannerData()
     {
         // arrange
         _gameStringTextService.GetGameStringTextFromId("Banner/SortName/BannerDFEsportsWarChestTeam18").Returns(new GameStringText("sort name"));
@@ -43,11 +43,31 @@ public class BannerParserTests
         banner.Rarity.Should().Be(Rarity.Common);
         banner.HyperlinkId.Should().Be("Ballistix2018PhaseOneWarbanner");
         banner.Id.Should().Be("BannerDFEsportsWarChest18RareBallistix");
+        banner.IsFreePlay.Should().BeFalse();
         banner.RequiredRewardArray.Should().ContainSingle()
             .And.Contain("BannerDFEsportsWarChest18RareBallistix");
         banner.ReleaseDate.Should().Be(new DateOnly(2018, 5, 22));
         banner.SortName!.RawText.Should().Be("sort name");
         banner.Name!.RawText.Should().Be("name");
         banner.Description!.RawText.Should().Be("description");
+    }
+
+    [TestMethod]
+    public void Parse_BannerDefault_ReturnsBannerData()
+    {
+        // arrange
+        BannerParser bannerParser = new(_logger, _options, _heroesXmlLoaderService, _gameStringTextService);
+
+        // act
+        Banner? banner = bannerParser.Parse("BannerDefault");
+
+        // assert
+        banner.Should().NotBeNull();
+        banner.AttributeId.Should().Be("BN17");
+        banner.Category.Should().Be("Default");
+        banner.HyperlinkId.Should().Be("NexusBanner");
+        banner.Id.Should().Be("BannerDefault");
+        banner.IsFreePlay.Should().BeTrue();
+        banner.RequiredRewardArray.Should().BeEmpty();
     }
 }

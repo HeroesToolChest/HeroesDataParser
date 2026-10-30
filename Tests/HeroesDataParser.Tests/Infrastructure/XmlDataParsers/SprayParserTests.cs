@@ -48,6 +48,7 @@ public class SprayParserTests
         spray.Description.Should().BeNull();
         spray.HyperlinkId.Should().Be("LowBattery");
         spray.Id.Should().Be("SprayAnimatedCraft20LowBattery");
+        spray.IsFreePlay.Should().BeFalse();
         spray.RequiredRewardArray.Should().ContainSingle()
             .And.Contain("SprayAnimatedCraft20LowBattery");
         spray.Rarity.Should().Be(Rarity.Rare);
@@ -100,11 +101,31 @@ public class SprayParserTests
         spray.Description.Should().BeNull();
         spray.HyperlinkId.Should().Be("Classic21Diablospray");
         spray.Id.Should().Be("Classic21Diablospray");
+        spray.IsFreePlay.Should().BeFalse();
         spray.RequiredRewardArray.Should().ContainSingle()
             .And.Contain("Classic21Diablospray");
         spray.Rarity.Should().Be(Rarity.Common);
         spray.ReleaseDate.Should().Be(new DateOnly(2021, 11, 9));
         spray.Image.Should().Be("classic21_diablo_spray.png");
         spray.Animation.Should().BeNull();
+    }
+
+    [TestMethod]
+    public void Parse_SprayStaticFluidDefault_ReturnsSprayData()
+    {
+        // arrange
+        SprayParser sprayParser = new(_logger, _options, _heroesXmlLoaderService, _gameStringTextService);
+
+        // act
+        Spray? spray = sprayParser.Parse("SprayStaticFluidDefault");
+
+        // assert
+        spray.Should().NotBeNull();
+        spray.AttributeId.Should().Be("SYDF");
+        spray.Category.Should().Be("Default");
+        spray.HyperlinkId.Should().Be("NexusCrest");
+        spray.Id.Should().Be("SprayStaticFluidDefault");
+        spray.IsFreePlay.Should().BeTrue();
+        spray.RequiredRewardArray.Should().BeEmpty();
     }
 }

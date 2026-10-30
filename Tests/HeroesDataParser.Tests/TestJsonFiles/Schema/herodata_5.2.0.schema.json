@@ -354,6 +354,12 @@
               "null"
             ]
           },
+          "requiredRewardArray": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
           "life": {
             "type": "object",
             "properties": {
@@ -1113,12 +1119,6 @@
                   }
                 }
               }
-            }
-          },
-          "requiredRewardArray": {
-            "type": "array",
-            "items": {
-              "type": "string"
             }
           }
         }

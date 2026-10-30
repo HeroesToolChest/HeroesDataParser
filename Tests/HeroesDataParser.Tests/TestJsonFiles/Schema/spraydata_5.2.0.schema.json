@@ -215,6 +215,9 @@
               }
             }
           },
+          "isFreePlay": {
+            "type": "boolean"
+          },
           "searchText": {
             "type": [
               "string",

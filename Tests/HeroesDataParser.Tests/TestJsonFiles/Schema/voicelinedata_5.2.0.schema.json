@@ -195,6 +195,9 @@
               "null"
             ]
           },
+          "isFreePlay": {
+            "type": "boolean"
+          },
           "image": {
             "type": [
               "string",

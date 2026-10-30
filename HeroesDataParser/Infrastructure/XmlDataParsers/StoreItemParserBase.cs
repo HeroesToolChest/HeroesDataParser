@@ -32,6 +32,7 @@ public abstract class StoreItemParserBase<T> : DataParser<T>
         SetInfoTextProperty(collectionObject, stormElement);
         SetImageProperty(collectionObject, stormElement);
         SetRequiredRewardArrayProperty(collectionObject, stormElement);
+        SetFreePlayProperty(collectionObject, stormElement);
 
         if (stormElement.DataValues.TryGetElementDataAt("sortname", out StormElementData? sortNameData))
             collectionObject.SortName = GameStringTextService.GetGameStringTextFromId(sortNameData.Value.GetString());
@@ -109,6 +110,15 @@ public abstract class StoreItemParserBase<T> : DataParser<T>
             franchiseObject.Franchise = Franchise.Nexus;
         else
             franchiseObject.Franchise = Franchise.Unknown;
+    }
+
+    private static void SetFreePlayProperty(T elementObject, StormElement stormElement)
+    {
+        if (elementObject is not IFreePlay freePlayObject)
+            return;
+
+        if (stormElement.DataValues.TryGetElementDataAt("Flags", out StormElementData? flagsData) && flagsData.TryGetElementDataAt("FreePlay", out StormElementData? freePlayData) && freePlayData.Value.TryGetInt32(out int freePlayValue))
+            freePlayObject.IsFreePlay = freePlayValue == 1;
     }
 
     private void SetRequiredRewardArrayProperty(T elementObject, StormElement stormElement)
