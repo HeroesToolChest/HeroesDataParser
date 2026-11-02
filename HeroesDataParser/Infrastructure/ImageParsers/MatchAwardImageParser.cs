@@ -9,7 +9,7 @@ public class MatchAwardImageParser : ImageParserBase<MatchAward>
     {
     }
 
-    public override ExtractImageOptions ExtractImageOption => ExtractImageOptions.VoiceLine;
+    public override ExtractImageOptions ExtractImageOption => ExtractImageOptions.MatchAward;
 
     protected override string Subdirectory => "matchawards";
 
