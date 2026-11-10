@@ -46,6 +46,7 @@ public class XmlDataParserProcessorTests
             ExtractDataOptions.Mount,
             ExtractDataOptions.MatchAward,
             ExtractDataOptions.PortraitPack,
+            ExtractDataOptions.RewardLicense,
             ExtractDataOptions.RewardPortrait,
             ExtractDataOptions.Skin,
             ExtractDataOptions.Spray,
@@ -83,6 +84,28 @@ public class XmlDataParserProcessorTests
 
         // assert
         _dataExtractorService.Received(1).Extract<AnnouncerPack, AnnouncerPackParser>(Arg.Any<AnnouncerPackParser>(), null);
+
+        _jsonDataFileWriterProcessor.Received(1).SaveJsonDataFileWrite(extractedItems, null);
+        _imageParserProcessor.Received(1).SaveImages(extractedItems);
+    }
+
+    [TestMethod]
+    public void ExecuteDataParser_RewardLicenseOption_ExtractsDataAndSavesJsonAndImages()
+    {
+        // arrange
+        SortedDictionary<string, RewardLicense> extractedItems = new()
+        {
+            ["Reward1"] = new RewardLicense("Reward1") { LicenseId = 12345 },
+        };
+
+        _dataExtractorService.Extract<RewardLicense, RewardLicenseParser>(Arg.Any<RewardLicenseParser>(), Arg.Any<Map?>())
+            .Returns(extractedItems);
+
+        // act
+        _processor.ExecuteDataParser(ExtractDataOptions.RewardLicense, null);
+
+        // assert
+        _dataExtractorService.Received(1).Extract<RewardLicense, RewardLicenseParser>(Arg.Any<RewardLicenseParser>(), null);
 
         _jsonDataFileWriterProcessor.Received(1).SaveJsonDataFileWrite(extractedItems, null);
         _imageParserProcessor.Received(1).SaveImages(extractedItems);

@@ -35,6 +35,7 @@
             "MountData",
             "PortraitPackData",
             "RewardPortraitData",
+            "RewardLicenseData",
             "SkinData",
             "SprayData",
             "TypeDescriptionData",
@@ -128,28 +129,10 @@
               "null"
             ]
           },
-          "sortName": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
           "hyperlinkId": {
             "type": [
               "string",
               "null"
-            ]
-          },
-          "franchise": {
-            "enum": [
-              "Classic",
-              "Diablo",
-              "Overwatch",
-              "Starcraft",
-              "Warcraft",
-              "Nexus",
-              "Unknown",
-              null
             ]
           },
           "rarity": {
@@ -163,44 +146,22 @@
               null
             ]
           },
-          "releaseDate": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "date"
-          },
-          "category": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
           "event": {
             "type": [
               "string",
               "null"
             ]
           },
-          "emoticonIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+          "maxRerolls": {
+            "type": "integer"
           },
-          "searchText": {
+          "typeDescriptionId": {
             "type": [
               "string",
               "null"
             ]
           },
           "description": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "infoText": {
             "type": [
               "string",
               "null"

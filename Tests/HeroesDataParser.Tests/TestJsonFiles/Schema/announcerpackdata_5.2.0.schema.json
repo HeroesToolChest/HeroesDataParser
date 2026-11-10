@@ -35,6 +35,7 @@
             "MountData",
             "PortraitPackData",
             "RewardPortraitData",
+            "RewardLicenseData",
             "SkinData",
             "SprayData",
             "TypeDescriptionData",
@@ -140,6 +141,12 @@
               "null"
             ]
           },
+          "attributeId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
           "franchise": {
             "enum": [
               "Classic",
@@ -182,7 +189,7 @@
               "null"
             ]
           },
-          "portraitPackId": {
+          "gender": {
             "type": [
               "string",
               "null"
@@ -194,37 +201,14 @@
               "null"
             ]
           },
-          "iconSlot": {
-            "type": "integer"
+          "isFreePlay": {
+            "type": "boolean"
           },
           "image": {
             "type": [
               "string",
               "null"
             ]
-          },
-          "textureSheet": {
-            "type": "object",
-            "properties": {
-              "image": {
-                "type": [
-                  "string",
-                  "null"
-                ]
-              },
-              "rows": {
-                "type": [
-                  "integer",
-                  "null"
-                ]
-              },
-              "columns": {
-                "type": [
-                  "integer",
-                  "null"
-                ]
-              }
-            }
           },
           "searchText": {
             "type": [
@@ -238,17 +222,17 @@
               "null"
             ]
           },
-          "descriptionUnearned": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
           "infoText": {
             "type": [
               "string",
               "null"
             ]
+          },
+          "rewardLicenseIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       }

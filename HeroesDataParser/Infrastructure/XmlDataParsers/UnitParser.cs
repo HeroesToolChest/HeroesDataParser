@@ -4,7 +4,7 @@ namespace HeroesDataParser.Infrastructure.XmlDataParsers;
 
 public class UnitParser : DataParser<Unit>, IUnitParser
 {
-    private const string _actorDataObjectType = "Actor";
+    private const string ActorDataObjectType = "Actor";
 
     private readonly IAbilityParser _abilityParser;
 
@@ -96,16 +96,16 @@ public class UnitParser : DataParser<Unit>, IUnitParser
     {
         unitButtonAbilities = [];
 
-        string? unitId = HeroesData.GetStormElementIdByUnitName(elementObject.Id, _actorDataObjectType);
+        string? unitId = HeroesData.GetStormElementIdByUnitName(elementObject.Id, ActorDataObjectType);
 
         StormElement? actorElement;
         if (!string.IsNullOrEmpty(unitId))
         {
-            actorElement = HeroesData.GetCompleteStormElement(_actorDataObjectType, unitId);
+            actorElement = HeroesData.GetCompleteStormElement(ActorDataObjectType, unitId);
         }
         else
         {
-            actorElement = HeroesData.GetCompleteStormElement(_actorDataObjectType, elementObject.Id);
+            actorElement = HeroesData.GetCompleteStormElement(ActorDataObjectType, elementObject.Id);
         }
 
         if (actorElement is null)

@@ -33,6 +33,7 @@ public class XmlDataParserProcessor : IXmlDataParserProcessor
             [ExtractDataOptions.Mount] = Execute<Mount, MountParser>,
             [ExtractDataOptions.MatchAward] = Execute<MatchAward, MatchAwardParser>,
             [ExtractDataOptions.PortraitPack] = Execute<PortraitPack, PortraitPackParser>,
+            [ExtractDataOptions.RewardLicense] = Execute<RewardLicense, RewardLicenseParser>,
             [ExtractDataOptions.RewardPortrait] = Execute<RewardPortrait, RewardPortraitParser>,
             [ExtractDataOptions.Skin] = Execute<Skin, SkinParser>,
             [ExtractDataOptions.Spray] = Execute<Spray, SprayParser>,

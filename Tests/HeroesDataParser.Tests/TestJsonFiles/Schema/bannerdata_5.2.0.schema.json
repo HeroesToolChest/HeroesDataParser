@@ -35,6 +35,7 @@
             "MountData",
             "PortraitPackData",
             "RewardPortraitData",
+            "RewardLicenseData",
             "SkinData",
             "SprayData",
             "TypeDescriptionData",
@@ -188,17 +189,8 @@
               "null"
             ]
           },
-          "heroId": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "image": {
-            "type": [
-              "string",
-              "null"
-            ]
+          "isFreePlay": {
+            "type": "boolean"
           },
           "searchText": {
             "type": [
@@ -217,6 +209,12 @@
               "string",
               "null"
             ]
+          },
+          "rewardLicenseIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       }

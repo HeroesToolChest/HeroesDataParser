@@ -150,6 +150,7 @@ public static class ServiceCollectionExtensions
             services.AddKeyedSingleton<IDataParser<Mount>, MountParser>(typeof(Mount));
             services.AddKeyedSingleton<IDataParser<MatchAward>, MatchAwardParser>(typeof(MatchAward));
             services.AddKeyedSingleton<IDataParser<PortraitPack>, PortraitPackParser>(typeof(PortraitPack));
+            services.AddKeyedSingleton<IDataParser<RewardLicense>, RewardLicenseParser>(typeof(RewardLicense));
             services.AddKeyedSingleton<IDataParser<RewardPortrait>, RewardPortraitParser>(typeof(RewardPortrait));
             services.AddKeyedSingleton<IDataParser<Skin>, SkinParser>(typeof(Skin));
             services.AddKeyedSingleton<IDataParser<Spray>, SprayParser>(typeof(Spray));

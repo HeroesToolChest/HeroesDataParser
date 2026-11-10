@@ -35,6 +35,7 @@
             "MountData",
             "PortraitPackData",
             "RewardPortraitData",
+            "RewardLicenseData",
             "SkinData",
             "SprayData",
             "TypeDescriptionData",
@@ -122,59 +123,124 @@
       "additionalProperties": {
         "type": "object",
         "properties": {
-          "gameLink": {
+          "name": {
             "type": [
               "string",
               "null"
             ]
           },
-          "tag": {
+          "sortName": {
             "type": [
               "string",
               "null"
             ]
           },
-          "scoreScreenName": {
+          "hyperlinkId": {
             "type": [
               "string",
               "null"
             ]
           },
-          "scoreScreenDescription": {
+          "attributeId": {
             "type": [
               "string",
               "null"
             ]
           },
-          "endOfMatchName": {
+          "franchise": {
+            "enum": [
+              "Classic",
+              "Diablo",
+              "Overwatch",
+              "Starcraft",
+              "Warcraft",
+              "Nexus",
+              "Unknown",
+              null
+            ]
+          },
+          "rarity": {
+            "enum": [
+              "Unknown",
+              "None",
+              "Common",
+              "Rare",
+              "Epic",
+              "Legendary",
+              null
+            ]
+          },
+          "releaseDate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          },
+          "category": {
             "type": [
               "string",
               "null"
             ]
           },
-          "endOfMatchDescription": {
+          "event": {
             "type": [
               "string",
               "null"
             ]
           },
-          "endOfMatchTooltipText": {
+          "image": {
             "type": [
               "string",
               "null"
             ]
           },
-          "mvpScreenIcon": {
+          "animation": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "texture": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "frames": {
+                "type": "integer"
+              },
+              "duration": {
+                "type": "integer"
+              }
+            }
+          },
+          "isFreePlay": {
+            "type": "boolean"
+          },
+          "searchText": {
             "type": [
               "string",
               "null"
             ]
           },
-          "scoreScreenIcon": {
+          "description": {
             "type": [
               "string",
               "null"
             ]
+          },
+          "infoText": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "rewardLicenseIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       }

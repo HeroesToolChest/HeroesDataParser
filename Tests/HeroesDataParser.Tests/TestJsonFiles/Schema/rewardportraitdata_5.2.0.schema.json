@@ -35,6 +35,7 @@
             "MountData",
             "PortraitPackData",
             "RewardPortraitData",
+            "RewardLicenseData",
             "SkinData",
             "SprayData",
             "TypeDescriptionData",
@@ -122,41 +123,71 @@
       "additionalProperties": {
         "type": "object",
         "properties": {
-          "expression": {
+          "name": {
             "type": [
               "string",
               "null"
             ]
           },
-          "description": {
+          "sortName": {
             "type": [
               "string",
               "null"
             ]
           },
-          "universalAliases": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "localizedAliases": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "searchText": {
+          "hyperlinkId": {
             "type": [
               "string",
               "null"
             ]
           },
-          "isCaseSensitive": {
-            "type": "boolean"
+          "franchise": {
+            "enum": [
+              "Classic",
+              "Diablo",
+              "Overwatch",
+              "Starcraft",
+              "Warcraft",
+              "Nexus",
+              "Unknown",
+              null
+            ]
           },
-          "isHidden": {
-            "type": "boolean"
+          "rarity": {
+            "enum": [
+              "Unknown",
+              "None",
+              "Common",
+              "Rare",
+              "Epic",
+              "Legendary",
+              null
+            ]
+          },
+          "releaseDate": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          },
+          "category": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "event": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "portraitPackId": {
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "heroId": {
             "type": [
@@ -164,11 +195,8 @@
               "null"
             ]
           },
-          "skinId": {
-            "type": [
-              "string",
-              "null"
-            ]
+          "iconSlot": {
+            "type": "integer"
           },
           "image": {
             "type": [
@@ -176,14 +204,14 @@
               "null"
             ]
           },
-          "animation": {
-            "type": [
-              "object",
-              "null"
-            ],
+          "textureSheet": {
+            "type": "object",
             "properties": {
-              "width": {
-                "type": "integer"
+              "image": {
+                "type": [
+                  "string",
+                  "null"
+                ]
               },
               "rows": {
                 "type": [
@@ -196,19 +224,37 @@
                   "integer",
                   "null"
                 ]
-              },
-              "texture": {
-                "type": [
-                  "string",
-                  "null"
-                ]
-              },
-              "frames": {
-                "type": "integer"
-              },
-              "duration": {
-                "type": "integer"
               }
+            }
+          },
+          "searchText": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "descriptionUnearned": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "infoText": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "rewardLicenseIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
             }
           }
         }

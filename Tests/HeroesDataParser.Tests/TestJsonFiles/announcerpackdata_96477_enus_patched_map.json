@@ -30,6 +30,7 @@
       "category": "Starcraft",
       "gender": "Unknown",
       "heroId": "Abathur",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_abathur.png"
     },
     "Adjutant": {
@@ -41,6 +42,7 @@
       "category": "Starcraft",
       "gender": "Female",
       "heroId": "AI",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_adjutant.png"
     },
     "AlarakA": {
@@ -52,6 +54,7 @@
       "category": "Starcraft",
       "gender": "Male",
       "heroId": "Alarak",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_alarak.png"
     },
     "AlexstraszaA": {
@@ -63,6 +66,7 @@
       "category": "Warcraft",
       "gender": "Female",
       "heroId": "Alexstrasza",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_alexstrasza.png"
     },
     "AnduinA": {
@@ -74,6 +78,7 @@
       "category": "Warcraft",
       "gender": "Male",
       "heroId": "Anduin",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_anduin.png"
     },
     "Angel": {
@@ -85,6 +90,7 @@
       "category": "Diablo",
       "gender": "Unknown",
       "heroId": "AI",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_ilarian.png"
     },
     "AnubarakA": {
@@ -96,6 +102,7 @@
       "category": "Warcraft",
       "gender": "Unknown",
       "heroId": "Anubarak",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_anubarak.png"
     },
     "ArthasA": {
@@ -107,6 +114,7 @@
       "category": "Warcraft",
       "gender": "Unknown",
       "heroId": "Arthas",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_arthas.png"
     },
     "AthenaA": {
@@ -118,6 +126,7 @@
       "category": "Overwatch",
       "gender": "Female",
       "heroId": "AI",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_athena.png"
     },
     "BarbarianA": {
@@ -129,6 +138,7 @@
       "category": "Diablo",
       "gender": "Unknown",
       "heroId": "Barbarian",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_sonya.png"
     },
     "Blackheart": {
@@ -140,6 +150,7 @@
       "category": "Default",
       "gender": "Unknown",
       "heroId": "AI",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_blackheart.png"
     },
     "BlazeA": {
@@ -151,6 +162,7 @@
       "category": "Starcraft",
       "gender": "Male",
       "heroId": "Firebat",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_firebat.png"
     },
     "BrightwingA": {
@@ -162,6 +174,7 @@
       "category": "Warcraft",
       "gender": "Unknown",
       "heroId": "FaerieDragon",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_brightwing.png"
     },
     "ButcherA": {
@@ -173,6 +186,7 @@
       "category": "Diablo",
       "gender": "Unknown",
       "heroId": "Butcher",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_butcher.png"
     },
     "CloakenA": {
@@ -184,6 +198,7 @@
       "category": "Default",
       "gender": "Male",
       "heroId": "AI",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_kevinjohnson.png"
     },
     "CommodoreFord": {
@@ -194,7 +209,8 @@
       "releaseDate": "2014-03-13",
       "category": "Default",
       "gender": "Unknown",
-      "heroId": "##heroid##"
+      "heroId": "##heroid##",
+      "isFreePlay": false
     },
     "Cook": {
       "name": "Cook Announcer",
@@ -204,7 +220,8 @@
       "releaseDate": "2014-03-13",
       "category": "Default",
       "gender": "Unknown",
-      "heroId": "##heroid##"
+      "heroId": "##heroid##",
+      "isFreePlay": false
     },
     "CowboyA": {
       "name": "MC Tombstone Announcer",
@@ -215,6 +232,7 @@
       "category": "Default",
       "gender": "Male",
       "heroId": "AI",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_mctombstone.png"
     },
     "DeathwingA": {
@@ -226,6 +244,7 @@
       "category": "Warcraft",
       "gender": "Male",
       "heroId": "Deathwing",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_deathwing.png"
     },
     "DeckardA": {
@@ -237,6 +256,7 @@
       "category": "Diablo",
       "gender": "Male",
       "heroId": "Deckard",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_deckard.png"
     },
     "Default": {
@@ -246,7 +266,8 @@
       "releaseDate": "2014-03-13",
       "category": "Default",
       "gender": "Unknown",
-      "heroId": "##heroid##"
+      "heroId": "##heroid##",
+      "isFreePlay": false
     },
     "Demon": {
       "name": "Beleth Announcer",
@@ -257,6 +278,7 @@
       "category": "Diablo",
       "gender": "Male",
       "heroId": "AI",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_beleth.png"
     },
     "DemonHunterA": {
@@ -268,6 +290,7 @@
       "category": "Diablo",
       "gender": "Unknown",
       "heroId": "DemonHunter",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_valla.png"
     },
     "DiabloA": {
@@ -279,6 +302,7 @@
       "category": "Diablo",
       "gender": "Unknown",
       "heroId": "Diablo",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_diablo.png"
     },
     "DrekTharA": {
@@ -290,6 +314,7 @@
       "category": "Warcraft",
       "gender": "Male",
       "heroId": "AI",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_drekthar.png"
     },
     "DVaAnnouncer": {
@@ -301,6 +326,7 @@
       "category": "Overwatch",
       "gender": "Female",
       "heroId": "DVa",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_dva.png"
     },
     "ETCA": {
@@ -312,6 +338,7 @@
       "category": "Warcraft",
       "gender": "Unknown",
       "heroId": "L90ETC",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_etc.png"
     },
     "FalstadA": {
@@ -323,6 +350,7 @@
       "category": "Warcraft",
       "gender": "Unknown",
       "heroId": "Falstad",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_falstad.png"
     },
     "FenixA": {
@@ -334,6 +362,7 @@
       "category": "Starcraft",
       "gender": "Male",
       "heroId": "Fenix",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_fenix.png"
     },
     "GardensDayAnnouncer": {
@@ -345,6 +374,7 @@
       "category": "Default",
       "gender": "Unknown",
       "heroId": "AI",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_queen_nightshade.png"
     },
     "GardensNightAnnouncer": {
@@ -355,7 +385,8 @@
       "releaseDate": "2014-03-13",
       "category": "Default",
       "gender": "Unknown",
-      "heroId": "##heroid##"
+      "heroId": "##heroid##",
+      "isFreePlay": false
     },
     "GarroshA": {
       "name": "Garrosh Announcer",
@@ -366,6 +397,7 @@
       "category": "Warcraft",
       "gender": "Male",
       "heroId": "Garrosh",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_garrosh.png"
     },
     "GazloweA": {
@@ -377,6 +409,7 @@
       "category": "Warcraft",
       "gender": "Unknown",
       "heroId": "Tinker",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_gazlowe.png"
     },
     "GenjiAnnouncer": {
@@ -388,6 +421,7 @@
       "category": "Overwatch",
       "gender": "Male",
       "heroId": "Genji",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_genji.png"
     },
     "HanzoA": {
@@ -399,6 +433,7 @@
       "category": "Overwatch",
       "gender": "Male",
       "heroId": "Hanzo",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_hanzo.png"
     },
     "HoggerAnnouncer": {
@@ -409,6 +444,7 @@
       "releaseDate": "2020-12-01",
       "category": "Warcraft",
       "heroId": "Hogger",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_hogger.png"
     },
     "IllidanA": {
@@ -420,6 +456,7 @@
       "category": "Warcraft",
       "gender": "Unknown",
       "heroId": "Illidan",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_illidan.png"
     },
     "ImperiusA": {
@@ -431,6 +468,7 @@
       "category": "Diablo",
       "gender": "Unknown",
       "heroId": "Imperius",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_imperius.png"
     },
     "JainaA": {
@@ -442,6 +480,7 @@
       "category": "Warcraft",
       "gender": "Female",
       "heroId": "Jaina",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_jaina.png"
     },
     "JohannaA": {
@@ -453,6 +492,7 @@
       "category": "Diablo",
       "gender": "Female",
       "heroId": "Crusader",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_johanna.png"
     },
     "JunkratA": {
@@ -464,6 +504,7 @@
       "category": "Overwatch",
       "gender": "Male",
       "heroId": "Junkrat",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_junkrat.png"
     },
     "KelthuzadA": {
@@ -475,6 +516,7 @@
       "category": "Warcraft",
       "gender": "Male",
       "heroId": "KelThuzad",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_kelthuzad.png"
     },
     "KidA": {
@@ -486,6 +528,7 @@
       "category": "Default",
       "gender": "Unknown",
       "heroId": "AI",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_thekid.png"
     },
     "LadyofThorns": {
@@ -497,6 +540,7 @@
       "category": "Default",
       "gender": "Unknown",
       "heroId": "AI",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_lady_of_thorns.png"
     },
     "LiLiA": {
@@ -508,6 +552,7 @@
       "category": "Warcraft",
       "gender": "Unknown",
       "heroId": "LiLi",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_lili.png"
     },
     "MaievA": {
@@ -519,6 +564,7 @@
       "category": "Warcraft",
       "gender": "Female",
       "heroId": "Maiev",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_maiev.png"
     },
     "MalfurionA": {
@@ -530,6 +576,7 @@
       "category": "Warcraft",
       "gender": "Unknown",
       "heroId": "Malfurion",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_malfurion.png"
     },
     "MalGanisA": {
@@ -541,6 +588,7 @@
       "category": "Warcraft",
       "gender": "Male",
       "heroId": "MalGanis",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_malganis.png"
     },
     "MeiOWA": {
@@ -552,6 +600,7 @@
       "category": "Overwatch",
       "gender": "Female",
       "heroId": "MeiOW",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_meiow.png"
     },
     "MephistoA": {
@@ -563,6 +612,7 @@
       "category": "Diablo",
       "gender": "Male",
       "heroId": "Mephisto",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_mephisto.png"
     },
     "MiraA": {
@@ -574,6 +624,7 @@
       "category": "Starcraft",
       "gender": "Female",
       "heroId": "AI",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_mirahan.png"
     },
     "MuradinA": {
@@ -585,6 +636,7 @@
       "category": "Warcraft",
       "gender": "Unknown",
       "heroId": "Muradin",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_muradin.png"
     },
     "MurkyA": {
@@ -596,6 +648,7 @@
       "category": "Warcraft",
       "gender": "Unknown",
       "heroId": "Murky",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_murky.png"
     },
     "Necromancer": {
@@ -607,6 +660,7 @@
       "category": "Default",
       "gender": "Male",
       "heroId": "AI",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_gravekeeper.png"
     },
     "NexusHunterA": {
@@ -618,6 +672,7 @@
       "category": "Default",
       "gender": "Female",
       "heroId": "NexusHunter",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_nexushunter.png"
     },
     "NoAnnouncerPack": {
@@ -628,6 +683,7 @@
       "releaseDate": "2014-03-13",
       "category": "Default",
       "heroId": "AI",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_default.png"
     },
     "OrpheaA": {
@@ -639,6 +695,7 @@
       "category": "Default",
       "gender": "Female",
       "heroId": "Orphea",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_orphea.png"
     },
     "Quality": {
@@ -649,14 +706,16 @@
       "releaseDate": "2014-03-13",
       "category": "Default",
       "gender": "Unknown",
-      "heroId": "##heroid##"
+      "heroId": "##heroid##",
+      "isFreePlay": false
     },
     "RandomAnnouncerPack": {
       "name": "Random Announcer Pack",
       "hyperlinkId": "RandomAnnouncerPack",
       "attributeId": "Rand",
       "rarity": "Common",
-      "releaseDate": "2014-03-13"
+      "releaseDate": "2014-03-13",
+      "isFreePlay": false
     },
     "RavenLord": {
       "name": "Raven Lord Announcer",
@@ -667,6 +726,7 @@
       "category": "Default",
       "gender": "Male",
       "heroId": "AI",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_ravenlord.png"
     },
     "RehgarA": {
@@ -678,6 +738,7 @@
       "category": "Warcraft",
       "gender": "Unknown",
       "heroId": "Rehgar",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_rehgar.png"
     },
     "RingAnnouncer": {
@@ -689,6 +750,7 @@
       "category": "Default",
       "gender": "Male",
       "heroId": "AI",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_elguapo.png"
     },
     "SiegeTankA": {
@@ -700,6 +762,7 @@
       "category": "Starcraft",
       "gender": "Unknown",
       "heroId": "SgtHammer",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_sgthammer.png"
     },
     "SnakeGod": {
@@ -711,6 +774,7 @@
       "category": "Default",
       "gender": "Male",
       "heroId": "AI",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_ka.png"
     },
     "SpiderQueen": {
@@ -722,6 +786,7 @@
       "category": "Default",
       "gender": "Female",
       "heroId": "AI",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_neithis.png"
     },
     "StitchesA": {
@@ -733,6 +798,7 @@
       "category": "Warcraft",
       "gender": "Unknown",
       "heroId": "Stitches",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_stitches.png"
     },
     "TassadarA": {
@@ -744,6 +810,7 @@
       "category": "Starcraft",
       "gender": "Unknown",
       "heroId": "Tassadar",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_tassadar.png"
     },
     "TychusA": {
@@ -755,6 +822,7 @@
       "category": "Starcraft",
       "gender": "Unknown",
       "heroId": "Tychus",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_tychus.png"
     },
     "TyraelA": {
@@ -766,6 +834,7 @@
       "category": "Diablo",
       "gender": "Male",
       "heroId": "Tyrael",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_tyrael.png"
     },
     "TyraelMechaA": {
@@ -777,6 +846,7 @@
       "category": "Default",
       "gender": "Male",
       "heroId": "Tyrael",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_tyrael_mecha.png"
     },
     "VanndarA": {
@@ -788,6 +858,7 @@
       "category": "Warcraft",
       "gender": "Male",
       "heroId": "AI",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_vanndar.png"
     },
     "WhitemaneA": {
@@ -799,6 +870,7 @@
       "category": "Warcraft",
       "gender": "Female",
       "heroId": "Whitemane",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_whitemane.png"
     },
     "WitchDoctorA": {
@@ -810,6 +882,7 @@
       "category": "Diablo",
       "gender": "Unknown",
       "heroId": "WitchDoctor",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_nazeebo.png"
     },
     "YrelA": {
@@ -821,6 +894,7 @@
       "category": "Warcraft",
       "gender": "Female",
       "heroId": "Yrel",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_yrel.png"
     },
     "ZeratulA": {
@@ -832,6 +906,7 @@
       "category": "Starcraft",
       "gender": "Unknown",
       "heroId": "Zeratul",
+      "isFreePlay": false,
       "image": "storm_ui_announcer_zeratul.png"
     }
   }

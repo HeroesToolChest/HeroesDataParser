@@ -4,8 +4,8 @@ namespace HeroesDataParser.Infrastructure.Configurations;
 
 public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfigurationService
 {
-    private const string _customDataExtension = ".xml";
-    private const int _maxDepth = 2;
+    private const string CustomDataExtension = ".xml";
+    private const int MaxDepth = 2;
 
     private readonly ILogger<CustomConfigurationService> _logger;
     private readonly IFileProvider _fileProvider;
@@ -109,13 +109,13 @@ public class CustomConfigurationService : ConfigurationServiceBase, ICustomConfi
                 continue;
 
             // check directory depth, dont check any more inner directories
-            if (currentDepth < _maxDepth && fileInfo.IsDirectory)
+            if (currentDepth < MaxDepth && fileInfo.IsDirectory)
             {
                 LoadCustomDataFiles(_fileProvider.GetDirectoryContents(Path.GetRelativePath(AppContext.BaseDirectory, fileInfo.PhysicalPath)), directoryPath, extractorName, filePathByDefaultFileName, currentDepth);
             }
 
             // ...with the custom data extension
-            if (!fileInfo.Name.EndsWith(_customDataExtension, StringComparison.OrdinalIgnoreCase))
+            if (!fileInfo.Name.EndsWith(CustomDataExtension, StringComparison.OrdinalIgnoreCase))
                 continue;
 
             ReadOnlySpan<char> filePathSpan = Path.GetFileNameWithoutExtension(fileInfo.Name.AsSpan());

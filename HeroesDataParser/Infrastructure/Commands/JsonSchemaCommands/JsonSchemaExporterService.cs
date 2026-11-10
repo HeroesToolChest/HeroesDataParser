@@ -78,6 +78,8 @@ public class JsonSchemaExporterService : IJsonSchemaExporterService
             CreateDataSchemaFile<TypeDescription>();
         if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.Map))
             CreateDataSchemaFile<Map>();
+        if (_options.ExtractDataOptions.HasFlag(ExtractDataOptions.RewardLicense))
+            CreateDataSchemaFile<RewardLicense>();
     }
 
     public async Task ExportGameStringSchema()

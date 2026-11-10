@@ -35,6 +35,7 @@
             "MountData",
             "PortraitPackData",
             "RewardPortraitData",
+            "RewardLicenseData",
             "SkinData",
             "SprayData",
             "TypeDescriptionData",
@@ -352,6 +353,12 @@
               "string",
               "null"
             ]
+          },
+          "rewardLicenseIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "life": {
             "type": "object",

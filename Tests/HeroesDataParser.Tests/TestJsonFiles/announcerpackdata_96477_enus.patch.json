@@ -20,7 +20,8 @@
       "releaseDate": "2014-03-13",
       "category": "Default",
       "gender": "Unknown",
-      "heroId": "##heroid##"
+      "heroId": "##heroid##",
+      "isFreePlay": false
     }
   }
 ]

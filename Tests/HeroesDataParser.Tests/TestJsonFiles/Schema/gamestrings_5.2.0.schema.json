@@ -17,30 +17,34 @@
             "GameStrings"
           ]
         },
-        "dataType": {
-          "enum": [
-            "Unknown",
-            "GameStrings",
-            "HeroData",
-            "UnitData",
-            "AnnouncerPackData",
-            "BannerData",
-            "BoostData",
-            "BundleData",
-            "EmoticonData",
-            "EmoticonPackData",
-            "LootChestData",
-            "MapData",
-            "MatchAwardData",
-            "MountData",
-            "PortraitPackData",
-            "RewardPortraitData",
-            "SkinData",
-            "SprayData",
-            "TypeDescriptionData",
-            "VeterancyData",
-            "VoiceLineData"
-          ]
+        "dataTypes": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "Unknown",
+              "GameStrings",
+              "HeroData",
+              "UnitData",
+              "AnnouncerPackData",
+              "BannerData",
+              "BoostData",
+              "BundleData",
+              "EmoticonData",
+              "EmoticonPackData",
+              "LootChestData",
+              "MapData",
+              "MatchAwardData",
+              "MountData",
+              "PortraitPackData",
+              "RewardPortraitData",
+              "RewardLicenseData",
+              "SkinData",
+              "SprayData",
+              "TypeDescriptionData",
+              "VeterancyData",
+              "VoiceLineData"
+            ]
+          }
         },
         "mapName": {
           "type": [
@@ -48,17 +52,8 @@
             "null"
           ]
         },
-        "localizedText": {
-          "enum": [
-            "None",
-            "Extracted"
-          ]
-        },
         "gameStringText": {
-          "type": [
-            "object",
-            "null"
-          ],
+          "type": "object",
           "properties": {
             "locale": {
               "enum": [
@@ -111,9 +106,6 @@
               }
             }
           }
-        },
-        "totalItems": {
-          "type": "integer"
         }
       }
     },
@@ -121,50 +113,21 @@
       "type": "object",
       "additionalProperties": {
         "type": "object",
-        "properties": {
-          "name": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "hyperlinkId": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "rarity": {
-            "enum": [
-              "Unknown",
-              "None",
-              "Common",
-              "Rare",
-              "Epic",
-              "Legendary",
-              null
-            ]
-          },
-          "event": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "maxRerolls": {
-            "type": "integer"
-          },
-          "typeDescriptionId": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "description": {
-            "type": [
-              "string",
-              "null"
-            ]
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "keyValuePairs": {
+              "type": "object"
+            },
+            "keyArrayPairs": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }

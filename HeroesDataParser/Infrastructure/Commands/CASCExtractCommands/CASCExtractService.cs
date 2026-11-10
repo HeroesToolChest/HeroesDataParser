@@ -5,7 +5,7 @@ namespace HeroesDataParser.Infrastructure.Commands.CASCExtractCommands;
 
 public class CASCExtractService : ICASCExtractService
 {
-    private const string _rootDirectory = "mods";
+    private const string RootDirectory = "mods";
 
     private readonly ILogger<CASCExtractService> _logger;
     private readonly CASCExtractOptions _options;
@@ -338,18 +338,18 @@ public class CASCExtractService : ICASCExtractService
 
         try
         {
-            folder = heroesXmlLoader.GetCASCFolder(_rootDirectory);
+            folder = heroesXmlLoader.GetCASCFolder(RootDirectory);
         }
         catch (DirectoryNotFoundException)
         {
-            _logger.LogError("Root directory not found in storage: {RootDirectory}", _rootDirectory);
-            _console.MarkupLineInterpolated($"[red]Error: Root directory not found in storage: {_rootDirectory}[/]");
+            _logger.LogError("Root directory not found in storage: {RootDirectory}", RootDirectory);
+            _console.MarkupLineInterpolated($"[red]Error: Root directory not found in storage: {RootDirectory}[/]");
             return [];
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred during extraction of root directory: {RootDirectory}", _rootDirectory);
-            _console.MarkupLineInterpolated($"[red]An error occurred during extraction of root directory: {_rootDirectory}: {ex.Message}[/]");
+            _logger.LogError(ex, "An error occurred during extraction of root directory: {RootDirectory}", RootDirectory);
+            _console.MarkupLineInterpolated($"[red]An error occurred during extraction of root directory: {RootDirectory}: {ex.Message}[/]");
             return [];
         }
 

@@ -17,33 +17,31 @@
             "GameStrings"
           ]
         },
-        "dataTypes": {
-          "type": "array",
-          "items": {
-            "enum": [
-              "Unknown",
-              "GameStrings",
-              "HeroData",
-              "UnitData",
-              "AnnouncerPackData",
-              "BannerData",
-              "BoostData",
-              "BundleData",
-              "EmoticonData",
-              "EmoticonPackData",
-              "LootChestData",
-              "MapData",
-              "MatchAwardData",
-              "MountData",
-              "PortraitPackData",
-              "RewardPortraitData",
-              "SkinData",
-              "SprayData",
-              "TypeDescriptionData",
-              "VeterancyData",
-              "VoiceLineData"
-            ]
-          }
+        "dataType": {
+          "enum": [
+            "Unknown",
+            "GameStrings",
+            "HeroData",
+            "UnitData",
+            "AnnouncerPackData",
+            "BannerData",
+            "BoostData",
+            "BundleData",
+            "EmoticonData",
+            "EmoticonPackData",
+            "LootChestData",
+            "MapData",
+            "MatchAwardData",
+            "MountData",
+            "PortraitPackData",
+            "RewardPortraitData",
+            "RewardLicenseData",
+            "SkinData",
+            "SprayData",
+            "TypeDescriptionData",
+            "VeterancyData",
+            "VoiceLineData"
+          ]
         },
         "mapName": {
           "type": [
@@ -51,8 +49,17 @@
             "null"
           ]
         },
+        "localizedText": {
+          "enum": [
+            "None",
+            "Extracted"
+          ]
+        },
         "gameStringText": {
-          "type": "object",
+          "type": [
+            "object",
+            "null"
+          ],
           "properties": {
             "locale": {
               "enum": [
@@ -105,6 +112,9 @@
               }
             }
           }
+        },
+        "totalItems": {
+          "type": "integer"
         }
       }
     },
@@ -112,21 +122,24 @@
       "type": "object",
       "additionalProperties": {
         "type": "object",
-        "additionalProperties": {
-          "type": "object",
-          "properties": {
-            "keyValuePairs": {
-              "type": "object"
-            },
-            "keyArrayPairs": {
-              "type": "object",
-              "additionalProperties": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            }
+        "properties": {
+          "name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "rewardIcon": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "largeIcon": {
+            "type": [
+              "string",
+              "null"
+            ]
           }
         }
       }

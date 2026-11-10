@@ -35,6 +35,7 @@
             "MountData",
             "PortraitPackData",
             "RewardPortraitData",
+            "RewardLicenseData",
             "SkinData",
             "SprayData",
             "TypeDescriptionData",
@@ -122,91 +123,7 @@
       "additionalProperties": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "sortName": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "hyperlinkId": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "attributeId": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "franchise": {
-            "enum": [
-              "Classic",
-              "Diablo",
-              "Overwatch",
-              "Starcraft",
-              "Warcraft",
-              "Nexus",
-              "Unknown",
-              null
-            ]
-          },
-          "rarity": {
-            "enum": [
-              "Unknown",
-              "None",
-              "Common",
-              "Rare",
-              "Epic",
-              "Legendary",
-              null
-            ]
-          },
-          "releaseDate": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "date"
-          },
-          "category": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "event": {
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "features": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "variationSkinIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "voiceLineIds": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "searchText": {
+          "expression": {
             "type": [
               "string",
               "null"
@@ -218,11 +135,82 @@
               "null"
             ]
           },
-          "infoText": {
+          "universalAliases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "localizedAliases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "searchText": {
             "type": [
               "string",
               "null"
             ]
+          },
+          "isCaseSensitive": {
+            "type": "boolean"
+          },
+          "isHidden": {
+            "type": "boolean"
+          },
+          "heroId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "skinId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "image": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "animation": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "width": {
+                "type": "integer"
+              },
+              "rows": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "columns": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "texture": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "frames": {
+                "type": "integer"
+              },
+              "duration": {
+                "type": "integer"
+              }
+            }
           }
         }
       }
