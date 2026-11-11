@@ -319,17 +319,18 @@ public class CASCExtractCommandTests
         // assert
         await AssertCommandSuccessful(result);
 
-        cascExtractOptions.IncludeFilters.Should().BeEquivalentTo([
-                "**/gamestrings.txt",
-                "**/buildid.txt",
-                "**/assets.txt",
-                "**/*.xml",
-                "**/*.s2mv",
-                "**/*.s2ma",
-                "**/*.stormstyle",
-                "**/*.stormlayout",
-                "**/documentinfo",
-            ]);
+        cascExtractOptions.IncludeFilters.Should().BeEquivalentTo(
+        [
+            "**/gamestrings.txt",
+            "**/buildid.txt",
+            "**/assets.txt",
+            "**/*.xml",
+            "**/*.s2mv",
+            "**/*.s2ma",
+            "**/*.stormstyle",
+            "**/*.stormlayout",
+            "**/documentinfo",
+        ]);
         cascExtractOptions.ExcludeFilters.Should().BeEmpty();
     }
 
@@ -366,18 +367,19 @@ public class CASCExtractCommandTests
         // assert
         await AssertCommandSuccessful(result);
 
-        cascExtractOptions.IncludeFilters.Should().BeEquivalentTo([
-                "**/gamestrings.txt",
-                "**/buildid.txt",
-                "**/assets.txt",
-                "**/*.xml",
-                "**/*.s2mv",
-                "**/*.s2ma",
-                "**/*.stormstyle",
-                "**/*.stormlayout",
-                "**/documentinfo",
-                "**/*.dds",
-            ]);
+        cascExtractOptions.IncludeFilters.Should().BeEquivalentTo(
+        [
+            "**/gamestrings.txt",
+            "**/buildid.txt",
+            "**/assets.txt",
+            "**/*.xml",
+            "**/*.s2mv",
+            "**/*.s2ma",
+            "**/*.stormstyle",
+            "**/*.stormlayout",
+            "**/documentinfo",
+            "**/*.dds",
+        ]);
         cascExtractOptions.ExcludeFilters.Should().BeEquivalentTo(["**/buildid.txt", "some.txt"]);
     }
 
