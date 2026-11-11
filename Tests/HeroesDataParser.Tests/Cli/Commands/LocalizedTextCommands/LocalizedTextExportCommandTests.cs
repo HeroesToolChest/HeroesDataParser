@@ -53,7 +53,9 @@ public class LocalizedTextExportCommandTests
     }
 
     [TestMethod]
-    public void LocalizedTextExportCommand_InvalidExtractType_ReturnsError()
+    [DataRow("3")]
+    [DataRow("4")]
+    public void LocalizedTextExportCommand_InvalidExtractType_ReturnsError(string extractType)
     {
         // arrange
         CommandAppTester app = new();
@@ -62,12 +64,12 @@ public class LocalizedTextExportCommandTests
         // act
         CommandAppResult result = app.Run(
         [
-            Path.Combine("TestJsonFiles", "herodata_96477_enus_rawtext.json"), "4",
+            Path.Combine("TestJsonFiles", "herodata_96477_enus_rawtext.json"), extractType,
         ]);
 
         // assert
         result.ExitCode.Should().Be(-1);
-        result.Output.Should().Contain("must be a value less than 4");
+        result.Output.Should().Contain("<extract-type> must be a value less than 3");
     }
 
     [TestMethod]
@@ -86,7 +88,7 @@ public class LocalizedTextExportCommandTests
 
         // assert
         result.ExitCode.Should().Be(-1);
-        result.Output.Should().Contain("--gamestring-file-path does not exist");
+        result.Output.Should().Contain("--gamestrings-file-path does not exist");
     }
 
     [TestMethod]
@@ -105,7 +107,7 @@ public class LocalizedTextExportCommandTests
 
         // assert
         result.ExitCode.Should().Be(-1);
-        result.Output.Should().Contain("--gamestring-file-path cannot be provided when <extract-type> is set to Remove");
+        result.Output.Should().Contain("--gamestrings-file-path cannot be provided when <extract-type> is set to Remove");
     }
 
     [TestMethod]

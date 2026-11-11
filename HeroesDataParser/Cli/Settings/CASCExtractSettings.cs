@@ -68,7 +68,7 @@ public class CASCExtractSettings : CommandSettings
             return ValidationResult.Error("--storage-path must not be specified when storage-type is 'online'");
 
         if (IsPtr && StorageType != StorageType.Online)
-            return ValidationResult.Error("--ptr is only valid when storage-type is 'online'");
+            return ValidationResult.Error("--download-ptr is only valid when storage-type is 'online'");
 
         if (DuplicateHandling is not null && !Flatten)
             return ValidationResult.Error("--duplicates is only valid when --flatten is specified");

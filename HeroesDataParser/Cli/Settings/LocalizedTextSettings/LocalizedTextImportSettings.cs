@@ -32,7 +32,7 @@ public class LocalizedTextImportSettings : LocalizedTextSettings
             return ValidationResult.Error("The provided <data-file-path> does not exist");
 
         if (!GameStringsFilePath.Exists)
-            return ValidationResult.Error("The provided <gamestring-file-path> does not exist");
+            return ValidationResult.Error("The provided <gamestrings-file-path> does not exist");
 
         if (OutputDirectory is not null && File.Exists(OutputDirectory.FullName))
             return ValidationResult.Error("The provided --output-path is an existing file and not a directory");

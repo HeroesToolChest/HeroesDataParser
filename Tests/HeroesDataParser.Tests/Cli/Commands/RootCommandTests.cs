@@ -142,7 +142,7 @@ public class RootCommandTests
 
         // assert
         result.ExitCode.Should().Be(-1);
-        result.Output.Should().Contain("only valid when storage-type is 'online'");
+        result.Output.Should().Contain("--download-ptr is only valid when storage-type is 'online'");
     }
 
     [TestMethod]
@@ -284,12 +284,12 @@ public class RootCommandTests
         [
             "game",
             "--storage-path", "TestXmlFiles",
-            "--localized-text", "4",
+            "--map-specific-json-output", "4",
         ]);
 
         // assert
         result.ExitCode.Should().Be(-1);
-        result.Output.Should().Contain("must be a value less");
+        result.Output.Should().Contain("--map-specific-json-output must be a value less than 4");
     }
 
     [TestMethod]

@@ -36,16 +36,16 @@ public class LocalizedTextExportSettings : LocalizedTextSettings
             return ValidationResult.Error("The provided <data-file-path> does not exist");
 
         if (GameStringFilePath is not null && !GameStringFilePath.Exists)
-            return ValidationResult.Error("The provided --gamestring-file-path does not exist");
+            return ValidationResult.Error("The provided --gamestrings-file-path does not exist");
 
         if (OutputDirectory is not null && File.Exists(OutputDirectory.FullName))
             return ValidationResult.Error("The provided --output-path is an existing file and not a directory");
 
-        if ((int)ExtractType > 3)
-            return ValidationResult.Error("<extract-type> must be a value less than 4");
+        if ((int)ExtractType > 2)
+            return ValidationResult.Error("<extract-type> must be a value less than 3");
 
         if (ExtractType == ExtractType.Remove && GameStringFilePath is not null)
-            return ValidationResult.Error("--gamestring-file-path cannot be provided when <extract-type> is set to Remove");
+            return ValidationResult.Error("--gamestrings-file-path cannot be provided when <extract-type> is set to Remove");
 
         return ValidationResult.Success();
     }

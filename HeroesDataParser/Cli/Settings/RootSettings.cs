@@ -114,7 +114,7 @@ public class RootSettings : CommandSettings
             return ValidationResult.Error("--storage-path must not be specified when storage-type is 'online'");
 
         if (IsPtr && StorageType != StorageType.Online)
-            return ValidationResult.Error("--ptr is only valid when storage-type is 'online'");
+            return ValidationResult.Error("--download-ptr is only valid when storage-type is 'online'");
 
         if (ShowHeroesVersion)
             return ValidationResult.Success();
@@ -151,7 +151,7 @@ public class RootSettings : CommandSettings
             return ValidationResult.Error("--localized-text must be a value less than 3");
 
         if ((int)MapSpecificWriterJsonOutputType > 3)
-            return ValidationResult.Error("--map-json-output must be a value less than 4");
+            return ValidationResult.Error("--map-specific-json-output must be a value less than 4");
 
         if (Threads == 0 || Threads < -1)
             return ValidationResult.Error("--threads must be -1 or a positive integer");

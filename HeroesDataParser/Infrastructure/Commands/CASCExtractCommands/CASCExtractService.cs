@@ -308,10 +308,10 @@ public class CASCExtractService : ICASCExtractService
 
     private void DisplayFileFilters()
     {
-        if (_options.IncludeFilters.Count == 1 && _options.IncludeFilters.First() == "*")
+        if (_options.IncludeFilters.Count == 1 && _options.IncludeFilters.First() == CASCExtractSettings.AllIncludePattern)
         {
             _logger.LogInformation("No filters applied, extracting all files");
-            _console.MarkupLine("[aqua]Filters: * (extracting all files)[/]");
+            _console.MarkupLineInterpolated($"[aqua]Filters: {CASCExtractSettings.AllIncludePattern} (extracting all files)[/]");
         }
         else
         {

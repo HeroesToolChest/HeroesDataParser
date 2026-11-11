@@ -21,7 +21,7 @@ public class PortraitExtractSettings : PortraitSettings
     public bool DeleteTextureSheet { get; init; }
 
     [CommandOption("-o|--output-path <PATH>")]
-    [Description("Output directory for extracted portraits (defaults to current directory)")]
+    [Description("Output directory for extracted portraits (defaults to images/portraitrewards in the current directory)")]
     public DirectoryInfo? OutputDirectory { get; init; }
 
     public override ValidationResult Validate()

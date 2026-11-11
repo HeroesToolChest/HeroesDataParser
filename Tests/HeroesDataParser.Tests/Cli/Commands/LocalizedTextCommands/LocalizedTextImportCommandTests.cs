@@ -69,7 +69,7 @@ public class LocalizedTextImportCommandTests
 
         // assert
         result.ExitCode.Should().Be(-1);
-        result.Output.Should().Contain("<gamestring-file-path> does not exist");
+        result.Output.Should().Contain("<gamestrings-file-path> does not exist");
     }
 
     [TestMethod]

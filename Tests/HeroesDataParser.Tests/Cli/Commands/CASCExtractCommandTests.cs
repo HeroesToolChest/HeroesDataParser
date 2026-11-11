@@ -131,7 +131,7 @@ public class CASCExtractCommandTests
 
         // assert
         result.ExitCode.Should().Be(-1);
-        result.Output.Should().Contain("only valid when storage-type is 'online'");
+        result.Output.Should().Contain("--download-ptr is only valid when storage-type is 'online'");
     }
 
     [TestMethod]

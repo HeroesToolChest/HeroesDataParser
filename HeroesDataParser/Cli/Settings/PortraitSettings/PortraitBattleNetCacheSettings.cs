@@ -9,7 +9,7 @@ public class PortraitBattleNetCacheSettings : PortraitSettings
     public DirectoryInfo? CacheDirectoryPath { get; init; }
 
     [CommandOption("-o|--output-path <PATH>")]
-    [Description("Output directory for copied texture sheets (defaults to current directory)")]
+    [Description("Output directory for copied texture sheets (defaults to battle.net-cache in the current directory)")]
     public DirectoryInfo? OutputDirectory { get; init; }
 
     public override ValidationResult Validate()
