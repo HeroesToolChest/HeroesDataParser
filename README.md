@@ -1,6 +1,6 @@
 # Heroes Data Parser
 [![Build](https://github.com/HeroesToolChest/HeroesDataParser/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/HeroesToolChest/HeroesDataParser/actions/workflows/build.yml)
-[![Release](https://img.shields.io/github/release/koliva8245/HeroesDataParser.svg)](https://github.com/koliva8245/HeroesDataParser/releases/latest)
+[![Release](https://img.shields.io/github/release/HeroesToolChest/HeroesDataParser.svg)](https://github.com/HeroesToolChest/HeroesDataParser/releases/latest)
 [![NuGet](https://img.shields.io/nuget/v/HeroesDataParser.svg)](https://www.nuget.org/packages/HeroesDataParser/)
 
 Heroes Data Parser is a .NET command line tool that extracts Heroes of the Storm game data into JSON files, including gamestrings and images.
@@ -36,8 +36,10 @@ Visit the [wiki](https://github.com/HeroesToolChest/HeroesDataParser/wiki) for m
 - [Heroes XmlData](https://github.com/HeroesToolChest/Heroes.XmlData) is a .NET library which is used to parse the Heroes of the Storm CASC storage and extract the raw data files
 
 ## Installation
+Heroes Data Parser requires .NET 10, except for the self-contained (scd) zip file. Having only a newer major version of .NET installed is not enough to run it.
+
 ### Dotnet Global Tool (Recommended)
-Download and install the latest [.NET SDK](https://dotnet.microsoft.com/download). 
+Download and install the [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0).
 
 Once installed, run the following command:
 ```
@@ -52,14 +54,14 @@ dotnet tool update --global HeroesDataParser
 ### Zip File Download - Framework-Dependent Deployment (fdd)
 Portable to any operating system.
 
-Download and install the latest [.NET Runtime or SDK](https://dotnet.microsoft.com/download). 
+Download and install the [.NET 10 Runtime or SDK](https://dotnet.microsoft.com/download/dotnet/10.0).
 
 Download and extract the latest `HeroesDataParser.*-fdd-any` archive file from the [releases](https://github.com/HeroesToolChest/HeroesDataParser/releases) page.
 
 ### Zip File Download - Framework-Dependent Executable (fde)
 Runs only on a selected operating system and architecture.
 
-Download and install the latest [.NET Runtime or SDK](https://dotnet.microsoft.com/download). 
+Download and install the [.NET 10 Runtime or SDK](https://dotnet.microsoft.com/download/dotnet/10.0).
 
 Download and extract the latest `HeroesDataParser.*-fde-<OS>-<ARCH>` archive file from the [releases](https://github.com/HeroesToolChest/HeroesDataParser/releases) page for a selected operating system and architecture.
 
@@ -137,9 +139,9 @@ COMMANDS:
     portrait                       Reward portrait data operations
 ```
 
-Example command to extract the `hero` data from the `Heroes of the Storm` directory. Since no `-o|--output-path` option is set, it defaults to the current directory.
+Example command (as a Dotnet Global Tool) to extract the `hero` data from the `Heroes of the Storm` directory. Since no `-o|--output-path` option is set, it defaults to the current directory.
 ```
-dotnet heroesdataparser.dll game --storage-path "D:\Heroes of the Storm" -e hero
+dotnet-heroes-data-parser game --storage-path "D:\Heroes of the Storm" -e hero
 ```
 
 ## Arguments
@@ -239,7 +241,7 @@ output-directory/
 Notes:
 - Images for hero and unit include the portraits, ability, and talent icons
 - Static image files are extracted in `.png` format
-- Animated image files are extracted in `.apng` format
+- Animated image files are extracted in `.apng` format by default (can be changed to `.gif`, see [Additional Settings](#additional-settings))
   - Sprays and emoticons are the only ones with animated images
 
 ***
@@ -495,7 +497,7 @@ The file name of the created (patched) file is based on the patch file name. It 
 
 Example command of applying a patch where the patch file is in a different directory:
 ```
-json-patch apply "path\to\announcerpackdata_20000_enus.json" "path\to\patch\announcerpackdata_96477_enus.patch.json"
+json-patch apply "path\to\announcerpackdata_96477_enus.json" "path\to\patch\announcerpackdata_96477_enus.patch.json"
 ```
 
 ***
@@ -588,13 +590,13 @@ USAGE:
 OPTIONS:
     -h, --help                     Prints help information
     -e, --extractor <EXTRACTOR>    Extractor types for the JSON schema export (can be specified multiple times)
-    -o, --output-path <PATH>       Output directory for the created files (defaults to current directory)
+    -o, --output-path <PATH>       Output directory for the created files (defaults to a schema directory in the current directory)
         --overwrite                Allow created files to overwrite existing files
         --no-indent                Disable indentation in output JSON files
 ```
-For option `-e, --extractor` at least extractor one is required and the extractor types are the same as the ones in the [`-e, --extractor`](#-e---extractor) option in the root command.
+For option `-e, --extractor` at least one extractor is required and the extractor types are the same as the ones in the [`-e, --extractor`](#-e---extractor) option in the root command.
 
-The data JSON schema files will be created in the `schema` subdirectory of the output directory.
+If `-o, --output-path` is not specified, the data JSON schema files will be created in a `schema` directory in the current directory. Otherwise, they will be created directly in the specified output directory.
 
 Example command of exporting the hero and announcer pack data schema:
 ```
@@ -618,11 +620,11 @@ USAGE:
 
 OPTIONS:
     -h, --help                  Prints help information
-    -o, --output-path <PATH>    Output directory for the created files (defaults to current directory)
+    -o, --output-path <PATH>    Output directory for the created files (defaults to a schema directory in the current directory)
         --overwrite             Allow created files to overwrite existing files
         --no-indent             Disable indentation in output JSON files
 ```
-The gamestrings JSON schema file will be created in the `schema` subdirectory of the output directory.
+If `-o, --output-path` is not specified, the gamestrings JSON schema file will be created in a `schema` directory in the current directory. Otherwise, it will be created directly in the specified output directory.
 
 There is only one gamestrings JSON schema file.
 
@@ -642,8 +644,8 @@ USAGE:
     heroesdataparser localized-text import <data-file-path> <gamestrings-file-path> [OPTIONS]
 
 ARGUMENTS:
-    <data-file-path>          Path to the data file
-    <gamestring-file-path>    Path to the gamestrings file
+    <data-file-path>           Path to the data file
+    <gamestrings-file-path>    Path to the gamestrings file
 
 OPTIONS:
     -h, --help                  Prints help information
@@ -689,7 +691,7 @@ OPTIONS:
 ```
 For argument `<extract-type>`, the types are as follows:
 
-`0` - `Copy` - Gamestring properties will be copied to a gamestrings file but will remain in the data file..  
+`0` - `Copy` - Gamestring properties will be copied to a gamestrings file but will remain in the data file.  
 `1` - `Extract` - Gamestring properties will be extracted to a gamestrings file and removed from the data file.  
 `2` - `Remove` - Gamestring properties will be removed from the data file but will NOT be saved to a gamestrings file.
 
@@ -749,11 +751,13 @@ USAGE:
 OPTIONS:
     -h, --help                      Prints help information
     -c, --battlenet-cache <PATH>    Path to the Battle.net cache directory
-    -o, --output-path <PATH>        Output directory for copied texture sheets (defaults to current directory)
+    -o, --output-path <PATH>        Output directory for copied texture sheets (defaults to battle.net-cache in the current directory)
 ```
 If the `-c, --battlenet-cache` option is not specified, then an attempt will be made to find the Battle.net cache directory automatically.
 
-The file extensions of the files are automatically converted into its proper image format (`.dds`, `.png`, `.jpg`, etc).
+If `-o, --output-path` is not specified, the files will be copied to a `battle.net-cache` directory in the current directory.
+
+The file extensions of the files are automatically converted into their proper image format (`.dds`, `.png`, `.jpg`, etc).
 
 > [!NOTE]
 > This copies ALL .wafl files, which Starcraft II uses as well.
@@ -781,9 +785,11 @@ OPTIONS:
     -i, --texture-sheet-image <IMAGE>             Texture sheet image name from the rewardportrait data JSON file
     -c, --cache-texture-sheet-image <FILEPATH>    Path to the texture sheet image file to extract portraits from
         --delete-texture-sheet                    Delete texture sheet after extracting portraits
-    -o, --output-path <PATH>                      Output directory for extracted portraits (defaults to current directory)
+    -o, --output-path <PATH>                      Output directory for extracted portraits (defaults to images/portraitrewards in the current directory)
 ```
 If either `-i, --texture-sheet-image` or `-c, --cache-texture-sheet-image` option is not specified, the user will be prompted for the missing option.
+
+If `-o, --output-path` is not specified, the portraits will be extracted to an `images/portraitrewards` directory in the current directory.
 
 Example command:
 ```
@@ -808,11 +814,13 @@ OPTIONS:
     -c, --battlenet-cache <PATH>    Path to the Battle.net cache directory
     -x, --xml-config <FILEPATH>     XML config file used for auto extraction
         --delete-texture-sheet      Delete texture sheet after extracting portraits
-    -o, --output-path <PATH>        Output directory for extracted portraits (defaults to current directory)
+    -o, --output-path <PATH>        Output directory for extracted portraits (defaults to images/portraitrewards in the current directory)
 ```
 If the `-c, --battlenet-cache` option is not specified, then an attempt will be made to find the Battle.net cache directory automatically.
 
 `-x, --xml-config` is for an optional XML config file, by default it will use the built-in XML config file.
+
+If `-o, --output-path` is not specified, the portraits will be extracted to an `images/portraitrewards` directory in the current directory.
 
 Example command:
 ```
@@ -820,9 +828,13 @@ portrait extract-auto "path\to\rewardportraitdata_96477_enus.json" -c "path\to\b
 ```
 
 ## Additional Settings
-`appsettings.json` contains additional settings that cannot be configured through the command line.
+`appsettings.json` contains additional settings that cannot be configured through the command line, such as:
+- `Serilog:MinimumLevel:Default` - the log level (`Verbose`, `Debug`, `Information`, `Warning`, `Error`, or `Fatal`)
+- `RootOptions:Hidden:AnimatedImageType` - the format of animated images (`apng` or `gif`)
+- `RootOptions:Hidden:HeroImages`, `UnitImages`, and `MapImages` - which images are extracted for heroes, units, and maps
 
-Instead of directly modifying `appsettings.json`, create a file named `appsettings.release.json` to override these settings.
+Instead of directly modifying `appsettings.json`, create a file named `appsettings.release.json` in the same directory to override these settings.
+
 
 ## Logs and CASC Cache
 Logs and the CASC cache are stored in the following locations depending on the installation type:
@@ -844,4 +856,4 @@ This repository uses [ImageSharp](https://github.com/SixLabors/ImageSharp). In a
 Place the license file in the root directory of the repository.
 
 ## License
-[MIT license](/LICENSE)
+[MIT license](https://github.com/HeroesToolChest/HeroesDataParser/blob/main/LICENSE)
