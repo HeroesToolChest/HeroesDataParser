@@ -36,8 +36,6 @@ Visit the [wiki](https://github.com/HeroesToolChest/HeroesDataParser/wiki) for m
 - [Heroes XmlData](https://github.com/HeroesToolChest/Heroes.XmlData) is a .NET library which is used to parse the Heroes of the Storm CASC storage and extract the raw data files
 
 ## Installation
-Heroes Data Parser requires .NET 10, except for the self-contained (scd) zip file. Having only a newer major version of .NET installed is not enough to run it.
-
 ### Dotnet Global Tool (Recommended)
 Download and install the [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0).
 
